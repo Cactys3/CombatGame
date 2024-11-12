@@ -1,0 +1,96 @@
+[gd_scene load_steps=14 format=3 uid="uid://dbfx0pgjmmdgy"]
+
+[ext_resource type="Script" path="res://Scripts/character.gd" id="1_lna7y"]
+[ext_resource type="PackedScene" uid="uid://bl326pivivx3p" path="res://Scenes/health_component.tscn" id="1_mexat"]
+[ext_resource type="Texture2D" uid="uid://dvur2jw4hot5w" path="res://Art/Characters/WebFishingCat.png" id="3_y3rn3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ono3w"]
+atlas = ExtResource("3_y3rn3")
+region = Rect2(128, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ihhfk"]
+atlas = ExtResource("3_y3rn3")
+region = Rect2(160, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yoeg4"]
+atlas = ExtResource("3_y3rn3")
+region = Rect2(192, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_unlva"]
+atlas = ExtResource("3_y3rn3")
+region = Rect2(224, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7rix"]
+atlas = ExtResource("3_y3rn3")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xbf84"]
+atlas = ExtResource("3_y3rn3")
+region = Rect2(32, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wpi01"]
+atlas = ExtResource("3_y3rn3")
+region = Rect2(64, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vevi1"]
+atlas = ExtResource("3_y3rn3")
+region = Rect2(96, 0, 32, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tvp78"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ono3w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ihhfk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yoeg4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_unlva")
+}],
+"loop": true,
+"name": &"Neutral_Rod",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7rix")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xbf84")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wpi01")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vevi1")
+}],
+"loop": true,
+"name": &"Neutral_Rodless",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o7fmw"]
+radius = 8.0
+height = 42.0
+
+[node name="Character" type="CharacterBody2D" node_paths=PackedStringArray("health_component") groups=["player"]]
+collision_layer = 2
+collision_mask = 8
+script = ExtResource("1_lna7y")
+health_component = NodePath("HealthComponent")
+
+[node name="HealthComponent" parent="." instance=ExtResource("1_mexat")]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_tvp78")
+animation = &"Neutral_Rod"
+autoplay = "Neutral_Rod"
+frame_progress = 0.487552
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_o7fmw")

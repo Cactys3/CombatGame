@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://ckd7kbb12jmmm"]
+
+[ext_resource type="Script" path="res://Scripts/sword.gd" id="1_8c1p3"]
+[ext_resource type="Texture2D" uid="uid://btvcwala5rhxh" path="res://Art/Weapons/Sword.png" id="1_j58ls"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2ld6x"]
+radius = 2.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_myfbp"]
+atlas = ExtResource("1_j58ls")
+region = Rect2(0, 0, 10, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6163i"]
+atlas = ExtResource("1_j58ls")
+region = Rect2(10, 0, 10, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ds1j"]
+atlas = ExtResource("1_j58ls")
+region = Rect2(20, 0, 10, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fv1tt"]
+atlas = ExtResource("1_j58ls")
+region = Rect2(30, 0, 10, 29)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qm6mf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_myfbp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6163i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ds1j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fv1tt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[node name="Sword" type="RigidBody2D"]
+position = Vector2(0, -15)
+gravity_scale = 0.0
+script = ExtResource("1_8c1p3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_2ld6x")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_qm6mf")
+frame_progress = 0.311832
