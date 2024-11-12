@@ -84,6 +84,7 @@ script = ExtResource("1_lna7y")
 health_component = NodePath("HealthComponent")
 
 [node name="HealthComponent" parent="." instance=ExtResource("1_mexat")]
+max_health = 100
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_tvp78")

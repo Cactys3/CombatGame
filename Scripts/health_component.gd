@@ -17,7 +17,7 @@ func _process(_delta: float) -> void:
 
 func damage(attack: Attack):
 	health -=attack.damage
-	print(name + " damaged: " + str(attack.damage))
+	print(get_parent().name + " damaged: " + str(attack.damage))
 	if can_be_knockbacked:
 		get_parent().velocity = (global_position - attack.position).normalized() * attack.knockback
 	

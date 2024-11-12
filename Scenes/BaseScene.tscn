@@ -1,12 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dc0hdlr7wq3lq"]
+[gd_scene load_steps=5 format=3 uid="uid://dc0hdlr7wq3lq"]
 
 [ext_resource type="Texture2D" uid="uid://b1lme8t63rjpt" path="res://Art/Area Art/Background.png" id="1_rub18"]
 [ext_resource type="PackedScene" uid="uid://dbfx0pgjmmdgy" path="res://Scenes/character.tscn" id="2_bdfmm"]
 [ext_resource type="Script" path="res://Scripts/basic_enemy_spawner.gd" id="4_anhf8"]
-[ext_resource type="PackedScene" uid="uid://caoglnybbk6t7" path="res://Scenes/first_enemy.tscn" id="4_ifu7e"]
 [ext_resource type="PackedScene" uid="uid://df648b0ddy30i" path="res://Scenes/sword.tscn" id="4_yid73"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_cyp7c"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -38,35 +35,5 @@ weapon_slot = 3
 weapon_damage = 0
 weapon_knockback = 0
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-position = Vector2(-222, -44)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-shape = SubResource("CircleShape2D_cyp7c")
-
-[node name="Enemies" type="Node" parent="."]
+[node name="Enemy spawner" type="Node" parent="."]
 script = ExtResource("4_anhf8")
-
-[node name="FirstEnemy2" parent="Enemies" instance=ExtResource("4_ifu7e")]
-position = Vector2(85, -136)
-
-[node name="FirstEnemy" parent="Enemies" instance=ExtResource("4_ifu7e")]
-position = Vector2(-259, 30)
-
-[node name="FirstEnemy3" parent="Enemies" instance=ExtResource("4_ifu7e")]
-position = Vector2(-157, -120)
-
-[node name="FirstEnemy4" parent="Enemies" instance=ExtResource("4_ifu7e")]
-position = Vector2(-73, 115)
-
-[node name="FirstEnemy5" parent="Enemies" instance=ExtResource("4_ifu7e")]
-position = Vector2(168, 77)
-
-[node name="FirstEnemy6" parent="Enemies" instance=ExtResource("4_ifu7e")]
-position = Vector2(140, -79)
-
-[node name="FirstEnemy7" parent="Enemies" instance=ExtResource("4_ifu7e")]
-position = Vector2(-52, -67)
-
-[node name="FirstEnemy8" parent="Enemies" instance=ExtResource("4_ifu7e")]
-position = Vector2(-84, -5)

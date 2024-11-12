@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://caoglnybbk6t7"]
+[gd_scene load_steps=11 format=3 uid="uid://caoglnybbk6t7"]
 
 [ext_resource type="Script" path="res://Scripts/first_enemy.gd" id="1_ulo6s"]
 [ext_resource type="Texture2D" uid="uid://d2peq71x62qh" path="res://Art/Characters/FirstEnemy.png" id="1_xjtit"]
@@ -42,13 +42,18 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g87vo"]
 radius = 9.0
-height = 22.0
+height = 26.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t3veh"]
+height = 28.0
 
 [node name="FirstEnemy" type="CharacterBody2D" node_paths=PackedStringArray("health_component") groups=["enemy"]]
 collision_layer = 8
-collision_mask = 6
+collision_mask = 12
 script = ExtResource("1_ulo6s")
 health_component = NodePath("HealthComponent")
+weapon_damage = 10
+weapon_knockback = 10
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_o4d7e")
@@ -56,6 +61,16 @@ autoplay = "default"
 
 [node name="HealthComponent" parent="." instance=ExtResource("2_5jvuf")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Health_Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_g87vo")
+
+[node name="Damage_Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox"]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_t3veh")
+
+[connection signal="body_entered" from="Damage_Hitbox" to="." method="_on_damage_hitbox_body_entered"]
