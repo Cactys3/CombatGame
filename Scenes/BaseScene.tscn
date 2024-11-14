@@ -1,11 +1,35 @@
-[gd_scene load_steps=5 format=3 uid="uid://dc0hdlr7wq3lq"]
+[gd_scene load_steps=8 format=3 uid="uid://dc0hdlr7wq3lq"]
 
+[ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_nfwnb"]
 [ext_resource type="Texture2D" uid="uid://b1lme8t63rjpt" path="res://Art/Area Art/Background.png" id="1_rub18"]
 [ext_resource type="PackedScene" uid="uid://dbfx0pgjmmdgy" path="res://Scenes/character.tscn" id="2_bdfmm"]
-[ext_resource type="Script" path="res://Scripts/basic_enemy_spawner.gd" id="4_anhf8"]
-[ext_resource type="PackedScene" uid="uid://df648b0ddy30i" path="res://Scenes/sword.tscn" id="4_yid73"]
+[ext_resource type="Script" path="res://Scripts/enemy_spawner.gd" id="3_kcu48"]
+[ext_resource type="Script" path="res://Scripts/weapon_spawner.gd" id="5_x5rl0"]
+
+[sub_resource type="FontFile" id="FontFile_ulj7p"]
+cache/0/60/0/ascent = 0.0
+cache/0/60/0/descent = 0.0
+cache/0/60/0/underline_position = 0.0
+cache/0/60/0/underline_thickness = 0.0
+cache/0/60/0/scale = 1.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/90/0/ascent = 0.0
+cache/0/90/0/descent = 0.0
+cache/0/90/0/underline_position = 0.0
+cache/0/90/0/underline_thickness = 0.0
+cache/0/90/0/scale = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_7v07i"]
+font = SubResource("FontFile_ulj7p")
+font_size = 90
+font_color = Color(0, 0, 0, 1)
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_nfwnb")
 
 [node name="Camera" type="Camera2D" parent="."]
 
@@ -16,24 +40,19 @@ texture = ExtResource("1_rub18")
 
 [node name="Character" parent="." instance=ExtResource("2_bdfmm")]
 
-[node name="Sword" parent="." instance=ExtResource("4_yid73")]
-weapon_damage = 0
-weapon_knockback = 0
-
-[node name="Sword2" parent="." instance=ExtResource("4_yid73")]
-weapon_slot = 1
-weapon_damage = 0
-weapon_knockback = 0
-
-[node name="Sword3" parent="." instance=ExtResource("4_yid73")]
-weapon_slot = 2
-weapon_damage = 0
-weapon_knockback = 0
-
-[node name="Sword4" parent="." instance=ExtResource("4_yid73")]
-weapon_slot = 3
-weapon_damage = 0
-weapon_knockback = 0
-
 [node name="Enemy spawner" type="Node" parent="."]
-script = ExtResource("4_anhf8")
+script = ExtResource("3_kcu48")
+
+[node name="Weapon Spawner" type="Node" parent="."]
+script = ExtResource("5_x5rl0")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -252.0
+offset_top = -163.0
+offset_right = -212.0
+offset_bottom = -140.0
+scale = Vector2(0.191868, 0.160002)
+text = "Spawn Sword - press 1
+Spawn Enemy - press 2
+Spawn gun - press 3"
+label_settings = SubResource("LabelSettings_7v07i")

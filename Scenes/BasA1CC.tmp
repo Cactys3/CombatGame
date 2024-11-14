@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dc0hdlr7wq3lq"]
+
+[ext_resource type="Texture2D" uid="uid://b1lme8t63rjpt" path="res://Art/Area Art/Background.png" id="1_rub18"]
+[ext_resource type="PackedScene" uid="uid://dbfx0pgjmmdgy" path="res://Scenes/character.tscn" id="2_bdfmm"]
+[ext_resource type="Script" path="res://Scripts/basic_enemy_spawner.gd" id="4_anhf8"]
+[ext_resource type="Script" path="res://Scripts/weapon_spawner.gd" id="5_x5rl0"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera" type="Camera2D" parent="."]
+
+[node name="Backdrop" type="Sprite2D" parent="."]
+z_index = -5
+scale = Vector2(40, 40)
+texture = ExtResource("1_rub18")
+
+[node name="Character" parent="." instance=ExtResource("2_bdfmm")]
+
+[node name="Enemy spawner" type="Node" parent="."]
+script = ExtResource("4_anhf8")
+
+[node name="Weapon Spawner" type="Node" parent="."]
+script = ExtResource("5_x5rl0")

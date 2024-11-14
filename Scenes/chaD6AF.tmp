@@ -86,8 +86,6 @@ health_component = NodePath("HealthComponent")
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("parent_script") instance=ExtResource("1_mexat")]
 parent_script = NodePath("..")
 max_health = 100
-can_be_knockbacked = false
-can_be_stunned = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_tvp78")

@@ -1,5 +1,8 @@
 extends CharacterBody2D
+class_name Player_Script
 
+var weapon_list: Array[Weapon]
+var weapon_count: float = 0
 @export var SPEED: int = 210
 var moving: bool = false
 @export var health_component:HealthComponent
@@ -14,7 +17,7 @@ func handle_moving() -> void:
 		moving = true
 	else:
 		moving = false
-		velocity.x = move_toward(velocity.x, 0, 100)
+		velocity.x = move_toward(velocity.x, 0, 100)	
 		
 	var directionY := Input.get_axis("up", "down")
 	if directionY:
@@ -29,4 +32,18 @@ func handle_moving() -> void:
 
 func damage(attack: Attack):
 	if (health_component):
+		#print("player health damaged: " + health_component.get_parent().name)
 		health_component.damage(attack)
+
+func die():
+	print("player died")
+
+func add_weapon(new_weapon: Weapon):
+	#print("Weapon: " + str(weapon_count + 1) + " - " + new_weapon.name)
+	weapon_count += 1
+	weapon_list.append(new_weapon)
+	var index = 1.0
+	for weapon in weapon_list:
+		weapon.change_slot(index, weapon_count)
+		index += 1
+	add_child(new_weapon)

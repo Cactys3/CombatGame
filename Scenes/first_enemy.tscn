@@ -47,19 +47,24 @@ height = 26.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t3veh"]
 height = 28.0
 
-[node name="FirstEnemy" type="CharacterBody2D" node_paths=PackedStringArray("health_component") groups=["enemy"]]
+[node name="FirstEnemy" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "damage_hitbox") groups=["enemy"]]
 collision_layer = 8
 collision_mask = 12
 script = ExtResource("1_ulo6s")
+MOVESPEED = 100
 health_component = NodePath("HealthComponent")
+damage_hitbox = NodePath("Damage_Hitbox")
 weapon_damage = 10
 weapon_knockback = 10
+cooldown_default = 5.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_o4d7e")
 autoplay = "default"
 
-[node name="HealthComponent" parent="." instance=ExtResource("2_5jvuf")]
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("parent_script") groups=["enemy"] instance=ExtResource("2_5jvuf")]
+parent_script = NodePath("..")
+max_health = 50
 
 [node name="Health_Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
