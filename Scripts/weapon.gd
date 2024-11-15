@@ -3,27 +3,25 @@ class_name Weapon
 
 #weapon fields
 @onready var player: CharacterBody2D = get_tree().get_first_node_in_group("player")
-@export var weapon_slot: float
-@export var weapon_count: float
+@export var weapon_slot: float = 1
+@export var weapon_count: float = 1
 @export var continuous_hitbox: bool = false
 @export var ORBIT_DISTANCE: float = 55
 @export var ROTATION_SPEED: float = 20
 @export var aim_at_enemy: bool = true
-#weapon stats
-@export var cooldown: float
-@export var weapon_range: float 
-@export var weapon_damage: int
-@export var weapon_knockback: float 
-@export var weapon_stun: float 
+#attack stats
+@export var weapon_damage: int = 1
+@export var weapon_knockback: float = 0
+@export var weapon_stun: float = 0
 @export var weapon_effect: Attack.damage_effects
-@export var weapon_speed: float 
-@export var weapon_size: float 
-#melee only
-@export var weapon_swing_speed: float
-#ranged only
-@export var weapon_projectile_count: float 
-@export var weapon_piercing: float
-@export var weapon_projectile_velocity: float
+#weapon stats
+@export var cooldown: float = 1
+@export var weapon_range: float = 65
+@export var weapon_speed: float = 1
+@export var weapon_size: float = 1 :
+	set(value):
+		scale = Vector2(value, value)
+		weapon_size = value
 #field variables
 var current_angle: float = 0  #Stores the angle for smooth circular motion
 var cooldown_timer: float = 0
@@ -33,9 +31,21 @@ func _ready() -> void:
 	cooldown_timer = cooldown + 1
 
 func _process(_delta: float) -> void:
+	
+	
+	
+	if Input.is_action_just_pressed("test_4"):
+		weapon_size += 10
+		
+		
+		
+		
+		
+		
+		
 	if cooldown_timer < cooldown:
 		cooldown_timer += _delta
-	elif !attacking && is_enemy_nearby(weapon_range):
+	elif !attacking && get_enemy_nearby(weapon_range) != null:
 		attacking = true
 		attack()
 	
@@ -57,19 +67,24 @@ func RotateTowardsPosition(new_position: Vector2, _delta: float) -> void:
 
 func get_enemy_nearby(distance: float) -> Variant:
 	for enemy in get_tree().get_nodes_in_group("enemy"):
-		if global_position.distance_to(enemy.global_position) <= distance:
+		if global_position.distance_to(enemy.global_position) <= (distance * scale.length()):
 			return enemy.position
 	return null
 
-func is_enemy_nearby(distance: float) -> bool:
-	for enemy in get_tree().get_nodes_in_group("enemy"):
-		if global_position.distance_to(enemy.global_position) <= distance:
-			return true
-	return false
 
 func attack(): #this is meant to be overridden by classes that inherit it
 	cooldown_timer = 0
 	attacking = false
+
+func hit_enemy(body:Node2D):
+	if (body.has_method("damage")):
+		var new_attack: Attack = Attack.new()
+		new_attack.damage = weapon_damage
+		new_attack.knockback = weapon_knockback
+		new_attack.stun_time = weapon_stun
+		new_attack.position = player.global_position #TODO: decide vs using weapon's position or player's
+		new_attack.damage_effect = weapon_effect
+		body.damage(new_attack)
 
 func change_slot(slot: int, max) -> void:#Called when Weapon is created #TODO: does the weapon only need slot number to start?
 	weapon_slot = slot

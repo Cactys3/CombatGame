@@ -54,5 +54,7 @@ offset_bottom = -140.0
 scale = Vector2(0.191868, 0.160002)
 text = "Spawn Sword - press 1
 Spawn Enemy - press 2
-Spawn gun - press 3"
+Spawn gun - press 3
+4 = bigger weapons
+5 = more projectiles"
 label_settings = SubResource("LabelSettings_7v07i")

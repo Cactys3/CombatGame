@@ -25,12 +25,6 @@ func attack():
 	super()
 
 func _on_body_entered(body: Node2D) -> void:
-	if (attacking && body.has_method("damage") && !attacked_objects.has(body)):
-		var new_attack: Attack = Attack.new()
-		new_attack.damage = weapon_damage
-		new_attack.knockback = weapon_knockback
-		new_attack.stun_time = weapon_stun
-		new_attack.position = player.global_position #TODO: decide vs using weapon's position or player's
-		new_attack.damage_effect = weapon_effect
-		body.damage(new_attack)
+	if (attacking && !attacked_objects.has(body)): #Hit each enemy only once per melee attack
+		hit_enemy(body)
 		attacked_objects.append(body)

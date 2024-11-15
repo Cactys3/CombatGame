@@ -26,12 +26,12 @@ func _process(_delta: float) -> void:
 func damage(attack: Attack):
 	health -=attack.damage
 	#print(parent_script.name + " damaged: " + str(attack.damage))
-	if can_be_stunned && parent_script.has_method("stun"):
+	if attack.stun_time > 0 && can_be_stunned && parent_script.has_method("stun"):
 			stun_time_left = attack.stun_time
 			stunning = true
 			parent_script.stun(true)
 			parent_script.velocity = Vector2.ZERO
-	if can_be_knockbacked:
+	if can_be_knockbacked && attack.knockback != 0:
 		if stun_time_left < 1 && parent_script.has_method("stun") && can_be_stunned:
 			stun_time_left = 0.2
 			stunning = true

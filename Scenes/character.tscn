@@ -1,7 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://dbfx0pgjmmdgy"]
+[gd_scene load_steps=13 format=3 uid="uid://dbfx0pgjmmdgy"]
 
 [ext_resource type="Script" path="res://Scripts/character.gd" id="1_lna7y"]
-[ext_resource type="PackedScene" uid="uid://bl326pivivx3p" path="res://Scenes/health_component.tscn" id="1_mexat"]
 [ext_resource type="Texture2D" uid="uid://dvur2jw4hot5w" path="res://Art/Characters/WebFishingCat.png" id="3_y3rn3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ono3w"]
@@ -81,13 +80,7 @@ height = 42.0
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_lna7y")
-health_component = NodePath("HealthComponent")
-
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("parent_script") instance=ExtResource("1_mexat")]
-parent_script = NodePath("..")
-max_health = 100
-can_be_knockbacked = false
-can_be_stunned = false
+health_component = NodePath("")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_tvp78")

@@ -1,6 +1,6 @@
 extends Area2D
 class_name Bullet
-var gun: Gun
+var gun: Ranged_Weapon
 var weapon_projectile_count: float 
 var weapon_piercing: float
 var weapon_projectile_velocity: float
