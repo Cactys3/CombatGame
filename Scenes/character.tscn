@@ -76,11 +76,10 @@ animations = [{
 radius = 8.0
 height = 42.0
 
-[node name="Character" type="CharacterBody2D" node_paths=PackedStringArray("health_component") groups=["player"]]
+[node name="Character" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_lna7y")
-health_component = NodePath("")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_tvp78")

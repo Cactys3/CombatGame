@@ -12,8 +12,6 @@ func _ready() -> void:
 	super()
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("test_5"):
-		weapon_projectile_count += 1
 	super(_delta)
 
 func attack():

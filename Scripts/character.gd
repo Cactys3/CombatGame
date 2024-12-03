@@ -4,12 +4,18 @@ class_name Player_Script
 @export var health_component:HealthComponent
 @export var Speed: int = 210
 @export var MaxHealth: int = 210
+@export var StartingMoney: int = 5
 var  CurrentHealth: int
 var moving: bool = false
 var stunned:bool = false
 var stun_time_left: float = 0
 var weapon_list: Array[Weapon]
 var weapon_count: float = 0
+
+var current_money: float = 0:
+	set(value):
+		current_money = value
+		
 
 func _ready() -> void:
 	CurrentHealth = MaxHealth

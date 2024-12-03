@@ -1,10 +1,116 @@
-[gd_scene load_steps=8 format=3 uid="uid://dc0hdlr7wq3lq"]
+[gd_scene load_steps=26 format=3 uid="uid://dc0hdlr7wq3lq"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_nfwnb"]
 [ext_resource type="Texture2D" uid="uid://b1lme8t63rjpt" path="res://Art/Area Art/Background.png" id="1_rub18"]
 [ext_resource type="PackedScene" uid="uid://dbfx0pgjmmdgy" path="res://Scenes/character.tscn" id="2_bdfmm"]
-[ext_resource type="Script" path="res://Scripts/enemy_spawner.gd" id="3_kcu48"]
-[ext_resource type="Script" path="res://Scripts/weapon_spawner.gd" id="5_x5rl0"]
+[ext_resource type="Texture2D" uid="uid://btvcwala5rhxh" path="res://Art/Weapons/Sword.png" id="2_lx10p"]
+[ext_resource type="Texture2D" uid="uid://ddxlwv6yh3qsm" path="res://Art/Weapons/Gun_1.png" id="3_avgfm"]
+[ext_resource type="Texture2D" uid="uid://cnj0fjnxdyuts" path="res://Art/Weapons/arrow.png" id="4_yohyp"]
+[ext_resource type="Texture2D" uid="uid://brh24bmjiesqo" path="res://Art/Weapons/Bullet.png" id="5_06y7e"]
+[ext_resource type="Script" path="res://Scripts/demo_manager.gd" id="10_cwiy3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_20rgc"]
+font_size = 8
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nr6yu"]
+atlas = ExtResource("2_lx10p")
+region = Rect2(0, 0, 10, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sb1lf"]
+atlas = ExtResource("2_lx10p")
+region = Rect2(10, 0, 10, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7jik"]
+atlas = ExtResource("2_lx10p")
+region = Rect2(20, 0, 10, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wuupw"]
+atlas = ExtResource("2_lx10p")
+region = Rect2(30, 0, 10, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_suscl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nr6yu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sb1lf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7jik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wuupw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nan4y"]
+atlas = ExtResource("3_avgfm")
+region = Rect2(0, 0, 5, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bo663"]
+atlas = ExtResource("3_avgfm")
+region = Rect2(5, 0, 5, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cnfry"]
+atlas = ExtResource("3_avgfm")
+region = Rect2(10, 0, 5, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqxe5"]
+atlas = ExtResource("3_avgfm")
+region = Rect2(15, 0, 5, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_toutt"]
+atlas = ExtResource("3_avgfm")
+region = Rect2(20, 0, 5, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0d1ti"]
+atlas = ExtResource("3_avgfm")
+region = Rect2(25, 0, 5, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfvmt"]
+atlas = ExtResource("3_avgfm")
+region = Rect2(30, 0, 5, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1bsx"]
+atlas = ExtResource("3_avgfm")
+region = Rect2(35, 0, 5, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rw57j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nan4y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bo663")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cnfry")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqxe5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_toutt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0d1ti")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfvmt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1bsx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="FontFile" id="FontFile_ulj7p"]
 cache/0/60/0/ascent = 0.0
@@ -33,18 +139,155 @@ script = ExtResource("1_nfwnb")
 
 [node name="Camera" type="Camera2D" parent="."]
 
+[node name="Store" type="Panel" parent="Camera"]
+offset_left = -79.0
+offset_top = -172.0
+offset_right = 313.0
+offset_bottom = 98.0
+
+[node name="sword" type="Control" parent="Camera/Store"]
+anchors_preset = 0
+offset_left = 31.0
+offset_top = 23.0
+offset_right = 107.0
+offset_bottom = 65.0
+
+[node name="Button" type="Button" parent="Camera/Store/sword"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 24.0
+offset_right = 59.0
+offset_bottom = 39.0
+
+[node name="Label" type="Label" parent="Camera/Store/sword/Button"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 1.0
+offset_right = 45.0
+offset_bottom = 13.0
+text = "Sword - $2"
+label_settings = SubResource("LabelSettings_20rgc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Camera/Store/sword"]
+position = Vector2(37, 10)
+rotation = -1.5708
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_suscl")
+autoplay = "default"
+frame_progress = 0.759742
+
+[node name="gun" type="Control" parent="Camera/Store"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 31.0
+offset_top = 74.0
+offset_right = 107.0
+offset_bottom = 116.0
+
+[node name="Button" type="Button" parent="Camera/Store/gun"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 24.0
+offset_right = 59.0
+offset_bottom = 39.0
+
+[node name="Label" type="Label" parent="Camera/Store/gun/Button"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 1.0
+offset_right = 45.0
+offset_bottom = 13.0
+text = "Gun - $4"
+label_settings = SubResource("LabelSettings_20rgc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Camera/Store/gun"]
+position = Vector2(37, 10)
+rotation = -1.5708
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_rw57j")
+autoplay = "default"
+frame_progress = 0.493317
+
+[node name="size" type="Control" parent="Camera/Store"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 123.0
+offset_top = 74.0
+offset_right = 199.0
+offset_bottom = 116.0
+
+[node name="Button" type="Button" parent="Camera/Store/size"]
+layout_mode = 0
+offset_left = -5.0
+offset_top = 24.0
+offset_right = 70.0
+offset_bottom = 39.0
+
+[node name="Label" type="Label" parent="Camera/Store/size/Button"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 1.0
+offset_right = 45.0
+offset_bottom = 13.0
+text = "Weapon Size - $10"
+label_settings = SubResource("LabelSettings_20rgc")
+
+[node name="TextureRect" type="TextureRect" parent="Camera/Store/size"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 7.0
+offset_right = 40.0
+offset_bottom = 18.0
+texture = ExtResource("4_yohyp")
+stretch_mode = 3
+
+[node name="projectiles" type="Control" parent="Camera/Store"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 123.0
+offset_top = 24.0
+offset_right = 199.0
+offset_bottom = 66.0
+
+[node name="Button" type="Button" parent="Camera/Store/projectiles"]
+layout_mode = 0
+offset_left = -9.0
+offset_top = 24.0
+offset_right = 82.0
+offset_bottom = 39.0
+
+[node name="Label" type="Label" parent="Camera/Store/projectiles/Button"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 1.0
+offset_right = 45.0
+offset_bottom = 13.0
+text = "More Projectiles - $10"
+label_settings = SubResource("LabelSettings_20rgc")
+
+[node name="TextureRect" type="TextureRect" parent="Camera/Store/projectiles"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 8.0
+offset_right = 43.0
+offset_bottom = 18.0
+texture = ExtResource("5_06y7e")
+
+[node name="Label" type="Label" parent="Camera/Store"]
+layout_mode = 0
+offset_left = 245.0
+offset_top = 31.0
+offset_right = 285.0
+offset_bottom = 54.0
+text = "Current Money: "
+
 [node name="Backdrop" type="Sprite2D" parent="."]
+visible = false
 z_index = -5
 scale = Vector2(40, 40)
 texture = ExtResource("1_rub18")
 
 [node name="Character" parent="." instance=ExtResource("2_bdfmm")]
-
-[node name="Enemy spawner" type="Node" parent="."]
-script = ExtResource("3_kcu48")
-
-[node name="Weapon Spawner" type="Node" parent="."]
-script = ExtResource("5_x5rl0")
 
 [node name="Label" type="Label" parent="."]
 offset_left = -252.0
@@ -58,3 +301,11 @@ Spawn gun - press 3
 4 = bigger weapons
 5 = more projectiles"
 label_settings = SubResource("LabelSettings_7v07i")
+
+[node name="Demo Manager" type="Node" parent="."]
+script = ExtResource("10_cwiy3")
+
+[connection signal="pressed" from="Camera/Store/sword/Button" to="Demo Manager" method="Sword_Button"]
+[connection signal="pressed" from="Camera/Store/gun/Button" to="Demo Manager" method="Gun_Button"]
+[connection signal="pressed" from="Camera/Store/size/Button" to="Demo Manager" method="Size_Button"]
+[connection signal="pressed" from="Camera/Store/projectiles/Button" to="Demo Manager" method="Projectile_Buttton"]

@@ -2,7 +2,7 @@ extends Area2D
 class_name Weapon
 
 #weapon fields
-@onready var player: CharacterBody2D = get_tree().get_first_node_in_group("player")
+@onready var player: Player_Script = get_tree().get_first_node_in_group("player")
 @export var weapon_slot: float = 1
 @export var weapon_count: float = 1
 @export var continuous_hitbox: bool = false
@@ -30,19 +30,7 @@ var attacking: bool = false
 func _ready() -> void:
 	cooldown_timer = cooldown + 1
 
-func _process(_delta: float) -> void:
-	
-	
-	
-	if Input.is_action_just_pressed("test_4"):
-		weapon_size += 10
-		
-		
-		
-		
-		
-		
-		
+func _process(_delta: float) -> void:		
 	if cooldown_timer < cooldown:
 		cooldown_timer += _delta
 	elif !attacking && get_enemy_nearby(weapon_range) != null:

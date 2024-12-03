@@ -68,4 +68,5 @@ func stun(value:bool):
 	stunned = value
 
 func die():
+	player.current_money += 2
 	queue_free()
