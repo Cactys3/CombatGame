@@ -11,11 +11,13 @@ var stunned:bool = false
 var stun_time_left: float = 0
 var weapon_list: Array[Weapon]
 var weapon_count: float = 0
+@onready var money_label: Label = $"../Camera/Store/Money Label/Money"
+
 
 var current_money: float = 0:
 	set(value):
 		current_money = value
-		
+		money_label.text = str(value)
 
 func _ready() -> void:
 	CurrentHealth = MaxHealth

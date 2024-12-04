@@ -4,16 +4,27 @@ extends Node
 @onready var enemy = preload("res://Scenes/first_enemy.tscn")
 @onready var sword = preload("res://Scenes/sword.tscn")
 @onready var gun = preload("res://Scenes/LazarGun.tscn")
+@onready var shop: Panel = $"../Camera/Store"
 
 var projectile_cost = 10
 var sword_cost = 2
 var gun_cost = 4
 var size_cost = 10
 
+var can_access_menus:bool = false
+
+var current_difficulty:float = 1
+
+enum scene_states{shop, combat, encounter}
+var scene_state: scene_states = scene_states.shop
+
 func _ready() -> void:
 	player.current_money = 5
 
 func _process(delta: float) -> void:
+	
+	if Input.is_action_just_pressed("escape") && can_access_menus:
+		shop.visible = !shop.visible
 	
 	if Input.is_action_just_pressed("test_2"):
 		var random_position = Vector2(randf_range(-5, 5), randf_range(-5, 5))
@@ -38,6 +49,25 @@ func _process(delta: float) -> void:
 		player.is()
 		pass#weapon_projectile_count += 1
 
+func change_state(state: scene_states) -> void:
+	match state:
+		scene_states.shop:
+			shop.visible = true
+		scene_states.combat:
+			shop.visible = false
+		scene_states.encounter:
+			shop.visible = false
+		_:
+			pass
+
+func start_round(difficulty: float) -> void:
+	#start spawner spawning enemies
+	#maybe enemies are of said difficulty OR number of enemies are of said difficulty
+	#(at a certian point into the round) random chance to spawn a boss of said difficulty (increases the longer there is no boss)
+	pass
+
+func toggle_shop(boolean: bool):
+	shop.visible = boolean
 
 func Projectile_Buttton() -> void:
 	if projectile_cost <= player.current_money:
@@ -46,13 +76,11 @@ func Projectile_Buttton() -> void:
 			if weapon is Ranged_Weapon:
 				weapon.weapon_projectile_count += 1
 
-
 func Size_Button() -> void:
 	if size_cost <= player.current_money:
 		player.current_money -= size_cost
 		for weapon in player.weapon_list:
 			weapon.weapon_size += 0.2
-
 
 func Gun_Button() -> void:
 	if gun_cost <= player.current_money:
@@ -60,7 +88,6 @@ func Gun_Button() -> void:
 		var new_weapon:Weapon = gun.instantiate()
 		new_weapon.position = Vector2(0, 0)
 		player.add_weapon(new_weapon)
-
 
 func Sword_Button() -> void:
 	if sword_cost <= player.current_money:

@@ -273,16 +273,23 @@ offset_right = 43.0
 offset_bottom = 18.0
 texture = ExtResource("5_06y7e")
 
-[node name="Label" type="Label" parent="Camera/Store"]
+[node name="Money Label" type="Label" parent="Camera/Store"]
 layout_mode = 0
-offset_left = 245.0
-offset_top = 31.0
-offset_right = 285.0
-offset_bottom = 54.0
+offset_left = 223.0
+offset_top = 11.0
+offset_right = 348.0
+offset_bottom = 34.0
 text = "Current Money: "
 
+[node name="Money" type="Label" parent="Camera/Store/Money Label"]
+layout_mode = 0
+offset_left = 126.0
+offset_top = 1.0
+offset_right = 166.0
+offset_bottom = 24.0
+text = "4"
+
 [node name="Backdrop" type="Sprite2D" parent="."]
-visible = false
 z_index = -5
 scale = Vector2(40, 40)
 texture = ExtResource("1_rub18")
