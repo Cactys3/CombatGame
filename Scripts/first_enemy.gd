@@ -5,6 +5,9 @@ extends CharacterBody2D
 @export var health_component:HealthComponent
 @export var damage_hitbox:Area2D
 
+@export var xp_on_death: int
+@export var money_on_death: int
+
 @export var weapon_damage: int
 @export var weapon_knockback: int
 @export var weapon_stun: int
@@ -68,5 +71,6 @@ func stun(value:bool):
 	stunned = value
 
 func die():
-	player.current_money += 2
+	player.current_money += money_on_death
+	player.current_xp += xp_on_death
 	queue_free()

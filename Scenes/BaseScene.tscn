@@ -287,7 +287,38 @@ offset_left = 126.0
 offset_top = 1.0
 offset_right = 166.0
 offset_bottom = 24.0
-text = "4"
+text = "-999"
+
+[node name="XP Label" type="Label" parent="Camera/Store"]
+layout_mode = 0
+offset_left = 223.0
+offset_top = 39.0
+offset_right = 348.0
+offset_bottom = 62.0
+text = "Current XP: "
+
+[node name="XP" type="Label" parent="Camera/Store/XP Label"]
+layout_mode = 0
+offset_left = 126.0
+offset_top = 1.0
+offset_right = 166.0
+offset_bottom = 24.0
+text = "-999"
+
+[node name="LVL Label" type="Label" parent="Camera/Store"]
+offset_left = 223.0
+offset_top = 66.0
+offset_right = 348.0
+offset_bottom = 89.0
+text = "Current Level: "
+
+[node name="LVL" type="Label" parent="Camera/Store/LVL Label"]
+layout_mode = 0
+offset_left = 126.0
+offset_top = 1.0
+offset_right = 166.0
+offset_bottom = 24.0
+text = "-999"
 
 [node name="Backdrop" type="Sprite2D" parent="."]
 z_index = -5

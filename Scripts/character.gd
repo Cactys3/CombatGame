@@ -12,7 +12,20 @@ var stun_time_left: float = 0
 var weapon_list: Array[Weapon]
 var weapon_count: float = 0
 @onready var money_label: Label = $"../Camera/Store/Money Label/Money"
+@onready var xp_label: Label = $"../Camera/Store/XP Label/XP"
+@onready var level_label: Label = $"../Camera/Store/LVL Label/LVL"
 
+var current_level: float = 0:
+	set(value):
+		current_level = value
+		level_label.text = str(value)
+
+var current_xp: float = 0:
+	set(value):
+		current_xp = value
+		xp_label.text = str(value)
+
+var max_xp :float = 100
 
 var current_money: float = 0:
 	set(value):
@@ -21,9 +34,15 @@ var current_money: float = 0:
 
 func _ready() -> void:
 	CurrentHealth = MaxHealth
+	current_xp = 0
+	current_level = 0
 
 
 func _process(delta: float) -> void:
+	if (current_xp >= max_xp):
+		current_level += 1
+		current_xp = 0
+	
 	if stun_time_left > 0:
 		stun_time_left -= delta
 		stunned = true
