@@ -47,6 +47,7 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("test_5"):
 		player.is()
+		#zach put this mowow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow
 		pass#weapon_projectile_count += 1
 
 func change_state(state: scene_states) -> void:

@@ -3,10 +3,10 @@ extends Node
 @onready var enemy = preload("res://Scenes/first_enemy.tscn")  # Preload the enemy scene
 var spawn_timer: Timer  # Timer to control spawning
 
-func _ready():
+func _ready():	
 	spawn_timer = Timer.new()  # Create a new Timer
 	add_child(spawn_timer)  # Add the timer to the current node
-	spawn_timer.wait_time = 1.0  # Set the timer to trigger every 1 second
+	spawn_timer.wait_time = 0.1  # Set the timer to trigger every 1 second
 	spawn_timer.one_shot = false  # Make it loop
 	spawn_timer.start()  # Start the timer
 	spawn_timer.timeout.connect(self._on_spawn_timer_timeout)

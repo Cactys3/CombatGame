@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dc0hdlr7wq3lq"]
+[gd_scene load_steps=27 format=3 uid="uid://dc0hdlr7wq3lq"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_nfwnb"]
 [ext_resource type="Texture2D" uid="uid://b1lme8t63rjpt" path="res://Art/Area Art/Background.png" id="1_rub18"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://ddxlwv6yh3qsm" path="res://Art/Weapons/Gun_1.png" id="3_avgfm"]
 [ext_resource type="Texture2D" uid="uid://cnj0fjnxdyuts" path="res://Art/Weapons/arrow.png" id="4_yohyp"]
 [ext_resource type="Texture2D" uid="uid://brh24bmjiesqo" path="res://Art/Weapons/Bullet.png" id="5_06y7e"]
+[ext_resource type="Script" path="res://Scripts/basic_enemy_spawner.gd" id="9_e34uy"]
 [ext_resource type="Script" path="res://Scripts/demo_manager.gd" id="10_cwiy3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_20rgc"]
@@ -306,6 +307,7 @@ offset_bottom = 24.0
 text = "-999"
 
 [node name="LVL Label" type="Label" parent="Camera/Store"]
+layout_mode = 0
 offset_left = 223.0
 offset_top = 66.0
 offset_right = 348.0
@@ -342,6 +344,9 @@ label_settings = SubResource("LabelSettings_7v07i")
 
 [node name="Demo Manager" type="Node" parent="."]
 script = ExtResource("10_cwiy3")
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("9_e34uy")
 
 [connection signal="pressed" from="Camera/Store/sword/Button" to="Demo Manager" method="Sword_Button"]
 [connection signal="pressed" from="Camera/Store/gun/Button" to="Demo Manager" method="Gun_Button"]
