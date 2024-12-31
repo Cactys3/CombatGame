@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dbfx0pgjmmdgy"]
+[gd_scene load_steps=15 format=3 uid="uid://dbfx0pgjmmdgy"]
 
 [ext_resource type="Script" path="res://Scripts/character.gd" id="1_lna7y"]
 [ext_resource type="Texture2D" uid="uid://dvur2jw4hot5w" path="res://Art/Characters/WebFishingCat.png" id="3_y3rn3"]
@@ -76,6 +76,23 @@ animations = [{
 radius = 8.0
 height = 42.0
 
+[sub_resource type="GDScript" id="GDScript_0dobi"]
+script/source = "extends Area2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mknkr"]
+radius = 80.3057
+
 [node name="Character" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
 collision_mask = 0
@@ -90,3 +107,11 @@ frame_progress = 0.487552
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_o7fmw")
+
+[node name="XP_range" type="Area2D" parent="." groups=["xp_range"]]
+collision_layer = 256
+collision_mask = 0
+script = SubResource("GDScript_0dobi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="XP_range" groups=["xp_range"]]
+shape = SubResource("CircleShape2D_mknkr")

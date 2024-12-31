@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+@onready var xp_parent = get_tree().get_first_node_in_group("xp_parent")
+const xp = preload("res://Scenes/xp_blip.tscn")
+
 @export var MOVESPEED: int
 @onready var player: CharacterBody2D = get_tree().get_first_node_in_group("player")
 @export var health_component:HealthComponent
@@ -71,6 +74,10 @@ func stun(value:bool):
 	stunned = value
 
 func die():
+	print("i tried")
 	player.current_money += money_on_death
-	player.current_xp += xp_on_death
+	var new_xp = xp.instantiate()
+	new_xp.global_position = global_position
+	xp_parent.add_child(new_xp)
+	
 	queue_free()

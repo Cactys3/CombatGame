@@ -29,6 +29,8 @@ window/stretch/scale_mode="integer"
 
 enemy="All Enemies"
 player="player, can only be one per scene"
+xp_range="range around player that xp where collected"
+xp_parent=""
 
 [input]
 
@@ -91,6 +93,11 @@ escape={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
+test_7={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":55,"key_label":0,"unicode":55,"location":0,"echo":false,"script":null)
+]
+}
 
 [layer_names]
 
@@ -98,6 +105,7 @@ escape={
 2d_physics/layer_2="Player"
 2d_physics/layer_3="Player_Weapons"
 2d_physics/layer_4="Enemies"
+2d_physics/layer_9="xp_range"
 
 [rendering]
 

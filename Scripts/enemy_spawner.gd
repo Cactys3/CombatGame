@@ -9,3 +9,4 @@ func _process(delta: float) -> void:
 		var new_enemy = enemy.instantiate()
 		new_enemy.position = random_position 
 		add_child(new_enemy)
+		pass

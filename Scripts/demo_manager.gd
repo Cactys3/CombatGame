@@ -5,12 +5,11 @@ extends Node
 @onready var sword = preload("res://Scenes/sword.tscn")
 @onready var gun = preload("res://Scenes/LazarGun.tscn")
 @onready var shop: Panel = $"../Camera/Store"
-
+@onready var xp = preload("res://Scenes/xp_blip.tscn")
 var projectile_cost = 10
 var sword_cost = 2
 var gun_cost = 4
 var size_cost = 10
-
 var can_access_menus:bool = false
 
 var current_difficulty:float = 1
@@ -22,7 +21,6 @@ func _ready() -> void:
 	player.current_money = 5
 
 func _process(delta: float) -> void:
-	
 	if Input.is_action_just_pressed("escape") && can_access_menus:
 		shop.visible = !shop.visible
 	
@@ -46,10 +44,14 @@ func _process(delta: float) -> void:
 		pass#weapon_size += 0.5
 	
 	if Input.is_action_just_pressed("test_5"):
-		player.is()
+		pass#weapon_projectile_count += 1
+	if Input.is_action_just_pressed("test_7"):
+		var random_position = Vector2(randf_range(-5, 5), randf_range(-5, 5))
+		var new_xp = xp.instantiate()
+		new_xp.position = random_position
+		add_child(new_xp)
 		#zach put this mowow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow
 		pass#weapon_projectile_count += 1
-
 func change_state(state: scene_states) -> void:
 	match state:
 		scene_states.shop:
