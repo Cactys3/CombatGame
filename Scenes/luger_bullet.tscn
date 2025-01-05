@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://pg6tqlcb8dtb"]
+
+[ext_resource type="Script" path="res://Scripts/projectile.gd" id="1_jemkq"]
+[ext_resource type="Texture2D" uid="uid://dnueduipb01yj" path="res://Art/New_Weapons/Pistol/Bulletaseprite.png" id="1_kxke1"]
+
+[node name="Luger_Bullet" type="Area2D"]
+script = ExtResource("1_jemkq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_kxke1")

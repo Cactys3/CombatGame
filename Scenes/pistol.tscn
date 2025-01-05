@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://0e5yu7x5meeh"]
+
+[ext_resource type="Script" path="res://Scripts/weapon_frame.gd" id="1_ha6py"]
+[ext_resource type="Script" path="res://Scripts/handle.gd" id="2_3fkyw"]
+[ext_resource type="Script" path="res://Scripts/attachment.gd" id="3_ce0nl"]
+
+[node name="Pistol" type="Area2D" node_paths=PackedStringArray("Handle", "Attachment")]
+script = ExtResource("1_ha6py")
+Handle = NodePath("Handle")
+Attachment = NodePath("Attachment")
+
+[node name="Handle" type="Area2D" parent="."]
+script = ExtResource("2_3fkyw")
+
+[node name="Attachment" type="Area2D" parent="."]
+script = ExtResource("3_ce0nl")

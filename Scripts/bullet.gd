@@ -1,5 +1,26 @@
 extends Area2D
 class_name Bullet
+#Stat Modifiers
+@export var stats = {
+	Weapon_Frame.damage: 0,
+	Weapon_Frame.knockback: 0,
+	Weapon_Frame.stun: 0,
+	Weapon_Frame.effect: Attack.damage_effects.none,
+	Weapon_Frame.cooldown: 0,
+	Weapon_Frame.range: 0,
+	Weapon_Frame.speed: 0,
+	Weapon_Frame.size: 0,
+	Weapon_Frame.count: 0,
+	Weapon_Frame.piercing: 0,
+	Weapon_Frame.duration: 0,
+	Weapon_Frame.area: 0,
+	Weapon_Frame.mogul: 0,
+	Weapon_Frame.xp: 0,
+	Weapon_Frame.lifesteal: 0,
+	Weapon_Frame.movespeed: 0,
+	Weapon_Frame.hp: 0,
+	}
+
 var gun: Ranged_Weapon
 var weapon_projectile_count: float 
 var weapon_piercing: float
