@@ -5,18 +5,13 @@ class_name Weapon_Frame
 @onready var player: Player_Script = get_tree().get_first_node_in_group("player")
 @export var weapon_slot: float = 1
 @export var weapon_count: float = 1
-@export var continuous_hitbox: bool = false
-@export var ORBIT_DISTANCE: float = 55
-@export var ROTATION_SPEED: float = 20
-@export var aim_at_enemy: bool = true
-var current_angle: float = 0  #Stores the angle for smooth circular motion
-var cooldown_timer: float = 0
-var attacking: bool = false
-
 #components
-@export var Handle: Handle
-@export var Attachment: Attachment
-@export var Projectile: Bullet
+@export var handle: Handle
+@export var attachment: Attachment
+@export var projectile: PackedScene
+@export var handle_scn: PackedScene
+@export var attachment_scn: PackedScene
+
 
 #stats name constants
 const damage = "damage"
@@ -36,65 +31,69 @@ const xp = "xp"
 const lifesteal = "lifesteal"
 const movespeed = "movespeed"
 const hp = "hp"
+const handling = "handling"
 
 #stats dictionary
-@export var stats = {
+var defaults = {
 	#attack stats
 	damage: 1,
-	knockback: 1,
-	stun: 1,
-	effect: Attack.damage_effects,
+	knockback: 0,
+	stun: 0,
+	effect: Attack.damage_effects.none,
 	#other stats
 	cooldown: 1,
-	range: 5,
+	range: 50,
 	speed: 1,
 	size: 1, #when edit this, edit this: scale = Vector2(value, value)
 	count: 1,
-	piercing: 1,
+	piercing: 0,
 	duration: 1,
 	area: 1,
 	mogul: 1,
 	xp: 1,
-	lifesteal: 1,
+	lifesteal: 0,
 	movespeed: 1,
-	hp: 100,
+	hp: 1,
+	handling: 1,
+	}
+
+
+#stats dictionary
+var stats = {
+	#attack stats
+	damage: 0,
+	knockback: 0,
+	stun: 0,
+	effect: Attack.damage_effects.none,
+	#other stats
+	cooldown: 0,
+	range: 0,
+	speed: 0,
+	size: 0, #when edit this, edit this: scale = Vector2(value, value)
+	count: 0,
+	piercing: 0,
+	duration: 0,
+	area: 0,
+	mogul: 0,
+	xp: 0,
+	lifesteal: 0,
+	movespeed: 0,
+	hp: 0,
+	handling: 0,
 	}
 
 func _ready() -> void:
-	cooldown_timer = stats[cooldown] + 1
+	pass
 
-func _process(_delta: float) -> void:		
-	if cooldown_timer < stats[cooldown]:
-		cooldown_timer += _delta
-	elif !attacking && get_enemy_nearby(stats[range]) != null:
-		attacking = true
-		attack()
-	
-	OrbitPlayer()
-	var nearest_enemy = get_enemy_nearby(stats[range])
-	if aim_at_enemy && nearest_enemy != null:
-			RotateTowardsPosition(nearest_enemy, _delta)
-	else:
-		RotateTowardsPosition(get_global_mouse_position(), _delta)
-
-func OrbitPlayer() -> void:
-	var target_angle = (get_global_mouse_position() - player.global_position).normalized().angle() + (TAU * (weapon_slot/weapon_count))
-	var new_position = player.global_position + Vector2(cos(target_angle), sin(target_angle)) * ORBIT_DISTANCE
-	global_position = new_position
-
-func RotateTowardsPosition(new_position: Vector2, _delta: float) -> void:
-	rotation = lerp_angle(rotation, (new_position - global_position).normalized().angle() + PI / 2, ROTATION_SPEED * _delta)
- #TODO: try global_position instead of player.global_position for how weapon aiming looks
+func _process(_delta: float) -> void:
+	print(str(position) + " "  + " " + str(position))
+	pass
 
 func get_enemy_nearby(distance: float) -> Variant:
 	for enemy in get_tree().get_nodes_in_group("enemy"):
 		if global_position.distance_to(enemy.global_position) <= (distance * scale.length()):
 			return enemy.position
 	return null
-
-func attack(): #this is meant to be overridden by classes that inherit it
-	cooldown_timer = 0
-	attacking = false
 
 func hit_enemy(body:Node2D):
 	if (body.has_method("damage")):
@@ -110,10 +109,60 @@ func change_slot(slot: int, max) -> void:#Called when Weapon is created #TODO: d
 	weapon_slot = slot
 	weapon_count = max
 
-func update_stats(new_cooldown: float, new_range: int, new_damage: int, new_knockback: int, new_stun: int, new_effect: Attack.damage_effects) -> void:
-	stats[cooldown] = new_cooldown
-	stats[range] = new_range
-	stats[damage] = new_damage
-	stats[knockback] = new_knockback
-	stats[stun] = new_stun
-	stats[effect] = new_effect
+#new methods
+func set_handle(handy: PackedScene) -> void:
+	if (handle != null):
+		handle.queue_free()
+		handle = null
+	var instance = handy.instantiate()
+	instance.position = Vector2.ZERO
+	add_child(instance)
+	handle = instance
+	handle.frame = self
+	handle_scn = handy
+	set_stats()
+	set_offset()
+	set_variables()
+
+func set_attachment(attachy: PackedScene) -> void:
+	if (attachment != null):
+		attachment.queue_free()
+		attachment = null
+	var instance = attachy.instantiate()
+	instance.position = Vector2.ZERO
+	add_child(instance)
+	attachment = instance
+	attachment.frame = self
+	attachment_scn = attachy
+	set_stats()
+	set_offset()
+	set_variables()
+
+func set_projectile(projecty: PackedScene) -> void:
+	projectile = projecty
+	print(projectile.resource_name)
+
+func set_offset():
+	if handle != null && attachment != null:
+		#handle.position += handle.offset
+		#attachment.position += attachment.offset + handle.offset
+		pass
+	pass
+
+func set_variables():
+	if handle != null && attachment != null:
+		handle.attachment = attachment
+		attachment.handle = handle
+		attachment.projectile = projectile
+		#handle.player = player
+		attachment.frame = self
+		handle.frame = self
+	pass
+
+func set_stats() -> bool: #sets the stats dictionary to the sum of components
+	if handle != null && attachment != null:
+		for key in stats.keys():
+			stats[key] = defaults[key] + handle.stats[key] + attachment.stats[key]
+		scale = Vector2(stats[size], stats[size]) #utilize size
+		return true
+	return false

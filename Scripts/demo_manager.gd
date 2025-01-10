@@ -6,6 +6,10 @@ extends Node
 @onready var gun = preload("res://Scenes/LazarGun.tscn")
 @onready var shop: Panel = $"../Camera/Store"
 @onready var xp = preload("res://Scenes/xp_blip.tscn")
+@onready var weapon_frame = preload("res://Scenes/weapon_frame.tscn")
+const LUGER_BULLET = preload("res://Scenes/luger_bullet.tscn")
+const PISTOL_ATTACHMENT = preload("res://Scenes/pistol/pistol_attachment.tscn")
+const PISTOL_HANDLE = preload("res://Scenes/pistol/pistol_handle.tscn")
 var projectile_cost = 10
 var sword_cost = 2
 var gun_cost = 4
@@ -41,6 +45,14 @@ func _process(delta: float) -> void:
 		player.add_weapon(new_weapon)
 
 	if Input.is_action_just_pressed("test_4"):
+		var new_frame = weapon_frame.instantiate()
+		new_frame.position = Vector2.ZERO
+		player.add_child(new_frame)
+		new_frame.set_attachment(PISTOL_ATTACHMENT)
+		new_frame.set_handle(PISTOL_HANDLE)
+		new_frame.set_projectile(LUGER_BULLET)
+		print(LUGER_BULLET.resource_name)
+		player.add_frame(new_frame)
 		pass#weapon_size += 0.5
 	
 	if Input.is_action_just_pressed("test_5"):

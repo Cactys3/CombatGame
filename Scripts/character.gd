@@ -9,7 +9,7 @@ var  CurrentHealth: int
 var moving: bool = false
 var stunned:bool = false
 var stun_time_left: float = 0
-var weapon_list: Array[Weapon]
+var weapon_list: Array[Area2D]
 var weapon_count: float = 0
 @onready var money_label: Label = $"../Camera/Store/Money Label/Money"
 @onready var xp_label: Label = $"../Camera/Store/XP Label/XP"
@@ -101,3 +101,13 @@ func add_weapon(new_weapon: Weapon):
 		weapon.change_slot(index, weapon_count)
 		index += 1
 	add_child(new_weapon)
+
+func add_frame(new_frame: Weapon_Frame):
+	#print("Weapon: " + str(weapon_count + 1) + " - " + new_weapon.name)
+	weapon_count += 1
+	weapon_list.append(new_frame)
+	var index = 1.0
+	for weapon in weapon_list:
+		weapon.change_slot(index, weapon_count)
+		index += 1
+	add_child(new_frame)
