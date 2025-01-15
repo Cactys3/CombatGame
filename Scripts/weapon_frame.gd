@@ -20,7 +20,7 @@ func _ready() -> void:
 	pass
 
 func _process(_delta: float) -> void:
-	print(str(position) + " "  + " " + str(position))
+	#print(str(position) + " "  + " " + str(position))
 	pass
 
 func get_enemy_nearby(distance: float) -> Variant:
@@ -76,6 +76,9 @@ func set_attachment(attachy: PackedScene) -> void:
 func set_projectile(projecty: PackedScene) -> void:
 	projectile = projecty
 	print(projectile.resource_name)
+	set_stats()
+	set_offset()
+	set_variables()
 
 func set_offset():
 	if handle != null && attachment != null:
@@ -85,10 +88,11 @@ func set_offset():
 	pass
 
 func set_variables():
-	if handle != null && attachment != null:
+	if handle != null && attachment != null && projectile != null:
 		handle.attachment = attachment
 		attachment.handle = handle
 		attachment.projectile = projectile
+		print(projectile == null)
 		#handle.player = player
 		attachment.frame = self
 		handle.frame = self

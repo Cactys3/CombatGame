@@ -15,7 +15,9 @@ var lifetime = 10
 func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
 	stats.add_stats(base_gun.stats)
 	direction = enemy_direction.normalized()
-	rotation = direction.angle() + PI/2
+	rotation = direction.angle() 
+	
+	speed = (1 + stats.get_stat(stats.SPEED)) * 300
 	frame = base_gun
 
 func _process(delta: float) -> void:
