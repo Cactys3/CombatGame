@@ -1,32 +1,14 @@
 extends Area2D
 class_name Handle
-#Stat Modifiers
-@export var stats = {
-	Weapon_Frame.damage: 0,
-	Weapon_Frame.knockback: 0,
-	Weapon_Frame.stun: 0,
-	Weapon_Frame.effect: Attack.damage_effects.none,
-	Weapon_Frame.cooldown: 0,
-	Weapon_Frame.range: 0,
-	Weapon_Frame.speed: 0,
-	Weapon_Frame.size: 0,
-	Weapon_Frame.count: 0,
-	Weapon_Frame.piercing: 0,
-	Weapon_Frame.duration: 0,
-	Weapon_Frame.area: 0,
-	Weapon_Frame.mogul: 0,
-	Weapon_Frame.xp: 0,
-	Weapon_Frame.lifesteal: 0,
-	Weapon_Frame.movespeed: 0,
-	Weapon_Frame.hp: 0,
-	Weapon_Frame.handling: 0,
-	}
+
+@export var stats: StatsResource = StatsResource.new()
+
 @export var visual: AnimatedSprite2D
 @export var offset: Vector2
 @export var frame: Weapon_Frame
 @export var attachment: Attachment
 @onready var player: Player_Script = get_tree().get_first_node_in_group("player")
-#New Stuff
+
 @export var ORBIT_DISTANCE: float = 55
 @export var ROTATION_SPEED: float = 20
 var current_angle: float = 0  #Stores the angle for smooth circular motion
@@ -43,7 +25,7 @@ func _process(_delta: float) -> void:
 			pass
 
 func ProcessAtMouse(delta: float) -> void:
-	#if attachment.ready_to_fire && frame.get_enemy_nearby(frame.stats[range]) != null:
+	#if attachment.ready_to_fire && frame.get_enemy_nearby(frame.get_stat(stats.RANGE)) != null:
 	#	attachment.ready_to_fire = false
 	#	attachment.attack()
 	#Orbit Player Towards Mouse
@@ -51,7 +33,7 @@ func ProcessAtMouse(delta: float) -> void:
 	var new_position = player.global_position + Vector2(cos(target_angle), sin(target_angle)) * ORBIT_DISTANCE
 	frame.global_position = new_position
 	#Rotate Towards Object
-	var nearest_enemy = frame.get_enemy_nearby(frame.stats[frame.range])
+	var nearest_enemy = frame.get_enemy_nearby(frame.get_stat(stats.RANGE))
 	print(nearest_enemy != null)
 	if nearest_enemy != null:
 		RotateTowardsPosition(nearest_enemy, delta)
@@ -59,7 +41,7 @@ func ProcessAtMouse(delta: float) -> void:
 		RotateTowardsPosition(get_global_mouse_position(), delta)
 
 func ProcessStaticSlot(delta: float) -> void:
-	if attachment.ready_to_fire && frame.get_enemy_nearby(frame.stats[range]) != null:
+	if attachment.ready_to_fire && frame.get_enemy_nearby(frame.get_stat(stats.RANGE)) != null:
 		attachment.ready_to_fire = false
 		attachment.attack()
 	#Orbit Player In Assigned Slot
@@ -67,7 +49,7 @@ func ProcessStaticSlot(delta: float) -> void:
 	var new_position = player.global_position + Vector2(cos(target_angle), sin(target_angle)) * ORBIT_DISTANCE
 	frame.global_position = new_position
 	#Rotate Towards Object
-	var nearest_enemy = frame.get_enemy_nearby(frame.stats[frame.range])
+	var nearest_enemy = frame.get_enemy_nearby(frame.get_stat(stats.RANGE))
 	if nearest_enemy != null:
 		RotateTowardsPosition(nearest_enemy, delta)
 

@@ -1,26 +1,9 @@
 extends Area2D
 class_name Attachment
 #Stat Modifiers
-@export var stats = {
-	Weapon_Frame.damage: 0,
-	Weapon_Frame.knockback: 0,
-	Weapon_Frame.stun: 0,
-	Weapon_Frame.effect: Attack.damage_effects.none,
-	Weapon_Frame.cooldown: 0,
-	Weapon_Frame.range: 0,
-	Weapon_Frame.speed: 0,
-	Weapon_Frame.size: 0,
-	Weapon_Frame.count: 0,
-	Weapon_Frame.piercing: 0,
-	Weapon_Frame.duration: 0,
-	Weapon_Frame.area: 0,
-	Weapon_Frame.mogul: 0,
-	Weapon_Frame.xp: 0,
-	Weapon_Frame.lifesteal: 0,
-	Weapon_Frame.movespeed: 0,
-	Weapon_Frame.hp: 0,
-	Weapon_Frame.handling: 0,
-	}
+
+@export var stats: StatsResource = StatsResource.new()
+
 @export var visual: AnimatedSprite2D 
 @export var offset: Vector2 
 @export var frame: Weapon_Frame 
@@ -36,9 +19,9 @@ func _ready() -> void:
 	cooldown_timer = 0
 
 func _process(_delta: float) -> void:
-	if cooldown_timer < frame.stats[frame.cooldown]:
+	if cooldown_timer < frame.get_stat(stats.COOLDOWN):
 		cooldown_timer += _delta
-	elif !attacking && frame.get_enemy_nearby(frame.stats[frame.range]) != null:
+	elif !attacking && frame.get_enemy_nearby(frame.get_stat(stats.RANGE)) != null:
 		attacking = true
 		attack()
 

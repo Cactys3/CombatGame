@@ -47,7 +47,6 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("test_4"):
 		var new_frame = weapon_frame.instantiate()
 		new_frame.position = Vector2.ZERO
-		player.add_child(new_frame)
 		new_frame.set_attachment(PISTOL_ATTACHMENT)
 		new_frame.set_handle(PISTOL_HANDLE)
 		new_frame.set_projectile(LUGER_BULLET)

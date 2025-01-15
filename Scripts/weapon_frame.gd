@@ -12,77 +12,11 @@ class_name Weapon_Frame
 @export var handle_scn: PackedScene
 @export var attachment_scn: PackedScene
 
-
-#stats name constants
-const damage = "damage"
-const knockback = "knockback"
-const stun = "stun"
-const effect = "effect"
-const cooldown = "cooldown"
-const range = "range"
-const speed = "speed"
-const size = "size"
-const count = "count"
-const piercing = "piercing"
-const duration = "duration"
-const area = "area"
-const mogul = "mogul"
-const xp = "xp"
-const lifesteal = "lifesteal"
-const movespeed = "movespeed"
-const hp = "hp"
-const handling = "handling"
-
-#stats dictionary
-var defaults = {
-	#attack stats
-	damage: 1,
-	knockback: 0,
-	stun: 0,
-	effect: Attack.damage_effects.none,
-	#other stats
-	cooldown: 1,
-	range: 50,
-	speed: 1,
-	size: 1, #when edit this, edit this: scale = Vector2(value, value)
-	count: 1,
-	piercing: 0,
-	duration: 1,
-	area: 1,
-	mogul: 1,
-	xp: 1,
-	lifesteal: 0,
-	movespeed: 1,
-	hp: 1,
-	handling: 1,
-	}
-
-
-#stats dictionary
-var stats = {
-	#attack stats
-	damage: 0,
-	knockback: 0,
-	stun: 0,
-	effect: Attack.damage_effects.none,
-	#other stats
-	cooldown: 0,
-	range: 0,
-	speed: 0,
-	size: 0, #when edit this, edit this: scale = Vector2(value, value)
-	count: 0,
-	piercing: 0,
-	duration: 0,
-	area: 0,
-	mogul: 0,
-	xp: 0,
-	lifesteal: 0,
-	movespeed: 0,
-	hp: 0,
-	handling: 0,
-	}
+@export var stats: StatsResource = StatsResource.new()
 
 func _ready() -> void:
+	#TODO: ADD GLOBAL STATS TO THIS STATS
+	#stats.add_stats(global_stats)
 	pass
 
 func _process(_delta: float) -> void:
@@ -97,13 +31,14 @@ func get_enemy_nearby(distance: float) -> Variant:
 
 func hit_enemy(body:Node2D):
 	if (body.has_method("damage")):
-		var new_attack: Attack = Attack.new()
-		new_attack.damage = stats[damage]
-		new_attack.knockback = stats[knockback]
-		new_attack.stun_time = stats[stun]
-		new_attack.position = player.global_position #TODO: decide vs using weapon's position or player's
-		new_attack.damage_effect = stats[effect]
-		body.damage(new_attack)
+		#var new_attack: Attack = Attack.new()
+		#new_attack.damage = stats[damage]
+		#new_attack.knockback = stats[knockback]
+		#new_attack.stun_time = stats[stun]
+		#new_attack.position = player.global_position #TODO: decide vs using weapon's position or player's
+		#new_attack.damage_effect = stats[effect]
+		#body.damage(new_attack)
+		pass
 
 func change_slot(slot: int, max) -> void:#Called when Weapon is created #TODO: does the weapon only need slot number to start?
 	weapon_slot = slot
@@ -161,8 +96,11 @@ func set_variables():
 
 func set_stats() -> bool: #sets the stats dictionary to the sum of components
 	if handle != null && attachment != null:
-		for key in stats.keys():
-			stats[key] = defaults[key] + handle.stats[key] + attachment.stats[key]
-		scale = Vector2(stats[size], stats[size]) #utilize size
+		stats.add_stats(handle.stats)
+		stats.add_stats(attachment.stats)
+		scale = Vector2(1 + get_stat(stats.SIZE), 1 + get_stat(stats.SIZE)) #utilize size
 		return true
 	return false
+
+func get_stat(string: String) -> float:
+	return stats.get_stat(string)
