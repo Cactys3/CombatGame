@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 @onready var player: Player_Script = get_tree().get_first_node_in_group("player")
 @onready var enemy = preload("res://Scenes/first_enemy.tscn")
@@ -15,6 +15,8 @@ var sword_cost = 2
 var gun_cost = 4
 var size_cost = 10
 var can_access_menus:bool = false
+
+var list: Array[Weapon_Frame]
 
 var current_difficulty:float = 1
 
@@ -46,16 +48,35 @@ func _process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("test_4"):
 		var new_frame = weapon_frame.instantiate()
+		var new_attachment = PISTOL_ATTACHMENT.instantiate()
+		var new_handle = PISTOL_HANDLE.instantiate()
+		new_handle.position = Vector2.ZERO
+		new_attachment.position = Vector2.ZERO
 		new_frame.position = Vector2.ZERO
-		new_frame.set_attachment(PISTOL_ATTACHMENT)
-		new_frame.set_handle(PISTOL_HANDLE)
+		new_frame.add_attachment(new_attachment)
+		new_frame.add_handle(new_handle)
 		new_frame.set_projectile(LUGER_BULLET)
-		print(LUGER_BULLET.resource_name)
-		print(str(LUGER_BULLET == null) + " first test?")
 		player.add_frame(new_frame)
-		pass#weapon_size += 0.5
-	
+		list.append(new_frame)
+		
+		new_attachment.get_child(0).self_modulate = Color(randf_range(0, 1), randf_range(0, 1), randf_range(0, 1), randf_range(0.2, 1))
+		new_handle.get_child(0).self_modulate = Color(randf_range(0, 1), randf_range(0, 1), randf_range(0, 1), randf_range(0.2, 1))
+
 	if Input.is_action_just_pressed("test_5"):
+		if list.size() >= 2:
+			var one = randi_range(0, list.size() - 1)
+			var two = randi_range(0, list.size() - 1)
+			while (one == two):
+				two = randi_range(0, list.size() - 1)
+			var a0 = list[one].remove_attachment()
+			var a1 = list[two].remove_attachment()
+			list[one].add_attachment(a1)
+			list[two].add_attachment(a0)
+			var a2 = list[one].remove_handle()
+			var a3 = list[two].remove_handle()
+			list[one].add_handle(a3)
+			list[two].add_handle(a2)
+		pass
 		pass#weapon_projectile_count += 1
 	if Input.is_action_just_pressed("test_7"):
 		var random_position = Vector2(randf_range(-5, 5), randf_range(-5, 5))

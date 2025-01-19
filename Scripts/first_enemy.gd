@@ -25,6 +25,7 @@ var stunned: bool = false
 func damage(attack: Attack):
 	if (health_component):
 		health_component.damage(attack)
+		print("enemy damaged: " + str(attack.damage))
 
 func _ready() -> void:
 	cooldown_timer = cooldown_default + 1
@@ -47,7 +48,7 @@ func movement_process(_delta: float) ->void:
 	move_towards(player.position, _delta)
 
 func move_towards(new_position: Vector2, delta:float):
-	var direction: Vector2 = (new_position - position).normalized()
+	var direction: Vector2 = (new_position - global_position).normalized()
 	#velocity.x = direction.x * MOVESPEED
 	#velocity.y = direction.y * MOVESPEED
 	velocity = velocity.move_toward(Vector2(direction.x * MOVESPEED, direction.y * MOVESPEED), 9)

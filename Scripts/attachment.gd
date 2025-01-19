@@ -24,13 +24,14 @@ func _process(_delta: float) -> void:
 		pass
 	elif cooldown_timer <= frame.get_stat(stats.COOLDOWN):
 		cooldown_timer += _delta
+		print(cooldown_timer)
 	elif handle.ready_to_fire:
 		attacking = true
 		attack()
 
 func attack(): #this is meant to be overridden by classes that inherit it
-	projectile = preload("res://Scenes/luger_bullet.tscn")
-	print(projectile.resource_name)
+	#projectile = preload("res://Scenes/luger_bullet.tscn")
+	#print(projectile.resource_name)
 	var new_bullet:Projectile = projectile.instantiate()
 	new_bullet.global_position = global_position
 	new_bullet.scale = frame.scale

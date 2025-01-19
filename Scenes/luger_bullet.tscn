@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://pg6tqlcb8dtb"]
+[gd_scene load_steps=6 format=3 uid="uid://pg6tqlcb8dtb"]
 
 [ext_resource type="Script" path="res://Scripts/projectile.gd" id="1_jemkq"]
 [ext_resource type="Texture2D" uid="uid://dnueduipb01yj" path="res://Art/New_Weapons/Pistol/Bulletaseprite.png" id="1_kxke1"]
@@ -45,9 +45,20 @@ statsfactor = {
 "xp": 0
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_78p6o"]
+size = Vector2(5, 3)
+
 [node name="Luger_Bullet" type="Area2D"]
+collision_layer = 4
+collision_mask = 8
 script = ExtResource("1_jemkq")
 stats = SubResource("Resource_5adoc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_kxke1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_78p6o")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

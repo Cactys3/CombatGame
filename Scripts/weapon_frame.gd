@@ -9,8 +9,8 @@ class_name Weapon_Frame
 @export var handle: Handle
 @export var attachment: Attachment
 @export var projectile: PackedScene
-@export var handle_scn: PackedScene
-@export var attachment_scn: PackedScene
+
+@onready var manager = get_tree().get_first_node_in_group("weapon_manager")
 
 @export var stats: StatsResource = StatsResource.new()
 
@@ -26,18 +26,18 @@ func _process(_delta: float) -> void:
 func get_enemy_nearby(distance: float) -> Variant:
 	for enemy in get_tree().get_nodes_in_group("enemy"):
 		if global_position.distance_to(enemy.global_position) <= (distance * scale.length()):
-			return enemy.position
+			return enemy.global_position
 	return null
 
 func hit_enemy(body:Node2D):
 	if (body.has_method("damage")):
-		#var new_attack: Attack = Attack.new()
-		#new_attack.damage = stats[damage]
-		#new_attack.knockback = stats[knockback]
-		#new_attack.stun_time = stats[stun]
-		#new_attack.position = player.global_position #TODO: decide vs using weapon's position or player's
-		#new_attack.damage_effect = stats[effect]
-		#body.damage(new_attack)
+		var new_attack: Attack = Attack.new()
+		new_attack.damage = get_stat(stats.DAMAGE)
+		new_attack.knockback = get_stat(stats.KNOCKBACK)
+		new_attack.stun_time = get_stat(stats.STUN)
+		new_attack.position = player.global_position #TODO: decide vs using weapon's position or player's
+		new_attack.damage_effect = Attack.damage_effects.none
+		body.damage(new_attack)
 		pass
 
 func change_slot(slot: int, max) -> void:#Called when Weapon is created #TODO: does the weapon only need slot number to start?
@@ -45,66 +45,104 @@ func change_slot(slot: int, max) -> void:#Called when Weapon is created #TODO: d
 	weapon_count = max
 
 #new methods
-func set_handle(handy: PackedScene) -> void:
+func add_handle(handy: Handle) -> bool:
 	if (handle != null):
-		handle.queue_free()
-		handle = null
-	var instance = handy.instantiate()
-	instance.position = Vector2.ZERO
-	add_child(instance)
-	handle = instance
-	handle.frame = self
-	handle_scn = handy
-	set_stats()
-	set_offset()
-	set_variables()
+		push_error("Handle was not null when trying to add_handle")
+		return false
+	else:
+		handle = handy
+		if (handle.get_parent() != null):
+			handle.reparent(self)
+		else:
+			add_child(handle)
+		handle.position = Vector2.ZERO
+		handle.rotation = 0
+		handle.frame = self
+		stats.add_stats(handle.stats)
+		handle_stats()
+		set_offset()
+		set_variables()
+		return true
 
-func set_attachment(attachy: PackedScene) -> void:
+func add_attachment(attachy: Attachment) -> bool:
 	if (attachment != null):
-		attachment.queue_free()
-		attachment = null
-	var instance = attachy.instantiate()
-	instance.position = Vector2.ZERO
-	add_child(instance)
-	attachment = instance
-	attachment.frame = self
-	attachment_scn = attachy
-	set_stats()
-	set_offset()
-	set_variables()
+		push_error("Handle was not null when trying to add_handle")
+		return false
+	else:
+		attachment = attachy
+		if (attachment.get_parent() != null):
+			attachment.reparent(self)
+		else:
+			add_child(attachment)
+		attachment.position = Vector2.ZERO
+		attachment.rotation = 0
+		attachment.frame = self
+		stats.add_stats(attachment.stats)
+		handle_stats()
+		set_offset()
+		set_variables()
+		return true
 
 func set_projectile(projecty: PackedScene) -> void:
 	projectile = projecty
-	print(projectile.resource_name)
-	set_stats()
-	set_offset()
+	#handle_stats()
+	#set_offset()
 	set_variables()
 
-func set_offset():
+func remove_attachment() -> Attachment:
+	if (attachment == null):
+		print("Handle was null when trying to remove_handle")
+		return null
+	else:
+		remove_child(attachment)
+		manager.add_child(attachment)
+		attachment.position = Vector2.ZERO
+		#attachment.visible = false
+		attachment.frame = null
+		attachment.handle = null
+		attachment.projectile = null
+		stats.remove_stats(attachment.stats)
+		handle_stats()
+		var temp:Attachment = attachment
+		attachment = null
+		return temp
+
+func remove_handle() -> Handle:
+	if (handle == null):
+		print("Handle was null when trying to remove_handle")
+		return null
+	else:
+		remove_child(handle)
+		manager.add_child(handle)
+		handle.position = Vector2.ZERO
+		#handle.visible = false
+		handle.frame = null
+		handle.attachment = null
+		stats.remove_stats(handle.stats)
+		handle_stats()
+		var temp:Handle = handle
+		handle = null
+		return temp
+
+func set_offset():#Set Position of components according to their size
 	if handle != null && attachment != null:
 		#handle.position += handle.offset
 		#attachment.position += attachment.offset + handle.offset
 		pass
 	pass
 
-func set_variables():
+func set_variables():#Give components references to each other
 	if handle != null && attachment != null && projectile != null:
 		handle.attachment = attachment
 		attachment.handle = handle
 		attachment.projectile = projectile
-		print(projectile == null)
 		#handle.player = player
 		attachment.frame = self
 		handle.frame = self
 	pass
 
-func set_stats() -> bool: #sets the stats dictionary to the sum of components
-	if handle != null && attachment != null:
-		stats.add_stats(handle.stats)
-		stats.add_stats(attachment.stats)
-		scale = Vector2(1 + get_stat(stats.SIZE), 1 + get_stat(stats.SIZE)) #utilize size
-		return true
-	return false
+func handle_stats() -> void: #Do anything that needs to be done to utilize a stat change
+	scale = Vector2(1 + get_stat(stats.SIZE), 1 + get_stat(stats.SIZE))
 
-func get_stat(string: String) -> float:
+func get_stat(string: String) -> float:#Return stat value given stat const name
 	return stats.get_stat(string)

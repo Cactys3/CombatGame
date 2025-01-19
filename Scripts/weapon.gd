@@ -56,7 +56,7 @@ func RotateTowardsPosition(new_position: Vector2, _delta: float) -> void:
 func get_enemy_nearby(distance: float) -> Variant:
 	for enemy in get_tree().get_nodes_in_group("enemy"):
 		if global_position.distance_to(enemy.global_position) <= (distance * scale.length()):
-			return enemy.position
+			return enemy.global_position
 	return null
 
 

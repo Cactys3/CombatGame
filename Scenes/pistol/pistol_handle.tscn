@@ -64,12 +64,9 @@ animations = [{
 script = ExtResource("1_wgmkf")
 stats = SubResource("Resource_xv0og")
 visual = NodePath("animation")
-AimType = 1
+AimType = 2
 
 [node name="animation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0y1w6")
 autoplay = "default"
 frame_progress = 0.852982
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_dcpa0")

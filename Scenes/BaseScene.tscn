@@ -341,14 +341,10 @@ Spawn gun - press 3
 5 = more projectiles"
 label_settings = SubResource("LabelSettings_7v07i")
 
-[node name="Demo Manager" type="Node" parent="."]
-script = ExtResource("10_cwiy3")
-
 [node name="Node" type="Node" parent="."]
 
 [node name="xp_parent" type="Node2D" parent="." groups=["xp_parent"]]
 
-[connection signal="pressed" from="Camera/Store/sword/Button" to="Demo Manager" method="Sword_Button"]
-[connection signal="pressed" from="Camera/Store/gun/Button" to="Demo Manager" method="Gun_Button"]
-[connection signal="pressed" from="Camera/Store/size/Button" to="Demo Manager" method="Size_Button"]
-[connection signal="pressed" from="Camera/Store/projectiles/Button" to="Demo Manager" method="Projectile_Buttton"]
+[node name="Demo Manager" type="Node2D" parent="." groups=["weapon_manager"]]
+position = Vector2(-273, 93)
+script = ExtResource("10_cwiy3")

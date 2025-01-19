@@ -10,8 +10,6 @@ script = ExtResource("1_ha6py")
 handle = NodePath("pistol_handle")
 attachment = NodePath("pistol_attachment")
 projectile = ExtResource("2_ay5ln")
-handle_scn = ExtResource("3_3tvti")
-attachment_scn = ExtResource("4_brugm")
 
 [node name="pistol_attachment" parent="." node_paths=PackedStringArray("frame", "handle") instance=ExtResource("4_brugm")]
 frame = NodePath("..")
