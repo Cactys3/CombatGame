@@ -29,6 +29,8 @@ func _process(_delta: float) -> void:
 		attacking = true
 		attack()
 
+
+
 func attack(): #this is meant to be overridden by classes that inherit it
 	#projectile = preload("res://Scenes/luger_bullet.tscn")
 	#print(projectile.resource_name)

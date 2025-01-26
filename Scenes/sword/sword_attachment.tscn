@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1adyx7c46ut8"]
+
+[ext_resource type="Script" path="res://Scripts/sword_scripts/sword_attachment.gd" id="1_jjysa"]
+[ext_resource type="Texture2D" uid="uid://bt3ow0fhp6e68" path="res://Art/New_Weapons/Sword/Attachment_Sword.png" id="2_kxonl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxxfy"]
+atlas = ExtResource("2_kxonl")
+region = Rect2(0, 0, 64, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cglwt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxxfy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="sword_attachment" type="Area2D"]
+script = ExtResource("1_jjysa")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_cglwt")
+autoplay = "default"
