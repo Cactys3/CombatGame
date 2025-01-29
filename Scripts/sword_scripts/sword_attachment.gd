@@ -1,7 +1,14 @@
 extends Attachment
 
 @export var continous_hitbox: CollisionShape2D
+@onready var anim: AnimationPlayer = $AnimationPlayer
+@export var anim_pos: float :
+	set(value):
+		anim_pos = value
+		position.x = value * range_offset
+		handle.position.x = value * range_offset
 
+var range_offset = 1.2
 
 func _ready() -> void:
 	pass
@@ -21,6 +28,9 @@ func process_cooldown(delta: float) -> void:
 		attack()
 
 func attack() -> void:
+	#anim.get_animation(ANIMATION_NAME).track_set_key_value(0, 1, Vector2(0, -stab_reach)) #sets a keyframe on track 1 at the time with a y value of -stab_reach
+	#anim.get_animation(ANIMATION_NAME).track_set_key_value(1, 1, Vector2(0, -stab_reach)) #same for track 2, effectively sets the range that the sword will stab to -stab_reach
+	
 	var new_projectile: Projectile = init_projectile(global_position, frame.scale, Vector2(cos(frame.rotation), sin(frame.rotation)))
 	#play animation
 	cooldown_timer = 0
