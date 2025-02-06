@@ -1,7 +1,49 @@
-[gd_scene load_steps=8 format=3 uid="uid://d1adyx7c46ut8"]
+[gd_scene load_steps=11 format=3 uid="uid://d1adyx7c46ut8"]
 
 [ext_resource type="Script" path="res://Scripts/sword_scripts/sword_attachment.gd" id="1_jjysa"]
+[ext_resource type="Script" path="res://Scripts/stats.gd" id="2_dwflh"]
 [ext_resource type="Texture2D" uid="uid://bt3ow0fhp6e68" path="res://Art/New_Weapons/Sword/Attachment_Sword.png" id="2_kxonl"]
+
+[sub_resource type="Resource" id="Resource_opoqb"]
+script = ExtResource("2_dwflh")
+statsbase = {
+"area": 0,
+"cooldown": 2,
+"count": 0,
+"damage": 0,
+"duration": 0,
+"handling": 0,
+"hp": 0,
+"knockback": 0,
+"lifesteal": 0,
+"mogul": 0,
+"movespeed": 0,
+"piercing": 0,
+"range": 60,
+"size": 0,
+"speed": 0,
+"stun": 0,
+"xp": 0
+}
+statsfactor = {
+"area": 0,
+"cooldown": 0,
+"count": 0,
+"damage": 0,
+"duration": 0,
+"handling": 0,
+"hp": 0,
+"knockback": 0,
+"lifesteal": 0,
+"mogul": 0,
+"movespeed": 0,
+"piercing": 0,
+"range": 0,
+"size": 0,
+"speed": 0,
+"stun": 0,
+"xp": 0
+}
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gxxfy"]
 atlas = ExtResource("2_kxonl")
@@ -18,6 +60,21 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_o35nv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:anim_pos")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.35, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 20.0, 0.0]
+}
+
 [sub_resource type="Animation" id="Animation_yaacc"]
 resource_name = "attack"
 tracks/0/type = "value"
@@ -33,29 +90,20 @@ tracks/0/keys = {
 "values": [0.0, 11.0, 0.0]
 }
 
-[sub_resource type="Animation" id="Animation_o35nv"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:anim_pos")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kaunx"]
 _data = {
 "RESET": SubResource("Animation_o35nv"),
 "attack": SubResource("Animation_yaacc")
 }
 
-[node name="sword_attachment" type="Area2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fvdxt"]
+size = Vector2(30, 4)
+
+[node name="sword_attachment" type="Area2D" node_paths=PackedStringArray("continous_hitbox", "visual")]
 script = ExtResource("1_jjysa")
+continous_hitbox = NodePath("CollisionShape2D")
+stats = SubResource("Resource_opoqb")
+visual = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_cglwt")
@@ -65,3 +113,7 @@ autoplay = "default"
 libraries = {
 "": SubResource("AnimationLibrary_kaunx")
 }
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(15, 0)
+shape = SubResource("RectangleShape2D_fvdxt")

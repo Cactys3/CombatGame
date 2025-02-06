@@ -28,14 +28,13 @@ func _process(_delta: float) -> void:
 
 func ProcessAtMouse(delta: float) -> void:
 	#Orbit Player Towards Mouse
-	var target_angle = (get_global_mouse_position() - player.global_position).normalized().angle() + (TAU * (frame.weapon_slot/frame.weapon_count))
-	var new_position = player.global_position + Vector2(cos(target_angle), sin(target_angle)) * ORBIT_DISTANCE
-	frame.global_position = new_position
+	frame.global_position = GetOrbitPosition((get_global_mouse_position() - player.global_position).normalized().angle() + (TAU * (frame.weapon_slot/frame.weapon_count)))
 	#Rotate Towards Object
-	var nearest_enemy = frame.get_enemy_nearby(frame.get_stat(stats.RANGE))
+	var nearest_enemy: Node2D = frame.get_enemy_nearby(frame.get_stat(stats.RANGE))
 	if nearest_enemy != null:
-		RotateTowardsPosition(nearest_enemy, delta)
-		ready_to_fire = true
+		RotateTowardsPosition(nearest_enemy.global_position, delta)
+		if !ready_to_fire && IsAimingAtEnemy(nearest_enemy):
+			ready_to_fire = true
 		#TODO: later make sure its aiming close to the enemy
 	else:
 		RotateTowardsPosition(get_global_mouse_position(), delta)
@@ -43,17 +42,31 @@ func ProcessAtMouse(delta: float) -> void:
 
 func ProcessStaticSlot(delta: float) -> void:
 	#Orbit Player In Assigned Slot
-	var target_angle = (TAU * (frame.weapon_slot/frame.weapon_count))
-	var new_position = player.global_position + Vector2(cos(target_angle), sin(target_angle)) * ORBIT_DISTANCE
-	frame.global_position = new_position
+	frame.global_position = GetOrbitPosition((TAU * (frame.weapon_slot/frame.weapon_count)))
 	#Rotate Towards Object
 	var nearest_enemy = frame.get_enemy_nearby(frame.get_stat(stats.RANGE))
 	if nearest_enemy != null:
-		RotateTowardsPosition(nearest_enemy, delta)
-		ready_to_fire = true
+		RotateTowardsPosition(nearest_enemy.global_position, delta)
+		if !ready_to_fire && (IsAimingAtEnemy(nearest_enemy)):
+			ready_to_fire = true
 	else:
 		ready_to_fire = false
 
 func RotateTowardsPosition(new_position: Vector2, _delta: float) -> void:
 	frame.rotation = lerp_angle(frame.rotation, (new_position - frame.global_position).normalized().angle() , ROTATION_SPEED * _delta)
  #TODO: try global_position instead of player.global_position for how weapon aiming looks
+
+func GetOrbitPosition(target_angle: float) -> Vector2:
+	return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * ORBIT_DISTANCE
+
+## Is this rotated within the given percent (from 0 to 1) to the given area2d
+func IsAimingAtEnemy(enemy: Node2D) -> bool:
+	if enemy != null && 0.997 <= global_transform.x.normalized().dot(enemy.global_position.normalized()):
+		return true
+	return false
+
+## Setup this with raycasts or smth to tell if there's any enemy, maybe replace IsAimingAtEnemy
+func IsAimingAtAnyEnemy() -> bool:
+	if false:
+		return true
+	return false

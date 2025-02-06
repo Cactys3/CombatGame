@@ -20,6 +20,7 @@ animations = [{
 
 [node name="sword_handle" type="Area2D"]
 script = ExtResource("1_3kipa")
+AimType = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_gam10")

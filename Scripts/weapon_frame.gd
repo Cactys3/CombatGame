@@ -26,7 +26,7 @@ func _process(_delta: float) -> void:
 func get_enemy_nearby(distance: float) -> Variant:
 	for enemy in get_tree().get_nodes_in_group("enemy"):
 		if global_position.distance_to(enemy.global_position) <= (distance * scale.length()):
-			return enemy.global_position
+			return enemy
 	return null
 
 func hit_enemy(body:Node2D):

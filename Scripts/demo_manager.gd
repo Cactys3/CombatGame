@@ -10,6 +10,8 @@ extends Node2D
 var LUGER_BULLET:PackedScene = preload("res://Scenes/luger_bullet.tscn")
 var PISTOL_ATTACHMENT = preload("res://Scenes/pistol/pistol_attachment.tscn")
 var PISTOL_HANDLE = preload("res://Scenes/pistol/pistol_handle.tscn")
+var SWORD_ATTACHMENT = preload("res://Scenes/sword/sword_attachment.tscn")
+var SWORD_HANDLE = preload("res://Scenes/sword/sword_handle.tscn")
 var projectile_cost = 10
 var sword_cost = 2
 var gun_cost = 4
@@ -62,22 +64,40 @@ func _process(delta: float) -> void:
 		new_attachment.get_child(0).self_modulate = Color(randf_range(0, 1), randf_range(0, 1), randf_range(0, 1), randf_range(0.2, 1))
 		new_handle.get_child(0).self_modulate = Color(randf_range(0, 1), randf_range(0, 1), randf_range(0, 1), randf_range(0.2, 1))
 
+	if Input.is_action_just_pressed("test_6"):
+		var new_frame = weapon_frame.instantiate()
+		var new_attachment = SWORD_ATTACHMENT.instantiate()
+		var new_handle = SWORD_HANDLE.instantiate()
+		new_handle.position = Vector2.ZERO
+		new_attachment.position = Vector2.ZERO
+		new_frame.position = Vector2.ZERO
+		new_frame.add_attachment(new_attachment)
+		new_frame.add_handle(new_handle)
+		new_frame.set_projectile(LUGER_BULLET)
+		player.add_frame(new_frame)
+		list.append(new_frame)
+		
+		new_attachment.get_child(0).self_modulate = Color(randf_range(0, 1), randf_range(0, 1), randf_range(0, 1), randf_range(0.2, 1))
+		new_handle.get_child(0).self_modulate = Color(randf_range(0, 1), randf_range(0, 1), randf_range(0, 1), randf_range(0.2, 1))
+
 	if Input.is_action_just_pressed("test_5"):
 		if list.size() >= 2:
 			var one = randi_range(0, list.size() - 1)
 			var two = randi_range(0, list.size() - 1)
 			while (one == two):
 				two = randi_range(0, list.size() - 1)
-			var a0 = list[one].remove_attachment()
-			var a1 = list[two].remove_attachment()
-			list[one].add_attachment(a1)
-			list[two].add_attachment(a0)
-			var a2 = list[one].remove_handle()
-			var a3 = list[two].remove_handle()
-			list[one].add_handle(a3)
-			list[two].add_handle(a2)
-		pass
+			if (randi_range(0, 1) == 0):
+				var a0 = list[one].remove_attachment()
+				var a1 = list[two].remove_attachment()
+				list[one].add_attachment(a1)
+				list[two].add_attachment(a0)
+			else:
+				var a2 = list[one].remove_handle()
+				var a3 = list[two].remove_handle()
+				list[one].add_handle(a3)
+				list[two].add_handle(a2)
 		pass#weapon_projectile_count += 1
+
 	if Input.is_action_just_pressed("test_7"):
 		var random_position = Vector2(randf_range(-5, 5), randf_range(-5, 5))
 		var new_xp = xp.instantiate()
@@ -85,6 +105,7 @@ func _process(delta: float) -> void:
 		add_child(new_xp)
 		#zach put this mowow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow mow
 		pass#weapon_projectile_count += 1
+
 func change_state(state: scene_states) -> void:
 	match state:
 		scene_states.shop:
