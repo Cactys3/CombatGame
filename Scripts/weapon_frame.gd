@@ -123,15 +123,6 @@ func remove_handle() -> Handle:
 		handle = null
 		return temp
 
-func handle_setup():
-	#set offset:
-	if handle != null && attachment != null:
-		#handle.position += handle.offset
-		#attachment.position += attachment.offset + handle.offset
-		pass
-	
-	
-
 func set_offset():#Set Position of components according to their size
 	if handle != null && attachment != null:
 		#handle.position += handle.offset

@@ -43,3 +43,6 @@ func _entered_body(body: Node2D) -> void:
 		player.current_xp += xp_value
 		queue_free()
 	pass # Replace with function body.
+
+func set_xp(value: float):
+	xp_value = value

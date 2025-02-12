@@ -21,11 +21,7 @@ func _ready() -> void:
 	cooldown_timer = 0
 
 func _process(delta: float) -> void:
-	if (frame.stats.listofaffection.size() + stats.listofaffection.size() +  handle.stats.listofaffection.size() > 0):
-		print(str(frame.stats.get_list_of_affection()) + str(stats.get_list_of_affection()) + str(handle.stats.get_list_of_affection()))
-		print(str(frame.stats.listofaffection) + str(stats.listofaffection) + str(handle.stats.listofaffection))
 	process_cooldown(delta)
-	#print(handle.ready_to_fire)
 
 ## Should handle cooldown and calling attack()
 ## this is meant to be overridden by classes that inherit it
@@ -34,10 +30,7 @@ func process_cooldown(delta: float) -> void:
 		pass
 	elif cooldown_timer <= frame.get_stat(stats.COOLDOWN):
 		cooldown_timer += delta
-		#print(str(snappedf(cooldown_timer, 0.01)) + " / " + str(frame.get_stat(stats.COOLDOWN)))
-		#print(str(frame.get_stat(stats.COOLDOWN)) + " " + str(frame.stats.get_stat(stats.COOLDOWN)))
 	elif handle.ready_to_fire:
-		#print("FIRE")
 		attacking = true
 		attack() 
 

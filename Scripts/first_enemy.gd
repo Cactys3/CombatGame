@@ -66,7 +66,7 @@ func _on_damage_hitbox_body_entered(body: Node2D) -> void:
 		attack.damage = weapon_damage
 		attack.knockback = weapon_knockback
 		attack.stun_time = weapon_stun
-		attack.position = position
+		attack.position = global_position
 		attack.damage_effect = weapon_effect
 		body.damage(attack)
 		damage_hitbox.set_deferred("monitoring", false)
@@ -78,6 +78,6 @@ func die():
 	player.current_money += money_on_death
 	var new_xp = xp.instantiate()
 	new_xp.global_position = global_position
-	xp_parent.add_child(new_xp)
-	
+	xp_parent.call_deferred("add_child", new_xp)
+	new_xp.set_xp(xp_on_death)
 	queue_free()

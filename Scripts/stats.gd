@@ -70,7 +70,7 @@ func add_stats(other: StatsResource) -> void: #adds the other stats to this stat
 	if other == null || other == self || other.listofaffection.has(self):
 		print("\nERROR when trying to add_stats\n")
 		return
-	#print("ADD STATS FROM: " + other.parent_object_name + " TO: " + parent_object_name)
+	print("ADD STATS FROM: " + other.parent_object_name + " TO: " + parent_object_name)
 	for key in statsfactor:#if they have no changes in either dictionary, it's just adding the default 0 so no change!
 		statsfactor[key] = statsfactor[key] + other.statsfactor[key] 
 	for key in statsbase:

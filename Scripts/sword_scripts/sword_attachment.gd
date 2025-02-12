@@ -1,14 +1,19 @@
 extends Attachment
 
-@export var continous_hitbox: CollisionShape2D
-@onready var anim: AnimationPlayer = $AnimationPlayer
+@export var melee_hitbox: CollisionShape2D
+@onready var anim: AnimationPlayer = $"Sword Animations"
+
 @export var anim_pos: float :
 	set(value):
 		anim_pos = value
-		position.x = value * range_offset
-		handle.position.x = value * range_offset
+		position.x = value# * range_offset - Could do this instead of setting animation values
+		handle.position.x = value# * range_offset
 
-var range_offset = 1.2
+const ANIMATION_NAME = "attack"
+var range_offset = 10
+var base_range = 55
+var speed: float = 1
+var attacked_objects: Array[Node2D]
 
 func _ready() -> void:
 	super()
@@ -17,12 +22,19 @@ func _process(delta: float) -> void:
 	process_cooldown(delta)
 
 func attack() -> void:
-	#anim.get_animation(ANIMATION_NAME).track_set_key_value(0, 1, Vector2(0, -stab_reach)) #sets a keyframe on track 1 at the time with a y value of -stab_reach
-	#anim.get_animation(ANIMATION_NAME).track_set_key_value(1, 1, Vector2(0, -stab_reach)) #same for track 2, effectively sets the range that the sword will stab to -stab_reach
-	#print(cooldown_timer)
-	#print(frame.get_stat(stats.COOLDOWN))
+	attacked_objects = [] #empty attacked_objects list
+	melee_hitbox.disabled = true #hit things again without having to leave their hitbox
+	melee_hitbox.disabled = false
+	
+	anim.play(ANIMATION_NAME, -1, speed) #TODO: change the second value (speed of animation) based on stats (speed, cooldown, time animation takes normally)
+	anim.get_animation(ANIMATION_NAME).track_set_key_value(0, 1, base_range + range_offset)
+	
+	var animation_duration = anim.get_animation(ANIMATION_NAME).length / speed #TODO: not used
+	var max_range_timeIndex = anim.get_animation(ANIMATION_NAME).track_get_key_time(0, 1)
+	
+	await get_tree().create_timer(max_range_timeIndex).timeout #wait until at max reach to fire projectile
 	var new_projectile: Projectile = init_projectile(global_position, frame.scale, Vector2(cos(frame.rotation), sin(frame.rotation)))
-	#play animation
+	
 	cooldown_timer = 0
 	attacking = false
 
@@ -33,3 +45,9 @@ func attack() -> void:
 #extenders should always (with exceptions) call super on read and process 
 #extenders have their own hitbox references and do all that themselves
 #extenders have their own animations but have to include handle in these animations? or animations work to change position of weapon_frame?
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if (attacking && !attacked_objects.has(body)): #Hit each enemy only once per melee attack
+		frame.hit_enemy(body) #TODO: melee vs ranged dmg modifiers? this is melee
+		attacked_objects.append(body)
