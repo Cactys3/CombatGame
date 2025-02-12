@@ -10,15 +10,12 @@ var collision_counter = 0
 var stopwatch = 0.0
 var lifetime = 10
 
-@export var stats: StatsResource = StatsResource.new()
-
 func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
-	stats.add_stats(base_gun.stats)
+	frame = base_gun
 	direction = enemy_direction.normalized()
 	rotation = direction.angle() 
 	
-	speed = (1 + stats.get_stat(stats.SPEED)) * 300
-	frame = base_gun
+	speed = (1 + frame.get_stat(StatsResource.SPEED)) * 300
 
 func _process(delta: float) -> void:
 	global_position += direction * speed * delta
@@ -34,5 +31,4 @@ func _on_body_entered(body: Node2D) -> void:
 		die()
 
 func die():
-	stats.remove_stats(frame.stats)
 	queue_free()

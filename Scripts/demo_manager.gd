@@ -68,6 +68,12 @@ func _process(delta: float) -> void:
 		var new_frame = weapon_frame.instantiate()
 		var new_attachment = SWORD_ATTACHMENT.instantiate()
 		var new_handle = SWORD_HANDLE.instantiate()
+		new_frame.stats = new_frame.stats.duplicate() #this is important, needs to be done whenever instantiating
+		new_attachment.stats = new_attachment.stats.duplicate()
+		new_handle.stats = new_handle.stats.duplicate()
+		new_frame.name = "Weapon_Frame_" + str(list.size())
+		new_attachment.name = "Weapon_Attachment_" + str(list.size())
+		new_handle.name = "Weapon_Handle_" + str(list.size())
 		new_handle.position = Vector2.ZERO
 		new_attachment.position = Vector2.ZERO
 		new_frame.position = Vector2.ZERO
@@ -76,9 +82,16 @@ func _process(delta: float) -> void:
 		new_frame.set_projectile(LUGER_BULLET)
 		player.add_frame(new_frame)
 		list.append(new_frame)
+		#print(new_frame.stats.get_instance_id())
 		
 		new_attachment.get_child(0).self_modulate = Color(randf_range(0, 1), randf_range(0, 1), randf_range(0, 1), randf_range(0.2, 1))
 		new_handle.get_child(0).self_modulate = Color(randf_range(0, 1), randf_range(0, 1), randf_range(0, 1), randf_range(0.2, 1))
+		
+		for i in list:
+			print(i.name)
+			print(i.handle.stats.get_list_of_affection())
+			print(i.attachment.stats.get_list_of_affection())
+			print(" ")
 
 	if Input.is_action_just_pressed("test_5"):
 		if list.size() >= 2:

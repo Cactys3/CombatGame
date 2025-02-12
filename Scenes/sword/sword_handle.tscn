@@ -1,7 +1,50 @@
-[gd_scene load_steps=5 format=3 uid="uid://cj2edhpgvt73m"]
+[gd_scene load_steps=7 format=3 uid="uid://cj2edhpgvt73m"]
 
 [ext_resource type="Script" path="res://Scripts/handle.gd" id="1_3kipa"]
+[ext_resource type="Script" path="res://Scripts/stats.gd" id="2_6r7xp"]
 [ext_resource type="Texture2D" uid="uid://dyn358jlt11hp" path="res://Art/New_Weapons/Sword/Handle_Sword.png" id="2_afr1f"]
+
+[sub_resource type="Resource" id="Resource_vivom"]
+script = ExtResource("2_6r7xp")
+parent_object_name = "Sword Handle"
+statsbase = {
+"area": 0,
+"cooldown": 0,
+"count": 0,
+"damage": 9,
+"duration": 0,
+"handling": 0,
+"hp": 0,
+"knockback": 0,
+"lifesteal": 0,
+"mogul": 0,
+"movespeed": 0,
+"piercing": 0,
+"range": 0,
+"size": 0,
+"speed": 0,
+"stun": 0,
+"xp": 0
+}
+statsfactor = {
+"area": 0,
+"cooldown": 0,
+"count": 0,
+"damage": 0,
+"duration": 0,
+"handling": 0,
+"hp": 0,
+"knockback": 0,
+"lifesteal": 0,
+"mogul": 0,
+"movespeed": 0,
+"piercing": 0,
+"range": 0,
+"size": 0,
+"speed": 0,
+"stun": 0,
+"xp": 0
+}
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7hl6x"]
 atlas = ExtResource("2_afr1f")
@@ -20,6 +63,7 @@ animations = [{
 
 [node name="sword_handle" type="Area2D"]
 script = ExtResource("1_3kipa")
+stats = SubResource("Resource_vivom")
 AimType = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

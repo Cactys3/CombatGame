@@ -13,9 +13,9 @@ func _ready() -> void:
 	pass 
 
 
-func _process(delta: float) -> void:
+func _process(delta: float) -> void: #TODO: rework acceleration/speed to be based off player speed and be exponential acceleration curve
 	if is_collected:
-		print(speed)
+		#print(speed)
 		timer += delta
 		acceleration = 50
 		if (speed < 1000):
@@ -38,7 +38,7 @@ func _entered(area: Area2D) -> void: #area2d
 	pass # Replace with function body.
 
 func _entered_body(body: Node2D) -> void:
-	print("body")
+	#print("body")
 	if body.is_in_group("player"):
 		player.current_xp += xp_value
 		queue_free()

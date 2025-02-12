@@ -6,8 +6,8 @@ class_name Weapon_Frame
 @export var weapon_slot: float = 1
 @export var weapon_count: float = 1
 #components
-@export var handle: Handle
-@export var attachment: Attachment
+@export var handle: Handle = null
+@export var attachment: Attachment = null
 @export var projectile: PackedScene
 
 @onready var manager = get_tree().get_first_node_in_group("weapon_manager")
@@ -15,9 +15,10 @@ class_name Weapon_Frame
 @export var stats: StatsResource = StatsResource.new()
 
 func _ready() -> void:
+	stats.parent_object_name = name
+	#stats = stats.duplicate()
 	#TODO: ADD GLOBAL STATS TO THIS STATS
 	#stats.add_stats(global_stats)
-	pass
 
 func _process(_delta: float) -> void:
 	#print(str(position) + " "  + " " + str(position))
@@ -102,7 +103,6 @@ func remove_attachment() -> Attachment:
 		attachment.handle = null
 		attachment.projectile = null
 		stats.remove_stats(attachment.stats)
-		handle_stats()
 		var temp:Attachment = attachment
 		attachment = null
 		return temp
@@ -119,10 +119,18 @@ func remove_handle() -> Handle:
 		handle.frame = null
 		handle.attachment = null
 		stats.remove_stats(handle.stats)
-		handle_stats()
 		var temp:Handle = handle
 		handle = null
 		return temp
+
+func handle_setup():
+	#set offset:
+	if handle != null && attachment != null:
+		#handle.position += handle.offset
+		#attachment.position += attachment.offset + handle.offset
+		pass
+	
+	
 
 func set_offset():#Set Position of components according to their size
 	if handle != null && attachment != null:

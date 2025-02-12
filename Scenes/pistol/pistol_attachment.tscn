@@ -6,6 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_8ccdr"]
 script = ExtResource("2_tr2dk")
+parent_object_name = "Pistol Attachment"
 statsbase = {
 "area": 0,
 "cooldown": 1,

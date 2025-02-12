@@ -6,11 +6,12 @@
 
 [sub_resource type="Resource" id="Resource_opoqb"]
 script = ExtResource("2_dwflh")
+parent_object_name = "Sword Attachment"
 statsbase = {
 "area": 0,
-"cooldown": 2,
+"cooldown": 1,
 "count": 0,
-"damage": 0,
+"damage": 8,
 "duration": 0,
 "handling": 0,
 "hp": 0,

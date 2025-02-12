@@ -11,19 +11,10 @@ extends Attachment
 var range_offset = 1.2
 
 func _ready() -> void:
-	pass
+	super()
 
 func _process(delta: float) -> void:
 	process_cooldown(delta)
-
-func process_cooldown(delta: float) -> void:
-	if attacking:
-		pass
-	elif cooldown_timer <= frame.get_stat(stats.COOLDOWN):
-		cooldown_timer += delta
-	elif handle.ready_to_fire:
-		attacking = true
-		attack()
 
 func attack() -> void:
 	#anim.get_animation(ANIMATION_NAME).track_set_key_value(0, 1, Vector2(0, -stab_reach)) #sets a keyframe on track 1 at the time with a y value of -stab_reach

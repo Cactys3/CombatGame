@@ -17,6 +17,10 @@ enum AimTypes{default, AtMouse, StaticSlot}
 
 var ready_to_fire: bool = false #Tells attach if it can call Attack()
 
+func _ready() -> void:
+	stats.parent_object_name = name
+	#stats = stats.duplicate()
+
 func _process(_delta: float) -> void:
 	match AimType:
 		AimTypes.AtMouse:
@@ -35,7 +39,6 @@ func ProcessAtMouse(delta: float) -> void:
 		RotateTowardsPosition(nearest_enemy.global_position, delta)
 		if !ready_to_fire && IsAimingAtEnemy(nearest_enemy):
 			ready_to_fire = true
-		#TODO: later make sure its aiming close to the enemy
 	else:
 		RotateTowardsPosition(get_global_mouse_position(), delta)
 		ready_to_fire = false
@@ -46,8 +49,10 @@ func ProcessStaticSlot(delta: float) -> void:
 	#Rotate Towards Object
 	var nearest_enemy = frame.get_enemy_nearby(frame.get_stat(stats.RANGE))
 	if nearest_enemy != null:
+		#Rotate towards Enemy if exists
 		RotateTowardsPosition(nearest_enemy.global_position, delta)
 		if !ready_to_fire && (IsAimingAtEnemy(nearest_enemy)):
+			#Ready To Fire if aiming close enough to enemy, stays ready to fire until we attack or enemy out of range
 			ready_to_fire = true
 	else:
 		ready_to_fire = false
@@ -59,14 +64,20 @@ func RotateTowardsPosition(new_position: Vector2, _delta: float) -> void:
 func GetOrbitPosition(target_angle: float) -> Vector2:
 	return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * ORBIT_DISTANCE
 
-## Is this rotated within the given percent (from 0 to 1) to the given area2d
 func IsAimingAtEnemy(enemy: Node2D) -> bool:
-	if enemy != null && 0.997 <= global_transform.x.normalized().dot(enemy.global_position.normalized()):
-		return true
+	if enemy != null:
+		var angle = rad_to_deg(acos(global_transform.x.normalized().dot((enemy.global_position - global_position).normalized())))
+		return angle <= 8
+	return false
+
+func IsAimingAtEnemyWithinDegree(enemy: Node2D, degree: float) -> bool:
+	if enemy != null:
+		var angle = rad_to_deg(acos(global_transform.x.normalized().dot((enemy.global_position - global_position).normalized())))
+		return angle <= degree
 	return false
 
 ## Setup this with raycasts or smth to tell if there's any enemy, maybe replace IsAimingAtEnemy
 func IsAimingAtAnyEnemy() -> bool:
-	if false:
+	if false: #TODO: setup with raycasts
 		return true
 	return false

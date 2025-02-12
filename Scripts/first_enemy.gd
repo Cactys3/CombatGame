@@ -75,7 +75,6 @@ func stun(value:bool):
 	stunned = value
 
 func die():
-	print("i tried")
 	player.current_money += money_on_death
 	var new_xp = xp.instantiate()
 	new_xp.global_position = global_position
