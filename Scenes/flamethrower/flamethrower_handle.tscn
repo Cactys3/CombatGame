@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://2abx260rgyvs"]
+
+[ext_resource type="Script" path="res://Scripts/flamethrower_scripts/flamethrower_handle.gd" id="1_40hlj"]
+
+[node name="flamethrower_handle" type="Area2D"]
+script = ExtResource("1_40hlj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

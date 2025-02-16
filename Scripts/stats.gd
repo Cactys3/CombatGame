@@ -65,12 +65,11 @@ const HANDLING = "handling"
 
 var listofaffection: Array[StatsResource] = [] #the list of things that this stats affects
 
-
 func add_stats(other: StatsResource) -> void: #adds the other stats to this stats
 	if other == null || other == self || other.listofaffection.has(self):
 		print("\nERROR when trying to add_stats\n")
 		return
-	print("ADD STATS FROM: " + other.parent_object_name + " TO: " + parent_object_name)
+	#print("ADD STATS FROM: " + other.parent_object_name + " TO: " + parent_object_name)
 	for key in statsfactor:#if they have no changes in either dictionary, it's just adding the default 0 so no change!
 		statsfactor[key] = statsfactor[key] + other.statsfactor[key] 
 	for key in statsbase:
@@ -84,7 +83,7 @@ func remove_stats(other: StatsResource) -> void: #removes the stat from affectin
 	if other == null || other == self || !other.listofaffection.has(self):
 		print("\nERROR: other stat is null when trying to remove_stats\n\t (OR doesn't include self in list of affection)\n")
 		return
-	print("REMOVE STATS: " + other.parent_object_name + " From Affecting Stats: " + parent_object_name)
+	#print("REMOVE STATS: " + other.parent_object_name + " From Affecting Stats: " + parent_object_name)
 	for key in statsfactor:#if they have no changes in either dictionary, it's just adding the default 0 so no change!
 		statsfactor[key] = statsfactor[key] - other.statsfactor[key] 
 	for key in statsbase:

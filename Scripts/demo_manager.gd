@@ -52,6 +52,9 @@ func _process(delta: float) -> void:
 		var new_frame = weapon_frame.instantiate()
 		var new_attachment = PISTOL_ATTACHMENT.instantiate()
 		var new_handle = PISTOL_HANDLE.instantiate()
+		new_frame.stats = new_frame.stats.duplicate() #TODO: this is important, needs to be done whenever instantiating
+		new_attachment.stats = new_attachment.stats.duplicate()
+		new_handle.stats = new_handle.stats.duplicate()
 		new_handle.position = Vector2.ZERO
 		new_attachment.position = Vector2.ZERO
 		new_frame.position = Vector2.ZERO
@@ -68,7 +71,7 @@ func _process(delta: float) -> void:
 		var new_frame = weapon_frame.instantiate()
 		var new_attachment = SWORD_ATTACHMENT.instantiate()
 		var new_handle = SWORD_HANDLE.instantiate()
-		new_frame.stats = new_frame.stats.duplicate() #this is important, needs to be done whenever instantiating
+		new_frame.stats = new_frame.stats.duplicate() #TODO: this is important, needs to be done whenever instantiating
 		new_attachment.stats = new_attachment.stats.duplicate()
 		new_handle.stats = new_handle.stats.duplicate()
 		new_frame.name = "Weapon_Frame_" + str(list.size())
@@ -87,11 +90,11 @@ func _process(delta: float) -> void:
 		new_attachment.get_child(0).self_modulate = Color(randf_range(0, 1), randf_range(0, 1), randf_range(0, 1), randf_range(0.2, 1))
 		new_handle.get_child(0).self_modulate = Color(randf_range(0, 1), randf_range(0, 1), randf_range(0, 1), randf_range(0.2, 1))
 		
-		for i in list:
-			print(i.name)
-			print(i.handle.stats.get_list_of_affection())
-			print(i.attachment.stats.get_list_of_affection())
-			print(" ")
+		#for i in list:
+		#	print(i.name)
+		#	print(i.handle.stats.get_list_of_affection())
+		#	print(i.attachment.stats.get_list_of_affection())
+		#	print(" ")
 
 	if Input.is_action_just_pressed("test_5"):
 		if list.size() >= 2:
@@ -140,11 +143,12 @@ func toggle_shop(boolean: bool):
 	shop.visible = boolean
 
 func Projectile_Buttton() -> void:
-	if projectile_cost <= player.current_money:
-		player.current_money -= projectile_cost
-		for weapon in player.weapon_list:
-			if weapon is Ranged_Weapon:
-				weapon.weapon_projectile_count += 1
+	pass
+	#if projectile_cost <= player.current_money:
+	#	player.current_money -= projectile_cost
+	#	for weapon in player.weapon_list:
+	#		if weapon is Ranged_Weapon:
+	#			weapon.weapon_projectile_count += 1
 
 func Size_Button() -> void:
 	if size_cost <= player.current_money:

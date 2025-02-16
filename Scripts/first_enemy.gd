@@ -59,7 +59,6 @@ func is_player_nearby(distance: float) -> bool:
 	return false
 
 func _on_damage_hitbox_body_entered(body: Node2D) -> void:
-
 	if body.has_method("damage") && body.is_in_group("player"):
 		cooldown_timer = 0;
 		var attack: Attack = Attack.new()

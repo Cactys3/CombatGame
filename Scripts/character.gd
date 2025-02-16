@@ -9,8 +9,11 @@ var  CurrentHealth: int
 var moving: bool = false
 var stunned:bool = false
 var stun_time_left: float = 0
-var weapon_list: Array[Area2D]
+var weapon_list: Array[Weapon_Frame]
 var weapon_count: float = 0
+var static_slot_count: int = 0
+var at_mouse_count: int = 0
+var unique_aim_count: int = 0
 @onready var money_label: Label = $"../Camera/Store/Money Label/Money"
 @onready var xp_label: Label = $"../Camera/Store/XP Label/XP"
 @onready var level_label: Label = $"../Camera/Store/LVL Label/LVL"
@@ -94,20 +97,40 @@ func die():
 
 func add_weapon(new_weapon: Weapon):
 	#print("Weapon: " + str(weapon_count + 1) + " - " + new_weapon.name)
-	weapon_count += 1
-	weapon_list.append(new_weapon)
-	var index = 1.0
-	for weapon in weapon_list:
-		weapon.change_slot(index, weapon_count)
-		index += 1
+	#weapon_count += 1
+	#weapon_list.append(new_weapon)
+	#var index = 1.0
+	#for weapon in weapon_list:
+	#	weapon.change_slot(index, weapon_count)
+	#	index += 1
 	add_child(new_weapon)
 
 func add_frame(new_frame: Weapon_Frame):
 	#print("Weapon: " + str(weapon_count + 1) + " - " + new_weapon.name)
-	weapon_count += 1
 	weapon_list.append(new_frame)
-	var index = 1.0
+	var temp_count = weapon_count
+	match new_frame.handle.AimType:
+		Handle.AimTypes.StaticSlot:
+			static_slot_count += 1
+			temp_count = static_slot_count
+			print("Aim Type: StaticSlot, count: " + str(static_slot_count))
+		Handle.AimTypes.AtMouse:
+			at_mouse_count += 1
+			temp_count = at_mouse_count
+			print("Aim Type: AtMouse, count: " + str(at_mouse_count))
+		Handle.AimTypes.Unique:
+			unique_aim_count += 1
+			temp_count = unique_aim_count
+			print("Aim Type: Unique, count: " + str(unique_aim_count))
+		_:
+			weapon_count += 1
+			temp_count = weapon_count
+			print("Aim Type: Default, count: " + str(weapon_count))
+	
+	var index: float = 0
 	for weapon in weapon_list:
-		weapon.change_slot(index, weapon_count)
-		index += 1
+		if (weapon.handle.AimType == new_frame.handle.AimType):
+			index += 1
+			weapon.change_slot(index, temp_count)
+	print("Index: " + str(index))
 	add_child(new_frame)

@@ -12,8 +12,14 @@ class_name Handle
 @export var ORBIT_DISTANCE: float = 55
 @export var ROTATION_SPEED: float = 20
 var current_angle: float = 0  #Stores the angle for smooth circular motion
-enum AimTypes{default, AtMouse, StaticSlot}
+enum AimTypes{default, AtMouse, StaticSlot, Unique}
 @export var AimType: AimTypes = AimTypes.default
+
+@export var weapon_slot: float = 1
+@export var weapon_count: float = 1
+
+var temp_value = 0
+
 
 var ready_to_fire: bool = false #Tells attach if it can call Attack()
 
@@ -32,7 +38,17 @@ func _process(_delta: float) -> void:
 
 func ProcessAtMouse(delta: float) -> void:
 	#Orbit Player Towards Mouse
-	frame.global_position = GetOrbitPosition((get_global_mouse_position() - player.global_position).normalized().angle() + (TAU * (frame.weapon_slot/frame.weapon_count)))
+	var alternating_sign: float = 1
+	if (int(weapon_slot) % 2) == 0: #alternate being left of 1st weapon and right
+		alternating_sign = -1
+	var temp_slot_variable: float = weapon_slot
+	if weapon_slot > 2:
+		if (int(weapon_slot) % 2) != 0: #make distance only increase once a sword has been added on both left and right with same distance
+			temp_slot_variable = (weapon_slot + 1) / 2
+		else:
+			temp_slot_variable = (weapon_slot + 2) / 2
+	var slot_offset_value = alternating_sign * ((TAU / 30) * ((temp_slot_variable - 1)))
+	frame.global_position = GetOrbitPosition((get_global_mouse_position() - player.global_position).normalized().angle() + slot_offset_value)
 	#Rotate Towards Object
 	var nearest_enemy: Node2D = frame.get_enemy_nearby(frame.get_stat(stats.RANGE))
 	if nearest_enemy != null:
@@ -45,7 +61,10 @@ func ProcessAtMouse(delta: float) -> void:
 
 func ProcessStaticSlot(delta: float) -> void:
 	#Orbit Player In Assigned Slot
-	frame.global_position = GetOrbitPosition((TAU * (frame.weapon_slot/frame.weapon_count)))
+	var temp_count: float = weapon_count
+	if (temp_count < 4):
+		temp_count = 4
+	frame.global_position = GetOrbitPosition((TAU * (weapon_slot / temp_count)))#weapon_count)))
 	#Rotate Towards Object
 	var nearest_enemy = frame.get_enemy_nearby(frame.get_stat(stats.RANGE))
 	if nearest_enemy != null:

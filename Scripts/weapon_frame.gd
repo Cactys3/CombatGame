@@ -3,8 +3,6 @@ class_name Weapon_Frame
 
 #weapon_frame fields
 @onready var player: Player_Script = get_tree().get_first_node_in_group("player")
-@export var weapon_slot: float = 1
-@export var weapon_count: float = 1
 #components
 @export var handle: Handle = null
 @export var attachment: Attachment = null
@@ -21,7 +19,6 @@ func _ready() -> void:
 	#stats.add_stats(global_stats)
 
 func _process(_delta: float) -> void:
-	#print(str(position) + " "  + " " + str(position))
 	pass
 
 func get_enemy_nearby(distance: float) -> Variant:
@@ -42,8 +39,8 @@ func hit_enemy(body:Node2D):
 		pass
 
 func change_slot(slot: int, max) -> void:#Called when Weapon is created #TODO: does the weapon only need slot number to start?
-	weapon_slot = slot
-	weapon_count = max
+	handle.weapon_slot = slot
+	handle.weapon_count = max #TODO: Only Static Slot (cardinal direction) weapons should add to this thing
 
 #new methods
 func add_handle(handy: Handle) -> bool:
