@@ -33,6 +33,8 @@ func _process(_delta: float) -> void:
 			ProcessAtMouse(_delta)#each process must handle "ready_to_fire = true/false"
 		AimTypes.StaticSlot:
 			ProcessStaticSlot(_delta)
+		AimTypes.Unique:
+			pass
 		_:
 			pass
 
@@ -75,6 +77,9 @@ func ProcessStaticSlot(delta: float) -> void:
 			ready_to_fire = true
 	else:
 		ready_to_fire = false
+
+func ProcessUnique(delta: float) -> void:
+	pass
 
 func RotateTowardsPosition(new_position: Vector2, _delta: float) -> void:
 	frame.rotation = lerp_angle(frame.rotation, (new_position - frame.global_position).normalized().angle() , ROTATION_SPEED * _delta)

@@ -1,8 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://2abx260rgyvs"]
+[gd_scene load_steps=5 format=3 uid="uid://2abx260rgyvs"]
 
 [ext_resource type="Script" path="res://Scripts/flamethrower_scripts/flamethrower_handle.gd" id="1_40hlj"]
+[ext_resource type="Texture2D" uid="uid://ctcyk6f73ll3f" path="res://Art/New_Weapons/flamethrower/Handle_Flamethrower.png" id="2_p341h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vn0jt"]
+atlas = ExtResource("2_p341h")
+region = Rect2(0, 0, 48, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0p55g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vn0jt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="flamethrower_handle" type="Area2D"]
 script = ExtResource("1_40hlj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0p55g")
+autoplay = "default"

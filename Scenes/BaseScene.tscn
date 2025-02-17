@@ -138,6 +138,8 @@ font_color = Color(0, 0, 0, 1)
 script = ExtResource("1_nfwnb")
 
 [node name="Camera" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+position_smoothing_enabled = true
 
 [node name="Store" type="Panel" parent="Camera"]
 offset_left = -79.0
