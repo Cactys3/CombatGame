@@ -112,3 +112,8 @@ func get_list_of_affection() -> Array[String]:
 	for stat in listofaffection:
 		array.append(stat.parent_object_name)
 	return array
+
+func get_copy() -> StatsResource:
+	var temp: StatsResource = self.duplicate()
+	temp.listofaffection.clear()
+	return temp

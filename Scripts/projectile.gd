@@ -6,11 +6,14 @@ var piercing: float
 var speed: float
 var direction:Vector2
 
+var stats: StatsResource
+
 var collision_counter = 0
 var stopwatch = 0.0
 var lifetime = 10
 
 func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
+	stats = base_gun.stats.get_copy() #TODO: UNTESTED if this new copy is complete seperate and wont affect other listofaffections or w/e on death
 	frame = base_gun
 	direction = enemy_direction.normalized()
 	rotation = direction.angle() 
