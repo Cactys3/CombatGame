@@ -14,6 +14,7 @@ var SWORD_ATTACHMENT = preload("res://Scenes/sword/sword_attachment.tscn")
 var SWORD_HANDLE = preload("res://Scenes/sword/sword_handle.tscn")
 const FLAMETHROWER_ATTACHMENT = preload("res://Scenes/flamethrower/flamethrower_attachment.tscn")
 const FLAMETHROWER_HANDLE = preload("res://Scenes/flamethrower/flamethrower_handle.tscn")
+const FIRE_PROJECTILE = preload("res://Scenes/flamethrower/fire_projectile.tscn")
 var projectile_cost = 10
 var sword_cost = 2
 var gun_cost = 4
@@ -33,7 +34,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("escape") && can_access_menus:
 		shop.visible = !shop.visible
-	
+
 	if Input.is_action_just_pressed("test_1"):
 		if list.size() >= 2:
 			var one = randi_range(0, list.size() - 1)
@@ -51,21 +52,24 @@ func _process(delta: float) -> void:
 				list[one].add_handle(a3)
 				list[two].add_handle(a2)
 		pass#weapon_projectile_count += 1
-	
-	
+
+
 	if Input.is_action_just_pressed("test_2"):
-		MakeWeapon(FLAMETHROWER_ATTACHMENT, FLAMETHROWER_HANDLE, LUGER_BULLET)
-	
-	
+		var enem: FirstEnemy = enemy.instantiate()
+		self.add_child(enem)
+		enem.global_position = Vector2.ZERO
+
+
 	if Input.is_action_just_pressed("test_3"):
 		MakeWeapon(PISTOL_ATTACHMENT, PISTOL_HANDLE, LUGER_BULLET)
-	
-	
+
+
 	if Input.is_action_just_pressed("test_4"):
 		MakeWeapon(SWORD_ATTACHMENT, SWORD_HANDLE, LUGER_BULLET)
 
 	if Input.is_action_just_pressed("test_5"):
-		pass
+		MakeWeapon(FLAMETHROWER_ATTACHMENT, FLAMETHROWER_HANDLE, FIRE_PROJECTILE)
+		
 
 	if Input.is_action_just_pressed("test_6"):
 		for i in list:
@@ -115,16 +119,18 @@ func Size_Button() -> void:
 func Gun_Button() -> void:
 	if gun_cost <= player.current_money:
 		player.current_money -= gun_cost
-		var new_weapon:Weapon = gun.instantiate()
-		new_weapon.position = Vector2(0, 0)
-		player.add_weapon(new_weapon)
+		MakeWeapon(PISTOL_ATTACHMENT, PISTOL_HANDLE, LUGER_BULLET)
+		#var new_weapon:Weapon = gun.instantiate()
+		#new_weapon.position = Vector2(0, 0)
+		#player.add_weapon(new_weapon)
 
 func Sword_Button() -> void:
 	if sword_cost <= player.current_money:
+		MakeWeapon(SWORD_ATTACHMENT, SWORD_HANDLE, LUGER_BULLET)
 		player.current_money -= sword_cost
-		var new_weapon:Weapon = sword.instantiate()
-		new_weapon.position = Vector2(0, 0)
-		player.add_weapon(new_weapon)
+		#var new_weapon:Weapon = sword.instantiate()
+		#new_weapon.position = Vector2(0, 0)
+		#player.add_weapon(new_weapon)
 
 func MakeWeapon(attachment: PackedScene, handle: PackedScene, projectile: PackedScene) -> void:
 	var new_frame = weapon_frame.instantiate()

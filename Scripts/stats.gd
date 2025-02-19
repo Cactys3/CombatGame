@@ -23,45 +23,45 @@ const HANDLING = "handling"
 
 @export var statsbase = { #everything must be default at 0 because they are always added in add_stats and should default to adding 0
 	#attack stats
-	DAMAGE: 0,
-	KNOCKBACK: 0,
-	STUN: 0,
+	DAMAGE: 0.0,
+	KNOCKBACK: 0.0,
+	STUN: 0.0,
 	#other stats
-	COOLDOWN: 0,
-	RANGE: 0,
-	SPEED: 0,
-	SIZE: 0, #when edit this, edit this: scale = Vector2(value, value)
-	COUNT: 0,
-	PIERCING: 0,
-	DURATION: 0,
-	AREA: 0,
-	MOGUL: 0,
-	XP: 0,
-	LIFESTEAL: 0,
-	MOVESPEED: 0,
-	HP: 0,
-	HANDLING: 0, }
+	COOLDOWN: 0.0,
+	RANGE: 0.0,
+	SPEED: 0.0,
+	SIZE: 0.0, #when edit this, edit this: scale = Vector2(value, value)
+	COUNT: 0.0,
+	PIERCING: 0.0,
+	DURATION: 0.0,
+	AREA: 0.0,
+	MOGUL: 0.0,
+	XP: 0.0,
+	LIFESTEAL: 0.0,
+	MOVESPEED: 0.0,
+	HP: 0.0,
+	HANDLING: 0.0, }
 
 @export var statsfactor = {
 	#attack stats
-	DAMAGE: 0,
-	KNOCKBACK: 0,
-	STUN: 0,
+	DAMAGE: 1.0,
+	KNOCKBACK: 1.0,
+	STUN: 1.0,
 	#other stats
-	COOLDOWN: 0,
-	RANGE: 0,
-	SPEED: 0,
-	SIZE: 0, #when edit this, edit this: scale = Vector2(value, value)
-	COUNT: 0,
-	PIERCING: 0,
-	DURATION: 0,
-	AREA: 0,
-	MOGUL: 0,
-	XP: 0,
-	LIFESTEAL: 0,
-	MOVESPEED: 0,
-	HP: 0,
-	HANDLING: 0, }
+	COOLDOWN: 1.0,
+	RANGE: 1.0,
+	SPEED: 1.0,
+	SIZE: 1.0, #when edit this, edit this: scale = Vector2(value, value)
+	COUNT: 1.0,
+	PIERCING: 1.0,
+	DURATION: 1.0,
+	AREA: 1.0,
+	MOGUL: 1.0,
+	XP: 1.0,
+	LIFESTEAL: 1.0,
+	MOVESPEED: 1.0,
+	HP: 1.0,
+	HANDLING: 1.0, }
 
 var listofaffection: Array[StatsResource] = [] #the list of things that this stats affects
 
@@ -71,7 +71,7 @@ func add_stats(other: StatsResource) -> void: #adds the other stats to this stat
 		return
 	#print("ADD STATS FROM: " + other.parent_object_name + " TO: " + parent_object_name)
 	for key in statsfactor:#if they have no changes in either dictionary, it's just adding the default 0 so no change!
-		statsfactor[key] = statsfactor[key] + other.statsfactor[key] 
+		statsfactor[key] = statsfactor[key] * other.statsfactor[key] 
 	for key in statsbase:
 		statsbase[key] = statsbase[key] + other.statsbase[key] 
 	for affection in listofaffection: #add the new stats to all stats this stats affects already
@@ -85,7 +85,7 @@ func remove_stats(other: StatsResource) -> void: #removes the stat from affectin
 		return
 	#print("REMOVE STATS: " + other.parent_object_name + " From Affecting Stats: " + parent_object_name)
 	for key in statsfactor:#if they have no changes in either dictionary, it's just adding the default 0 so no change!
-		statsfactor[key] = statsfactor[key] - other.statsfactor[key] 
+		statsfactor[key] = statsfactor[key] / other.statsfactor[key] 
 	for key in statsbase:
 		statsbase[key] = statsbase[key] - other.statsbase[key] 
 	for affection in listofaffection: #add the new stats to all stats this stats affects already
@@ -94,10 +94,18 @@ func remove_stats(other: StatsResource) -> void: #removes the stat from affectin
 
 func get_stat(name: String) -> float:
 	if statsbase.has(name):
-		return statsbase[name] * (statsfactor[name] + 1) #add 1 is important, makes it adding the percent
+		return (statsbase[name] + 1) * (statsfactor[name]) #add 1 is important? what's up? decide this? TODO:
 	else:
 		push_error("Error getting stat, not found in dictionary")
 		return -999
+
+## should only be used when stat is isolated and doesn't affect other stats
+func set_stat_base(key: String, value: float):
+	statsbase[key] = value
+
+## should only be used when stat is isolated and doesn't affect other stats
+func set_stat_factor(key: String, value: float):
+	statsfactor[key] = value
 
 func print_stats() -> void:
 	print("\nFactors: ")

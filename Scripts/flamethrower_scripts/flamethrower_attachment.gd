@@ -7,3 +7,5 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	process_cooldown(delta)
+	#52print(frame.stats.get_stat(StatsResource.COOLDOWN))
+	#print("this: " + str(frame.stats.statsfactor.get(StatsResource.COOLDOWN)))

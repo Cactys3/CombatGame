@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name FirstEnemy
 
 @onready var xp_parent = get_tree().get_first_node_in_group("xp_parent")
 const xp = preload("res://Scenes/xp_blip.tscn")

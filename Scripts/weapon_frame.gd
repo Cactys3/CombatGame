@@ -138,7 +138,7 @@ func set_variables():#Give components references to each other
 	pass
 
 func handle_stats() -> void: #Do anything that needs to be done to utilize a stat change
-	scale = Vector2(1 + get_stat(stats.SIZE), 1 + get_stat(stats.SIZE))
+	scale = Vector2(get_stat(stats.SIZE), get_stat(stats.SIZE))
 
 func get_stat(string: String) -> float:#Return stat value given stat const name
 	return stats.get_stat(string)

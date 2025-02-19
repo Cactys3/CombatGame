@@ -17,6 +17,7 @@ func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
 	frame = base_gun
 	direction = enemy_direction.normalized()
 	rotation = direction.angle() 
+	self.scale = Vector2(stats.get_stat(StatsResource.SIZE), stats.get_stat(StatsResource.SIZE))
 	
 	speed = (1 + frame.get_stat(StatsResource.SPEED)) * 300
 
@@ -25,7 +26,6 @@ func _process(delta: float) -> void:
 	stopwatch += delta
 	if (stopwatch > lifetime):
 		die()
-	pass
 
 func _on_body_entered(body: Node2D) -> void:
 	frame.hit_enemy(body)
