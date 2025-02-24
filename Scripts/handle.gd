@@ -28,7 +28,7 @@ func _ready() -> void:
 	#stats = stats.duplicate()
 
 func _process(_delta: float) -> void:
-	print("Its Me: " + str(self.name))
+	#print("Its Me: " + str(self.name))
 	match AimType:
 		AimTypes.AtMouse:
 			ProcessAtMouse(_delta)#each process must handle "ready_to_fire = true/false"

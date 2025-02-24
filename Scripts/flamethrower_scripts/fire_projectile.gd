@@ -6,13 +6,15 @@ extends Projectile
 #it doesn't care, will go through them all. (do less dmg per hit though?)
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
+var newstopwatch: float = 0
+var speedoffset = 5 #TODO: implement this with stats
+
+
 func _process(delta: float) -> void:
 	#animated_sprite_2d.speed_scale = 1 #TODO: update animation speed based on stats like: speedValue / DefaultSpeedValue
-	global_position += direction * speed * delta
-	#self.scale = Vector2(stats.get_stat(StatsResource.SIZE), stats.get_stat(StatsResource.SIZE))
-	stopwatch += delta
-	if (stopwatch > animated_sprite_2d.animation.length()):
-		die()
+	global_position += (direction * speed * delta) / speedoffset
+	self.scale = Vector2(stats.get_stat(StatsResource.SIZE), stats.get_stat(StatsResource.SIZE))
+	newstopwatch += delta
 	pass
 
 
@@ -21,3 +23,8 @@ func _on_body_entered(body: Node2D) -> void:
 	frame.hit_enemy(body)
 	collision_counter += 1 #decrease dmg?
 	stats.set_stat_base(StatsResource.DAMAGE, stats.get_stat(StatsResource.DAMAGE) * 0.8)
+
+
+func anim_finished() -> void:
+		die()
+		print("death: " + str(newstopwatch))

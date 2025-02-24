@@ -11,6 +11,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	super(delta)
 	ProcessUnique(delta)
+	#ready_to_fire = true
 
 
 func ProcessUnique(delta: float) -> void:
