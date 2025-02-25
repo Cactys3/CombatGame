@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbhm0fdw8in47"]
+
+[ext_resource type="Script" path="res://Scripts/railgun_scripts/railgun_handle.gd" id="1_ylqkp"]
+
+[node name="railgun_handle" type="Area2D"]
+script = ExtResource("1_ylqkp")
