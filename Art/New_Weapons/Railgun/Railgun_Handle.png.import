@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctcyk6f73ll3f"
-path="res://.godot/imported/Handle_Flamethrower.png-a7880782fe77084b50d66f16dff9da49.ctex"
+uid="uid://bk662xnwn5kh7"
+path="res://.godot/imported/Railgun_Handle.png-52ae55bcab77f1f81d21ea819769d248.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/New_Weapons/Flamethrower/Handle_Flamethrower.png"
-dest_files=["res://.godot/imported/Handle_Flamethrower.png-a7880782fe77084b50d66f16dff9da49.ctex"]
+source_file="res://Art/New_Weapons/Railgun/Railgun_Handle.png"
+dest_files=["res://.godot/imported/Railgun_Handle.png-52ae55bcab77f1f81d21ea819769d248.ctex"]
 
 [params]
 

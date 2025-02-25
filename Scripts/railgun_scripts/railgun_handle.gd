@@ -7,3 +7,4 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	super(delta)
+	ready_to_fire = true

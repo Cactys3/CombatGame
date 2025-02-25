@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctcyk6f73ll3f"
-path="res://.godot/imported/Handle_Flamethrower.png-a7880782fe77084b50d66f16dff9da49.ctex"
+uid="uid://cdam8n8g4gbi2"
+path="res://.godot/imported/LazarBeam.png-15317b036447f19d0e9204b4396530fb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/New_Weapons/Flamethrower/Handle_Flamethrower.png"
-dest_files=["res://.godot/imported/Handle_Flamethrower.png-a7880782fe77084b50d66f16dff9da49.ctex"]
+source_file="res://Art/New_Weapons/Railgun/LazarBeam.png"
+dest_files=["res://.godot/imported/LazarBeam.png-15317b036447f19d0e9204b4396530fb.ctex"]
 
 [params]
 

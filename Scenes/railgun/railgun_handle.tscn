@@ -1,6 +1,127 @@
-[gd_scene load_steps=2 format=3 uid="uid://cbhm0fdw8in47"]
+[gd_scene load_steps=14 format=3 uid="uid://cbhm0fdw8in47"]
 
 [ext_resource type="Script" path="res://Scripts/railgun_scripts/railgun_handle.gd" id="1_ylqkp"]
+[ext_resource type="Script" path="res://Scripts/stats.gd" id="2_naasq"]
+[ext_resource type="Texture2D" uid="uid://bk662xnwn5kh7" path="res://Art/New_Weapons/Railgun/Railgun_Handle.png" id="2_pjswf"]
 
-[node name="railgun_handle" type="Area2D"]
+[sub_resource type="Resource" id="Resource_h6qhh"]
+script = ExtResource("2_naasq")
+parent_object_name = "not_set"
+statsbase = {
+"area": 0.0,
+"cooldown": 2.0,
+"count": 0.0,
+"damage": 20.0,
+"duration": 0.0,
+"handling": 0.0,
+"hp": 0.0,
+"knockback": 0.0,
+"lifesteal": 0.0,
+"mogul": 0.0,
+"movespeed": 0.0,
+"piercing": 999.0,
+"range": 0.0,
+"size": 0.0,
+"speed": 0.0,
+"stun": 0.0,
+"xp": 0.0
+}
+statsfactor = {
+"area": 1.0,
+"cooldown": 1.0,
+"count": 1.0,
+"damage": 1.0,
+"duration": 1.0,
+"handling": 1.0,
+"hp": 1.0,
+"knockback": 1.0,
+"lifesteal": 1.0,
+"mogul": 1.0,
+"movespeed": 1.0,
+"piercing": 1.0,
+"range": 1.0,
+"size": 1.0,
+"speed": 1.0,
+"stun": 1.0,
+"xp": 1.0
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jaexi"]
+atlas = ExtResource("2_pjswf")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l758g"]
+atlas = ExtResource("2_pjswf")
+region = Rect2(32, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u56sq"]
+atlas = ExtResource("2_pjswf")
+region = Rect2(64, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xx5qq"]
+atlas = ExtResource("2_pjswf")
+region = Rect2(96, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_03gp0"]
+atlas = ExtResource("2_pjswf")
+region = Rect2(128, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hg2oy"]
+atlas = ExtResource("2_pjswf")
+region = Rect2(160, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n8gta"]
+atlas = ExtResource("2_pjswf")
+region = Rect2(192, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_erd5o"]
+atlas = ExtResource("2_pjswf")
+region = Rect2(224, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2tecr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jaexi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l758g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u56sq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xx5qq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_03gp0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hg2oy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n8gta")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_erd5o")
+}],
+"loop": false,
+"name": &"Attack",
+"speed": 7.0
+}, {
+"frames": [],
+"loop": false,
+"name": &"Idle",
+"speed": 1.0
+}]
+
+[node name="railgun_handle" type="Area2D" node_paths=PackedStringArray("visual")]
 script = ExtResource("1_ylqkp")
+stats = SubResource("Resource_h6qhh")
+visual = NodePath("AnimatedSprite2D")
+AimType = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_2tecr")
+animation = &"Attack"
+autoplay = "Idle"

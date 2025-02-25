@@ -15,6 +15,9 @@ var SWORD_HANDLE = preload("res://Scenes/sword/sword_handle.tscn")
 const FLAMETHROWER_ATTACHMENT = preload("res://Scenes/flamethrower/flamethrower_attachment.tscn")
 const FLAMETHROWER_HANDLE = preload("res://Scenes/flamethrower/flamethrower_handle.tscn")
 const FIRE_PROJECTILE = preload("res://Scenes/flamethrower/fire_projectile.tscn")
+const RAILGUN_ATTACHMENT = preload("res://Scenes/railgun/railgun_attachment.tscn")
+const RAILGUN_HANDLE = preload("res://Scenes/railgun/railgun_handle.tscn")
+const RAILGUN_PROJECTILE = preload("res://Scenes/railgun/railgun_projectile.tscn")
 var projectile_cost = 10
 var sword_cost = 2
 var gun_cost = 4
@@ -72,11 +75,7 @@ func _process(delta: float) -> void:
 		
 
 	if Input.is_action_just_pressed("test_6"):
-		for i in list:
-			print(i.name)
-			print(i.handle.stats.get_list_of_affection())
-			print(i.attachment.stats.get_list_of_affection())
-			print(" ")
+		MakeWeapon(RAILGUN_ATTACHMENT, RAILGUN_HANDLE, RAILGUN_PROJECTILE)
 
 
 	if Input.is_action_just_pressed("test_7"):
