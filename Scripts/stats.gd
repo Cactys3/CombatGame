@@ -1,67 +1,62 @@
 extends Resource
 class_name StatsResource
 
+#mainly weapon stats:
 const DAMAGE = "damage"
-const KNOCKBACK = "knockback"
-const STUN = "stun"
-const COOLDOWN = "cooldown"
 const RANGE = "range"
-const SPEED = "speed"
-const SIZE = "size"
+const WEIGHT = "weight"
+const ATTACKSPEED = "attackspeed"
+const VELOCITY = "velocity"
 const COUNT = "count"
 const PIERCING = "piercing"
 const DURATION = "duration"
-const AREA = "area"
-const MOGUL = "mogul"
-const XP = "xp"
-const LIFESTEAL = "lifesteal"
-const MOVESPEED = "movespeed"
+const BUILDUP = "buildup"
+const SIZE = "size"
+#mainly player stats:
 const HP = "hp"
-const HANDLING = "handling"
+const STANCE = "stance"
+const MOVESPEED = "movespeed"
+const XP = "xp"
+const MOGUL = "mogul"
+const LUCK = "luck"
 
 @export var parent_object_name = "not_set"
 
 @export var statsbase = { #everything must be default at 0 because they are always added in add_stats and should default to adding 0
-	#attack stats
 	DAMAGE: 0.0,
-	KNOCKBACK: 0.0,
-	STUN: 0.0,
-	#other stats
-	COOLDOWN: 0.0,
 	RANGE: 0.0,
-	SPEED: 0.0,
-	SIZE: 0.0, #when edit this, edit this: scale = Vector2(value, value)
+	WEIGHT: 0.0,
+	ATTACKSPEED: 0.0,
+	VELOCITY: 0.0,
 	COUNT: 0.0,
 	PIERCING: 0.0,
 	DURATION: 0.0,
-	AREA: 0.0,
-	MOGUL: 0.0,
-	XP: 0.0,
-	LIFESTEAL: 0.0,
-	MOVESPEED: 0.0,
+	BUILDUP: 0.0,
+	SIZE: 0.0, #when edit this, edit this: scale = Vector2(value, value)
 	HP: 0.0,
-	HANDLING: 0.0, }
+	STANCE: 0.0,
+	MOVESPEED: 0.0,
+	XP: 0.0,
+	MOGUL: 0.0,
+	LUCK: 0.0, }
 
 @export var statsfactor = {
-	#attack stats
 	DAMAGE: 1.0,
-	KNOCKBACK: 1.0,
-	STUN: 1.0,
-	#other stats
-	COOLDOWN: 1.0,
 	RANGE: 1.0,
-	SPEED: 1.0,
-	SIZE: 1.0, #when edit this, edit this: scale = Vector2(value, value)
+	WEIGHT: 1.0,
+	ATTACKSPEED: 1.0,
+	VELOCITY: 1.0,
 	COUNT: 1.0,
 	PIERCING: 1.0,
 	DURATION: 1.0,
-	AREA: 1.0,
-	MOGUL: 1.0,
-	XP: 1.0,
-	LIFESTEAL: 1.0,
-	MOVESPEED: 1.0,
+	BUILDUP: 1.0,
+	SIZE: 1.0, #when edit this, edit this: scale = Vector2(value, value)
 	HP: 1.0,
-	HANDLING: 1.0, }
+	STANCE: 1.0,
+	MOVESPEED: 1.0,
+	XP: 1.0,
+	MOGUL: 1.0,
+	LUCK: 1.0, }
 
 var listofaffection: Array[StatsResource] = [] #the list of things that this stats affects
 

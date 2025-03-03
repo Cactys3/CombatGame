@@ -12,10 +12,9 @@ const xp = preload("res://Scenes/xp_blip.tscn")
 @export var xp_on_death: int
 @export var money_on_death: int
 
-@export var weapon_damage: int
-@export var weapon_knockback: int
-@export var weapon_stun: int
-@export var weapon_effect: Attack.damage_effects
+@export var weapon_damage: float
+@export var weapon_knockback: float
+@export var weapon_stun: float
 
 @export var range: float
 @export var cooldown_default: float
@@ -65,9 +64,8 @@ func _on_damage_hitbox_body_entered(body: Node2D) -> void:
 		var attack: Attack = Attack.new()
 		attack.damage = weapon_damage
 		attack.knockback = weapon_knockback
-		attack.stun_time = weapon_stun
+		attack.stun = weapon_stun
 		attack.position = global_position
-		attack.damage_effect = weapon_effect
 		body.damage(attack)
 		damage_hitbox.set_deferred("monitoring", false)
 

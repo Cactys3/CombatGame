@@ -20,7 +20,8 @@ func _process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	frame.hit_enemy(body)
+	var new_attack = make_attack()
+	frame.hit_enemy(body, new_attack)
 	collision_counter += 1 #decrease dmg?
 	stats.set_stat_base(StatsResource.DAMAGE, stats.get_stat(StatsResource.DAMAGE) * 0.8)
 

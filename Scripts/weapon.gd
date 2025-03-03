@@ -13,7 +13,6 @@ class_name Weapon
 @export var weapon_damage: int = 1
 @export var weapon_knockback: float = 0
 @export var weapon_stun: float = 0
-@export var weapon_effect: Attack.damage_effects
 #weapon stats
 @export var cooldown: float = 1
 @export var weapon_range: float = 65
@@ -66,22 +65,20 @@ func attack(): #this is meant to be overridden by classes that inherit it
 
 func hit_enemy(body:Node2D):
 	if (body.has_method("damage")):
-		var new_attack: Attack = Attack.new()
+		var new_attack: Old_Attack = Old_Attack.new()
 		new_attack.damage = weapon_damage
 		new_attack.knockback = weapon_knockback
 		new_attack.stun_time = weapon_stun
 		new_attack.position = player.global_position #TODO: decide vs using weapon's position or player's
-		new_attack.damage_effect = weapon_effect
 		body.damage(new_attack)
 
 func change_slot(slot: int, max) -> void:#Called when Weapon is created #TODO: does the weapon only need slot number to start?
 	weapon_slot = slot
 	weapon_count = max
 
-func change_default_stats(new_cooldown: float, new_range: int, new_damage: int, new_knockback: int, new_stun: int, new_effect: Attack.damage_effects) -> void:
+func change_default_stats(new_cooldown: float, new_range: int, new_damage: int, new_knockback: int, new_stun: int) -> void:
 	cooldown = new_cooldown
 	weapon_range = new_range
 	weapon_damage = new_damage
 	weapon_knockback = new_knockback
 	weapon_stun = new_stun
-	weapon_effect = new_effect

@@ -6,7 +6,9 @@ var piercing: float
 var speed: float
 var direction:Vector2
 
-var stats: StatsResource
+var stats: StatsResource = StatsResource.new()
+var status: Attack = Attack.new()
+
 
 var collision_counter = 0
 var stopwatch = 0.0
@@ -18,8 +20,9 @@ func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
 	direction = enemy_direction.normalized()
 	rotation = direction.angle() 
 	self.scale = Vector2(stats.get_stat(StatsResource.SIZE), stats.get_stat(StatsResource.SIZE))
+	status = status.duplicate()
 	
-	speed = (1 + frame.get_stat(StatsResource.SPEED)) * 300
+	speed = (1 + frame.get_stat(StatsResource.VELOCITY)) * 300
 
 func _process(delta: float) -> void:
 	global_position += direction * speed * delta
@@ -28,10 +31,24 @@ func _process(delta: float) -> void:
 		die()
 
 func _on_body_entered(body: Node2D) -> void:
-	frame.hit_enemy(body)
-	collision_counter += 1
-	if (collision_counter > piercing):
-		die()
+	var new_attack = make_attack()
+	if frame.hit_enemy(body, new_attack): #returns if target has damage() method
+		collision_counter += 1
+		if (collision_counter > piercing):
+			die()
+
+func make_attack() -> Attack:
+	var new_attack: Attack = Attack.new()
+	new_attack.damage = stats.get_stat(stats.DAMAGE)
+	new_attack.knockback = stats.get_stat(stats.WEIGHT) * (stats.get_stat(stats.DAMAGE) / 30) #TODO: determine how to calculate knockback
+	new_attack.position = frame.player.global_position
+	new_attack.bleed = status.bleed
+	new_attack.burn = status.burn
+	new_attack.toxic = status.toxic
+	new_attack.slow = status.slow
+	new_attack.stun = status.stun
+	new_attack.rage = status.rage
+	return new_attack
 
 func die():
 	queue_free()

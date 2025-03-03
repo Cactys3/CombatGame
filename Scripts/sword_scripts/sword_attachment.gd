@@ -49,5 +49,6 @@ func attack() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if (attacking && !attacked_objects.has(body)): #Hit each enemy only once per melee attack
-		frame.hit_enemy(body) #TODO: melee vs ranged dmg modifiers? this is melee
+		var new_attack = make_attack()
+		frame.hit_enemy(body, new_attack) #TODO: melee vs ranged dmg modifiers? this is melee
 		attacked_objects.append(body)

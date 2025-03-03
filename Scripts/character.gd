@@ -81,8 +81,8 @@ func handle_moving() -> void:
 func damage(attack: Attack):
 	print("damage player: " + str(attack.damage))
 	CurrentHealth -=attack.damage
-	if attack.stun_time > 0:
-			stun_time_left = attack.stun_time
+	if attack.stun > 0:
+			stun_time_left = attack.stun
 			velocity = Vector2.ZERO
 	if attack.knockback != 0:
 		if stun_time_left < 0.1:

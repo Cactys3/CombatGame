@@ -1,50 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://cbptmran7tknt"]
+[gd_scene load_steps=14 format=3 uid="uid://cbptmran7tknt"]
 
 [ext_resource type="Script" path="res://Scripts/railgun_scripts/railgun_attachment.gd" id="1_rr0cc"]
-[ext_resource type="Script" path="res://Scripts/stats.gd" id="2_vlsfj"]
 [ext_resource type="Texture2D" uid="uid://ce8uthmoy4tfg" path="res://Art/New_Weapons/Railgun/Railgun_Attachment.png" id="2_w0g58"]
-
-[sub_resource type="Resource" id="Resource_yibf5"]
-script = ExtResource("2_vlsfj")
-parent_object_name = "not_set"
-statsbase = {
-"area": 0.0,
-"cooldown": 0.0,
-"count": 0.0,
-"damage": 10.0,
-"duration": 0.0,
-"handling": 0.0,
-"hp": 0.0,
-"knockback": 0.0,
-"lifesteal": 0.0,
-"mogul": 0.0,
-"movespeed": 0.0,
-"piercing": 10.0,
-"range": 0.0,
-"size": 0.0,
-"speed": 0.0,
-"stun": 0.0,
-"xp": 0.0
-}
-statsfactor = {
-"area": 1.0,
-"cooldown": 1.0,
-"count": 1.0,
-"damage": 10.0,
-"duration": 1.0,
-"handling": 1.0,
-"hp": 1.0,
-"knockback": 3.0,
-"lifesteal": 1.0,
-"mogul": 1.0,
-"movespeed": 1.0,
-"piercing": 1.0,
-"range": 1.0,
-"size": 1.0,
-"speed": 1.0,
-"stun": 1.0,
-"xp": 1.0
-}
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fovl6"]
 atlas = ExtResource("2_w0g58")
@@ -127,7 +84,6 @@ size = Vector2(252, 3)
 
 [node name="railgun_attachment" type="Area2D" node_paths=PackedStringArray("visual")]
 script = ExtResource("1_rr0cc")
-stats = SubResource("Resource_yibf5")
 visual = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

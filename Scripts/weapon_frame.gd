@@ -27,16 +27,11 @@ func get_enemy_nearby(distance: float) -> Variant:
 			return enemy
 	return null
 
-func hit_enemy(body:Node2D):
+func hit_enemy(body:Node2D, attack:Attack):
 	if (body.has_method("damage")):
-		var new_attack: Attack = Attack.new()
-		new_attack.damage = get_stat(stats.DAMAGE)
-		new_attack.knockback = get_stat(stats.KNOCKBACK)
-		new_attack.stun_time = get_stat(stats.STUN)
-		new_attack.position = player.global_position #TODO: decide vs using weapon's position or player's
-		new_attack.damage_effect = Attack.damage_effects.none
-		body.damage(new_attack)
-		pass
+		body.damage(attack)
+		return true
+	return false
 
 func change_slot(slot: int, max) -> void:#Called when Weapon is created #TODO: does the weapon only need slot number to start?
 	handle.weapon_slot = slot

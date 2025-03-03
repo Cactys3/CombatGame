@@ -28,7 +28,7 @@ func _process(delta: float) -> void:
 func process_cooldown(delta: float) -> void: 
 	if attacking:
 		pass
-	elif cooldown_timer <= frame.get_stat(stats.COOLDOWN):
+	elif cooldown_timer <= get_cooldown():
 		cooldown_timer += delta
 	elif handle.ready_to_fire:
 		attacking = true
@@ -58,6 +58,21 @@ func init_projectile(new_position: Vector2, new_scale: Vector2, new_direction: V
 	get_tree().root.add_child(new_bullet)#TODO: maybe better options exist
 	return new_bullet
 
+func get_cooldown() -> float:
+	return 1 / frame.get_stat(StatsResource.ATTACKSPEED) #attackspeed is attacks per second so cd is 1/as
+
+func make_attack() -> Attack:
+	var new_attack: Attack = Attack.new()
+	new_attack.damage = stats.get_stat(stats.DAMAGE)
+	new_attack.knockback = stats.get_stat(stats.WEIGHT) * (stats.get_stat(stats.DAMAGE) / 10) #TODO: determine how to calculate knockback
+	new_attack.position = frame.player.global_position
+	new_attack.bleed = 0
+	new_attack.burn = 0
+	new_attack.toxic = 0
+	new_attack.slow = 0
+	new_attack.stun = 0
+	new_attack.rage = 0
+	return new_attack
 
 #how should attachment extenders work?
 #Create methods for ProcessCooldown(delta) and Attack() that extenders override.
