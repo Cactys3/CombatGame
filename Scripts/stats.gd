@@ -89,7 +89,7 @@ func remove_stats(other: StatsResource) -> void: #removes the stat from affectin
 
 func get_stat(name: String) -> float:
 	if statsbase.has(name):
-		return (statsbase[name] + 1) * (statsfactor[name]) #add 1 is important? what's up? decide this? TODO:
+		return (statsbase[name]) * (statsfactor[name]) #add 1 is important? what's up? decide this? TODO:
 	else:
 		push_error("Error getting stat, not found in dictionary")
 		return -999

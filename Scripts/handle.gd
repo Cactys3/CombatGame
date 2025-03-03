@@ -92,7 +92,7 @@ func GetOrbitPosition(target_angle: float) -> Vector2:
 func IsAimingAtEnemy(enemy: Node2D) -> bool:
 	if enemy != null:
 		var angle = rad_to_deg(acos(global_transform.x.normalized().dot((enemy.global_position - global_position).normalized())))
-		return angle <= 8
+		return angle <= 5
 	return false
 
 func IsAimingAtEnemyWithinDegree(enemy: Node2D, degree: float) -> bool:

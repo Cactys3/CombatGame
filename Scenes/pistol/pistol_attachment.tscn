@@ -1,7 +1,48 @@
-[gd_scene load_steps=5 format=3 uid="uid://rbimtghqmg7r"]
+[gd_scene load_steps=7 format=3 uid="uid://rbimtghqmg7r"]
 
 [ext_resource type="Script" path="res://Scripts/attachment.gd" id="1_mae1s"]
 [ext_resource type="Texture2D" uid="uid://bubjo75ouhbaj" path="res://Art/New_Weapons/Pistol/Attachment_Pistol.png" id="2_drna1"]
+[ext_resource type="Script" path="res://Scripts/stats.gd" id="2_tr2dk"]
+
+[sub_resource type="Resource" id="Resource_8stry"]
+script = ExtResource("2_tr2dk")
+parent_object_name = "pistol_attachment"
+statsbase = {
+"attackspeed": 2.0,
+"buildup": 1.0,
+"count": 5.0,
+"damage": 10.0,
+"duration": 3.0,
+"hp": 0.0,
+"luck": 0.0,
+"mogul": 0.0,
+"movespeed": 0.0,
+"piercing": 3.0,
+"range": 80.0,
+"size": 1.0,
+"stance": 0.0,
+"velocity": 30.0,
+"weight": 5.0,
+"xp": 0.0
+}
+statsfactor = {
+"attackspeed": 1.0,
+"buildup": 1.0,
+"count": 1.0,
+"damage": 1.0,
+"duration": 1.0,
+"hp": 1.0,
+"luck": 1.0,
+"mogul": 1.0,
+"movespeed": 1.0,
+"piercing": 1.0,
+"range": 1.0,
+"size": 1.0,
+"stance": 1.0,
+"velocity": 1.0,
+"weight": 1.0,
+"xp": 1.0
+}
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a855e"]
 atlas = ExtResource("2_drna1")
@@ -20,6 +61,7 @@ animations = [{
 
 [node name="pistol_attachment" type="Area2D" node_paths=PackedStringArray("visual")]
 script = ExtResource("1_mae1s")
+stats = SubResource("Resource_8stry")
 visual = NodePath("animation")
 
 [node name="animation" type="AnimatedSprite2D" parent="."]

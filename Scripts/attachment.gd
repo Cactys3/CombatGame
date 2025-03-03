@@ -11,6 +11,8 @@ var bullets: Array[Projectile]
 @export var frame: Weapon_Frame 
 @export var handle: Handle
 @export var projectile: PackedScene
+@export var MultipleProjectileOffset: float = 2
+var MultipleProjectileAngleOffset: float = 2
 #new stuff
 var cooldown_timer: float = 0
 var attacking: bool = false
@@ -37,15 +39,33 @@ func process_cooldown(delta: float) -> void:
 ## Should handle creating a projectile, shooting it, and reseting cooldown
 ## this is meant to be overridden by classes that inherit it
 func attack(): 
-	#projectile = preload("res://Scenes/luger_bullet.tscn")
-	#print(projectile.resource_name)
+	# Create the first bullet by default
 	var new_bullet:Projectile = projectile.instantiate()
 	new_bullet.global_position = global_position
 	new_bullet.scale = frame.scale
-	new_bullet.setup(frame, Vector2(cos(frame.rotation), sin(frame.rotation)))#TODO: try this
+	new_bullet.setup(frame, Vector2(cos(frame.rotation), sin(frame.rotation)))
 	get_tree().root.add_child(new_bullet)
+	
+	# Create any extra bullets using @export values to offset them by angle and position
+	var offset: int = 0
+	for i:int in frame.get_stat(StatsResource.COUNT) - 1:
+		if i % 2 == 0:
+			offset += 1
+		MultipleProjectileOffset *= -1
+		MultipleProjectileAngleOffset *= -1
+		new_bullet = projectile.instantiate()
+		new_bullet.position = global_position + Vector2(-sin(frame.rotation), cos(frame.rotation)).normalized() * MultipleProjectileOffset * (offset)
+		new_bullet.scale = frame.scale
+		var target_angle = Vector2(cos(frame.rotation), sin(frame.rotation)).rotated(MultipleProjectileAngleOffset * (offset) * 0.01)
+		new_bullet.setup(frame, target_angle)
+		get_tree().root.add_child(new_bullet)
+	
+	# Reset attack values so we can attack again
 	cooldown_timer = 0
 	attacking = false
+
+
+
 
 func init_projectile(new_position: Vector2, new_scale: Vector2, new_direction: Vector2) -> Projectile:
 	if projectile == null:
@@ -59,6 +79,7 @@ func init_projectile(new_position: Vector2, new_scale: Vector2, new_direction: V
 	return new_bullet
 
 func get_cooldown() -> float:
+	print(frame.get_stat(StatsResource.SIZE))
 	return 1 / frame.get_stat(StatsResource.ATTACKSPEED) #attackspeed is attacks per second so cd is 1/as
 
 func make_attack() -> Attack:
