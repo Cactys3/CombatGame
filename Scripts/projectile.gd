@@ -22,6 +22,8 @@ func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
 	self.scale = Vector2(stats.get_stat(StatsResource.SIZE), stats.get_stat(StatsResource.SIZE))
 	status = status.duplicate()
 	
+	lifetime = frame.get_stat(StatsResource.DURATION)
+	
 	speed = (1 + frame.get_stat(StatsResource.VELOCITY)) * 13
 
 func _process(delta: float) -> void:

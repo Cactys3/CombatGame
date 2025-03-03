@@ -11,12 +11,8 @@ var speedoffset = 5 #TODO: implement this with stats
 
 
 func _process(delta: float) -> void:
-	#animated_sprite_2d.speed_scale = 1 #TODO: update animation speed based on stats like: speedValue / DefaultSpeedValue
-	global_position += (direction * speed * delta) / speedoffset
-	self.scale = Vector2(stats.get_stat(StatsResource.SIZE), stats.get_stat(StatsResource.SIZE))
-	newstopwatch += delta
-	pass
-
+	print("what " + str(speed))
+	super(delta)
 
 
 func _on_body_entered(body: Node2D) -> void:
