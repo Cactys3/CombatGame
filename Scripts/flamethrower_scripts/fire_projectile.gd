@@ -11,7 +11,7 @@ var speedoffset = 5 #TODO: implement this with stats
 
 
 func _process(delta: float) -> void:
-	print("what " + str(speed))
+	print(self.get_parent().name + str(direction * speed * delta))
 	super(delta)
 
 
@@ -24,4 +24,3 @@ func _on_body_entered(body: Node2D) -> void:
 
 func anim_finished() -> void:
 		die()
-		print("death: " + str(newstopwatch))

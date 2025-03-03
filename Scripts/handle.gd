@@ -12,7 +12,7 @@ class_name Handle
 @export var ORBIT_DISTANCE: float = 55
 @export var ROTATION_SPEED: float = 20
 var current_angle: float = 0  #Stores the angle for smooth circular motion
-enum AimTypes{default, AtMouse, StaticSlot, Unique}
+enum AimTypes{default, AtMouse, StaticSlot, Spinning, Unique}
 @export var AimType: AimTypes = AimTypes.default
 
 @export var weapon_slot: float = 1
@@ -35,9 +35,9 @@ func _process(_delta: float) -> void:
 		AimTypes.StaticSlot:
 			ProcessStaticSlot(_delta)
 		AimTypes.Unique:
-			pass
+			ProcessUnique(_delta)
 		_:
-			pass
+			ProcessUnique(_delta)
 
 func ProcessAtMouse(delta: float) -> void:
 	#Orbit Player Towards Mouse

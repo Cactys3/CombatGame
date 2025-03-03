@@ -33,10 +33,7 @@ func attack() -> void:
 	var max_range_timeIndex = anim.get_animation(ANIMATION_NAME).track_get_key_time(0, 1)
 	
 	await get_tree().create_timer(max_range_timeIndex).timeout #wait until at max reach to fire projectile
-	var new_projectile: Projectile = init_projectile(global_position, frame.scale, Vector2(cos(frame.rotation), sin(frame.rotation)))
-	
-	cooldown_timer = 0
-	attacking = false
+	super()
 
 
 #how should attachment extenders work?

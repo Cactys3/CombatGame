@@ -27,7 +27,7 @@ func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
 	speed = (1 + frame.get_stat(StatsResource.VELOCITY)) * 13
 
 func _process(delta: float) -> void:
-	global_position += direction * speed * delta
+	position += direction * speed * delta
 	stopwatch += delta
 	if (stopwatch > lifetime):
 		die()

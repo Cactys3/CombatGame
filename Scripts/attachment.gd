@@ -39,12 +39,21 @@ func process_cooldown(delta: float) -> void:
 ## Should handle creating a projectile, shooting it, and reseting cooldown
 ## this is meant to be overridden by classes that inherit it
 func attack(): 
+	create_projectiles()
+	# Reset attack values so we can attack again
+	cooldown_timer = 0
+	attacking = false
+
+func create_projectiles():
 	# Create the first bullet by default
 	var new_bullet:Projectile = projectile.instantiate()
 	new_bullet.global_position = global_position
 	new_bullet.scale = frame.scale
 	new_bullet.setup(frame, Vector2(cos(frame.rotation), sin(frame.rotation)))
-	get_tree().root.add_child(new_bullet)
+	if (handle.AimType == Handle.AimTypes.Spinning): #handle aim types special cases
+		frame.player.add_child(new_bullet)
+	else:
+		get_tree().root.add_child(new_bullet)
 	
 	# Create any extra bullets using @export values to offset them by angle and position
 	var offset: int = 0
@@ -58,16 +67,13 @@ func attack():
 		new_bullet.scale = frame.scale
 		var target_angle = Vector2(cos(frame.rotation), sin(frame.rotation)).rotated(MultipleProjectileAngleOffset * (offset) * 0.01)
 		new_bullet.setup(frame, target_angle)
-		get_tree().root.add_child(new_bullet)
-	
-	# Reset attack values so we can attack again
-	cooldown_timer = 0
-	attacking = false
+		
+		if (handle.AimType == Handle.AimTypes.Spinning): #handle aim types special cases
+			frame.player.add_child(new_bullet)
+		else:
+			get_tree().root.add_child(new_bullet)
 
-
-
-
-func init_projectile(new_position: Vector2, new_scale: Vector2, new_direction: Vector2) -> Projectile:
+func indit_projectile(new_position: Vector2, new_scale: Vector2, new_direction: Vector2) -> Projectile:
 	if projectile == null:
 		push_error("projectile null in attachment script")
 		return null
@@ -75,11 +81,13 @@ func init_projectile(new_position: Vector2, new_scale: Vector2, new_direction: V
 	new_bullet.global_position = new_position
 	new_bullet.scale = new_scale
 	new_bullet.setup(frame, new_direction)
-	get_tree().root.add_child(new_bullet)#TODO: maybe better options exist
+	if (handle.AimType == Handle.AimTypes.Spinning): #handle aim types special cases
+		frame.player.add_child(new_bullet)
+	else:
+		get_tree().root.add_child(new_bullet)
 	return new_bullet
 
 func get_cooldown() -> float:
-	print(frame.get_stat(StatsResource.SIZE))
 	return 1 / frame.get_stat(StatsResource.ATTACKSPEED) #attackspeed is attacks per second so cd is 1/as
 
 func make_attack() -> Attack:
