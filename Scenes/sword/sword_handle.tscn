@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://cj2edhpgvt73m"]
 
-[ext_resource type="Script" path="res://Scripts/handle.gd" id="1_3kipa"]
+[ext_resource type="Script" path="res://Scripts/sword_scripts/sword_handle.gd" id="1_canbi"]
 [ext_resource type="Script" path="res://Scripts/stats.gd" id="2_6r7xp"]
 [ext_resource type="Texture2D" uid="uid://dyn358jlt11hp" path="res://Art/New_Weapons/Sword/Handle_Sword.png" id="2_afr1f"]
 
-[sub_resource type="Resource" id="Resource_oq8r7"]
+[sub_resource type="Resource" id="Resource_6xc30"]
 script = ExtResource("2_6r7xp")
 parent_object_name = "sword_handle"
 statsbase = {
@@ -59,9 +59,10 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="sword_handle" type="Area2D"]
-script = ExtResource("1_3kipa")
-stats = SubResource("Resource_oq8r7")
+[node name="sword_handle" type="Area2D" node_paths=PackedStringArray("visual")]
+script = ExtResource("1_canbi")
+stats = SubResource("Resource_6xc30")
+visual = NodePath("AnimatedSprite2D")
 AimType = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

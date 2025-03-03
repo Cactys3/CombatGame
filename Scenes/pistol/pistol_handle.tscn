@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://ge7a2yumy0ed"]
 
-[ext_resource type="Script" path="res://Scripts/handle.gd" id="1_wgmkf"]
+[ext_resource type="Script" path="res://Scripts/pistol_scripts/pistol_handle.gd" id="1_iac6n"]
 [ext_resource type="Texture2D" uid="uid://bl3gg2nqff0e1" path="res://Art/New_Weapons/Pistol/Handle_Pistol.png" id="2_dcpa0"]
 [ext_resource type="Script" path="res://Scripts/stats.gd" id="2_ga65p"]
 
-[sub_resource type="Resource" id="Resource_7y1ee"]
+[sub_resource type="Resource" id="Resource_cuy3j"]
 script = ExtResource("2_ga65p")
 parent_object_name = "pistol_handle"
 statsbase = {
@@ -37,7 +37,7 @@ statsfactor = {
 "movespeed": 1.0,
 "piercing": 1.0,
 "range": 1.1,
-"size": 1.0,
+"size": 0.7,
 "stance": 1.0,
 "velocity": 1.1,
 "weight": 0.9,
@@ -60,12 +60,12 @@ animations = [{
 }]
 
 [node name="pistol_handle" type="Area2D" node_paths=PackedStringArray("visual")]
-script = ExtResource("1_wgmkf")
-stats = SubResource("Resource_7y1ee")
+script = ExtResource("1_iac6n")
+stats = SubResource("Resource_cuy3j")
 visual = NodePath("animation")
 AimType = 2
 
 [node name="animation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0y1w6")
 autoplay = "default"
-frame_progress = 0.852982
+frame_progress = 0.928303

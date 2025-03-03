@@ -26,7 +26,13 @@ func attack() -> void:
 	melee_hitbox.disabled = true #hit things again without having to leave their hitbox
 	melee_hitbox.disabled = false
 	
+	frame.get_stat(StatsResource.DURATION)
+	speed = 15 / frame.get_stat(StatsResource.VELOCITY) # to determine how fast (15 is default value or w/e)
+	range_offset = abs(base_range - frame.get_stat(StatsResource.RANGE)) # to determine the length
+	
+	
 	anim.play(ANIMATION_NAME, -1, speed) #TODO: change the second value (speed of animation) based on stats (speed, cooldown, time animation takes normally)
+	
 	anim.get_animation(ANIMATION_NAME).track_set_key_value(0, 1, base_range + range_offset)
 	
 	var animation_duration = anim.get_animation(ANIMATION_NAME).length / speed #TODO: not used

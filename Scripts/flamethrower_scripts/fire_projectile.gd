@@ -5,9 +5,7 @@ extends Projectile
 #and also so that this doesn't keep track of how many collisions it takes,
 #it doesn't care, will go through them all. (do less dmg per hit though?)
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-
-var newstopwatch: float = 0
-var speedoffset = 5 #TODO: implement this with stats
+@export var attack:Attack = Attack.new()
 
 
 func _process(delta: float) -> void:
