@@ -18,7 +18,7 @@ statsbase = {
 "mogul": 0.0,
 "movespeed": 0.0,
 "piercing": 0.0,
-"range": 10.0,
+"range": 15.0,
 "size": 0.0,
 "stance": 0.0,
 "velocity": 0.0,
