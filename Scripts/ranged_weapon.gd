@@ -23,7 +23,7 @@ func attack():
 		bullets.append(new_bullet)
 		new_bullet.setup(self, weapon_projectile_count, weapon_piercing, weapon_projectile_velocity, target_angle)
 		new_bullet.position = global_position
-		new_bullet.scale = scale
+		#new_bullet.scale = scale
 		get_tree().root.add_child(new_bullet)
 	else:
 		for i in weapon_projectile_count:
@@ -33,7 +33,7 @@ func attack():
 			bullets.append(new_bullet)
 			new_bullet.setup(self, weapon_projectile_count, weapon_piercing, weapon_projectile_velocity, target_angle + Vector2(-target_angle.y, target_angle.x).normalized() * MultipleProjectileAngleOffset * (i + 1))
 			new_bullet.position = global_position + Vector2(-target_angle.y, target_angle.x).normalized() * MultipleProjectileOffset * (i + 1)
-			new_bullet.scale = scale
+			#new_bullet.scale = scale
 			get_tree().root.add_child(new_bullet)
 	super()
 

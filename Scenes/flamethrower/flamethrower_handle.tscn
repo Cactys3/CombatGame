@@ -37,7 +37,7 @@ statsfactor = {
 "movespeed": 1.0,
 "piercing": 5.0,
 "range": 1.0,
-"size": 1.0,
+"size": 1.5,
 "stance": 1.0,
 "velocity": 1.0,
 "weight": 2.0,

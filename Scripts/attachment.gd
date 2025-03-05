@@ -23,6 +23,9 @@ func _ready() -> void:
 	cooldown_timer = 0
 
 func _process(delta: float) -> void:
+	#print(name + " has projectile: " + frame.projectile.resource_path + "!")
+	print(name + "frame: " + str(frame.stats.get_stat(StatsResource.SIZE)) + "Handle: " +  str(stats.get_stat(StatsResource.SIZE)) + "Attachment: " +  str(frame.handle.stats.get_stat(StatsResource.SIZE)) + "scale: " + str(scale))
+	
 	process_cooldown(delta)
 
 ## Should handle cooldown and calling attack()
@@ -47,7 +50,7 @@ func attack():
 func create_projectiles():
 	# Create the first bullet by default
 	var new_bullet:Projectile = projectile.instantiate()
-	new_bullet.scale = frame.scale
+	#new_bullet.scale = frame.scale
 	new_bullet.setup(frame, Vector2(cos(frame.rotation), sin(frame.rotation)))
 	if (handle.AimType == Handle.AimTypes.Spinning): #handle aim types special cases
 		frame.player.add_child(new_bullet)
@@ -63,7 +66,7 @@ func create_projectiles():
 		MultipleProjectileOffset *= -1
 		MultipleProjectileAngleOffset *= -1
 		new_bullet = projectile.instantiate()
-		new_bullet.scale = frame.scale
+		#new_bullet.scale = frame.scale
 		var target_angle = Vector2(cos(frame.rotation), sin(frame.rotation)).rotated(MultipleProjectileAngleOffset * (offset) * 0.01)
 		new_bullet.setup(frame, target_angle)
 		if (handle.AimType == Handle.AimTypes.Spinning): #handle aim types special cases
@@ -77,7 +80,7 @@ func indit_projectile(new_position: Vector2, new_scale: Vector2, new_direction: 
 		push_error("projectile null in attachment script")
 		return null
 	var new_bullet:Projectile = projectile.instantiate()
-	new_bullet.scale = new_scale
+	#new_bullet.scale = new_scale
 	new_bullet.setup(frame, new_direction)
 	if (handle.AimType == Handle.AimTypes.Spinning): #handle aim types special cases
 		frame.player.add_child(new_bullet)

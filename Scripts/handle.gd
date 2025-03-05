@@ -20,6 +20,12 @@ enum AimTypes{default, AtMouse, StaticSlot, Spinning, Unique}
 
 var temp_value = 0
 
+#TODO: Used by all handles to tell how many of each aim type there are?
+# probably just keep track in player tbh
+static var StaticAimCount
+static var MouseAimCount
+static var SpinAimCount
+static var UnqiueAimCount
 
 var ready_to_fire: bool = false #Tells attach if it can call Attack()
 
@@ -87,7 +93,7 @@ func RotateTowardsPosition(new_position: Vector2, _delta: float) -> void:
  #TODO: try global_position instead of player.global_position for how weapon aiming looks
 
 func GetOrbitPosition(target_angle: float) -> Vector2:
-	return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * ORBIT_DISTANCE
+	return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * ORBIT_DISTANCE * frame.get_stat(StatsResource.SIZE) #TODO: implement scale better with offset
 
 func IsAimingAtEnemy(enemy: Node2D) -> bool:
 	if enemy != null:

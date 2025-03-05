@@ -19,7 +19,7 @@ statsbase = {
 "movespeed": 0.0,
 "piercing": 10.0,
 "range": 40.0,
-"size": 3.0,
+"size": 1.2,
 "stance": 0.0,
 "velocity": 25.0,
 "weight": 20.0,

@@ -9,7 +9,7 @@ extends Projectile
 
 
 func _process(delta: float) -> void:
-	print(self.get_parent().name + str(direction * speed * delta))
+	#print(self.get_parent().name + str(direction * speed * delta))
 	super(delta)
 
 
