@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://ijvhrrafsn8w"]
 
-[ext_resource type="Texture2D" uid="uid://d4ygdpdbotv" path="res://Art/New_Weapons/Flamethrower/Attachment_Flamethrower.png" id="1_b0bnr"]
+[ext_resource type="Texture2D" uid="uid://d4ygdpdbotv" path="res://Art/New_Weapons/flamethrower/Attachment_Flamethrower.png" id="1_b0bnr"]
 [ext_resource type="Script" path="res://Scripts/flamethrower_scripts/flamethrower_attachment.gd" id="1_j4wmh"]
 [ext_resource type="Script" path="res://Scripts/stats.gd" id="2_lfhr2"]
 
