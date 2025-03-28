@@ -31,7 +31,7 @@ func _process(delta: float) -> void:
 		done = true
 
 func setup(new_text: String, new_fontsize: int, new_position: Vector2, new_lifetime: float, new_parent: Node, max_offsets: Vector2):
-	curr_text = new_text
+	curr_text = new_text #TODO: decide some cool text effects or just use a normal label instead of rich text label
 	curr_text = "[center]  " + curr_text + "  [/center]"
 	curr_text = "[url=https://neal.fun/]" + curr_text + "[/url]"
 	#curr_text = "[font=res://Fonts/cozette/CozetteVector.otf]" + curr_text + "[/font]"
@@ -43,8 +43,6 @@ func setup(new_text: String, new_fontsize: int, new_position: Vector2, new_lifet
 	fontsize = fontsize + (new_fontsize / 3)
 	parent = new_parent
 	lifetime = new_lifetime
-
-
 	if max_offsets != Vector2.ZERO:
 		var x = randf_range(-max_offsets.x, max_offsets.x)
 		var y = randf_range(-max_offsets.y, max_offsets.y)

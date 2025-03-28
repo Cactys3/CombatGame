@@ -1,7 +1,6 @@
 extends CharacterBody2D
 class_name Player_Script
 
-@export var health_component:HealthComponent
 @export var Speed: int = 210
 @export var MaxHealth: int = 210
 @export var StartingMoney: int = 5
@@ -32,6 +31,7 @@ var max_xp :float = 100
 
 var current_money: float = 0:
 	set(value):
+		#TODO: reorganize this into game manager instead
 		current_money = value
 		money_label.text = str(value)
 
@@ -43,6 +43,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if (current_xp >= max_xp):
+		#TODO: tell game manager level up
 		current_level += 1
 		current_xp = 0
 	
