@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dc0hdlr7wq3lq"]
+[gd_scene load_steps=25 format=3 uid="uid://dc0hdlr7wq3lq"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_nfwnb"]
 [ext_resource type="Texture2D" uid="uid://b1lme8t63rjpt" path="res://Art/Area Art/Background.png" id="1_rub18"]
@@ -112,25 +112,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="FontFile" id="FontFile_ulj7p"]
-cache/0/60/0/ascent = 0.0
-cache/0/60/0/descent = 0.0
-cache/0/60/0/underline_position = 0.0
-cache/0/60/0/underline_thickness = 0.0
-cache/0/60/0/scale = 1.0
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/90/0/ascent = 0.0
-cache/0/90/0/descent = 0.0
-cache/0/90/0/underline_position = 0.0
-cache/0/90/0/underline_thickness = 0.0
-cache/0/90/0/scale = 1.0
-
 [sub_resource type="LabelSettings" id="LabelSettings_7v07i"]
-font = SubResource("FontFile_ulj7p")
 font_size = 90
 font_color = Color(0, 0, 0, 1)
 

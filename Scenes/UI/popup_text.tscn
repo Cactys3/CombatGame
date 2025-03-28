@@ -1,0 +1,79 @@
+[gd_scene load_steps=5 format=3 uid="uid://brldrnbhcexcm"]
+
+[ext_resource type="Script" path="res://Scripts/UI/popup_text.gd" id="1_e0m3v"]
+
+[sub_resource type="Animation" id="Animation_xx8ca"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ty17l"]
+resource_name = "fade"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.9, 0.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qtp4o"]
+_data = {
+"RESET": SubResource("Animation_xx8ca"),
+"fade": SubResource("Animation_ty17l")
+}
+
+[node name="PopupText" type="RichTextLabel"]
+anchors_preset = -1
+anchor_left = 0.464
+anchor_top = 0.444
+anchor_right = 0.478
+anchor_bottom = 0.465
+offset_left = 0.119995
+offset_top = -0.52005
+offset_right = 0.23999
+offset_bottom = -0.200043
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "bro"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+shortcut_keys_enabled = false
+meta_underlined = false
+script = ExtResource("1_e0m3v")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qtp4o")
+}

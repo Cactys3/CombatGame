@@ -13,16 +13,15 @@ config_version=5
 config/name="CombatGame"
 run/main_scene="res://Scenes/BaseScene.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
+boot_splash/use_filter=false
 config/icon="res://icon.svg"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/window_width_override=1920
-window/size/window_height_override=1080
 window/energy_saving/keep_screen_on=false
-window/stretch/mode="canvas_items"
+window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
 [global_group]
@@ -32,6 +31,11 @@ player="player, can only be one per scene"
 xp_range="range around player that xp where collected"
 xp_parent=""
 weapon_manager=""
+
+[gui]
+
+theme/custom_font="res://Fonts/cozette/CozetteVector.otf"
+theme/default_font_subpixel_positioning=0
 
 [input]
 
@@ -111,3 +115,6 @@ test_7={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+textures/lossless_compression/force_png=true
+2d/size/window_height_override=1080
+2d/stretch/mode="viewport"

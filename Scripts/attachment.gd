@@ -24,7 +24,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	#print(name + " has projectile: " + frame.projectile.resource_path + "!")
-	print(name + "frame: " + str(frame.stats.get_stat(StatsResource.SIZE)) + "Handle: " +  str(stats.get_stat(StatsResource.SIZE)) + "Attachment: " +  str(frame.handle.stats.get_stat(StatsResource.SIZE)) + "scale: " + str(scale))
+	#print(name + "frame: " + str(frame.stats.get_stat(StatsResource.SIZE)) + "Handle: " +  str(stats.get_stat(StatsResource.SIZE)) + "Attachment: " +  str(frame.handle.stats.get_stat(StatsResource.SIZE)) + "scale: " + str(scale))
 	
 	process_cooldown(delta)
 

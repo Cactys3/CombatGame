@@ -8,6 +8,8 @@ class_name HealthComponent
 @export var knockback_modifier:float = 1
 @export var can_be_knockbacked:bool = true
 @export var can_be_stunned:bool = true
+const POPUP_TEXT = preload("res://Scenes/UI/popup_text.tscn")
+
 var health:int
 var stunning:bool = false
 var stun_time_left: float = 0
@@ -24,7 +26,8 @@ func _process(_delta: float) -> void:
 	pass
 
 func damage(attack: Attack):
-	health -=attack.damage
+	var damage_taken = attack.damage #TODO: implement defense here
+	health -= damage_taken
 	#print(parent_script.name + " damaged: " + str(attack.damage))
 	if attack.stun > 0 && can_be_stunned && parent_script.has_method("stun"):
 			stun_time_left = attack.stun
@@ -39,6 +42,11 @@ func damage(attack: Attack):
 		call_deferred("set_parent_velocity", (global_position - attack.position).normalized() * attack.knockback * knockback_modifier)
 	if health <= 0:
 		parent_script.die()
+		var dmg_text: PopupText = POPUP_TEXT.instantiate()
+		dmg_text.setup(str(attack.damage), damage_taken, global_position, 1, get_tree().root, Vector2(10, 10))
+	else:
+		var dmg_text: PopupText = POPUP_TEXT.instantiate()
+		dmg_text.setup(str(attack.damage), damage_taken, global_position, 1, get_tree().root, Vector2(10, 10))
 	pass
 
 func set_parent_velocity(value:Vector2):
