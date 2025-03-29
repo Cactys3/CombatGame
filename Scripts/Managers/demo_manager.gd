@@ -2,8 +2,6 @@ extends Node2D
 
 @onready var player: Player_Script = get_tree().get_first_node_in_group("player")
 @onready var enemy = preload("res://Scenes/first_enemy.tscn")
-@onready var sword = preload("res://Scenes/sword.tscn")
-@onready var gun = preload("res://Scenes/LazarGun.tscn")
 @onready var shop: Panel = $"../Camera/Store"
 @onready var xp = preload("res://Scenes/xp_blip.tscn")
 @onready var weapon_frame = preload("res://Scenes/weapon_frame.tscn")

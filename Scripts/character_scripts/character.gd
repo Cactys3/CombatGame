@@ -96,15 +96,6 @@ func damage(attack: Attack):
 func die():
 	print("player died")
 
-func add_weapon(new_weapon: Weapon):
-	#print("Weapon: " + str(weapon_count + 1) + " - " + new_weapon.name)
-	#weapon_count += 1
-	#weapon_list.append(new_weapon)
-	#var index = 1.0
-	#for weapon in weapon_list:
-	#	weapon.change_slot(index, weapon_count)
-	#	index += 1
-	add_child(new_weapon)
 
 func add_frame(new_frame: Weapon_Frame):
 	#print("Weapon: " + str(weapon_count + 1) + " - " + new_weapon.name)

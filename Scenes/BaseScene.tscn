@@ -1,6 +1,6 @@
 [gd_scene load_steps=26 format=3 uid="uid://dc0hdlr7wq3lq"]
 
-[ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_nfwnb"]
+[ext_resource type="Script" path="res://Scripts/enemy_scripts/enemy.gd" id="1_nfwnb"]
 [ext_resource type="Texture2D" uid="uid://b1lme8t63rjpt" path="res://Art/Area Art/Background.png" id="1_rub18"]
 [ext_resource type="PackedScene" uid="uid://dbfx0pgjmmdgy" path="res://Scenes/character.tscn" id="2_bdfmm"]
 [ext_resource type="Texture2D" uid="uid://btvcwala5rhxh" path="res://Art/Weapons/Sword.png" id="2_lx10p"]
@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cnj0fjnxdyuts" path="res://Art/Weapons/arrow.png" id="4_yohyp"]
 [ext_resource type="Texture2D" uid="uid://brh24bmjiesqo" path="res://Art/Weapons/Bullet.png" id="5_06y7e"]
 [ext_resource type="Script" path="res://Scripts/Managers/GameManager.gd" id="9_vogg4"]
-[ext_resource type="Script" path="res://Scripts/demo_manager.gd" id="10_cwiy3"]
+[ext_resource type="Script" path="res://Scripts/Managers/demo_manager.gd" id="10_cwiy3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_20rgc"]
 font_size = 8

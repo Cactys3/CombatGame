@@ -53,7 +53,7 @@ func create_projectiles():
 	#new_bullet.scale = frame.scale
 	new_bullet.setup(frame, Vector2(cos(frame.rotation), sin(frame.rotation)))
 	if (handle.AimType == Handle.AimTypes.Spinning): #handle aim types special cases
-		frame.player.add_child(new_bullet)
+		get_tree().root.add_child(new_bullet)
 	else:
 		get_tree().root.add_child(new_bullet)
 	new_bullet.global_position = global_position

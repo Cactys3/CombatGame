@@ -27,6 +27,7 @@ func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
 	lifetime = frame.get_stat(StatsResource.DURATION)
 	
 	speed = (1 + frame.get_stat(StatsResource.VELOCITY)) * 13
+	
 
 
 func _process(delta: float) -> void: #TODO: testing pyhsics_process vs process (and queued attacks)

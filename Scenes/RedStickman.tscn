@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://d30gfywsj1mnn"]
 
-[ext_resource type="Script" path="res://Scripts/red_stickman.gd" id="1_o8t6o"]
+[ext_resource type="Script" path="res://Scripts/character_scripts/red_stickman.gd" id="1_o8t6o"]
 [ext_resource type="Texture2D" uid="uid://fcofc2k6hdbj" path="res://Art/Characters/RedStickman.png" id="1_s580k"]
 [ext_resource type="PackedScene" uid="uid://bl326pivivx3p" path="res://Scenes/health_component.tscn" id="3_60r1k"]
 

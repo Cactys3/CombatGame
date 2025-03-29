@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://caoglnybbk6t7"]
 
-[ext_resource type="Script" path="res://Scripts/first_enemy.gd" id="1_ulo6s"]
+[ext_resource type="Script" path="res://Scripts/enemy_scripts/first_enemy.gd" id="1_ulo6s"]
 [ext_resource type="Texture2D" uid="uid://d2peq71x62qh" path="res://Art/Characters/FirstEnemy.png" id="1_xjtit"]
 [ext_resource type="PackedScene" uid="uid://bl326pivivx3p" path="res://Scenes/health_component.tscn" id="2_5jvuf"]
 
