@@ -9,35 +9,45 @@ var direction:Vector2
 var stats: StatsResource = StatsResource.new()
 var status: Attack = Attack.new()
 
+var AttackedObjects: Array[Node2D] = []
 
 var collision_counter = 0
 var stopwatch = 0.0
 var lifetime = 10
 
 func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
-	stats = base_gun.stats.get_copy() #TODO: UNTESTED if this new copy is complete seperate and wont affect other listofaffections or w/e on death
+	stats = base_gun.stats.get_copy()
 	frame = base_gun
 	direction = enemy_direction.normalized()
 	rotation = direction.angle() 
-	self.scale = Vector2(stats.get_stat(StatsResource.SIZE), stats.get_stat(StatsResource.SIZE))
+	var size_value = stats.get_stat(StatsResource.SIZE)
+	self.scale = Vector2(size_value, size_value)
 	status = status.duplicate()
 	
 	lifetime = frame.get_stat(StatsResource.DURATION)
 	
 	speed = (1 + frame.get_stat(StatsResource.VELOCITY)) * 13
 
-func _process(delta: float) -> void:
+
+func _process(delta: float) -> void: #TODO: testing pyhsics_process vs process (and queued attacks)
 	position += direction * speed * delta
 	stopwatch += delta
 	if (stopwatch > lifetime):
 		die()
 
-func _on_body_entered(body: Node2D) -> void:
-	var new_attack = make_attack()
-	if frame.hit_enemy(body, new_attack): #returns if target has damage() method
+## this can be overriden by polymorph (what's it called?) to do unique attacks
+func attack_body(body: Node2D) -> void:
+	if !AttackedObjects.has(body):
+		var new_attack = make_attack()
+		body.damage(new_attack)
 		collision_counter += 1
+		AttackedObjects.append(body)
 		if (collision_counter > piercing):
-			die()
+			die() 
+
+func _on_body_entered(body: Node2D) -> void: #TODO: testing this queueAttacks things because deepseek said accessing my stats like this could corrupt because physics vs main thread multithreading...
+	if body.has_method("damage"):
+		frame.QueuedAttacks.append(frame.AttackEvent.new(body, self))
 
 func make_attack() -> Attack:
 	var new_attack: Attack = Attack.new()

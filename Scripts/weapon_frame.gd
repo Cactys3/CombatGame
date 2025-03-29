@@ -12,6 +12,8 @@ class_name Weapon_Frame
 
 @export var stats: StatsResource = StatsResource.new()
 
+var QueuedAttacks: Array[AttackEvent] = [] #TODO: not used, to create attack need to use stats which defeats point of queue
+
 func _ready() -> void:
 	stats.parent_object_name = name
 	#stats = stats.duplicate()
@@ -19,7 +21,11 @@ func _ready() -> void:
 	#stats.add_stats(global_stats)
 
 func _process(_delta: float) -> void:
-	pass
+	if !QueuedAttacks.is_empty():
+		for event in QueuedAttacks:
+			QueuedAttacks.erase(event)
+			if is_instance_valid(event.attackee) && is_instance_valid(event.attacker):
+				event.attacker.attack_body(event.attackee)
 
 func get_enemy_nearby(distance: float) -> Variant:
 	for enemy in get_tree().get_nodes_in_group("enemy"):
@@ -27,11 +33,7 @@ func get_enemy_nearby(distance: float) -> Variant:
 			return enemy
 	return null
 
-func hit_enemy(body:Node2D, attack:Attack):
-	if (body.has_method("damage")):
-		body.damage(attack)
-		return true
-	return false
+
 
 func change_slot(slot: int, max) -> void:#Called when Weapon is created #TODO: does the weapon only need slot number to start?
 	handle.weapon_slot = slot
@@ -141,3 +143,10 @@ func handle_stats() -> void: #Do anything that needs to be done to utilize a sta
 
 func get_stat(string: String) -> float:#Return stat value given stat const name
 	return stats.get_stat(string)
+
+class AttackEvent:
+	var attackee: Node
+	var attacker: Node
+	func _init(new_attackee: Node, new_attacker: Node):
+		attackee = new_attackee
+		attacker = new_attacker

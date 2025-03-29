@@ -7,18 +7,18 @@ extends Projectile
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @export var attack:Attack = Attack.new()
 
-
 func _process(delta: float) -> void:
-	#print(self.get_parent().name + str(direction * speed * delta))
 	super(delta)
 
-
-func _on_body_entered(body: Node2D) -> void:
-	var new_attack = make_attack()
-	frame.hit_enemy(body, new_attack)
-	collision_counter += 1 #decrease dmg?
-	stats.set_stat_base(StatsResource.DAMAGE, stats.get_stat(StatsResource.DAMAGE) * 0.8)
-
+## changed so it does not die after hitting things but does decrease damage
+func attack_body(body: Node2D) -> void:
+	if !AttackedObjects.has(body):
+		var new_attack = make_attack()
+		AttackedObjects.append(body)
+		body.damage(new_attack)
+		collision_counter += 1 #decrease dmg?
+		if stats.get_stat(StatsResource.DAMAGE) > 2:
+			stats.set_stat_base(StatsResource.DAMAGE, stats.get_stat_base(StatsResource.DAMAGE) * 0.8)
 
 func anim_finished() -> void:
-		die()
+	die()

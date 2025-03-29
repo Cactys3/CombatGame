@@ -25,7 +25,7 @@ var stunned: bool = false
 func damage(attack: Attack):
 	if (health_component):
 		health_component.damage(attack)
-		print("enemy damaged: " + str(attack.damage))
+		#print("enemy damaged: " + str(attack.damage))
 
 func _ready() -> void:
 	cooldown_timer = cooldown_default + 1

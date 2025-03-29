@@ -8,6 +8,7 @@ extends Node2D
 @onready var xp = preload("res://Scenes/xp_blip.tscn")
 @onready var weapon_frame = preload("res://Scenes/weapon_frame.tscn")
 var LUGER_BULLET:PackedScene = preload("res://Scenes/luger_bullet.tscn")
+var PISTOL_PROJECTILE = preload("res://Scenes/pistol/pistol_bullet.tscn")
 var PISTOL_ATTACHMENT = preload("res://Scenes/pistol/pistol_attachment.tscn")
 var PISTOL_HANDLE = preload("res://Scenes/pistol/pistol_handle.tscn")
 var SWORD_ATTACHMENT = preload("res://Scenes/sword/sword_attachment.tscn")

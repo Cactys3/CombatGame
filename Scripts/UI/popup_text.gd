@@ -54,5 +54,5 @@ func setup(new_text: String, new_fontsize: int, new_position: Vector2, new_lifet
 	parent.add_child(self)
 	call_deferred("set", "global_position", new_position - Vector2(get_content_width(), get_content_height()) / 2) #offset so it's centered text (idk why this best solution)
 
-func addtag(text: String, tag1: String, tag2: String):
-	text = tag1 + text + tag2
+func addtag(new_text: String, tag1: String, tag2: String):
+	new_text = tag1 + new_text + tag2
