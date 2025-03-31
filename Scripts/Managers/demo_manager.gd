@@ -30,8 +30,6 @@ var current_difficulty:float = 1
 enum scene_states{shop, combat, encounter}
 var scene_state: scene_states = scene_states.shop
 
-func _ready() -> void:
-	player.current_money = 5
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("escape") && can_access_menus:

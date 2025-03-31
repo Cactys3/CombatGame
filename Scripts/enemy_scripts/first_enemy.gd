@@ -6,6 +6,7 @@ const xp = preload("res://Scenes/xp_blip.tscn")
 
 @export var MOVESPEED: int
 @onready var player: CharacterBody2D = get_tree().get_first_node_in_group("player")
+@onready var game_man: GameManager = get_tree().get_first_node_in_group("gamemanager")
 @export var health_component:HealthComponent
 @export var damage_hitbox:Area2D
 
@@ -73,7 +74,7 @@ func stun(value:bool):
 	stunned = value
 
 func die():
-	player.current_money += money_on_death
+	game_man.money += money_on_death
 	var new_xp = xp.instantiate()
 	new_xp.global_position = global_position
 	xp_parent.call_deferred("add_child", new_xp)

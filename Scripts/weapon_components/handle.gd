@@ -30,6 +30,7 @@ static var UnqiueAimCount
 var ready_to_fire: bool = false #Tells attach if it can call Attack()
 
 func _ready() -> void:
+	set_stats()
 	stats.parent_object_name = name
 	#stats = stats.duplicate()
 
@@ -112,3 +113,6 @@ func IsAimingAtAnyEnemy() -> bool:
 	if false: #TODO: setup with raycasts
 		return true
 	return false
+
+func set_stats() -> void:
+	pass # setup the stat values inside the class so they dont get reset when changing stat dictionary

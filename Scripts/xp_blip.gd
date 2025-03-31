@@ -1,6 +1,7 @@
 extends RigidBody2D
 @onready var player: CharacterBody2D = get_tree().get_first_node_in_group("player")
 @onready var animation: AnimatedSprite2D = $AnimatedSprite2D
+@onready var game_man: GameManager = get_tree().get_first_node_in_group("gamemanager")
 
 var acceleration: float = 1
 var speed: float = 0
@@ -40,7 +41,7 @@ func _entered(area: Area2D) -> void: #area2d
 func _entered_body(body: Node2D) -> void:
 	#print("body")
 	if body.is_in_group("player"):
-		player.current_xp += xp_value
+		game_man.xp += xp_value
 		queue_free()
 	pass # Replace with function body.
 

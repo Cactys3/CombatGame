@@ -1,128 +1,138 @@
 extends CharacterBody2D
 class_name Player_Script
 
-@export var Speed: int = 210
-@export var MaxHealth: int = 210
+@export var anim: AnimationPlayer
 @export var StartingMoney: int = 5
-var  CurrentHealth: int
+@export var player_stats: StatsResource = StatsResource.new()
+
 var moving: bool = false
-var stunned:bool = false
-var stun_time_left: float = 0
 var weapon_list: Array[Weapon_Frame]
 var weapon_count: float = 0
 var static_slot_count: int = 0
 var at_mouse_count: int = 0
-var unique_aim_count: int = 0
-@onready var money_label: Label = $"../Camera/Store/Money Label/Money"
-@onready var xp_label: Label = $"../Camera/Store/XP Label/XP"
-@onready var level_label: Label = $"../Camera/Store/LVL Label/LVL"
-
-var current_level: float = 0:
+var spin_aim_count: int = 0
+## level, xp, money managed and set by GameManager
+var level: float:
 	set(value):
-		current_level = value
-		level_label.text = str(value)
-
-var current_xp: float = 0:
+		if value > level:
+			on_level_up(value, level)
+		level = value
+var xp: float:
 	set(value):
-		current_xp = value
-		xp_label.text = str(value)
-
-var max_xp :float = 100
-
-var current_money: float = 0:
+		if value > xp:
+			on_gain_xp(value, xp)
+		xp = value
+var money: float:
 	set(value):
-		#TODO: reorganize this into game manager instead
-		current_money = value
-		money_label.text = str(value)
+		if value > money:
+			on_gain_money(value, money)
+		money = value
+## speed, maxhealth, stance get by StatsResource
+var health: int
+var speed: float:
+	get():
+		return get_stat(StatsResource.MOVESPEED)
+var maxhealth: float:
+	get():
+		return get_stat(StatsResource.HP)
+var stance: float:
+	get():
+		return get_stat(StatsResource.STANCE)
 
 func _ready() -> void:
-	CurrentHealth = MaxHealth
-	current_xp = 0
-	current_level = 0
-
+	call_deferred("set_stats")
 
 func _process(delta: float) -> void:
-	if (current_xp >= max_xp):
-		#TODO: tell game manager level up
-		current_level += 1
-		current_xp = 0
-	
-	if stun_time_left > 0:
-		stun_time_left -= delta
-		stunned = true
-	elif stunned:
-		stunned = false
+	if Input.is_action_just_pressed("ability1"):
+		character_ability(1)
+	if Input.is_action_just_pressed("ability2"):
+		character_ability(2)
+	if Input.is_action_just_pressed("ability3"):
+		character_ability(3)
 
 func _physics_process(_delta: float) -> void:
-	if stunned:
-		moving = false
-		#TODO:stunned/knockback animation
-	else:
-		handle_moving()
-		if moving:
-			moving = true #TODO: walk animation
+	handle_moving()
 	move_and_slide()
 
 func handle_moving() -> void:
+	var moving_state = moving
 	var directionX := Input.get_axis("left", "right")
+	moving = false
 	if directionX:
-		velocity.x = move_toward(velocity.x, directionX * Speed, 65)#directionX * SPEED
+		velocity.x = move_toward(velocity.x, directionX * speed, 65)#directionX * SPEED
 		moving = true
 	else:
-		moving = false
 		velocity.x = move_toward(velocity.x, 0, 100)	
-		
 	var directionY := Input.get_axis("up", "down")
 	if directionY:
-		velocity.y = move_toward(velocity.y, directionY * Speed, 65)#directionY * SPEED
+		velocity.y = move_toward(velocity.y, directionY * speed, 65)#directionY * SPEED
 		moving = true
 	else:
 		velocity.y = move_toward(velocity.y, 0, 100)
+	
+	if (moving_state != moving):
+		set_moving_animation(moving)
 
 func damage(attack: Attack):
-	print("damage player: " + str(attack.damage))
-	CurrentHealth -=attack.damage
-	if attack.stun > 0:
-			stun_time_left = attack.stun
-			velocity = Vector2.ZERO
+	#print("damage player: " + str(attack.damage))
+	var net_damage = attack.damage - stance
+	if (net_damage > 0):
+		health -= net_damage
 	if attack.knockback != 0:
-		if stun_time_left < 0.1:
-			stun_time_left = 0
 		call_deferred("set", "velocity", (global_position - attack.position).normalized() * attack.knockback)
-	if CurrentHealth <= 0:
+	if health <= 0:
 		die()
 	pass
 
 func die():
-	print("player died")
-
+	print("player died: " + str(health))
 
 func add_frame(new_frame: Weapon_Frame):
-	#print("Weapon: " + str(weapon_count + 1) + " - " + new_weapon.name)
 	weapon_list.append(new_frame)
 	var temp_count = weapon_count
 	match new_frame.handle.AimType:
 		Handle.AimTypes.StaticSlot:
 			static_slot_count += 1
 			temp_count = static_slot_count
-			print("Aim Type: StaticSlot, count: " + str(static_slot_count))
+			#print("Aim Type: StaticSlot, count: " + str(static_slot_count))
 		Handle.AimTypes.AtMouse:
 			at_mouse_count += 1
 			temp_count = at_mouse_count
-			print("Aim Type: AtMouse, count: " + str(at_mouse_count))
+			#print("Aim Type: AtMouse, count: " + str(at_mouse_count))
 		Handle.AimTypes.Unique:
-			unique_aim_count += 1
-			temp_count = unique_aim_count
-			print("Aim Type: Unique, count: " + str(unique_aim_count))
+			spin_aim_count += 1
+			temp_count = spin_aim_count
+			#print("Aim Type: Unique, count: " + str(unique_aim_count))
 		_:
 			weapon_count += 1
 			temp_count = weapon_count
-			print("Aim Type: Default, count: " + str(weapon_count))
-	
+			#print("Aim Type: Default, count: " + str(weapon_count))
 	var index: float = 0
 	for weapon in weapon_list:
 		if (weapon.handle.AimType == new_frame.handle.AimType):
 			index += 1
 			weapon.change_slot(index, temp_count)
-	print("Index: " + str(index))
 	add_child(new_frame)
+
+func get_stat(stat: String) -> float:
+	return player_stats.get_stat(stat)
+
+## funcs to be overriden for special character mechanics (or item mechanics)
+func set_stats(): ## set_stats should call super()
+	health = maxhealth
+
+func character_ability(number: int) -> void:
+	print("ability " + str(number))
+
+func on_level_up(new_level: float, old_level: float) -> void:
+	pass
+
+func on_gain_xp(new_xp: float, old_xp: float) -> void:
+	pass
+
+func on_gain_money(new_money: float, old_money: float) -> void:
+	pass
+
+func set_moving_animation(boolean: bool):
+	if boolean && is_instance_valid(anim) && anim.has_animation("play"):
+		anim.play("move")

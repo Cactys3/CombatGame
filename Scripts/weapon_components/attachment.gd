@@ -18,6 +18,7 @@ var cooldown_timer: float = 0
 var attacking: bool = false
 
 func _ready() -> void:
+	set_stats()
 	stats.parent_object_name = name
 	#stats = stats.duplicate()
 	cooldown_timer = 0
@@ -105,6 +106,9 @@ func make_attack() -> Attack:
 	new_attack.stun = 0
 	new_attack.rage = 0
 	return new_attack
+
+func set_stats() -> void:
+	pass # setup the stat values inside the class so they dont get reset when changing stat dictionary
 
 #how should attachment extenders work?
 #Create methods for ProcessCooldown(delta) and Attack() that extenders override.
