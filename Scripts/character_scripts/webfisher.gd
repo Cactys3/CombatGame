@@ -19,11 +19,12 @@ func set_stats():
 func character_ability(number: int) -> void:
 	match(number):
 		1:
-			print("fizz ult!") #TODO: ability1
+			pass#print("fizz ult!") #TODO: ability1
 		2:
-			print("get off me ability!!") #TODO: ability2
+			#print("get off me ability!!") #TODO: ability2
+			pass
 		3:
-			print("dash!") #TODO: ability3
+			pass#print("dash!") #TODO: ability3
 
 func on_level_up(new_level: float, old_level: float) -> void:
 	pass

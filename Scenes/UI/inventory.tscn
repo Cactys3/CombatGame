@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcwklkqeim2sq"]
+
+[ext_resource type="Script" path="res://Scripts/UI/inventory.gd" id="1_haeh0"]
+
+[node name="Inventory" type="MarginContainer" node_paths=PackedStringArray("inventory_scroll", "inventory_grid")]
+custom_minimum_size = Vector2(200, 200)
+script = ExtResource("1_haeh0")
+inventory_scroll = NodePath("Inventory-Scroll")
+inventory_grid = NodePath("Inventory-Scroll/Inventory-Grid")
+metadata/_tab_index = 1
+
+[node name="Inventory-Scroll" type="ScrollContainer" parent="."]
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="Inventory-Grid" type="GridContainer" parent="Inventory-Scroll"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+mouse_default_cursor_shape = 16
+columns = 5
