@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhfq62xt07h37"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/UIManager.gd" id="1_pigai"]
+[ext_resource type="PackedScene" uid="uid://bcwklkqeim2sq" path="res://Scenes/UI/inventory.tscn" id="2_aeob6"]
+
+[sub_resource type="Theme" id="Theme_nkk1k"]
+
+[node name="UI" type="Control" node_paths=PackedStringArray("shop", "inventory")]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
+script = ExtResource("1_pigai")
+shop = NodePath("Shop")
+inventory = NodePath("Inventory")
+
+[node name="Inventory" parent="." instance=ExtResource("2_aeob6")]
+layout_mode = 2
+offset_left = 220.0
+offset_right = 420.0
+offset_bottom = 200.0
+theme = SubResource("Theme_nkk1k")
+
+[node name="Shop" parent="." instance=ExtResource("2_aeob6")]
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0

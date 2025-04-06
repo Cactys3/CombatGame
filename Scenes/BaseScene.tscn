@@ -1,9 +1,8 @@
-[gd_scene load_steps=31 format=3 uid="uid://dc0hdlr7wq3lq"]
+[gd_scene load_steps=29 format=3 uid="uid://dc0hdlr7wq3lq"]
 
 [ext_resource type="Script" path="res://Scripts/enemy_scripts/enemy.gd" id="1_nfwnb"]
 [ext_resource type="Texture2D" uid="uid://b1lme8t63rjpt" path="res://Art/Area Art/Background.png" id="1_rub18"]
 [ext_resource type="PackedScene" uid="uid://dbfx0pgjmmdgy" path="res://Scenes/character.tscn" id="2_bdfmm"]
-[ext_resource type="PackedScene" uid="uid://d2ai3a1ewnryl" path="res://Scenes/UI/item.tscn" id="2_ch4k3"]
 [ext_resource type="Texture2D" uid="uid://btvcwala5rhxh" path="res://Art/Weapons/Sword.png" id="2_lx10p"]
 [ext_resource type="Texture2D" uid="uid://ddxlwv6yh3qsm" path="res://Art/Weapons/Gun_1.png" id="3_avgfm"]
 [ext_resource type="Texture2D" uid="uid://cnj0fjnxdyuts" path="res://Art/Weapons/arrow.png" id="4_yohyp"]
@@ -11,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://bhfq62xt07h37" path="res://Scenes/UI/ui.tscn" id="6_uv4m7"]
 [ext_resource type="Script" path="res://Scripts/Managers/GameManager.gd" id="9_vogg4"]
 [ext_resource type="Script" path="res://Scripts/Managers/demo_manager.gd" id="10_cwiy3"]
-[ext_resource type="Script" path="res://Scripts/Managers/UIManager.gd" id="10_obxvq"]
 [ext_resource type="Script" path="res://Scripts/Managers/InstanceManager.gd" id="11_e6hx5"]
 [ext_resource type="Script" path="res://Scripts/Managers/ShopManager.gd" id="12_e4e03"]
 
@@ -129,12 +127,6 @@ script = ExtResource("1_nfwnb")
 zoom = Vector2(3, 3)
 position_smoothing_enabled = true
 
-[node name="Item" parent="Camera" instance=ExtResource("2_ch4k3")]
-offset_left = -96.0
-offset_top = 110.0
-offset_right = -46.0
-offset_bottom = 160.0
-
 [node name="Store" type="Panel" parent="Camera"]
 offset_left = -79.0
 offset_top = -172.0
@@ -142,6 +134,7 @@ offset_right = 313.0
 offset_bottom = 98.0
 
 [node name="sword" type="Control" parent="Camera/Store"]
+visible = false
 anchors_preset = 0
 offset_left = 31.0
 offset_top = 23.0
@@ -173,6 +166,7 @@ autoplay = "default"
 frame_progress = 0.759742
 
 [node name="gun" type="Control" parent="Camera/Store"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 31.0
@@ -205,6 +199,7 @@ autoplay = "default"
 frame_progress = 0.493317
 
 [node name="size" type="Control" parent="Camera/Store"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 123.0
@@ -238,6 +233,7 @@ texture = ExtResource("4_yohyp")
 stretch_mode = 3
 
 [node name="projectiles" type="Control" parent="Camera/Store"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 123.0
@@ -317,12 +313,12 @@ offset_right = 166.0
 offset_bottom = 24.0
 text = "-999"
 
-[node name="UI" parent="Camera" instance=ExtResource("6_uv4m7")]
+[node name="UIManager" parent="Camera" node_paths=PackedStringArray("money_label", "xp_label", "level_label") instance=ExtResource("6_uv4m7")]
 z_index = 6
-offset_left = -266.0
-offset_top = -62.0
-offset_right = -226.0
-offset_bottom = -22.0
+position = Vector2(-76, -70)
+money_label = NodePath("../Store/Money Label/Money")
+xp_label = NodePath("../Store/XP Label/XP")
+level_label = NodePath("../Store/LVL Label/LVL")
 
 [node name="Backdrop" type="Sprite2D" parent="."]
 z_index = -5
@@ -352,11 +348,12 @@ label_settings = SubResource("LabelSettings_7v07i")
 position = Vector2(-273, 93)
 script = ExtResource("10_cwiy3")
 
-[node name="GameManager" type="Node2D" parent="." groups=["gamemanager"]]
+[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("ui_man", "shop_man", "instance_man", "player") groups=["gamemanager"]]
 script = ExtResource("9_vogg4")
-
-[node name="UIManager" type="Node2D" parent="." groups=["uimanager"]]
-script = ExtResource("10_obxvq")
+ui_man = NodePath("../Camera/UIManager")
+shop_man = NodePath("../ShopManager")
+instance_man = NodePath("../InstanceManager")
+player = NodePath("../Character")
 
 [node name="InstanceManager" type="Node2D" parent="." groups=["instancemanager"]]
 script = ExtResource("11_e6hx5")

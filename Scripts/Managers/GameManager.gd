@@ -2,10 +2,10 @@ extends Node
 class_name GameManager
 ## 
 
-@onready var ui_man: UIManager = get_tree().get_first_node_in_group("uimanager")
-@onready var shop_man: ShopManager = get_tree().get_first_node_in_group("shopmanager")
-@onready var instance_man: InstanceManager = get_tree().get_first_node_in_group("instancemanager")
-@onready var player: Player_Script = get_tree().get_first_node_in_group("player")
+@export var ui_man: UIManager 
+@export var shop_man: ShopManager
+@export var instance_man: InstanceManager
+@export var player: Player_Script
 
 var character_choice_stats: StatsResource = StatsResource.new()
 
@@ -60,4 +60,13 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if Input.is_action_just_pressed("inventory_toggle"):
+		ui_man.toggle_inventory()
+
+	if Input.is_action_just_pressed("ability1") && ui_man.enabled:
+		var fake_item: String = "fake item!" # TODO: this is not where items should be added or smth idk how whatever gets access to inventory
+		ui_man.shop.add(fake_item)
+
+	if Input.is_action_just_pressed("ability2") && ui_man.enabled:
+		var fake_item: String = "fake item!"
+		ui_man.inventory.add(fake_item)

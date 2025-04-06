@@ -1,13 +1,29 @@
-extends Node
+extends Node2D
 class_name UIManager
 
-@onready var money_label: Label = $"../Camera/Store/Money Label/Money"
-@onready var xp_label: Label = $"../Camera/Store/XP Label/XP"
-@onready var level_label: Label = $"../Camera/Store/LVL Label/LVL"
-@onready var container: GridContainer = $GridContainer
+@export var money_label: Label
+@export var xp_label: Label
+@export var level_label: Label
 
-@onready var shop: Inventory = $TabContainer/MarginContainer2
-@onready var inventory: Inventory = $TabContainer/MarginContainer2
+
+#@export var tab_container: TabContainer
+@export var shop: Inventory
+@export var inventory: Inventory
+
+var enabled: bool = true
+
+func toggle_inventory() -> void:
+	enabled = !enabled
+	visible = enabled
+	#propagate_call("set", ["visible", enabled])
+	if enabled:
+		propagate_call("set", ["process_mode", PROCESS_MODE_INHERIT])
+		pass
+		#tab_container.get_current_tab_control().visible = false
+		#set_mouse_filter_recursive(MouseFilter.MOUSE_FILTER_PASS)
+	else:
+		propagate_call("set", ["process_mode", PROCESS_MODE_DISABLED])
+		pass#set_mouse_filter_recursive(MouseFilter.MOUSE_FILTER_IGNORE)
 
 func set_level(value: String) -> void:
 	level_label.text = value
@@ -19,5 +35,9 @@ func set_money(value: String) -> void:
 	money_label.text = value
 
 func add_shop_items(items: Array[Item]) -> void:
-	for item in items:
-		shop.add(item)
+	if enabled:
+		for item in items:
+			shop.add(item)
+
+func _process(delta: float) -> void: 
+	pass

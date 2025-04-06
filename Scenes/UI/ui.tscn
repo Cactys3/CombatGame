@@ -3,27 +3,28 @@
 [ext_resource type="Script" path="res://Scripts/Managers/UIManager.gd" id="1_pigai"]
 [ext_resource type="PackedScene" uid="uid://bcwklkqeim2sq" path="res://Scenes/UI/inventory.tscn" id="2_aeob6"]
 
-[node name="UI" type="Control"]
-custom_minimum_size = Vector2(200, 200)
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 1
+[node name="UI" type="Node2D" node_paths=PackedStringArray("shop", "inventory")]
 script = ExtResource("1_pigai")
+shop = NodePath("Shop")
+inventory = NodePath("Inventory")
 
-[node name="TabContainer" type="TabContainer" parent="."]
-custom_minimum_size = Vector2(200, 200)
-layout_mode = 2
-offset_bottom = 26.0
-current_tab = 0
-tabs_position = 1
-clip_tabs = false
+[node name="Inventory" parent="." instance=ExtResource("2_aeob6")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 207.0
+offset_right = 353.0
+offset_bottom = 182.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+metadata/_edit_use_anchors_ = true
 
-[node name="Inventory" parent="TabContainer" instance=ExtResource("2_aeob6")]
-layout_mode = 2
-metadata/_tab_index = 0
-
-[node name="Shop" parent="TabContainer" instance=ExtResource("2_aeob6")]
-visible = false
-layout_mode = 2
+[node name="Shop" parent="." instance=ExtResource("2_aeob6")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 146.0
+offset_bottom = 128.0
+size_flags_horizontal = 3
+metadata/_edit_use_anchors_ = true
