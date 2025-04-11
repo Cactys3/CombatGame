@@ -61,17 +61,21 @@ func _process(delta: float) -> void:
 
 
 	if Input.is_action_just_pressed("test_3"):
+		pass
 		MakeWeapon(PISTOL_ATTACHMENT, PISTOL_HANDLE, LUGER_BULLET)
 
 
 	if Input.is_action_just_pressed("test_4"):
+		pass
 		MakeWeapon(SWORD_ATTACHMENT, SWORD_HANDLE, LUGER_BULLET)
 
 	if Input.is_action_just_pressed("test_5"):
+		pass
 		MakeWeapon(FLAMETHROWER_ATTACHMENT, FLAMETHROWER_HANDLE, FIRE_PROJECTILE)
 		
 
 	if Input.is_action_just_pressed("test_6"):
+		pass
 		MakeWeapon(RAILGUN_ATTACHMENT, RAILGUN_HANDLE, RAILGUN_PROJECTILE)
 
 

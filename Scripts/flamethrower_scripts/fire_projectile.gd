@@ -7,6 +7,12 @@ extends Projectile
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @export var attack:Attack = Attack.new()
 
+## called in ready
+func setdata():
+	var descrip = "A projectile of hot flame which goes through every enemy in its path, but quickly fades"
+	var image = preload("res://Art/New_Weapons/flamethrower/Fire_Flamethrower.png")
+	data.setdata("Flame", descrip, "projectile", "common", Color.CORAL, image, 5, 0.8)
+
 func _process(delta: float) -> void:
 	super(delta)
 

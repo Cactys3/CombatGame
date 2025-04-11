@@ -10,10 +10,14 @@ class_name Inventory
 var dragging_my_item: bool = false
 
 var showing_drop: bool = false
+var mouse_hover: bool = false
+var dragging: bool = false
+var offset: Vector2
+var offset2: Vector2
 
 const ITEM = preload("res://Scenes/UI/item.tscn")
 
-func add(new_underlying_item) -> void:
+func add(new_underlying_item : Node) -> void:
 	if is_instance_valid(inventory_grid):
 		var item: Item = ITEM.instantiate()
 		item.setup(new_underlying_item, self)
@@ -40,6 +44,32 @@ func _process(delta: float) -> void:
 		else:
 			drop_text.text = "Drop to Move!"
 		drop_visual.visible = true
+	
+	if visible && !Item.dragging_some_item:
+		if !mouse_hover && get_global_rect().has_point(get_global_mouse_position()):
+			mouse_hover = true
+			print("hover true")
+		
+		if mouse_hover && !get_global_rect().has_point(get_global_mouse_position()):
+			mouse_hover = false
+			print("hover false")
+		
+		if dragging && !Input.is_action_pressed("left_click"):
+			dragging = false
+			print("dragging false")
+		
+		if mouse_hover && Input.is_action_just_pressed("left_click"):
+			dragging = true
+			offset = global_position
+			offset2 = get_global_mouse_position()
+			print("dragging true")
+		
+		if dragging:
+			global_position = lerp(global_position, offset + (get_global_mouse_position() - offset2), 40 * delta)
+		
+	else:
+		mouse_hover = false
+		dragging = false
 	
 	if showing_drop && get_global_rect().has_point(get_global_mouse_position()) && Input.is_action_just_released("left_click"):
 		var item: Item = Item.dragging_item

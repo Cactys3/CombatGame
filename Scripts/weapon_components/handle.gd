@@ -1,6 +1,8 @@
 extends Area2D
 class_name Handle
 
+var data: ItemData = ItemData.new()
+
 @export var stats: StatsResource = StatsResource.new()
 
 @export var visual: AnimatedSprite2D
@@ -32,7 +34,14 @@ var ready_to_fire: bool = false #Tells attach if it can call Attack()
 func _ready() -> void:
 	set_stats()
 	stats.parent_object_name = name
+	setdata()
 	#stats = stats.duplicate()
+
+## meant to be overriden by extender
+func setdata():
+	pass
+func getdata() -> ItemData:
+	return data
 
 func _process(_delta: float) -> void:
 	#print("Its Me: " + str(self.name))

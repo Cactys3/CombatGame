@@ -2,6 +2,9 @@ extends Area2D
 class_name Attachment
 #Stat Modifiers
 
+var data: ItemData = ItemData.new()
+
+
 @export var stats: StatsResource = StatsResource.new()
 
 var bullets: Array[Projectile]
@@ -22,6 +25,14 @@ func _ready() -> void:
 	stats.parent_object_name = name
 	#stats = stats.duplicate()
 	cooldown_timer = 0
+	setdata()
+
+## meant to be overriden by extender
+func setdata():
+	pass
+
+func getdata() -> ItemData:
+	return data
 
 func _process(delta: float) -> void:
 	#print(name + " has projectile: " + frame.projectile.resource_path + "!")

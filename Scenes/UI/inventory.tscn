@@ -39,6 +39,7 @@ drop_text = NodePath("VBoxContainer/DropVisual/Label")
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 clip_contents = true
 layout_mode = 2
+size_flags_vertical = 0
 alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer"]
@@ -47,6 +48,20 @@ size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Default Inventory"
 horizontal_alignment = 1
+
+[node name="Inventory-Scroll" type="ScrollContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="Inventory-Grid" type="GridContainer" parent="VBoxContainer/Inventory-Scroll"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+mouse_default_cursor_shape = 16
+columns = 4
 
 [node name="DropVisual" type="Panel" parent="VBoxContainer"]
 z_index = 2
@@ -66,17 +81,3 @@ mouse_filter = 1
 text = "Drop to Sell!"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Inventory-Scroll" type="ScrollContainer" parent="VBoxContainer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-horizontal_scroll_mode = 0
-vertical_scroll_mode = 2
-
-[node name="Inventory-Grid" type="GridContainer" parent="VBoxContainer/Inventory-Scroll"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-mouse_default_cursor_shape = 16
-columns = 4

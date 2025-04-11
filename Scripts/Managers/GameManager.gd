@@ -64,9 +64,21 @@ func _process(delta: float) -> void:
 		ui_man.toggle_inventory()
 
 	if Input.is_action_just_pressed("ability1") && ui_man.enabled:
-		var fake_item: String = "fake item!" # TODO: this is not where items should be added or smth idk how whatever gets access to inventory
-		ui_man.shop.add(fake_item)
+		# TODO: this is not where items should be added or smth idk how whatever gets access to inventory
+		ui_man.shop.add(preload("res://Scripts/flamethrower_scripts/flamethrower_attachment.gd").new())
+		ui_man.shop.add(preload("res://Scripts/flamethrower_scripts/flamethrower_handle.gd").new())
 
 	if Input.is_action_just_pressed("ability2") && ui_man.enabled:
-		var fake_item: String = "fake item!"
-		ui_man.inventory.add(fake_item)
+		ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/fire_projectile.gd").new())
+	
+	if Input.is_action_just_pressed("test_3"):
+		ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/fire_projectile.gd").new())
+	
+	if Input.is_action_just_pressed("test_4"):
+		ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/flamethrower_attachment.gd").new())
+	
+	if Input.is_action_just_pressed("test_5"):
+		ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/flamethrower_handle.gd").new())
+	
+	if Input.is_action_just_pressed("test_6"):
+		pass

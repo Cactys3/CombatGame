@@ -1,5 +1,8 @@
 extends Area2D
 class_name Projectile
+
+var data: ItemData = ItemData.new()
+
 var frame: Weapon_Frame
 var count: float 
 var piercing: float
@@ -28,7 +31,14 @@ func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
 	
 	speed = (1 + frame.get_stat(StatsResource.VELOCITY)) * 13
 	
+	setdata()
 
+## meant to be overriden by extender
+func setdata():
+	pass
+
+func getdata() -> ItemData:
+	return data
 
 func _process(delta: float) -> void: #TODO: testing pyhsics_process vs process (and queued attacks)
 	position += direction * speed * delta
