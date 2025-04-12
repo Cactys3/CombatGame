@@ -1,0 +1,88 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwuwo8e451bxt"]
+
+[ext_resource type="Script" path="res://Scripts/UI/inventory.gd" id="1_hw1xm"]
+[ext_resource type="PackedScene" uid="uid://m0vp852bqpjq" path="res://Scenes/UI/DragBar.tscn" id="2_e8vs7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2hbkf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iqkyl"]
+bg_color = Color(0.826374, 0.335211, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+shadow_color = Color(0.49043, 0.00021269, 0.505162, 0.482353)
+shadow_size = 10
+anti_aliasing_size = 1.469
+
+[node name="ShopInventory" type="PanelContainer" node_paths=PackedStringArray("drag_bar", "inventory_scroll", "inventory_grid", "vbox")]
+clip_contents = true
+custom_minimum_size = Vector2(150, 200)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -103.0
+offset_right = 75.0
+offset_bottom = 103.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_2hbkf")
+script = ExtResource("1_hw1xm")
+drag_bar = NodePath("VBoxContainer/DragBar")
+inventory_scroll = NodePath("VBoxContainer/Inventory-Scroll")
+inventory_grid = NodePath("VBoxContainer/Inventory-Scroll/Inventory-Grid")
+vbox = NodePath("VBoxContainer")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 0
+alignment = 1
+
+[node name="DragBar" parent="VBoxContainer" node_paths=PackedStringArray("parent") instance=ExtResource("2_e8vs7")]
+layout_mode = 2
+parent = NodePath("../..")
+
+[node name="Inventory-Scroll" type="ScrollContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+follow_focus = true
+horizontal_scroll_mode = 0
+
+[node name="Inventory-Grid" type="GridContainer" parent="VBoxContainer/Inventory-Scroll"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+mouse_default_cursor_shape = 16
+columns = 4
+
+[node name="DropVisual" type="Panel" parent="VBoxContainer"]
+z_index = 2
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_iqkyl")
+
+[node name="Label" type="Label" parent="VBoxContainer/DropVisual"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+text = "Drop to Sell!"
+horizontal_alignment = 1
+vertical_alignment = 1

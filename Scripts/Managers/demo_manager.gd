@@ -25,11 +25,10 @@ var can_access_menus:bool = false
 
 var list: Array[Weapon_Frame]
 
-var current_difficulty:float = 1
+var current_difficulty: float = 1
 
 enum scene_states{shop, combat, encounter}
 var scene_state: scene_states = scene_states.shop
-
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("escape") && can_access_menus:

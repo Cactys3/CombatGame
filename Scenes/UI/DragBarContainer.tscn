@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://cp3sg3xliq7cm"]
+
+[ext_resource type="Script" path="res://Scripts/UI/DragBar.gd" id="1_rhfg0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_121j0"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+
+[node name="DragBarContainer" type="VBoxContainer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+script = ExtResource("1_rhfg0")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_121j0")
+text = "Draggable Panel"

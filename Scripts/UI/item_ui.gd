@@ -1,10 +1,10 @@
 extends Control
-class_name Item
+class_name ItemUI
 ## This class is the visual representation of potentially anything that can be shown in UI
 
 ## Given by UIManager
 var item
-var manager: Inventory
+var inventory: Inventory
 var grid: GridContainer
 var draggable: bool
 var base_position: Vector2
@@ -29,7 +29,7 @@ var showing_details: bool = false
 var mouse_hover: bool = false
 var dragging: bool = false
 static var dragging_some_item: bool = false
-static var dragging_item: Item 
+static var dragging_item: ItemUI 
 static var dragging_item_from_inventory: Inventory
 var offset: Vector2
 var offset2: Vector2
@@ -51,25 +51,9 @@ func _ready() -> void:
 		DescriptionLabel.get_v_scroll_bar().mouse_filter = Control.MOUSE_FILTER_PASS
 	DescriptionPanel.visible = false
 
-func setup(new_underlying_item : Node, new_manager: Inventory):
-	item = new_underlying_item
-	if item.has_method("getdata"):
-		item.setdata()
-		data = item.getdata()
-		if data.ready:
-			print("item work: " + item.name)
-			NameLabel.text = data.item_name
-			DescriptionLabel.text = data.item_description
-			DescriptionPanel.modulate = data.item_color
-			IconTexture.texture = data.item_image
-			print("hello?? texutere: " + data.item_image.resource_path)
-			BackgroundTexture.texture = data.item_image
-		else:
-			print("!item.data.ready: " + item.name)
-	else:
-		print("item no getdata: " + item.name)
-	manager = new_manager
-	grid = manager.inventory_grid
+func set_inventory(new_inventory: Inventory):
+	inventory = new_inventory
+	grid = inventory.inventory_grid
 	position = Vector2.ZERO
 	grid.add_child(self)
 	grid.queue_sort()
@@ -77,6 +61,18 @@ func setup(new_underlying_item : Node, new_manager: Inventory):
 #	draggable = can_drag
 #	base_position = new_position
 #	manager = new_manager
+
+func set_item(new_underlying_item: Node):
+	item = new_underlying_item
+	if item.has_method("getdata"):
+		item.setdata()
+		data = item.getdata()
+		if data.ready:
+			NameLabel.text = data.item_name
+			DescriptionLabel.text = data.item_description
+			DescriptionPanel.modulate = data.item_color
+			IconTexture.texture = data.item_image
+			BackgroundTexture.texture = data.item_image
 
 func show_details():
 	if data.ready:
@@ -91,11 +87,13 @@ func show_details():
 	showing_details = true
 
 func hide_details():
+	DescriptionLabel.size = Vector2(1 , 1)
+	DescriptionPanel.size = Vector2(1 , 1)
 	DescriptionPanel.visible = false
 	showing_details = false
 
 func _process(delta: float) -> void:
-	if visible:
+	if process_mode != PROCESS_MODE_DISABLED && !DragBar.dragging_some_bar && !(dragging_some_item && !dragging):
 		if !mouse_hover && get_global_rect().has_point(get_global_mouse_position()):
 			mouse_hover = true
 		
@@ -105,10 +103,12 @@ func _process(delta: float) -> void:
 		if dragging && Input.is_action_just_released("left_click"):
 			dragging = false
 			top_level = false
-			z_index = 2
-			manager.dragging_my_item = false
-			dragging_some_item = false
-			dragging_item_from_inventory = null
+			z_index = 0
+			inventory.dragging_my_item = false
+			call_deferred("set", "dragging_some_item", false)
+			call_deferred("set", "dragging_item_from_inventory", null)
+			#dragging_some_item = false
+			#dragging_item_from_inventory = null
 			#position = Vector2.ZERO
 			grid.queue_sort()
 			print("dragging OFF: " + str(ID))
@@ -118,11 +118,11 @@ func _process(delta: float) -> void:
 			offset = global_position
 			offset2 = get_global_mouse_position()
 			top_level = true
-			z_index = 10
-			manager.dragging_my_item = true
+			z_index = 50
+			inventory.dragging_my_item = true
 			dragging_some_item = true
 			dragging_item = self
-			dragging_item_from_inventory = manager
+			dragging_item_from_inventory = inventory
 			print("dragging ON: " + str(ID))
 			global_position = offset
 		
@@ -130,18 +130,17 @@ func _process(delta: float) -> void:
 			hide_details()
 			showing_details = false
 		
-		if !showing_details && (mouse_hover && !dragging_some_item):
+		if !showing_details && (mouse_hover && !dragging_some_item && !Inventory.dragging_some_inventory):
 			show_details()
 		
 		if dragging:
 			#global_position = get_global_mouse_position() - Vector2(20, 20)
 			global_position = lerp(global_position, offset + (get_global_mouse_position() - offset2), 40 * delta)
-		
-	if dragging && process_mode == PROCESS_MODE_DISABLED:
-		dragging_some_item = false
-	if (mouse_hover || dragging || showing_details || dragging_some_item) && process_mode == PROCESS_MODE_DISABLED:
-		print("hello")
-		mouse_hover = false
-		dragging = false
-		showing_details = false
-		hide_details()
+	else:
+		if dragging:
+			dragging = false
+			dragging_some_item = false
+		if mouse_hover || showing_details || dragging_some_item:
+			mouse_hover = false
+			showing_details = false
+			hide_details()

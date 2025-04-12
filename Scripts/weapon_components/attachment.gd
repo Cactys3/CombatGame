@@ -25,7 +25,6 @@ func _ready() -> void:
 	stats.parent_object_name = name
 	#stats = stats.duplicate()
 	cooldown_timer = 0
-	setdata()
 
 ## meant to be overriden by extender
 func setdata():

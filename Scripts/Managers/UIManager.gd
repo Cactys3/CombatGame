@@ -5,14 +5,20 @@ class_name UIManager
 @export var xp_label: Label
 @export var level_label: Label
 
-
 #@export var tab_container: TabContainer
 @export var shop: Inventory
 @export var inventory: Inventory
 
 var enabled: bool = true
 
+func _ready() -> void:
+	call_deferred("_connect_signals")
+
+func _connect_signals():
+	GameManager.instance.toggle_inventory.connect(toggle_inventory)
+
 func toggle_inventory() -> void:
+	print("toggle")
 	enabled = !enabled
 	visible = enabled
 	#propagate_call("set", ["visible", enabled])
@@ -34,9 +40,11 @@ func set_xp(value: String) -> void:
 func set_money(value: String) -> void:
 	money_label.text = value
 
-func add_shop_items(items: Array[Item]) -> void:
+func add_shop_items(items: Array[ItemUI]) -> void:
 	if enabled:
 		for item in items:
+			var i: ItemUI = preload("res://Scenes/UI/item_ui.tscn").instantiate()
+			i.set_item(item)
 			shop.add(item)
 
 func _process(delta: float) -> void: 

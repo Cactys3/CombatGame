@@ -9,33 +9,20 @@ shop = NodePath("Shop")
 inventory = NodePath("Inventory")
 
 [node name="Inventory" parent="." instance=ExtResource("2_aeob6")]
-anchors_preset = 0
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 offset_left = 0.0
 offset_top = 0.0
 offset_right = 150.0
 offset_bottom = 200.0
-grow_horizontal = 1
-grow_vertical = 1
-color = Color(0.734691, 0.547368, 0.740788, 1)
-label_text = "Storage"
+mouse_filter = 0
 metadata/_edit_use_anchors_ = true
 
 [node name="Shop" parent="." instance=ExtResource("2_aeob6")]
-anchors_preset = 0
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 0.0
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
 offset_top = 0.0
-offset_right = 150.0
+offset_right = 300.0
 offset_bottom = 200.0
-grow_horizontal = 1
-grow_vertical = 1
-color = Color(0.401328, 0.649289, 0.599674, 1)
-label_text = "Shop"
+mouse_filter = 0
 metadata/_edit_use_anchors_ = true

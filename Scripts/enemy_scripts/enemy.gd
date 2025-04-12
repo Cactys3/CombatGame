@@ -1,5 +1,7 @@
 extends Node
 
+class_name Enemy
+
 var health: int
 
 

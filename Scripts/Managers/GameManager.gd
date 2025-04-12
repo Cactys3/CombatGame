@@ -1,7 +1,9 @@
 extends Node
 class_name GameManager
-## 
 
+## Singleton
+static var instance: GameManager = self
+## Managers
 @export var ui_man: UIManager 
 @export var shop_man: ShopManager
 @export var instance_man: InstanceManager
@@ -17,6 +19,20 @@ var xp_modifier_per_level: float = 1.1
 var xp_from_past_levels: float = 0
 var starting_money: float = 15
 
+## Signals
+# For UI Methods
+signal toggle_inventory
+signal set_xp(value: float)
+signal set_money(value: float)
+signal set_level(value: float)
+signal add_item_to_player_inventory(item: Item)
+# For Item Mechanics
+signal EnemyDamaged(enemy: Enemy, attack: Attack)
+signal EnemyKilled(enemy: Enemy, attack: Attack)
+signal PlayerDamaged(player: Player_Script, attack: Attack)
+signal PlayerKilled(player: Player_Script, attack: Attack)
+signal RoundEnded(round_number: int)
+
 var level: float = 0: ## level
 	set(value): #TODO: maybe send to instancemanager and make game harder by level
 		level = value
@@ -24,7 +40,6 @@ var level: float = 0: ## level
 		player.level = value
 	get(): # calculate level based on total xp
 		return level 
-
 var xp: float = 0: ## Current (total?) XP Gained
 	set(value):
 		if (xp < value):
@@ -40,7 +55,6 @@ var xp: float = 0: ## Current (total?) XP Gained
 		player.xp = value
 	get():
 		return xp
-
 var money: float = 0: ## Current Money Held
 	set(value):
 		money = value
@@ -48,12 +62,13 @@ var money: float = 0: ## Current Money Held
 		player.money = value
 
 func _ready() -> void:
-	# Check if multiple game managers exist (they shouldn't)
-	var nodes_with_same_script = get_tree().get_nodes_in_group("gamemanager")
-	if nodes_with_same_script.size() > 1:
-		push_error("Error: Only one instance of gamemanager is allowed in the scene!")
-		queue_free()  # Remove self if multiple exist
+	# Ensure only one instance exists
+	if instance != null:
+		printerr("Error: Only one instance of gamemanager is allowed in the scene!")
+		queue_free() 
 		return
+	instance = self  
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	call_deferred("@level_setter", 0)
 	call_deferred("@xp_setter", 0)
 	call_deferred("@money_setter", starting_money)
@@ -61,24 +76,36 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("inventory_toggle"):
-		ui_man.toggle_inventory()
+		#ui_man.toggle_inventory()
+		toggle_inventory.emit()
 
 	if Input.is_action_just_pressed("ability1") && ui_man.enabled:
 		# TODO: this is not where items should be added or smth idk how whatever gets access to inventory
-		ui_man.shop.add(preload("res://Scripts/flamethrower_scripts/flamethrower_attachment.gd").new())
-		ui_man.shop.add(preload("res://Scripts/flamethrower_scripts/flamethrower_handle.gd").new())
+		var item = preload("res://Scripts/flamethrower_scripts/flamethrower_attachment.gd").new()
+		var i: ItemUI = preload("res://Scenes/UI/item_ui.tscn").instantiate()
+		i.set_item(item)
+		ui_man.shop.add(i)
+		
+		i = preload("res://Scenes/UI/item_ui.tscn").instantiate()
+		item = preload("res://Scripts/flamethrower_scripts/flamethrower_handle.gd").new()
+		i.set_item(item)
+		ui_man.shop.add(i)
 
 	if Input.is_action_just_pressed("ability2") && ui_man.enabled:
-		ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/fire_projectile.gd").new())
+		var item = preload("res://Scripts/flamethrower_scripts/fire_projectile.gd").new()
+		var i: ItemUI = preload("res://Scenes/UI/item_ui.tscn").instantiate()
+		i.set_item(item)
+		ui_man.inventory.add(i)
+	
 	
 	if Input.is_action_just_pressed("test_3"):
-		ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/fire_projectile.gd").new())
+		pass#ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/fire_projectile.gd").new())
 	
 	if Input.is_action_just_pressed("test_4"):
-		ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/flamethrower_attachment.gd").new())
+		pass#ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/flamethrower_attachment.gd").new())
 	
 	if Input.is_action_just_pressed("test_5"):
-		ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/flamethrower_handle.gd").new())
+		pass#ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/flamethrower_handle.gd").new())
 	
 	if Input.is_action_just_pressed("test_6"):
 		pass
