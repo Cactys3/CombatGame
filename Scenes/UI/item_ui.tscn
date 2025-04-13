@@ -71,7 +71,6 @@ mouse_default_cursor_shape = 6
 theme_override_styles/panel = SubResource("StyleBoxFlat_kwy7p")
 
 [node name="DescriptionText" type="RichTextLabel" parent="DescriptionPanel"]
-z_index = 5
 layout_mode = 0
 offset_left = 2.0
 offset_top = 2.0

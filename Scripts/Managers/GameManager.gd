@@ -109,3 +109,15 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("test_6"):
 		pass
+
+func sell_item(item: ItemUI) -> bool:
+	if (item && item.data.can_sell):
+		money += item.data.item_buy_cost * item.data.item_sell_cost_modifier
+		return true
+	return false
+
+func buy_item(item: ItemUI) -> bool:
+	if (item && (money > item.data.item_buy_cost)):
+		money -= item.data.item_buy_cost
+		return true
+	return false

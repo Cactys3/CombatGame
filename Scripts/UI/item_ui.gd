@@ -1,4 +1,4 @@
-extends Control
+extends DraggableUI
 class_name ItemUI
 ## This class is the visual representation of potentially anything that can be shown in UI
 
@@ -26,13 +26,12 @@ const DescriptionMaxY: float = 50
 const DescriptionMaxX: float = 38
 
 var showing_details: bool = false
-var mouse_hover: bool = false
-var dragging: bool = false
+#var mouse_hover: bool = false
+#var dragging: bool = false
 static var dragging_some_item: bool = false
 static var dragging_item: ItemUI 
-static var dragging_item_from_inventory: Inventory
-var offset: Vector2
-var offset2: Vector2
+#var offset: Vector2
+#var offset2: Vector2
 ## ideas for future
 #var sound_on_hover
 #var animation_on_hover
@@ -44,12 +43,14 @@ var offset2: Vector2
 
 
 func _ready() -> void:
+	super()
 	ID = IDindex
 	IDindex += 1
 	#custom_minimum_size = IconTexture.texture.get_size() + Vector2(5, 5)
 	if is_instance_valid(DescriptionLabel.get_v_scroll_bar()):
 		DescriptionLabel.get_v_scroll_bar().mouse_filter = Control.MOUSE_FILTER_PASS
 	DescriptionPanel.visible = false
+	z_index = 0
 
 func set_inventory(new_inventory: Inventory):
 	inventory = new_inventory
@@ -93,54 +94,67 @@ func hide_details():
 	showing_details = false
 
 func _process(delta: float) -> void:
-	if process_mode != PROCESS_MODE_DISABLED && !DragBar.dragging_some_bar && !(dragging_some_item && !dragging):
+	if !(dragging_some_ui && !dragging) && visible && process_mode != PROCESS_MODE_DISABLED:
 		if !mouse_hover && get_global_rect().has_point(get_global_mouse_position()):
 			mouse_hover = true
+			hovered.append(self)
 		
 		if mouse_hover && !get_global_rect().has_point(get_global_mouse_position()):
 			mouse_hover = false
+			hovered.erase(self)
 		
-		if dragging && Input.is_action_just_released("left_click"):
+		if dragging && !Input.is_action_pressed("left_click"):
 			dragging = false
+			dragging_some_ui = false
 			top_level = false
 			z_index = 0
-			inventory.dragging_my_item = false
 			call_deferred("set", "dragging_some_item", false)
-			call_deferred("set", "dragging_item_from_inventory", null)
-			#dragging_some_item = false
-			#dragging_item_from_inventory = null
-			#position = Vector2.ZERO
 			grid.queue_sort()
-			print("dragging OFF: " + str(ID))
+			#print("dragging OFF: " + str(ID))
 		
-		if !dragging_some_item && mouse_hover && Input.is_action_just_pressed("left_click"):
-			dragging = true
-			offset = global_position
-			offset2 = get_global_mouse_position()
-			top_level = true
-			z_index = 50
-			inventory.dragging_my_item = true
-			dragging_some_item = true
-			dragging_item = self
-			dragging_item_from_inventory = inventory
-			print("dragging ON: " + str(ID))
-			global_position = offset
+		if dragging && dragging_some_ui:
+			dragging_some_ui = false
+			inventory.z_index = 3
+		
+		if mouse_hover && Input.is_action_just_pressed("left_click"):
+			var good: bool = true
+			for bar in hovered:
+				if bar != self && bar.get_priority() > parent.get_priority():
+					good = false
+				else:
+					pass#print(bar.name + " lost dragging context with: " + str(bar.get_priority()))
+			if good:
+				#print(name + " won dragging context with: " + str(get_priority()))
+				dragging = true
+				dragging_some_ui = true
+				offset = global_position
+				offset2 = get_global_mouse_position()
+				top_level = true
+				z_index = 50
+				dragging_some_item = true
+				dragging_item = self
+				#print("dragging ON: " + str(ID))
+				global_position = offset
 		
 		if showing_details && (!mouse_hover || dragging_some_item):
 			hide_details()
 			showing_details = false
 		
-		if !showing_details && (mouse_hover && !dragging_some_item && !Inventory.dragging_some_inventory):
+		if !showing_details && (mouse_hover && !dragging_some_item):
 			show_details()
 		
 		if dragging:
-			#global_position = get_global_mouse_position() - Vector2(20, 20)
 			global_position = lerp(global_position, offset + (get_global_mouse_position() - offset2), 40 * delta)
 	else:
+		if z_index > 0 && dragging_some_ui && !dragging:
+			z_index = 0
 		if dragging:
 			dragging = false
 			dragging_some_item = false
-		if mouse_hover || showing_details || dragging_some_item:
-			mouse_hover = false
+			dragging_some_ui = false
+		if  showing_details:
 			showing_details = false
 			hide_details()
+
+func get_priority() -> int:
+	return inventory.z_index

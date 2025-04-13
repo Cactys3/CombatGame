@@ -9,7 +9,7 @@ extends Projectile
 
 ## called in ready
 func setdata():
-	var descrip = "A projectile of hot flame which goes through every enemy in its path, but quickly fades"
+	var descrip = "A projectile of hot flame which goes through every enemy in its path, but quickly fades, Cost/Mod: " + str(5) + str(0.8)
 	var image = preload("res://Art/New_Weapons/flamethrower/Fire_Flamethrower.png")
 	data.setdata("Flame", descrip, "projectile", "common", Color.CORAL, image, 5, 0.8)
 

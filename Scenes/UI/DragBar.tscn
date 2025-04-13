@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://m0vp852bqpjq"]
 
-[ext_resource type="Script" path="res://Scripts/UI/DragBar.gd" id="1_rhfg0"]
+[ext_resource type="Script" path="res://Scripts/UI/DraggableUI.gd" id="1_rhfg0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6bujb"]
 bg_color = Color(0.673704, 0.156556, 0.489744, 1)
