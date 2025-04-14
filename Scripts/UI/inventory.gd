@@ -1,13 +1,13 @@
-extends Container
+extends Control
 class_name Inventory
 
 @export var drag_bar: DraggableUI
 @export var color: Color
 @export var label_text: String
 ## visually creates the columns and rows of items
-@export var inventory_scroll: ScrollContainer
-@export var inventory_grid: GridContainer
-@export var vbox: VBoxContainer
+@export var default_item_parent: Control
+#@export var vbox: VBoxContainer
+#@export var inventory_scroll: ScrollContainer
 
 var items: Array[ItemUI] = []
 
@@ -16,12 +16,7 @@ func check_item(item: ItemUI) -> bool:
 
 func add(item : ItemUI) -> bool:
 	if check_item(item):
-		item.inventory = self
-		item.grid = inventory_grid
-		item.position = Vector2.ZERO
-		inventory_grid.add_child(item)
-		inventory_grid.queue_sort()
-		items.append(item)
+		_add_item(item)
 		return true
 	return false
 
@@ -37,12 +32,7 @@ func remove(item: ItemUI) -> bool:
 ## Item requested to be moved into this inventory
 func move(item: ItemUI) -> bool:
 	if check_item(item) && item.inventory.remove(item):
-		item.inventory = self
-		item.grid = inventory_grid
-		item.position = Vector2.ZERO
-		inventory_grid.add_child(item)
-		inventory_grid.queue_sort()
-		items.append(item)
+		_add_item(item)
 		return true
 	return false
 
@@ -52,6 +42,14 @@ func drop(item: ItemUI) -> void:
 		pass
 	else:
 		move(item)
+
+func _add_item(item: ItemUI) -> void:
+	item.inventory = self
+	item.item_parent = default_item_parent
+	item.position = Vector2.ZERO
+	default_item_parent.add_child(item)
+	default_item_parent.queue_sort()
+	items.append(item)
 
 func _ready() -> void:
 	if color:

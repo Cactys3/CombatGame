@@ -9,7 +9,7 @@ func _ready() -> void:
 func setdata():
 	var descrip = "An attachment for a flamethrower."
 	var image = preload("res://Art/New_Weapons/flamethrower/Attachment_Flamethrower.png")
-	data.setdata("Flame", descrip, "projectile", "common", Color.CORAL, image, 5, 0.8)
+	data.setdata("Flame", descrip, ItemData.ATTACHMENT, "common", Color.CORAL, image, 5, 0.8)
 
 
 func _process(delta: float) -> void:

@@ -8,17 +8,21 @@ bg_color = Color(0.673704, 0.156556, 0.489744, 1)
 [node name="DragBar" type="PanelContainer"]
 anchors_preset = 10
 anchor_right = 1.0
+offset_left = 60.0
+offset_right = -1859.0
 offset_bottom = 18.0
 grow_horizontal = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
+size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_6bujb")
 script = ExtResource("1_rhfg0")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_vertical = 1
 text = "Draggable Panel"
+horizontal_alignment = 1
+clip_text = true
+max_lines_visible = 1
 
 [connection signal="mouse_entered" from="." to="." method="_enter"]
 [connection signal="mouse_exited" from="." to="." method="_exit"]

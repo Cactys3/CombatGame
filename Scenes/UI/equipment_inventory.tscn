@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=3 uid="uid://dildbwxsp3g8d"]
+
+[ext_resource type="Script" path="res://Scripts/UI/equipment_inventory.gd" id="1_eowgl"]
+[ext_resource type="PackedScene" uid="uid://m0vp852bqpjq" path="res://Scenes/UI/DragBar.tscn" id="2_3t8qa"]
+
+[node name="equipment_inventory" type="PanelContainer" node_paths=PackedStringArray("ItemParent", "WeaponParent", "drag_bar")]
+custom_minimum_size = Vector2(100, 150)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -63.0
+offset_right = 50.0
+offset_bottom = 63.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_eowgl")
+ItemParent = NodePath("VBoxContainer/TabContainer/Items")
+WeaponParent = NodePath("VBoxContainer/TabContainer/Weapons")
+drag_bar = NodePath("VBoxContainer/DragBar")
+color = Color(0.579352, 0.326, 0.605962, 1)
+label_text = "Equipment"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(100, 118)
+layout_mode = 2
+
+[node name="DragBar" parent="VBoxContainer" node_paths=PackedStringArray("parent") instance=ExtResource("2_3t8qa")]
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+size_flags_vertical = 0
+parent = NodePath("")
+
+[node name="Character Display" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 8
+current_tab = 0
+clip_tabs = false
+
+[node name="Items" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Weapons" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1

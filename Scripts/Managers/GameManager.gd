@@ -97,6 +97,12 @@ func _process(delta: float) -> void:
 		i.set_item(item)
 		ui_man.inventory.add(i)
 	
+	if Input.is_action_just_pressed("ability3") && ui_man.enabled:
+		var item = preload("res://Scripts/flamethrower_scripts/fire_projectile.gd").new()
+		var i: ItemUI = preload("res://Scenes/UI/item_ui.tscn").instantiate()
+		i.set_item(item)
+		ui_man.inventory.add(i)
+	
 	
 	if Input.is_action_just_pressed("test_3"):
 		pass#ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/fire_projectile.gd").new())

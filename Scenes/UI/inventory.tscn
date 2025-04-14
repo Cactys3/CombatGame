@@ -5,7 +5,7 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2hbkf"]
 
-[node name="Inventory" type="PanelContainer" node_paths=PackedStringArray("drag_bar", "inventory_scroll", "inventory_grid", "vbox")]
+[node name="Inventory" type="PanelContainer" node_paths=PackedStringArray("drag_bar", "default_item_parent")]
 clip_contents = true
 custom_minimum_size = Vector2(150, 200)
 anchors_preset = 8
@@ -25,9 +25,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_2hbkf")
 script = ExtResource("1_haeh0")
 drag_bar = NodePath("VBoxContainer/DragBar")
 label_text = "Storage"
-inventory_scroll = NodePath("VBoxContainer/Inventory-Scroll")
-inventory_grid = NodePath("VBoxContainer/Inventory-Scroll/Inventory-Grid")
-vbox = NodePath("VBoxContainer")
+default_item_parent = NodePath("VBoxContainer/Inventory-Scroll/Inventory-Grid")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 clip_contents = true

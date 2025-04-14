@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/flamethrower_scripts/flamethrower_handle.gd" id="1_40hlj"]
 [ext_resource type="Script" path="res://Scripts/stats.gd" id="2_jh70o"]
-[ext_resource type="Texture2D" uid="uid://ctcyk6f73ll3f" path="res://Art/New_Weapons/flamethrower/Handle_Flamethrower.png" id="2_p341h"]
+[ext_resource type="Texture2D" uid="uid://ctcyk6f73ll3f" path="res://Art/New_Weapons/Flamethrower/Handle_Flamethrower.png" id="2_p341h"]
 
 [sub_resource type="Resource" id="Resource_41cnc"]
 script = ExtResource("2_jh70o")

@@ -39,12 +39,7 @@ func drop(item: ItemUI) -> void:
 ## Item requested to be moved into this inventory
 func move(item: ItemUI) -> bool:
 	if check_item(item) && item.inventory.remove(item) && GameManager.instance.sell_item(item):
-		item.inventory = self
-		item.grid = inventory_grid
-		item.position = Vector2.ZERO
-		inventory_grid.add_child(item)
-		inventory_grid.queue_sort()
-		items.append(item)
+		_add_item(item)
 		return true
 	return false
 

@@ -5,7 +5,7 @@ class_name ItemUI
 ## Given by UIManager
 var item
 var inventory: Inventory
-var grid: GridContainer
+var item_parent: Control
 var draggable: bool
 var base_position: Vector2
 var position_offset: Vector2
@@ -98,7 +98,7 @@ func _process(delta: float) -> void:
 			top_level = false
 			z_index = 0
 			call_deferred("set", "dragging_some_item", false)
-			grid.queue_sort()
+			item_parent.queue_sort()
 			#print("dragging OFF: " + str(ID))
 		
 		if dragging && dragging_some_ui:
