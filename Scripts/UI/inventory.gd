@@ -11,15 +11,16 @@ class_name Inventory
 
 var items: Array[ItemUI] = []
 
-const ITEM = preload("res://Scenes/UI/item_ui.tscn")
-
 func check_item(item: ItemUI) -> bool:
 	return is_instance_valid(item)
 
 func add(item : ItemUI) -> bool:
 	if check_item(item):
-		#var item: ItemUI = preload("res://Scenes/UI/item_ui.tscn").instantiate()
-		item.set_inventory(self)
+		item.inventory = self
+		item.grid = inventory_grid
+		item.position = Vector2.ZERO
+		inventory_grid.add_child(item)
+		inventory_grid.queue_sort()
 		items.append(item)
 		return true
 	return false
@@ -36,7 +37,11 @@ func remove(item: ItemUI) -> bool:
 ## Item requested to be moved into this inventory
 func move(item: ItemUI) -> bool:
 	if check_item(item) && item.inventory.remove(item):
-		item.set_inventory(self)
+		item.inventory = self
+		item.grid = inventory_grid
+		item.position = Vector2.ZERO
+		inventory_grid.add_child(item)
+		inventory_grid.queue_sort()
 		items.append(item)
 		return true
 	return false

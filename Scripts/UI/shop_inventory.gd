@@ -24,8 +24,9 @@ func handle_drop_visual():
 		showing_drop = false
 		drop_visual.visible = false
 
+## Item is not null and item is a valid itemtype
 func check_item(item: ItemUI) -> bool:
-	return is_instance_valid(item) # && item.data.item_type == "Attachment"
+	return super(item) && (item.data.item_type == ItemData.ATTACHMENT || item.data.item_type == ItemData.HANDLE || item.data.item_type == ItemData.PROJECTILE || item.data.item_type == ItemData.ITEM)
 
 func drop(item: ItemUI) -> void:
 	if item.inventory == self:
@@ -38,10 +39,13 @@ func drop(item: ItemUI) -> void:
 ## Item requested to be moved into this inventory
 func move(item: ItemUI) -> bool:
 	if check_item(item) && item.inventory.remove(item) && GameManager.instance.sell_item(item):
-		item.set_inventory(self)
+		item.inventory = self
+		item.grid = inventory_grid
+		item.position = Vector2.ZERO
+		inventory_grid.add_child(item)
+		inventory_grid.queue_sort()
 		items.append(item)
 		return true
-	#print("check: " + str(check_item(item)) + " rm: " + str(item.inventory.remove(item)))
 	return false
 
 ## Item requested to be moved away from this inventory

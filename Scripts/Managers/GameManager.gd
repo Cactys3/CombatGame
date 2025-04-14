@@ -121,3 +121,14 @@ func buy_item(item: ItemUI) -> bool:
 		money -= item.data.item_buy_cost
 		return true
 	return false
+
+func add_item_to_player(item: Item) -> bool:
+	if (item):
+		return true #TODO: player.add_item(item.item)
+	return false
+
+func add_weapon_to_player(item: ItemUI) -> bool:
+	if (item):
+		player.add_frame(item.item) #TODO: if player can hold more weapons
+		return true
+	return false

@@ -9,8 +9,14 @@ var item_image: Texture2D = preload("res://Art/UI/MissingTexture.png")
 var item_buy_cost: float = 5
 var item_sell_cost_modifier: float = 0.8
 var ready: bool = false
-
 var can_sell: bool = true
+
+const HANDLE = "handle"
+const ATTACHMENT = "attachment"
+const PROJECTILE = "projectile"
+const ITEM = "item"
+const MOD = "mod"
+const WEAPON = "weapon"
 
 func setdata(namae: String, description: String, type: String, rarity: String, color: Color, image: Texture2D, buycost: float, sellmodifier: float):
 	item_name = namae

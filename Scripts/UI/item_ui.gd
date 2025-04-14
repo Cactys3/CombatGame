@@ -52,17 +52,6 @@ func _ready() -> void:
 	DescriptionPanel.visible = false
 	z_index = 0
 
-func set_inventory(new_inventory: Inventory):
-	inventory = new_inventory
-	grid = inventory.inventory_grid
-	position = Vector2.ZERO
-	grid.add_child(self)
-	grid.queue_sort()
-	#NameLabel.text = "" #TODO: set variables based on item stuff, add them to all possible item classes
-#	draggable = can_drag
-#	base_position = new_position
-#	manager = new_manager
-
 func set_item(new_underlying_item: Node):
 	item = new_underlying_item
 	if item.has_method("getdata"):
