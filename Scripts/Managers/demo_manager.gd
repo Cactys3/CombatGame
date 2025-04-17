@@ -132,7 +132,7 @@ func Sword_Button() -> void:
 		#player.add_weapon(new_weapon)
 
 func MakeWeapon(attachment: PackedScene, handle: PackedScene, projectile: PackedScene) -> void:
-	var new_frame = weapon_frame.instantiate()
+	var new_frame: Weapon_Frame = weapon_frame.instantiate()
 	var new_attachment = attachment.instantiate()
 	var new_handle = handle.instantiate()
 	new_frame.stats = new_frame.stats.duplicate() #TODO: this is important, needs to be done whenever instantiating
@@ -146,6 +146,7 @@ func MakeWeapon(attachment: PackedScene, handle: PackedScene, projectile: Packed
 	new_frame.set_projectile(projectile)
 	player.add_frame(new_frame)
 	list.append(new_frame)
+	
 	
 	#random color
 	new_attachment.get_child(0).self_modulate = Color(randf_range(0, 1), randf_range(0, 1), randf_range(0, 1), randf_range(0.2, 1))

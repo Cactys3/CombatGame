@@ -17,8 +17,8 @@ offset_bottom = 63.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_eowgl")
-ItemParent = NodePath("VBoxContainer/TabContainer/Items")
-WeaponParent = NodePath("VBoxContainer/TabContainer/Weapons")
+ItemParent = NodePath("VBoxContainer/TabContainer/item/Items")
+WeaponParent = NodePath("VBoxContainer/TabContainer/weapon/Weapons")
 drag_bar = NodePath("VBoxContainer/DragBar")
 color = Color(0.579352, 0.326, 0.605962, 1)
 label_text = "Equipment"
@@ -31,7 +31,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(100, 10)
 layout_mode = 2
 size_flags_vertical = 0
-parent = NodePath("")
+parent = NodePath("../..")
 
 [node name="Character Display" type="HBoxContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(100, 50)
@@ -40,16 +40,30 @@ layout_mode = 2
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 8
+tab_alignment = 1
 current_tab = 0
 clip_tabs = false
 
-[node name="Items" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
+[node name="item" type="ScrollContainer" parent="VBoxContainer/TabContainer"]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
+horizontal_scroll_mode = 0
 metadata/_tab_index = 0
 
-[node name="Weapons" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
-visible = false
+[node name="Items" type="VBoxContainer" parent="VBoxContainer/TabContainer/item"]
 layout_mode = 2
+theme_override_constants/separation = 1
+alignment = 1
+
+[node name="weapon" type="ScrollContainer" parent="VBoxContainer/TabContainer"]
+visible = false
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+horizontal_scroll_mode = 0
 metadata/_tab_index = 1
+
+[node name="Weapons" type="VBoxContainer" parent="VBoxContainer/TabContainer/weapon"]
+layout_mode = 2

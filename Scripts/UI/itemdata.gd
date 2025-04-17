@@ -11,6 +11,7 @@ var item_sell_cost_modifier: float = 0.8
 var ready: bool = false
 var can_sell: bool = true
 
+const MISSINGTEXTURE = preload("res://Art/UI/MissingTexture.png")
 const HANDLE = "handle"
 const ATTACHMENT = "attachment"
 const PROJECTILE = "projectile"

@@ -9,6 +9,8 @@ class_name Inventory
 #@export var vbox: VBoxContainer
 #@export var inventory_scroll: ScrollContainer
 
+# TODO: add exit x button
+
 var items: Array[ItemUI] = []
 
 func check_item(item: ItemUI) -> bool:

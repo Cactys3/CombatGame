@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dc0hdlr7wq3lq"]
+[gd_scene load_steps=29 format=3 uid="uid://dc0hdlr7wq3lq"]
 
 [ext_resource type="Script" path="res://Scripts/enemy_scripts/enemy.gd" id="1_nfwnb"]
 [ext_resource type="Texture2D" uid="uid://b1lme8t63rjpt" path="res://Art/Area Art/Background.png" id="1_rub18"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://cnj0fjnxdyuts" path="res://Art/Weapons/arrow.png" id="4_yohyp"]
 [ext_resource type="Texture2D" uid="uid://brh24bmjiesqo" path="res://Art/Weapons/Bullet.png" id="5_06y7e"]
 [ext_resource type="PackedScene" uid="uid://bhfq62xt07h37" path="res://Scenes/UI/ui.tscn" id="6_uv4m7"]
-[ext_resource type="PackedScene" uid="uid://dildbwxsp3g8d" path="res://Scenes/UI/equipment_inventory.tscn" id="7_bpfom"]
 [ext_resource type="Script" path="res://Scripts/Managers/GameManager.gd" id="9_vogg4"]
 [ext_resource type="Script" path="res://Scripts/Managers/demo_manager.gd" id="10_cwiy3"]
 [ext_resource type="Script" path="res://Scripts/Managers/InstanceManager.gd" id="11_e6hx5"]
@@ -320,12 +319,6 @@ position = Vector2(-76, -70)
 money_label = NodePath("../Store/Money Label/Money")
 xp_label = NodePath("../Store/XP Label/XP")
 level_label = NodePath("../Store/LVL Label/LVL")
-
-[node name="equipment" parent="Camera" instance=ExtResource("7_bpfom")]
-offset_left = -258.0
-offset_top = -13.0
-offset_right = -218.0
-offset_bottom = 27.0
 
 [node name="Backdrop" type="Sprite2D" parent="."]
 z_index = -5

@@ -1,6 +1,8 @@
 extends Area2D
 class_name Projectile
 
+var PACKEDSCENE: PackedScene = preload("res://Scenes/pistol/pistol_bullet.tscn")
+
 var data: ItemData = ItemData.new()
 
 var frame: Weapon_Frame

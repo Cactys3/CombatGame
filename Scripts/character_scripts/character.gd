@@ -88,6 +88,7 @@ func die():
 	print("player died: " + str(health))
 
 func add_frame(new_frame: Weapon_Frame):
+	print("new frame!!")
 	weapon_list.append(new_frame)
 	var temp_count = weapon_count
 	match new_frame.handle.AimType:
@@ -112,6 +113,7 @@ func add_frame(new_frame: Weapon_Frame):
 		if (weapon.handle.AimType == new_frame.handle.AimType):
 			index += 1
 			weapon.change_slot(index, temp_count)
+	print("add child!!!")
 	add_child(new_frame)
 
 func get_stat(stat: String) -> float:

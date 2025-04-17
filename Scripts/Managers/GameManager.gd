@@ -1,6 +1,8 @@
 extends Node
 class_name GameManager
 
+@onready var weapon_frame = preload("res://Scenes/weapon_frame.tscn")
+
 ## Singleton
 static var instance: GameManager = self
 ## Managers
@@ -81,27 +83,41 @@ func _process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("ability1") && ui_man.enabled:
 		# TODO: this is not where items should be added or smth idk how whatever gets access to inventory
-		var item = preload("res://Scripts/flamethrower_scripts/flamethrower_attachment.gd").new()
+		#var item = preload("res://Scripts/flamethrower_scripts/flamethrower_attachment.gd").new()
+		var item = preload("res://Scenes/flamethrower/flamethrower_attachment.tscn").instantiate()
 		var i: ItemUI = preload("res://Scenes/UI/item_ui.tscn").instantiate()
+		item.stats = item.stats.duplicate()
 		i.set_item(item)
 		ui_man.shop.add(i)
 		
 		i = preload("res://Scenes/UI/item_ui.tscn").instantiate()
-		item = preload("res://Scripts/flamethrower_scripts/flamethrower_handle.gd").new()
+		#item = preload("res://Scripts/flamethrower_scripts/flamethrower_handle.gd").instantiate()
+		item = preload("res://Scenes/flamethrower/flamethrower_handle.tscn").instantiate()
+		item.stats = item.stats.duplicate()
 		i.set_item(item)
 		ui_man.shop.add(i)
 
 	if Input.is_action_just_pressed("ability2") && ui_man.enabled:
-		var item = preload("res://Scripts/flamethrower_scripts/fire_projectile.gd").new()
+		#var item = preload("res://Scripts/flamethrower_scripts/fire_projectile.gd").new()
+		var item = preload("res://Scenes/flamethrower/fire_projectile.tscn").instantiate()
 		var i: ItemUI = preload("res://Scenes/UI/item_ui.tscn").instantiate()
+		item.stats = item.stats.duplicate()
 		i.set_item(item)
 		ui_man.inventory.add(i)
 	
 	if Input.is_action_just_pressed("ability3") && ui_man.enabled:
-		var item = preload("res://Scripts/flamethrower_scripts/fire_projectile.gd").new()
+		#var item = preload("res://Scripts/flamethrower_scripts/fire_projectile.gd").new()
+		var item = preload("res://Scenes/flamethrower/fire_projectile.tscn").instantiate()
 		var i: ItemUI = preload("res://Scenes/UI/item_ui.tscn").instantiate()
+		item.stats = item.stats.duplicate()
 		i.set_item(item)
 		ui_man.inventory.add(i)
+		 
+		var item2 = Item.new()
+		item2.data.setdata("testitem", "this is a test item", ItemData.ITEM, "1", Color.RED, ItemData.MISSINGTEXTURE, 5, 0.9)
+		var i2: ItemUI = preload("res://Scenes/UI/item_ui.tscn").instantiate()
+		i2.set_item(item2)
+		ui_man.inventory.add(i2)
 	
 	
 	if Input.is_action_just_pressed("test_3"):
@@ -133,8 +149,18 @@ func add_item_to_player(item: Item) -> bool:
 		return true #TODO: player.add_item(item.item)
 	return false
 
-func add_weapon_to_player(item: ItemUI) -> bool:
-	if (item):
-		player.add_frame(item.item) #TODO: if player can hold more weapons
+func add_weapon_to_player(handle: ItemUI, attachment: ItemUI, projectile: ItemUI) -> bool:
+	if (handle && attachment && projectile) && (handle.data.item_type == ItemData.HANDLE && attachment.data.item_type == ItemData.ATTACHMENT && projectile.data.item_type == ItemData.PROJECTILE):
+		var weapon: Weapon_Frame = weapon_frame.instantiate() #PackedScene.instantiate()
+		
+		weapon.stats = weapon.stats.duplicate()
+		handle.position = Vector2.ZERO
+		attachment.position = Vector2.ZERO
+		weapon.position = Vector2.ZERO
+		weapon.add_attachment(attachment.item)
+		weapon.add_handle(handle.item)
+		weapon.set_projectile(projectile.item.PACKEDSCENE)
+		player.add_frame(weapon) #TODO: if player can hold more weapons
+		print("good add!")
 		return true
 	return false
