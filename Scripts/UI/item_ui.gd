@@ -2,6 +2,8 @@ extends DraggableUI
 class_name ItemUI
 ## This class is the visual representation of potentially anything that can be shown in UI
 
+const SCENE = preload("res://Scenes/UI/item_ui.tscn")
+
 ## Given by UIManager
 var item
 var inventory: Inventory
@@ -42,6 +44,9 @@ static var dragging_item: ItemUI
 #var ID: String
 
 
+## expanded vs small version
+# Change size of 
+
 func _ready() -> void:
 	super()
 	ID = IDindex
@@ -51,6 +56,8 @@ func _ready() -> void:
 		DescriptionLabel.get_v_scroll_bar().mouse_filter = Control.MOUSE_FILTER_PASS
 	DescriptionPanel.visible = false
 	z_index = 0
+
+#func set_ui_details(is_expanded: bool, )
 
 func set_item(new_underlying_item: Node):
 	item = new_underlying_item

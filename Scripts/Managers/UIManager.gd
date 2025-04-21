@@ -5,10 +5,11 @@ class_name UIManager
 @export var xp_label: Label
 @export var level_label: Label
 
-#@export var tab_container: TabContainer
+## FOR TESTING:
 @export var shop: Inventory
-@export var inventory: Inventory
-
+@export var storage: Inventory
+@export var storage2: Inventory
+@export var equipment: Inventory
 var enabled: bool = true
 
 func _ready() -> void:

@@ -6,10 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://dildbwxsp3g8d" path="res://Scenes/UI/equipment_inventory.tscn" id="4_ocov1"]
 [ext_resource type="PackedScene" uid="uid://cwomrgi81thyq" path="res://Scenes/UI/weapon_crafting_inventory.tscn" id="5_xw5ac"]
 
-[node name="UI" type="Node2D" node_paths=PackedStringArray("shop", "inventory")]
+[node name="UI" type="Node2D" node_paths=PackedStringArray("shop", "storage", "storage2", "equipment")]
 script = ExtResource("1_pigai")
-shop = NodePath("Storage 2")
-inventory = NodePath("Storage")
+shop = NodePath("Shop")
+storage = NodePath("Storage")
+storage2 = NodePath("Storage 2")
+equipment = NodePath("equipment")
 
 [node name="Storage" parent="." instance=ExtResource("2_aeob6")]
 anchors_preset = 0
@@ -42,7 +44,7 @@ color = Color(0.401328, 0.649289, 0.599674, 1)
 label_text = "Storage 2"
 metadata/_edit_use_anchors_ = true
 
-[node name="ShopInventory" parent="." instance=ExtResource("3_spew6")]
+[node name="Shop" parent="." instance=ExtResource("3_spew6")]
 offset_left = 362.0
 offset_top = 1.0
 offset_right = 512.0

@@ -88,7 +88,6 @@ func die():
 	print("player died: " + str(health))
 
 func add_frame(new_frame: Weapon_Frame):
-	print("new frame!!")
 	weapon_list.append(new_frame)
 	var temp_count = weapon_count
 	match new_frame.handle.AimType:
@@ -113,8 +112,35 @@ func add_frame(new_frame: Weapon_Frame):
 		if (weapon.handle.AimType == new_frame.handle.AimType):
 			index += 1
 			weapon.change_slot(index, temp_count)
-	print("add child!!!")
+	print("Add Weapon Frame: " + new_frame.name)
 	add_child(new_frame)
+
+func remove_frame(frame_sought: Weapon_Frame) -> bool:
+	if frame_sought && weapon_list.has(frame_sought):
+		weapon_list.erase(frame_sought)
+		var temp_count = weapon_count
+		match frame_sought.handle.AimType:
+			Handle.AimTypes.StaticSlot:
+				static_slot_count -= 1
+				temp_count = static_slot_count
+			Handle.AimTypes.AtMouse:
+				at_mouse_count -= 1
+				temp_count = at_mouse_count
+			Handle.AimTypes.Unique:
+				spin_aim_count -= 1
+				temp_count = spin_aim_count
+			_:
+				weapon_count -= 1
+				temp_count = weapon_count
+		var index: float = 0
+		for weapon in weapon_list:
+			if (weapon.handle.AimType == frame_sought.handle.AimType):
+				index += 1
+				weapon.change_slot(index, temp_count)
+		remove_child(frame_sought)
+		print("removed weapon: " + frame_sought.name)
+		return true
+	return false
 
 func get_stat(stat: String) -> float:
 	return player_stats.get_stat(stat)

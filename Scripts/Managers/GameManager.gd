@@ -3,13 +3,15 @@ class_name GameManager
 
 @onready var weapon_frame = preload("res://Scenes/weapon_frame.tscn")
 
-## Singleton
-static var instance: GameManager = self
+## Single Instance Object
+static var instance: GameManager
 ## Managers
 @export var ui_man: UIManager 
 @export var shop_man: ShopManager
 @export var instance_man: InstanceManager
 @export var player: Player_Script
+
+var active_items: Array[Item]
 
 var character_choice_stats: StatsResource = StatsResource.new()
 
@@ -88,14 +90,14 @@ func _process(delta: float) -> void:
 		var i: ItemUI = preload("res://Scenes/UI/item_ui.tscn").instantiate()
 		item.stats = item.stats.duplicate()
 		i.set_item(item)
-		ui_man.shop.add(i)
+		ui_man.storage2.add(i)
 		
 		i = preload("res://Scenes/UI/item_ui.tscn").instantiate()
 		#item = preload("res://Scripts/flamethrower_scripts/flamethrower_handle.gd").instantiate()
 		item = preload("res://Scenes/flamethrower/flamethrower_handle.tscn").instantiate()
 		item.stats = item.stats.duplicate()
 		i.set_item(item)
-		ui_man.shop.add(i)
+		ui_man.storage2.add(i)
 
 	if Input.is_action_just_pressed("ability2") && ui_man.enabled:
 		#var item = preload("res://Scripts/flamethrower_scripts/fire_projectile.gd").new()
@@ -103,7 +105,7 @@ func _process(delta: float) -> void:
 		var i: ItemUI = preload("res://Scenes/UI/item_ui.tscn").instantiate()
 		item.stats = item.stats.duplicate()
 		i.set_item(item)
-		ui_man.inventory.add(i)
+		ui_man.storage.add(i)
 	
 	if Input.is_action_just_pressed("ability3") && ui_man.enabled:
 		#var item = preload("res://Scripts/flamethrower_scripts/fire_projectile.gd").new()
@@ -111,13 +113,13 @@ func _process(delta: float) -> void:
 		var i: ItemUI = preload("res://Scenes/UI/item_ui.tscn").instantiate()
 		item.stats = item.stats.duplicate()
 		i.set_item(item)
-		ui_man.inventory.add(i)
+		ui_man.storage.add(i)
 		 
 		var item2 = Item.new()
 		item2.data.setdata("testitem", "this is a test item", ItemData.ITEM, "1", Color.RED, ItemData.MISSINGTEXTURE, 5, 0.9)
 		var i2: ItemUI = preload("res://Scenes/UI/item_ui.tscn").instantiate()
 		i2.set_item(item2)
-		ui_man.inventory.add(i2)
+		ui_man.storage.add(i2)
 	
 	
 	if Input.is_action_just_pressed("test_3"):
@@ -146,10 +148,23 @@ func buy_item(item: ItemUI) -> bool:
 
 func add_item_to_player(item: Item) -> bool:
 	if (item):
-		return true #TODO: player.add_item(item.item)
+		active_items.append(item)
+		return true #TODO: add
 	return false
 
-func add_weapon_to_player(handle: ItemUI, attachment: ItemUI, projectile: ItemUI) -> bool:
+func remove_item_from_player(item: Item) -> bool:
+	if item && active_items.has(item):
+		active_items.erase(item)
+		return true #TODO: remove
+	return false
+
+func remove_weapon_from_player(weapon: ItemWeapon) -> bool:
+	if weapon && weapon.is_ready:
+		if player.remove_frame(weapon.weapon):
+			return true
+	return false
+
+func craft_weapon(handle: ItemUI, attachment: ItemUI, projectile: ItemUI) -> bool:
 	if (handle && attachment && projectile) && (handle.data.item_type == ItemData.HANDLE && attachment.data.item_type == ItemData.ATTACHMENT && projectile.data.item_type == ItemData.PROJECTILE):
 		var weapon: Weapon_Frame = weapon_frame.instantiate() #PackedScene.instantiate()
 		
@@ -160,7 +175,21 @@ func add_weapon_to_player(handle: ItemUI, attachment: ItemUI, projectile: ItemUI
 		weapon.add_attachment(attachment.item)
 		weapon.add_handle(handle.item)
 		weapon.set_projectile(projectile.item.PACKEDSCENE)
-		player.add_frame(weapon) #TODO: if player can hold more weapons
-		print("good add!")
+		
+		var weapon_item: ItemWeapon = ItemWeapon.new()
+		weapon_item.setup(attachment.item, handle.item, projectile.item)
+		weapon_item.equip(weapon)
+		var n = ItemUI.SCENE.instantiate()
+		n.set_item(weapon_item)
+		
+		if add_weapon_to_player(weapon_item): #TODO: if player can hold more weapons
+			ui_man.equipment._add_equipment_weapon(n) # TODO: add weapon item to equipment inventory
+			return true
+	return false
+
+func add_weapon_to_player(weapon: ItemWeapon) -> bool:
+	if weapon && weapon.is_ready:
+		player.add_frame(weapon.weapon)
+		print("added weapon to player: " + weapon.data.item_name)
 		return true
 	return false

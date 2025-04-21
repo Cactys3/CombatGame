@@ -95,6 +95,15 @@ func remove(item: ItemUI) -> bool:
 ## If successful: Adds weapon to player, adds weapon UI to equipment UI, destroys this weapon crafting menu
 func make_weapon() -> bool:
 	if handle != null && attachment != null && projectile != null:
-		return GameManager.instance.add_weapon_to_player(handle, attachment, projectile) # TODO: make weaponUI a seperate thing or smth
-	print("make weapon bad")
+		if ItemUI.dragging_some_item:
+			ItemUI.dragging_item.dragging = false # TODO: bug when make weapon button overlaps with item, this 'if' doesn't fix
+			ItemUI.dragging_some_item = false
+			ItemUI.dragging_some_ui = false
+		if GameManager.instance.craft_weapon(handle, attachment, projectile): # TODO: Next the weapon is added to the player's equipment inventory, in this script OR GameManager
+			remove(handle)
+			remove(attachment)
+			remove(projectile) # TODO: handle if remove fails (remove by force)
+			print("crafted weapon success")
+			return true
+	print("crafted weapon failure")
 	return false

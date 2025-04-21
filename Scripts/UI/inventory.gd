@@ -28,7 +28,6 @@ func remove(item: ItemUI) -> bool:
 		item.get_parent().remove_child(item)
 		items.erase(item)
 		return true
-	print("childs: " + str(get_children()))
 	return false
 
 ## Item requested to be moved into this inventory
