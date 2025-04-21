@@ -1,9 +1,12 @@
 extends Area2D
 class_name Attachment
-#Stat Modifiers
+
+const RAILGUN = preload("res://Scenes/railgun/railgun_attachment.tscn")
+const PISTOL = preload("res://Scenes/pistol/pistol_attachment.tscn")
+const FLAMETHROWER = preload("res://Scenes/flamethrower/flamethrower_attachment.tscn")
+const SWORD = preload("res://Scenes/sword/sword_attachment.tscn")
 
 var data: ItemData = ItemData.new()
-
 
 @export var stats: StatsResource = StatsResource.new()
 
@@ -119,6 +122,7 @@ func make_attack() -> Attack:
 
 func set_stats() -> void:
 	pass # setup the stat values inside the class so they dont get reset when changing stat dictionary
+
 
 #how should attachment extenders work?
 #Create methods for ProcessCooldown(delta) and Attack() that extenders override.

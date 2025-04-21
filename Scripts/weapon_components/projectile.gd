@@ -1,7 +1,12 @@
 extends Area2D
 class_name Projectile
 
-var PACKEDSCENE: PackedScene = preload("res://Scenes/pistol/pistol_bullet.tscn")
+const FLAMETHROWER = preload("res://Scenes/flamethrower/fire_projectile.tscn")
+const PISTOL = preload("res://Scenes/pistol/pistol_bullet.tscn")
+const RAILGUN = preload("res://Scenes/railgun/railgun_projectile.tscn")
+const SWORD = preload("res://Scenes/pistol/pistol_bullet.tscn") #TODO: make sword projectile
+
+
 
 var data: ItemData = ItemData.new()
 

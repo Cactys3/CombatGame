@@ -1,7 +1,12 @@
 extends Inventory
 
+## AutoRestock when items are removed
+@export var auto_restock: bool = false
+@export var delete_on_sell: bool = true
+
 @export var drop_visual: Panel
 @export var drop_text: Label
+
 var showing_drop: bool = false
 func _ready() -> void:
 	drop_visual.visible = false
@@ -39,7 +44,10 @@ func drop(item: ItemUI) -> void:
 ## Item requested to be moved into this inventory
 func move(item: ItemUI) -> bool:
 	if check_item(item) && item.inventory.remove(item) && GameManager.instance.sell_item(item):
-		_add_item(item)
+		if delete_on_sell:
+			item.queue_free()
+		else: 
+			_add_item(item)
 		return true
 	return false
 
@@ -48,5 +56,9 @@ func remove(item: ItemUI) -> bool:
 	if is_instance_valid(item) && items.has(item) && GameManager.instance.buy_item(item):
 		item.get_parent().remove_child(item)
 		items.erase(item)
+		if auto_restock:
+			var new_item: ItemUI = ItemUI.new()
+			new_item.set_item(ShopManager.get_rand_weapon())
+			_add_item(new_item)
 		return true
 	return false

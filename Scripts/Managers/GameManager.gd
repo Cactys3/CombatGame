@@ -174,7 +174,7 @@ func craft_weapon(handle: ItemUI, attachment: ItemUI, projectile: ItemUI) -> boo
 		weapon.position = Vector2.ZERO
 		weapon.add_attachment(attachment.item)
 		weapon.add_handle(handle.item)
-		weapon.set_projectile(projectile.item.PACKEDSCENE)
+		weapon.set_projectile(projectile.item.get_scene())
 		
 		var weapon_item: ItemWeapon = ItemWeapon.new()
 		weapon_item.setup(attachment.item, handle.item, projectile.item)

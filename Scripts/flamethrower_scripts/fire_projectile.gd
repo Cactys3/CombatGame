@@ -7,6 +7,9 @@ extends Projectile
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @export var attack:Attack = Attack.new()
 
+func get_scene() -> PackedScene:
+	return preload("res://Scenes/flamethrower/fire_projectile.tscn")
+
 ## called in ready
 func setdata():
 	var descrip = "A projectile of hot flame which goes through every enemy in its path, but quickly fades, Cost/Mod: " + str(5) + str(0.8)

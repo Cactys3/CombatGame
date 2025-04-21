@@ -1,6 +1,11 @@
 extends Area2D
 class_name Handle
 
+const FLAMETHROWER = preload("res://Scenes/flamethrower/flamethrower_handle.tscn")
+const PISTOL = preload("res://Scenes/pistol/pistol_handle.tscn")
+const RAILGUN = preload("res://Scenes/railgun/railgun_handle.tscn")
+const SWORD = preload("res://Scenes/sword/sword_handle.tscn")
+
 var data: ItemData = ItemData.new()
 
 @export var stats: StatsResource = StatsResource.new()
