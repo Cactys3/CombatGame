@@ -1,5 +1,8 @@
 extends Attachment
 
+func get_scene() -> PackedScene:
+	return preload("res://Scenes/pistol/pistol_attachment.tscn")
+
 func _ready() -> void:
 	super()
 

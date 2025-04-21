@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dq1onux8gqfcb"
-path="res://.godot/imported/Fire_Flamethrower.png-dec0c291cc6c980c6fd20043513b7759.ctex"
+path="res://.godot/imported/Fire_Flamethrower.png-699ec9029073b3760c0c36e1cc1303df.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/New_Weapons/Flamethrower/Fire_Flamethrower.png"
-dest_files=["res://.godot/imported/Fire_Flamethrower.png-dec0c291cc6c980c6fd20043513b7759.ctex"]
+source_file="res://Art/New_Weapons/flamethrower/Fire_Flamethrower.png"
+dest_files=["res://.godot/imported/Fire_Flamethrower.png-699ec9029073b3760c0c36e1cc1303df.ctex"]
 
 [params]
 

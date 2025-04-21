@@ -1,5 +1,8 @@
 extends Attachment
 
+func get_scene() -> PackedScene:
+	return preload("res://Scenes/railgun/railgun_attachment.tscn")
+
 ##Projects a lazar beam aiming sight for awhile until firing a lazar blast that does a fuck ton of dmg and stuff.
 
 var hitbox: CollisionShape2D

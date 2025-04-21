@@ -15,6 +15,9 @@ var base_range = 55
 var speed: float = 1
 var attacked_objects: Array[Node2D]
 
+func get_scene() -> PackedScene:
+	return preload("res://Scenes/sword/sword_attachment.tscn")
+
 func _ready() -> void:
 	super()
 

@@ -3,6 +3,7 @@ extends Inventory
 ## AutoRestock when items are removed
 @export var auto_restock: bool = false
 @export var delete_on_sell: bool = true
+@export var num_of_items: int = 3
 
 @export var drop_visual: Panel
 @export var drop_text: Label
@@ -31,7 +32,7 @@ func handle_drop_visual():
 
 ## Item is not null and item is a valid itemtype
 func check_item(item: ItemUI) -> bool:
-	return super(item) && (item.data.item_type == ItemData.ATTACHMENT || item.data.item_type == ItemData.HANDLE || item.data.item_type == ItemData.PROJECTILE || item.data.item_type == ItemData.ITEM)
+	return super(item) && (item.data.item_type == ItemData.ATTACHMENT || item.data.item_type == ItemData.HANDLE || item.data.item_type == ItemData.PROJECTILE || item.data.item_type == ItemData.ITEM|| item.data.item_type == ItemData.WEAPON)
 
 func drop(item: ItemUI) -> void:
 	if item.inventory == self:
@@ -62,3 +63,16 @@ func remove(item: ItemUI) -> bool:
 			_add_item(new_item)
 		return true
 	return false
+
+func clear() -> bool:
+	for item in items:
+		item.get_parent().remove_child(item)
+		item.queue_free()
+	items.clear
+	return true
+
+func stock() -> bool:
+	for i in range(num_of_items):
+		print(i)
+		add(ShopManager.get_rand_item())
+	return true

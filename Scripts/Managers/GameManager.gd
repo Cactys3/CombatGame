@@ -100,12 +100,10 @@ func _process(delta: float) -> void:
 		ui_man.storage2.add(i)
 
 	if Input.is_action_just_pressed("ability2") && ui_man.enabled:
-		#var item = preload("res://Scripts/flamethrower_scripts/fire_projectile.gd").new()
-		var item = preload("res://Scenes/flamethrower/fire_projectile.tscn").instantiate()
-		var i: ItemUI = preload("res://Scenes/UI/item_ui.tscn").instantiate()
-		item.stats = item.stats.duplicate()
-		i.set_item(item)
-		ui_man.storage.add(i)
+		ui_man.shop.clear()
+		ui_man.shop.stock()
+		
+		pass
 	
 	if Input.is_action_just_pressed("ability3") && ui_man.enabled:
 		#var item = preload("res://Scripts/flamethrower_scripts/fire_projectile.gd").new()
@@ -120,6 +118,13 @@ func _process(delta: float) -> void:
 		var i2: ItemUI = preload("res://Scenes/UI/item_ui.tscn").instantiate()
 		i2.set_item(item2)
 		ui_man.storage.add(i2)
+		
+		#var item = preload("res://Scripts/flamethrower_scripts/fire_projectile.gd").new()
+		var item3 = preload("res://Scenes/flamethrower/fire_projectile.tscn").instantiate()
+		var i3: ItemUI = preload("res://Scenes/UI/item_ui.tscn").instantiate()
+		item3.stats = item3.stats.duplicate()
+		i3.set_item(item3)
+		ui_man.storage.add(i3)
 	
 	
 	if Input.is_action_just_pressed("test_3"):

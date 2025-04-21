@@ -1,5 +1,8 @@
 extends Handle
 
+func get_scene() -> PackedScene:
+	return preload("res://Scenes/railgun/railgun_handle.tscn")
+
 ##Static Slot and always points in one of the cardinal directions
 
 func _ready() -> void:
