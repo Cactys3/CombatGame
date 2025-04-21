@@ -19,6 +19,10 @@ func _ready() -> void:
 	parent.z_index = 2
 
 func _process(delta: float) -> void:
+	if !is_instance_valid(parent):
+		print("bro")
+		return
+	
 	if !(dragging_some_ui && !dragging) && visible && process_mode != PROCESS_MODE_DISABLED:
 		if !mouse_hover && get_global_rect().has_point(get_global_mouse_position()):
 			hovered.append(self)
@@ -70,7 +74,6 @@ func _enter() -> void:
 	#mouse_hover = true
 	count += 1
 	#print("hover true " + str(count) + " " + str(parent.z_index) + " " + str(z_index) + " " + str(mouse_filter) + " " + str(Control.MOUSE_FILTER_STOP))
-
 
 func _exit() -> void:
 	#hovered.erase(self)

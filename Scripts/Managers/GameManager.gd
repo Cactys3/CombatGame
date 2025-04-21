@@ -98,11 +98,13 @@ func _process(delta: float) -> void:
 		item.stats = item.stats.duplicate()
 		i.set_item(item)
 		ui_man.storage2.add(i)
+		
 
 	if Input.is_action_just_pressed("ability2") && ui_man.enabled:
-		ui_man.shop.clear()
-		ui_man.shop.stock()
-		
+		ui_man.shop.num_of_items += 1
+		ui_man.shop.stock(3)
+		ui_man.shop.reroll()
+		money += 10
 		pass
 	
 	if Input.is_action_just_pressed("ability3") && ui_man.enabled:
@@ -165,25 +167,28 @@ func remove_item_from_player(item: Item) -> bool:
 
 func remove_weapon_from_player(weapon: ItemWeapon) -> bool:
 	if weapon && weapon.is_ready:
+		if !weapon.frame_ready:
+			weapon.make_frame()
 		if player.remove_frame(weapon.weapon):
+			weapon.equipped = false
 			return true
 	return false
 
 func craft_weapon(handle: ItemUI, attachment: ItemUI, projectile: ItemUI) -> bool:
 	if (handle && attachment && projectile) && (handle.data.item_type == ItemData.HANDLE && attachment.data.item_type == ItemData.ATTACHMENT && projectile.data.item_type == ItemData.PROJECTILE):
-		var weapon: Weapon_Frame = weapon_frame.instantiate() #PackedScene.instantiate()
+		#var weapon: Weapon_Frame = weapon_frame.instantiate() #PackedScene.instantiate()
 		
-		weapon.stats = weapon.stats.duplicate()
-		handle.position = Vector2.ZERO
-		attachment.position = Vector2.ZERO
-		weapon.position = Vector2.ZERO
-		weapon.add_attachment(attachment.item)
-		weapon.add_handle(handle.item)
-		weapon.set_projectile(projectile.item.get_scene())
+		#weapon.stats = weapon.stats.duplicate()
+		#handle.position = Vector2.ZERO
+		#attachment.position = Vector2.ZERO
+		#weapon.position = Vector2.ZERO
+		#weapon.add_attachment(attachment.item)
+		#weapon.add_handle(handle.item)
+		#weapon.set_projectile(projectile.item.get_scene())
 		
 		var weapon_item: ItemWeapon = ItemWeapon.new()
 		weapon_item.setup(attachment.item, handle.item, projectile.item)
-		weapon_item.equip(weapon)
+		weapon_item.make_frame()
 		var n = ItemUI.SCENE.instantiate()
 		n.set_item(weapon_item)
 		
@@ -194,6 +199,9 @@ func craft_weapon(handle: ItemUI, attachment: ItemUI, projectile: ItemUI) -> boo
 
 func add_weapon_to_player(weapon: ItemWeapon) -> bool:
 	if weapon && weapon.is_ready:
+		if !weapon.frame_ready:
+			weapon.make_frame()
+		weapon.equipped = true
 		player.add_frame(weapon.weapon)
 		print("added weapon to player: " + weapon.data.item_name)
 		return true

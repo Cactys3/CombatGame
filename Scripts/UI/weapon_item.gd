@@ -6,6 +6,7 @@ var projectile: Projectile
 var weapon: Weapon_Frame
 var equipped: bool = false
 var is_ready: bool = false
+var frame_ready: bool = false
 
 func setup(a: Attachment, h: Handle, p: Projectile):
 	attachment = a
@@ -17,9 +18,17 @@ func setup(a: Attachment, h: Handle, p: Projectile):
 	setdata()
 	is_ready = true
 
-func equip(new_weapon: Weapon_Frame):
-	weapon = new_weapon
-	equipped = true
+func make_frame() -> bool:
+	if is_ready:
+		var frame: Weapon_Frame = Weapon_Frame.SCENE.instantiate()
+		frame.stats = frame.stats.duplicate()
+		frame.add_attachment(attachment)
+		frame.add_handle(handle)
+		frame.set_projectile(projectile.get_scene())
+		weapon = frame
+		frame_ready = true
+		return true
+	return false
 
 func setdata():
 	if attachment && handle && projectile:

@@ -1,6 +1,8 @@
 extends Area2D
 class_name Weapon_Frame
 
+const SCENE = preload("res://Scenes/weapon_frame.tscn")
+
 #weapon_frame fields
 @onready var player: Player_Script = get_tree().get_first_node_in_group("player")
 #components

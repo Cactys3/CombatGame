@@ -45,11 +45,9 @@ static func get_rand_projectile() -> Projectile:
 			return _dup_stats(Projectile.PISTOL.instantiate())
 
 static func get_rand_weapon() -> ItemWeapon:
-	match randi_range(0, 4):
+	match randi_range(5, 7):
 		0:
 			var w = ItemWeapon.new()
-			var a = Attachment.FLAMETHROWER.instantiate()
-			a.stats = a.stats.duplicate()
 			w.setup(_dup_stats(Attachment.FLAMETHROWER.instantiate()), _dup_stats(Handle.FLAMETHROWER.instantiate()), _dup_stats(Projectile.FLAMETHROWER.instantiate()))
 			return w
 		1:
@@ -69,7 +67,7 @@ static func get_rand_weapon() -> ItemWeapon:
 			w.setup(get_rand_attachment(), get_rand_handle(), get_rand_projectile())
 			return w
 
-static func get_rand_item() -> ItemUI:
+static func get_rand_item() -> Object:
 	var ui_man = GameManager.instance.ui_man
 	var item
 	match randi_range(0, 5):
@@ -85,11 +83,14 @@ static func get_rand_item() -> ItemUI:
 			item = Item.new()
 		_:
 			item = get_rand_weapon()
-	item.setdata()
-	var UI: ItemUI = ItemUI.SCENE.instantiate()
-	UI.set_item(item)
-	return UI
+	return item
 
 static func _dup_stats(item) -> Object:
 	item.stats = item.stats.duplicate()
 	return item
+
+static func make_itemUI(item) -> ItemUI:
+	item.setdata()
+	var UI: ItemUI = ItemUI.SCENE.instantiate()
+	UI.set_item(item)
+	return UI

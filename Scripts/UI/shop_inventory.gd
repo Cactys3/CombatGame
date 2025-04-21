@@ -58,21 +58,36 @@ func remove(item: ItemUI) -> bool:
 		item.get_parent().remove_child(item)
 		items.erase(item)
 		if auto_restock:
-			var new_item: ItemUI = ItemUI.new()
-			new_item.set_item(ShopManager.get_rand_weapon())
-			_add_item(new_item)
+			_add_item(ShopManager.make_itemUI(ShopManager.get_rand_weapon()))
 		return true
 	return false
 
 func clear() -> bool:
 	for item in items:
+		print("clear item: " + item.data.item_name + str(item.ID))
+		if ItemUI.dragging_item == item:
+			ItemUI.dragging_item = null
+			ItemUI.dragging_some_item = false
+			ItemUI.dragging_some_ui = false
+		item.test = true
 		item.get_parent().remove_child(item)
 		item.queue_free()
-	items.clear
+	items.clear()
 	return true
 
-func stock() -> bool:
+func reroll() -> bool:
+	clear()
 	for i in range(num_of_items):
-		print(i)
-		add(ShopManager.get_rand_item())
+		var item = (ShopManager.make_itemUI(ShopManager.get_rand_item()))
+		print(str(i) + " item: " + item.data.item_name + " already in items: " + str(items.has(item)))
+		
+		add(item)
+	return true
+
+func stock(count: int) -> bool:
+	for i in range(count):
+		var item = (ShopManager.make_itemUI(ShopManager.get_rand_item()))
+		print(str(i) + " item: " + item.data.item_name + " already in items: " + str(items.has(item)))
+		
+		add(item)
 	return true

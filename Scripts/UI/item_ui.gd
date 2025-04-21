@@ -4,6 +4,8 @@ class_name ItemUI
 
 const SCENE = preload("res://Scenes/UI/item_ui.tscn")
 
+var test = false
+
 ## Given by UIManager
 var item
 var inventory: Inventory
@@ -90,6 +92,9 @@ func hide_details():
 	showing_details = false
 
 func _process(delta: float) -> void:
+	if test || !is_instance_valid(parent):
+		print("TEST: " + name + " " + data.item_name)
+	 
 	if !(dragging_some_ui && !dragging) && visible && process_mode != PROCESS_MODE_DISABLED:
 		if !mouse_hover && get_global_rect().has_point(get_global_mouse_position()):
 			mouse_hover = true
