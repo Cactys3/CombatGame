@@ -31,7 +31,7 @@ func _add_item(item: ItemUI) -> void:
 			if attachment != null:
 				var a: ItemUI = attachment
 				remove(attachment)
-				GameManager.instance.ui_man.inventory.add(a) # TODO: rework into real code
+				GameManager.instance.ui_man.storage.add(a) # TODO: rework into real code
 			attachment = item
 			AttachmentHolder.add_child(item)
 			item.item_parent = AttachmentHolder
@@ -39,7 +39,7 @@ func _add_item(item: ItemUI) -> void:
 			if handle != null:
 				var h: ItemUI = handle
 				remove(handle)
-				GameManager.instance.ui_man.inventory.add(h) # TODO: rework into real code
+				GameManager.instance.ui_man.storage.add(h) # TODO: rework into real code
 			handle = item
 			HandleHolder.add_child(item)
 			item.item_parent = HandleHolder
@@ -47,7 +47,7 @@ func _add_item(item: ItemUI) -> void:
 			if projectile != null:
 				var p: ItemUI = projectile
 				remove(projectile)
-				GameManager.instance.ui_man.inventory.add(p) # TODO: rework into real code
+				GameManager.instance.ui_man.storage.add(p) # TODO: rework into real code
 			projectile = item
 			ProjectileHolder.add_child(item)
 			item.item_parent = ProjectileHolder
@@ -82,7 +82,6 @@ func remove(item: ItemUI) -> bool:
 				if projectile == item:
 					item.get_parent().remove_child(item)
 					projectile = null
-					#print(str(projectile == item) + str(projectile == null) + str(item == ItemUI.new()) + str(projectile == flyweight) + str(flyweight == item) + str(is_instance_valid(projectile)))
 					return true
 			ItemData.MOD:
 				if items.has(item):

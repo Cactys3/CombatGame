@@ -24,7 +24,7 @@ func make_frame() -> bool:
 		frame.stats = frame.stats.duplicate()
 		frame.add_attachment(attachment)
 		frame.add_handle(handle)
-		frame.set_projectile(projectile.get_scene())
+		frame.set_projectile(projectile)
 		weapon = frame
 		frame_ready = true
 		return true

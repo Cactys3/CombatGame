@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctcyk6f73ll3f"
-path="res://.godot/imported/Handle_Flamethrower.png-6a0f6c23bdafabdb56d74998792eb6bb.ctex"
+uid="uid://ifm808khcaoe"
+path="res://.godot/imported/projectile_sword.png-4b4af0c39aa5bdb74073042c60826e5f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/New_Weapons/flamethrower/Handle_Flamethrower.png"
-dest_files=["res://.godot/imported/Handle_Flamethrower.png-6a0f6c23bdafabdb56d74998792eb6bb.ctex"]
+source_file="res://Art/New_Weapons/Sword/projectile_sword.png"
+dest_files=["res://.godot/imported/projectile_sword.png-4b4af0c39aa5bdb74073042c60826e5f.ctex"]
 
 [params]
 

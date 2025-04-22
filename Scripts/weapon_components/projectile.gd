@@ -4,9 +4,8 @@ class_name Projectile
 const FLAMETHROWER = preload("res://Scenes/flamethrower/fire_projectile.tscn")
 const PISTOL = preload("res://Scenes/pistol/pistol_bullet.tscn")
 const RAILGUN = preload("res://Scenes/railgun/railgun_projectile.tscn")
-const SWORD = preload("res://Scenes/pistol/pistol_bullet.tscn") #TODO: make sword projectile
+const SWORD = preload("res://Scenes/sword/sword_projectile.tscn")
 func get_scene() -> PackedScene:
-	print("Projectile doesn't have 'get_scene' method: " + name)
 	return preload("res://Scenes/pistol/pistol_bullet.tscn")
 
 var data: ItemData = ItemData.new()

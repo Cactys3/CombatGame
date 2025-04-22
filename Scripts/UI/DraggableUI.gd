@@ -19,10 +19,6 @@ func _ready() -> void:
 	parent.z_index = 2
 
 func _process(delta: float) -> void:
-	if !is_instance_valid(parent):
-		print("bro")
-		return
-	
 	if !(dragging_some_ui && !dragging) && visible && process_mode != PROCESS_MODE_DISABLED:
 		if !mouse_hover && get_global_rect().has_point(get_global_mouse_position()):
 			hovered.append(self)
@@ -68,6 +64,13 @@ func set_label(newtext: String):
 
 func get_priority() -> int:
 	return parent.z_index
+
+func free_draggable_ui():
+	if hovered.has(self):
+		hovered.erase(self)
+	if dragging:
+		dragging_some_ui = false
+	queue_free()
 
 func _enter() -> void:
 	#hovered.append(self)

@@ -76,58 +76,61 @@ func _ready() -> void:
 	call_deferred("@level_setter", 0)
 	call_deferred("@xp_setter", 0)
 	call_deferred("@money_setter", starting_money)
+	
+	ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_attachment(1)))
+	ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_attachment(2)))
+	ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_attachment(3)))
+	ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_attachment(4)))
+	ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_handle(1)))
+	ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_handle(2)))
+	ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_handle(3)))
+	ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_handle(4)))
+	ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_projectile(1)))
+	ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_projectile(2)))
+	ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_projectile(3)))
+	ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_projectile(4)))
+	ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_weapon(1)))
+	ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_weapon(2)))
+	ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_weapon(3)))
+	ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
+	ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
+	ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
+	ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("inventory_toggle"):
-		#ui_man.toggle_inventory()
 		toggle_inventory.emit()
-
+	
 	if Input.is_action_just_pressed("ability1") && ui_man.enabled:
-		# TODO: this is not where items should be added or smth idk how whatever gets access to inventory
-		#var item = preload("res://Scripts/flamethrower_scripts/flamethrower_attachment.gd").new()
-		var item = preload("res://Scenes/flamethrower/flamethrower_attachment.tscn").instantiate()
-		var i: ItemUI = preload("res://Scenes/UI/item_ui.tscn").instantiate()
-		item.stats = item.stats.duplicate()
-		i.set_item(item)
-		ui_man.storage2.add(i)
-		
-		i = preload("res://Scenes/UI/item_ui.tscn").instantiate()
-		#item = preload("res://Scripts/flamethrower_scripts/flamethrower_handle.gd").instantiate()
-		item = preload("res://Scenes/flamethrower/flamethrower_handle.tscn").instantiate()
-		item.stats = item.stats.duplicate()
-		i.set_item(item)
-		ui_man.storage2.add(i)
-		
-
-	if Input.is_action_just_pressed("ability2") && ui_man.enabled:
-		ui_man.shop.num_of_items += 1
 		ui_man.shop.stock(3)
+	
+	if Input.is_action_just_pressed("ability2") && ui_man.enabled:
 		ui_man.shop.reroll()
-		money += 10
-		pass
 	
 	if Input.is_action_just_pressed("ability3") && ui_man.enabled:
-		#var item = preload("res://Scripts/flamethrower_scripts/fire_projectile.gd").new()
-		var item = preload("res://Scenes/flamethrower/fire_projectile.tscn").instantiate()
-		var i: ItemUI = preload("res://Scenes/UI/item_ui.tscn").instantiate()
-		item.stats = item.stats.duplicate()
-		i.set_item(item)
-		ui_man.storage.add(i)
-		 
-		var item2 = Item.new()
-		item2.data.setdata("testitem", "this is a test item", ItemData.ITEM, "1", Color.RED, ItemData.MISSINGTEXTURE, 5, 0.9)
-		var i2: ItemUI = preload("res://Scenes/UI/item_ui.tscn").instantiate()
-		i2.set_item(item2)
-		ui_man.storage.add(i2)
-		
-		#var item = preload("res://Scripts/flamethrower_scripts/fire_projectile.gd").new()
-		var item3 = preload("res://Scenes/flamethrower/fire_projectile.tscn").instantiate()
-		var i3: ItemUI = preload("res://Scenes/UI/item_ui.tscn").instantiate()
-		item3.stats = item3.stats.duplicate()
-		i3.set_item(item3)
-		ui_man.storage.add(i3)
-	
+		money += 10
+		ui_man.storage2.clear()
+		ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_attachment(1)))
+		ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_attachment(2)))
+		ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_attachment(3)))
+		ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_attachment(4)))
+		ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_handle(1)))
+		ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_handle(2)))
+		ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_handle(3)))
+		ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_handle(4)))
+		ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_projectile(1)))
+		ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_projectile(2)))
+		ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_projectile(3)))
+		ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_projectile(4)))
+		ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_weapon(1)))
+		ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_weapon(2)))
+		ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_weapon(3)))
+		ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
+		ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
+		ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
+		ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
 	
 	if Input.is_action_just_pressed("test_3"):
 		pass#ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/fire_projectile.gd").new())

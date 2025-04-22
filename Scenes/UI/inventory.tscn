@@ -42,7 +42,6 @@ custom_minimum_size = Vector2(150, 190)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-follow_focus = true
 horizontal_scroll_mode = 0
 
 [node name="Inventory-Grid" type="GridContainer" parent="VBoxContainer/Inventory-Scroll"]

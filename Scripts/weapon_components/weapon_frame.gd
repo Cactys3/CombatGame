@@ -8,7 +8,7 @@ const SCENE = preload("res://Scenes/weapon_frame.tscn")
 #components
 @export var handle: Handle = null
 @export var attachment: Attachment = null
-@export var projectile: PackedScene
+@export var projectile: Projectile
 
 @onready var manager = get_tree().get_first_node_in_group("weapon_manager")
 
@@ -78,7 +78,7 @@ func add_attachment(attachy: Attachment) -> bool:
 		set_variables()
 		return true
 
-func set_projectile(projecty: PackedScene) -> void:
+func set_projectile(projecty: Projectile) -> void:
 	projectile = projecty
 	#handle_stats()
 	#set_offset()

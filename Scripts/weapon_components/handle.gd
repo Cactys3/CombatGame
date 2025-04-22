@@ -6,7 +6,6 @@ const PISTOL = preload("res://Scenes/pistol/pistol_handle.tscn")
 const RAILGUN = preload("res://Scenes/railgun/railgun_handle.tscn")
 const SWORD = preload("res://Scenes/sword/sword_handle.tscn")
 func get_scene() -> PackedScene:
-	print("Handle doesn't have 'get_scene' method: " + name)
 	return preload("res://Scenes/pistol/pistol_handle.tscn")
 
 var data: ItemData = ItemData.new()

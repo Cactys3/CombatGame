@@ -46,7 +46,7 @@ func drop(item: ItemUI) -> void:
 func move(item: ItemUI) -> bool:
 	if check_item(item) && item.inventory.remove(item) && GameManager.instance.sell_item(item):
 		if delete_on_sell:
-			item.queue_free()
+			item.free_draggable_ui()
 		else: 
 			_add_item(item)
 		return true
@@ -58,28 +58,14 @@ func remove(item: ItemUI) -> bool:
 		item.get_parent().remove_child(item)
 		items.erase(item)
 		if auto_restock:
-			_add_item(ShopManager.make_itemUI(ShopManager.get_rand_weapon()))
+			add(ShopManager.make_itemUI(ShopManager.get_rand_item()))
 		return true
 	return false
-
-func clear() -> bool:
-	for item in items:
-		print("clear item: " + item.data.item_name + str(item.ID))
-		if ItemUI.dragging_item == item:
-			ItemUI.dragging_item = null
-			ItemUI.dragging_some_item = false
-			ItemUI.dragging_some_ui = false
-		item.test = true
-		item.get_parent().remove_child(item)
-		item.queue_free()
-	items.clear()
-	return true
 
 func reroll() -> bool:
 	clear()
 	for i in range(num_of_items):
 		var item = (ShopManager.make_itemUI(ShopManager.get_rand_item()))
-		print(str(i) + " item: " + item.data.item_name + " already in items: " + str(items.has(item)))
 		
 		add(item)
 	return true
@@ -87,7 +73,6 @@ func reroll() -> bool:
 func stock(count: int) -> bool:
 	for i in range(count):
 		var item = (ShopManager.make_itemUI(ShopManager.get_rand_item()))
-		print(str(i) + " item: " + item.data.item_name + " already in items: " + str(items.has(item)))
 		
 		add(item)
 	return true

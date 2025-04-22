@@ -135,15 +135,18 @@ func MakeWeapon(attachment: PackedScene, handle: PackedScene, projectile: Packed
 	var new_frame: Weapon_Frame = weapon_frame.instantiate()
 	var new_attachment = attachment.instantiate()
 	var new_handle = handle.instantiate()
+	var new_projectile = projectile.instantiate()
 	new_frame.stats = new_frame.stats.duplicate() #TODO: this is important, needs to be done whenever instantiating
 	new_attachment.stats = new_attachment.stats.duplicate()
 	new_handle.stats = new_handle.stats.duplicate()
 	new_handle.position = Vector2.ZERO
 	new_attachment.position = Vector2.ZERO
 	new_frame.position = Vector2.ZERO
+	new_projectile.stats = new_projectile.stats.duplicate()
+	new_projectile.position = Vector2.ZERO
 	new_frame.add_attachment(new_attachment)
 	new_frame.add_handle(new_handle)
-	new_frame.set_projectile(projectile)
+	new_frame.set_projectile(new_projectile)
 	player.add_frame(new_frame)
 	list.append(new_frame)
 	

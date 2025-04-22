@@ -6,7 +6,6 @@ const PISTOL = preload("res://Scenes/pistol/pistol_attachment.tscn")
 const FLAMETHROWER = preload("res://Scenes/flamethrower/flamethrower_attachment.tscn")
 const SWORD = preload("res://Scenes/sword/sword_attachment.tscn")
 func get_scene() -> PackedScene:
-	print("Attachment doesn't have 'get_scene' method: " + name)
 	return preload("res://Scenes/pistol/pistol_attachment.tscn")
 
 var data: ItemData = ItemData.new()
@@ -19,7 +18,7 @@ var bullets: Array[Projectile]
 @export var offset: Vector2 
 @export var frame: Weapon_Frame 
 @export var handle: Handle
-@export var projectile: PackedScene
+@export var projectile: Projectile
 @export var MultipleProjectileOffset: float = 2
 @export var MultipleProjectileAngleOffset: float = 2
 #new stuff
@@ -66,7 +65,7 @@ func attack():
 
 func create_projectiles():
 	# Create the first bullet by default
-	var new_bullet:Projectile = projectile.instantiate()
+	var new_bullet:Projectile = projectile.get_scene().instantiate()
 	#new_bullet.scale = frame.scale
 	new_bullet.setup(frame, Vector2(cos(frame.rotation), sin(frame.rotation)))
 	if (handle.AimType == Handle.AimTypes.Spinning): #handle aim types special cases
@@ -82,7 +81,7 @@ func create_projectiles():
 			offset += 1
 		MultipleProjectileOffset *= -1
 		MultipleProjectileAngleOffset *= -1
-		new_bullet = projectile.instantiate()
+		new_bullet = projectile.get_scene().instantiate()
 		#new_bullet.scale = frame.scale
 		var target_angle = Vector2(cos(frame.rotation), sin(frame.rotation)).rotated(MultipleProjectileAngleOffset * (offset) * 0.01)
 		new_bullet.setup(frame, target_angle)
@@ -96,7 +95,7 @@ func indit_projectile(new_position: Vector2, new_scale: Vector2, new_direction: 
 	if projectile == null:
 		push_error("projectile null in attachment script")
 		return null
-	var new_bullet:Projectile = projectile.instantiate()
+	var new_bullet:Projectile = projectile.get_scene().instantiate()
 	#new_bullet.scale = new_scale
 	new_bullet.setup(frame, new_direction)
 	if (handle.AimType == Handle.AimTypes.Spinning): #handle aim types special cases

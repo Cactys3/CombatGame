@@ -52,6 +52,12 @@ func _add_item(item: ItemUI) -> void:
 	default_item_parent.queue_sort()
 	items.append(item)
 
+func clear() -> bool:
+	for item in items:
+		item.free_draggable_ui()
+	items.clear()
+	return true
+
 func _ready() -> void:
 	if color:
 		drag_bar.modulate = color
