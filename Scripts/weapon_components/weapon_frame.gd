@@ -16,6 +16,8 @@ const SCENE = preload("res://Scenes/weapon_frame.tscn")
 
 var QueuedAttacks: Array[AttackEvent] = [] #TODO: not used, to create attack need to use stats which defeats point of queue
 
+var stats_visual
+
 func _ready() -> void:
 	stats.parent_object_name = name
 	#stats = stats.duplicate()
@@ -28,6 +30,17 @@ func _process(_delta: float) -> void:
 			QueuedAttacks.erase(event)
 			if is_instance_valid(event.attackee) && is_instance_valid(event.attacker):
 				event.attacker.attack_body(event.attackee)
+
+func make_stats_visual():
+	const STATS_VISUAL = preload("res://Scenes/UI/stats_visual.tscn")
+	stats_visual = STATS_VISUAL.instantiate()
+	GameManager.instance.add_child(stats_visual)
+	stats_visual.global_position = Vector2.ZERO
+	stats_visual.set_stats(stats, "Weapon Stats: " + name)
+
+func delete_stats_visual():
+	stats_visual.queue_free()
+	stats_visual = null
 
 func get_enemy_nearby(distance: float) -> Variant:
 	for enemy in get_tree().get_nodes_in_group("enemy"):
@@ -143,6 +156,8 @@ func handle_stats() -> void: #Do anything that needs to be done to utilize a sta
 
 func get_stat(string: String) -> float:#Return stat value given stat const name
 	return stats.get_stat(string)
+
+
 
 class AttackEvent:
 	var attackee: Node

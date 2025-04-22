@@ -97,6 +97,15 @@ func _ready() -> void:
 	ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
 	ui_man.storage2.add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
 	
+	
+	global_stats.add_stats(character_choice_stats)
+	player.player_stats.add_stats(global_stats)
+	
+	const STATS_VISUAL = preload("res://Scenes/UI/stats_visual.tscn")
+	var s = STATS_VISUAL.instantiate()
+	add_child(s)
+	s.global_position = Vector2.ZERO
+	s.set_stats(global_stats, "Global Stats")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

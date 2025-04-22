@@ -5,6 +5,8 @@ class_name Player_Script
 @export var StartingMoney: int = 5
 @export var player_stats: StatsResource = StatsResource.new()
 
+var stats_visual
+
 var moving: bool = false
 var weapon_list: Array[Weapon_Frame]
 var weapon_count: float = 0
@@ -41,6 +43,14 @@ var stance: float:
 
 func _ready() -> void:
 	call_deferred("set_stats")
+	call_deferred("make_stats_visual")
+
+func make_stats_visual():
+	const STATS_VISUAL = preload("res://Scenes/UI/stats_visual.tscn")
+	stats_visual = STATS_VISUAL.instantiate()
+	GameManager.instance.add_child(stats_visual)
+	stats_visual.global_position = Vector2.ZERO
+	stats_visual.set_stats(player_stats, "Player Stats")
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ability1"):
@@ -113,6 +123,9 @@ func add_frame(new_frame: Weapon_Frame):
 			index += 1
 			weapon.change_slot(index, temp_count)
 	print("Add Weapon Frame: " + new_frame.name)
+	player_stats.add_stats(new_frame.stats)
+	stats_visual.refresh()
+	new_frame.make_stats_visual()
 	add_child(new_frame)
 
 func remove_frame(frame_sought: Weapon_Frame) -> bool:
@@ -138,6 +151,9 @@ func remove_frame(frame_sought: Weapon_Frame) -> bool:
 				index += 1
 				weapon.change_slot(index, temp_count)
 		remove_child(frame_sought)
+		frame_sought.delete_stats_visual()
+		player_stats.remove_stats(frame_sought.stats)
+		stats_visual.refresh()
 		print("removed weapon: " + frame_sought.name)
 		return true
 	return false
