@@ -1,28 +1,52 @@
-[gd_scene load_steps=3 format=3 uid="uid://m0vp852bqpjq"]
+[gd_scene load_steps=4 format=3 uid="uid://m0vp852bqpjq"]
 
 [ext_resource type="Script" path="res://Scripts/UI/DraggableUI.gd" id="1_rhfg0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n10q1"]
+bg_color = Color(0.820742, 0.417915, 0.830331, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6bujb"]
 bg_color = Color(0.673704, 0.156556, 0.489744, 1)
 
-[node name="DragBar" type="PanelContainer"]
+[node name="Panel" type="Panel"]
+custom_minimum_size = Vector2(10, 18)
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_n10q1")
+script = ExtResource("1_rhfg0")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -60.0
+offset_right = 60.0
+offset_bottom = 18.0
+grow_horizontal = 2
+size_flags_vertical = 1
+text = "Draggable Panel"
+horizontal_alignment = 1
+max_lines_visible = 1
+
+[node name="DragBar" type="PanelContainer" parent="Label"]
+visible = false
+layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = 60.0
-offset_right = -1859.0
+offset_left = 0.5
+offset_right = -0.5
 offset_bottom = 18.0
 grow_horizontal = 2
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_6bujb")
 script = ExtResource("1_rhfg0")
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 2
-size_flags_vertical = 1
-text = "Draggable Panel"
-horizontal_alignment = 1
-clip_text = true
-max_lines_visible = 1
-
-[connection signal="mouse_entered" from="." to="." method="_enter"]
-[connection signal="mouse_exited" from="." to="." method="_exit"]
+[connection signal="mouse_entered" from="Label/DragBar" to="Label/DragBar" method="_enter"]
+[connection signal="mouse_exited" from="Label/DragBar" to="Label/DragBar" method="_exit"]

@@ -19,7 +19,7 @@ func _ready() -> void:
 	parent.z_index = 2
 
 func _process(delta: float) -> void:
-	if !(dragging_some_ui && !dragging) && visible && process_mode != PROCESS_MODE_DISABLED:
+	if !(dragging_some_ui && !dragging) && visible && parent.visible && process_mode != PROCESS_MODE_DISABLED && parent.process_mode != PROCESS_MODE_DISABLED:
 		if !mouse_hover && get_global_rect().has_point(get_global_mouse_position()):
 			hovered.append(self)
 			mouse_hover = true

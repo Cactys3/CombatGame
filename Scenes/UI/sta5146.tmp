@@ -11,6 +11,24 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_6ir1p")
 
+[node name="DragBar" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_36myq")]
+layout_mode = 0
+anchors_preset = 0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 160.0
+offset_bottom = 18.0
+grow_horizontal = 1
+grow_vertical = 1
+parent = NodePath("..")
+
+[node name="ToggleUIButton" parent="DragBar" node_paths=PackedStringArray("ui_to_hide") instance=ExtResource("3_wdkpi")]
+layout_mode = 1
+offset_left = -15.0
+offset_right = -2.0
+ui_to_hide = [NodePath("../../Panel")]
+
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
 offset_right = 160.0
@@ -135,21 +153,3 @@ offset_right = 56.0
 offset_bottom = 318.0
 text = "Default
 "
-
-[node name="DragBar" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_36myq")]
-layout_mode = 0
-anchors_preset = 0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_right = 160.0
-offset_bottom = 18.0
-grow_horizontal = 1
-grow_vertical = 1
-parent = NodePath("..")
-
-[node name="ToggleUIButton" parent="DragBar" node_paths=PackedStringArray("ui_to_hide") instance=ExtResource("3_wdkpi")]
-layout_mode = 1
-offset_left = -15.0
-offset_right = -2.0
-ui_to_hide = [NodePath("../../Panel")]

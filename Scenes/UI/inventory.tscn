@@ -1,9 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://bcwklkqeim2sq"]
+[gd_scene load_steps=6 format=3 uid="uid://bcwklkqeim2sq"]
 
 [ext_resource type="Script" path="res://Scripts/UI/inventory.gd" id="1_haeh0"]
 [ext_resource type="PackedScene" uid="uid://m0vp852bqpjq" path="res://Scenes/UI/DragBar.tscn" id="2_r7528"]
+[ext_resource type="PackedScene" uid="uid://dvnb4uadqlav6" path="res://Scenes/UI/toggle_ui_button.tscn" id="3_ow2mg"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2hbkf"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2ndhy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q0o84"]
+bg_color = Color(0.515058, 0.594661, 0.802882, 1)
 
 [node name="Inventory" type="PanelContainer" node_paths=PackedStringArray("drag_bar", "default_item_parent")]
 clip_contents = true
@@ -21,11 +25,15 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_2hbkf")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_2ndhy")
 script = ExtResource("1_haeh0")
 drag_bar = NodePath("VBoxContainer/DragBar")
 label_text = "Storage"
 default_item_parent = NodePath("VBoxContainer/Inventory-Scroll/Inventory-Grid")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q0o84")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 clip_contents = true
@@ -36,6 +44,14 @@ alignment = 1
 [node name="DragBar" parent="VBoxContainer" node_paths=PackedStringArray("parent") instance=ExtResource("2_r7528")]
 layout_mode = 2
 parent = NodePath("../..")
+
+[node name="ToggleUIButton" parent="VBoxContainer/DragBar" node_paths=PackedStringArray("ui_to_hide") instance=ExtResource("3_ow2mg")]
+layout_mode = 2
+anchors_preset = 0
+offset_top = -9.0
+offset_bottom = 4.0
+theme_override_font_sizes/font_size = 1
+ui_to_hide = [NodePath("../../Inventory-Scroll"), NodePath("../../../Panel")]
 
 [node name="Inventory-Scroll" type="ScrollContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(150, 190)

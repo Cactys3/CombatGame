@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvnb4uadqlav6"]
+
+[ext_resource type="Script" path="res://Scripts/UI/toggle_ui_button.gd" id="1_3mtjr"]
+[ext_resource type="Texture2D" uid="uid://dqcvlilijx2nx" path="res://Art/UI/ToggleUIButton_ON.png" id="1_18lo3"]
+
+[node name="ToggleUIButton" type="Button"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -13.0
+offset_top = -6.5
+offset_bottom = 6.5
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 10
+toggle_mode = true
+icon = ExtResource("1_18lo3")
+script = ExtResource("1_3mtjr")
+
+[connection signal="toggled" from="." to="." method="_toggled"]

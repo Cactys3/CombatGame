@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwuwo8e451bxt"]
+[gd_scene load_steps=7 format=3 uid="uid://bwuwo8e451bxt"]
 
 [ext_resource type="Script" path="res://Scripts/UI/shop_inventory.gd" id="1_72t26"]
 [ext_resource type="PackedScene" uid="uid://m0vp852bqpjq" path="res://Scenes/UI/DragBar.tscn" id="2_e8vs7"]
+[ext_resource type="PackedScene" uid="uid://dvnb4uadqlav6" path="res://Scenes/UI/toggle_ui_button.tscn" id="3_i01ep"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2hbkf"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_86rus"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mkxiu"]
+bg_color = Color(0.345868, 0.628241, 0.848983, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iqkyl"]
 bg_color = Color(0.826374, 0.335211, 1, 1)
@@ -37,7 +41,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_2hbkf")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_86rus")
 script = ExtResource("1_72t26")
 auto_restock = null
 delete_on_sell = null
@@ -49,6 +53,10 @@ color = null
 label_text = "Shop"
 default_item_parent = NodePath("VBoxContainer/Inventory-Scroll/Inventory-Grid")
 
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mkxiu")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 clip_contents = true
 layout_mode = 2
@@ -58,6 +66,22 @@ alignment = 1
 [node name="DragBar" parent="VBoxContainer" node_paths=PackedStringArray("parent") instance=ExtResource("2_e8vs7")]
 layout_mode = 2
 parent = NodePath("../..")
+
+[node name="ToggleUIButton" parent="VBoxContainer/DragBar" node_paths=PackedStringArray("ui_to_hide") instance=ExtResource("3_i01ep")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 137.0
+offset_top = 0.0
+offset_right = 150.0
+offset_bottom = 13.0
+grow_horizontal = 1
+grow_vertical = 1
+theme_override_font_sizes/font_size = 1
+ui_to_hide = [NodePath("../../Inventory-Scroll"), NodePath("../../DropVisual"), NodePath("../../../Panel")]
 
 [node name="Inventory-Scroll" type="ScrollContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(100, 130)

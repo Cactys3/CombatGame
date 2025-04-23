@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctcyk6f73ll3f"
-path="res://.godot/imported/Handle_Flamethrower.png-6a0f6c23bdafabdb56d74998792eb6bb.ctex"
+uid="uid://dqcvlilijx2nx"
+path="res://.godot/imported/ToggleUIButton_ON.png-7c2b7fbf468b0105c69096b57a145294.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/New_Weapons/flamethrower/Handle_Flamethrower.png"
-dest_files=["res://.godot/imported/Handle_Flamethrower.png-6a0f6c23bdafabdb56d74998792eb6bb.ctex"]
+source_file="res://Art/UI/ToggleUIButton_ON.png"
+dest_files=["res://.godot/imported/ToggleUIButton_ON.png-7c2b7fbf468b0105c69096b57a145294.ctex"]
 
 [params]
 
