@@ -2,6 +2,9 @@ extends Control
 
 var stats: StatsResource
 
+@export var StartMinimized: bool = false
+@onready var toggle_ui: Toggle_UI = $DragBar/ToggleUIButton
+
 const SCENE = preload("res://Scenes/UI/stats_visual.tscn")
 
 @onready var damage: Label = $Panel/damage
@@ -43,6 +46,8 @@ func _ready() -> void:
 	xp.text = "xp: "
 	mogul.text = "mogul: "
 	movespeed.text = "movespeed: "
+	if StartMinimized:
+		toggle_ui.call_deferred("_toggled", true)
 
 func _process(delta: float) -> void:
 	stopwatch += delta

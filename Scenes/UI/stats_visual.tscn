@@ -152,4 +152,5 @@ parent = NodePath("..")
 layout_mode = 1
 offset_left = -15.0
 offset_right = -2.0
+StartDisabled = true
 ui_to_hide = [NodePath("../../Panel")]

@@ -10,7 +10,6 @@
 bg_color = Color(0.513726, 0.631373, 0.596078, 0.458824)
 
 [node name="equipment_inventory" type="PanelContainer" node_paths=PackedStringArray("ItemParent", "WeaponParent", "drag_bar")]
-custom_minimum_size = Vector2(100, 150)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -44,6 +43,7 @@ layout_mode = 2
 parent = NodePath("../..")
 
 [node name="ToggleUIButton" parent="VBoxContainer/DragBar" node_paths=PackedStringArray("ui_to_hide") instance=ExtResource("3_t1u8h")]
+layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0

@@ -1,6 +1,9 @@
 extends Control
 class_name Inventory
 
+@export var StartMinimized: bool = false
+
+@export var toggle_button: Toggle_UI
 @export var drag_bar: DraggableUI
 @export var color: Color
 @export var label_text: String
@@ -59,10 +62,15 @@ func clear() -> bool:
 	return true
 
 func _ready() -> void:
+	if not toggle_button && $VBoxContainer/DragBar/ToggleUIButton:
+		toggle_button = $VBoxContainer/DragBar/ToggleUIButton
 	if color:
 		drag_bar.modulate = color
 	if label_text:
 		drag_bar.set_label(label_text)
+	if StartMinimized:
+		toggle_button.call_deferred("_toggled", true)
+
 
 ## Handles calling Drop when an item is dropped over this inventory rect
 func _process(delta: float) -> void:

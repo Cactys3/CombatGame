@@ -9,7 +9,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q0o84"]
 bg_color = Color(0.515058, 0.594661, 0.802882, 1)
 
-[node name="Inventory" type="PanelContainer" node_paths=PackedStringArray("drag_bar", "default_item_parent")]
+[node name="Inventory" type="PanelContainer" node_paths=PackedStringArray("toggle_button", "drag_bar", "default_item_parent")]
 clip_contents = true
 custom_minimum_size = Vector2(150, 200)
 anchors_preset = 8
@@ -27,6 +27,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxEmpty_2ndhy")
 script = ExtResource("1_haeh0")
+toggle_button = NodePath("VBoxContainer/DragBar/ToggleUIButton")
 drag_bar = NodePath("VBoxContainer/DragBar")
 label_text = "Storage"
 default_item_parent = NodePath("VBoxContainer/Inventory-Scroll/Inventory-Grid")

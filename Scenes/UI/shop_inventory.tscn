@@ -43,13 +43,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxEmpty_86rus")
 script = ExtResource("1_72t26")
-auto_restock = null
-delete_on_sell = null
-num_of_items = null
 drop_visual = NodePath("VBoxContainer/DropVisual")
 drop_text = NodePath("VBoxContainer/DropVisual/Label")
 drag_bar = NodePath("VBoxContainer/DragBar")
-color = null
 label_text = "Shop"
 default_item_parent = NodePath("VBoxContainer/Inventory-Scroll/Inventory-Grid")
 
