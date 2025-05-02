@@ -188,16 +188,7 @@ func remove_weapon_from_player(weapon: ItemWeapon) -> bool:
 
 func craft_weapon(handle: ItemUI, attachment: ItemUI, projectile: ItemUI) -> bool:
 	if (handle && attachment && projectile) && (handle.data.item_type == ItemData.HANDLE && attachment.data.item_type == ItemData.ATTACHMENT && projectile.data.item_type == ItemData.PROJECTILE):
-		#var weapon: Weapon_Frame = weapon_frame.instantiate() #PackedScene.instantiate()
-		
-		#weapon.stats = weapon.stats.duplicate()
-		#handle.position = Vector2.ZERO
-		#attachment.position = Vector2.ZERO
-		#weapon.position = Vector2.ZERO
-		#weapon.add_attachment(attachment.item)
-		#weapon.add_handle(handle.item)
-		#weapon.set_projectile(projectile.item.get_scene())
-		
+
 		var weapon_item: ItemWeapon = ItemWeapon.new()
 		weapon_item.setup(attachment.item, handle.item, projectile.item)
 		weapon_item.make_frame()

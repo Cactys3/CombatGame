@@ -5,6 +5,7 @@
 [ext_resource type="Script" path="res://Scripts/stats.gd" id="2_ga65p"]
 
 [sub_resource type="Resource" id="Resource_cuy3j"]
+resource_local_to_scene = true
 script = ExtResource("2_ga65p")
 parent_object_name = "pistol_handle"
 statsbase = {

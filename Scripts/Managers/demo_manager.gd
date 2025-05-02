@@ -5,10 +5,11 @@ extends Node2D
 @onready var shop: Panel = $"../Camera/Store"
 @onready var xp = preload("res://Scenes/xp_blip.tscn")
 @onready var weapon_frame = preload("res://Scenes/weapon_frame.tscn")
-var LUGER_BULLET:PackedScene = preload("res://Scenes/luger_bullet.tscn")
+#var LUGER_BULLET:PackedScene = preload("res://Scenes/luger_bullet.tscn")
 var PISTOL_PROJECTILE = preload("res://Scenes/pistol/pistol_bullet.tscn")
 var PISTOL_ATTACHMENT = preload("res://Scenes/pistol/pistol_attachment.tscn")
 var PISTOL_HANDLE = preload("res://Scenes/pistol/pistol_handle.tscn")
+var SWORD_PROJECTILE = preload("res://Scenes/sword/sword_projectile.tscn")
 var SWORD_ATTACHMENT = preload("res://Scenes/sword/sword_attachment.tscn")
 var SWORD_HANDLE = preload("res://Scenes/sword/sword_handle.tscn")
 const FLAMETHROWER_ATTACHMENT = preload("res://Scenes/flamethrower/flamethrower_attachment.tscn")
@@ -61,12 +62,12 @@ func _process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("test_3"):
 		pass
-		MakeWeapon(PISTOL_ATTACHMENT, PISTOL_HANDLE, LUGER_BULLET)
+		MakeWeapon(PISTOL_ATTACHMENT, PISTOL_HANDLE, PISTOL_PROJECTILE)
 
 
 	if Input.is_action_just_pressed("test_4"):
 		pass
-		MakeWeapon(SWORD_ATTACHMENT, SWORD_HANDLE, LUGER_BULLET)
+		MakeWeapon(SWORD_ATTACHMENT, SWORD_HANDLE, SWORD_PROJECTILE)
 
 	if Input.is_action_just_pressed("test_5"):
 		pass
@@ -118,14 +119,13 @@ func Size_Button() -> void:
 func Gun_Button() -> void:
 	if gun_cost <= player.current_money:
 		player.current_money -= gun_cost
-		MakeWeapon(PISTOL_ATTACHMENT, PISTOL_HANDLE, LUGER_BULLET)
-		#var new_weapon:Weapon = gun.instantiate()
+		MakeWeapon(PISTOL_ATTACHMENT, PISTOL_HANDLE, PISTOL_PROJECTILE)
 		#new_weapon.position = Vector2(0, 0)
 		#player.add_weapon(new_weapon)
 
 func Sword_Button() -> void:
 	if sword_cost <= player.current_money:
-		MakeWeapon(SWORD_ATTACHMENT, SWORD_HANDLE, LUGER_BULLET)
+		MakeWeapon(SWORD_ATTACHMENT, SWORD_HANDLE, PISTOL_PROJECTILE)
 		player.current_money -= sword_cost
 		#var new_weapon:Weapon = sword.instantiate()
 		#new_weapon.position = Vector2(0, 0)

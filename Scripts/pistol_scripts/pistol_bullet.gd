@@ -1,7 +1,18 @@
 extends Projectile
+class_name p
 
-func get_scene() -> PackedScene:
-	return preload("res://Scenes/pistol/pistol_bullet.tscn")
+const type = preload("res://Scripts/pistol_scripts/pistol_bullet.gd")
+
+func get_instance():
+	var ret: type = preload("res://Scenes/pistol/pistol_bullet.tscn").instantiate()
+	add_child(ret)
+	ret.status = ret.status.duplicate()
+	ret.stats = ret.stats.duplicate()
+	ret.my_stats = ret.my_stats.duplicate()
+	remove_child(ret)
+	#if !(ret.status.attack_bleed + ret.stats.get_stat(stats.ATTACKSPEED) + ret.my_stats.get_stat(stats.ATTACKSPEED)) || !ret.status.attack_bleed || !ret.stats || !ret.my_stats:
+	#	print("Determined that I need this print statment or the runtime will not load the @export variables from any custom resources. Must do something to Custom Resources before returning instance for all Projectiles (maybe other components too)" + str(ret.status.attack_bleed))
+	return ret
 
 ## called in ready
 func setdata():
@@ -11,3 +22,9 @@ func setdata():
 
 func _process(delta: float) -> void:
 	super(delta)
+
+
+func _ready() -> void:
+	print(status.get_local_scene())
+	status = status.duplicate()
+	my_stats = my_stats.duplicate()

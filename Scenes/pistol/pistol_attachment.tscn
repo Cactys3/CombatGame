@@ -4,14 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://bubjo75ouhbaj" path="res://Art/New_Weapons/Pistol/Attachment_Pistol.png" id="2_drna1"]
 [ext_resource type="Script" path="res://Scripts/stats.gd" id="2_tr2dk"]
 
-[sub_resource type="Resource" id="Resource_efqpa"]
+[sub_resource type="Resource" id="Resource_lr1eu"]
 script = ExtResource("2_tr2dk")
 parent_object_name = "pistol_attachment"
 statsbase = {
 "attackspeed": 2.0,
 "buildup": 0.0,
 "count": 1.0,
-"damage": 10.0,
+"damage": 11.0,
 "duration": 1.0,
 "hp": 0.0,
 "luck": 0.0,
@@ -61,7 +61,7 @@ animations = [{
 
 [node name="pistol_attachment" type="Area2D" node_paths=PackedStringArray("visual")]
 script = ExtResource("1_bgemh")
-stats = SubResource("Resource_efqpa")
+stats = SubResource("Resource_lr1eu")
 visual = NodePath("animation")
 
 [node name="animation" type="AnimatedSprite2D" parent="."]

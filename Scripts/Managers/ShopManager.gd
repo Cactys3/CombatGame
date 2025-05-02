@@ -152,7 +152,10 @@ static func get_weapon(num: int) -> ItemWeapon:
 			return w
 
 static func _dup_stats(item) -> Object:
+	print(item.stats.parent_object_name + str(item.stats.get_stat("damage")))
 	item.stats = item.stats.duplicate()
+	if item is Projectile:
+		item.status = item.status.duplicate()
 	return item
 
 static func make_itemUI(item) -> ItemUI:
