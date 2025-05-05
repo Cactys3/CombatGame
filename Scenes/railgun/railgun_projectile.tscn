@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b605pualaip1m"]
 
-[ext_resource type="Script" path="res://Scripts/railgun_scripts/railgun_projectile.gd" id="1_vned4"]
+[ext_resource type="Script" uid="uid://hd66jc8makw5" path="res://Scripts/railgun_scripts/railgun_projectile.gd" id="1_vned4"]
 [ext_resource type="Texture2D" uid="uid://cdam8n8g4gbi2" path="res://Art/New_Weapons/Railgun/LazarBeam.png" id="2_27xwe"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ugjh4"]

@@ -1,48 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://2abx260rgyvs"]
+[gd_scene load_steps=6 format=3 uid="uid://2abx260rgyvs"]
 
-[ext_resource type="Script" path="res://Scripts/flamethrower_scripts/flamethrower_handle.gd" id="1_40hlj"]
-[ext_resource type="Script" path="res://Scripts/stats.gd" id="2_jh70o"]
-[ext_resource type="Texture2D" uid="uid://ctcyk6f73ll3f" path="res://Art/New_Weapons/Flamethrower/Handle_Flamethrower.png" id="2_p341h"]
-
-[sub_resource type="Resource" id="Resource_41cnc"]
-script = ExtResource("2_jh70o")
-parent_object_name = "flamethrower_handle"
-statsbase = {
-"attackspeed": 0.0,
-"buildup": 0.0,
-"count": 0.0,
-"damage": 5.0,
-"duration": 0.0,
-"hp": 0.0,
-"luck": 0.0,
-"mogul": 0.0,
-"movespeed": 0.0,
-"piercing": 0.0,
-"range": 0.0,
-"size": 0.0,
-"stance": 0.0,
-"velocity": 0.0,
-"weight": 0.0,
-"xp": 0.0
-}
-statsfactor = {
-"attackspeed": 4.0,
-"buildup": 3.0,
-"count": 1.0,
-"damage": 0.5,
-"duration": 0.75,
-"hp": 1.0,
-"luck": 1.0,
-"mogul": 1.0,
-"movespeed": 1.0,
-"piercing": 5.0,
-"range": 1.0,
-"size": 1.5,
-"stance": 1.0,
-"velocity": 1.0,
-"weight": 2.0,
-"xp": 1.0
-}
+[ext_resource type="Script" uid="uid://ew3jrvaipb0b" path="res://Scripts/flamethrower_scripts/flamethrower_handle.gd" id="1_40hlj"]
+[ext_resource type="Resource" uid="uid://cmyggekbys27w" path="res://Scenes/flamethrower/resources/flamethrower_handle_stats.tres" id="2_lbu8a"]
+[ext_resource type="Texture2D" uid="uid://ctcyk6f73ll3f" path="res://Art/New_Weapons/flamethrower/Handle_Flamethrower.png" id="2_p341h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vn0jt"]
 atlas = ExtResource("2_p341h")
@@ -61,7 +21,7 @@ animations = [{
 
 [node name="flamethrower_handle" type="Area2D" node_paths=PackedStringArray("visual")]
 script = ExtResource("1_40hlj")
-stats = SubResource("Resource_41cnc")
+stats = ExtResource("2_lbu8a")
 visual = NodePath("AnimatedSprite2D")
 ROTATION_SPEED = 10.0
 AimType = 3

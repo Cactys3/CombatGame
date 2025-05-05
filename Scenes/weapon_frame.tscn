@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bvrk716vfnywv"]
 
-[ext_resource type="Script" path="res://Scripts/weapon_components/weapon_frame.gd" id="1_k8hub"]
+[ext_resource type="Script" uid="uid://cfr5ia1f168gf" path="res://Scripts/weapon_components/weapon_frame.gd" id="1_k8hub"]
 
 [node name="Weapon_Frame" type="Area2D"]
 z_index = 10

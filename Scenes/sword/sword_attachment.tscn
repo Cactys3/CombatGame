@@ -1,48 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://d1adyx7c46ut8"]
+[gd_scene load_steps=10 format=3 uid="uid://d1adyx7c46ut8"]
 
-[ext_resource type="Script" path="res://Scripts/sword_scripts/sword_attachment.gd" id="1_jjysa"]
-[ext_resource type="Script" path="res://Scripts/stats.gd" id="2_dwflh"]
+[ext_resource type="Script" uid="uid://du1jbl08uf8dw" path="res://Scripts/sword_scripts/sword_attachment.gd" id="1_jjysa"]
+[ext_resource type="Resource" uid="uid://thj5nou3a6nn" path="res://Scenes/sword/resources/sword_attachment_stats.tres" id="2_e16m8"]
 [ext_resource type="Texture2D" uid="uid://bt3ow0fhp6e68" path="res://Art/New_Weapons/Sword/Attachment_Sword.png" id="2_kxonl"]
-
-[sub_resource type="Resource" id="Resource_fchka"]
-script = ExtResource("2_dwflh")
-parent_object_name = "sword_attachment"
-statsbase = {
-"attackspeed": 3.0,
-"buildup": 3.0,
-"count": 1.0,
-"damage": 20.0,
-"duration": 5.0,
-"hp": 0.0,
-"luck": 0.0,
-"mogul": 0.0,
-"movespeed": 0.0,
-"piercing": 10.0,
-"range": 30.0,
-"size": 1.0,
-"stance": 0.0,
-"velocity": 10.0,
-"weight": 15.0,
-"xp": 0.0
-}
-statsfactor = {
-"attackspeed": 1.0,
-"buildup": 1.0,
-"count": 1.0,
-"damage": 1.15,
-"duration": 1.0,
-"hp": 1.0,
-"luck": 1.0,
-"mogul": 1.0,
-"movespeed": 1.0,
-"piercing": 1.0,
-"range": 1.0,
-"size": 1.0,
-"stance": 1.0,
-"velocity": 1.0,
-"weight": 1.0,
-"xp": 1.0
-}
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gxxfy"]
 atlas = ExtResource("2_kxonl")
@@ -91,8 +51,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kaunx"]
 _data = {
-"RESET": SubResource("Animation_o35nv"),
-"attack": SubResource("Animation_yaacc")
+&"RESET": SubResource("Animation_o35nv"),
+&"attack": SubResource("Animation_yaacc")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fvdxt"]
@@ -103,7 +63,7 @@ collision_layer = 4
 collision_mask = 8
 script = ExtResource("1_jjysa")
 melee_hitbox = NodePath("Sword Hitbox")
-stats = SubResource("Resource_fchka")
+stats = ExtResource("2_e16m8")
 visual = NodePath("Sword Sprites")
 
 [node name="Sword Sprites" type="AnimatedSprite2D" parent="."]
@@ -112,7 +72,7 @@ autoplay = "default"
 
 [node name="Sword Animations" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_kaunx")
+&"": SubResource("AnimationLibrary_kaunx")
 }
 
 [node name="Sword Hitbox" type="CollisionShape2D" parent="."]

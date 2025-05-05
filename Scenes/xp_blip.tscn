@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://bgt57e0022plx"]
 
-[ext_resource type="Script" path="res://Scripts/xp_blip.gd" id="1_u3mlk"]
+[ext_resource type="Script" uid="uid://bfara6cmkmsdg" path="res://Scripts/xp_blip.gd" id="1_u3mlk"]
 [ext_resource type="Texture2D" uid="uid://hxq8re4huwqk" path="res://Art/XP_blip.png" id="2_33rtv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jsik7"]

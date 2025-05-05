@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://cikwtalbjcmxf"]
 
-[ext_resource type="Script" path="res://Scripts/sword_scripts/sword_projectile.gd" id="1_lahgh"]
+[ext_resource type="Script" uid="uid://wf7p15rriad8" path="res://Scripts/sword_scripts/sword_projectile.gd" id="1_lahgh"]
 [ext_resource type="Texture2D" uid="uid://ifm808khcaoe" path="res://Art/New_Weapons/Sword/projectile_sword.png" id="2_u2dc3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xmj4n"]

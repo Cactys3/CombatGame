@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cwomrgi81thyq"]
 
 [ext_resource type="PackedScene" uid="uid://m0vp852bqpjq" path="res://Scenes/UI/DragBar.tscn" id="1_8au0p"]
-[ext_resource type="Script" path="res://Scripts/UI/weapon_crafting_inventory.gd" id="1_pynmv"]
+[ext_resource type="Script" uid="uid://e16j8gnfxht2" path="res://Scripts/UI/weapon_crafting_inventory.gd" id="1_pynmv"]
 [ext_resource type="PackedScene" uid="uid://dvnb4uadqlav6" path="res://Scenes/UI/toggle_ui_button.tscn" id="3_h5gk1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a6fc1"]

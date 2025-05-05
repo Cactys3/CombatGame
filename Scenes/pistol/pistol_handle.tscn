@@ -1,49 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://ge7a2yumy0ed"]
+[gd_scene load_steps=6 format=3 uid="uid://ge7a2yumy0ed"]
 
-[ext_resource type="Script" path="res://Scripts/pistol_scripts/pistol_handle.gd" id="1_iac6n"]
+[ext_resource type="Script" uid="uid://bvn8kv8qtetjd" path="res://Scripts/pistol_scripts/pistol_handle.gd" id="1_iac6n"]
+[ext_resource type="Resource" uid="uid://kflxc34jwioc" path="res://Scenes/pistol/resources/pistol_handle_stats.tres" id="2_adyb7"]
 [ext_resource type="Texture2D" uid="uid://bl3gg2nqff0e1" path="res://Art/New_Weapons/Pistol/Handle_Pistol.png" id="2_dcpa0"]
-[ext_resource type="Script" path="res://Scripts/stats.gd" id="2_ga65p"]
-
-[sub_resource type="Resource" id="Resource_cuy3j"]
-resource_local_to_scene = true
-script = ExtResource("2_ga65p")
-parent_object_name = "pistol_handle"
-statsbase = {
-"attackspeed": 1.0,
-"buildup": 0.0,
-"count": 0.0,
-"damage": 10.0,
-"duration": 0.0,
-"hp": 0.0,
-"luck": 0.0,
-"mogul": 0.0,
-"movespeed": 0.0,
-"piercing": 0.0,
-"range": 10.0,
-"size": 0.0,
-"stance": 0.0,
-"velocity": 0.0,
-"weight": 0.0,
-"xp": 0.0
-}
-statsfactor = {
-"attackspeed": 1.0,
-"buildup": 1.0,
-"count": 1.0,
-"damage": 1.1,
-"duration": 1.0,
-"hp": 1.0,
-"luck": 1.0,
-"mogul": 1.0,
-"movespeed": 1.0,
-"piercing": 1.0,
-"range": 1.1,
-"size": 0.7,
-"stance": 1.0,
-"velocity": 1.1,
-"weight": 0.9,
-"xp": 1.0
-}
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2yfyx"]
 atlas = ExtResource("2_dcpa0")
@@ -62,7 +21,7 @@ animations = [{
 
 [node name="pistol_handle" type="Area2D" node_paths=PackedStringArray("visual")]
 script = ExtResource("1_iac6n")
-stats = SubResource("Resource_cuy3j")
+stats = ExtResource("2_adyb7")
 visual = NodePath("animation")
 AimType = 2
 

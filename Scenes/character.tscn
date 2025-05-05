@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://dbfx0pgjmmdgy"]
 
-[ext_resource type="Script" path="res://Scripts/character_scripts/webfisher.gd" id="1_ieu52"]
+[ext_resource type="Script" uid="uid://d2q8eeh4e5ai8" path="res://Scripts/character_scripts/webfisher.gd" id="1_ieu52"]
 [ext_resource type="Texture2D" uid="uid://dvur2jw4hot5w" path="res://Art/Characters/WebFishingCat.png" id="3_y3rn3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ono3w"]

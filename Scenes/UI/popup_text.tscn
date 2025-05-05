@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://brldrnbhcexcm"]
 
-[ext_resource type="Script" path="res://Scripts/UI/popup_text.gd" id="1_e0m3v"]
+[ext_resource type="Script" uid="uid://tb20asul7ns7" path="res://Scripts/UI/popup_text.gd" id="1_e0m3v"]
 
 [sub_resource type="Animation" id="Animation_xx8ca"]
 length = 0.001
@@ -48,8 +48,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qtp4o"]
 _data = {
-"RESET": SubResource("Animation_xx8ca"),
-"fade": SubResource("Animation_ty17l")
+&"RESET": SubResource("Animation_xx8ca"),
+&"fade": SubResource("Animation_ty17l")
 }
 
 [node name="PopupText" type="RichTextLabel"]
