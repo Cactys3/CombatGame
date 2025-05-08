@@ -10,7 +10,7 @@ func get_scene() -> PackedScene:
 
 var data: ItemData = ItemData.new()
 
-@export var stats: StatsResource = StatsResource.new()
+@export var stats: StatsResource# = StatsResource.new()
 
 var bullets: Array[Projectile]
 
@@ -113,15 +113,8 @@ func get_cooldown() -> float:
 
 func make_attack() -> Attack:
 	var new_attack: Attack = Attack.new()
-	new_attack.damage = stats.get_stat(stats.DAMAGE)
-	new_attack.knockback = stats.get_stat(stats.WEIGHT) * (stats.get_stat(stats.DAMAGE) / 10) #TODO: determine how to calculate knockback
-	new_attack.position = frame.player.global_position
-	new_attack.burning = 0
-	new_attack.frost = 0
-	new_attack.poison = 0
-	new_attack.bleed = 0
-	new_attack.shock = 0
-	new_attack.wet = 0
+	new_attack.setup(stats.get_stat(stats.DAMAGE), frame.player.global_position, stats.get_stat(stats.BUILDUP), StatusEffectDictionary.new(), self, 0, 0, stats.get_stat(stats.WEIGHT) * (stats.get_stat(stats.DAMAGE) / 10))
+	 #TODO: determine how to calculate knockback
 	return new_attack
 
 func set_stats() -> void:

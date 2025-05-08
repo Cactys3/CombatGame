@@ -10,7 +10,7 @@ func get_scene() -> PackedScene:
 
 var data: ItemData = ItemData.new()
 
-@export var stats: StatsResource = StatsResource.new()
+@export var stats: StatsResource# = StatsResource.new()
 
 @export var visual: AnimatedSprite2D
 @export var offset: Vector2

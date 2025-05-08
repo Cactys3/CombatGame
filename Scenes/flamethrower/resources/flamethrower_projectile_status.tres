@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StatusEffectDictionary" load_steps=2 format=3 uid="uid://y5nam6n4drur"]
+
+[ext_resource type="Script" uid="uid://cxwybb8hawlwn" path="res://Scripts/status_effects_dictionary.gd" id="1_3pk16"]
+
+[resource]
+script = ExtResource("1_3pk16")
+decrease_every_process = false
+dictionary = {
+"bleed": 0.0,
+"burning": 4.0,
+"frost": 0.0,
+"poison": 0.0,
+"shock": 0.0,
+"wet": 0.0
+}
+metadata/_custom_type_script = "uid://cxwybb8hawlwn"

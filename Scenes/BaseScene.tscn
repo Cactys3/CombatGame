@@ -1,6 +1,5 @@
 [gd_scene load_steps=32 format=3 uid="uid://dc0hdlr7wq3lq"]
 
-[ext_resource type="Script" uid="uid://cb50t2aj1v728" path="res://Scripts/enemy_scripts/enemy.gd" id="1_nfwnb"]
 [ext_resource type="Texture2D" uid="uid://b1lme8t63rjpt" path="res://Art/Area Art/Background.png" id="1_rub18"]
 [ext_resource type="PackedScene" uid="uid://dbfx0pgjmmdgy" path="res://Scenes/character.tscn" id="2_bdfmm"]
 [ext_resource type="Texture2D" uid="uid://btvcwala5rhxh" path="res://Art/Weapons/Sword.png" id="2_lx10p"]
@@ -14,6 +13,7 @@
 [ext_resource type="Script" uid="uid://5tltnj2xg8ps" path="res://Scripts/Managers/ShopManager.gd" id="12_e4e03"]
 [ext_resource type="Script" uid="uid://cbjjnhikhwkct" path="res://Scenes/node_2d.gd" id="13_m34lm"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/status_effects.gd" id="14_2osxq"]
+[ext_resource type="PackedScene" uid="uid://bo66u5j4t64wp" path="res://Scenes/enemy/Grub.tscn" id="14_u5ctk"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_20rgc"]
 font_size = 8
@@ -124,10 +124,6 @@ font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Resource" id="Resource_o5c2k"]
 script = ExtResource("14_2osxq")
-statsbase = {
-"balasdh": 0.0,
-"balh": 0.0
-}
 defense_burning = 1.0
 defense_frost = 2.0
 defense_poison = 124.0
@@ -142,7 +138,6 @@ attack_shock = 142.0
 attack_wet = 124412.0
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource("1_nfwnb")
 
 [node name="Camera" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
@@ -385,3 +380,6 @@ script = ExtResource("12_e4e03")
 [node name="Node2D" type="Node2D" parent="."]
 script = ExtResource("13_m34lm")
 stat = SubResource("Resource_o5c2k")
+
+[node name="Enemy" parent="." instance=ExtResource("14_u5ctk")]
+position = Vector2(-169, 106)

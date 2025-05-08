@@ -50,8 +50,6 @@ func movement_process(_delta: float) ->void:
 
 func move_towards(new_position: Vector2, delta:float):
 	var direction: Vector2 = (new_position - global_position).normalized()
-	#velocity.x = direction.x * MOVESPEED
-	#velocity.y = direction.y * MOVESPEED
 	velocity = velocity.move_toward(Vector2(direction.x * MOVESPEED, direction.y * MOVESPEED), 9)
 
 func is_player_nearby(distance: float) -> bool:
@@ -63,10 +61,7 @@ func _on_damage_hitbox_body_entered(body: Node2D) -> void:
 	if body.has_method("damage") && body.is_in_group("player"):
 		cooldown_timer = 0;
 		var attack: Attack = Attack.new()
-		attack.damage = weapon_damage
-		attack.knockback = weapon_knockback
-		attack.stun = weapon_stun
-		attack.position = global_position
+		attack.setup(attack.damage, position, 0, StatusEffectDictionary.new(), self, weapon_stun, 0, weapon_knockback)
 		body.damage(attack)
 		damage_hitbox.set_deferred("monitoring", false)
 

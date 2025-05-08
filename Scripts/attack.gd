@@ -1,8 +1,15 @@
 extends Resource
 class_name Attack
+
 ## General Data
-var damage: int
-var position: Vector2 # Attacker's Position
+var damage: float # Damage of attack
+var position: Vector2 # Position of Attack
+var buildup: float # Multiply to Status Buildups
+## armor shred?
+## Attacker Given Data
+var attacking_status: StatusEffectDictionary # Attacker's Offensive Status Effects
+var attacker: Node2D # Reference to attacker
+
 ## IDK if used Data, This can be hidden stats because attacks should slow or stun enemies to feel 'weighty'
 ## but these aren't the stuns or slows that the status effects make happen
 ## Currently:
@@ -11,15 +18,19 @@ var position: Vector2 # Attacker's Position
 var stun: float
 var slow: float
 var knockback: float
-## Elemental Effects
-var burning: float 
-var frost: float 
-var poison: float 
-var bleed: float
-var shock: float
-var wet: float
 
-## it should include a stats instance right? probably not
-var attacker_stats: StatsResource
-## should it include a reference to the attacker? depending on if anything needs this
-var attacker: Node2D
+## it should include a stats instance right? 
+## probably not. 
+## No it should, some enemies will have unique ways of being attacked like taking more dmg based on player's current money. 
+## Maybe they can just get from game manager?
+#var attacker_stats: StatsResource
+
+func setup(dmg: float, pos: Vector2, buildupStat: float, attacker_status: StatusEffectDictionary, attackerNode: Node2D, stunValue: float, slowValue: float, knockbackValue: float):
+	damage = dmg
+	position = pos
+	buildup = buildupStat
+	attacking_status = attacker_status
+	attacker = attackerNode
+	stun = stunValue
+	slow = slowValue
+	knockback = knockbackValue

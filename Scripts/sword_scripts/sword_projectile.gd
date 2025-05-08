@@ -7,12 +7,10 @@ func get_instance():
 	add_child(ret)
 	ret.status = ret.status.duplicate()
 	ret.stats = ret.stats.duplicate()
-	ret.my_stats = ret.my_stats.duplicate()
 	remove_child(ret)
 	return ret
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-@export var attack:Attack = Attack.new()
 
 ## called in ready
 func setdata():

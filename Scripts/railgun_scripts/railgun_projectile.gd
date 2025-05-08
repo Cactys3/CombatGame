@@ -7,7 +7,6 @@ func get_instance():
 	add_child(ret)
 	ret.status = ret.status.duplicate()
 	ret.stats = ret.stats.duplicate()
-	ret.my_stats = ret.my_stats.duplicate()
 	remove_child(ret)
 	return ret
 

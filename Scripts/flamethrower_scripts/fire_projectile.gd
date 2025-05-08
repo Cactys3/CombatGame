@@ -5,7 +5,6 @@ extends Projectile
 #and also so that this doesn't keep track of how many collisions it takes,
 #it doesn't care, will go through them all. (do less dmg per hit though?)
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-@export var attack:Attack = Attack.new()
 
 const type = preload("res://Scripts/flamethrower_scripts/fire_projectile.gd")
 
@@ -14,7 +13,6 @@ func get_instance():
 	add_child(ret)
 	ret.status = ret.status.duplicate()
 	ret.stats = ret.stats.duplicate()
-	ret.my_stats = ret.my_stats.duplicate()
 	remove_child(ret)
 	return ret
 

@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="StatsResource" load_steps=2 format=3 uid="uid://b86efdis6cvhv"]
+[gd_resource type="Resource" script_class="StatsResource" load_steps=2 format=3 uid="uid://dtbagx7lwlpe0"]
 
-[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/stats.gd" id="1_g6lco"]
+[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/stats.gd" id="1_mdmte"]
 
 [resource]
-script = ExtResource("1_g6lco")
-parent_object_name = "FireProjectile"
+script = ExtResource("1_mdmte")
+parent_object_name = "PistolBullet"
 statsbase = {
 "attackspeed": 0.0,
 "buildup": 0.0,

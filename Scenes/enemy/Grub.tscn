@@ -1,0 +1,82 @@
+[gd_scene load_steps=11 format=3 uid="uid://bo66u5j4t64wp"]
+
+[ext_resource type="Script" uid="uid://cb50t2aj1v728" path="res://Scripts/enemy_scripts/enemy.gd" id="1_3w0s0"]
+[ext_resource type="Resource" uid="uid://d2vkyrbiy2gh0" path="res://Scenes/enemy/Resources/grub_stats.tres" id="2_1epaa"]
+[ext_resource type="Texture2D" uid="uid://d2peq71x62qh" path="res://Art/Characters/FirstEnemy.png" id="2_5r3vp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mvptc"]
+atlas = ExtResource("2_5r3vp")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bdofj"]
+atlas = ExtResource("2_5r3vp")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsxx5"]
+atlas = ExtResource("2_5r3vp")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ha66"]
+atlas = ExtResource("2_5r3vp")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1epaa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mvptc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bdofj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gsxx5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ha66")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8ri7c"]
+radius = 9.0
+height = 26.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_daryp"]
+height = 28.0
+
+[node name="Grub" type="CharacterBody2D" node_paths=PackedStringArray("damage_hitbox")]
+collision_layer = 8
+collision_mask = 12
+script = ExtResource("1_3w0s0")
+stats = ExtResource("2_1epaa")
+damage_hitbox = NodePath("Damage_Hitbox")
+xp_on_death = 100
+money_on_death = 1
+weapon_knockback = 900.0
+base_damage = 10.0
+base_movespeed = 150.0
+base_health = 50.0
+base_knockback_modifier = 1.0
+base_cooldown = 0.5
+metadata/_custom_type_script = "uid://cb50t2aj1v728"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_1epaa")
+autoplay = "default"
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_8ri7c")
+
+[node name="Damage_Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox"]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_daryp")
+
+[connection signal="body_entered" from="Damage_Hitbox" to="." method="_on_damage_hitbox_body_entered"]

@@ -49,7 +49,7 @@ func make_stats_visual():
 	const STATS_VISUAL = preload("res://Scenes/UI/stats_visual.tscn")
 	stats_visual = STATS_VISUAL.instantiate()
 	GameManager.instance.add_child(stats_visual)
-	stats_visual.global_position = Vector2.ZERO
+	stats_visual.global_position = Vector2(-310, -20)
 	stats_visual.set_stats(player_stats, "Player Stats")
 
 func _process(delta: float) -> void:
@@ -125,7 +125,7 @@ func add_frame(new_frame: Weapon_Frame):
 	print("Add Weapon Frame: " + new_frame.name)
 	player_stats.add_stats(new_frame.stats)
 	stats_visual.refresh()
-	new_frame.make_stats_visual()
+	new_frame.make_stats_visual(weapon_list.size())
 	add_child(new_frame)
 
 func remove_frame(frame_sought: Weapon_Frame) -> bool:

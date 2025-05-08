@@ -34,7 +34,6 @@ var scene_state: scene_states = scene_states.shop
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("escape") && can_access_menus:
 		shop.visible = !shop.visible
-
 	if Input.is_action_just_pressed("test_1"):
 		if list.size() >= 2:
 			var one = randi_range(0, list.size() - 1)
@@ -53,17 +52,14 @@ func _process(delta: float) -> void:
 				list[two].add_handle(a2)
 		pass#weapon_projectile_count += 1
 
-
 	if Input.is_action_just_pressed("test_2"):
 		var enem: FirstEnemy = enemy.instantiate()
 		self.add_child(enem)
 		enem.global_position = Vector2.ZERO
 
-
 	if Input.is_action_just_pressed("test_3"):
 		pass
 		MakeWeapon(PISTOL_ATTACHMENT, PISTOL_HANDLE, PISTOL_PROJECTILE)
-
 
 	if Input.is_action_just_pressed("test_4"):
 		pass
@@ -77,7 +73,6 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("test_6"):
 		pass
 		MakeWeapon(RAILGUN_ATTACHMENT, RAILGUN_HANDLE, RAILGUN_PROJECTILE)
-
 
 	if Input.is_action_just_pressed("test_7"):
 		pass
@@ -146,7 +141,7 @@ func MakeWeapon(attachment: PackedScene, handle: PackedScene, projectile: Packed
 	new_projectile.position = Vector2.ZERO
 	new_frame.add_attachment(new_attachment)
 	new_frame.add_handle(new_handle)
-	new_frame.set_projectile(new_projectile)
+	new_frame.add_projectile(new_projectile)
 	player.add_frame(new_frame)
 	list.append(new_frame)
 	

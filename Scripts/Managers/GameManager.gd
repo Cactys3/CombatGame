@@ -104,7 +104,7 @@ func _ready() -> void:
 	const STATS_VISUAL = preload("res://Scenes/UI/stats_visual.tscn")
 	var s = STATS_VISUAL.instantiate()
 	add_child(s)
-	s.global_position = Vector2.ZERO
+	s.global_position = Vector2(-310, -0)
 	s.set_stats(global_stats, "Global Stats")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

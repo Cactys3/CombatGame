@@ -1,17 +1,14 @@
 extends Resource
 class_name StatusEffects
-
 ## Handles Keeping track of current status/elemental affect values and executing appropriate calls
 
 ## use signals to send when a status affect starts/ends?
 ## or just use booleans?
 ## both i think.
 
-
-@export var statsbase = { #everything must be default at 0 because they are always added in add_stats and should default to adding 0
-	"balh": 0.0,
-	"balasdh": 0.0}
-
+@export var DefenseValues: StatusEffectDictionary = StatusEffectDictionary.new()
+@export var AttackValues: StatusEffectDictionary = StatusEffectDictionary.new()
+@export var BuildupValues: StatusEffectDictionary = StatusEffectDictionary.new()
 ## Defense Values
 @export var defense_burning: float 
 @export var defense_frost: float 
@@ -49,7 +46,6 @@ func add_burning(x: float):
 	if !is_burning && burning > threshhold:
 		is_burning = true
 		set_burning.emit(true, burning - threshhold)
-
 
 func _process(delta: float) -> void:
 	

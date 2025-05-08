@@ -26,9 +26,6 @@ func _process(_delta: float) -> void:
 	pass
 
 func damage(attack: Attack):
-	print("Burning: " + str(attack.burning) + "\nFrost: " + str(attack.frost) + "\nPoison: " + str(attack.poison) + "\nBleed: " + str(attack.bleed) + "\nShock: " + str(attack.shock) + "\nWet: " + str(attack.wet))
-	
-	
 	var damage_taken = attack.damage #TODO: implement defense here
 	health -= damage_taken
 	#print(parent_script.name + " damaged: " + str(attack.damage))

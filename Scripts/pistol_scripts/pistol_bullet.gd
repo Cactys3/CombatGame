@@ -8,7 +8,6 @@ func get_instance():
 	add_child(ret)
 	ret.status = ret.status.duplicate()
 	ret.stats = ret.stats.duplicate()
-	ret.my_stats = ret.my_stats.duplicate()
 	remove_child(ret)
 	return ret
 
@@ -25,4 +24,4 @@ func _process(delta: float) -> void:
 func _ready() -> void:
 	print(status.get_local_scene())
 	status = status.duplicate()
-	my_stats = my_stats.duplicate()
+	stats = stats.duplicate()
