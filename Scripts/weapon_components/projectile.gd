@@ -13,6 +13,8 @@ func get_instance():
 	remove_child(ret)
 	return ret
 
+## TODO: Acceleration? Positive and Negative
+
 ## In the future, maybe used to set Projectile specific stats
 @export var stats: StatsResource #= StatsResource.new()
 ## Not decided, holds attack, defense, current values

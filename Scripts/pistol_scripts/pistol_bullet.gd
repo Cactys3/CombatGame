@@ -22,6 +22,5 @@ func _process(delta: float) -> void:
 
 
 func _ready() -> void:
-	print(status.get_local_scene())
 	status = status.duplicate()
 	stats = stats.duplicate()
