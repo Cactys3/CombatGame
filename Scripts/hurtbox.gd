@@ -1,6 +1,6 @@
 extends Node
 
-@export var callee: CharacterBody2D
+@export var callee: Node2D
 
 func _ready() -> void:
 	if !callee && get_parent():

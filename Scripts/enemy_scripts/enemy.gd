@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends RigidBody2D
 class_name Enemy
 
 @export_category("Enemy Stats")
@@ -130,15 +130,23 @@ func _process(delta: float) -> void:
 				print("shot projectile")
 				var p: EnemyProjectile = projectile.instantiate()
 				GameManager.instance.add_child(p)
+				p.modulate = self.modulate
 				p.global_position = global_position
-				p.setup(player, homing, curr_speed, curr_acceleration, curr_lifetime, curr_piercing)
+				p.setup(player, self, homing, curr_speed, curr_acceleration, curr_lifetime, curr_piercing)
 
 func _physics_process(_delta: float) -> void:
 	if !ImReady:
 		return
 	if !stunned:
 		movement_process(_delta)
-	move_and_slide()
+	#var A = null
+	#var vA = A.linear_velocity
+	#var mA = A.get_mass()
+	#var vB = linear_velocity
+	#var mB = get_mass()
+	#linear_velocity = ((mB - mA) / (mA + mB)) * vB + (2.0 * mA / (mA + mB)) * vA
+
+	
 
 ## Overriden by extender for custom enemy movement
 func movement_process(_delta: float) ->void:
@@ -165,14 +173,14 @@ func _on_damage_hitbox_body_entered(body: Node2D) -> void:
 func damage_player(player: Node2D):
 	cooldown_stopwatch = 0;
 	var attack: Attack = Attack.new()
-	attack.setup(attack.damage, position, 0, StatusEffectDictionary.new(), self, weapon_stun, 0, weapon_knockback)
+	attack.setup(attack.damage, global_position, 0, StatusEffectDictionary.new(), self, weapon_stun, 0, weapon_knockback)
 	player.damage(attack)
 	if melee_attacks:
 		damage_hitbox.set_deferred("monitoring", false)
 
 func move_towards(new_position: Vector2, delta:float):
 	var direction: Vector2 = (new_position - global_position).normalized()
-	velocity = velocity.move_toward(Vector2(direction.x * curr_movespeed, direction.y * curr_movespeed), 9)
+	linear_velocity = linear_velocity.move_toward(Vector2(direction.x * curr_movespeed, direction.y * curr_movespeed), 9)
 
 func is_player_nearby(distance: float) -> bool:
 	if global_position.distance_to(player.global_position) <= distance:
@@ -186,7 +194,7 @@ func damage(attack: Attack):
 	if attack.stun > 0 && can_be_stunned:
 			stun_time_left = attack.stun
 			stunned = true
-			velocity = Vector2.ZERO
+			linear_velocity = Vector2.ZERO
 	if can_be_knockbacked && attack.knockback != 0:
 		if stun_time_left < 1 && can_be_stunned:
 			stun_time_left = 0.2

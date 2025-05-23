@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dc0hdlr7wq3lq"]
+[gd_scene load_steps=28 format=3 uid="uid://dc0hdlr7wq3lq"]
 
 [ext_resource type="Texture2D" uid="uid://b1lme8t63rjpt" path="res://Art/Area Art/Background.png" id="1_rub18"]
 [ext_resource type="PackedScene" uid="uid://dbfx0pgjmmdgy" path="res://Scenes/character.tscn" id="2_bdfmm"]
@@ -10,12 +10,7 @@
 [ext_resource type="Script" uid="uid://q2s0hxfba110" path="res://Scripts/Managers/GameManager.gd" id="9_u5ctk"]
 [ext_resource type="Script" uid="uid://13p8bkyp17w" path="res://Scripts/Managers/demo_manager.gd" id="10_cwiy3"]
 [ext_resource type="Script" uid="uid://dx3r2844vcsx0" path="res://Scripts/Managers/InstanceManager.gd" id="11_e6hx5"]
-[ext_resource type="Script" uid="uid://cgqbxjemwtxb" path="res://Scenes/TESTING.gd" id="11_eo2kd"]
 [ext_resource type="Script" uid="uid://5tltnj2xg8ps" path="res://Scripts/Managers/ShopManager.gd" id="12_e4e03"]
-[ext_resource type="Script" uid="uid://cbjjnhikhwkct" path="res://Scenes/node_2d.gd" id="13_m34lm"]
-[ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/status_effects.gd" id="14_2osxq"]
-[ext_resource type="PackedScene" uid="uid://bo66u5j4t64wp" path="res://Scenes/enemy/Grub.tscn" id="14_u5ctk"]
-[ext_resource type="PackedScene" uid="uid://0b0m70q5teo2" path="res://Scenes/enemy/jub.tscn" id="15_1whss"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_20rgc"]
 font_size = 8
@@ -123,26 +118,6 @@ animations = [{
 [sub_resource type="LabelSettings" id="LabelSettings_7v07i"]
 font_size = 90
 font_color = Color(0, 0, 0, 1)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_eo2kd"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_eo2kd"]
-size = Vector2(15, 15)
-
-[sub_resource type="Resource" id="Resource_o5c2k"]
-script = ExtResource("14_2osxq")
-defense_burning = 1.0
-defense_frost = 2.0
-defense_poison = 124.0
-defense_bleed = 124.0
-defense_shock = 124.0
-defense_wet = 4124.0
-attack_burning = 124.0
-attack_frost = 142.0
-attack_poison = 124.0
-attack_bleed = 124.0
-attack_shock = 142.0
-attack_wet = 124412.0
 
 [node name="Node2D" type="Node2D"]
 
@@ -371,23 +346,6 @@ label_settings = SubResource("LabelSettings_7v07i")
 position = Vector2(-273, 93)
 script = ExtResource("10_cwiy3")
 
-[node name="Grub" parent="Demo Manager" instance=ExtResource("14_u5ctk")]
-
-[node name="Jub" parent="Demo Manager" instance=ExtResource("15_1whss")]
-
-[node name="Area2D" type="Area2D" parent="Demo Manager"]
-modulate = Color(0.362365, 0.10862, 0.129593, 1)
-position = Vector2(134, 43)
-collision_layer = 8
-collision_mask = 8
-script = ExtResource("11_eo2kd")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Demo Manager/Area2D"]
-shape = SubResource("CircleShape2D_eo2kd")
-
-[node name="Sprite2D" type="Sprite2D" parent="Demo Manager/Area2D"]
-texture = SubResource("PlaceholderTexture2D_eo2kd")
-
 [node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("ui_man", "shop_man", "instance_man", "player") groups=["gamemanager"]]
 script = ExtResource("9_u5ctk")
 ui_man = NodePath("../Camera/UIManager")
@@ -400,7 +358,3 @@ script = ExtResource("11_e6hx5")
 
 [node name="ShopManager" type="Node2D" parent="." groups=["shopmanager"]]
 script = ExtResource("12_e4e03")
-
-[node name="Node2D" type="Node2D" parent="."]
-script = ExtResource("13_m34lm")
-stat = SubResource("Resource_o5c2k")

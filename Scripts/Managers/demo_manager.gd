@@ -1,8 +1,8 @@
 extends Node2D
 
 @onready var player: Player_Script = get_tree().get_first_node_in_group("player")
-@onready var grub = preload("res://Scenes/enemy/Grub.tscn")
-@onready var jub = preload("res://Scenes/enemy/jub.tscn")
+const grub = preload("res://Scenes/enemy/Grub.tscn")
+const jub = preload("res://Scenes/enemy/Jub.tscn")
 @onready var shop: Panel = $"../Camera/Store"
 @onready var xp = preload("res://Scenes/xp_blip.tscn")
 @onready var weapon_frame = preload("res://Scenes/weapon_frame.tscn")
@@ -54,9 +54,12 @@ func _process(delta: float) -> void:
 		pass#weapon_projectile_count += 1
 
 	if Input.is_action_just_pressed("test_2"):
-		var enem: Enemy = jub.instantiate()# grub.instantiate()
-		self.add_child(enem)
-		enem.global_position = Vector2.ZERO
+		var j: Enemy = jub.instantiate()
+		var g: Enemy = grub.instantiate()
+		self.add_child(j)
+		self.add_child(g)
+		j.global_position = Vector2(randf_range(-500, 500), randf_range(-500, 500))
+		g.global_position = Vector2(randf_range(-500, 500), randf_range(-500, 500))
 
 	if Input.is_action_just_pressed("test_3"):
 		pass

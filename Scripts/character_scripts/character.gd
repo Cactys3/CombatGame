@@ -90,6 +90,7 @@ func damage(attack: Attack):
 		health -= net_damage
 	if attack.knockback != 0:
 		call_deferred("set", "velocity", (global_position - attack.position).normalized() * attack.knockback)
+		print("Knockback: " + str((global_position - attack.position).normalized() * attack.knockback))
 	if health <= 0:
 		die()
 	pass
