@@ -3,6 +3,8 @@ extends Node2D
 @onready var player: Player_Script = get_tree().get_first_node_in_group("player")
 const grub = preload("res://Scenes/enemy/Grub.tscn")
 const jub = preload("res://Scenes/enemy/Jub.tscn")
+const flub = preload("res://Scenes/enemy/Flub.tscn")
+const thub = preload("res://Scenes/enemy/Thub.tscn")
 @onready var shop: Panel = $"../Camera/Store"
 @onready var xp = preload("res://Scenes/xp_blip.tscn")
 @onready var weapon_frame = preload("res://Scenes/weapon_frame.tscn")
@@ -56,10 +58,16 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("test_2"):
 		var j: Enemy = jub.instantiate()
 		var g: Enemy = grub.instantiate()
+		var f: Enemy = flub.instantiate()
+		var t: Enemy = thub.instantiate()
 		self.add_child(j)
 		self.add_child(g)
+		self.add_child(f)
+		self.add_child(t)
 		j.global_position = Vector2(randf_range(-500, 500), randf_range(-500, 500))
 		g.global_position = Vector2(randf_range(-500, 500), randf_range(-500, 500))
+		f.global_position = Vector2(randf_range(-500, 500), randf_range(-500, 500))
+		t.global_position = Vector2(randf_range(-500, 500), randf_range(-500, 500))
 
 	if Input.is_action_just_pressed("test_3"):
 		pass

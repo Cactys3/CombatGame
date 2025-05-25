@@ -150,7 +150,7 @@ func _physics_process(_delta: float) -> void:
 
 ## Overriden by extender for custom enemy movement
 func movement_process(_delta: float) ->void:
-	move_towards(player.global_position, _delta)
+	move_towards(player.global_position, curr_movespeed, _delta)
 ## Overriden by enemies who want different projectile vs melee damage
 func damage_player_projectile(player: Node2D):
 	damage_player(player)
@@ -178,9 +178,9 @@ func damage_player(player: Node2D):
 	if melee_attacks:
 		damage_hitbox.set_deferred("monitoring", false)
 
-func move_towards(new_position: Vector2, delta:float):
+func move_towards(new_position: Vector2, movespeed: float, delta:float):
 	var direction: Vector2 = (new_position - global_position).normalized()
-	linear_velocity = linear_velocity.move_toward(Vector2(direction.x * curr_movespeed, direction.y * curr_movespeed), 9)
+	linear_velocity = linear_velocity.move_toward(Vector2(direction.x * movespeed, direction.y * movespeed), 9)
 
 func is_player_nearby(distance: float) -> bool:
 	if global_position.distance_to(player.global_position) <= distance:
@@ -199,7 +199,7 @@ func damage(attack: Attack):
 		if stun_time_left < 1 && can_be_stunned:
 			stun_time_left = 0.2
 			stunned = true
-		call_deferred("set_velocity", (global_position - attack.position).normalized() * attack.knockback * curr_knockback_modifier)
+		call_deferred("set_linear_velocity", (global_position - attack.position).normalized() * attack.knockback * curr_knockback_modifier)
 	var dmg_text: PopupText = POPUP_TEXT.instantiate()
 	dmg_text.setup(str(int(round(attack.damage))), damage_taken, global_position, 1, get_tree().root, Vector2(10, 10))
 	

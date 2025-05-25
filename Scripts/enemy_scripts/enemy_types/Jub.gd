@@ -19,7 +19,7 @@ func _physics_process(_delta: float) -> void:
 
 func movement_process(_delta: float) ->void:
 	if !is_player_nearby(curr_range):
-		move_towards(player.global_position, _delta)
+		move_towards(player.global_position, curr_movespeed, _delta)
 		curr_strafe_direction = Vector2.ZERO
 		anim.play("Moving")
 		player_in_range = false

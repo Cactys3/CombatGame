@@ -1,0 +1,184 @@
+[gd_scene load_steps=20 format=3 uid="uid://drjvl1sgqrjuy"]
+
+[ext_resource type="Script" uid="uid://5h1docs6sbvc" path="res://Scripts/enemy_scripts/enemy_types/Thub.gd" id="1_wvabn"]
+[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/stats.gd" id="2_fy23m"]
+[ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/hurtbox.gd" id="3_fy23m"]
+[ext_resource type="Texture2D" uid="uid://b60twpjxkj30q" path="res://Art/Characters/Thub.png" id="3_vreir"]
+
+[sub_resource type="Resource" id="Resource_vreir"]
+script = ExtResource("2_fy23m")
+parent_object_name = "not_set"
+statsbase = {
+"attackspeed": 0.0,
+"buildup": 0.0,
+"count": 0.0,
+"damage": 0.0,
+"duration": 0.0,
+"hp": 0.0,
+"luck": 0.0,
+"mogul": 0.0,
+"movespeed": 0.0,
+"piercing": 0.0,
+"range": 0.0,
+"size": 0.0,
+"stance": 0.0,
+"velocity": 0.0,
+"weight": 0.0,
+"xp": 0.0
+}
+statsfactor = {
+"attackspeed": 1.0,
+"buildup": 1.0,
+"count": 1.0,
+"damage": 1.0,
+"duration": 1.0,
+"hp": 1.0,
+"luck": 1.0,
+"mogul": 1.0,
+"movespeed": 1.0,
+"piercing": 1.0,
+"range": 1.0,
+"size": 1.0,
+"stance": 1.0,
+"velocity": 1.0,
+"weight": 1.0,
+"xp": 1.0
+}
+metadata/_custom_type_script = "uid://dwj80yu0v1qdt"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ks355"]
+atlas = ExtResource("3_vreir")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kialk"]
+atlas = ExtResource("3_vreir")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7x1lp"]
+atlas = ExtResource("3_vreir")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cipf1"]
+atlas = ExtResource("3_vreir")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rv7dw"]
+atlas = ExtResource("3_vreir")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_46np1"]
+atlas = ExtResource("3_vreir")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_epqky"]
+atlas = ExtResource("3_vreir")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qls57"]
+atlas = ExtResource("3_vreir")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ppdxc"]
+atlas = ExtResource("3_vreir")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_itss0"]
+atlas = ExtResource("3_vreir")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vreir"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ks355")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kialk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7x1lp")
+}],
+"loop": false,
+"name": &"Break",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cipf1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rv7dw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_46np1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_epqky")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qls57")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ppdxc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_itss0")
+}],
+"loop": true,
+"name": &"Moving",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ks355"]
+radius = 6.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kialk"]
+height = 28.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7x1lp"]
+radius = 9.0
+height = 26.0
+
+[node name="Thub" type="RigidBody2D" node_paths=PackedStringArray("anim", "damage_hitbox")]
+mass = 20.0
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_wvabn")
+acceleration = 200.0
+anim = NodePath("AnimatedSprite2D")
+stats = SubResource("Resource_vreir")
+melee_attacks = true
+damage_hitbox = NodePath("Damage_Hitbox")
+xp_on_death = 10
+money_on_death = 10
+weapon_knockback = 500.0
+base_damage = 20.0
+base_movespeed = 120.0
+base_cooldown = 1.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_vreir")
+animation = &"Break"
+autoplay = "Moving"
+
+[node name="MinionBlock" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_ks355")
+
+[node name="Damage_Hitbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox"]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_kialk")
+
+[node name="Health_HitArea" type="Area2D" parent="." node_paths=PackedStringArray("callee")]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("3_fy23m")
+callee = NodePath("")
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_HitArea"]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_7x1lp")
