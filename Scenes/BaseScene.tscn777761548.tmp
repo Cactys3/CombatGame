@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://dc0hdlr7wq3lq"]
+[gd_scene load_steps=42 format=3 uid="uid://dc0hdlr7wq3lq"]
 
 [ext_resource type="Texture2D" uid="uid://b1lme8t63rjpt" path="res://Art/Area Art/Background.png" id="1_rub18"]
 [ext_resource type="Script" uid="uid://btc78y4dd76bf" path="res://Scripts/CameraScript.gd" id="1_x613b"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://5tltnj2xg8ps" path="res://Scripts/Managers/ShopManager.gd" id="12_e4e03"]
 [ext_resource type="Texture2D" uid="uid://dvur2jw4hot5w" path="res://Art/Characters/WebFishingCat.png" id="13_u5ctk"]
 [ext_resource type="Script" uid="uid://cg066cmtt0y4" path="res://Scripts/sprite_position_rounder.gd" id="14_1whss"]
+[ext_resource type="Script" uid="uid://bly71s71hjgmx" path="res://Scenes/sub_viewport_container.gd" id="15_1whss"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_20rgc"]
 font_size = 8
@@ -190,6 +191,9 @@ animations = [{
 "name": &"Neutral_Rodless",
 "speed": 10.0
 }]
+
+[sub_resource type="LabelSettings" id="LabelSettings_u5ctk"]
+font_size = 64
 
 [node name="Node2D" type="Node2D"]
 
@@ -387,7 +391,6 @@ offset_bottom = 24.0
 text = "-999"
 
 [node name="UIManager" parent="Camera" node_paths=PackedStringArray("money_label", "xp_label", "level_label") instance=ExtResource("6_uv4m7")]
-visible = false
 z_index = 6
 position = Vector2(-76, -158)
 money_label = NodePath("../Store/Money Label/Money")
@@ -491,3 +494,43 @@ sprite_frames = SubResource("SpriteFrames_eo2kd")
 animation = &"Neutral_Rod"
 autoplay = "Neutral_Rod"
 script = ExtResource("14_1whss")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+offset_left = 744.0
+offset_top = 135.0
+offset_right = 2664.0
+offset_bottom = 1215.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+script = ExtResource("15_1whss")
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+disable_3d = true
+size = Vector2i(1920, 1080)
+script = ExtResource("15_1whss")
+
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Hello, Testing
+
+
+
+
+Label
+
+
+testing
+down
+down\\
+botom"
+label_settings = SubResource("LabelSettings_u5ctk")
+horizontal_alignment = 3
+vertical_alignment = 3
+script = ExtResource("15_1whss")

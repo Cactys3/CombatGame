@@ -13,19 +13,21 @@ config_version=5
 config/name="CombatGame"
 run/main_scene="res://Scenes/BaseScene.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
+run/max_fps=240
 boot_splash/use_filter=false
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=960
-window/size/viewport_height=540
+window/size/viewport_width=640
+window/size/viewport_height=360
 window/size/resizable=false
-window/size/window_width_override=2560
-window/size/window_height_override=1440
+window/size/window_width_override=1920
+window/size/window_height_override=1080
 window/energy_saving/keep_screen_on=false
 window/subwindows/embed_subwindows=false
 window/stretch/mode="viewport"
+window/stretch/scale_mode="integer"
 window/vsync/vsync_mode=0
 
 [global_group]

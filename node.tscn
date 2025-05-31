@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://cpfwv72003jp8"]
+
+[ext_resource type="PackedScene" uid="uid://dc0hdlr7wq3lq" path="res://Scenes/BaseScene.tscn" id="1_sy5k4"]
+[ext_resource type="FontFile" uid="uid://d3vuc6drfrcv2" path="res://Fonts/cozette/CozetteVector.ttf" id="2_j2q8x"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_sy5k4"]
+font = ExtResource("2_j2q8x")
+font_size = 64
+shadow_size = 0
+
+[node name="Node" type="Node"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer"]
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="SUBVIEWWPRTO" type="SubViewport" parent="CanvasLayer/SubViewportContainer"]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+snap_2d_transforms_to_pixel = true
+msaa_2d = 3
+canvas_item_default_texture_filter = 0
+size = Vector2i(640, 360)
+render_target_update_mode = 4
+
+[node name="BaseScene" parent="CanvasLayer/SubViewportContainer/SUBVIEWWPRTO" instance=ExtResource("1_sy5k4")]
+position = Vector2(320, 180)
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_right = 1100.0
+offset_bottom = 655.333
+text = "Text
+not blurry
+text
+thisis!"
+label_settings = SubResource("LabelSettings_sy5k4")
