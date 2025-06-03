@@ -6,4 +6,4 @@ extends AnimatedSprite2D
 func _process(delta: float) -> void:
 	pass
 	if Target:
-		global_position = round(Target.global_position + Offset)
+		pass#global_position = round(Target.global_position + Offset)

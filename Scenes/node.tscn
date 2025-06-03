@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://cpfwv72003jp8"]
 
-[ext_resource type="PackedScene" uid="uid://dc0hdlr7wq3lq" path="res://Scenes/BaseScene.tscn" id="1_sy5k4"]
-[ext_resource type="FontFile" uid="uid://d3vuc6drfrcv2" path="res://Fonts/cozette/CozetteVector.ttf" id="2_j2q8x"]
+[ext_resource type="PackedScene" uid="uid://dc0hdlr7wq3lq" path="res://Scenes/BaseScene.tscn" id="1_6b8r6"]
+[ext_resource type="FontFile" uid="uid://d3vuc6drfrcv2" path="res://Fonts/cozette/CozetteVector.ttf" id="2_hphxb"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_sy5k4"]
-font = ExtResource("2_j2q8x")
+font = ExtResource("2_hphxb")
 font_size = 64
 shadow_size = 0
 
@@ -26,7 +26,7 @@ canvas_item_default_texture_filter = 0
 size = Vector2i(640, 360)
 render_target_update_mode = 4
 
-[node name="BaseScene" parent="CanvasLayer/SubViewportContainer/SUBVIEWWPRTO" instance=ExtResource("1_sy5k4")]
+[node name="BaseScene" parent="CanvasLayer/SubViewportContainer/SUBVIEWWPRTO" instance=ExtResource("1_6b8r6")]
 position = Vector2(320, 180)
 
 [node name="Label" type="Label" parent="CanvasLayer"]

@@ -5,8 +5,6 @@ class_name Player_Script
 @export var StartingMoney: int = 5
 @export var player_stats: StatsResource = StatsResource.new()
 
-var rounded: bool = false
-
 var stats_visual
 
 var moving: bool = false
@@ -65,14 +63,6 @@ func _process(delta: float) -> void:
 func _physics_process(_delta: float) -> void:
 	handle_moving()
 	move_and_slide()
-	
-	## idea from interwebs? Round to snap player sprite to pixel art grid when not moving
-	if velocity.length() == 0:
-		if !rounded:
-			#global_position = round(global_position)
-			rounded = true
-	else:
-		rounded = false
 
 func handle_moving() -> void:
 	var moving_state = moving
