@@ -1,11 +1,13 @@
 extends Node2D
 
+@export var EnemyParent: Node2D
+
 @onready var player: Player_Script = get_tree().get_first_node_in_group("player")
 const grub = preload("res://Scenes/enemy/Grub.tscn")
 const jub = preload("res://Scenes/enemy/Jub.tscn")
 const flub = preload("res://Scenes/enemy/Flub.tscn")
 const thub = preload("res://Scenes/enemy/Thub.tscn")
-@onready var shop: Panel = $"../Camera/Store"
+@export var shop: Panel
 @onready var xp = preload("res://Scenes/xp_blip.tscn")
 @onready var weapon_frame = preload("res://Scenes/weapon_frame.tscn")
 #var LUGER_BULLET:PackedScene = preload("res://Scenes/luger_bullet.tscn")
@@ -21,6 +23,7 @@ const FIRE_PROJECTILE = preload("res://Scenes/flamethrower/fire_projectile.tscn"
 const RAILGUN_ATTACHMENT = preload("res://Scenes/railgun/railgun_attachment.tscn")
 const RAILGUN_HANDLE = preload("res://Scenes/railgun/railgun_handle.tscn")
 const RAILGUN_PROJECTILE = preload("res://Scenes/railgun/railgun_projectile.tscn")
+
 var projectile_cost = 10
 var sword_cost = 2
 var gun_cost = 4
@@ -60,10 +63,10 @@ func _process(delta: float) -> void:
 		var g: Enemy = grub.instantiate()
 		var f: Enemy = flub.instantiate()
 		var t: Enemy = thub.instantiate()
-		self.add_child(j)
-		self.add_child(g)
-		self.add_child(f)
-		self.add_child(t)
+		EnemyParent.add_child(j)
+		EnemyParent.add_child(g)
+		EnemyParent.add_child(f)
+		EnemyParent.add_child(t)
 		j.global_position = Vector2(randf_range(-500, 500), randf_range(-500, 500))
 		g.global_position = Vector2(randf_range(-500, 500), randf_range(-500, 500))
 		f.global_position = Vector2(randf_range(-500, 500), randf_range(-500, 500))

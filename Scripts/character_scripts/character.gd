@@ -63,25 +63,29 @@ func _process(delta: float) -> void:
 func _physics_process(_delta: float) -> void:
 	handle_moving()
 	move_and_slide()
+	#position = position.round()
+	#global_position = global_position.round()
 
 func handle_moving() -> void:
 	var moving_state = moving
 	var directionX := Input.get_axis("left", "right")
 	moving = false
 	if directionX:
-		velocity.x =move_toward(velocity.x, directionX * speed, 65)#directionX * SPEED
+		velocity.x = round(directionX) * speed
 		moving = true
 	else:
-		velocity.x = move_toward(velocity.x, 0, 100)	
+		velocity.x = 0
 	var directionY := Input.get_axis("up", "down")
 	if directionY:
-		velocity.y = move_toward(velocity.y, directionY * speed, 65)#directionY * SPEED
+		velocity.y = round(directionY) * speed
 		moving = true
 	else:
-		velocity.y = move_toward(velocity.y, 0, 100)
+		velocity.y = 0
 	
 	if (moving_state != moving):
 		set_moving_animation(moving)
+	
+	#print(velocity)
 
 func damage(attack: Attack):
 	#print("damage player: " + str(attack.damage))

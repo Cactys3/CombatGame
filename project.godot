@@ -19,16 +19,13 @@ config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=640
-window/size/viewport_height=360
+window/size/viewport_width=2560
+window/size/viewport_height=1440
 window/size/resizable=false
 window/size/window_width_override=1920
 window/size/window_height_override=1080
 window/energy_saving/keep_screen_on=false
-window/subwindows/embed_subwindows=false
 window/stretch/mode="viewport"
-window/stretch/scale_mode="integer"
-window/vsync/vsync_mode=0
 
 [global_group]
 
@@ -154,10 +151,12 @@ left_click={
 2d_physics/layer_6="Enemy_Minion_Block"
 2d_physics/layer_9="xp_range"
 
+[physics]
+
+common/physics_jitter_fix=2.0
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
 textures/lossless_compression/force_png=true
-2d/snap/snap_2d_transforms_to_pixel=true
-2d/size/window_height_override=1080
 2d/stretch/mode="viewport"

@@ -5,6 +5,7 @@ extends Node
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("test_2"):
+		print("i dont think this script is used")
 		var random_position = Vector2(randf_range(-5, 5), randf_range(-5, 5))
 		var new_enemy = enemy.instantiate()
 		new_enemy.position = random_position 

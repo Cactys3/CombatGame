@@ -1,0 +1,565 @@
+[gd_scene load_steps=43 format=3 uid="uid://2li40w4ajhid"]
+
+[ext_resource type="Script" uid="uid://btc78y4dd76bf" path="res://Scripts/CameraScript.gd" id="1_t68qt"]
+[ext_resource type="Texture2D" uid="uid://btvcwala5rhxh" path="res://Art/Weapons/Sword.png" id="2_l7j71"]
+[ext_resource type="Texture2D" uid="uid://ddxlwv6yh3qsm" path="res://Art/Weapons/Gun_1.png" id="3_oiodq"]
+[ext_resource type="Texture2D" uid="uid://cnj0fjnxdyuts" path="res://Art/Weapons/arrow.png" id="4_tpk5p"]
+[ext_resource type="FontFile" uid="uid://iywqnx3iwxs1" path="res://Fonts/monogram/ttf/monogram-e.ttf" id="5_l7j71"]
+[ext_resource type="Texture2D" uid="uid://brh24bmjiesqo" path="res://Art/Weapons/Bullet.png" id="5_pv7d8"]
+[ext_resource type="PackedScene" uid="uid://bhfq62xt07h37" path="res://Scenes/UI/ui.tscn" id="6_a2ki1"]
+[ext_resource type="Texture2D" uid="uid://b1lme8t63rjpt" path="res://Art/Area Art/Background.png" id="7_i266b"]
+[ext_resource type="PackedScene" uid="uid://dbfx0pgjmmdgy" path="res://Scenes/character.tscn" id="8_tcavw"]
+[ext_resource type="Script" uid="uid://13p8bkyp17w" path="res://Scripts/Managers/demo_manager.gd" id="9_q3uqu"]
+[ext_resource type="Script" uid="uid://q2s0hxfba110" path="res://Scripts/Managers/GameManager.gd" id="10_xyxh8"]
+[ext_resource type="Script" uid="uid://dx3r2844vcsx0" path="res://Scripts/Managers/InstanceManager.gd" id="11_s6xty"]
+[ext_resource type="Script" uid="uid://5tltnj2xg8ps" path="res://Scripts/Managers/ShopManager.gd" id="12_xb6pq"]
+[ext_resource type="Texture2D" uid="uid://dvur2jw4hot5w" path="res://Art/Characters/WebFishingCat.png" id="13_rlrtt"]
+[ext_resource type="Script" uid="uid://cg066cmtt0y4" path="res://Scripts/sprite_position_rounder.gd" id="14_1rje4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_20rgc"]
+font = ExtResource("5_l7j71")
+font_size = 208
+
+[sub_resource type="LabelSettings" id="LabelSettings_oiodq"]
+font = null
+font_size = 64
+shadow_size = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_7v07i"]
+font_size = 90
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Theme" id="Theme_l7j71"]
+default_font = null
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nr6yu"]
+atlas = ExtResource("2_l7j71")
+region = Rect2(0, 0, 10, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sb1lf"]
+atlas = ExtResource("2_l7j71")
+region = Rect2(10, 0, 10, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7jik"]
+atlas = ExtResource("2_l7j71")
+region = Rect2(20, 0, 10, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wuupw"]
+atlas = ExtResource("2_l7j71")
+region = Rect2(30, 0, 10, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_suscl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nr6yu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sb1lf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7jik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wuupw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nan4y"]
+atlas = ExtResource("3_oiodq")
+region = Rect2(0, 0, 5, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bo663"]
+atlas = ExtResource("3_oiodq")
+region = Rect2(5, 0, 5, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cnfry"]
+atlas = ExtResource("3_oiodq")
+region = Rect2(10, 0, 5, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqxe5"]
+atlas = ExtResource("3_oiodq")
+region = Rect2(15, 0, 5, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_toutt"]
+atlas = ExtResource("3_oiodq")
+region = Rect2(20, 0, 5, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0d1ti"]
+atlas = ExtResource("3_oiodq")
+region = Rect2(25, 0, 5, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfvmt"]
+atlas = ExtResource("3_oiodq")
+region = Rect2(30, 0, 5, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1bsx"]
+atlas = ExtResource("3_oiodq")
+region = Rect2(35, 0, 5, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rw57j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nan4y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bo663")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cnfry")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqxe5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_toutt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0d1ti")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfvmt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1bsx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ono3w"]
+atlas = ExtResource("13_rlrtt")
+region = Rect2(128, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ihhfk"]
+atlas = ExtResource("13_rlrtt")
+region = Rect2(160, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yoeg4"]
+atlas = ExtResource("13_rlrtt")
+region = Rect2(192, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_unlva"]
+atlas = ExtResource("13_rlrtt")
+region = Rect2(224, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7rix"]
+atlas = ExtResource("13_rlrtt")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xbf84"]
+atlas = ExtResource("13_rlrtt")
+region = Rect2(32, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wpi01"]
+atlas = ExtResource("13_rlrtt")
+region = Rect2(64, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vevi1"]
+atlas = ExtResource("13_rlrtt")
+region = Rect2(96, 0, 32, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eo2kd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ono3w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ihhfk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yoeg4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_unlva")
+}],
+"loop": true,
+"name": &"Neutral_Rod",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7rix")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xbf84")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wpi01")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vevi1")
+}],
+"loop": true,
+"name": &"Neutral_Rodless",
+"speed": 10.0
+}]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="ControlLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Offset" type="Node2D" parent="ControlLayer"]
+position = Vector2(729, 364)
+
+[node name="Label2" type="Label" parent="ControlLayer/Offset"]
+offset_left = 289.0
+offset_top = -156.0
+offset_right = 1069.0
+offset_bottom = 9.0
+text = "Sword - $2"
+label_settings = SubResource("LabelSettings_20rgc")
+
+[node name="TestLabel" type="Label" parent="ControlLayer/Offset"]
+offset_left = -320.0
+offset_top = -180.0
+offset_right = 780.0
+offset_bottom = 475.333
+text = "Text
+not blurry
+text
+thisis!"
+label_settings = SubResource("LabelSettings_oiodq")
+
+[node name="Label" type="Label" parent="ControlLayer/Offset"]
+offset_left = -572.0
+offset_top = -343.0
+offset_right = 373.0
+offset_bottom = 156.5
+scale = Vector2(0.191868, 0.160002)
+text = "Spawn Sword - press 1
+Spawn Enemy - press 2
+Spawn gun - press 3
+4 = bigger weapons
+5 = more projectiles"
+label_settings = SubResource("LabelSettings_7v07i")
+
+[node name="Demo Manager" type="Node2D" parent="ControlLayer/Offset" node_paths=PackedStringArray("EnemyParent", "shop") groups=["weapon_manager"]]
+position = Vector2(-593, -87)
+script = ExtResource("9_q3uqu")
+EnemyParent = NodePath("../../../GameLayer/SubViewportContainer/SubViewport/Offset/EnemyParent")
+shop = NodePath("../../../GameLayer/SubViewportContainer/SubViewport/Offset/Store")
+
+[node name="GameManager" type="Node2D" parent="ControlLayer/Offset" node_paths=PackedStringArray("ui_man", "shop_man", "instance_man", "player", "xp_parent", "enemy_parent", "weapon_parent") groups=["gamemanager"]]
+position = Vector2(-320, -180)
+script = ExtResource("10_xyxh8")
+ui_man = NodePath("../../../GameLayer/SubViewportContainer/SubViewport/Offset/UIManager")
+shop_man = NodePath("../ShopManager")
+instance_man = NodePath("../InstanceManager")
+player = NodePath("../../../GameLayer/SubViewportContainer/SubViewport/Offset/Character")
+xp_parent = NodePath("../../../GameLayer/SubViewportContainer/SubViewport/Offset/XP Parent")
+enemy_parent = NodePath("../../../GameLayer/SubViewportContainer/SubViewport/Offset/EnemyParent")
+weapon_parent = NodePath("../../../GameLayer/SubViewportContainer/SubViewport/Offset/WeaponParent")
+
+[node name="InstanceManager" type="Node2D" parent="ControlLayer/Offset" groups=["instancemanager"]]
+position = Vector2(-320, -180)
+script = ExtResource("11_s6xty")
+
+[node name="ShopManager" type="Node2D" parent="ControlLayer/Offset" groups=["shopmanager"]]
+position = Vector2(-320, -180)
+script = ExtResource("12_xb6pq")
+
+[node name="GameLayer" type="CanvasLayer" parent="."]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="GameLayer"]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_l7j71")
+stretch = true
+stretch_shrink = 4
+
+[node name="SubViewport" type="SubViewport" parent="GameLayer/SubViewportContainer"]
+disable_3d = true
+handle_input_locally = false
+snap_2d_transforms_to_pixel = true
+canvas_item_default_texture_filter = 0
+size = Vector2i(640, 360)
+size_2d_override = Vector2i(640, 360)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="Offset" type="Node2D" parent="GameLayer/SubViewportContainer/SubViewport"]
+texture_filter = 1
+position = Vector2(320, 180)
+
+[node name="Store" type="Panel" parent="GameLayer/SubViewportContainer/SubViewport/Offset"]
+offset_left = -77.0
+offset_top = -177.5
+offset_right = 315.0
+offset_bottom = 92.5
+
+[node name="sword" type="Control" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store"]
+anchors_preset = 0
+offset_left = 31.0
+offset_top = 23.0
+offset_right = 107.0
+offset_bottom = 65.0
+
+[node name="Button" type="Button" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/sword"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 24.0
+offset_right = 59.0
+offset_bottom = 39.0
+
+[node name="Label" type="Label" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/sword/Button"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = -0.5
+offset_right = 61.0
+offset_bottom = 12.5
+text = "Sword - $2"
+label_settings = SubResource("LabelSettings_20rgc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/sword"]
+position = Vector2(37, 10)
+rotation = -1.5708
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_suscl")
+autoplay = "default"
+frame_progress = 0.759742
+
+[node name="gun" type="Control" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 31.0
+offset_top = 74.0
+offset_right = 107.0
+offset_bottom = 116.0
+
+[node name="Button" type="Button" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/gun"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 24.0
+offset_right = 59.0
+offset_bottom = 39.0
+
+[node name="Label" type="Label" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/gun/Button"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 1.0
+offset_right = 45.0
+offset_bottom = 13.0
+text = "Gun - $4"
+label_settings = SubResource("LabelSettings_20rgc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/gun"]
+position = Vector2(37, 10)
+rotation = -1.5708
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_rw57j")
+autoplay = "default"
+frame_progress = 0.493317
+
+[node name="size" type="Control" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 123.0
+offset_top = 74.0
+offset_right = 199.0
+offset_bottom = 116.0
+
+[node name="Button" type="Button" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/size"]
+layout_mode = 0
+offset_left = -5.0
+offset_top = 24.0
+offset_right = 70.0
+offset_bottom = 39.0
+
+[node name="Label" type="Label" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/size/Button"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 1.0
+offset_right = 45.0
+offset_bottom = 13.0
+text = "Weapon Size - $10"
+label_settings = SubResource("LabelSettings_20rgc")
+
+[node name="TextureRect" type="TextureRect" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/size"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 7.0
+offset_right = 40.0
+offset_bottom = 18.0
+texture = ExtResource("4_tpk5p")
+stretch_mode = 3
+
+[node name="projectiles" type="Control" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 123.0
+offset_top = 24.0
+offset_right = 199.0
+offset_bottom = 66.0
+
+[node name="Button" type="Button" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/projectiles"]
+layout_mode = 0
+offset_left = -9.0
+offset_top = 24.0
+offset_right = 82.0
+offset_bottom = 39.0
+
+[node name="Label" type="Label" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/projectiles/Button"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 1.0
+offset_right = 45.0
+offset_bottom = 13.0
+text = "More Projectiles - $10"
+label_settings = SubResource("LabelSettings_20rgc")
+
+[node name="TextureRect" type="TextureRect" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/projectiles"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 8.0
+offset_right = 43.0
+offset_bottom = 18.0
+texture = ExtResource("5_pv7d8")
+
+[node name="Money Label" type="Label" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store"]
+layout_mode = 0
+offset_left = 223.0
+offset_top = 11.0
+offset_right = 348.0
+offset_bottom = 34.0
+text = "Current Money: "
+
+[node name="Money" type="Label" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/Money Label"]
+layout_mode = 0
+offset_left = 126.0
+offset_top = 1.0
+offset_right = 166.0
+offset_bottom = 24.0
+text = "-999"
+
+[node name="XP Label" type="Label" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store"]
+layout_mode = 0
+offset_left = 223.0
+offset_top = 39.0
+offset_right = 348.0
+offset_bottom = 62.0
+text = "Current XP: "
+
+[node name="XP" type="Label" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/XP Label"]
+layout_mode = 0
+offset_left = 126.0
+offset_top = 1.0
+offset_right = 166.0
+offset_bottom = 24.0
+text = "-999"
+
+[node name="LVL Label" type="Label" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store"]
+layout_mode = 0
+offset_left = 223.0
+offset_top = 66.0
+offset_right = 348.0
+offset_bottom = 89.0
+text = "Current Level: "
+
+[node name="LVL" type="Label" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/LVL Label"]
+layout_mode = 0
+offset_left = 126.0
+offset_top = 1.0
+offset_right = 166.0
+offset_bottom = 24.0
+text = "-999"
+
+[node name="UIManager" parent="GameLayer/SubViewportContainer/SubViewport/Offset" node_paths=PackedStringArray("money_label", "xp_label", "level_label") instance=ExtResource("6_a2ki1")]
+visible = false
+z_index = 6
+money_label = NodePath("../Store/Money Label/Money")
+xp_label = NodePath("../Store/XP Label/XP")
+level_label = NodePath("../Store/LVL Label/LVL")
+
+[node name="Backdrop" type="Sprite2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset"]
+z_index = -5
+position = Vector2(0, -20)
+scale = Vector2(40, 40)
+texture = ExtResource("7_i266b")
+
+[node name="Camera" type="Camera2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset"]
+texture_filter = 1
+position = Vector2(25, 8)
+process_callback = 0
+script = ExtResource("1_t68qt")
+
+[node name="Character" parent="GameLayer/SubViewportContainer/SubViewport/Offset" instance=ExtResource("8_tcavw")]
+
+[node name="Node" type="Node" parent="GameLayer/SubViewportContainer/SubViewport/Offset"]
+
+[node name="XP Parent" type="Node2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset" groups=["xp_parent"]]
+
+[node name="EnemyParent" type="Node2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset"]
+
+[node name="WeaponParent" type="Node2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset"]
+sprite_frames = SubResource("SpriteFrames_eo2kd")
+animation = &"Neutral_Rod"
+autoplay = "Neutral_Rod"
+script = ExtResource("14_1rje4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset/AnimatedSprite2D"]
+position = Vector2(0, 48)
+sprite_frames = SubResource("SpriteFrames_eo2kd")
+animation = &"Neutral_Rod"
+autoplay = "Neutral_Rod"
+script = ExtResource("14_1rje4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset/AnimatedSprite2D/AnimatedSprite2D"]
+position = Vector2(0, 48)
+sprite_frames = SubResource("SpriteFrames_eo2kd")
+animation = &"Neutral_Rod"
+autoplay = "Neutral_Rod"
+script = ExtResource("14_1rje4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D"]
+position = Vector2(0, 47)
+sprite_frames = SubResource("SpriteFrames_eo2kd")
+animation = &"Neutral_Rod"
+autoplay = "Neutral_Rod"
+script = ExtResource("14_1rje4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D"]
+position = Vector2(0, 48)
+sprite_frames = SubResource("SpriteFrames_eo2kd")
+animation = &"Neutral_Rod"
+autoplay = "Neutral_Rod"
+script = ExtResource("14_1rje4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D"]
+position = Vector2(0, 47)
+sprite_frames = SubResource("SpriteFrames_eo2kd")
+animation = &"Neutral_Rod"
+autoplay = "Neutral_Rod"
+script = ExtResource("14_1rje4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D"]
+position = Vector2(0, 47)
+sprite_frames = SubResource("SpriteFrames_eo2kd")
+animation = &"Neutral_Rod"
+autoplay = "Neutral_Rod"
+script = ExtResource("14_1rje4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D"]
+position = Vector2(0, 48)
+sprite_frames = SubResource("SpriteFrames_eo2kd")
+animation = &"Neutral_Rod"
+autoplay = "Neutral_Rod"
+script = ExtResource("14_1rje4")

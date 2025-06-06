@@ -30,7 +30,6 @@ class_name Enemy
 const POPUP_TEXT = preload("res://Scenes/UI/popup_text.tscn")
 const xp = preload("res://Scenes/xp_blip.tscn")
 var player: Player_Script
-var xp_parent
 var attack_on_cd: bool = true
 var stun_time_left: float = 0
 var stunned: bool = false
@@ -98,7 +97,6 @@ func set_stats():
 	curr_health = stats.get_stat(stats.HP) + base_health
 	curr_regen = base_regen #+ stats.get_stat(stats.REGEN)
 	player = get_tree().get_first_node_in_group("player")
-	xp_parent = get_tree().get_first_node_in_group("xp_parent")
 	ImReady = true
 
 func _process(delta: float) -> void:
@@ -129,7 +127,7 @@ func _process(delta: float) -> void:
 				projectile_cooldown_stopwatch = 0
 				print("shot projectile")
 				var p: EnemyProjectile = projectile.instantiate()
-				GameManager.instance.add_child(p)
+				GameManager.instance.weapon_parent.add_child(p)
 				p.modulate = self.modulate
 				p.global_position = global_position
 				p.setup(player, self, homing, curr_speed, curr_acceleration, curr_lifetime, curr_piercing)
@@ -161,9 +159,12 @@ func shoot_projectile():
 func die():
 	GameManager.instance.money += money_on_death
 	var new_xp = xp.instantiate()
+	GameManager.instance.xp_parent.add_child(new_xp)
 	new_xp.global_position = global_position
-	xp_parent.call_deferred("add_child", new_xp)
+	print(name + str(global_position))
+	#GameManager.instance.xp_parent.call_deferred("add_child", new_xp)
 	new_xp.set_xp(xp_on_death)
+	print(new_xp.name + str(new_xp.global_position))
 	queue_free()
 
 func _on_damage_hitbox_body_entered(body: Node2D) -> void:

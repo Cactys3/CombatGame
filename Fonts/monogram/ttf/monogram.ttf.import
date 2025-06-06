@@ -2,19 +2,19 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://dgnep1ed2f23w"
-path="res://.godot/imported/CozetteVector.otf-a10e327eeac84c7a8e7f1a9af4bd5d77.fontdata"
+uid="uid://hudga6l8g608"
+path="res://.godot/imported/monogram.ttf-f31f6441f1b41db3cff50556c1666820.fontdata"
 
 [deps]
 
-source_file="res://Fonts/cozette/CozetteVector.otf"
-dest_files=["res://.godot/imported/CozetteVector.otf-a10e327eeac84c7a8e7f1a9af4bd5d77.fontdata"]
+source_file="res://Fonts/monogram/ttf/monogram.ttf"
+dest_files=["res://.godot/imported/monogram.ttf-f31f6441f1b41db3cff50556c1666820.fontdata"]
 
 [params]
 
 Rendering=null
-antialiasing=0
-generate_mipmaps=true
+antialiasing=1
+generate_mipmaps=false
 disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8

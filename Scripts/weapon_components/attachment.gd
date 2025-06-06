@@ -71,9 +71,9 @@ func create_projectiles():
 	#new_bullet.scale = frame.scale
 	new_bullet.setup(frame, Vector2(cos(frame.rotation), sin(frame.rotation)))
 	if (handle.AimType == Handle.AimTypes.Spinning): #handle aim types special cases
-		get_tree().root.add_child(new_bullet)
+		GameManager.instance.weapon_parent.add_child(new_bullet)
 	else:
-		get_tree().root.add_child(new_bullet)
+		GameManager.instance.weapon_parent.add_child(new_bullet)
 	new_bullet.global_position = global_position
 	
 	# Create any extra bullets using @export values to offset them by angle and position
@@ -90,7 +90,7 @@ func create_projectiles():
 		if (handle.AimType == Handle.AimTypes.Spinning): #handle aim types special cases
 			frame.player.add_child(new_bullet)
 		else:
-			get_tree().root.add_child(new_bullet)
+			GameManager.instance.weapon_parent.add_child(new_bullet)
 		new_bullet.global_position = global_position + Vector2(-sin(frame.rotation), cos(frame.rotation)).normalized() * MultipleProjectileOffset * (offset)
 
 func init_projectile(new_position: Vector2, new_scale: Vector2, new_direction: Vector2) -> Projectile:
@@ -103,7 +103,7 @@ func init_projectile(new_position: Vector2, new_scale: Vector2, new_direction: V
 	if (handle.AimType == Handle.AimTypes.Spinning): #handle aim types special cases
 		frame.player.add_child(new_bullet)
 	else:
-		get_tree().root.add_child(new_bullet)
+		GameManager.instance.weapon_parent.add_child(new_bullet)
 	new_bullet.global_position = new_position
 	
 	return new_bullet

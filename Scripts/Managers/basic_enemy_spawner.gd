@@ -19,5 +19,5 @@ func _on_spawn_timer_timeout():
 	# Instantiate a new enemy at the random position
 	var new_enemy = enemy.instantiate()  # Create a copy of the enemy
 	new_enemy.position = random_position  # Set the position of the new enemy
-	
-	add_child(new_enemy)  # Add the new enemy to the scene
+	print("is this used?")
+	GameManager.instance.enemy_parent.add_child(new_enemy)  # Add the new enemy to the scene

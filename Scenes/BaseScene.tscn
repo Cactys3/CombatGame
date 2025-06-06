@@ -194,10 +194,8 @@ animations = [{
 [node name="Node2D" type="Node2D"]
 
 [node name="Camera" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
 script = ExtResource("1_x613b")
-box_size = Vector2(50, 20)
-follow_speed = 100.0
-circle_radius = 10.0
 
 [node name="Store" type="Panel" parent="Camera"]
 visible = false

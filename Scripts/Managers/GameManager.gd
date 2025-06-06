@@ -10,6 +10,11 @@ static var instance: GameManager
 @export var shop_man: ShopManager
 @export var instance_man: InstanceManager
 @export var player: Player_Script
+## Parents
+@export var xp_parent: Node2D
+@export var enemy_parent: Node2D
+@export var weapon_parent: Node2D
+
 
 var active_items: Array[Item]
 
