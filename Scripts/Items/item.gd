@@ -3,6 +3,10 @@ class_name Item
 
 var connect_all: bool = false
 var data: ItemData = ItemData.new()
+var enabled: bool = false
+var manager: GameManager:
+	get():
+		return GameManager.instance
 
 func _process(delta: float) -> void:
 	pass
@@ -15,13 +19,21 @@ func getdata() -> ItemData:
 
 func _connect_signals():
 	if connect_all:
-		GameManager.instance.enemy_damaged.connect(enemy_damaged)
-		GameManager.instance.enemy_killed.connect(enemy_killed)
-		GameManager.instance.player_damaged.connect(player_damaged)
-		GameManager.instance.player_Killed.connect(player_Killed)
-		GameManager.instance.RoundEnded.connect(round_ended)
+		manager.enemy_damaged.connect(enemy_damaged)
+		manager.enemy_killed.connect(enemy_killed)
+		manager.player_damaged.connect(player_damaged)
+		manager.player_Killed.connect(player_Killed)
+		manager.RoundEnded.connect(round_ended)
 
-## meant to be overriden by extender
+
+## Should be overriden by extender to turn off functionality
+func enable():
+	enabled = true
+
+func disable():
+	enabled = false
+
+## signals to be overriden by extender
 func setdata():
 	pass
 func enemy_damaged(enemy: Enemy, attack: Attack):

@@ -394,7 +394,6 @@ level_label = NodePath("../Store/LVL Label/LVL")
 
 [node name="Backdrop" type="Sprite2D" parent="."]
 z_index = -5
-position = Vector2(0, -20)
 scale = Vector2(40, 40)
 texture = ExtResource("1_rub18")
 
