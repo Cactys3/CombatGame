@@ -76,3 +76,18 @@ func stock(count: int) -> bool:
 		
 		add(item)
 	return true
+
+## New Implementation
+
+## Override
+func get_type() -> String:
+	print("get type: shop")
+	return SHOP
+
+func can_add(item: ItemUI) -> bool:
+	print("can_add_shop")
+	return is_valid_type(item)
+
+func can_remove(item: ItemUI) -> bool:
+	print("can_remove_shop")
+	return is_instance_valid(item) && items.has(item) && GameManager.instance.can_buy(item.data.item_buy_cost)

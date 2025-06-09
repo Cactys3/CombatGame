@@ -99,9 +99,102 @@ func make_weapon() -> bool:
 			ItemUI.dragging_some_item = false
 			ItemUI.dragging_some_ui = false
 		if GameManager.instance.craft_weapon(handle, attachment, projectile): # TODO: Next the weapon is added to the player's equipment inventory, in this script OR GameManager
-			remove(handle)
-			remove(attachment)
-			remove(projectile) # TODO: handle if remove fails (remove by force)
+			new_remove(handle) ## TODO: replaced remove with new_remove
+			new_remove(attachment)
+			new_remove(projectile) # TODO: handle if remove fails (remove by force)
+			print("crafted weapon success")
+			return true
+	print("crafted weapon failure")
+	return false
+
+## New Implementation
+
+## Override
+func is_valid_type(item: ItemUI):
+	return super(item) && (item.data.item_type == ItemData.ATTACHMENT || item.data.item_type == ItemData.HANDLE || item.data.item_type == ItemData.PROJECTILE || item.data.item_type == ItemData.MOD)
+
+func get_type() -> String:
+	print("get type: crafting")
+	return CRAFTING
+
+func can_add(item: ItemUI) -> bool:
+	print("can_add_crafting")
+	return is_valid_type(item)
+
+func can_remove(item: ItemUI) -> bool:
+	print("can_remove_crafting")
+	return is_instance_valid(item) && items.has(item) 
+
+func new_add(item: ItemUI):
+	print("new_add_crafting")
+	items.append(item)
+	item.inventory = self
+	item.position = Vector2.ZERO
+	match item.data.item_type:
+		ItemData.ATTACHMENT:
+			if attachment != null:
+				var a: ItemUI = attachment
+				remove(attachment)
+				GameManager.instance.ui_man.storage.add(a) # TODO: rework into real code
+			attachment = item
+			AttachmentHolder.add_child(item)
+			item.item_parent = AttachmentHolder
+		ItemData.HANDLE:
+			if handle != null:
+				var h: ItemUI = handle
+				remove(handle)
+				GameManager.instance.ui_man.storage.add(h) # TODO: rework into real code
+			handle = item
+			HandleHolder.add_child(item)
+			item.item_parent = HandleHolder
+		ItemData.PROJECTILE:
+			if projectile != null:
+				var p: ItemUI = projectile
+				remove(projectile)
+				GameManager.instance.ui_man.storage.add(p) # TODO: rework into real code
+			projectile = item
+			ProjectileHolder.add_child(item)
+			item.item_parent = ProjectileHolder
+		ItemData.MOD:
+			if mods.size() >= 2: # TODO: max mod size reached?
+				pass
+			mods.append(item)
+			ModHolder.add_child(item)
+			item.item_parent = ModHolder
+		_:
+			printerr("baddd")
+
+func new_remove(item: ItemUI):
+	print("new_remove_crafting")
+	if item.get_parent():
+		item.get_parent().remove_child(item)
+	items.erase(item)
+	match item.data.item_type:
+		ItemData.ATTACHMENT:
+			if attachment == item:
+				attachment = null
+		ItemData.HANDLE:
+			if handle == item:
+				handle = null
+		ItemData.PROJECTILE:
+			if projectile == item:
+				projectile = null
+		ItemData.MOD:
+			pass
+		_:
+			print("bad bad bad this is bad bad this bad") ## uhm
+
+## If successful: Adds weapon to player, adds weapon UI to equipment UI, destroys this weapon crafting menu
+func new_make_weapon() -> bool:
+	if handle != null && attachment != null && projectile != null:
+		if ItemUI.dragging_some_item:
+			ItemUI.dragging_item.dragging = false # TODO: bug when make weapon button overlaps with item, this 'if' doesn't fix
+			ItemUI.dragging_some_item = false
+			ItemUI.dragging_some_ui = false
+		if GameManager.instance.craft_weapon(handle, attachment, projectile): # TODO: Next the weapon is added to the player's equipment inventory, in this script OR GameManager
+			new_remove(handle)
+			new_remove(attachment)
+			new_remove(projectile) # TODO: handle if remove fails (remove by force)
 			print("crafted weapon success")
 			return true
 	print("crafted weapon failure")

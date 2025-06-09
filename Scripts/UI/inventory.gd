@@ -1,6 +1,11 @@
 extends Control
 class_name Inventory
 
+const STORAGE: String = "storage"
+const SHOP: String = "shop"
+const EQUIPMENT: String = "equipment"
+const CRAFTING: String = "crafting"
+
 @export var StartMinimized: bool = false
 
 @export var toggle_button: Toggle_UI
@@ -76,4 +81,48 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if ItemUI.dragging_some_item && get_global_rect().has_point(get_global_mouse_position()) && Input.is_action_just_released("left_click"):
 		var item: ItemUI = ItemUI.dragging_item
-		call_deferred("drop", item)
+		# OLD IMPLEMENTATION: call_deferred("drop", item)
+		if item.inventory != self: ## new implementation
+			call_deferred("ui_add", item) ## new implementation
+
+## New Implementation Methods:
+
+func is_valid_type(item: ItemUI) -> bool:
+	return is_instance_valid(item)
+
+func ui_add(item: ItemUI):
+	print("ui_add")
+	if !GameManager.instance.move_item(item, item.inventory, self):
+		print("Can't Add: " + item.data.item_name)
+
+func ui_remove(item: ItemUI):
+	print("ui_remove")
+	if !GameManager.instance.remove_item(item, self):
+		print("Can't Remove: " + item.data.item_name)
+
+func new_remove(item: ItemUI):
+	print("new_remove")
+	if item.get_parent():
+		item.get_parent().remove_child(item)
+	items.erase(item)
+
+func new_add(item: ItemUI):
+	print("new_add")
+	item.inventory = self
+	item.item_parent = default_item_parent
+	item.position = Vector2.ZERO
+	default_item_parent.add_child(item)
+	default_item_parent.queue_sort()
+	items.append(item)
+
+func get_type() -> String:
+	print("get type: default-storage")
+	return STORAGE
+
+func can_add(item: ItemUI) -> bool:
+	print("can_add")
+	return is_valid_type(item)
+
+func can_remove(item: ItemUI) -> bool:
+	print("can_remove")
+	return is_instance_valid(item) && items.has(item)

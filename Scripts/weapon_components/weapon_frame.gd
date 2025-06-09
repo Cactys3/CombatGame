@@ -33,6 +33,9 @@ func _process(_delta: float) -> void:
 				event.attacker.attack_body(event.attackee)
 
 func make_stats_visual(i: int):
+	if stats_visual:
+		stats_visual.queue_free()
+		stats_visual = null
 	const STATS_VISUAL = preload("res://Scenes/UI/stats_visual.tscn")
 	stats_visual = STATS_VISUAL.instantiate()
 	GameManager.instance.add_child(stats_visual)
@@ -41,7 +44,8 @@ func make_stats_visual(i: int):
 	stats_visual.set_stats(stats, "W: " + name)
 
 func delete_stats_visual():
-	stats_visual.queue_free()
+	if (stats_visual):
+		stats_visual.queue_free()
 	stats_visual = null
 
 func get_enemy_nearby(distance: float) -> Variant:

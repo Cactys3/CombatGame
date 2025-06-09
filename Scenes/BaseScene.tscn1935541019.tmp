@@ -412,89 +412,77 @@ label_settings = SubResource("LabelSettings_7v07i")
 
 [node name="Node" type="Node" parent="."]
 
-[node name="Managers" type="Node" parent="."]
+[node name="xp_parent" type="Node2D" parent="." groups=["xp_parent"]]
 
-[node name="Demo Manager" type="Node2D" parent="Managers" node_paths=PackedStringArray("EnemyParent") groups=["weapon_manager"]]
+[node name="Demo Manager" type="Node2D" parent="." groups=["weapon_manager"]]
 position = Vector2(-273, 93)
 script = ExtResource("10_cwiy3")
-EnemyParent = NodePath("../../Parents/Enemy Parent")
 
-[node name="GameManager" type="Node2D" parent="Managers" node_paths=PackedStringArray("ui_man", "shop_man", "instance_man", "player", "xp_parent", "enemy_parent", "weapon_parent") groups=["gamemanager"]]
+[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("ui_man", "shop_man", "instance_man", "player") groups=["gamemanager"]]
 script = ExtResource("9_u5ctk")
-ui_man = NodePath("../../Camera/UIManager")
+ui_man = NodePath("../Camera/UIManager")
 shop_man = NodePath("../ShopManager")
 instance_man = NodePath("../InstanceManager")
-player = NodePath("../../Character")
-xp_parent = NodePath("../../Parents/XP Parent")
-enemy_parent = NodePath("../../Parents/Enemy Parent")
-weapon_parent = NodePath("../../Parents/Weapon Parent")
+player = NodePath("../Character")
 
-[node name="InstanceManager" type="Node2D" parent="Managers" groups=["instancemanager"]]
+[node name="InstanceManager" type="Node2D" parent="." groups=["instancemanager"]]
 script = ExtResource("11_e6hx5")
 
-[node name="ShopManager" type="Node2D" parent="Managers" groups=["shopmanager"]]
+[node name="ShopManager" type="Node2D" parent="." groups=["shopmanager"]]
 script = ExtResource("12_e4e03")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Managers/ShopManager"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ShopManager"]
 position = Vector2(-203, -137)
 sprite_frames = SubResource("SpriteFrames_eo2kd")
 animation = &"Neutral_Rod"
 autoplay = "Neutral_Rod"
 script = ExtResource("14_1whss")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Managers/ShopManager/AnimatedSprite2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ShopManager/AnimatedSprite2D"]
 position = Vector2(0, 48)
 sprite_frames = SubResource("SpriteFrames_eo2kd")
 animation = &"Neutral_Rod"
 autoplay = "Neutral_Rod"
 script = ExtResource("14_1whss")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Managers/ShopManager/AnimatedSprite2D/AnimatedSprite2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ShopManager/AnimatedSprite2D/AnimatedSprite2D"]
 position = Vector2(0, 48)
 sprite_frames = SubResource("SpriteFrames_eo2kd")
 animation = &"Neutral_Rod"
 autoplay = "Neutral_Rod"
 script = ExtResource("14_1whss")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Managers/ShopManager/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ShopManager/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D"]
 position = Vector2(0, 47)
 sprite_frames = SubResource("SpriteFrames_eo2kd")
 animation = &"Neutral_Rod"
 autoplay = "Neutral_Rod"
 script = ExtResource("14_1whss")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Managers/ShopManager/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ShopManager/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D"]
 position = Vector2(0, 48)
 sprite_frames = SubResource("SpriteFrames_eo2kd")
 animation = &"Neutral_Rod"
 autoplay = "Neutral_Rod"
 script = ExtResource("14_1whss")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Managers/ShopManager/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ShopManager/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D"]
 position = Vector2(0, 47)
 sprite_frames = SubResource("SpriteFrames_eo2kd")
 animation = &"Neutral_Rod"
 autoplay = "Neutral_Rod"
 script = ExtResource("14_1whss")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Managers/ShopManager/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ShopManager/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D"]
 position = Vector2(0, 47)
 sprite_frames = SubResource("SpriteFrames_eo2kd")
 animation = &"Neutral_Rod"
 autoplay = "Neutral_Rod"
 script = ExtResource("14_1whss")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Managers/ShopManager/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ShopManager/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D"]
 position = Vector2(0, 48)
 sprite_frames = SubResource("SpriteFrames_eo2kd")
 animation = &"Neutral_Rod"
 autoplay = "Neutral_Rod"
 script = ExtResource("14_1whss")
-
-[node name="Parents" type="Node" parent="."]
-
-[node name="XP Parent" type="Node2D" parent="Parents" groups=["xp_parent"]]
-
-[node name="Enemy Parent" type="Node2D" parent="Parents"]
-
-[node name="Weapon Parent" type="Node2D" parent="Parents"]

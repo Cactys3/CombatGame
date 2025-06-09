@@ -193,7 +193,7 @@ func remove_weapon_from_player(weapon: ItemWeapon) -> bool:
 
 func craft_weapon(handle: ItemUI, attachment: ItemUI, projectile: ItemUI) -> bool:
 	if (handle && attachment && projectile) && (handle.data.item_type == ItemData.HANDLE && attachment.data.item_type == ItemData.ATTACHMENT && projectile.data.item_type == ItemData.PROJECTILE):
-
+		
 		var weapon_item: ItemWeapon = ItemWeapon.new()
 		weapon_item.setup(attachment.item, handle.item, projectile.item)
 		weapon_item.make_frame()
@@ -201,7 +201,7 @@ func craft_weapon(handle: ItemUI, attachment: ItemUI, projectile: ItemUI) -> boo
 		n.set_item(weapon_item)
 		
 		if add_weapon_to_player(weapon_item): #TODO: if player can hold more weapons
-			ui_man.equipment._add_equipment_weapon(n) # TODO: add weapon item to equipment inventory
+			ui_man.equipment.new_add(n)
 			return true
 	return false
 
@@ -214,3 +214,86 @@ func add_weapon_to_player(weapon: ItemWeapon) -> bool:
 		print("added weapon to player: " + weapon.data.item_name)
 		return true
 	return false
+
+
+## New Method Stubs for New Inventory System
+
+## Check if item can be removed and can be added, then does so
+func move_item(item: ItemUI, origin: Inventory, destination: Inventory) -> bool:
+	if item && origin && destination && origin.can_remove(item) && destination.can_add(item):
+		var complete_move: bool = true
+		var remove_origin: bool = true
+		var add_destination: bool = true
+		match(origin.get_type()):
+			Inventory.STORAGE:
+				pass
+			Inventory.EQUIPMENT:
+				match(item.data.item_type):
+					ItemData.WEAPON:
+						if !remove_weapon_from_player(item.item):
+							complete_move = false
+							return false
+					ItemData.ITEM:
+						if !remove_item_from_player(item.item):
+							complete_move = false
+							return false
+					_:
+						pass
+			Inventory.SHOP:
+				money -= item.data.item_buy_cost
+			_:
+				pass
+		match(destination.get_type()):
+			Inventory.STORAGE:
+				pass
+			Inventory.EQUIPMENT:
+				match(item.data.item_type):
+					ItemData.WEAPON:
+						if !add_weapon_to_player(item.item):
+							complete_move = false
+							return false
+					ItemData.ITEM:
+						if !add_item_to_player(item.item):
+							complete_move = false
+							return false
+					_:
+						pass
+			Inventory.SHOP:
+				money += item.data.item_buy_cost * item.data.item_sell_cost_modifier
+		if complete_move:
+			if remove_origin:
+				origin.new_remove(item)
+			if add_destination:
+				destination.new_add(item)
+			return true
+	return false
+
+## Checks if item can be removed, then removes it, used for moving items to non-inventories
+func remove_item(item: ItemUI, origin: Inventory) -> bool:
+	if item && origin && origin.can_remove(item):
+		match(origin.get_type()):
+			Inventory.STORAGE:
+				pass
+			Inventory.EQUIPMENT:
+				match(item.data.item_type):
+					ItemData.WEAPON:
+						remove_weapon_from_player(item.item)
+					ItemData.ITEM:
+						remove_item_from_player(item.item)
+					_:
+						pass
+			Inventory.SHOP:
+				pass
+		origin.new_remove(item)
+		return true
+	return false
+
+func can_buy(price: float) -> bool:
+	return price <= money
+
+func can_equip(item: ItemUI) -> bool:
+	## Check if its a weapon or item, Check if there is room for weapon, etc..
+	return item.data.item_type == ItemData.WEAPON || item.data.item_type == ItemData.ITEM
+
+func can_unequip(item: ItemUI) -> bool:
+	return true ## Check if player has weapon equipped

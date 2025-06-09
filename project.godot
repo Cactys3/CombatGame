@@ -19,13 +19,14 @@ config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=2560
-window/size/viewport_height=1440
+window/size/viewport_width=640
+window/size/viewport_height=360
 window/size/resizable=false
 window/size/window_width_override=1920
 window/size/window_height_override=1080
 window/energy_saving/keep_screen_on=false
-window/stretch/mode="viewport"
+window/stretch/mode="canvas_items"
+window/stretch/scale_mode="integer"
 
 [global_group]
 
@@ -41,7 +42,7 @@ shopmanager=""
 
 [gui]
 
-theme/custom_font="res://Fonts/cozette/CozetteVector.otf"
+theme/custom_font="uid://hudga6l8g608"
 theme/default_font_subpixel_positioning=0
 
 [input]

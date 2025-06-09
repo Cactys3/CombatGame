@@ -5,3 +5,8 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	super(delta)
+
+## Override
+func get_type() -> String:
+	print("get type: storage")
+	return STORAGE

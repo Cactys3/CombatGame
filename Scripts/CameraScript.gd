@@ -35,4 +35,4 @@ func handle_moving() -> void:
 	else:
 		y = 0
 	
-	print(str(x) + " "+ str(y))
+	#print(str(x) + " "+ str(y))

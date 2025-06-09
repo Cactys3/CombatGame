@@ -65,6 +65,7 @@ custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
+clip_contents = true
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -73,24 +74,31 @@ theme_override_font_sizes/font_size = 8
 tab_alignment = 1
 current_tab = 0
 clip_tabs = false
+tab_focus_mode = 1
 
 [node name="item" type="ScrollContainer" parent="VBoxContainer/TabContainer"]
+clip_contents = false
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 horizontal_scroll_mode = 0
 metadata/_tab_index = 0
 
 [node name="Items" type="VBoxContainer" parent="VBoxContainer/TabContainer/item"]
+clip_contents = true
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 theme_override_constants/separation = 1
 alignment = 1
 
 [node name="weapon" type="ScrollContainer" parent="VBoxContainer/TabContainer"]
 visible = false
+clip_contents = false
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 horizontal_scroll_mode = 0
 metadata/_tab_index = 1
 
 [node name="Weapons" type="VBoxContainer" parent="VBoxContainer/TabContainer/weapon"]
+clip_contents = true
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2

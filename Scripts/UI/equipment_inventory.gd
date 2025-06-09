@@ -56,7 +56,7 @@ func _add_item(item: ItemUI) -> void:
 	match(item.data.item_type):
 		ItemData.WEAPON:
 			if GameManager.instance.add_weapon_to_player(item.item):
-				#print("added weapon!")
+				print("add OLD STYLE ADD!")
 				_add_equipment_weapon(item)
 		ItemData.ITEM:
 			if GameManager.instance.add_item_to_player(item.item):
@@ -85,3 +85,46 @@ func _add_equipment_weapon(item: ItemUI) -> void:
 ## Check is not null and is an ITEM or complete WEAPON (not component)
 func check_item(item: ItemUI) -> bool:
 	return super(item) && (item.data.item_type == ItemData.ITEM || item.data.item_type == ItemData.WEAPON)
+
+## Override
+func is_valid_type(item: ItemUI):
+	return super(item) && (item.data.item_type == ItemData.ITEM || item.data.item_type == ItemData.WEAPON)
+
+
+func get_type() -> String:
+	print("get type: equipment")
+	return EQUIPMENT
+
+func can_add(item: ItemUI) -> bool:
+	print("can_add_equipment")
+	return is_valid_type(item) && GameManager.instance.can_equip(item)
+
+func can_remove(item: ItemUI) -> bool:
+	print("can_remove_equipment")
+	return is_instance_valid(item) && items.has(item) && GameManager.instance.can_unequip(item)
+
+func new_add(item: ItemUI):
+	print("new_add_equiptment")
+	item.inventory = self
+	item.position = Vector2.ZERO
+	items.append(item)
+	match(item.data.item_type):
+		ItemData.WEAPON:
+			item.item_parent = WeaponParent
+			WeaponParent.add_child(item)
+			WeaponParent.queue_sort()
+		ItemData.ITEM:
+			item.item_parent = ItemParent
+			ItemParent.add_child(item)
+			ItemParent.queue_sort()
+
+func new_remove(item: ItemUI):
+	print("new_remove_equipment")
+	match(item.data.item_type):
+		ItemData.WEAPON:
+			WeaponParent.remove_child(item)
+			WeaponParent.queue_sort()
+		ItemData.ITEM:
+			ItemParent.remove_child(item)
+			ItemParent.queue_sort()
+	items.erase(item)

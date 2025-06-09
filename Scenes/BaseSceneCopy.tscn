@@ -21,7 +21,6 @@ font = ExtResource("5_l7j71")
 font_size = 208
 
 [sub_resource type="LabelSettings" id="LabelSettings_oiodq"]
-font = null
 font_size = 64
 shadow_size = 0
 
@@ -30,7 +29,6 @@ font_size = 90
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Theme" id="Theme_l7j71"]
-default_font = null
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nr6yu"]
 atlas = ExtResource("2_l7j71")
@@ -286,7 +284,7 @@ disable_3d = true
 handle_input_locally = false
 snap_2d_transforms_to_pixel = true
 canvas_item_default_texture_filter = 0
-size = Vector2i(640, 360)
+size = Vector2i(160, 90)
 size_2d_override = Vector2i(640, 360)
 size_2d_override_stretch = true
 render_target_update_mode = 4

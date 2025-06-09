@@ -36,7 +36,7 @@ func _process(delta: float) -> void:
 			parent.z_index = 3
 			#print("dragging false")
 		
-		if mouse_hover && Input.is_action_just_pressed("left_click"):
+		if mouse_hover && Input.is_action_just_pressed("left_click") && visible:
 			var good: bool = true
 			for bar in hovered:
 				if bar != self && bar.get_priority() > get_priority():
