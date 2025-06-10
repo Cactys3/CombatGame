@@ -5,60 +5,13 @@ const STORAGE: String = "storage"
 const SHOP: String = "shop"
 const EQUIPMENT: String = "equipment"
 const CRAFTING: String = "crafting"
-
 @export var StartMinimized: bool = false
-
 @export var toggle_button: Toggle_UI
 @export var drag_bar: DraggableUI
 @export var color: Color
 @export var label_text: String
-## visually creates the columns and rows of items
 @export var default_item_parent: Control
-#@export var vbox: VBoxContainer
-#@export var inventory_scroll: ScrollContainer
-
-# TODO: add exit x button
-
 var items: Array[ItemUI] = []
-
-func check_item(item: ItemUI) -> bool:
-	return is_instance_valid(item)
-
-func add(item : ItemUI) -> bool:
-	if check_item(item):
-		_add_item(item)
-		return true
-	return false
-
-## Item requested to be moved away from this inventory
-func remove(item: ItemUI) -> bool:
-	if is_instance_valid(item) && items.has(item):
-		item.get_parent().remove_child(item)
-		items.erase(item)
-		return true
-	return false
-
-## Item requested to be moved into this inventory
-func move(item: ItemUI) -> bool:
-	if check_item(item) && item.inventory.remove(item):
-		_add_item(item)
-		return true
-	return false
-
-## Item Dragged and Dropped over this inventory
-func drop(item: ItemUI) -> void:
-	if item.inventory == self:
-		pass
-	else:
-		move(item)
-
-func _add_item(item: ItemUI) -> void:
-	item.inventory = self
-	item.item_parent = default_item_parent
-	item.position = Vector2.ZERO
-	default_item_parent.add_child(item)
-	default_item_parent.queue_sort()
-	items.append(item)
 
 func clear() -> bool:
 	for item in items:
@@ -76,7 +29,6 @@ func _ready() -> void:
 	if StartMinimized:
 		toggle_button.call_deferred("_toggled", true)
 
-
 ## Handles calling Drop when an item is dropped over this inventory rect
 func _process(delta: float) -> void:
 	if ItemUI.dragging_some_item && get_global_rect().has_point(get_global_mouse_position()) && Input.is_action_just_released("left_click"):
@@ -84,8 +36,6 @@ func _process(delta: float) -> void:
 		# OLD IMPLEMENTATION: call_deferred("drop", item)
 		if item.inventory != self: ## new implementation
 			call_deferred("ui_add", item) ## new implementation
-
-## New Implementation Methods:
 
 func is_valid_type(item: ItemUI) -> bool:
 	return is_instance_valid(item)
@@ -126,3 +76,45 @@ func can_add(item: ItemUI) -> bool:
 func can_remove(item: ItemUI) -> bool:
 	print("can_remove")
 	return is_instance_valid(item) && items.has(item)
+
+
+
+## Old Implementation:
+#func check_item(item: ItemUI) -> bool:
+	#return is_instance_valid(item)
+#
+#func add(item : ItemUI) -> bool:
+	#if check_item(item):
+		#_add_item(item)
+		#return true
+	#return false
+#
+### Item requested to be moved away from this inventory
+#func remove(item: ItemUI) -> bool:
+	#if is_instance_valid(item) && items.has(item):
+		#item.get_parent().remove_child(item)
+		#items.erase(item)
+		#return true
+	#return false
+#
+### Item requested to be moved into this inventory
+#func move(item: ItemUI) -> bool:
+	#if check_item(item) && item.inventory.remove(item):
+		#_add_item(item)
+		#return true
+	#return false
+#
+### Item Dragged and Dropped over this inventory
+#func drop(item: ItemUI) -> void:
+	#if item.inventory == self:
+		#pass
+	#else:
+		#move(item)
+#
+#func _add_item(item: ItemUI) -> void:
+	#item.inventory = self
+	#item.item_parent = default_item_parent
+	#item.position = Vector2.ZERO
+	#default_item_parent.add_child(item)
+	#default_item_parent.queue_sort()
+	#items.append(item)

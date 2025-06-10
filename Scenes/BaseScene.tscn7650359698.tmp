@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://dc0hdlr7wq3lq"]
+[gd_scene load_steps=40 format=3 uid="uid://dc0hdlr7wq3lq"]
 
 [ext_resource type="Texture2D" uid="uid://b1lme8t63rjpt" path="res://Art/Area Art/Background.png" id="1_rub18"]
 [ext_resource type="Script" uid="uid://btc78y4dd76bf" path="res://Scripts/CameraScript.gd" id="1_x613b"]
@@ -14,8 +14,6 @@
 [ext_resource type="Script" uid="uid://5tltnj2xg8ps" path="res://Scripts/Managers/ShopManager.gd" id="12_e4e03"]
 [ext_resource type="Texture2D" uid="uid://dvur2jw4hot5w" path="res://Art/Characters/WebFishingCat.png" id="13_u5ctk"]
 [ext_resource type="Script" uid="uid://cg066cmtt0y4" path="res://Scripts/sprite_position_rounder.gd" id="14_1whss"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u5ctk"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_20rgc"]
 font_size = 8
@@ -195,16 +193,14 @@ animations = [{
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+[node name="Camera" type="Camera2D" parent="."]
 script = ExtResource("1_x613b")
-target = NodePath("../Character")
 
 [node name="Store" type="Panel" parent="Camera"]
 offset_left = -79.0
 offset_top = -172.0
 offset_right = 313.0
 offset_bottom = 98.0
-theme_override_styles/panel = SubResource("StyleBoxEmpty_u5ctk")
 
 [node name="sword" type="Control" parent="Camera/Store"]
 visible = false

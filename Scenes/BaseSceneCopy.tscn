@@ -201,21 +201,41 @@ animations = [{
 
 [node name="Node2D" type="Node2D"]
 
-[node name="ControlLayer" type="CanvasLayer" parent="."]
+[node name="ControlLayer1080p" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="Offset" type="Node2D" parent="ControlLayer"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="ControlLayer1080p"]
+custom_minimum_size = Vector2(1920, 1080)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1280.0
+offset_bottom = 720.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="ControlLayer1080p/SubViewportContainer"]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(1920, 1080)
+size_2d_override = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="Offset" type="Node2D" parent="ControlLayer1080p/SubViewportContainer/SubViewport"]
 position = Vector2(729, 364)
 
-[node name="Label2" type="Label" parent="ControlLayer/Offset"]
+[node name="Label2" type="Label" parent="ControlLayer1080p/SubViewportContainer/SubViewport/Offset"]
 offset_left = 289.0
 offset_top = -156.0
 offset_right = 1069.0
 offset_bottom = 9.0
 text = "Sword - $2"
 label_settings = SubResource("LabelSettings_20rgc")
+metadata/_edit_use_anchors_ = true
 
-[node name="TestLabel" type="Label" parent="ControlLayer/Offset"]
+[node name="TestLabel" type="Label" parent="ControlLayer1080p/SubViewportContainer/SubViewport/Offset"]
 offset_left = -320.0
 offset_top = -180.0
 offset_right = 780.0
@@ -225,8 +245,9 @@ not blurry
 text
 thisis!"
 label_settings = SubResource("LabelSettings_oiodq")
+metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="ControlLayer/Offset"]
+[node name="Label" type="Label" parent="ControlLayer1080p/SubViewportContainer/SubViewport/Offset"]
 offset_left = -572.0
 offset_top = -343.0
 offset_right = 373.0
@@ -238,35 +259,36 @@ Spawn gun - press 3
 4 = bigger weapons
 5 = more projectiles"
 label_settings = SubResource("LabelSettings_7v07i")
+metadata/_edit_use_anchors_ = true
 
-[node name="Demo Manager" type="Node2D" parent="ControlLayer/Offset" node_paths=PackedStringArray("EnemyParent", "shop") groups=["weapon_manager"]]
+[node name="Demo Manager" type="Node2D" parent="ControlLayer1080p/SubViewportContainer/SubViewport/Offset" node_paths=PackedStringArray("EnemyParent", "shop") groups=["weapon_manager"]]
 position = Vector2(-593, -87)
 script = ExtResource("9_q3uqu")
-EnemyParent = NodePath("../../../GameLayer/SubViewportContainer/SubViewport/Offset/EnemyParent")
-shop = NodePath("../../../GameLayer/SubViewportContainer/SubViewport/Offset/Store")
+EnemyParent = NodePath("../../../../../GameLayer360p/SubViewportContainer/SubViewport/Offset/EnemyParent")
+shop = NodePath("../../../../../GameLayer360p/SubViewportContainer/SubViewport/Offset/Store")
 
-[node name="GameManager" type="Node2D" parent="ControlLayer/Offset" node_paths=PackedStringArray("ui_man", "shop_man", "instance_man", "player", "xp_parent", "enemy_parent", "weapon_parent") groups=["gamemanager"]]
+[node name="GameManager" type="Node2D" parent="ControlLayer1080p/SubViewportContainer/SubViewport/Offset" node_paths=PackedStringArray("ui_man", "shop_man", "instance_man", "player", "xp_parent", "enemy_parent", "weapon_parent") groups=["gamemanager"]]
 position = Vector2(-320, -180)
 script = ExtResource("10_xyxh8")
-ui_man = NodePath("../../../GameLayer/SubViewportContainer/SubViewport/Offset/UIManager")
+ui_man = NodePath("../../../../../GameLayer360p/SubViewportContainer/SubViewport/Offset/UIManager")
 shop_man = NodePath("../ShopManager")
 instance_man = NodePath("../InstanceManager")
-player = NodePath("../../../GameLayer/SubViewportContainer/SubViewport/Offset/Character")
-xp_parent = NodePath("../../../GameLayer/SubViewportContainer/SubViewport/Offset/XP Parent")
-enemy_parent = NodePath("../../../GameLayer/SubViewportContainer/SubViewport/Offset/EnemyParent")
-weapon_parent = NodePath("../../../GameLayer/SubViewportContainer/SubViewport/Offset/WeaponParent")
+player = NodePath("../../../../../GameLayer360p/SubViewportContainer/SubViewport/Offset/Character")
+xp_parent = NodePath("../../../../../GameLayer360p/SubViewportContainer/SubViewport/Offset/XP Parent")
+enemy_parent = NodePath("../../../../../GameLayer360p/SubViewportContainer/SubViewport/Offset/EnemyParent")
+weapon_parent = NodePath("../../../../../GameLayer360p/SubViewportContainer/SubViewport/Offset/WeaponParent")
 
-[node name="InstanceManager" type="Node2D" parent="ControlLayer/Offset" groups=["instancemanager"]]
+[node name="InstanceManager" type="Node2D" parent="ControlLayer1080p/SubViewportContainer/SubViewport/Offset" groups=["instancemanager"]]
 position = Vector2(-320, -180)
 script = ExtResource("11_s6xty")
 
-[node name="ShopManager" type="Node2D" parent="ControlLayer/Offset" groups=["shopmanager"]]
+[node name="ShopManager" type="Node2D" parent="ControlLayer1080p/SubViewportContainer/SubViewport/Offset" groups=["shopmanager"]]
 position = Vector2(-320, -180)
 script = ExtResource("12_xb6pq")
 
-[node name="GameLayer" type="CanvasLayer" parent="."]
+[node name="GameLayer360p" type="CanvasLayer" parent="."]
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="GameLayer"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="GameLayer360p"]
 texture_filter = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -279,41 +301,41 @@ theme = SubResource("Theme_l7j71")
 stretch = true
 stretch_shrink = 4
 
-[node name="SubViewport" type="SubViewport" parent="GameLayer/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="GameLayer360p/SubViewportContainer"]
 disable_3d = true
 handle_input_locally = false
 snap_2d_transforms_to_pixel = true
 canvas_item_default_texture_filter = 0
-size = Vector2i(160, 90)
+size = Vector2i(640, 360)
 size_2d_override = Vector2i(640, 360)
 size_2d_override_stretch = true
 render_target_update_mode = 4
 
-[node name="Offset" type="Node2D" parent="GameLayer/SubViewportContainer/SubViewport"]
+[node name="Offset" type="Node2D" parent="GameLayer360p/SubViewportContainer/SubViewport"]
 texture_filter = 1
 position = Vector2(320, 180)
 
-[node name="Store" type="Panel" parent="GameLayer/SubViewportContainer/SubViewport/Offset"]
+[node name="Store" type="Panel" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset"]
 offset_left = -77.0
 offset_top = -177.5
 offset_right = 315.0
 offset_bottom = 92.5
 
-[node name="sword" type="Control" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store"]
+[node name="sword" type="Control" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/Store"]
 anchors_preset = 0
 offset_left = 31.0
 offset_top = 23.0
 offset_right = 107.0
 offset_bottom = 65.0
 
-[node name="Button" type="Button" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/sword"]
+[node name="Button" type="Button" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/Store/sword"]
 layout_mode = 0
 offset_left = 12.0
 offset_top = 24.0
 offset_right = 59.0
 offset_bottom = 39.0
 
-[node name="Label" type="Label" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/sword/Button"]
+[node name="Label" type="Label" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/Store/sword/Button"]
 layout_mode = 0
 offset_left = 1.0
 offset_top = -0.5
@@ -322,7 +344,7 @@ offset_bottom = 12.5
 text = "Sword - $2"
 label_settings = SubResource("LabelSettings_20rgc")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/sword"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/Store/sword"]
 position = Vector2(37, 10)
 rotation = -1.5708
 scale = Vector2(2, 2)
@@ -330,7 +352,7 @@ sprite_frames = SubResource("SpriteFrames_suscl")
 autoplay = "default"
 frame_progress = 0.759742
 
-[node name="gun" type="Control" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store"]
+[node name="gun" type="Control" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/Store"]
 visible = false
 layout_mode = 3
 anchors_preset = 0
@@ -339,14 +361,14 @@ offset_top = 74.0
 offset_right = 107.0
 offset_bottom = 116.0
 
-[node name="Button" type="Button" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/gun"]
+[node name="Button" type="Button" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/Store/gun"]
 layout_mode = 0
 offset_left = 12.0
 offset_top = 24.0
 offset_right = 59.0
 offset_bottom = 39.0
 
-[node name="Label" type="Label" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/gun/Button"]
+[node name="Label" type="Label" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/Store/gun/Button"]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 1.0
@@ -355,7 +377,7 @@ offset_bottom = 13.0
 text = "Gun - $4"
 label_settings = SubResource("LabelSettings_20rgc")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/gun"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/Store/gun"]
 position = Vector2(37, 10)
 rotation = -1.5708
 scale = Vector2(2, 2)
@@ -363,7 +385,7 @@ sprite_frames = SubResource("SpriteFrames_rw57j")
 autoplay = "default"
 frame_progress = 0.493317
 
-[node name="size" type="Control" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store"]
+[node name="size" type="Control" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/Store"]
 visible = false
 layout_mode = 3
 anchors_preset = 0
@@ -372,14 +394,14 @@ offset_top = 74.0
 offset_right = 199.0
 offset_bottom = 116.0
 
-[node name="Button" type="Button" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/size"]
+[node name="Button" type="Button" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/Store/size"]
 layout_mode = 0
 offset_left = -5.0
 offset_top = 24.0
 offset_right = 70.0
 offset_bottom = 39.0
 
-[node name="Label" type="Label" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/size/Button"]
+[node name="Label" type="Label" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/Store/size/Button"]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 1.0
@@ -388,7 +410,7 @@ offset_bottom = 13.0
 text = "Weapon Size - $10"
 label_settings = SubResource("LabelSettings_20rgc")
 
-[node name="TextureRect" type="TextureRect" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/size"]
+[node name="TextureRect" type="TextureRect" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/Store/size"]
 layout_mode = 0
 offset_left = 23.0
 offset_top = 7.0
@@ -397,7 +419,7 @@ offset_bottom = 18.0
 texture = ExtResource("4_tpk5p")
 stretch_mode = 3
 
-[node name="projectiles" type="Control" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store"]
+[node name="projectiles" type="Control" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/Store"]
 visible = false
 layout_mode = 3
 anchors_preset = 0
@@ -406,14 +428,14 @@ offset_top = 24.0
 offset_right = 199.0
 offset_bottom = 66.0
 
-[node name="Button" type="Button" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/projectiles"]
+[node name="Button" type="Button" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/Store/projectiles"]
 layout_mode = 0
 offset_left = -9.0
 offset_top = 24.0
 offset_right = 82.0
 offset_bottom = 39.0
 
-[node name="Label" type="Label" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/projectiles/Button"]
+[node name="Label" type="Label" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/Store/projectiles/Button"]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 1.0
@@ -422,7 +444,7 @@ offset_bottom = 13.0
 text = "More Projectiles - $10"
 label_settings = SubResource("LabelSettings_20rgc")
 
-[node name="TextureRect" type="TextureRect" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/projectiles"]
+[node name="TextureRect" type="TextureRect" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/Store/projectiles"]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 8.0
@@ -430,7 +452,7 @@ offset_right = 43.0
 offset_bottom = 18.0
 texture = ExtResource("5_pv7d8")
 
-[node name="Money Label" type="Label" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store"]
+[node name="Money Label" type="Label" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/Store"]
 layout_mode = 0
 offset_left = 223.0
 offset_top = 11.0
@@ -438,7 +460,7 @@ offset_right = 348.0
 offset_bottom = 34.0
 text = "Current Money: "
 
-[node name="Money" type="Label" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/Money Label"]
+[node name="Money" type="Label" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/Store/Money Label"]
 layout_mode = 0
 offset_left = 126.0
 offset_top = 1.0
@@ -446,7 +468,7 @@ offset_right = 166.0
 offset_bottom = 24.0
 text = "-999"
 
-[node name="XP Label" type="Label" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store"]
+[node name="XP Label" type="Label" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/Store"]
 layout_mode = 0
 offset_left = 223.0
 offset_top = 39.0
@@ -454,7 +476,7 @@ offset_right = 348.0
 offset_bottom = 62.0
 text = "Current XP: "
 
-[node name="XP" type="Label" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/XP Label"]
+[node name="XP" type="Label" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/Store/XP Label"]
 layout_mode = 0
 offset_left = 126.0
 offset_top = 1.0
@@ -462,7 +484,7 @@ offset_right = 166.0
 offset_bottom = 24.0
 text = "-999"
 
-[node name="LVL Label" type="Label" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store"]
+[node name="LVL Label" type="Label" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/Store"]
 layout_mode = 0
 offset_left = 223.0
 offset_top = 66.0
@@ -470,7 +492,7 @@ offset_right = 348.0
 offset_bottom = 89.0
 text = "Current Level: "
 
-[node name="LVL" type="Label" parent="GameLayer/SubViewportContainer/SubViewport/Offset/Store/LVL Label"]
+[node name="LVL" type="Label" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/Store/LVL Label"]
 layout_mode = 0
 offset_left = 126.0
 offset_top = 1.0
@@ -478,84 +500,84 @@ offset_right = 166.0
 offset_bottom = 24.0
 text = "-999"
 
-[node name="UIManager" parent="GameLayer/SubViewportContainer/SubViewport/Offset" node_paths=PackedStringArray("money_label", "xp_label", "level_label") instance=ExtResource("6_a2ki1")]
+[node name="UIManager" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset" node_paths=PackedStringArray("money_label", "xp_label", "level_label") instance=ExtResource("6_a2ki1")]
 visible = false
 z_index = 6
 money_label = NodePath("../Store/Money Label/Money")
 xp_label = NodePath("../Store/XP Label/XP")
 level_label = NodePath("../Store/LVL Label/LVL")
 
-[node name="Backdrop" type="Sprite2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset"]
+[node name="Backdrop" type="Sprite2D" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset"]
 z_index = -5
 position = Vector2(0, -20)
 scale = Vector2(40, 40)
 texture = ExtResource("7_i266b")
 
-[node name="Camera" type="Camera2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset"]
-texture_filter = 1
-position = Vector2(25, 8)
+[node name="Camera" type="Camera2D" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset" node_paths=PackedStringArray("target")]
+texture_filter = 2
 process_callback = 0
 script = ExtResource("1_t68qt")
+target = NodePath("../Character")
 
-[node name="Character" parent="GameLayer/SubViewportContainer/SubViewport/Offset" instance=ExtResource("8_tcavw")]
+[node name="Character" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset" instance=ExtResource("8_tcavw")]
 
-[node name="Node" type="Node" parent="GameLayer/SubViewportContainer/SubViewport/Offset"]
+[node name="Node" type="Node" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset"]
 
-[node name="XP Parent" type="Node2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset" groups=["xp_parent"]]
+[node name="XP Parent" type="Node2D" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset" groups=["xp_parent"]]
 
-[node name="EnemyParent" type="Node2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset"]
+[node name="EnemyParent" type="Node2D" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset"]
 
-[node name="WeaponParent" type="Node2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset"]
+[node name="WeaponParent" type="Node2D" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset"]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset"]
 sprite_frames = SubResource("SpriteFrames_eo2kd")
 animation = &"Neutral_Rod"
 autoplay = "Neutral_Rod"
 script = ExtResource("14_1rje4")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset/AnimatedSprite2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/AnimatedSprite2D"]
 position = Vector2(0, 48)
 sprite_frames = SubResource("SpriteFrames_eo2kd")
 animation = &"Neutral_Rod"
 autoplay = "Neutral_Rod"
 script = ExtResource("14_1rje4")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset/AnimatedSprite2D/AnimatedSprite2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/AnimatedSprite2D/AnimatedSprite2D"]
 position = Vector2(0, 48)
 sprite_frames = SubResource("SpriteFrames_eo2kd")
 animation = &"Neutral_Rod"
 autoplay = "Neutral_Rod"
 script = ExtResource("14_1rje4")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D"]
 position = Vector2(0, 47)
 sprite_frames = SubResource("SpriteFrames_eo2kd")
 animation = &"Neutral_Rod"
 autoplay = "Neutral_Rod"
 script = ExtResource("14_1rje4")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D"]
 position = Vector2(0, 48)
 sprite_frames = SubResource("SpriteFrames_eo2kd")
 animation = &"Neutral_Rod"
 autoplay = "Neutral_Rod"
 script = ExtResource("14_1rje4")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D"]
 position = Vector2(0, 47)
 sprite_frames = SubResource("SpriteFrames_eo2kd")
 animation = &"Neutral_Rod"
 autoplay = "Neutral_Rod"
 script = ExtResource("14_1rje4")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D"]
 position = Vector2(0, 47)
 sprite_frames = SubResource("SpriteFrames_eo2kd")
 animation = &"Neutral_Rod"
 autoplay = "Neutral_Rod"
 script = ExtResource("14_1rje4")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer/SubViewportContainer/SubViewport/Offset/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GameLayer360p/SubViewportContainer/SubViewport/Offset/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D/AnimatedSprite2D"]
 position = Vector2(0, 48)
 sprite_frames = SubResource("SpriteFrames_eo2kd")
 animation = &"Neutral_Rod"

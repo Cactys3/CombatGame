@@ -10,7 +10,7 @@ class_name UIManager
 @export var storage: Inventory
 @export var storage2: Inventory
 @export var equipment: Inventory
-var enabled: bool = true
+var enabled: bool = false
 
 func _ready() -> void:
 	call_deferred("_connect_signals")
