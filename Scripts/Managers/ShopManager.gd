@@ -1,8 +1,6 @@
 extends Node
 class_name ShopManager
 
-
-
 ## has methods to create shops based on things
 
 static func get_rand_attachment() -> Attachment:

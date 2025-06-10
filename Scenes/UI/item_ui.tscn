@@ -23,11 +23,13 @@ border_color = Color(0, 0, 0, 0)
 border_blend = true
 
 [node name="Item" type="Control" node_paths=PackedStringArray("NameLabel", "IconTexture", "BackgroundTexture", "DescriptionPanel", "DescriptionLabel")]
+clip_contents = true
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchor_right = 0.062
+anchor_bottom = 0.111
+offset_right = 0.32
+offset_bottom = 0.0399971
 mouse_default_cursor_shape = 6
 script = ExtResource("1_xojv8")
 NameLabel = NodePath("ItemName")
