@@ -1,15 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://m0vp852bqpjq"]
+[gd_scene load_steps=6 format=3 uid="uid://m0vp852bqpjq"]
 
 [ext_resource type="Script" uid="uid://usjnma1p1ke5" path="res://Scripts/UI/DraggableUI.gd" id="1_rhfg0"]
+[ext_resource type="FontFile" uid="uid://iywqnx3iwxs1" path="res://Fonts/monogram/ttf/monogram-e.ttf" id="2_3eg0i"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n10q1"]
 bg_color = Color(0.820742, 0.417915, 0.830331, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_86soo"]
+font = ExtResource("2_3eg0i")
+font_size = 48
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6bujb"]
 bg_color = Color(0.673704, 0.156556, 0.489744, 1)
 
 [node name="Panel" type="Panel"]
-custom_minimum_size = Vector2(10, 18)
+custom_minimum_size = Vector2(30, 54)
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
@@ -23,16 +28,16 @@ script = ExtResource("1_rhfg0")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -60.0
-offset_right = 60.0
-offset_bottom = 18.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
 size_flags_vertical = 1
 text = "Draggable Panel"
+label_settings = SubResource("LabelSettings_86soo")
 horizontal_alignment = 1
+vertical_alignment = 1
 max_lines_visible = 1
 
 [node name="DragBar" type="PanelContainer" parent="Label"]

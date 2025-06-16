@@ -7,24 +7,30 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_ytgoh"]
 font = ExtResource("4_jga5b")
-font_size = 10
+font_size = 32
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwy7p"]
-content_margin_left = 1.0
-content_margin_top = 1.0
-content_margin_right = 1.0
-content_margin_bottom = 1.0
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
 bg_color = Color(1, 0.146026, 0.795461, 0.780392)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
 border_color = Color(0, 0, 0, 0)
 border_blend = true
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+anti_aliasing = false
 
 [node name="Item" type="Control" node_paths=PackedStringArray("NameLabel", "IconTexture", "BackgroundTexture", "DescriptionPanel", "DescriptionLabel")]
+texture_filter = 1
 clip_contents = true
-custom_minimum_size = Vector2(40, 40)
+custom_minimum_size = Vector2(120, 120)
 layout_mode = 3
 anchor_right = 0.062
 anchor_bottom = 0.111
@@ -42,20 +48,22 @@ DescriptionLabel = NodePath("DescriptionPanel/DescriptionText")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+scale = Vector2(3, 3)
 texture = ExtResource("2_o07fp")
 
 [node name="ItemVisual" type="TextureRect" parent="."]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+scale = Vector2(3, 3)
 texture = ExtResource("3_hfdbq")
 
 [node name="ItemName" type="Label" parent="."]
-layout_mode = 0
-offset_left = 2.0
-offset_top = -7.0
-offset_right = 40.0
-offset_bottom = 22.0
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 26.0
+grow_horizontal = 2
 mouse_filter = 1
 text = "Default"
 label_settings = SubResource("LabelSettings_ytgoh")
@@ -64,21 +72,24 @@ vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="DescriptionPanel" type="Panel" parent="."]
-layout_mode = 0
-offset_left = 3.0
-offset_top = 3.0
-offset_right = 3.0
-offset_bottom = 3.0
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 1
 mouse_default_cursor_shape = 6
 theme_override_styles/panel = SubResource("StyleBoxFlat_kwy7p")
 
 [node name="DescriptionText" type="RichTextLabel" parent="DescriptionPanel"]
-layout_mode = 0
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 3.0
-offset_bottom = 2.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 focus_mode = 2
 mouse_filter = 1
 bbcode_enabled = true

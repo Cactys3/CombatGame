@@ -75,5 +75,5 @@ script = ExtResource("1_e0m3v")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_qtp4o")
+&"": SubResource("AnimationLibrary_qtp4o")
 }

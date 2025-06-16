@@ -7,20 +7,20 @@ var stats: StatsResource
 
 const SCENE = preload("res://Scenes/UI/stats_visual.tscn")
 
-@onready var damage: Label = $Panel/damage
-@onready var range: Label = $Panel/range
-@onready var weight: Label = $Panel/weight
-@onready var attackspeed: Label = $Panel/attackspeed
-@onready var velocity: Label = $Panel/velocity
-@onready var count: Label = $Panel/count
-@onready var duration: Label = $Panel/duration
-@onready var _size: Label = $Panel/size
-@onready var buildup: Label = $Panel/buildup
-@onready var stance: Label = $Panel/stance
-@onready var hp: Label = $Panel/hp
-@onready var xp: Label = $Panel/xp
-@onready var mogul: Label = $Panel/mogul
-@onready var movespeed: Label = $Panel/movespeed
+@onready var damage: Label = $damage
+@onready var range: Label = $range
+@onready var weight: Label = $weight
+@onready var attackspeed: Label = $attackspeed
+@onready var velocity: Label = $velocity
+@onready var count: Label = $count
+@onready var duration: Label = $duration
+@onready var _size: Label = $size
+@onready var buildup: Label = $buildup
+@onready var stance: Label = $stance
+@onready var hp: Label = $hp
+@onready var xp: Label = $xp
+@onready var mogul: Label = $mogul
+@onready var movespeed: Label = $movespeed
 
 @onready var drag_bar: DraggableUI = $DragBar
 

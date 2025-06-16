@@ -33,7 +33,7 @@ var showing_details: bool = false
 #var mouse_hover: bool = false
 #var dragging: bool = false
 static var dragging_some_item: bool = false
-static var dragging_item: ItemUI 
+static var dragging_item: ItemUI = null
 #var offset: Vector2
 #var offset2: Vector2
 ## ideas for future

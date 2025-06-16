@@ -10,7 +10,7 @@ class_name PopupText
 var parent: Node 
 var curr_text: String # For use if add one character at a time
 var size_scale: int # For use if increase size over time
-var fontsize = 5
+var fontsize = 16
 
 var stopwatch: float
 var lifetime: float

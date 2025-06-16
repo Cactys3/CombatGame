@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cwomrgi81thyq"]
+[gd_scene load_steps=7 format=3 uid="uid://cwomrgi81thyq"]
 
 [ext_resource type="PackedScene" uid="uid://m0vp852bqpjq" path="res://Scenes/UI/DragBar.tscn" id="1_8au0p"]
 [ext_resource type="Script" uid="uid://e16j8gnfxht2" path="res://Scripts/UI/weapon_crafting_inventory.gd" id="1_pynmv"]
@@ -15,7 +15,18 @@ border_width_right = 1
 border_width_bottom = 1
 border_blend = true
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f3ts3"]
+bg_color = Color(0.636787, 0.543672, 0.730916, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+anti_aliasing = false
+anti_aliasing_size = 0.01
+
 [node name="weapon_crafting_inventory" type="Control" node_paths=PackedStringArray("ModsPage", "StatsPage", "HandleHolder", "AttachmentHolder", "ProjectileHolder", "ModHolder", "drag_bar")]
+custom_minimum_size = Vector2(300, 300)
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -40,6 +51,7 @@ drag_bar = NodePath("VBoxContainer/DragBar")
 label_text = "Crafting"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(300, 582)
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -52,6 +64,7 @@ theme_override_constants/separation = 0
 
 [node name="DragBar" parent="VBoxContainer" node_paths=PackedStringArray("parent") instance=ExtResource("1_8au0p")]
 layout_mode = 2
+size_flags_horizontal = 1
 size_flags_vertical = 1
 parent = NodePath("../..")
 
@@ -62,12 +75,13 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 87.0
-offset_top = 0.0
-offset_right = 100.0
-offset_bottom = 13.0
+offset_left = 259.0
+offset_top = 8.0
+offset_right = 272.0
+offset_bottom = 21.0
 grow_horizontal = 1
 grow_vertical = 1
+scale = Vector2(3, 3)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 1
@@ -76,57 +90,65 @@ ui_to_hide = [NodePath("../../Details View"), NodePath("../../Components Panel")
 [node name="Components Panel" type="Panel" parent="VBoxContainer"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_a6fc1")
 
 [node name="ProjectileHolder" type="PanelContainer" parent="VBoxContainer/Components Panel"]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-offset_left = 72.0
+offset_left = 205.0
 offset_top = 16.0
-offset_right = 92.0
-offset_bottom = 36.0
+offset_right = 265.0
+offset_bottom = 76.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_5yj2l")
 
 [node name="AttachmentHolder" type="PanelContainer" parent="VBoxContainer/Components Panel"]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-offset_left = 42.0
-offset_top = 38.0
-offset_right = 62.0
-offset_bottom = 58.0
+offset_left = 107.0
+offset_top = 105.0
+offset_right = 167.0
+offset_bottom = 165.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_5yj2l")
 
 [node name="HandleHolder" type="PanelContainer" parent="VBoxContainer/Components Panel"]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 0
-offset_left = 9.0
-offset_top = 6.0
-offset_right = 29.0
-offset_bottom = 26.0
+offset_left = 19.0
+offset_top = 11.0
+offset_right = 79.0
+offset_bottom = 71.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_5yj2l")
 
 [node name="Button" type="Button" parent="VBoxContainer/Components Panel"]
+custom_minimum_size = Vector2(78, 48)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 24.0
-offset_top = 34.0
-offset_right = 50.0
-offset_bottom = 50.0
+offset_left = 70.0
+offset_top = 45.0
+offset_right = 148.0
+offset_bottom = 93.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 7
+theme_override_font_sizes/font_size = 32
 text = "Craft"
 
 [node name="Details View" type="Control" parent="VBoxContainer"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Mods Panel" type="Panel" parent="VBoxContainer/Details View"]
+custom_minimum_size = Vector2(150, 120)
 layout_mode = 0
-offset_left = 55.0
-offset_right = 95.0
-offset_bottom = 40.0
+offset_left = 150.0
+offset_right = 300.0
+offset_bottom = 120.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_f3ts3")
 
 [node name="Panel" type="Panel" parent="VBoxContainer/Details View/Mods Panel"]
 layout_mode = 0
@@ -140,10 +162,11 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Stats Panel" type="Panel" parent="VBoxContainer/Details View"]
+custom_minimum_size = Vector2(150, 120)
 layout_mode = 0
-offset_left = 5.0
-offset_right = 45.0
-offset_bottom = 40.0
+offset_right = 150.0
+offset_bottom = 120.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_f3ts3")
 
 [node name="Panel" type="Panel" parent="VBoxContainer/Details View/Stats Panel"]
 layout_mode = 0
