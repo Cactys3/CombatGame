@@ -19,9 +19,8 @@ config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=640
-window/size/viewport_height=360
-window/size/resizable=false
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 window/size/window_width_override=1920
 window/size/window_height_override=1080
 window/energy_saving/keep_screen_on=false
@@ -154,7 +153,7 @@ left_click={
 
 [physics]
 
-common/physics_jitter_fix=2.0
+common/physics_interpolation=true
 
 [rendering]
 

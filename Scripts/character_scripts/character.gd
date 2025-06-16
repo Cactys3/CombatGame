@@ -81,7 +81,7 @@ func handle_moving() -> void:
 		moving = true
 	else:
 		velocity.y = 0
-	
+	velocity = velocity.normalized() * speed
 	if (moving_state != moving):
 		set_moving_animation(moving)
 	
