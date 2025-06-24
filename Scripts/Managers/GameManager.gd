@@ -34,6 +34,7 @@ signal toggle_inventory
 signal set_xp(value: float)
 signal set_money(value: float)
 signal set_level(value: float)
+signal set_hp(value: float)
 signal add_item_to_player_inventory(item: Item)
 # For Item Mechanics
 signal EnemyDamaged(enemy: Enemy, attack: Attack)
@@ -41,6 +42,12 @@ signal EnemyKilled(enemy: Enemy, attack: Attack)
 signal PlayerDamaged(player: Player_Script, attack: Attack)
 signal PlayerKilled(player: Player_Script, attack: Attack)
 signal RoundEnded(round_number: int)
+
+var hp: float = 0:
+	set(value):
+		hp = value
+		ui_man.set_hp(str(value))
+		player.health = value
 
 var level: float = 0: ## level
 	set(value): #TODO: maybe send to instancemanager and make game harder by level

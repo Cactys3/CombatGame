@@ -377,6 +377,21 @@ offset_right = 166.0
 offset_bottom = 24.0
 text = "-999"
 
+[node name="HP Label" type="Label" parent="Character/Camera/Store"]
+offset_left = 446.0
+offset_top = 132.0
+offset_right = 571.0
+offset_bottom = 155.0
+text = "Current Health: "
+
+[node name="Hp" type="Label" parent="Character/Camera/Store/HP Label"]
+layout_mode = 0
+offset_left = 126.0
+offset_top = 1.0
+offset_right = 166.0
+offset_bottom = 24.0
+text = "-999"
+
 [node name="LVL Label" type="Label" parent="Character/Camera/Store"]
 layout_mode = 0
 offset_left = 223.0
@@ -393,13 +408,14 @@ offset_right = 166.0
 offset_bottom = 24.0
 text = "-999"
 
-[node name="UIManager" parent="Character/Camera" node_paths=PackedStringArray("money_label", "xp_label", "level_label") instance=ExtResource("6_uv4m7")]
+[node name="UIManager" parent="Character/Camera" node_paths=PackedStringArray("money_label", "xp_label", "level_label", "hp_label") instance=ExtResource("6_uv4m7")]
 visible = false
 z_index = 6
 position = Vector2(-76, -158)
 money_label = NodePath("../Store/Money Label/Money")
 xp_label = NodePath("../Store/XP Label/XP")
 level_label = NodePath("../Store/LVL Label/LVL")
+hp_label = NodePath("../Store/HP Label/Hp")
 
 [node name="Label" type="Label" parent="."]
 offset_left = -252.0

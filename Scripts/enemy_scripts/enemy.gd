@@ -81,7 +81,11 @@ var curr_piercing: float:
 		if is_instance_valid(stats):
 			return stats.get_stat(stats.PIERCING) + base_piercing
 		return base_piercing
-
+var curr_damage: float:
+	get():
+		if is_instance_valid(stats):
+			return stats.get_stat(stats.DAMAGE) + base_damage
+		return base_damage
 var max_health: float:
 	get:
 		return stats.get_stat(stats.HP) + base_health
@@ -174,7 +178,7 @@ func _on_damage_hitbox_body_entered(body: Node2D) -> void:
 func damage_player(player: Node2D):
 	cooldown_stopwatch = 0;
 	var attack: Attack = Attack.new()
-	attack.setup(attack.damage, global_position, 0, StatusEffectDictionary.new(), self, weapon_stun, 0, weapon_knockback)
+	attack.setup(curr_damage, global_position, 0, StatusEffectDictionary.new(), self, weapon_stun, 0, weapon_knockback)
 	player.damage(attack)
 	if melee_attacks:
 		damage_hitbox.set_deferred("monitoring", false)

@@ -7,6 +7,15 @@ class_name Player_Script
 
 var stats_visual
 
+
+@export var hp_regen:float = 0
+@export var knockback_modifier:float = 1
+@export var can_be_knockbacked:bool = true
+@export var can_be_stunned:bool = true
+var stunning:bool = false
+var stun_time_left: float = 0
+
+
 var moving: bool = false
 var weapon_list: Array[Weapon_Frame]
 var weapon_count: float = 0
@@ -61,27 +70,31 @@ func _process(delta: float) -> void:
 		character_ability(3)
 
 func _physics_process(_delta: float) -> void:
-	handle_moving()
+	if stun_time_left > 0:
+		stun_time_left -= _delta 
+	else:
+		stunning = false
+	handle_moving(_delta)
 	move_and_slide()
-	#position = position.round()
-	#global_position = global_position.round()
 
-func handle_moving() -> void:
+func handle_moving(delta) -> void:
 	var moving_state = moving
 	var directionX := Input.get_axis("left", "right")
 	moving = false
-	if directionX:
-		velocity.x = round(directionX) * speed
-		moving = true
-	else:
-		velocity.x = 0
-	var directionY := Input.get_axis("up", "down")
-	if directionY:
-		velocity.y = round(directionY) * speed
-		moving = true
-	else:
-		velocity.y = 0
-	velocity = velocity.normalized() * speed
+	if !stunning: ## Stun Time prevents the player from inputting movement commands, but doesn't change their current velocity
+		var new_velocity: Vector2
+		if directionX:
+			new_velocity.x = round(directionX) * speed
+			moving = true
+		else:
+			new_velocity.x = 0
+		var directionY := Input.get_axis("up", "down")
+		if directionY:
+			new_velocity.y = round(directionY) * speed
+			moving = true
+		else:
+			new_velocity.y = 0
+		velocity = velocity.move_toward(new_velocity.normalized() * speed, delta * 7000)
 	if (moving_state != moving):
 		set_moving_animation(moving)
 	
@@ -90,14 +103,27 @@ func handle_moving() -> void:
 func damage(attack: Attack):
 	#print("damage player: " + str(attack.damage))
 	var net_damage = attack.damage - stance
-	if (net_damage > 0):
-		health -= net_damage
-	if attack.knockback != 0:
-		call_deferred("set", "velocity", (global_position - attack.position).normalized() * attack.knockback)
-		print("Knockback: " + str((global_position - attack.position).normalized() * attack.knockback))
+	if net_damage == 0:
+		return
+	
+	GameManager.instance.hp -= net_damage
+	if can_be_stunned && attack.stun != 0:
+		stun_time_left += attack.stun
+		stunning = true
+	if can_be_knockbacked && attack.knockback != 0:
+		#stun_time_left += 0.1
+		#stunning = true
+		call_deferred("set", "velocity", (global_position - attack.position).normalized() * attack.knockback * knockback_modifier)
+		#print("Knockback: " + str((global_position - attack.position).normalized() * attack.knockback * knockback_modifier))
 	if health <= 0:
 		die()
-	pass
+		var dmg_text: PopupText = preload("res://Scenes/UI/popup_text.tscn").instantiate()
+		dmg_text.setup(str("you died"), net_damage, global_position, 1, get_tree().root, Vector2(10, 10))
+	else:
+		var dmg_text: PopupText = preload("res://Scenes/UI/popup_text.tscn").instantiate()
+		dmg_text.setup(str(int(round(attack.damage))), net_damage, global_position, 1, get_tree().root, Vector2(10, 10))
+
+
 
 func die():
 	print("player died: " + str(health))
@@ -168,7 +194,7 @@ func get_stat(stat: String) -> float:
 
 ## funcs to be overriden for special character mechanics (or item mechanics)
 func set_stats(): ## set_stats should call super()
-	health = maxhealth
+	GameManager.instance.hp = maxhealth
 
 func character_ability(number: int) -> void:
 	print("ability " + str(number))

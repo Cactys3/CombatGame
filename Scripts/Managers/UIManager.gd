@@ -4,6 +4,7 @@ class_name UIManager
 @export var money_label: Label
 @export var xp_label: Label
 @export var level_label: Label
+@export var hp_label: Label
 
 ## FOR TESTING:
 @export var shop: Inventory
@@ -34,6 +35,9 @@ func toggle_inventory() -> void:
 
 func set_level(value: String) -> void:
 	level_label.text = value
+
+func set_hp(value: String) -> void:
+	hp_label.text = value
 
 func set_xp(value: String) -> void:
 	xp_label.text = value
