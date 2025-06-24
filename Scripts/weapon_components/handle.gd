@@ -1,12 +1,12 @@
 extends Area2D
 class_name Handle
 
-const FLAMETHROWER = preload("res://Scenes/flamethrower/flamethrower_handle.tscn")
-const PISTOL = preload("res://Scenes/pistol/pistol_handle.tscn")
-const RAILGUN = preload("res://Scenes/railgun/railgun_handle.tscn")
-const SWORD = preload("res://Scenes/sword/sword_handle.tscn")
+const FLAMETHROWER = preload("res://Scenes/Weapons/flamethrower/flamethrower_handle.tscn")
+const PISTOL = preload("res://Scenes/Weapons/pistol/pistol_handle.tscn")
+const RAILGUN = preload("res://Scenes/Weapons/railgun/railgun_handle.tscn")
+const SWORD = preload("res://Scenes/Weapons/sword/sword_handle.tscn")
 func get_scene() -> PackedScene:
-	return preload("res://Scenes/pistol/pistol_handle.tscn")
+	return preload("res://Scenes/Weapons/pistol/pistol_handle.tscn")
 
 var data: ItemData = ItemData.new()
 

@@ -1,0 +1,100 @@
+[gd_scene load_steps=15 format=3 uid="uid://cbptmran7tknt"]
+
+[ext_resource type="Script" uid="uid://df08pn8vu3jvr" path="res://Scripts/railgun_scripts/railgun_attachment.gd" id="1_rr0cc"]
+[ext_resource type="Resource" uid="uid://clp72jc346r1b" path="res://Scenes/Weapons/railgun/resources/railgun_attachment_stats.tres" id="2_p4sqw"]
+[ext_resource type="Texture2D" uid="uid://ce8uthmoy4tfg" path="res://Art/New_Weapons/Railgun/Railgun_Attachment.png" id="2_w0g58"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fovl6"]
+atlas = ExtResource("2_w0g58")
+region = Rect2(0, 0, 512, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vdm5n"]
+atlas = ExtResource("2_w0g58")
+region = Rect2(512, 0, 512, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r7chd"]
+atlas = ExtResource("2_w0g58")
+region = Rect2(1024, 0, 512, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbnkv"]
+atlas = ExtResource("2_w0g58")
+region = Rect2(1536, 0, 512, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3sthu"]
+atlas = ExtResource("2_w0g58")
+region = Rect2(2048, 0, 512, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4h7gl"]
+atlas = ExtResource("2_w0g58")
+region = Rect2(2560, 0, 512, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_an8qw"]
+atlas = ExtResource("2_w0g58")
+region = Rect2(3072, 0, 512, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gadbv"]
+atlas = ExtResource("2_w0g58")
+region = Rect2(3584, 0, 512, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8ise"]
+atlas = ExtResource("2_w0g58")
+region = Rect2(0, 0, 512, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4uxei"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fovl6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vdm5n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r7chd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tbnkv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3sthu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4h7gl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_an8qw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gadbv")
+}],
+"loop": false,
+"name": &"Attack",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8ise")
+}],
+"loop": false,
+"name": &"Idle",
+"speed": 1.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o083e"]
+size = Vector2(252, 3)
+
+[node name="railgun_attachment" type="Area2D" node_paths=PackedStringArray("visual")]
+script = ExtResource("1_rr0cc")
+stats = ExtResource("2_p4sqw")
+visual = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4uxei")
+animation = &"Attack"
+autoplay = "Idle"
+frame = 7
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(131, -0.5)
+shape = SubResource("RectangleShape2D_o083e")

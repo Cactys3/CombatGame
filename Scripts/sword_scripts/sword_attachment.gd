@@ -16,7 +16,7 @@ var speed: float = 1
 var attacked_objects: Array[Node2D]
 
 func get_scene() -> PackedScene:
-	return preload("res://Scenes/sword/sword_attachment.tscn")
+	return preload("res://Scenes/Weapons/sword/sword_attachment.tscn")
 
 ## called in ready
 func setdata():

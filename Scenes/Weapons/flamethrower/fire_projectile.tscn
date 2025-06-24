@@ -1,0 +1,79 @@
+[gd_scene load_steps=13 format=3 uid="uid://dlxqovibkkvb6"]
+
+[ext_resource type="Texture2D" uid="uid://dq1onux8gqfcb" path="res://Art/New_Weapons/flamethrower/Fire_Flamethrower.png" id="1_r5n6a"]
+[ext_resource type="Script" uid="uid://dpqree6hf5ia2" path="res://Scripts/flamethrower_scripts/fire_projectile.gd" id="1_xnutj"]
+[ext_resource type="Resource" uid="uid://b86efdis6cvhv" path="res://Scenes/Weapons/flamethrower/resources/flamethrower_projectile_stats.tres" id="2_it4ie"]
+[ext_resource type="Resource" uid="uid://y5nam6n4drur" path="res://Scenes/Weapons/flamethrower/resources/flamethrower_projectile_status.tres" id="3_aytfq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8mgs"]
+atlas = ExtResource("1_r5n6a")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvtxq"]
+atlas = ExtResource("1_r5n6a")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2wh3m"]
+atlas = ExtResource("1_r5n6a")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fdfaj"]
+atlas = ExtResource("1_r5n6a")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2k8m5"]
+atlas = ExtResource("1_r5n6a")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ice0i"]
+atlas = ExtResource("1_r5n6a")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8n35d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d8mgs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cvtxq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2wh3m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fdfaj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2k8m5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ice0i")
+}],
+"loop": false,
+"name": &"default",
+"speed": 16.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nrdi3"]
+size = Vector2(15, 16)
+
+[node name="fire_projectile" type="Area2D"]
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("1_xnutj")
+stats = ExtResource("2_it4ie")
+status = ExtResource("3_aytfq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_8n35d")
+autoplay = "default"
+frame_progress = 0.209799
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_nrdi3")
+
+[connection signal="area_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="anim_finished"]

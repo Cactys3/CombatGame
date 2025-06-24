@@ -1,12 +1,12 @@
 extends Area2D
 class_name Projectile
-const FLAMETHROWER = preload("res://Scenes/flamethrower/fire_projectile.tscn")
-const PISTOL = preload("res://Scenes/pistol/pistol_bullet.tscn")
-const RAILGUN = preload("res://Scenes/railgun/railgun_projectile.tscn")
-const SWORD = preload("res://Scenes/sword/sword_projectile.tscn")
+const FLAMETHROWER = preload("res://Scenes/Weapons/flamethrower/fire_projectile.tscn")
+const PISTOL = preload("res://Scenes/Weapons/pistol/pistol_bullet.tscn")
+const RAILGUN = preload("res://Scenes/Weapons/railgun/railgun_projectile.tscn")
+const SWORD = preload("res://Scenes/Weapons/sword/sword_projectile.tscn")
 func get_instance():
 	const type = preload("res://Scripts/flamethrower_scripts/fire_projectile.gd")
-	var ret: type = preload("res://Scenes/flamethrower/fire_projectile.tscn").instantiate()
+	var ret: type = preload("res://Scenes/Weapons/flamethrower/fire_projectile.tscn").instantiate()
 	add_child(ret)
 	ret.status = ret.status.duplicate()
 	ret.stats = ret.stats.duplicate()

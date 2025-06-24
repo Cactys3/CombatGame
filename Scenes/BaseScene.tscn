@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b1lme8t63rjpt" path="res://Art/Area Art/Background.png" id="1_rub18"]
 [ext_resource type="Script" uid="uid://btc78y4dd76bf" path="res://Scripts/CameraScript.gd" id="1_x613b"]
-[ext_resource type="PackedScene" uid="uid://dbfx0pgjmmdgy" path="res://Scenes/character.tscn" id="2_bdfmm"]
+[ext_resource type="PackedScene" uid="uid://dbfx0pgjmmdgy" path="res://Scenes/Characters/character.tscn" id="2_bdfmm"]
 [ext_resource type="Texture2D" uid="uid://btvcwala5rhxh" path="res://Art/Weapons/Sword.png" id="2_lx10p"]
 [ext_resource type="Texture2D" uid="uid://ddxlwv6yh3qsm" path="res://Art/Weapons/Gun_1.png" id="3_avgfm"]
 [ext_resource type="Texture2D" uid="uid://cnj0fjnxdyuts" path="res://Art/Weapons/arrow.png" id="4_yohyp"]
@@ -378,6 +378,7 @@ offset_bottom = 24.0
 text = "-999"
 
 [node name="HP Label" type="Label" parent="Character/Camera/Store"]
+layout_mode = 0
 offset_left = 446.0
 offset_top = 132.0
 offset_right = 571.0

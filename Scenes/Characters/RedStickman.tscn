@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=3 uid="uid://d30gfywsj1mnn"]
+
+[ext_resource type="Script" uid="uid://drqt7dayru5gj" path="res://Scripts/character_scripts/red_stickman.gd" id="1_o8t6o"]
+[ext_resource type="Texture2D" uid="uid://fcofc2k6hdbj" path="res://Art/Characters/RedStickman.png" id="1_s580k"]
+[ext_resource type="PackedScene" uid="uid://bl326pivivx3p" path="res://Scenes/Misc/health_component.tscn" id="3_60r1k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w2wq3"]
+atlas = ExtResource("1_s580k")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b3rwx"]
+atlas = ExtResource("1_s580k")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gp1go"]
+atlas = ExtResource("1_s580k")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ceqyb"]
+atlas = ExtResource("1_s580k")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mrytv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w2wq3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b3rwx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gp1go")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ceqyb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ct4fw"]
+radius = 14.0
+height = 50.0
+
+[node name="RedStickman" type="CharacterBody2D" node_paths=PackedStringArray("health_component") groups=["player"]]
+collision_layer = 15
+collision_mask = 15
+script = ExtResource("1_o8t6o")
+health_component = NodePath("HealthComponent")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_mrytv")
+autoplay = "default"
+frame = 3
+frame_progress = 1.0
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_60r1k")]
+
+[node name="HitboxComponent" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("CapsuleShape2D_ct4fw")

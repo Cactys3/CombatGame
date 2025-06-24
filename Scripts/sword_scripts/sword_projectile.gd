@@ -3,7 +3,7 @@ extends Projectile
 const type = preload("res://Scripts/sword_scripts/sword_projectile.gd")
 
 func get_instance():
-	var ret: type = preload("res://Scenes/sword/sword_projectile.tscn").instantiate()
+	var ret: type = preload("res://Scenes/Weapons/sword/sword_projectile.tscn").instantiate()
 	add_child(ret)
 	ret.status = ret.status.duplicate()
 	ret.stats = ret.stats.duplicate()

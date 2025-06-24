@@ -1,0 +1,104 @@
+[gd_scene load_steps=13 format=3 uid="uid://dojorw4mt1dsw"]
+
+[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/Enemy.gd" id="1_yjqvm"]
+[ext_resource type="Resource" uid="uid://d2vkyrbiy2gh0" path="res://Scenes/Enemies/Resources/grub_stats.tres" id="2_8ri7c"]
+[ext_resource type="Texture2D" uid="uid://d2peq71x62qh" path="res://Art/Characters/FirstEnemy.png" id="2_wnpdl"]
+[ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/hurtbox.gd" id="3_wcdpf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mvptc"]
+atlas = ExtResource("2_wnpdl")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bdofj"]
+atlas = ExtResource("2_wnpdl")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsxx5"]
+atlas = ExtResource("2_wnpdl")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ha66"]
+atlas = ExtResource("2_wnpdl")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mr5sk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mvptc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bdofj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gsxx5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ha66")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ujyka"]
+radius = 6.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6ith5"]
+height = 28.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kgqow"]
+radius = 9.0
+height = 26.0
+
+[node name="Grub" type="RigidBody2D" node_paths=PackedStringArray("damage_hitbox") groups=["enemy"]]
+collision_layer = 32
+collision_mask = 32
+mass = 5.0
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_yjqvm")
+stats = ExtResource("2_8ri7c")
+melee_attacks = true
+damage_hitbox = NodePath("Damage_Hitbox")
+xp_on_death = 20
+money_on_death = 20
+weapon_knockback = 900.0
+base_damage = 20.0
+base_movespeed = 150.0
+base_health = 20.0
+base_knockback_modifier = 1.0
+base_cooldown = 0.1
+base_range = 20.0
+base_speed = 20.0
+base_acceleration = 20.0
+base_lifetime = 20.0
+base_piercing = 20.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_mr5sk")
+autoplay = "default"
+
+[node name="MinionBlock" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_ujyka")
+
+[node name="Damage_Hitbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox"]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_6ith5")
+
+[node name="Health_HitArea" type="Area2D" parent="." node_paths=PackedStringArray("callee")]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("3_wcdpf")
+callee = NodePath("..")
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_HitArea"]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_kgqow")
+
+[connection signal="body_entered" from="Damage_Hitbox" to="." method="_on_damage_hitbox_body_entered"]

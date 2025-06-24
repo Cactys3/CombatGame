@@ -1,12 +1,12 @@
 extends Area2D
 class_name Attachment
 
-const RAILGUN = preload("res://Scenes/railgun/railgun_attachment.tscn")
-const PISTOL = preload("res://Scenes/pistol/pistol_attachment.tscn")
-const FLAMETHROWER = preload("res://Scenes/flamethrower/flamethrower_attachment.tscn")
-const SWORD = preload("res://Scenes/sword/sword_attachment.tscn")
+const RAILGUN = preload("res://Scenes/Weapons/railgun/railgun_attachment.tscn")
+const PISTOL = preload("res://Scenes/Weapons/pistol/pistol_attachment.tscn")
+const FLAMETHROWER = preload("res://Scenes/Weapons/flamethrower/flamethrower_attachment.tscn")
+const SWORD = preload("res://Scenes/Weapons/sword/sword_attachment.tscn")
 func get_scene() -> PackedScene:
-	return preload("res://Scenes/pistol/pistol_attachment.tscn")
+	return preload("res://Scenes/Weapons/pistol/pistol_attachment.tscn")
 
 var data: ItemData = ItemData.new()
 

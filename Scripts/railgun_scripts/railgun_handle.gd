@@ -1,7 +1,7 @@
 extends Handle
 
 func get_scene() -> PackedScene:
-	return preload("res://Scenes/railgun/railgun_handle.tscn")
+	return preload("res://Scenes/Weapons/railgun/railgun_handle.tscn")
 
 ## called in ready
 func setdata():

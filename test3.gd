@@ -9,7 +9,7 @@ func _ready() -> void:
 	t = 0
 	_update_subviewport_size()
 	get_tree().root.connect("size_changed", Callable(self, "_update_subviewport_size"))
-	get_tree().root.size_changed.connect(_update_subviewport_size)
+	#get_tree().root.size_changed.connect(_update_subviewport_size)
 
 func _process(delta: float) -> void:
 	pass

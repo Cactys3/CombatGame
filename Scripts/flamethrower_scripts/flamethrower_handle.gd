@@ -1,7 +1,7 @@
 extends Handle
 
 func get_scene() -> PackedScene:
-	return preload("res://Scenes/flamethrower/flamethrower_handle.tscn")
+	return preload("res://Scenes/Weapons/flamethrower/flamethrower_handle.tscn")
 
 #this makes it spin in a circle for the aiming
 

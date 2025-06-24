@@ -1,7 +1,7 @@
 extends Attachment
 
 func get_scene() -> PackedScene:
-	return preload("res://Scenes/pistol/pistol_attachment.tscn")
+	return preload("res://Scenes/Weapons/pistol/pistol_attachment.tscn")
 
 ## called in ready
 func setdata():

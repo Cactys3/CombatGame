@@ -1,0 +1,88 @@
+[gd_scene load_steps=12 format=3 uid="uid://0b0m70q5teo2"]
+
+[ext_resource type="Script" uid="uid://c2puy4i654rcd" path="res://Scripts/enemy_scripts/Jub/Jub.gd" id="1_jod3n"]
+[ext_resource type="Texture2D" uid="uid://d2peq71x62qh" path="res://Art/Characters/FirstEnemy.png" id="2_3q6j8"]
+[ext_resource type="Resource" uid="uid://bvis647gqlmpl" path="res://Scenes/enemy/Resources/jub_stats.tres" id="2_ecxbl"]
+[ext_resource type="PackedScene" uid="uid://ci2cd4gwhq203" path="res://Scenes/enemy/Jub_Bullet.tscn" id="3_ecxbl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mvptc"]
+atlas = ExtResource("2_3q6j8")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bdofj"]
+atlas = ExtResource("2_3q6j8")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsxx5"]
+atlas = ExtResource("2_3q6j8")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ha66"]
+atlas = ExtResource("2_3q6j8")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ecxbl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mvptc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bdofj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gsxx5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ha66")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eqgxe"]
+radius = 9.0
+height = 26.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_26nvx"]
+height = 28.0
+
+[node name="Jub" type="CharacterBody2D" node_paths=PackedStringArray("damage_hitbox")]
+collision_layer = 8
+collision_mask = 12
+script = ExtResource("1_jod3n")
+stats = ExtResource("2_ecxbl")
+damage_hitbox = NodePath("Damage_Hitbox")
+xp_on_death = 3
+money_on_death = 5
+weapon_knockback = 5.0
+base_damage = 10.0
+base_movespeed = 90.0
+base_health = 80.0
+base_regen = 5.0
+base_cooldown = 5.0
+projectile = ExtResource("3_ecxbl")
+shoots_projectiles = true
+base_range = 130.0
+base_speed = 50.0
+base_lifetime = 15.0
+base_piercing = 3.0
+metadata/_custom_type_script = "uid://cb50t2aj1v728"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 0.480911, 0.468151, 1)
+sprite_frames = SubResource("SpriteFrames_ecxbl")
+autoplay = "default"
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_eqgxe")
+
+[node name="Damage_Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox"]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_26nvx")

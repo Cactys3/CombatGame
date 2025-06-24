@@ -1,7 +1,7 @@
 extends Node
 class_name GameManager
 
-@onready var weapon_frame = preload("res://Scenes/weapon_frame.tscn")
+@onready var weapon_frame = preload("res://Scenes/Weapons/weapon_frame.tscn")
 
 ## Single Instance Object
 static var instance: GameManager

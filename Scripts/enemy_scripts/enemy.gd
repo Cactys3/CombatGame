@@ -28,7 +28,7 @@ class_name Enemy
 @export var base_lifetime: float
 @export var base_piercing: float
 const POPUP_TEXT = preload("res://Scenes/UI/popup_text.tscn")
-const xp = preload("res://Scenes/xp_blip.tscn")
+const xp = preload("res://Scenes/Misc/xp_blip.tscn")
 var player: Player_Script
 var attack_on_cd: bool = true
 var stun_time_left: float = 0

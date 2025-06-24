@@ -1,32 +1,32 @@
 extends Resource
 class_name ItemData
 ## Generic Fields (always active)
-var item_packed_scene: PackedScene
-var item_name: String = "default name"
-var item_description: String = "default description"
-var item_type: String = "default type"
-var item_color: Color = Color.DARK_SLATE_BLUE
-var item_image: Texture2D = preload("res://Art/UI/MissingTexture.png")
-var ready: bool = false
+@export var item_packed_scene: PackedScene
+@export var item_name: String = "default name"
+@export var item_description: String = "default description"
+@export var item_type: String = "default type"
+@export var item_color: Color = Color.DARK_SLATE_BLUE
+@export var item_image: Texture2D = preload("res://Art/UI/MissingTexture.png")
+@export var ready: bool = false
 ## WeaponFrame Fields (only for weapons)
-var attachment = null
-var handle = null
-var projectile = null
+@export var attachment: ItemData = null
+@export var handle: ItemData = null
+@export var projectile: ItemData = null
 ## Item Fields (only for items)
-var stackable: bool = true
-var count: int = 0 # num of this item already owned (check via gamemanager)
+@export var stackable: bool = true
+@export var count: int = 0 # num of this item already owned (check via gamemanager)
 ## Common Fields (common, but not always active)
-var stats: StatsResource = null
-var status_effects: StatusEffects = null
-var item_rarity: String = "default rarity"
-var item_buy_cost: float = 5
-var item_sell_cost_modifier: float = 0.8
+@export var stats: StatsResource = null
+@export var status_effects: StatusEffects = null
+@export var item_rarity: String = "default rarity"
+@export var item_buy_cost: float = 5
+@export var item_sell_cost_modifier: float = 0.8
 ## Booleans for optional Fields
-var can_sell: bool = true
-var can_buy: bool = true
-var has_rarity: bool = true
-var has_stats: bool = false
-var has_status_effects: bool = false
+@export var can_sell: bool = true
+@export var can_buy: bool = true
+@export var has_rarity: bool = true
+@export var has_stats: bool = false
+@export var has_status_effects: bool = false
 ## Item Types
 const HANDLE = "handle"
 const ATTACHMENT = "attachment"
