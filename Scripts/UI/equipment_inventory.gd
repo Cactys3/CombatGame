@@ -11,6 +11,9 @@ func _process(delta: float) -> void:
 
 ## Override
 func is_valid_type(item: ItemUI):
+	print("testing: " + item.data.item_type)
+	print(item.data.item_type == ItemData.ITEM || item.data.item_type == ItemData.WEAPON)
+	print(super(item))
 	return super(item) && (item.data.item_type == ItemData.ITEM || item.data.item_type == ItemData.WEAPON)
 
 func get_type() -> String:

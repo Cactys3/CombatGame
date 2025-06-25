@@ -163,7 +163,9 @@ func _process(delta: float) -> void:
 		pass#ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/flamethrower_handle.gd").new())
 	
 	if Input.is_action_just_pressed("test_6"):
-		pass
+		var test_item = shop_man.test_make_itemUI()
+		if !ui_man.shop.ui_add(test_item):
+			ui_man.shop.new_add(test_item)
 
 func sell_item(item: ItemUI) -> bool:
 	if (item && item.data.can_sell):
@@ -181,6 +183,7 @@ func add_item_to_player(item: Item) -> bool:
 	if (item):
 		active_items.append(item)
 		return true #TODO: add
+	print("add: " + str(is_instance_valid(item)))
 	return false
 
 func remove_item_from_player(item: Item) -> bool:
@@ -231,6 +234,7 @@ func move_item(item: ItemUI, origin: Inventory, destination: Inventory) -> bool:
 		var complete_move: bool = true
 		var remove_origin: bool = true
 		var add_destination: bool = true
+		var money_net_change = 0.0
 		match(origin.get_type()):
 			Inventory.STORAGE:
 				pass
@@ -247,7 +251,7 @@ func move_item(item: ItemUI, origin: Inventory, destination: Inventory) -> bool:
 					_:
 						pass
 			Inventory.SHOP:
-				money -= item.data.item_buy_cost
+				money_net_change += -item.data.item_buy_cost
 			_:
 				pass
 		match(destination.get_type()):
@@ -260,14 +264,16 @@ func move_item(item: ItemUI, origin: Inventory, destination: Inventory) -> bool:
 							complete_move = false
 							return false
 					ItemData.ITEM:
-						if !add_item_to_player(item.item):
+						if !add_item_to_player(item.item): ## TODO: new implementation: if !add_item_to_player(item.data.create_item()):
+							print("!add_item_to_player")
 							complete_move = false
 							return false
 					_:
 						pass
 			Inventory.SHOP:
-				money += item.data.item_buy_cost * item.data.item_sell_cost_modifier
+				money_net_change += item.data.item_buy_cost * item.data.item_sell_cost_modifier
 		if complete_move:
+			money += money_net_change
 			if remove_origin:
 				origin.new_remove(item)
 			if add_destination:

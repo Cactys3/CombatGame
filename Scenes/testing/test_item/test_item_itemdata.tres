@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=5 format=3 uid="uid://c86e01ae2kugb"]
+
+[ext_resource type="Texture2D" uid="uid://bnt0ob8u3jrvo" path="res://Art/Characters/Example_Game_Screen.png" id="1_1lc6d"]
+[ext_resource type="PackedScene" uid="uid://bbgiysh3wqqr4" path="res://Scenes/testing/test_item/test_item.tscn" id="2_ia0j0"]
+[ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/UI/itemdata.gd" id="3_dq4wp"]
+[ext_resource type="Resource" uid="uid://yp7obxvme4et" path="res://Scenes/testing/test_item/test_item_stats.tres" id="4_0wt6q"]
+
+[resource]
+script = ExtResource("3_dq4wp")
+item_packed_scene = ExtResource("2_ia0j0")
+item_name = "test item"
+item_description = "this is a test item for testing"
+item_type_enum = 5
+item_type = "item"
+item_color = Color(0.517647, 0.0431373, 0.188235, 1)
+item_image = ExtResource("1_1lc6d")
+randomizable = false
+stats = ExtResource("4_0wt6q")
+item_rarity_enum = 1
+item_rarity = "common"
+item_buy_cost = 3.0
+item_sell_cost_modifier = 0.7
+can_sell = true
+can_buy = true
+has_rarity = true
+has_stats = false
+has_status_effects = false
+stackable = false
+metadata/_custom_type_script = "uid://dnj6pao77g7bt"

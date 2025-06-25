@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbgiysh3wqqr4"]
+
+[ext_resource type="Script" uid="uid://dboq0wsvmkrs2" path="res://Scripts/Items/Item-DamageBuff.gd" id="1_814hw"]
+
+[node name="TestItem" type="Node"]
+script = ExtResource("1_814hw")

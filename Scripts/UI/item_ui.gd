@@ -61,6 +61,15 @@ func _ready() -> void:
 
 #func set_ui_details(is_expanded: bool, )
 
+func set_itemdata(new_itemdata: ItemData): ## TODO: working on this right now
+	if is_instance_valid(new_itemdata):
+		data = new_itemdata
+		NameLabel.text = data.item_name
+		DescriptionLabel.text = data.item_description
+		DescriptionPanel.modulate = data.item_color
+		IconTexture.texture = data.item_image
+		BackgroundTexture.texture = data.item_image
+
 func set_item(new_underlying_item: Node):
 	item = new_underlying_item
 	if item.has_method("getdata"):
