@@ -179,7 +179,7 @@ func damage_player(player: Node2D):
 	cooldown_stopwatch = 0;
 	var attack: Attack = Attack.new()
 	attack.setup(curr_damage, global_position, 0, StatusEffectDictionary.new(), self, weapon_stun, 0, weapon_knockback)
-	player.damage(attack)
+	player.damage(attack) #TODO: put into game manager?
 	if melee_attacks:
 		damage_hitbox.set_deferred("monitoring", false)
 

@@ -49,10 +49,14 @@ func delete_stats_visual():
 	stats_visual = null
 
 func get_enemy_nearby(distance: float) -> Variant:
+	var nearest_enemy = null
 	for enemy in get_tree().get_nodes_in_group("enemy"):
 		if global_position.distance_to(enemy.global_position) <= (distance * scale.length()):
-			return enemy
-	return null
+			if !nearest_enemy:
+				nearest_enemy = enemy
+			elif global_position.distance_to(enemy.global_position) < global_position.distance_to(nearest_enemy.global_position):
+				nearest_enemy = enemy
+	return nearest_enemy
 
 func change_slot(slot: int, max) -> void:#Called when Weapon is created #TODO: does the weapon only need slot number to start?
 	handle.weapon_slot = slot
