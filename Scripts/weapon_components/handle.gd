@@ -46,7 +46,7 @@ func _ready() -> void:
 
 ## meant to be overriden by extender
 func setdata():
-	data.item_type = "handle"
+	pass#data.item_type = "handle"
 func getdata() -> ItemData:
 	return data
 

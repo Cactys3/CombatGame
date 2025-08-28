@@ -20,7 +20,7 @@ func get_instance():
 func setdata():
 	var descrip = "A projectile of hot flame which goes through every enemy in its path, but quickly fades, Cost/Mod: " + str(5) + str(0.8)
 	var image = preload("res://Art/New_Weapons/flamethrower/Fire_Flamethrower.png")
-	data.setdata("Flame", descrip, ItemData.PROJECTILE, "common", Color.CORAL, image, 5, 0.8)
+	pass#data.setdata("Flame", descrip, ItemData.PROJECTILE, "common", Color.CORAL, image, 5, 0.8)
 
 func _process(delta: float) -> void:
 	super(delta)

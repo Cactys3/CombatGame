@@ -36,7 +36,7 @@ func make_weapon() -> bool:
 
 ## Override
 func is_valid_type(item: ItemUI):
-	return super(item) && (item.data.item_type == ItemData.ATTACHMENT || item.data.item_type == ItemData.HANDLE || item.data.item_type == ItemData.PROJECTILE || item.data.item_type == ItemData.MOD)
+	return super(item) && (item.data.item_type == ItemData.item_types.attachment || item.data.item_type == ItemData.item_types.handle || item.data.item_type == ItemData.item_types.projectile || item.data.item_type == ItemData.item_types.mod)
 
 func get_type() -> String:
 	print("get type: crafting")
@@ -56,7 +56,7 @@ func new_add(item: ItemUI):
 	item.inventory = self
 	item.position = Vector2.ZERO
 	match item.data.item_type:
-		ItemData.ATTACHMENT:
+		ItemData.item_types.attachment:
 			if attachment != null:
 				var a: ItemUI = attachment
 				new_remove(attachment)
@@ -64,7 +64,7 @@ func new_add(item: ItemUI):
 			attachment = item
 			AttachmentHolder.add_child(item)
 			item.item_parent = AttachmentHolder
-		ItemData.HANDLE:
+		ItemData.item_types.handle:
 			if handle != null:
 				var h: ItemUI = handle
 				new_remove(handle)
@@ -72,7 +72,7 @@ func new_add(item: ItemUI):
 			handle = item
 			HandleHolder.add_child(item)
 			item.item_parent = HandleHolder
-		ItemData.PROJECTILE:
+		ItemData.item_types.projectile:
 			if projectile != null:
 				var p: ItemUI = projectile
 				new_remove(projectile)
@@ -80,7 +80,7 @@ func new_add(item: ItemUI):
 			projectile = item
 			ProjectileHolder.add_child(item)
 			item.item_parent = ProjectileHolder
-		ItemData.MOD:
+		ItemData.item_types.mod:
 			if mods.size() >= 2: # TODO: max mod size reached?
 				pass
 			mods.append(item)
@@ -95,16 +95,16 @@ func new_remove(item: ItemUI):
 		item.get_parent().remove_child(item)
 	items.erase(item)
 	match item.data.item_type:
-		ItemData.ATTACHMENT:
+		ItemData.item_types.attachment:
 			if attachment == item:
 				attachment = null
-		ItemData.HANDLE:
+		ItemData.item_types.handle:
 			if handle == item:
 				handle = null
-		ItemData.PROJECTILE:
+		ItemData.item_types.projectile:
 			if projectile == item:
 				projectile = null
-		ItemData.MOD:
+		ItemData.item_types.mod:
 			pass
 		_:
 			print("bad bad bad this is bad bad this bad") ## uhm

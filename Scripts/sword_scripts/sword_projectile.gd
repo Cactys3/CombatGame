@@ -16,7 +16,7 @@ func get_instance():
 func setdata():
 	var descrip = "Sword Wave Projectile!!!! Cost/Mod: " + str(6) + str(0.8)
 	var image = preload("res://Art/New_Weapons/Sword/projectile_sword.png")
-	data.setdata("Flame", descrip, ItemData.PROJECTILE, "common", Color.MEDIUM_PURPLE, image, 5, 0.8)
+	pass#data.setdata("Flame", descrip, ItemData.PROJECTILE, "common", Color.MEDIUM_PURPLE, image, 5, 0.8)
 
 func _process(delta: float) -> void:
 	super(delta)

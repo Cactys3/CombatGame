@@ -33,7 +33,7 @@ func _ready() -> void:
 
 ## meant to be overriden by extender
 func setdata():
-	data.item_type = "attachment"
+	pass#data.item_type = "attachment"
 
 func getdata() -> ItemData:
 	return data

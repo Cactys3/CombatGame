@@ -7,7 +7,7 @@ func get_scene() -> PackedScene:
 func setdata():
 	var descrip = "An attachment for a railgun."
 	var image = preload("res://Art/New_Weapons/Railgun/Railgun_Attachment.png")
-	data.setdata("RailA", descrip, ItemData.ATTACHMENT, "common", Color.AQUAMARINE, image, 5, 0.8)
+	pass#data.setdata("RailA", descrip, ItemData.ATTACHMENT, "common", Color.AQUAMARINE, image, 5, 0.8)
 
 
 ##Projects a lazar beam aiming sight for awhile until firing a lazar blast that does a fuck ton of dmg and stuff.

@@ -202,7 +202,7 @@ func remove_weapon_from_player(weapon: ItemWeapon) -> bool:
 	return false
 
 func craft_weapon(handle: ItemUI, attachment: ItemUI, projectile: ItemUI) -> bool:
-	if (handle && attachment && projectile) && (handle.data.item_type == ItemData.HANDLE && attachment.data.item_type == ItemData.ATTACHMENT && projectile.data.item_type == ItemData.PROJECTILE):
+	if (handle && attachment && projectile) && (handle.data.item_type == ItemData.item_types.handle && attachment.data.item_type == ItemData.item_types.attachment && projectile.data.item_type == ItemData.item_types.projectile):
 		
 		var weapon_item: ItemWeapon = ItemWeapon.new()
 		weapon_item.setup(attachment.item, handle.item, projectile.item)
@@ -240,11 +240,11 @@ func move_item(item: ItemUI, origin: Inventory, destination: Inventory) -> bool:
 				pass
 			Inventory.EQUIPMENT:
 				match(item.data.item_type):
-					ItemData.WEAPON:
+					ItemData.item_types.weapon:
 						if !remove_weapon_from_player(item.item):
 							complete_move = false
 							return false
-					ItemData.ITEM:
+					ItemData.item_types.item:
 						if !remove_item_from_player(item.item):
 							complete_move = false
 							return false
@@ -259,11 +259,11 @@ func move_item(item: ItemUI, origin: Inventory, destination: Inventory) -> bool:
 				pass
 			Inventory.EQUIPMENT:
 				match(item.data.item_type):
-					ItemData.WEAPON:
+					ItemData.item_types.weapon:
 						if !add_weapon_to_player(item.item):
 							complete_move = false
 							return false
-					ItemData.ITEM:
+					ItemData.item_types.item:
 						if !add_item_to_player(item.item): ## TODO: new implementation: if !add_item_to_player(item.data.create_item()):
 							print("!add_item_to_player")
 							complete_move = false
@@ -289,9 +289,9 @@ func remove_item(item: ItemUI, origin: Inventory) -> bool:
 				pass
 			Inventory.EQUIPMENT:
 				match(item.data.item_type):
-					ItemData.WEAPON:
+					ItemData.item_types.weapon:
 						remove_weapon_from_player(item.item)
-					ItemData.ITEM:
+					ItemData.item_types.item:
 						remove_item_from_player(item.item)
 					_:
 						pass
@@ -306,7 +306,7 @@ func can_buy(price: float) -> bool:
 
 func can_equip(item: ItemUI) -> bool:
 	## Check if its a weapon or item, Check if there is room for weapon, etc..
-	return item.data.item_type == ItemData.WEAPON || item.data.item_type == ItemData.ITEM
+	return item.data.item_type == ItemData.item_types.weapon || item.data.item_type == ItemData.item_types.item
 
 func can_unequip(item: ItemUI) -> bool:
 	return true ## Check if player has weapon equipped

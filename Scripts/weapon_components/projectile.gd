@@ -50,7 +50,7 @@ func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
 
 ## meant to be overriden by extender
 func setdata():
-	data.item_type = "projectile"
+	pass#data.item_type = "projectile"
 
 func getdata() -> ItemData:
 	return data

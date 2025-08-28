@@ -5,9 +5,9 @@ func get_scene() -> PackedScene:
 
 ## called in ready
 func setdata():
-	var descrip = "A sword handle"
-	var image = preload("res://Art/New_Weapons/Sword/Handle_Sword.png")
-	data.setdata("SwordH", descrip, ItemData.HANDLE, "common", Color.DARK_CYAN, image, 2, 0.8)
+	#var descrip = "A sword handle"
+	#var image = preload("res://Art/New_Weapons/Sword/Handle_Sword.png")
+	pass#data.setdata("SwordH", descrip, ItemData.HANDLE, "common", Color.DARK_CYAN, image, 2, 0.8)
 
 func _ready() -> void:
 	super()

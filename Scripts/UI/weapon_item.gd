@@ -36,7 +36,7 @@ func setdata():
 		var cost = attachment.getdata().item_buy_cost + handle.getdata().item_buy_cost + projectile.getdata().item_buy_cost
 		var itemname = attachment.getdata().item_name + handle.getdata().item_name + projectile.getdata().item_name
 		var descrip = attachment.getdata().item_name + handle.getdata().item_name + projectile.getdata().item_name
-		data.setdata(itemname, descrip, ItemData.WEAPON, "common", Color.BLUE, ItemData.MISSINGTEXTURE, cost, 0.6)
+		pass#data.setdata(itemname, descrip, ItemData.WEAPON, "common", Color.BLUE, ItemData.MISSINGTEXTURE, cost, 0.6)
 	pass #TODO: set data based on components
 
 func getdata() -> ItemData:

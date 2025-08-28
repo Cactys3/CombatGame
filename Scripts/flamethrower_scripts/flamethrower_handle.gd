@@ -13,9 +13,9 @@ func _ready() -> void:
 
 ## called in ready
 func setdata():
-	var descrip = "A handle that spins around the player, throwing projectiles everywhere.\nWhile it has lower damage, it can be good at keeping enemies away."
-	var image = preload("res://Art/New_Weapons/flamethrower/Handle_Flamethrower.png")
-	data.setdata("Flame", descrip, ItemData.HANDLE, "common", Color.CORAL, image, 5, 0.8)
+	#var descrip = "A handle that spins around the player, throwing projectiles everywhere.\nWhile it has lower damage, it can be good at keeping enemies away."
+	#var image = preload("res://Art/New_Weapons/flamethrower/Handle_Flamethrower.png")
+	pass#data.setdata("Flame", descrip, ItemData.HANDLE, "common", Color.CORAL, image, 5, 0.8)
 
 
 func _process(delta: float) -> void:

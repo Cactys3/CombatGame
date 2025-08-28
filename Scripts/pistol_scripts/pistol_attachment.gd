@@ -7,7 +7,7 @@ func get_scene() -> PackedScene:
 func setdata():
 	var descrip = "An attachment for a pistol."
 	var image = preload("res://Art/New_Weapons/Pistol/Attachment_Pistol.png")
-	data.setdata("PistolA", descrip, ItemData.ATTACHMENT, "common", Color.REBECCA_PURPLE, image, 3, 0.8)
+	pass#data.setdata("PistolA", descrip, ItemData.ATTACHMENT, "common", Color.REBECCA_PURPLE, image, 3, 0.8)
 
 
 func _ready() -> void:

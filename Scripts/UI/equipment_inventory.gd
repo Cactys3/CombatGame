@@ -11,10 +11,10 @@ func _process(delta: float) -> void:
 
 ## Override
 func is_valid_type(item: ItemUI):
-	print("testing: " + item.data.item_type)
-	print(item.data.item_type == ItemData.ITEM || item.data.item_type == ItemData.WEAPON)
+	#print("testing: " + item.data.item_type)
+	#print(item.data.item_type == ItemData.ITEM || item.data.item_type == ItemData.WEAPON)
 	print(super(item))
-	return super(item) && (item.data.item_type == ItemData.ITEM || item.data.item_type == ItemData.WEAPON)
+	return super(item) && (item.data.item_type == ItemData.item_types.item || item.data.item_type == ItemData.item_types.weapon)
 
 func get_type() -> String:
 	print("get type: equipment")
@@ -34,11 +34,11 @@ func new_add(item: ItemUI):
 	item.position = Vector2.ZERO
 	items.append(item)
 	match(item.data.item_type):
-		ItemData.WEAPON:
+		ItemData.item_types.weapon:
 			item.item_parent = WeaponParent
 			WeaponParent.add_child(item)
 			WeaponParent.queue_sort()
-		ItemData.ITEM:
+		ItemData.item_types.item:
 			item.item_parent = ItemParent
 			ItemParent.add_child(item)
 			ItemParent.queue_sort()
@@ -46,10 +46,10 @@ func new_add(item: ItemUI):
 func new_remove(item: ItemUI):
 	print("new_remove_equipment")
 	match(item.data.item_type):
-		ItemData.WEAPON:
+		ItemData.item_types.weapon:
 			WeaponParent.remove_child(item)
 			WeaponParent.queue_sort()
-		ItemData.ITEM:
+		ItemData.item_types.item:
 			ItemParent.remove_child(item)
 			ItemParent.queue_sort()
 	items.erase(item)

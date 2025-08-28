@@ -2,7 +2,7 @@ extends Node
 class_name Item
 
 var connect_all: bool = false
-var data: ItemData = ItemData.new()
+var data: ItemData
 var enabled: bool = false
 var manager: GameManager:
 	get():
