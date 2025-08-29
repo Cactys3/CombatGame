@@ -157,7 +157,10 @@ static func _dup_stats(item) -> Object:
 	return item
 
 static func make_itemUI(item) -> ItemUI:
-	item.setdata()
+	#item.setdata() OLD
+	#var UI: ItemUI = ItemUI.SCENE.instantiate()
+	#UI.set_item(item)
+	#return UI
 	var UI: ItemUI = ItemUI.SCENE.instantiate()
 	UI.set_item(item)
 	return UI
@@ -167,8 +170,8 @@ static func new_make_itemUI(itemdata) -> ItemUI:
 	UI.set_itemdata(itemdata)
 	return UI
 
-static func test_make_itemUI() -> ItemUI:
-	var itemdata: ItemData = preload("res://Scenes/testing/test_item/test_item_itemdata.tres").duplicate()
-	## TODO: Insert If Statments/Methods that check which type of item it is and randomize whatever values are randomizable
-	
-	return new_make_itemUI(itemdata)
+static func get_test() -> ItemData:
+	var itemdata: ItemData = preload("res://Resources/Items/DamageBuff/ItemData_DamageBuff.tres").duplicate(true)
+	itemdata = itemdata.duplicate(true)
+	itemdata.setup(true, ItemData.item_rarities.common)
+	return itemdata

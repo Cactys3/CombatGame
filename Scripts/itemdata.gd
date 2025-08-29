@@ -9,6 +9,7 @@ enum item_types{unset, handle, attachment, projectile, weapon, item, mod}
 @export var item_type: item_types
 #@export var item_type: String = "default type"
 @export var item_color: Color = Color.DARK_SLATE_BLUE
+@export var border_color: Color = Color.WHITE
 @export var item_image: Texture2D = preload("res://Art/UI/MissingTexture.png")
 @export var randomizable: bool = false
 ## Misc Fields (common, but not always active)
@@ -55,16 +56,16 @@ static var count: int = 0
 var ID: int 
 
 ## OLD
-func setdata(namae: String, description: String, type: String, rarity: String, color: Color, image: Texture2D, buycost: float, sellmodifier: float):
-	item_name = namae
-	item_description = description
-#	item_type = type
-	#item_rarity = rarity
-	item_color = color
-	item_image = image
-	item_buy_cost = buycost
-	item_sell_cost_modifier = sellmodifier
-	ready = true
+#func setdata(namae: String, description: String, type: String, rarity: String, color: Color, image: Texture2D, buycost: float, sellmodifier: float):
+	#item_name = namae
+	#item_description = description
+##	item_type = type
+	##item_rarity = rarity
+	#item_color = color
+	#item_image = image
+	#item_buy_cost = buycost
+	#item_sell_cost_modifier = sellmodifier
+	#ready = true
 
 ## happens only once when itemdata is created
 func setup(randomize: bool, rarity: item_rarities):
@@ -80,19 +81,19 @@ func setup(randomize: bool, rarity: item_rarities):
 ## Changes Variable Values based on rarity, assumes all values are default to begin with
 func set_rarity(rarity: item_rarities):
 	item_rarity = rarity
-	match(item_rarity):
-		1:
-			item_color = COMMON_COLOR
-		2:
-			item_color = RARE_COLOR
-		3:
-			item_color = EPIC_COLOR
-		4:
-			item_color = LEGENDARY_COLOR
-		5:
-			item_color = EXCLUSIVE_COLOR
+	match(rarity):
+		item_rarities.common:
+			border_color = COMMON_COLOR
+		item_rarities.rare:
+			border_color = RARE_COLOR
+		item_rarities.epic:
+			border_color = EPIC_COLOR
+		item_rarities.legendary:
+			border_color = LEGENDARY_COLOR
+		item_rarities.exclusive:
+			border_color = EXCLUSIVE_COLOR
 		_:
-			item_color = DEFAULT_COLOR
+			border_color = DEFAULT_COLOR
 	if item_rarity > 1:
 		item_buy_cost = item_buy_cost + (rarity_cost_modifier * item_rarity) #TODO: finalize equation
 		for key in stats.statsbase:

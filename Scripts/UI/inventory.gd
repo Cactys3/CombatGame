@@ -33,17 +33,18 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if ItemUI.dragging_some_item && get_global_rect().has_point(get_global_mouse_position()) && Input.is_action_just_released("left_click"):
 		var item: ItemUI = ItemUI.dragging_item
-		# OLD IMPLEMENTATION: call_deferred("drop", item)
-		if item.inventory != self: ## new implementation
-			call_deferred("ui_add", item) ## new implementation
+		if item.inventory != self && !toggle_button.hide_ui: 
+			call_deferred("ui_add", item)
 
 func is_valid_type(item: ItemUI) -> bool:
 	return is_instance_valid(item)
-
-func ui_add(item: ItemUI):
+## Adds Item Through Game Manager
+func ui_add(item: ItemUI) -> bool:
 	print("ui_add")
 	if !GameManager.instance.move_item(item, item.inventory, self):
 		print("Can't Add: " + item.data.item_name)
+		return false
+	return true
 
 func ui_remove(item: ItemUI):
 	print("ui_remove")
@@ -56,6 +57,7 @@ func new_remove(item: ItemUI):
 		item.get_parent().remove_child(item)
 	items.erase(item)
 
+## Force Adds Item without checking with Game Manager
 func new_add(item: ItemUI):
 	print("new_add")
 	item.inventory = self

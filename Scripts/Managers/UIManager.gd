@@ -45,12 +45,12 @@ func set_xp(value: String) -> void:
 func set_money(value: String) -> void:
 	money_label.text = value
 
-func add_shop_items(items: Array[ItemUI]) -> void:
+func add_shop_items(items: Array[ItemData]) -> void:
 	if enabled:
 		for item in items:
-			var i: ItemUI = preload("res://Scenes/UI/item_ui.tscn").instantiate()
-			i.set_item(item)
-			shop.add(item)
+			var item_ui: ItemUI = preload("res://Scenes/UI/item_ui.tscn").instantiate()
+			item_ui.set_item(item)
+			shop.add(item_ui)
 
 func _process(delta: float) -> void: 
 	pass

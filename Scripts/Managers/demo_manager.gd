@@ -87,7 +87,7 @@ func _process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("test_6"):
 		pass
-		MakeWeapon(RAILGUN_ATTACHMENT, RAILGUN_HANDLE, RAILGUN_PROJECTILE)
+		#MakeWeapon(RAILGUN_ATTACHMENT, RAILGUN_HANDLE, RAILGUN_PROJECTILE)
 
 	if Input.is_action_just_pressed("test_7"):
 		pass

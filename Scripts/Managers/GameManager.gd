@@ -89,25 +89,25 @@ func _ready() -> void:
 	call_deferred("@xp_setter", 0)
 	call_deferred("@money_setter", starting_money)
 	
-	ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(1)))
-	ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(2)))
-	ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(3)))
-	ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(4)))
-	ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_handle(1)))
-	ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_handle(2)))
-	ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_handle(3)))
-	ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_handle(4)))
-	ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(1)))
-	ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(2)))
-	ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(3)))
-	ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(4)))
-	ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(1)))
-	ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(2)))
-	ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(3)))
-	ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
-	ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
-	ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
-	ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
+	#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(1)))
+	#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(2)))
+	#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(3)))
+	#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(4)))
+	#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_handle(1)))
+	#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_handle(2)))
+	#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_handle(3)))
+	#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_handle(4)))
+	#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(1)))
+	#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(2)))
+	#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(3)))
+	#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(4)))
+	#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(1)))
+	#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(2)))
+	#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(3)))
+	#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
+	#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
+	#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
+	#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
 	
 	
 	global_stats.add_stats(character_choice_stats)
@@ -163,9 +163,13 @@ func _process(delta: float) -> void:
 		pass#ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/flamethrower_handle.gd").new())
 	
 	if Input.is_action_just_pressed("test_6"):
-		var test_item = shop_man.test_make_itemUI()
-		if !ui_man.shop.ui_add(test_item):
-			ui_man.shop.new_add(test_item)
+		var test_item = shop_man.get_test()
+		print("1")
+		var test_ui = ShopManager.make_itemUI(test_item)
+		print("2")
+		if !ui_man.shop.ui_add(test_ui):
+			print("3")
+			ui_man.shop.new_add(test_ui)
 
 func sell_item(item: ItemUI) -> bool:
 	if (item && item.data.can_sell):
@@ -230,30 +234,33 @@ func add_weapon_to_player(weapon: ItemWeapon) -> bool:
 
 ## Check if item can be removed and can be added, then does so
 func move_item(item: ItemUI, origin: Inventory, destination: Inventory) -> bool:
-	if item && origin && destination && origin.can_remove(item) && destination.can_add(item):
+	if item && destination && destination.can_add(item) && (!origin || (origin && origin.can_remove(item))):
 		var complete_move: bool = true
 		var remove_origin: bool = true
 		var add_destination: bool = true
 		var money_net_change = 0.0
-		match(origin.get_type()):
-			Inventory.STORAGE:
-				pass
-			Inventory.EQUIPMENT:
-				match(item.data.item_type):
-					ItemData.item_types.weapon:
-						if !remove_weapon_from_player(item.item):
-							complete_move = false
-							return false
-					ItemData.item_types.item:
-						if !remove_item_from_player(item.item):
-							complete_move = false
-							return false
-					_:
-						pass
-			Inventory.SHOP:
-				money_net_change += -item.data.item_buy_cost
-			_:
-				pass
+		if !origin:
+			remove_origin = false # Skip if adding new Item not already in an inventory
+		else:
+			match(origin.get_type()):
+				Inventory.STORAGE:
+					pass
+				Inventory.EQUIPMENT:
+					match(item.data.item_type):
+						ItemData.item_types.weapon:
+							if !remove_weapon_from_player(item.item):
+								complete_move = false
+								return false
+						ItemData.item_types.item:
+							if !remove_item_from_player(item.item):
+								complete_move = false
+								return false
+						_:
+							pass
+				Inventory.SHOP:
+					money_net_change += -item.data.item_buy_cost
+				_:
+					pass
 		match(destination.get_type()):
 			Inventory.STORAGE:
 				pass

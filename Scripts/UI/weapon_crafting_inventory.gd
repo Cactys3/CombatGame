@@ -20,6 +20,8 @@ func _process(delta: float) -> void:
 
 ## If successful: Adds weapon to player, adds weapon UI to equipment UI, destroys this weapon crafting menu
 func make_weapon() -> bool:
+	if toggle_button.hide_ui:
+		return false
 	if handle != null && attachment != null && projectile != null:
 		if ItemUI.dragging_some_item:
 			ItemUI.dragging_item.dragging = false # TODO: bug when make weapon button overlaps with item, this 'if' doesn't fix

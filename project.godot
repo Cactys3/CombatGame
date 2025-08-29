@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="CombatGame"
-run/main_scene="res://Scenes/BaseScene.tscn"
+run/main_scene="uid://dc0hdlr7wq3lq"
 config/features=PackedStringArray("4.4", "Forward Plus")
 run/max_fps=240
 boot_splash/use_filter=false

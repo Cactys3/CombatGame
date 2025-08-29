@@ -77,6 +77,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
@@ -84,6 +88,7 @@ mouse_default_cursor_shape = 6
 theme_override_styles/panel = SubResource("StyleBoxFlat_kwy7p")
 
 [node name="DescriptionText" type="RichTextLabel" parent="DescriptionPanel"]
+custom_minimum_size = Vector2(20, 20)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -93,6 +98,6 @@ grow_vertical = 2
 focus_mode = 2
 mouse_filter = 1
 bbcode_enabled = true
-scroll_active = false
+text = "Default Description"
 shortcut_keys_enabled = false
 selection_enabled = true

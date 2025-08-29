@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=6 format=3 uid="uid://c0eepouojdno6"]
 
-[ext_resource type="Texture2D" uid="uid://lqpckh7fkgjy" path="res://Art/UI/MissingTexture.png" id="1_5bn1u"]
 [ext_resource type="Resource" uid="uid://b6x7ww5k6lrde" path="res://Resources/Items/DamageBuff/Stats_DamageBuff.tres" id="1_bfqov"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/itemdata.gd" id="2_3h1ys"]
+[ext_resource type="Texture2D" uid="uid://vfsxq8j42aj1" path="res://Art/Items/DamageBuff.png" id="2_ied6y"]
 [ext_resource type="PackedScene" uid="uid://c2dpxowebfmdn" path="res://Scenes/Items/damage_buff/DamageBuff.tscn" id="2_wk2ag"]
 [ext_resource type="Resource" uid="uid://dadp48y853con" path="res://Resources/Items/DamageBuff/Rarity_Stat_Modifiers_DamageBuff.tres" id="3_ied6y"]
 
@@ -10,10 +10,11 @@
 script = ExtResource("2_3h1ys")
 item_packed_scene = ExtResource("2_wk2ag")
 item_name = "Damage Buff"
-item_description = "Buffs damage!"
+item_description = "Buffs damage!j09ergwpo[ijergaoij[weijrfogjioaergjoikaergiojaergjioaergjioae4rg"
 item_type = 5
 item_color = Color(0.282353, 0.239216, 0.545098, 1)
-item_image = ExtResource("1_5bn1u")
+border_color = Color(1, 1, 1, 1)
+item_image = ExtResource("2_ied6y")
 randomizable = true
 default_stats = ExtResource("1_bfqov")
 rarity_stat_modifiers = ExtResource("3_ied6y")
@@ -23,7 +24,7 @@ item_buy_cost = 5.0
 item_sell_cost_modifier = 0.8
 can_sell = true
 can_buy = true
-has_rarity = false
+has_rarity = true
 has_stats = true
 has_status_effects = false
 stackable = false

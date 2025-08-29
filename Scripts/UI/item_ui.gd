@@ -4,10 +4,9 @@ class_name ItemUI
 
 const SCENE = preload("res://Scenes/UI/item_ui.tscn")
 
-
-
 ## Given by UIManager
-var item
+#var item
+var data: ItemData
 var inventory: Inventory
 var item_parent: Control
 var draggable: bool
@@ -18,7 +17,7 @@ var string: String = "hello  \n"
 static var IDindex: int = 1
 var ID = 0
 ## Given by Item's Variables
-var data: ItemData = ItemData.new()
+#var data: ItemData = ItemData.new()
 
 ## Control Nodes Visual Representation
 @export var NameLabel: Label
@@ -26,8 +25,8 @@ var data: ItemData = ItemData.new()
 @export var BackgroundTexture: TextureRect
 @export var DescriptionPanel: Panel
 @export var DescriptionLabel: RichTextLabel
-const DescriptionMaxY: float = 50
-const DescriptionMaxX: float = 38
+const DescriptionMaxY: float = 120
+const DescriptionMaxX: float = 120
 
 var showing_details: bool = false
 #var mouse_hover: bool = false
@@ -45,7 +44,6 @@ static var dragging_item: ItemUI = null
 #var extra_lore
 #var ID: String
 
-
 ## expanded vs small version
 # Change size of 
 
@@ -61,42 +59,52 @@ func _ready() -> void:
 
 #func set_ui_details(is_expanded: bool, )
 
-func set_itemdata(new_itemdata: ItemData): ## TODO: working on this right now
-	if is_instance_valid(new_itemdata):
-		data = new_itemdata
-		NameLabel.text = data.item_name
-		DescriptionLabel.text = data.item_description
-		DescriptionPanel.modulate = data.item_color
-		IconTexture.texture = data.item_image
-		BackgroundTexture.texture = data.item_image
+#func set_itemdata(new_itemdata: ItemData): ## TODO: working on this right now
+	#if is_instance_valid(new_itemdata):
+		#data = new_itemdata
+		#NameLabel.text = data.item_name
+		#DescriptionLabel.text = data.item_description
+		#DescriptionPanel.modulate = data.item_color
+		#IconTexture.texture = data.item_image
+	#else:
+		#push_error("ItemData Not Valid")
 
-func set_item(new_underlying_item: Node):
-	item = new_underlying_item
-	if item.has_method("getdata"):
-		item.setdata()
-		data = item.getdata()
-		if data.ready:
-			NameLabel.text = data.item_name
-			DescriptionLabel.text = data.item_description
-			DescriptionPanel.modulate = data.item_color
-			IconTexture.texture = data.item_image
-			BackgroundTexture.texture = data.item_image
+func set_item(new_data: ItemData):
+	#item = new_underlying_item OLD
+	#if item.has_method("getdata"):
+		#item.setdata()
+		#data = item.getdata()
+		#if data.ready:
+			#NameLabel.text = data.item_name
+			#DescriptionLabel.text = data.item_description
+			#DescriptionPanel.modulate = data.item_color
+			#IconTexture.texture = data.item_image
+	data = new_data
+	NameLabel.text = data.item_name
+	DescriptionLabel.text = data.item_description
+	DescriptionPanel.self_modulate = data.item_color
+	IconTexture.texture = data.item_image
+	BackgroundTexture.self_modulate = data.border_color
+
 
 func show_details():
-	if data.ready:
-		DescriptionLabel.text = "[font_size=5]" + " ID: " + str(ID) + "\n Pos: " + "[font_size=4]" + str(position) + "[/font_size]"  + "\nDescription: " + data.item_description + "[/font_size]"
-	else:
-		DescriptionLabel.text = "[font_size=5]" + " ID: " + str(ID) + "\n Pos: " + "[font_size=4]" + str(position) + "[/font_size]" + "[/font_size]"
+	#if data.ready:
+		#DescriptionLabel.text = "[font_size=5]" + " ID: " + str(ID) + "\n Pos: " + "[font_size=4]" + str(position) + "[/font_size]"  + "\nDescription: " + data.item_description + "[/font_size]"
+	#else:
+		#DescriptionLabel.text = "[font_size=5]" + " ID: " + str(ID) + "\n Pos: " + "[font_size=4]" + str(position) + "[/font_size]" + "[/font_size]"
+	DescriptionLabel.text = "[font_size=20]" + " ID: " + str(ID) + "\n Pos: " + "[font_size=4]" + str(position) + "[/font_size]"  + "\nDescription: " + data.item_description + "[/font_size]"
+	
 	#DescriptionPanel.size = Vector2(DescriptionMaxX, clampf(DescriptionLabel.get_content_height() + 4, 1, DescriptionMaxY)) TODO: for if i want scrolling back
 	#DescriptionLabel.size = Vector2(DescriptionMaxX, clampf(DescriptionLabel.get_content_height(), 1, DescriptionMaxY - 3))
-	DescriptionLabel.size = Vector2(DescriptionMaxX,DescriptionLabel.get_content_height() )
-	DescriptionPanel.size = Vector2(DescriptionMaxX + 2, DescriptionLabel.get_content_height() + 1)
+	#DescriptionLabel.size = Vector2(DescriptionMaxX,DescriptionLabel.get_content_height() )
+	#DescriptionPanel.size = Vector2(DescriptionMaxX + 2, DescriptionLabel.get_content_height() + 1)
 	DescriptionPanel.visible = true
 	showing_details = true
+	print(DescriptionLabel.text)
 
 func hide_details():
-	DescriptionLabel.size = Vector2(1 , 1)
-	DescriptionPanel.size = Vector2(1 , 1)
+	#DescriptionLabel.size = Vector2(1 , 1)
+	#DescriptionPanel.size = Vector2(1 , 1)
 	DescriptionPanel.visible = false
 	showing_details = false
 
