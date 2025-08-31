@@ -170,19 +170,19 @@ func _process(delta: float) -> void:
 		if !ui_man.shop.ui_add(test_ui):
 			print("3")
 			ui_man.shop.new_add(test_ui)
-
-func sell_item(item: ItemUI) -> bool:
-	if (item && item.data.can_sell):
-		money += item.data.item_buy_cost * item.data.item_sell_cost_modifier
+## Handles Money Part of Selling item (maybe supposed to expand this)
+func sell_item(item: ItemData) -> bool:
+	if (item && item.can_sell):
+		money += item.item_buy_cost * item.item_sell_cost_modifier
 		return true
 	return false
-
-func buy_item(item: ItemUI) -> bool:
-	if (item && (money > item.data.item_buy_cost)):
-		money -= item.data.item_buy_cost
+## Handles Money Part of Buying item (maybe supposed to expand this)
+func buy_item(item: ItemData) -> bool:
+	if (item && (money > item.item_buy_cost)):
+		money -= item.item_buy_cost
 		return true
 	return false
-
+## Activates Item (equipment item)
 func add_item_to_player(item: Item) -> bool:
 	if (item):
 		active_items.append(item)
@@ -229,9 +229,7 @@ func add_weapon_to_player(weapon: ItemWeapon) -> bool:
 		return true
 	return false
 
-
-## New Method Stubs for New Inventory System
-
+# Inventory System Methods:
 ## Check if item can be removed and can be added, then does so
 func move_item(item: ItemUI, origin: Inventory, destination: Inventory) -> bool:
 	if item && destination && destination.can_add(item) && (!origin || (origin && origin.can_remove(item))):
@@ -248,11 +246,11 @@ func move_item(item: ItemUI, origin: Inventory, destination: Inventory) -> bool:
 				Inventory.EQUIPMENT:
 					match(item.data.item_type):
 						ItemData.item_types.weapon:
-							if !remove_weapon_from_player(item.item):
+							if !remove_weapon_from_player(item.data.get_item()):
 								complete_move = false
 								return false
 						ItemData.item_types.item:
-							if !remove_item_from_player(item.item):
+							if !remove_item_from_player(item.data.get_item()):
 								complete_move = false
 								return false
 						_:
@@ -267,11 +265,11 @@ func move_item(item: ItemUI, origin: Inventory, destination: Inventory) -> bool:
 			Inventory.EQUIPMENT:
 				match(item.data.item_type):
 					ItemData.item_types.weapon:
-						if !add_weapon_to_player(item.item):
+						if !add_weapon_to_player(item.data.get_item()):
 							complete_move = false
 							return false
 					ItemData.item_types.item:
-						if !add_item_to_player(item.item): ## TODO: new implementation: if !add_item_to_player(item.data.create_item()):
+						if !add_item_to_player(item.data.get_item()): ## TODO: new implementation: if !add_item_to_player(item.data.create_item()):
 							print("!add_item_to_player")
 							complete_move = false
 							return false
@@ -297,9 +295,9 @@ func remove_item(item: ItemUI, origin: Inventory) -> bool:
 			Inventory.EQUIPMENT:
 				match(item.data.item_type):
 					ItemData.item_types.weapon:
-						remove_weapon_from_player(item.item)
+						remove_weapon_from_player(item.data.get_item())
 					ItemData.item_types.item:
-						remove_item_from_player(item.item)
+						remove_item_from_player(item.data.get_item())
 					_:
 						pass
 			Inventory.SHOP:

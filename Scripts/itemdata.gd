@@ -38,6 +38,9 @@ enum item_rarities {unset, common, rare, epic, legendary, exclusive}
 @export var attachment: ItemData = null
 @export var handle: ItemData = null
 @export var projectile: ItemData = null
+@export var equipped: bool = false
+@export var is_ready: bool = false
+@export var frame_ready: bool = false
 ## Item Fields (only for items)
 @export_category("Item Fields (only for items)")
 @export var stackable: bool = false
@@ -51,21 +54,11 @@ const EXCLUSIVE_COLOR: Color = Color.ORANGE_RED
 ## Default Texture
 const MISSINGTEXTURE = preload("res://Art/UI/MissingTexture.png")
 
+var item: Node = null
+var made_item: bool = false
 var ready: bool = false
 static var count: int = 0
 var ID: int 
-
-## OLD
-#func setdata(namae: String, description: String, type: String, rarity: String, color: Color, image: Texture2D, buycost: float, sellmodifier: float):
-	#item_name = namae
-	#item_description = description
-##	item_type = type
-	##item_rarity = rarity
-	#item_color = color
-	#item_image = image
-	#item_buy_cost = buycost
-	#item_sell_cost_modifier = sellmodifier
-	#ready = true
 
 ## happens only once when itemdata is created
 func setup(randomize: bool, rarity: item_rarities):
@@ -77,6 +70,8 @@ func setup(randomize: bool, rarity: item_rarities):
 		randomize_stats()
 	if has_rarity:
 		set_rarity(rarity)
+	count += 1
+	ID = count ## TODO: use this ID to track items? useful for matching itemdata to item/weapon when removing
 
 ## Changes Variable Values based on rarity, assumes all values are default to begin with
 func set_rarity(rarity: item_rarities):
@@ -105,15 +100,60 @@ func randomize_stats():
 	pass #TODO: randomize stats variable values
 
 ## Instantiates the Item with values
-func create_item() -> Node:
+func get_item() -> Node:
+	if made_item:
+		return item
+	match(item_type):
+		item_types.weapon:
+			if frame_ready:
+				return make_frame()
+			else:
+				push_error("Called make_frame() before components are added to ItemData")
+		item_types.item:
+			return make_item()
+		item_types.handle:
+			return make_item()
+		item_types.attachment:
+			return make_item()
+		item_types.projectile:
+			return make_item()
+		item_types.handle:
+			return make_item()
+		item_types.mod:
+			return make_item()
+	return null
+
+func make_item():
+	made_item = true
 	var ret = item_packed_scene.instantiate()
 	ret = ret.duplicate()
 	if has_stats:
 		ret.stats = stats #TODO: Choosing not to duplicate stats here because should be same reference?
 	if has_status_effects:
 		ret.status_effects = status_effects
-	count += 1
-	var ID = count
-	ret.ID = ID ## TODO: use this ID to track items? useful for matching itemdata to item/weapon when removing
 	ret.data = self
+	item = ret
 	return ret
+
+## Sets Weapon Components
+func set_components(new_attachment: ItemData, new_handle: ItemData, new_projectile: ItemData):
+	attachment = new_attachment
+	handle = new_handle
+	projectile = new_projectile
+	frame_ready = true
+
+## Set the Item Components and weapon data based on components
+func make_frame() -> Weapon_Frame:
+	made_item = true
+	var new_frame: Weapon_Frame = Weapon_Frame.SCENE.instantiate()
+	new_frame.stats = new_frame.stats.duplicate()
+	new_frame.add_attachment(attachment.create_item())
+	new_frame.add_handle(handle.create_item())
+	new_frame.add_projectile(projectile.create_item())
+	new_frame.stats.add_stats(GameManager.instance.global_stats)
+	item_buy_cost = attachment.item_buy_cost + handle.item_buy_cost + projectile.item_buy_cost
+	item_name = attachment.item_name + handle.item_name + projectile.item_name 
+	item_description = attachment.item_name + handle.item_name + projectile.item_name
+	new_frame.data = self
+	item = new_frame
+	return new_frame
