@@ -135,12 +135,14 @@ func make_item():
 	item = ret
 	return ret
 
-## Sets Weapon Components
+## Sets Weapon Components and setsup this ItemData to hold a Weapon
 func set_components(new_attachment: ItemData, new_handle: ItemData, new_projectile: ItemData):
+	setup(true, item_rarities.common)
 	attachment = new_attachment
 	handle = new_handle
 	projectile = new_projectile
 	frame_ready = true
+	print("true false: " + attachment.stats.parent_object_name)
 
 ## Set the Item Components and weapon data based on components
 func make_frame() -> Weapon_Frame:
@@ -151,9 +153,14 @@ func make_frame() -> Weapon_Frame:
 	new_frame.add_handle(handle.make_item())
 	new_frame.add_projectile(projectile.make_item())
 	new_frame.stats.add_stats(GameManager.instance.global_stats)
+	print("true false: " + attachment.stats.parent_object_name)
 	item_buy_cost = attachment.item_buy_cost + handle.item_buy_cost + projectile.item_buy_cost
+	item_sell_cost_modifier = (attachment.item_sell_cost_modifier + handle.item_sell_cost_modifier + projectile.item_sell_cost_modifier) / 3
 	item_name = attachment.item_name + handle.item_name + projectile.item_name 
 	item_description = attachment.item_name + handle.item_name + projectile.item_name
 	new_frame.data = self
 	item = new_frame
+	item_type = item_types.weapon
+	item_image # set to combo of all images somehow
+	item_rarity = item_rarities.common # set to highest rarity among comps for now
 	return new_frame

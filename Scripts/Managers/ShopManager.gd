@@ -50,7 +50,7 @@ static func get_rand_projectile() -> Projectile:
 		_:
 			return _dup_stats(Projectile.PISTOL.instantiate())
 
-static func get_rand_weapon() -> ItemWeapon:
+static func get_rand_weapon():# -> ItemWeapon:
 	match randi_range(5, 7):
 		0:
 			var w = ItemWeapon.new()
@@ -73,7 +73,7 @@ static func get_rand_weapon() -> ItemWeapon:
 			w.setup(get_rand_attachment(), get_rand_handle(), get_rand_projectile())
 			return w
 
-static func get_rand_item() -> Item:
+static func get_rand_item():# -> Item:
 	return get_test().make_item()
 
 static func get_rand_equipment() -> Object:
@@ -95,7 +95,7 @@ static func get_rand_equipment() -> Object:
 	return item
 
 ## 1 = FLAMETHROWER, 2 = PISTOL, 3 = RAILGUN, 4 = SWORD, other = RANDOM COMPONENTS
-static func get_attachment(num: int) -> Attachment:
+static func get_attachment(num: int):# -> Attachment:
 	match num:
 		1:
 			return _dup_stats(Attachment.FLAMETHROWER.instantiate())
@@ -109,7 +109,7 @@ static func get_attachment(num: int) -> Attachment:
 			return _dup_stats(get_rand_attachment())
 
 ## 1 = FLAMETHROWER, 2 = PISTOL, 3 = RAILGUN, 4 = SWORD, other = RANDOM COMPONENTS
-static func get_handle(num: int) -> Handle:
+static func get_handle(num: int):# -> Handle:
 	match num:
 		1:
 			return _dup_stats(Handle.FLAMETHROWER.instantiate())
@@ -123,7 +123,7 @@ static func get_handle(num: int) -> Handle:
 			return _dup_stats(get_rand_handle())
 
 ## 1 = FLAMETHROWER, 2 = PISTOL, 3 = RAILGUN, 4 = SWORD, other = RANDOM COMPONENTS
-static func get_projectile(num: int) -> Projectile:
+static func get_projectile(num: int):# -> Projectile:
 	match num:
 		1:
 			return _dup_stats(Projectile.FLAMETHROWER.instantiate())
@@ -181,14 +181,17 @@ static func new_make_itemUI(itemdata) -> ItemUI:
 	UI.set_itemdata(itemdata)
 	return UI
 
-static func get_test_flame() -> Weapon_Frame:
+static func get_test_flame() -> ItemData:
 	var data: ItemData = ItemData.new()
 	data.setup(false, ItemData.item_rarities.common)
 	var a = FLAMETHROWER_ATTACHMENT.duplicate(true)
 	var h = FLAMETHROWER_HANDLE.duplicate(true)
 	var p = FLAMETHROWER_PROJECTILE.duplicate(true)
+	a.setup(true, ItemData.item_rarities.common)
+	h.setup(true, ItemData.item_rarities.common)
+	p.setup(true, ItemData.item_rarities.common)
 	data.set_components(a, h, p)
-	return data.make_frame()
+	return data
 
 static func get_test() -> ItemData:
 	var itemdata: ItemData = preload("res://Resources/Items/DamageBuff/ItemData_DamageBuff.tres")

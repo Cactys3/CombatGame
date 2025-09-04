@@ -24,7 +24,6 @@ func _process(delta: float) -> void:
 func _update_subviewport_size() -> void:
 	size = get_tree().root.size
 	stretch_shrink = (size.x / render_resolution.x) + 1
-	print("changed")
 	if size > Vector2(640, 360):
 		size = Vector2(640, 360)
 	if size > Vector2(1280, 720):

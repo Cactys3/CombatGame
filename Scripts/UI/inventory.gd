@@ -43,6 +43,7 @@ func ui_add(item: ItemUI) -> bool:
 	print("ui_add")
 	if !GameManager.instance.move_item(item, item.inventory, self):
 		print("Can't Add: " + item.data.item_name)
+		print("itemss???????")
 		return false
 	return true
 

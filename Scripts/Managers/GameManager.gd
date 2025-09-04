@@ -222,20 +222,24 @@ func craft_weapon(handle: ItemUI, attachment: ItemUI, projectile: ItemUI) -> boo
 		var n = ItemUI.SCENE.instantiate()
 		n.set_item(weapon_item)
 		
-		if add_weapon_to_player(weapon_item): #TODO: if player can hold more weapons
-			ui_man.equipment.new_add(n)
-			return true
+		#if add_weapon_to_player(weapon_item): #TODO: if player can hold more weapons
+			#ui_man.equipment.new_add(n)
+			#return true
 	return false
 
-func add_weapon_to_player(weapon: ItemWeapon) -> bool:
-	if weapon && weapon.is_ready:
-		if !weapon.frame_ready:
-			weapon.make_frame()
-		weapon.equipped = true
-		player.add_frame(weapon.weapon)
-		print("added weapon to player: " + weapon.data.item_name)
-		return true
-	return false
+func add_weapon_to_player(weapon: Weapon_Frame) -> bool:
+	#if weapon: && weapon.is_ready:
+		#if !weapon.frame_ready:
+			#weapon.make_frame()
+		#weapon.equipped = true
+		#player.add_frame(weapon.weapon)
+		#print("added weapon to player: " + weapon.data.item_name)
+		#return true
+	#return false
+	if !weapon:
+		return false
+	player.add_frame(weapon)
+	return true
 
 # Inventory System Methods:
 ## Check if item can be removed and can be added, then does so
@@ -273,7 +277,9 @@ func move_item(item: ItemUI, origin: Inventory, destination: Inventory) -> bool:
 			Inventory.EQUIPMENT:
 				match(item.data.item_type):
 					ItemData.item_types.weapon:
+						print("weapon!")
 						if !add_weapon_to_player(item.data.get_item()):
+							print("!add_weapon_to_player")
 							complete_move = false
 							return false
 					ItemData.item_types.item:
