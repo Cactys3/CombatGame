@@ -163,21 +163,11 @@ func _process(delta: float) -> void:
 		pass#ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/flamethrower_handle.gd").new())
 	
 	if Input.is_action_just_pressed("test_6"):
-		var test_frame = shop_man.get_test_flame()
+		var test1 = ShopManager.make_itemUI(shop_man.get_rand_equipment())
+		var test2 = ShopManager.make_itemUI(shop_man.get_rand_attachment())
 		
-		var test_ui_frame = ShopManager.make_itemUI(test_frame)
-		
-		if !ui_man.shop.ui_add(test_ui_frame):
-			print("3")
-			ui_man.shop.new_add(test_ui_frame)
-		
-		var test_item = shop_man.get_test()
-		print("1")
-		var test_ui = ShopManager.make_itemUI(test_item)
-		print("2")
-		if !ui_man.shop.ui_add(test_ui):
-			print("3")
-			ui_man.shop.new_add(test_ui)
+		ui_man.shop.ui_add(test1)
+		ui_man.shop.ui_add(test2)
 ## Handles Money Part of Selling item (maybe supposed to expand this)
 func sell_item(item: ItemData) -> bool:
 	if (item && item.can_sell):
@@ -204,27 +194,29 @@ func remove_item_from_player(item: Item) -> bool:
 		return true #TODO: remove
 	return false
 
-func remove_weapon_from_player(weapon: ItemWeapon) -> bool:
-	if weapon && weapon.is_ready:
-		if !weapon.frame_ready:
-			weapon.make_frame()
-		if player.remove_frame(weapon.weapon):
-			weapon.equipped = false
-			return true
+func remove_weapon_from_player(weapon: Weapon_Frame) -> bool:
+	#if weapon && weapon.is_ready:
+		#if !weapon.frame_ready:
+			#weapon.make_frame()
+		#if player.remove_frame(weapon.weapon):
+			#weapon.equipped = false
+			#return true
+	#return false
+	if player.remove_frame(weapon): 
+		return true
 	return false
 
 func craft_weapon(handle: ItemUI, attachment: ItemUI, projectile: ItemUI) -> bool:
 	if (handle && attachment && projectile) && (handle.data.item_type == ItemData.item_types.handle && attachment.data.item_type == ItemData.item_types.attachment && projectile.data.item_type == ItemData.item_types.projectile):
 		
-		var weapon_item: ItemWeapon = ItemWeapon.new()
-		weapon_item.setup(attachment.item, handle.item, projectile.item)
-		weapon_item.make_frame()
-		var n = ItemUI.SCENE.instantiate()
-		n.set_item(weapon_item)
+		var data: ItemData = ItemData.new()
+		data.setup(false, ShopManager.random_rarity())
+		data.set_components(attachment.data, handle.data, projectile.data)
+		var weapon: Weapon_Frame = data.get_item()
 		
-		#if add_weapon_to_player(weapon_item): #TODO: if player can hold more weapons
-			#ui_man.equipment.new_add(n)
-			#return true
+		if add_weapon_to_player(weapon): #TODO: if player can hold more weapons
+			ui_man.equipment.new_add(ShopManager.make_itemUI(data))
+			return true
 	return false
 
 func add_weapon_to_player(weapon: Weapon_Frame) -> bool:

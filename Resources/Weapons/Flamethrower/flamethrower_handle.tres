@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://dvbsp2ta8txva"]
 
 [ext_resource type="Resource" uid="uid://cmyggekbys27w" path="res://Scenes/Weapons/flamethrower/resources/flamethrower_handle_stats.tres" id="1_ilfdf"]
-[ext_resource type="Texture2D" uid="uid://lqpckh7fkgjy" path="res://Art/UI/MissingTexture.png" id="1_mew3p"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/itemdata.gd" id="2_qxij8"]
+[ext_resource type="Texture2D" uid="uid://ctcyk6f73ll3f" path="res://Art/New_Weapons/flamethrower/Handle_Flamethrower.png" id="2_vbtsm"]
 [ext_resource type="PackedScene" uid="uid://2abx260rgyvs" path="res://Scenes/Weapons/flamethrower/flamethrower_handle.tscn" id="3_te188"]
-[ext_resource type="Script" uid="uid://8b2yih1s0rui" path="res://Scripts/stats.gd" id="3_vbtsm"]
+[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/stats.gd" id="3_vbtsm"]
 
 [sub_resource type="Resource" id="Resource_te188"]
 script = ExtResource("3_vbtsm")
@@ -55,7 +55,7 @@ item_description = "handle for flamethrower"
 item_type = 1
 item_color = Color(0.588382, 4.09111e-07, 0.333158, 1)
 border_color = Color(0, 0, 0, 1)
-item_image = ExtResource("1_mew3p")
+item_image = ExtResource("2_vbtsm")
 randomizable = true
 default_stats = ExtResource("1_ilfdf")
 rarity_stat_modifiers = SubResource("Resource_te188")

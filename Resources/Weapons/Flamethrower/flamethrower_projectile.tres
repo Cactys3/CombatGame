@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://b86efdis6cvhv" path="res://Scenes/Weapons/flamethrower/resources/flamethrower_projectile_stats.tres" id="1_q8t3e"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/itemdata.gd" id="2_vqt2v"]
 [ext_resource type="PackedScene" uid="uid://dlxqovibkkvb6" path="res://Scenes/Weapons/flamethrower/fire_projectile.tscn" id="3_ncjks"]
-[ext_resource type="Script" uid="uid://8b2yih1s0rui" path="res://Scripts/stats.gd" id="3_tn7ud"]
+[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/stats.gd" id="3_tn7ud"]
 
 [sub_resource type="Resource" id="Resource_ncjks"]
 script = ExtResource("3_tn7ud")

@@ -91,9 +91,10 @@ func set_rarity(rarity: item_rarities):
 			border_color = DEFAULT_COLOR
 	if item_rarity > 1:
 		item_buy_cost = item_buy_cost + (rarity_cost_modifier * item_rarity) #TODO: finalize equation
-		for key in stats.statsbase:
-			stats.set_stat_base(key, stats.get_stat_base(key) + item_rarity * rarity_stat_modifiers.get_stat_base(key))
-			stats.set_stat_factor(key, stats.get_stat_factor(key) + item_rarity * rarity_stat_modifiers.get_stat_factor(key))
+		if has_stats:
+			for key in stats.statsbase:
+				stats.set_stat_base(key, stats.get_stat_base(key) + item_rarity * rarity_stat_modifiers.get_stat_base(key))
+				stats.set_stat_factor(key, stats.get_stat_factor(key) + item_rarity * rarity_stat_modifiers.get_stat_factor(key))
 		#TODO: Do the same rarity calculations for Status Effects if desired
 
 func randomize_stats():
@@ -125,15 +126,69 @@ func get_item() -> Node:
 
 func make_item():
 	made_item = true
-	var ret = item_packed_scene.instantiate()
-	ret = ret.duplicate()
-	if has_stats:
-		ret.stats = stats #TODO: Choosing not to duplicate stats here because should be same reference?
-	if has_status_effects:
-		ret.status_effects = status_effects
-	ret.data = self
-	item = ret
-	return ret
+	match(item_type):
+		item_types.weapon:
+			var ret: Weapon_Frame = item_packed_scene.instantiate()
+			ret = ret.duplicate(true)
+			if has_stats:
+				ret.stats = stats #TODO: Choosing not to duplicate stats here because should be same reference?
+			if has_status_effects:
+				ret.status_effects = status_effects
+			#ret.data = self
+			item = ret
+			return ret
+		item_types.attachment:
+			var ret: Attachment = item_packed_scene.instantiate()
+			#ret = ret.duplicate(true)
+			if has_stats:
+				ret.stats = stats #TODO: Choosing not to duplicate stats here because should be same reference?
+			if has_status_effects:
+				ret.status_effects = status_effects
+			#ret.data = self
+			item = ret
+			return ret
+		item_types.handle:
+			var ret: Handle = item_packed_scene.instantiate()
+			#ret = ret.duplicate(true)
+			if has_stats:
+				ret.stats = stats #TODO: Choosing not to duplicate stats here because should be same reference?
+			if has_status_effects:
+				ret.status_effects = status_effects
+			#ret.data = self
+			item = ret
+			return ret
+		item_types.projectile:
+			var ret: Projectile = item_packed_scene.instantiate()
+			#ret = ret.duplicate(true)
+			if has_stats:
+				ret.stats = stats #TODO: Choosing not to duplicate stats here because should be same reference?
+			if has_status_effects:
+				ret.status_effects = status_effects
+			#ret.data = self
+			item = ret
+			return ret
+		item_types.item:
+			var i = item_packed_scene.inst
+			GameManager.instance.add_child(i)
+			var ret = i #item_packed_scene.instantiate()
+			ret = ret.duplicate(true)
+			if has_stats:
+				ret.set_stats(stats) #TODO: Choosing not to duplicate stats here because should be same reference?
+			if has_status_effects:
+				ret.status_effects = status_effects
+			#ret.data = self
+			item = ret
+			return ret
+		_:
+			var ret = item_packed_scene.instantiate()
+			ret = ret.duplicate(true)
+			if has_stats:
+				ret.stats = stats #TODO: Choosing not to duplicate stats here because should be same reference?
+			if has_status_effects:
+				ret.status_effects = status_effects
+			#ret.data = self
+			item = ret
+			return ret
 
 ## Sets Weapon Components and setsup this ItemData to hold a Weapon
 func set_components(new_attachment: ItemData, new_handle: ItemData, new_projectile: ItemData):
@@ -142,6 +197,7 @@ func set_components(new_attachment: ItemData, new_handle: ItemData, new_projecti
 	handle = new_handle
 	projectile = new_projectile
 	frame_ready = true
+	item_type = item_types.weapon
 	print("true false: " + attachment.stats.parent_object_name)
 
 ## Set the Item Components and weapon data based on components

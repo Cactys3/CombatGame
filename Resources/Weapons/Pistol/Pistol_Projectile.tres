@@ -1,0 +1,75 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://bskpa46ldvhg6"]
+
+[ext_resource type="Resource" uid="uid://dtbagx7lwlpe0" path="res://Scenes/Weapons/pistol/resources/pistol_projectile_stats.tres" id="1_jadpu"]
+[ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/itemdata.gd" id="2_604b6"]
+[ext_resource type="Texture2D" uid="uid://dnueduipb01yj" path="res://Art/New_Weapons/Pistol/Bulletaseprite.png" id="2_jadpu"]
+[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/stats.gd" id="3_4ja03"]
+[ext_resource type="PackedScene" uid="uid://dcln1rwdu42hl" path="res://Scenes/Weapons/pistol/pistol_bullet.tscn" id="3_r6olb"]
+
+[sub_resource type="Resource" id="Resource_r6olb"]
+script = ExtResource("3_4ja03")
+parent_object_name = "not_set"
+statsbase = {
+"attackspeed": 0.0,
+"buildup": 0.0,
+"count": 0.0,
+"damage": 10.0,
+"duration": 0.0,
+"hp": 0.0,
+"luck": 0.0,
+"mogul": 0.0,
+"movespeed": 0.0,
+"piercing": 0.0,
+"range": 0.0,
+"size": 0.0,
+"stance": 0.0,
+"velocity": 0.0,
+"weight": 0.0,
+"xp": 0.0
+}
+statsfactor = {
+"attackspeed": 1.0,
+"buildup": 1.0,
+"count": 1.0,
+"damage": 1.0,
+"duration": 1.0,
+"hp": 1.0,
+"luck": 1.0,
+"mogul": 1.0,
+"movespeed": 1.0,
+"piercing": 1.0,
+"range": 1.0,
+"size": 1.0,
+"stance": 1.0,
+"velocity": 1.0,
+"weight": 1.0,
+"xp": 1.0
+}
+metadata/_custom_type_script = "uid://dwj80yu0v1qdt"
+
+[resource]
+script = ExtResource("2_604b6")
+item_packed_scene = ExtResource("3_r6olb")
+item_name = "Pistol Projectile"
+item_description = "Pistol Projectile"
+item_type = 3
+item_color = Color(0.13832, 0.461571, 0.469121, 1)
+border_color = Color(1, 1, 1, 1)
+item_image = ExtResource("2_jadpu")
+randomizable = true
+default_stats = ExtResource("1_jadpu")
+rarity_stat_modifiers = SubResource("Resource_r6olb")
+rarity_cost_modifier = 1
+item_rarity = 0
+item_buy_cost = 5.0
+item_sell_cost_modifier = 0.8
+can_sell = true
+can_buy = true
+has_rarity = true
+has_stats = true
+has_status_effects = false
+equipped = false
+is_ready = false
+frame_ready = false
+stackable = false
+metadata/_custom_type_script = "uid://dnj6pao77g7bt"

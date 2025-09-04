@@ -5,9 +5,10 @@ extends Attachment
 
 @export var anim_pos: float :
 	set(value):
-		anim_pos = value
-		position.x = value# * range_offset - Could do this instead of setting animation values
-		handle.position.x = value# * range_offset
+		if (self):
+			anim_pos = value
+			position.x = value# * range_offset - Could do this instead of setting animation values
+			handle.position.x = value# * range_offset
 
 const ANIMATION_NAME = "attack"
 var range_offset = 10

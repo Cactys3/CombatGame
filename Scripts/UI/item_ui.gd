@@ -86,13 +86,15 @@ func set_item(new_data: ItemData):
 	IconTexture.texture = data.item_image
 	BackgroundTexture.self_modulate = data.border_color
 
+func get_item():
+	return data.get_item()
 
 func show_details():
 	#if data.ready:
 		#DescriptionLabel.text = "[font_size=5]" + " ID: " + str(ID) + "\n Pos: " + "[font_size=4]" + str(position) + "[/font_size]"  + "\nDescription: " + data.item_description + "[/font_size]"
 	#else:
 		#DescriptionLabel.text = "[font_size=5]" + " ID: " + str(ID) + "\n Pos: " + "[font_size=4]" + str(position) + "[/font_size]" + "[/font_size]"
-	DescriptionLabel.text = "[font_size=20]" + " ID: " + str(ID) + "\n Pos: " + "[font_size=4]" + str(position) + "[/font_size]"  + "\nDescription: " + data.item_description + "[/font_size]"
+	#DescriptionLabel.text = "[font_size=20]" + " ID: " + str(ID) + "\n  " + "[font_size=4]" + str(position) + "[/font_size]"  + "\nDescription: " + data.item_description + "[/font_size]"
 	
 	#DescriptionPanel.size = Vector2(DescriptionMaxX, clampf(DescriptionLabel.get_content_height() + 4, 1, DescriptionMaxY)) TODO: for if i want scrolling back
 	#DescriptionLabel.size = Vector2(DescriptionMaxX, clampf(DescriptionLabel.get_content_height(), 1, DescriptionMaxY - 3))
@@ -100,7 +102,9 @@ func show_details():
 	#DescriptionPanel.size = Vector2(DescriptionMaxX + 2, DescriptionLabel.get_content_height() + 1)
 	DescriptionPanel.visible = true
 	showing_details = true
-	print(DescriptionLabel.text)
+	#print(DescriptionLabel.text)
+	
+	print(data.item_type == data.item_types.weapon)
 
 func hide_details():
 	#DescriptionLabel.size = Vector2(1 , 1)

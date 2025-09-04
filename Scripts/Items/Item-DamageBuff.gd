@@ -13,6 +13,9 @@ func _ready() -> void:
 	super()
 #	Stats.set_stat_factor(StatsResource.DAMAGE, 1.1)
 
+func set_stats(new_stats: StatsResource):
+	stats = new_stats
+
 func _connect_signals():
 	super()
 
