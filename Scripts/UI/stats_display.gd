@@ -54,6 +54,8 @@ func _process(delta: float) -> void:
 	if (stopwatch > 3):
 		refresh()
 		stopwatch = 0
+	if (Input.is_action_just_pressed("inventory_toggle")):
+		toggle_ui.call_deferred("_toggled", true)
 
 func refresh():
 	if stats:

@@ -58,7 +58,7 @@ func make_stats_visual():
 	const STATS_VISUAL = preload("res://Scenes/UI/stats_visual.tscn")
 	stats_visual = STATS_VISUAL.instantiate()
 	GameManager.instance.add_child(stats_visual)
-	stats_visual.global_position = Vector2(-310, -20)
+	stats_visual.global_position = Vector2.ZERO#Vector2(-310, -20)
 	stats_visual.set_stats(player_stats, "Player Stats")
 
 func _process(delta: float) -> void:

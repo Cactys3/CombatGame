@@ -24,16 +24,18 @@ func _process(delta: float) -> void:
 
 func connect_signals():
 	#GameManager.instance.toggle_inventory.connect(toggle_inventory)
+	GameManager.instance.connect("toggled_inventory", toggle_inventory)
 	pass
 
 func toggle_inventory():
 	toggled_inventory = !toggled_inventory
+	_toggled(!hide_ui)
 	
 
 func _toggled(toggled_on: bool) -> void:
 	hide_ui = toggled_on
 	button_pressed = toggled_on # needed when called from not signal
-	
+	print("what")
 	for ui in ui_to_hide:
 		ui.visible = !toggled_on
 		if toggled_on:

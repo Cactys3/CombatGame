@@ -168,10 +168,9 @@ func make_item():
 			item = ret
 			return ret
 		item_types.item:
-			var i = item_packed_scene.inst
-			GameManager.instance.add_child(i)
-			var ret = i #item_packed_scene.instantiate()
-			ret = ret.duplicate(true)
+			var ret: Item = item_packed_scene.instantiate()
+			# ret = ret.duplicate(true) as Item  
+			GameManager.instance.add_child(ret)
 			if has_stats:
 				ret.set_stats(stats) #TODO: Choosing not to duplicate stats here because should be same reference?
 			if has_status_effects:
