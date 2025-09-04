@@ -5,6 +5,9 @@ const RAILGUN = preload("res://Scenes/Weapons/railgun/railgun_attachment.tscn")
 const PISTOL = preload("res://Scenes/Weapons/pistol/pistol_attachment.tscn")
 const FLAMETHROWER = preload("res://Scenes/Weapons/flamethrower/flamethrower_attachment.tscn")
 const SWORD = preload("res://Scenes/Weapons/sword/sword_attachment.tscn")
+
+#const FLAMETHROWER = preload("res://Resources/Weapons/Flamethrower/flamethrower_attachment.tres")
+
 func get_scene() -> PackedScene:
 	return preload("res://Scenes/Weapons/pistol/pistol_attachment.tscn")
 

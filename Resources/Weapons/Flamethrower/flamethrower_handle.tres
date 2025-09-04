@@ -1,0 +1,75 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://dvbsp2ta8txva"]
+
+[ext_resource type="Resource" uid="uid://cmyggekbys27w" path="res://Scenes/Weapons/flamethrower/resources/flamethrower_handle_stats.tres" id="1_ilfdf"]
+[ext_resource type="Texture2D" uid="uid://lqpckh7fkgjy" path="res://Art/UI/MissingTexture.png" id="1_mew3p"]
+[ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/itemdata.gd" id="2_qxij8"]
+[ext_resource type="PackedScene" uid="uid://2abx260rgyvs" path="res://Scenes/Weapons/flamethrower/flamethrower_handle.tscn" id="3_te188"]
+[ext_resource type="Script" uid="uid://8b2yih1s0rui" path="res://Scripts/stats.gd" id="3_vbtsm"]
+
+[sub_resource type="Resource" id="Resource_te188"]
+script = ExtResource("3_vbtsm")
+parent_object_name = "not_set"
+statsbase = {
+"attackspeed": 0.0,
+"buildup": 0.0,
+"count": 0.0,
+"damage": 0.0,
+"duration": 0.0,
+"hp": 0.0,
+"luck": 0.0,
+"mogul": 0.0,
+"movespeed": 0.0,
+"piercing": 0.0,
+"range": 10.0,
+"size": 0.0,
+"stance": 0.0,
+"velocity": 0.0,
+"weight": 0.0,
+"xp": 0.0
+}
+statsfactor = {
+"attackspeed": 1.0,
+"buildup": 1.0,
+"count": 1.0,
+"damage": 1.0,
+"duration": 1.0,
+"hp": 1.0,
+"luck": 1.0,
+"mogul": 1.0,
+"movespeed": 1.0,
+"piercing": 1.0,
+"range": 1.0,
+"size": 1.0,
+"stance": 1.0,
+"velocity": 1.0,
+"weight": 1.0,
+"xp": 1.0
+}
+metadata/_custom_type_script = "uid://dwj80yu0v1qdt"
+
+[resource]
+script = ExtResource("2_qxij8")
+item_packed_scene = ExtResource("3_te188")
+item_name = "flamethrower handle"
+item_description = "handle for flamethrower"
+item_type = 1
+item_color = Color(0.588382, 4.09111e-07, 0.333158, 1)
+border_color = Color(0, 0, 0, 1)
+item_image = ExtResource("1_mew3p")
+randomizable = true
+default_stats = ExtResource("1_ilfdf")
+rarity_stat_modifiers = SubResource("Resource_te188")
+rarity_cost_modifier = 1
+item_rarity = 1
+item_buy_cost = 5.0
+item_sell_cost_modifier = 0.8
+can_sell = true
+can_buy = true
+has_rarity = true
+has_stats = true
+has_status_effects = false
+equipped = false
+is_ready = false
+frame_ready = false
+stackable = false
+metadata/_custom_type_script = "uid://dnj6pao77g7bt"

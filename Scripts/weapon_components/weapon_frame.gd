@@ -14,6 +14,8 @@ const SCENE = preload("res://Scenes/Weapons/weapon_frame.tscn")
 
 @export var stats: StatsResource = StatsResource.new()
 
+var data: ItemData
+
 var QueuedAttacks: Array[AttackEvent] = [] #TODO: not used, to create attack need to use stats which defeats point of queue
 
 var stats_visual

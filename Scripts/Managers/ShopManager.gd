@@ -3,10 +3,17 @@ class_name ShopManager
 
 ## has methods to create shops based on things
 
+const FLAMETHROWER_ATTACHMENT = preload("res://Resources/Weapons/Flamethrower/flamethrower_attachment.tres")
+const FLAMETHROWER_HANDLE = preload("res://Resources/Weapons/Flamethrower/flamethrower_handle.tres")
+const FLAMETHROWER_PROJECTILE = preload("res://Resources/Weapons/Flamethrower/flamethrower_projectile.tres")
+
+
 static func get_rand_attachment() -> Attachment:
+	var data: ItemData
 	match randi_range(0, 3):
 		0:
-			return _dup_stats(Attachment.FLAMETHROWER.instantiate())
+			data = FLAMETHROWER_ATTACHMENT.duplicate(true)
+			data.setup(true, ItemData.item_rarities.common)
 		1:
 			return _dup_stats(Attachment.PISTOL.instantiate())
 		2:
@@ -15,6 +22,7 @@ static func get_rand_attachment() -> Attachment:
 			return _dup_stats(Attachment.SWORD.instantiate())
 		_:
 			return _dup_stats(Attachment.PISTOL.instantiate())
+	return data.make_item()
 
 static func get_rand_handle() -> Handle:
 	match randi_range(0, 3):
@@ -65,7 +73,10 @@ static func get_rand_weapon() -> ItemWeapon:
 			w.setup(get_rand_attachment(), get_rand_handle(), get_rand_projectile())
 			return w
 
-static func get_rand_item() -> Object:
+static func get_rand_item() -> Item:
+	return get_test().make_item()
+
+static func get_rand_equipment() -> Object:
 	var ui_man = GameManager.instance.ui_man
 	var item
 	match randi_range(0, 5):
@@ -156,7 +167,7 @@ static func _dup_stats(item) -> Object:
 		item.status = item.status.duplicate()
 	return item
 
-static func make_itemUI(item) -> ItemUI:
+static func make_itemUI(item: ItemData) -> ItemUI:
 	#item.setdata() OLD
 	#var UI: ItemUI = ItemUI.SCENE.instantiate()
 	#UI.set_item(item)
@@ -170,8 +181,17 @@ static func new_make_itemUI(itemdata) -> ItemUI:
 	UI.set_itemdata(itemdata)
 	return UI
 
+static func get_test_flame() -> Weapon_Frame:
+	var data: ItemData = ItemData.new()
+	data.setup(false, ItemData.item_rarities.common)
+	var a = FLAMETHROWER_ATTACHMENT.duplicate(true)
+	var h = FLAMETHROWER_HANDLE.duplicate(true)
+	var p = FLAMETHROWER_PROJECTILE.duplicate(true)
+	data.set_components(a, h, p)
+	return data.make_frame()
+
 static func get_test() -> ItemData:
-	var itemdata: ItemData = preload("res://Resources/Items/DamageBuff/ItemData_DamageBuff.tres").duplicate(true)
+	var itemdata: ItemData = preload("res://Resources/Items/DamageBuff/ItemData_DamageBuff.tres")
 	itemdata = itemdata.duplicate(true)
 	itemdata.setup(true, ItemData.item_rarities.common)
 	return itemdata

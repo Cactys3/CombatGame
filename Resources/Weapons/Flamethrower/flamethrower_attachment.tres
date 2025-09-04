@@ -1,0 +1,75 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://kp03bn0ca6y1"]
+
+[ext_resource type="Texture2D" uid="uid://lqpckh7fkgjy" path="res://Art/UI/MissingTexture.png" id="1_7xdo0"]
+[ext_resource type="Resource" uid="uid://bw5adb2274wc2" path="res://Scenes/Weapons/flamethrower/resources/flamethrower_attachment_stats.tres" id="1_87hxj"]
+[ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/itemdata.gd" id="2_ti3hu"]
+[ext_resource type="PackedScene" uid="uid://ijvhrrafsn8w" path="res://Scenes/Weapons/flamethrower/flamethrower_attachment.tscn" id="3_l0tcx"]
+[ext_resource type="Script" uid="uid://8b2yih1s0rui" path="res://Scripts/stats.gd" id="3_l7v5w"]
+
+[sub_resource type="Resource" id="Resource_l0tcx"]
+script = ExtResource("3_l7v5w")
+parent_object_name = "flamethrower_attachment_modifier"
+statsbase = {
+"attackspeed": 0.0,
+"buildup": 0.0,
+"count": 0.0,
+"damage": 10.0,
+"duration": 0.0,
+"hp": 0.0,
+"luck": 0.0,
+"mogul": 0.0,
+"movespeed": 0.0,
+"piercing": 0.0,
+"range": 0.0,
+"size": 0.0,
+"stance": 0.0,
+"velocity": 0.0,
+"weight": 0.0,
+"xp": 0.0
+}
+statsfactor = {
+"attackspeed": 1.0,
+"buildup": 1.0,
+"count": 1.0,
+"damage": 1.0,
+"duration": 1.0,
+"hp": 1.0,
+"luck": 1.0,
+"mogul": 1.0,
+"movespeed": 1.0,
+"piercing": 1.0,
+"range": 1.0,
+"size": 1.0,
+"stance": 1.0,
+"velocity": 1.0,
+"weight": 1.0,
+"xp": 1.0
+}
+metadata/_custom_type_script = "uid://dwj80yu0v1qdt"
+
+[resource]
+script = ExtResource("2_ti3hu")
+item_packed_scene = ExtResource("3_l0tcx")
+item_name = "Flamethrower Attachment"
+item_description = "the attachment for flamethrower"
+item_type = 2
+item_color = Color(0.752175, 0, 0.197241, 1)
+border_color = Color(0.142547, 0, 0.0112097, 1)
+item_image = ExtResource("1_7xdo0")
+randomizable = true
+default_stats = ExtResource("1_87hxj")
+rarity_stat_modifiers = SubResource("Resource_l0tcx")
+rarity_cost_modifier = 1
+item_rarity = 1
+item_buy_cost = 5.0
+item_sell_cost_modifier = 0.8
+can_sell = true
+can_buy = true
+has_rarity = true
+has_stats = true
+has_status_effects = false
+equipped = false
+is_ready = false
+frame_ready = false
+stackable = false
+metadata/_custom_type_script = "uid://dnj6pao77g7bt"

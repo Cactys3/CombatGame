@@ -1,6 +1,8 @@
 extends Area2D
 class_name Handle
 
+#const FLAMETHROWER = preload("res://Resources/Weapons/Flamethrower/flamethrower_handle.tres")
+
 const FLAMETHROWER = preload("res://Scenes/Weapons/flamethrower/flamethrower_handle.tscn")
 const PISTOL = preload("res://Scenes/Weapons/pistol/pistol_handle.tscn")
 const RAILGUN = preload("res://Scenes/Weapons/railgun/railgun_handle.tscn")

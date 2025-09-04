@@ -147,9 +147,9 @@ func make_frame() -> Weapon_Frame:
 	made_item = true
 	var new_frame: Weapon_Frame = Weapon_Frame.SCENE.instantiate()
 	new_frame.stats = new_frame.stats.duplicate()
-	new_frame.add_attachment(attachment.create_item())
-	new_frame.add_handle(handle.create_item())
-	new_frame.add_projectile(projectile.create_item())
+	new_frame.add_attachment(attachment.make_item())
+	new_frame.add_handle(handle.make_item())
+	new_frame.add_projectile(projectile.make_item())
 	new_frame.stats.add_stats(GameManager.instance.global_stats)
 	item_buy_cost = attachment.item_buy_cost + handle.item_buy_cost + projectile.item_buy_cost
 	item_name = attachment.item_name + handle.item_name + projectile.item_name 

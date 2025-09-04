@@ -133,25 +133,25 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ability3") && ui_man.enabled:
 		money += 10
 		ui_man.storage2.clear()
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(1)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(2)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(3)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(4)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_handle(1)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_handle(2)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_handle(3)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_handle(4)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(1)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(2)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(3)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(4)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(1)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(2)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(3)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
+		#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(1)))
+		#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(2)))
+		#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(3)))
+		#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(4)))
+		#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_handle(1)))
+		#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_handle(2)))
+		#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_handle(3)))
+		#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_handle(4)))
+		#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(1)))
+		#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(2)))
+		#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(3)))
+		#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(4)))
+		#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(1)))
+		#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(2)))
+		#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(3)))
+		#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
+		#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
+		#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
+		#ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
 	
 	if Input.is_action_just_pressed("test_3"):
 		pass#ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/fire_projectile.gd").new())
@@ -163,6 +163,14 @@ func _process(delta: float) -> void:
 		pass#ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/flamethrower_handle.gd").new())
 	
 	if Input.is_action_just_pressed("test_6"):
+		var test_frame = shop_man.get_test_flame()
+		
+		var test_ui_frame = ShopManager.make_itemUI(test_frame)
+		
+		if !ui_man.shop.ui_add(test_ui_frame):
+			print("3")
+			ui_man.shop.new_add(test_ui_frame)
+		
 		var test_item = shop_man.get_test()
 		print("1")
 		var test_ui = ShopManager.make_itemUI(test_item)
