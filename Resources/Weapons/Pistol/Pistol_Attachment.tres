@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/itemdata.gd" id="2_hmrk0"]
 [ext_resource type="Texture2D" uid="uid://bubjo75ouhbaj" path="res://Art/New_Weapons/Pistol/Attachment_Pistol.png" id="2_lndgm"]
 [ext_resource type="PackedScene" uid="uid://rbimtghqmg7r" path="res://Scenes/Weapons/pistol/pistol_attachment.tscn" id="3_exam7"]
-[ext_resource type="Script" uid="uid://8b2yih1s0rui" path="res://Scripts/stats.gd" id="3_j1kja"]
+[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/stats.gd" id="3_j1kja"]
 
 [sub_resource type="Resource" id="Resource_exam7"]
 script = ExtResource("3_j1kja")

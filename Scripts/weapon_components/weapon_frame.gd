@@ -40,7 +40,7 @@ func make_stats_visual(i: int):
 		stats_visual = null
 	const STATS_VISUAL = preload("res://Scenes/UI/stats_visual.tscn")
 	stats_visual = STATS_VISUAL.instantiate()
-	GameManager.instance.add_child(stats_visual)
+	GameManager.instance.ui_man.add_child(stats_visual)
 	stats_visual.global_position = Vector2(0, i* 20)#Vector2(-310, i * 20)
 	print(i)
 	stats_visual.set_stats(stats, "W: " + name)

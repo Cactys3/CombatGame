@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://dfh3cgblwlx5" path="res://Scenes/Weapons/railgun/resources/railgun_projectile_stats.tres" id="1_t3ud4"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/itemdata.gd" id="2_c642n"]
 [ext_resource type="PackedScene" uid="uid://b605pualaip1m" path="res://Scenes/Weapons/railgun/railgun_projectile.tscn" id="3_bxyty"]
-[ext_resource type="Script" uid="uid://8b2yih1s0rui" path="res://Scripts/stats.gd" id="3_g2hyr"]
+[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/stats.gd" id="3_g2hyr"]
 
 [sub_resource type="Resource" id="Resource_bxyty"]
 script = ExtResource("3_g2hyr")

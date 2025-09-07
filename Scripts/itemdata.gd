@@ -94,7 +94,7 @@ func set_rarity(rarity: item_rarities):
 		if has_stats:
 			for key in stats.statsbase:
 				stats.set_stat_base(key, stats.get_stat_base(key) + item_rarity * rarity_stat_modifiers.get_stat_base(key))
-				stats.set_stat_factor(key, stats.get_stat_factor(key) + item_rarity * rarity_stat_modifiers.get_stat_factor(key))
+				#stats.set_stat_factor(key, stats.get_stat_factor(key) + sqrt(item_rarity * rarity_stat_modifiers.get_stat_factor(key))) #TODO: find a way to add factor stats
 		#TODO: Do the same rarity calculations for Status Effects if desired
 
 func randomize_stats():

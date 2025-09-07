@@ -3,7 +3,7 @@
 [ext_resource type="Resource" uid="uid://br3kpgfsuteco" path="res://Scenes/Weapons/sword/resources/sword_handle_stats.tres" id="1_eakhu"]
 [ext_resource type="Texture2D" uid="uid://dyn358jlt11hp" path="res://Art/New_Weapons/Sword/Handle_Sword.png" id="2_eakhu"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/itemdata.gd" id="2_tw6dc"]
-[ext_resource type="Script" uid="uid://8b2yih1s0rui" path="res://Scripts/stats.gd" id="3_a56wt"]
+[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/stats.gd" id="3_a56wt"]
 [ext_resource type="PackedScene" uid="uid://cj2edhpgvt73m" path="res://Scenes/Weapons/sword/sword_handle.tscn" id="3_g72k8"]
 
 [sub_resource type="Resource" id="Resource_g72k8"]

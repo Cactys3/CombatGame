@@ -5,7 +5,7 @@ class_name Player_Script
 @export var StartingMoney: int = 5
 @export var player_stats: StatsResource = StatsResource.new()
 
-var stats_visual
+var stats_visual = null
 
 
 @export var hp_regen:float = 0
@@ -55,9 +55,8 @@ func _ready() -> void:
 	call_deferred("make_stats_visual")
 
 func make_stats_visual():
-	const STATS_VISUAL = preload("res://Scenes/UI/stats_visual.tscn")
-	stats_visual = STATS_VISUAL.instantiate()
-	GameManager.instance.add_child(stats_visual)
+	stats_visual = load("res://Scenes/UI/stats_visual.tscn").instantiate()
+	GameManager.instance.ui_man.add_child(stats_visual)
 	stats_visual.global_position = Vector2.ZERO#Vector2(-310, -20)
 	stats_visual.set_stats(player_stats, "Player Stats")
 

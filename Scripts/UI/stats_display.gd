@@ -1,3 +1,4 @@
+class_name StatsDisplay
 extends Control
 
 var stats: StatsResource
@@ -7,20 +8,20 @@ var stats: StatsResource
 
 const SCENE = preload("res://Scenes/UI/stats_visual.tscn")
 
-@onready var damage: Label = $damage
-@onready var range: Label = $range
-@onready var weight: Label = $weight
-@onready var attackspeed: Label = $attackspeed
-@onready var velocity: Label = $velocity
-@onready var count: Label = $count
-@onready var duration: Label = $duration
-@onready var _size: Label = $size
-@onready var buildup: Label = $buildup
-@onready var stance: Label = $stance
-@onready var hp: Label = $hp
-@onready var xp: Label = $xp
-@onready var mogul: Label = $mogul
-@onready var movespeed: Label = $movespeed
+@onready var damage: Label = $Panel/damage
+@onready var range: Label = $Panel/range
+@onready var weight: Label = $Panel/weight
+@onready var attackspeed: Label = $Panel/attackspeed
+@onready var velocity: Label = $Panel/velocity
+@onready var count: Label = $Panel/count
+@onready var duration: Label = $Panel/duration
+@onready var _size: Label = $Panel/size
+@onready var buildup: Label = $Panel/buildup
+@onready var stance: Label = $Panel/stance
+@onready var hp: Label = $Panel/hp
+@onready var xp: Label = $Panel/xp
+@onready var mogul: Label = $Panel/mogul
+@onready var movespeed: Label = $Panel/movespeed
 
 @onready var drag_bar: DraggableUI = $DragBar
 
@@ -32,6 +33,7 @@ func set_stats(new_stats: StatsResource, new_name: String):
 	refresh()
 
 func _ready() -> void:
+	toggle_ui.StartDisabled = StartMinimized
 	damage.text = "damage: "
 	range.text = "range: "
 	weight.text = "weight: "
@@ -46,16 +48,12 @@ func _ready() -> void:
 	xp.text = "xp: "
 	mogul.text = "mogul: "
 	movespeed.text = "movespeed: "
-	if StartMinimized:
-		toggle_ui.call_deferred("_toggled", true)
 
 func _process(delta: float) -> void:
 	stopwatch += delta
 	if (stopwatch > 3):
 		refresh()
 		stopwatch = 0
-	if (Input.is_action_just_pressed("inventory_toggle")):
-		toggle_ui.call_deferred("_toggled", true)
 
 func refresh():
 	if stats:
