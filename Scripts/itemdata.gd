@@ -7,7 +7,6 @@ class_name ItemData
 @export var item_description: String = "default description"
 enum item_types{unset, handle, attachment, projectile, weapon, item, mod}
 @export var item_type: item_types
-#@export var item_type: String = "default type"
 @export var item_color: Color = Color.DARK_SLATE_BLUE
 @export var border_color: Color = Color.WHITE
 @export var item_image: Texture2D = preload("res://Art/UI/MissingTexture.png")
@@ -22,8 +21,7 @@ var stats: StatsResource = null
 var status_effects: StatusEffects = null
 @export var rarity_cost_modifier = 1
 enum item_rarities {unset, common, rare, epic, legendary, exclusive}
-@export var item_rarity: item_rarities
-#@export var item_rarity: String = "default rarity"
+@export var item_rarity: int
 @export var item_buy_cost: float = 5
 @export var item_sell_cost_modifier: float = 0.8
 ## Booleans for optional Fields
@@ -41,6 +39,8 @@ enum item_rarities {unset, common, rare, epic, legendary, exclusive}
 @export var equipped: bool = false
 @export var is_ready: bool = false
 @export var frame_ready: bool = false
+@export var attachment_visual: Texture2D = null
+@export var handle_visual: Texture2D = null
 ## Item Fields (only for items)
 @export_category("Item Fields (only for items)")
 @export var stackable: bool = false
@@ -59,6 +59,22 @@ var made_item: bool = false
 var ready: bool = false
 static var count: int = 0
 var ID: int 
+
+static func get_rarity(i: int) -> String:
+	match(i):
+		item_rarities.common:
+			return "common"
+		item_rarities.rare:
+			return "rare"
+		item_rarities.epic:
+			return "epic"
+		item_rarities.legendary:
+			return "legendary"
+		item_rarities.exclusive:
+			return "exclusive"
+		item_rarities.unset:
+			return "unset"
+	return "unset"
 
 ## happens only once when itemdata is created
 func setup(randomize: bool, rarity: item_rarities):
@@ -125,85 +141,73 @@ func get_item() -> Node:
 	return null
 
 func make_item():
-	made_item = true
+	## Need all these seperated because godot fucks everything up if we don't type the variable 'ret'
 	match(item_type):
-		item_types.weapon:
-			var ret: Weapon_Frame = item_packed_scene.instantiate()
-			ret = ret.duplicate(true)
-			if has_stats:
-				ret.stats = stats #TODO: Choosing not to duplicate stats here because should be same reference?
-			if has_status_effects:
-				ret.status_effects = status_effects
-			#ret.data = self
-			item = ret
-			return ret
-		item_types.attachment:
-			var ret: Attachment = item_packed_scene.instantiate()
-			#ret = ret.duplicate(true)
-			if has_stats:
-				ret.stats = stats #TODO: Choosing not to duplicate stats here because should be same reference?
-			if has_status_effects:
-				ret.status_effects = status_effects
-			#ret.data = self
-			item = ret
-			return ret
-		item_types.handle:
-			var ret: Handle = item_packed_scene.instantiate()
-			#ret = ret.duplicate(true)
-			if has_stats:
-				ret.stats = stats #TODO: Choosing not to duplicate stats here because should be same reference?
-			if has_status_effects:
-				ret.status_effects = status_effects
-			#ret.data = self
-			item = ret
-			return ret
-		item_types.projectile:
-			var ret: Projectile = item_packed_scene.instantiate()
-			#ret = ret.duplicate(true)
-			if has_stats:
-				ret.stats = stats #TODO: Choosing not to duplicate stats here because should be same reference?
-			if has_status_effects:
-				ret.status_effects = status_effects
-			#ret.data = self
-			item = ret
-			return ret
 		item_types.item:
 			var ret: Item = item_packed_scene.instantiate()
-			# ret = ret.duplicate(true) as Item  
 			GameManager.instance.add_child(ret)
 			if has_stats:
 				ret.set_stats(stats) #TODO: Choosing not to duplicate stats here because should be same reference?
 			if has_status_effects:
 				ret.status_effects = status_effects
-			#ret.data = self
+			ret.data = self
 			item = ret
 			return ret
-		_:
-			var ret = item_packed_scene.instantiate()
-			ret = ret.duplicate(true)
+		item_types.weapon:
+			return make_frame()
+		item_types.attachment:
+			var ret: Attachment = item_packed_scene.instantiate()
 			if has_stats:
 				ret.stats = stats #TODO: Choosing not to duplicate stats here because should be same reference?
 			if has_status_effects:
 				ret.status_effects = status_effects
-			#ret.data = self
+			ret.data = self
+			item = ret
+			return ret
+		item_types.handle:
+			var ret: Handle = item_packed_scene.instantiate()
+			if has_stats:
+				ret.stats = stats #TODO: Choosing not to duplicate stats here because should be same reference?
+			if has_status_effects:
+				ret.status_effects = status_effects
+			ret.data = self
+			item = ret
+			return ret
+		item_types.projectile:
+			var ret: Projectile = item_packed_scene.instantiate()
+			if has_stats:
+				ret.stats = stats #TODO: Choosing not to duplicate stats here because should be same reference?
+			if has_status_effects:
+				ret.status_effects = status_effects
+			ret.data = self
+			item = ret
+			return ret
+		_:
+			var ret = item_packed_scene.instantiate()
+			if has_stats:
+				ret.stats = stats #TODO: Choosing not to duplicate stats here because should be same reference?
+			if has_status_effects:
+				ret.status_effects = status_effects
+			ret.data = self
 			item = ret
 			return ret
 
 ## Sets Weapon Components and setsup this ItemData to hold a Weapon
 func set_components(new_attachment: ItemData, new_handle: ItemData, new_projectile: ItemData):
-	setup(true, item_rarities.common)
+	setup(true, item_rarity)
 	attachment = new_attachment
 	handle = new_handle
 	projectile = new_projectile
 	frame_ready = true
 	item_type = item_types.weapon
 	print("true false: " + attachment.stats.parent_object_name)
+	make_frame()
 
 ## Set the Item Components and weapon data based on components
 func make_frame() -> Weapon_Frame:
 	made_item = true
 	var new_frame: Weapon_Frame = Weapon_Frame.SCENE.instantiate()
-	new_frame.stats = new_frame.stats.duplicate()
+	new_frame.stats = StatsResource.new()
 	new_frame.add_attachment(attachment.make_item())
 	new_frame.add_handle(handle.make_item())
 	new_frame.add_projectile(projectile.make_item())
@@ -213,9 +217,10 @@ func make_frame() -> Weapon_Frame:
 	item_sell_cost_modifier = (attachment.item_sell_cost_modifier + handle.item_sell_cost_modifier + projectile.item_sell_cost_modifier) / 3
 	item_name = attachment.item_name + handle.item_name + projectile.item_name 
 	item_description = attachment.item_name + handle.item_name + projectile.item_name
+	attachment_visual = attachment.item_image
+	handle_visual = handle.item_image
 	new_frame.data = self
 	item = new_frame
 	item_type = item_types.weapon
 	item_image # set to combo of all images somehow
-	item_rarity = item_rarities.common # set to highest rarity among comps for now
 	return new_frame

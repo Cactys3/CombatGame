@@ -25,6 +25,8 @@ var ID = 0
 @export var BackgroundTexture: TextureRect
 @export var DescriptionPanel: Panel
 @export var DescriptionLabel: RichTextLabel
+@export var HandleVisual: TextureRect
+@export var AttachmentVisual: TextureRect 
 const DescriptionMaxY: float = 120
 const DescriptionMaxX: float = 120
 
@@ -85,6 +87,12 @@ func set_item(new_data: ItemData):
 	DescriptionPanel.self_modulate = data.item_color
 	IconTexture.texture = data.item_image
 	BackgroundTexture.self_modulate = data.border_color
+	if data.item_type == ItemData.item_types.weapon:
+		AttachmentVisual.texture = data.attachment_visual
+		HandleVisual.texture = data.handle_visual
+		AttachmentVisual.visible = true
+		HandleVisual.visible = true
+		IconTexture.visible = false
 
 func get_item():
 	return data.get_item()
@@ -104,7 +112,7 @@ func show_details():
 	showing_details = true
 	#print(DescriptionLabel.text)
 	
-	print(data.item_type == data.item_types.weapon)
+	print(ItemData.get_rarity(data.item_rarity) + " - " + data.item_name)
 
 func hide_details():
 	#DescriptionLabel.size = Vector2(1 , 1)
@@ -113,6 +121,9 @@ func hide_details():
 	showing_details = false
 
 func _process(delta: float) -> void:
+	if !is_instance_valid(dragging_item):
+		dragging_item = null
+		dragging_some_item = false
 	if !(dragging_some_ui && !dragging) && visible && process_mode != PROCESS_MODE_DISABLED:
 		if !mouse_hover && get_global_rect().has_point(get_global_mouse_position()):
 			mouse_hover = true
@@ -138,10 +149,13 @@ func _process(delta: float) -> void:
 		if mouse_hover && Input.is_action_just_pressed("left_click"):
 			var good: bool = true
 			for bar in hovered:
-				if bar != self && bar.get_priority() > parent.get_priority():
-					good = false
+				if !is_instance_valid(bar):
+					pass
 				else:
-					pass#print(bar.name + " lost dragging context with: " + str(bar.get_priority()))
+					if bar != self && bar.get_priority() > parent.get_priority():
+						good = false
+					else:
+						pass#print(bar.name + " lost dragging context with: " + str(bar.get_priority()))
 			if good:
 				#print(name + " won dragging context with: " + str(get_priority()))
 				dragging = true
@@ -179,6 +193,10 @@ func free_draggable_ui():
 	if dragging:
 		dragging_some_item = false
 		dragging_item = null
+	hovered.erase(self)
+	if ItemUI.dragging_item == self:
+		ItemUI.dragging_item = null
+		ItemUI.dragging_some_item = false
 	super()
 
 func get_priority() -> int:

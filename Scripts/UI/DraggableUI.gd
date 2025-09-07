@@ -39,7 +39,7 @@ func _process(delta: float) -> void:
 		if mouse_hover && Input.is_action_just_pressed("left_click") && visible:
 			var good: bool = true
 			for bar in hovered:
-				if bar != self && bar.get_priority() > get_priority():
+				if is_instance_valid(bar) && bar != self && bar.get_priority() > get_priority():
 					good = false
 			if good:
 				#print(parent.name + " won dragging context with: " + str(get_priority()))
@@ -70,6 +70,9 @@ func free_draggable_ui():
 		hovered.erase(self)
 	if dragging:
 		dragging_some_ui = false
+	if ItemUI.dragging_item == self:
+		ItemUI.dragging_item = null
+		ItemUI.dragging_some_item = false
 	queue_free()
 
 func _enter() -> void:

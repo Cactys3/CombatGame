@@ -7,7 +7,6 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_ytgoh"]
 font = ExtResource("4_jga5b")
-font_size = 32
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwy7p"]
 content_margin_left = 2.0
@@ -27,7 +26,7 @@ expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 anti_aliasing = false
 
-[node name="Item" type="Control" node_paths=PackedStringArray("NameLabel", "IconTexture", "BackgroundTexture", "DescriptionPanel", "DescriptionLabel")]
+[node name="Item" type="Control" node_paths=PackedStringArray("NameLabel", "IconTexture", "BackgroundTexture", "DescriptionPanel", "DescriptionLabel", "HandleVisual", "AttachmentVisual")]
 texture_filter = 1
 clip_contents = true
 custom_minimum_size = Vector2(120, 120)
@@ -43,6 +42,8 @@ IconTexture = NodePath("ItemVisual")
 BackgroundTexture = NodePath("Background")
 DescriptionPanel = NodePath("DescriptionPanel")
 DescriptionLabel = NodePath("DescriptionPanel/DescriptionText")
+HandleVisual = NodePath("HandleVisual")
+AttachmentVisual = NodePath("AttachmentVisual")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 0
@@ -53,6 +54,20 @@ texture = ExtResource("2_o07fp")
 
 [node name="ItemVisual" type="TextureRect" parent="."]
 layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(3, 3)
+texture = ExtResource("3_hfdbq")
+
+[node name="AttachmentVisual" type="TextureRect" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(3, 3)
+texture = ExtResource("3_hfdbq")
+
+[node name="HandleVisual" type="TextureRect" parent="."]
+visible = false
 offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(3, 3)
@@ -70,6 +85,7 @@ label_settings = SubResource("LabelSettings_ytgoh")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+clip_text = true
 
 [node name="DescriptionPanel" type="Panel" parent="."]
 custom_minimum_size = Vector2(20, 20)
