@@ -61,6 +61,7 @@ texture = ExtResource("3_hfdbq")
 
 [node name="AttachmentVisual" type="TextureRect" parent="."]
 visible = false
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(3, 3)
@@ -68,6 +69,7 @@ texture = ExtResource("3_hfdbq")
 
 [node name="HandleVisual" type="TextureRect" parent="."]
 visible = false
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(3, 3)

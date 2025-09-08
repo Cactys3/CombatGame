@@ -33,7 +33,7 @@ var starting_money: float = 15
 
 ## Signals
 # For UI Methods
-signal toggle_inventory
+signal toggle_inventory() #TODO: add bool value to keep track of toggle state?
 signal set_xp(value: float)
 signal set_money(value: float)
 signal set_level(value: float)

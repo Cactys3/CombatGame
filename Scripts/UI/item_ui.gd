@@ -58,6 +58,7 @@ func _ready() -> void:
 		DescriptionLabel.get_v_scroll_bar().mouse_filter = Control.MOUSE_FILTER_PASS
 	DescriptionPanel.visible = false
 	z_index = 0
+	call_deferred("connect_signals")
 
 #func set_ui_details(is_expanded: bool, )
 
@@ -70,6 +71,10 @@ func _ready() -> void:
 		#IconTexture.texture = data.item_image
 	#else:
 		#push_error("ItemData Not Valid")
+
+func connect_signals():
+	if !is_connected("toggle_inventory", toggle_ui):
+		GameManager.instance.connect("toggle_inventory", toggle_ui)
 
 func set_item(new_data: ItemData):
 	#item = new_underlying_item OLD
@@ -193,10 +198,12 @@ func free_draggable_ui():
 	if dragging:
 		dragging_some_item = false
 		dragging_item = null
-	hovered.erase(self)
-	if ItemUI.dragging_item == self:
-		ItemUI.dragging_item = null
-		ItemUI.dragging_some_item = false
+	super()
+
+func toggle_ui():
+	if dragging:
+		dragging_some_item = false
+		dragging_item = null
 	super()
 
 func get_priority() -> int:

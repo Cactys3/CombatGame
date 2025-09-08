@@ -17,6 +17,11 @@ func _ready() -> void:
 	if !parent:
 		parent = self
 	parent.z_index = 2
+	
+	call_deferred("connect_signals")
+
+func connect_signals():
+	GameManager.instance.connect("toggle_inventory", toggle_ui)
 
 func _process(delta: float) -> void:
 	if !(dragging_some_ui && !dragging) && visible && parent.visible && process_mode != PROCESS_MODE_DISABLED && parent.process_mode != PROCESS_MODE_DISABLED:
@@ -62,6 +67,12 @@ func set_label(newtext: String):
 	if $Label:
 		$Label.text = newtext
 
+func toggle_ui():
+	if hovered.has(self):
+		hovered.erase(self)
+	if dragging:
+		dragging_some_ui = false
+
 func get_priority() -> int:
 	return parent.z_index
 
@@ -70,9 +81,6 @@ func free_draggable_ui():
 		hovered.erase(self)
 	if dragging:
 		dragging_some_ui = false
-	if ItemUI.dragging_item == self:
-		ItemUI.dragging_item = null
-		ItemUI.dragging_some_item = false
 	queue_free()
 
 func _enter() -> void:

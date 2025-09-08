@@ -66,7 +66,7 @@ alignment = 1
 layout_mode = 2
 parent = NodePath("../..")
 
-[node name="ToggleUIButton" parent="VBoxContainer/DragBar" node_paths=PackedStringArray("ui_to_hide") instance=ExtResource("3_i01ep")]
+[node name="ToggleUIButton" parent="VBoxContainer/DragBar" node_paths=PackedStringArray("ui_to_disable", "ui_to_hide") instance=ExtResource("3_i01ep")]
 layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.0
@@ -81,6 +81,7 @@ grow_horizontal = 1
 grow_vertical = 1
 scale = Vector2(3, 3)
 theme_override_font_sizes/font_size = 1
+ui_to_disable = [NodePath("../../../Panel")]
 ui_to_hide = [NodePath("../../Inventory-Scroll"), NodePath("../../DropVisual"), NodePath("../../../Panel")]
 
 [node name="Inventory-Scroll" type="ScrollContainer" parent="VBoxContainer"]

@@ -45,7 +45,7 @@ layout_mode = 2
 size_flags_vertical = 1
 parent = NodePath("../..")
 
-[node name="ToggleUIButton" parent="VBoxContainer/DragBar" node_paths=PackedStringArray("ui_to_hide") instance=ExtResource("3_t1u8h")]
+[node name="ToggleUIButton" parent="VBoxContainer/DragBar" node_paths=PackedStringArray("ui_to_disable", "ui_to_hide") instance=ExtResource("3_t1u8h")]
 layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.0
@@ -62,6 +62,7 @@ scale = Vector2(3, 3)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 1
+ui_to_disable = [NodePath("../../../Panel"), null]
 ui_to_hide = [NodePath("../../TabContainer"), NodePath("../../Character Display"), NodePath("../../../Panel")]
 
 [node name="Character Display" type="HBoxContainer" parent="VBoxContainer"]
