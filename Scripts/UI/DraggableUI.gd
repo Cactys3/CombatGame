@@ -16,8 +16,6 @@ static var hovered: Array[DraggableUI]
 func _ready() -> void:
 	if !parent:
 		parent = self
-	parent.z_index = 2
-	
 	call_deferred("connect_signals")
 
 func connect_signals():
@@ -25,40 +23,36 @@ func connect_signals():
 
 func _process(delta: float) -> void:
 	if !(dragging_some_ui && !dragging) && visible && parent.visible && process_mode != PROCESS_MODE_DISABLED && parent.process_mode != PROCESS_MODE_DISABLED:
-		if !mouse_hover && get_global_rect().has_point(get_global_mouse_position()):
+		var hovering_drag_bar = get_global_rect().has_point(get_global_mouse_position())
+	## if we are being hovered, hover
+		if !mouse_hover && (hovering_drag_bar || parent.get_global_rect().has_point(get_global_mouse_position())):
 			hovered.append(self)
 			mouse_hover = true
-			#print("hover true")
-		
-		if mouse_hover && !get_global_rect().has_point(get_global_mouse_position()):
+	## if we were being hovered but not anymore, unhover
+		if mouse_hover && !(hovering_drag_bar || parent.get_global_rect().has_point(get_global_mouse_position())):
 			hovered.erase(self)
 			mouse_hover = false
-			#print("hover false")
-		
+	## If we are being hovered and nothing else is overtop of us (also being hovered), make us on top
+		if mouse_hover && hovered.size() == 1:
+			parent.get_parent().move_child(parent, parent.get_parent().get_child_count() - 1)
+	## if dragging and released? left click, undrag
 		if dragging && !Input.is_action_pressed("left_click"):
 			dragging = false
 			dragging_some_ui = false
-			parent.z_index = 3
-			#print("dragging false")
-		
-		if mouse_hover && Input.is_action_just_pressed("left_click") && visible:
+	## if if hovering (the drag bar) and left click and we topmost child, we are now dragging
+		if mouse_hover && hovering_drag_bar && Input.is_action_just_pressed("left_click") && visible && parent.get_parent().get_child(parent.get_parent().get_child_count() - 1) == parent:
 			var good: bool = true
 			for bar in hovered:
 				if is_instance_valid(bar) && bar != self && bar.get_priority() > get_priority():
 					good = false
 			if good:
-				#print(parent.name + " won dragging context with: " + str(get_priority()))
 				dragging = true
 				dragging_some_ui = true
-				parent.z_index = 50
 				offset = parent.global_position
 				offset2 = get_global_mouse_position()
-				#print("dragging true")
 		if dragging:
 			parent.global_position = lerp(parent.global_position, offset + (get_global_mouse_position() - offset2), 40 * delta)
 	else:
-		if parent.z_index > 2 && dragging_some_ui && !dragging:
-			parent.z_index = 2
 		if dragging:
 			dragging_some_ui = false
 			dragging = false
