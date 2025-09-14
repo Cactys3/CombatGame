@@ -4,18 +4,13 @@ class_name Player_Script
 @export var anim: AnimationPlayer
 @export var StartingMoney: int = 5
 @export var player_stats: StatsResource = StatsResource.new()
-
 var stats_visual = null
-
-
 @export var hp_regen:float = 0
 @export var knockback_modifier:float = 1
 @export var can_be_knockbacked:bool = true
 @export var can_be_stunned:bool = true
 var stunning:bool = false
 var stun_time_left: float = 0
-
-
 var moving: bool = false
 var weapon_list: Array[Weapon_Frame]
 var weapon_count: float = 0
@@ -116,13 +111,6 @@ func damage(attack: Attack):
 		#print("Knockback: " + str((global_position - attack.position).normalized() * attack.knockback * knockback_modifier))
 	if health <= 0:
 		die()
-		var dmg_text: PopupText = preload("res://Scenes/UI/popup_text.tscn").instantiate()
-		dmg_text.setup(str("you died"), net_damage, global_position, 1, get_tree().root, Vector2(10, 10))
-	else:
-		var dmg_text: PopupText = preload("res://Scenes/UI/popup_text.tscn").instantiate()
-		dmg_text.setup(str(int(round(attack.damage))), net_damage, global_position, 1, get_tree().root, Vector2(10, 10))
-
-
 
 func die():
 	print("player died: " + str(health))
@@ -190,6 +178,9 @@ func remove_frame(frame_sought: Weapon_Frame) -> bool:
 
 func get_stat(stat: String) -> float:
 	return player_stats.get_stat(stat)
+
+func get_random_frame() -> Weapon_Frame:
+	return weapon_list.get(randi_range(0, weapon_list.size() - 1))
 
 ## funcs to be overriden for special character mechanics (or item mechanics)
 func set_stats(): ## set_stats should call super()

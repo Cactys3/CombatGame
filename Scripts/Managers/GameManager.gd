@@ -1,6 +1,6 @@
 extends Node
 class_name GameManager
-
+const LEVEL_UP_SCREEN = preload("res://Scenes/UI/level_up_screen.tscn")
 static var STATS_VISUAL = preload("res://Scenes/UI/stats_visual.tscn")
 @onready var weapon_frame = preload("res://Scenes/Weapons/weapon_frame.tscn")
 ## Single Instance Object
@@ -48,6 +48,7 @@ var xp: float = 0: ## Current (total?) XP Gained
 			xp_gained_since_last_level -= xp_to_next_level
 			xp_to_next_level *= xp_modifier_per_level
 			level += 1
+			emit_signal("level_up")
 			print("Gained Level Costing: " + str(int(xp_to_next_level)) + " XP Leftover: " + str(int(xp_gained_since_last_level) - int(xp_to_next_level)))
 		player.xp = value
 	get():
@@ -67,6 +68,7 @@ var paused_for_shop: bool = false
 ## Signals
 # For GameManager Systems
 signal pause_game(value: bool)
+signal level_up()
 # For UI Methods
 signal toggle_inventory() #TODO: add bool value to keep track of toggle state?
 signal set_xp(value: float)
@@ -95,6 +97,7 @@ func _ready() -> void:
 	global_stats.add_stats(character_choice_stats)
 	player.player_stats.add_stats(global_stats)
 	
+	connect("level_up", create_level_up_instance)
 	
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
@@ -148,9 +151,6 @@ func _process(delta: float) -> void:
 		
 		ui_man.shop.ui_add(test1)
 		ui_man.shop.ui_add(test2)
-
-func pause_for_esc_menu(value: bool):
-	paused_for_esc = value
 
 func pause(value: bool):
 	if paused != value:
@@ -316,3 +316,51 @@ func can_equip(item: ItemUI) -> bool:
 
 func can_unequip(item: ItemUI) -> bool:
 	return true ## Check if player has weapon equipped
+
+func create_level_up_instance():
+	ui_man.pause_level_up()
+	## get 3 random things w/ variable references
+	var one = get_random_level_up_option()
+	var two = get_random_level_up_option()
+	var three = get_random_level_up_option()
+	## setup LevelUpInstance with those random things and their details (color, name, etc)
+	var instance = LEVEL_UP_SCREEN.instantiate()
+	instance.global_position = Vector2.ZERO
+	ui_man.level_up_parent.add_child(instance)
+	instance.setup(1, one)
+	instance.setup(2, two)
+	instance.setup(3, three)
+	var choice: LevelUpData = await instance.get_choice()
+	choice.carryout_level_up()
+	instance.free_instance()
+	ui_man.pause_level_up()
+	## wait for LevelUpInstance to choose one of those things
+	
+	## do whatever that thing was
+	
+	## delete LevelUpInstance
+
+func get_random_level_up_option() -> LevelUpData:
+	var levelupdata: LevelUpData = LevelUpData.new()
+	match(randi_range(0, 1)):
+		0:
+			## gain random new item
+			var item: ItemData = shop_man.get_item(1)
+			levelupdata.set_itemdata(item, LevelUpData.types.new_item)
+		1:
+			## gain random money
+			var money: int = randi_range(20, 50)
+			levelupdata.set_money(money)
+		2:
+			## gain weapon component upgrade
+			pass
+		3:
+			## gain item upgrade
+			pass
+		4:
+			## gain special super upgrade (change rarities of match)
+			pass
+	return levelupdata
+
+func get_random_equipped_weapon():
+	return player.get_random_frame()

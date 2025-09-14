@@ -9,6 +9,7 @@ class_name UIManager
 @export var tab_menu_parent: Control
 @export var esc_menu_parent: Control
 @export var level_up_parent: Control
+@export var static_ui_parent: Control
 
 ## FOR TESTING:
 @export var shop: Inventory
@@ -37,49 +38,55 @@ func _process(delta: float) -> void:
 		pause_tab()
 ## paused for esc overwrites any other pauses
 func pause_esc() -> bool:
-	var value = !paused_for_esc
-	paused = value
-	GameManager.instance.pause(value)
-	if value:
-		esc_menu_parent.process_mode = Node.PROCESS_MODE_INHERIT
+	paused_for_esc = !paused_for_esc
+	paused = paused_for_esc
+	if paused_for_esc:
+		GameManager.instance.pause(true)
 		if tab_menu_parent.visible:
 			GameManager.instance.toggle_inventory.emit()
-		level_up_parent.process_mode = Node.PROCESS_MODE_PAUSABLE
 		esc_menu_parent.visible = true
+		level_up_parent.visible = false
 	else:
 		esc_menu_parent.visible = false
-	paused_for_esc = value
-	paused_for_tab = false
-	paused_for_level_up = false
+		if paused_for_level_up:
+			level_up_parent.visible = true
+		elif paused_for_tab:
+			GameManager.instance.emit_signal("toggle_inventory")
+		else:
+			GameManager.instance.pause(false)
 	return true
 ## paused for tab overwrites not many
 func pause_tab() -> bool:
-	var value = !paused_for_tab
 	if paused_for_esc:
 		return false
 	if paused_for_level_up:
 		return false
-	paused = value
-	GameManager.instance.pause(value)
-	if value:
-		tab_menu_parent.process_mode = Node.PROCESS_MODE_INHERIT
+	paused_for_tab = !paused_for_tab
+	paused = paused_for_tab
+	GameManager.instance.pause(paused_for_tab)
+	if paused_for_tab:
+		#tab_menu_parent.process_mode = Node.PROCESS_MODE_INHERIT
 		GameManager.instance.toggle_inventory.emit()
 	else:
 		GameManager.instance.toggle_inventory.emit()
-	paused_for_tab = value
 	return true
 ## paused for level up overwrites tab, but can be paused by pause for esc
 func pause_level_up() -> bool:
-	var value = !paused_for_level_up
+	paused_for_level_up = !paused_for_level_up
 	if paused_for_esc:
 		return false
-	paused = value
-	GameManager.instance.pause(value)
-	if value:
+	paused = paused_for_level_up
+	if paused_for_level_up:
+		GameManager.instance.pause(true)
+		level_up_parent.visible = true
 		if tab_menu_parent.visible:
 			GameManager.instance.toggle_inventory.emit()
-	paused_for_level_up = value
-	paused_for_tab = false
+	else:
+		level_up_parent.visible = false
+		if paused_for_tab:
+			GameManager.instance.emit_signal("toggle_inventory")
+		else:
+			GameManager.instance.pause(false) # only unpause if no other pauses active
 	return true
 ## paused for misc is overwritten by anything
 func pause_misc(value: bool):

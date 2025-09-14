@@ -53,39 +53,17 @@ func _ready() -> void:
 	super()
 	ID = IDindex
 	IDindex += 1
-	#custom_minimum_size = IconTexture.texture.get_size() + Vector2(5, 5)
 	if is_instance_valid(DescriptionLabel.get_v_scroll_bar()):
 		DescriptionLabel.get_v_scroll_bar().mouse_filter = Control.MOUSE_FILTER_PASS
 	DescriptionPanel.visible = false
 	z_index = 0
 	call_deferred("connect_signals")
 
-#func set_ui_details(is_expanded: bool, )
-
-#func set_itemdata(new_itemdata: ItemData): ## TODO: working on this right now
-	#if is_instance_valid(new_itemdata):
-		#data = new_itemdata
-		#NameLabel.text = data.item_name
-		#DescriptionLabel.text = data.item_description
-		#DescriptionPanel.modulate = data.item_color
-		#IconTexture.texture = data.item_image
-	#else:
-		#push_error("ItemData Not Valid")
-
 func connect_signals():
 	if !GameManager.instance.is_connected("toggle_inventory", toggle_ui):
 		GameManager.instance.connect("toggle_inventory", toggle_ui)
 
 func set_item(new_data: ItemData):
-	#item = new_underlying_item OLD
-	#if item.has_method("getdata"):
-		#item.setdata()
-		#data = item.getdata()
-		#if data.ready:
-			#NameLabel.text = data.item_name
-			#DescriptionLabel.text = data.item_description
-			#DescriptionPanel.modulate = data.item_color
-			#IconTexture.texture = data.item_image
 	data = new_data
 	NameLabel.text = data.item_name
 	DescriptionLabel.text = data.item_description
@@ -103,25 +81,12 @@ func get_item():
 	return data.get_item()
 
 func show_details():
-	#if data.ready:
-		#DescriptionLabel.text = "[font_size=5]" + " ID: " + str(ID) + "\n Pos: " + "[font_size=4]" + str(position) + "[/font_size]"  + "\nDescription: " + data.item_description + "[/font_size]"
-	#else:
-		#DescriptionLabel.text = "[font_size=5]" + " ID: " + str(ID) + "\n Pos: " + "[font_size=4]" + str(position) + "[/font_size]" + "[/font_size]"
-	#DescriptionLabel.text = "[font_size=20]" + " ID: " + str(ID) + "\n  " + "[font_size=4]" + str(position) + "[/font_size]"  + "\nDescription: " + data.item_description + "[/font_size]"
-	
-	#DescriptionPanel.size = Vector2(DescriptionMaxX, clampf(DescriptionLabel.get_content_height() + 4, 1, DescriptionMaxY)) TODO: for if i want scrolling back
-	#DescriptionLabel.size = Vector2(DescriptionMaxX, clampf(DescriptionLabel.get_content_height(), 1, DescriptionMaxY - 3))
-	#DescriptionLabel.size = Vector2(DescriptionMaxX,DescriptionLabel.get_content_height() )
-	#DescriptionPanel.size = Vector2(DescriptionMaxX + 2, DescriptionLabel.get_content_height() + 1)
 	DescriptionPanel.visible = true
 	showing_details = true
-	#print(DescriptionLabel.text)
 	
 	print(ItemData.get_rarity(data.item_rarity) + " - " + data.item_name)
 
 func hide_details():
-	#DescriptionLabel.size = Vector2(1 , 1)
-	#DescriptionPanel.size = Vector2(1 , 1)
 	DescriptionPanel.visible = false
 	showing_details = false
 
@@ -145,7 +110,6 @@ func _process(delta: float) -> void:
 			z_index = 0
 			call_deferred("set", "dragging_some_item", false)
 			item_parent.queue_sort()
-			#print("dragging OFF: " + str(ID))
 		
 		if dragging && dragging_some_ui:
 			dragging_some_ui = false
@@ -159,10 +123,7 @@ func _process(delta: float) -> void:
 				else:
 					if bar != self && bar.get_priority() > parent.get_priority():
 						good = false
-					else:
-						pass#print(bar.name + " lost dragging context with: " + str(bar.get_priority()))
 			if good:
-				#print(name + " won dragging context with: " + str(get_priority()))
 				dragging = true
 				dragging_some_ui = true
 				offset = global_position
@@ -171,7 +132,6 @@ func _process(delta: float) -> void:
 				z_index = 50
 				dragging_some_item = true
 				dragging_item = self
-				#print("dragging ON: " + str(ID))
 				global_position = offset
 		
 		if showing_details && (!mouse_hover || dragging_some_item):

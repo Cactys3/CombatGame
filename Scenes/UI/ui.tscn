@@ -2,9 +2,6 @@
 
 [ext_resource type="Script" uid="uid://illqvubum1r1" path="res://Scripts/managers/UIManager.gd" id="1_pigai"]
 
-[node name="UI" type="Node2D" node_paths=PackedStringArray("shop", "storage", "equipment")]
+[node name="UI" type="Node2D"]
 position = Vector2(-54, -89)
 script = ExtResource("1_pigai")
-shop = NodePath("")
-storage = NodePath("")
-equipment = NodePath("")

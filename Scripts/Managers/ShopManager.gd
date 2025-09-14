@@ -14,7 +14,6 @@ const RAILGUN_PROJECTILE = preload("res://Resources/Weapons/Railgun/Railgun_Proj
 const SWORD_ATTACHMENT = preload("res://Resources/Weapons/Sword/Sword_Attachment.tres")
 const SWORD_HANDLE = preload("res://Resources/Weapons/Sword/Sword_Handle.tres")
 const SWORD_PROJECTILE = preload("res://Resources/Weapons/Sword/Sword_Projectile.tres")
-
 ## Items
 const DAMAGE_BUFF = preload("res://Resources/Items/DamageBuff/DamageBuff.tres")
 
@@ -170,6 +169,13 @@ static func get_weapon(num: int) -> ItemData:
 			#w.setup(get_rand_attachment(), get_rand_handle(), get_rand_projectile())
 			#return w
 			return setup_weapon(get_rand_attachment(), get_rand_handle(), get_rand_projectile())
+## 1 = DamageBuff
+static func get_item(num: int) -> ItemData:
+	match num:
+		1:
+			return setup_data(DAMAGE_BUFF.duplicate(true))
+		_:
+			return setup_data(DAMAGE_BUFF.duplicate(true))
 ## Sets ItemData up to be used
 static func setup_data(item: ItemData) -> ItemData:
 	var data = item.duplicate(true)

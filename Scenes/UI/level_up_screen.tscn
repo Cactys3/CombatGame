@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1n10r7ysufh1"]
+
+[ext_resource type="Script" uid="uid://cifngod288w00" path="res://Scripts/UI/LevelUpInstance.gd" id="1_diivk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2h27x"]
+bg_color = Color(0, 0.886275, 0.635294, 0.0588235)
+
+[node name="LevelUpInstance" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_diivk")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2h27x")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+custom_minimum_size = Vector2(1500, 800)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 60
+alignment = 1
+
+[node name="Button1" type="Button" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+action_mode = 0
+text = "Option Choice 1"
+
+[node name="Button2" type="Button" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+action_mode = 0
+text = "Option Choice 2"
+
+[node name="Button3" type="Button" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+action_mode = 0
+text = "Option Choice 3"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Button1" to="." method="b1_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Button2" to="." method="b2_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Button3" to="." method="b3_pressed"]

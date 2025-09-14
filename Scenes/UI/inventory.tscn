@@ -26,9 +26,9 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_2ndhy")
 script = ExtResource("1_haeh0")
+label_text = "Storage"
 toggle_button = NodePath("VBoxContainer/DragBar/ToggleUIButton")
 drag_bar = NodePath("VBoxContainer/DragBar")
-label_text = "Storage"
 default_item_parent = NodePath("VBoxContainer/Inventory-Scroll/Inventory-Grid")
 
 [node name="Panel" type="Panel" parent="."]
@@ -45,7 +45,7 @@ alignment = 1
 layout_mode = 2
 parent = NodePath("../..")
 
-[node name="ToggleUIButton" parent="VBoxContainer/DragBar" node_paths=PackedStringArray("ui_to_disable", "ui_to_hide") instance=ExtResource("3_ow2mg")]
+[node name="ToggleUIButton" parent="VBoxContainer/DragBar" instance=ExtResource("3_ow2mg")]
 layout_mode = 2
 anchors_preset = 0
 offset_left = -45.0
@@ -54,8 +54,7 @@ offset_right = -32.0
 offset_bottom = -6.0
 scale = Vector2(3, 3)
 theme_override_font_sizes/font_size = 1
-ui_to_disable = [NodePath("../../../Panel")]
-ui_to_hide = [NodePath("../../Inventory-Scroll"), NodePath("../../../Panel")]
+theme_override_font_sizes/font_size = 1
 
 [node name="Inventory-Scroll" type="ScrollContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(450, 570)
