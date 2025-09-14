@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://cikwtalbjcmxf"]
 
-[ext_resource type="Script" uid="uid://wf7p15rriad8" path="res://Scripts/sword_scripts/sword_projectile.gd" id="1_lahgh"]
+[ext_resource type="Script" uid="uid://wf7p15rriad8" path="res://Scripts/weapon_scripts/sword_scripts/sword_projectile.gd" id="1_lahgh"]
 [ext_resource type="Resource" uid="uid://mrc0342gtaia" path="res://Scenes/Weapons/sword/resources/sword_projectile_stats.tres" id="2_righm"]
 [ext_resource type="Texture2D" uid="uid://ifm808khcaoe" path="res://Art/New_Weapons/Sword/projectile_sword.png" id="2_u2dc3"]
 [ext_resource type="Resource" uid="uid://jh81qjhxvank" path="res://Scenes/Weapons/sword/resources/sword_projectile_status.tres" id="3_righm"]

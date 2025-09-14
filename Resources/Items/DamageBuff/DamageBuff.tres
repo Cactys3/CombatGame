@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://vfsxq8j42aj1" path="res://Art/Items/DamageBuff.png" id="2_sgxyt"]
 [ext_resource type="PackedScene" uid="uid://c2dpxowebfmdn" path="res://Scenes/Items/damage_buff/DamageBuff.tscn" id="3_wlejx"]
 [ext_resource type="Resource" uid="uid://dadp48y853con" path="res://Resources/Items/DamageBuff/Rarity_Stat_Modifiers_DamageBuff.tres" id="4_w2air"]
-[ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/itemdata.gd" id="5_45hvh"]
+[ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="5_45hvh"]
 
 [resource]
 script = ExtResource("5_45hvh")

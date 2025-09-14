@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="StatusEffectDictionary" load_steps=2 format=3 uid="uid://dwxnom2ww7mre"]
 
-[ext_resource type="Script" uid="uid://cxwybb8hawlwn" path="res://Scripts/status_effects_dictionary.gd" id="1_hjnef"]
+[ext_resource type="Script" uid="uid://cxwybb8hawlwn" path="res://Scripts/resource_scripts/status_effects_dictionary.gd" id="1_hjnef"]
 
 [resource]
 script = ExtResource("1_hjnef")

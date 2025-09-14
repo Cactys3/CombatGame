@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://cbhm0fdw8in47"]
 
-[ext_resource type="Script" uid="uid://b125xvaiu00fe" path="res://Scripts/railgun_scripts/railgun_handle.gd" id="1_ylqkp"]
+[ext_resource type="Script" uid="uid://b125xvaiu00fe" path="res://Scripts/weapon_scripts/railgun_scripts/railgun_handle.gd" id="1_ylqkp"]
 [ext_resource type="Resource" uid="uid://durve76yg6dek" path="res://Scenes/Weapons/railgun/resources/railgun_handle_stats.tres" id="2_linqn"]
 [ext_resource type="Texture2D" uid="uid://bk662xnwn5kh7" path="res://Art/New_Weapons/Railgun/Railgun_Handle.png" id="2_pjswf"]
 

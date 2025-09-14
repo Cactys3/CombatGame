@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://bvis647gqlmpl" path="res://Scenes/Enemies/Resources/jub_stats.tres" id="2_si758"]
 [ext_resource type="PackedScene" uid="uid://ci2cd4gwhq203" path="res://Scenes/Enemies/Jub_Bullet.tscn" id="3_j73id"]
 [ext_resource type="Texture2D" uid="uid://dkwo5ym6c4dn1" path="res://Art/Characters/Jub.png" id="4_c0aay"]
-[ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/hurtbox.gd" id="5_vi2rn"]
+[ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="5_vi2rn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_26nvx"]
 atlas = ExtResource("4_c0aay")

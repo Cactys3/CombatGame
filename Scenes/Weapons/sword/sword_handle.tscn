@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cj2edhpgvt73m"]
 
-[ext_resource type="Script" uid="uid://usouqpo4ukke" path="res://Scripts/sword_scripts/sword_handle.gd" id="1_canbi"]
+[ext_resource type="Script" uid="uid://usouqpo4ukke" path="res://Scripts/weapon_scripts/sword_scripts/sword_handle.gd" id="1_canbi"]
 [ext_resource type="Resource" uid="uid://br3kpgfsuteco" path="res://Scenes/Weapons/sword/resources/sword_handle_stats.tres" id="2_1r7cl"]
 [ext_resource type="Texture2D" uid="uid://dyn358jlt11hp" path="res://Art/New_Weapons/Sword/Handle_Sword.png" id="2_afr1f"]
 

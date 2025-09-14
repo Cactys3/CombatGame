@@ -1,8 +1,8 @@
 [gd_scene load_steps=20 format=3 uid="uid://drjvl1sgqrjuy"]
 
 [ext_resource type="Script" uid="uid://5h1docs6sbvc" path="res://Scripts/enemy_scripts/enemy_types/Thub.gd" id="1_wvabn"]
-[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/stats.gd" id="2_fy23m"]
-[ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/hurtbox.gd" id="3_fy23m"]
+[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="2_fy23m"]
+[ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="3_fy23m"]
 [ext_resource type="Texture2D" uid="uid://b60twpjxkj30q" path="res://Art/Characters/Thub.png" id="3_vreir"]
 
 [sub_resource type="Resource" id="Resource_vreir"]

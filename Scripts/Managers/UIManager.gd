@@ -6,32 +6,99 @@ class_name UIManager
 @export var level_label: Label
 @export var hp_label: Label
 
+@export var tab_menu_parent: Control
+@export var esc_menu_parent: Control
+@export var level_up_parent: Control
+
 ## FOR TESTING:
 @export var shop: Inventory
 @export var storage: Inventory
-@export var storage2: Inventory
+#@export var storage2: Inventory
 @export var equipment: Inventory
 var enabled: bool = true
 
+var paused: bool = false ## Is Game Instance Paused or Not
+var paused_for_esc: bool = false
+var paused_for_tab: bool = false
+var paused_for_level_up: bool = false
+var paused_for_shop: bool = false
+
 func _ready() -> void:
 	call_deferred("_connect_signals")
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _connect_signals():
 	GameManager.instance.toggle_inventory.connect(toggle_inventory)
 
-func toggle_inventory() -> void:
-	print("toggle")
-	enabled = !enabled
-	visible = enabled
-	#propagate_call("set", ["visible", enabled])
-	if enabled:
-		propagate_call("set", ["process_mode", PROCESS_MODE_INHERIT])
-		pass
-		#tab_container.get_current_tab_control().visible = false
-		#set_mouse_filter_recursive(MouseFilter.MOUSE_FILTER_PASS)
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("Escape_Menu"):
+		pause_esc()
+	if Input.is_action_just_pressed("Tab_Menu"):
+		pause_tab()
+## paused for esc overwrites any other pauses
+func pause_esc() -> bool:
+	var value = !paused_for_esc
+	paused = value
+	GameManager.instance.pause(value)
+	if value:
+		esc_menu_parent.process_mode = Node.PROCESS_MODE_INHERIT
+		if tab_menu_parent.visible:
+			GameManager.instance.toggle_inventory.emit()
+		level_up_parent.process_mode = Node.PROCESS_MODE_PAUSABLE
+		esc_menu_parent.visible = true
 	else:
-		propagate_call("set", ["process_mode", PROCESS_MODE_DISABLED])
-		pass#set_mouse_filter_recursive(MouseFilter.MOUSE_FILTER_IGNORE)
+		esc_menu_parent.visible = false
+	paused_for_esc = value
+	paused_for_tab = false
+	paused_for_level_up = false
+	return true
+## paused for tab overwrites not many
+func pause_tab() -> bool:
+	var value = !paused_for_tab
+	if paused_for_esc:
+		return false
+	if paused_for_level_up:
+		return false
+	paused = value
+	GameManager.instance.pause(value)
+	if value:
+		tab_menu_parent.process_mode = Node.PROCESS_MODE_INHERIT
+		GameManager.instance.toggle_inventory.emit()
+	else:
+		GameManager.instance.toggle_inventory.emit()
+	paused_for_tab = value
+	return true
+## paused for level up overwrites tab, but can be paused by pause for esc
+func pause_level_up() -> bool:
+	var value = !paused_for_level_up
+	if paused_for_esc:
+		return false
+	paused = value
+	GameManager.instance.pause(value)
+	if value:
+		if tab_menu_parent.visible:
+			GameManager.instance.toggle_inventory.emit()
+	paused_for_level_up = value
+	paused_for_tab = false
+	return true
+## paused for misc is overwritten by anything
+func pause_misc(value: bool):
+	if paused_for_esc:
+		return false
+	if paused_for_level_up:
+		return false
+	if paused_for_tab:
+		return false
+	paused = value
+	GameManager.instance.pause(value)
+	return true
+
+func toggle_inventory() -> void:
+	tab_menu_parent.visible = !tab_menu_parent.visible
+	if tab_menu_parent.visible:
+		tab_menu_parent.propagate_call("set", ["process_mode", PROCESS_MODE_ALWAYS])
+	else:
+		tab_menu_parent.propagate_call("set", ["process_mode", PROCESS_MODE_DISABLED])
 
 func set_level(value: String) -> void:
 	level_label.text = value
@@ -51,6 +118,3 @@ func add_shop_items(items: Array[ItemData]) -> void:
 			var item_ui: ItemUI = preload("res://Scenes/UI/item_ui.tscn").instantiate()
 			item_ui.set_item(item)
 			shop.add(item_ui)
-
-func _process(delta: float) -> void: 
-	pass

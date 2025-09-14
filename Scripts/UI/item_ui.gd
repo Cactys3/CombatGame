@@ -73,7 +73,7 @@ func _ready() -> void:
 		#push_error("ItemData Not Valid")
 
 func connect_signals():
-	if !is_connected("toggle_inventory", toggle_ui):
+	if !GameManager.instance.is_connected("toggle_inventory", toggle_ui):
 		GameManager.instance.connect("toggle_inventory", toggle_ui)
 
 func set_item(new_data: ItemData):

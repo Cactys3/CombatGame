@@ -1,9 +1,9 @@
 [gd_scene load_steps=31 format=3 uid="uid://ckhl8l6bj1bvv"]
 
 [ext_resource type="Script" uid="uid://b7h7hj5xnltr6" path="res://Scripts/enemy_scripts/enemy_types/Flub.gd" id="1_awyr2"]
-[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/stats.gd" id="2_b4kp5"]
+[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="2_b4kp5"]
 [ext_resource type="Texture2D" uid="uid://bux8yx4uc71lq" path="res://Art/Characters/Flub.png" id="3_awyr2"]
-[ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/hurtbox.gd" id="4_t6qkg"]
+[ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="4_t6qkg"]
 
 [sub_resource type="Resource" id="Resource_oh2tx"]
 script = ExtResource("2_b4kp5")

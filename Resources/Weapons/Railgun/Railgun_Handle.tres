@@ -2,9 +2,9 @@
 
 [ext_resource type="Resource" uid="uid://durve76yg6dek" path="res://Scenes/Weapons/railgun/resources/railgun_handle_stats.tres" id="1_q3bsb"]
 [ext_resource type="Texture2D" uid="uid://bk662xnwn5kh7" path="res://Art/New_Weapons/Railgun/Railgun_Handle.png" id="2_q3bsb"]
-[ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/itemdata.gd" id="2_xoaoc"]
+[ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_xoaoc"]
 [ext_resource type="PackedScene" uid="uid://cbhm0fdw8in47" path="res://Scenes/Weapons/railgun/railgun_handle.tscn" id="3_a6ie4"]
-[ext_resource type="Script" uid="uid://8b2yih1s0rui" path="res://Scripts/stats.gd" id="3_gjn12"]
+[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="3_gjn12"]
 
 [sub_resource type="Resource" id="Resource_a6ie4"]
 script = ExtResource("3_gjn12")

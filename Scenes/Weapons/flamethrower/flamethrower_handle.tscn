@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://2abx260rgyvs"]
 
-[ext_resource type="Script" uid="uid://ew3jrvaipb0b" path="res://Scripts/flamethrower_scripts/flamethrower_handle.gd" id="1_40hlj"]
+[ext_resource type="Script" uid="uid://ew3jrvaipb0b" path="res://Scripts/weapon_scripts/flamethrower_scripts/flamethrower_handle.gd" id="1_40hlj"]
 [ext_resource type="Resource" uid="uid://cmyggekbys27w" path="res://Scenes/Weapons/flamethrower/resources/flamethrower_handle_stats.tres" id="2_lbu8a"]
 [ext_resource type="Texture2D" uid="uid://ctcyk6f73ll3f" path="res://Art/New_Weapons/flamethrower/Handle_Flamethrower.png" id="2_p341h"]
 

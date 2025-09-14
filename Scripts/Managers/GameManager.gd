@@ -1,11 +1,8 @@
 extends Node
 class_name GameManager
 
-
 static var STATS_VISUAL = preload("res://Scenes/UI/stats_visual.tscn")
-
 @onready var weapon_frame = preload("res://Scenes/Weapons/weapon_frame.tscn")
-
 ## Single Instance Object
 static var instance: GameManager
 ## Managers
@@ -18,11 +15,8 @@ static var instance: GameManager
 @export var enemy_parent: Node2D
 @export var weapon_parent: Node2D
 
-
 var active_items: Array[Item]
-
 var character_choice_stats: StatsResource = StatsResource.new()
-
 var global_stats: StatsResource = StatsResource.new()
 
 var xp_to_next_level: float = 100
@@ -31,27 +25,11 @@ var xp_modifier_per_level: float = 1.1
 var xp_from_past_levels: float = 0
 var starting_money: float = 15
 
-## Signals
-# For UI Methods
-signal toggle_inventory() #TODO: add bool value to keep track of toggle state?
-signal set_xp(value: float)
-signal set_money(value: float)
-signal set_level(value: float)
-signal set_hp(value: float)
-signal add_item_to_player_inventory(item: Item)
-# For Item Mechanics
-signal EnemyDamaged(enemy: Enemy, attack: Attack)
-signal EnemyKilled(enemy: Enemy, attack: Attack)
-signal PlayerDamaged(player: Player_Script, attack: Attack)
-signal PlayerKilled(player: Player_Script, attack: Attack)
-signal RoundEnded(round_number: int)
-
 var hp: float = 0:
 	set(value):
 		hp = value
 		ui_man.set_hp(str(value))
 		player.health = value
-
 var level: float = 0: ## level
 	set(value): #TODO: maybe send to instancemanager and make game harder by level
 		level = value
@@ -79,6 +57,29 @@ var money: float = 0: ## Current Money Held
 		money = value
 		ui_man.set_money(str(value))
 		player.money = value
+## TODO: Heiarchy of pausable menus that overwrite each other. EX: if esc menu is active, everything else is paused, even if level up screen is happening, it is paused
+var paused: bool = false ## Is Game Instance Paused or Not
+var paused_for_esc: bool = false
+var paused_for_tab: bool = false
+var paused_for_level_up: bool = false
+var paused_for_shop: bool = false
+
+## Signals
+# For GameManager Systems
+signal pause_game(value: bool)
+# For UI Methods
+signal toggle_inventory() #TODO: add bool value to keep track of toggle state?
+signal set_xp(value: float)
+signal set_money(value: float)
+signal set_level(value: float)
+signal set_hp(value: float)
+signal add_item_to_player_inventory(item: Item)
+# For Item Mechanics
+signal EnemyDamaged(enemy: Enemy, attack: Attack)
+signal EnemyKilled(enemy: Enemy, attack: Attack)
+signal PlayerDamaged(player: Player_Script, attack: Attack)
+signal PlayerKilled(player: Player_Script, attack: Attack)
+signal RoundEnded(round_number: int)
 
 func _ready() -> void:
 	# Ensure only one instance exists
@@ -87,26 +88,27 @@ func _ready() -> void:
 		queue_free() 
 		return
 	instance = self  
-	process_mode = Node.PROCESS_MODE_ALWAYS
 	call_deferred("@level_setter", 0)
 	call_deferred("@xp_setter", 0)
 	call_deferred("@money_setter", starting_money)
-	
-	
-	
+	call_deferred("global_stats_visual")
 	global_stats.add_stats(character_choice_stats)
 	player.player_stats.add_stats(global_stats)
 	
+	
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
+func global_stats_visual():
 	const STATS_VISUAL = preload("res://Scenes/UI/stats_visual.tscn")
 	var s = STATS_VISUAL.instantiate()
-	add_child(s)
+	ui_man.tab_menu_parent.add_child(s)
 	s.global_position = Vector2(-310, -0)
 	s.set_stats(global_stats, "Global Stats")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+## Just handles inputs for testing right now
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("inventory_toggle"):
-		toggle_inventory.emit()
+	if paused:
+		return
 	
 	if Input.is_action_just_pressed("ability1") && ui_man.enabled:
 		ui_man.shop.stock(3)
@@ -137,12 +139,6 @@ func _process(delta: float) -> void:
 		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
 		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
 	
-	if Input.is_action_just_pressed("test_3"):
-		pass#ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/fire_projectile.gd").new())
-	
-	if Input.is_action_just_pressed("test_4"):
-		pass#ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/flamethrower_attachment.gd").new())
-	
 	if Input.is_action_just_pressed("test_5"):
 		pass#ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/flamethrower_handle.gd").new())
 	
@@ -152,6 +148,21 @@ func _process(delta: float) -> void:
 		
 		ui_man.shop.ui_add(test1)
 		ui_man.shop.ui_add(test2)
+
+func pause_for_esc_menu(value: bool):
+	paused_for_esc = value
+
+func pause(value: bool):
+	if paused != value:
+		paused = value
+		emit_signal("pause_game", value)
+		if paused:
+			#Engine.time_scale = 1.0
+			get_tree().paused = true
+		else:
+			#Engine.time_scale = 0.0
+			get_tree().paused = false
+
 ## Handles Money Part of Selling item (maybe supposed to expand this)
 func sell_item(item: ItemData) -> bool:
 	if (item && item.can_sell):
