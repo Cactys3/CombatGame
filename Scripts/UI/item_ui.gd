@@ -63,13 +63,20 @@ func connect_signals():
 	if !GameManager.instance.is_connected("toggle_inventory", toggle_ui):
 		GameManager.instance.connect("toggle_inventory", toggle_ui)
 
+func reset_item():
+	print("reset item")
+	set_item(data)
+
 func set_item(new_data: ItemData):
 	data = new_data
+	data.connect("DataUpdated", reset_item)
 	NameLabel.text = data.item_name
 	DescriptionLabel.text = data.item_description
 	DescriptionPanel.self_modulate = data.item_color
 	IconTexture.texture = data.item_image
 	BackgroundTexture.self_modulate = data.border_color
+	print("background texture now: " + str(data.border_color))
+	print("real background texture now: " + str(BackgroundTexture.modulate))
 	if data.item_type == ItemData.item_types.weapon:
 		AttachmentVisual.texture = data.attachment_visual
 		HandleVisual.texture = data.handle_visual

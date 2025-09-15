@@ -30,6 +30,7 @@ var stopwatch: float = 0
 func set_stats(new_stats: StatsResource, new_name: String):
 	stats = new_stats
 	drag_bar.set_label(new_name)
+	name = new_name
 	refresh()
 
 func _ready() -> void:

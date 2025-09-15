@@ -129,7 +129,7 @@ func _process(delta: float) -> void:
 			#print("range: "+ str(position.distance_to(player.position)) + "/" + str(curr_range))
 			if is_player_nearby(curr_range):
 				projectile_cooldown_stopwatch = 0
-				print("shot projectile")
+				#print("shot projectile")
 				var p: EnemyProjectile = projectile.instantiate()
 				GameManager.instance.weapon_parent.add_child(p)
 				p.modulate = self.modulate
@@ -165,10 +165,10 @@ func die():
 	var new_xp = xp.instantiate()
 	GameManager.instance.xp_parent.add_child(new_xp)
 	new_xp.global_position = global_position
-	print(name + str(global_position))
+	#print(name + str(global_position))
 	#GameManager.instance.xp_parent.call_deferred("add_child", new_xp)
 	new_xp.set_xp(xp_on_death)
-	print(new_xp.name + str(new_xp.global_position))
+	#print(new_xp.name + str(new_xp.global_position))
 	queue_free()
 
 func _on_damage_hitbox_body_entered(body: Node2D) -> void:

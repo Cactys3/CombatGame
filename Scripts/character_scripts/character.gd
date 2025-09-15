@@ -180,7 +180,10 @@ func get_stat(stat: String) -> float:
 	return player_stats.get_stat(stat)
 
 func get_random_frame() -> Weapon_Frame:
-	return weapon_list.get(randi_range(0, weapon_list.size() - 1))
+	if weapon_list.size() > 0:
+		return weapon_list.get(randi_range(0, weapon_list.size() - 1))
+	else:
+		return null
 
 ## funcs to be overriden for special character mechanics (or item mechanics)
 func set_stats(): ## set_stats should call super()

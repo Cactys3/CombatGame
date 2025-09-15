@@ -30,7 +30,7 @@ func setup(button_num: int, data: LevelUpData):
 
 func get_choice() -> LevelUpData:
 	await choice_made
-	print("made choice: " + str(choice))
+	print("made choice: " + str(choice.option_name))
 	return choice
 
 func b3_pressed() -> void:

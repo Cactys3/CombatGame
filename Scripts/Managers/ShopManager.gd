@@ -17,6 +17,11 @@ const SWORD_PROJECTILE = preload("res://Resources/Weapons/Sword/Sword_Projectile
 ## Items
 const DAMAGE_BUFF = preload("res://Resources/Items/DamageBuff/DamageBuff.tres")
 
+static var item_list: Array
+static var handle_list: Array
+static var projectile_list: Array
+static var attachment_list: Array
+
 ## Returns Random Attachment
 static func get_rand_attachment() -> ItemData:
 	var data: ItemData
@@ -58,8 +63,17 @@ static func get_rand_projectile() -> ItemData:
 			return setup_data(SWORD_PROJECTILE.duplicate(true))
 		_:
 			return setup_data(FLAMETHROWER_PROJECTILE.duplicate(true))
+## Returns Random Component
+static func get_rand_component() -> ItemData:
+	match(randi_range(1, 3)):
+		1:
+			return get_rand_projectile()
+		2:
+			return get_rand_attachment()
+		_:
+			return get_rand_handle()
 ## Returns Random Weapon
-static func get_rand_weapon():# -> ItemWeapon:
+static func get_rand_weapon() -> ItemData:
 	match randi_range(5, 7):
 		1:
 			#var w = ItemWeapon.new()
@@ -85,6 +99,13 @@ static func get_rand_weapon():# -> ItemWeapon:
 			#w.setup(get_rand_attachment(), get_rand_handle(), get_rand_projectile())
 			#return w
 			return setup_weapon(get_rand_attachment(), get_rand_handle(), get_rand_projectile())
+## Returns Random Item
+static func get_rand_item() -> ItemData:
+	match(randi_range(1, 1)):
+		1:
+			return setup_data(DAMAGE_BUFF.duplicate(true))
+		_:
+			return setup_data(DAMAGE_BUFF.duplicate(true))
 ## Returns a random equipment from weapon/handle/attachment/handle/item/etc
 static func get_rand_equipment() -> Object:
 	var ui_man = GameManager.instance.ui_man
@@ -99,7 +120,7 @@ static func get_rand_equipment() -> Object:
 		3:
 			equipment = get_rand_projectile()
 		4:
-			equipment = setup_data(DAMAGE_BUFF.duplicate(true))
+			equipment = get_rand_item()
 		_:
 			equipment = get_rand_weapon()
 	return equipment
@@ -183,7 +204,7 @@ static func setup_data(item: ItemData) -> ItemData:
 	return data
 ## returns a random ItemData rarity
 static func random_rarity() -> int:
-	return randi_range(0, ItemData.item_rarities.size())
+	return randi_range(1, ItemData.item_rarities.size())
 ## Makes an ItemUI for a given ItemData
 static func make_itemUI(item: ItemData) -> ItemUI:
 	var UI: ItemUI = ItemUI.SCENE.instantiate()

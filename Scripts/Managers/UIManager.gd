@@ -14,7 +14,7 @@ class_name UIManager
 ## FOR TESTING:
 @export var shop: Inventory
 @export var storage: Inventory
-#@export var storage2: Inventory
+@export var cheat_inventory: Inventory
 @export var equipment: Inventory
 var enabled: bool = true
 

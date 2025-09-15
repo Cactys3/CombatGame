@@ -110,42 +110,44 @@ func global_stats_visual():
 
 ## Just handles inputs for testing right now
 func _process(delta: float) -> void:
-	if paused:
-		return
 	
-	if Input.is_action_just_pressed("ability1") && ui_man.enabled:
+	if Input.is_action_just_pressed("ability1") && ui_man.paused_for_tab:
 		ui_man.shop.stock(3)
 	
-	if Input.is_action_just_pressed("ability2") && ui_man.enabled:
+	if Input.is_action_just_pressed("ability2") && ui_man.paused_for_tab:
 		ui_man.shop.reroll()
 	
-	if Input.is_action_just_pressed("ability3") && ui_man.enabled:
+	if Input.is_action_just_pressed("ability3") && ui_man.paused_for_tab:
 		money += 10
-		ui_man.storage2.clear()
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(2)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(1)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(3)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_handle(4)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(4)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_handle(1)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_handle(2)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_handle(3)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(1)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(2)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(3)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(4)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(1)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(2)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(3)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
-		ui_man.storage2.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
+		ui_man.cheat_inventory.clear()
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(2)))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(1)))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(3)))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_handle(4)))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(4)))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_handle(1)))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_handle(2)))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_handle(3)))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(1)))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(2)))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(3)))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(4)))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(1)))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(2)))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(3)))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_rand_item()))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_rand_item()))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_rand_item()))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_rand_item()))
 	
-	if Input.is_action_just_pressed("test_5"):
+	if Input.is_action_just_pressed("test_5") && ui_man.paused_for_tab:
 		pass#ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/flamethrower_handle.gd").new())
 	
-	if Input.is_action_just_pressed("test_6"):
+	if Input.is_action_just_pressed("test_6") && ui_man.paused_for_tab:
 		var test1 = ShopManager.make_itemUI(shop_man.get_rand_equipment())
 		var test2 = ShopManager.make_itemUI(shop_man.get_rand_attachment())
 		
@@ -320,9 +322,9 @@ func can_unequip(item: ItemUI) -> bool:
 func create_level_up_instance():
 	ui_man.pause_level_up()
 	## get 3 random things w/ variable references
-	var one = get_random_level_up_option()
-	var two = get_random_level_up_option()
-	var three = get_random_level_up_option()
+	var one = LevelUpData.get_random_level_up_option()
+	var two = LevelUpData.get_random_level_up_option()
+	var three = LevelUpData.get_random_level_up_option()
 	## setup LevelUpInstance with those random things and their details (color, name, etc)
 	var instance = LEVEL_UP_SCREEN.instantiate()
 	instance.global_position = Vector2.ZERO
@@ -340,27 +342,10 @@ func create_level_up_instance():
 	
 	## delete LevelUpInstance
 
-func get_random_level_up_option() -> LevelUpData:
-	var levelupdata: LevelUpData = LevelUpData.new()
-	match(randi_range(0, 1)):
-		0:
-			## gain random new item
-			var item: ItemData = shop_man.get_item(1)
-			levelupdata.set_itemdata(item, LevelUpData.types.new_item)
-		1:
-			## gain random money
-			var money: int = randi_range(20, 50)
-			levelupdata.set_money(money)
-		2:
-			## gain weapon component upgrade
-			pass
-		3:
-			## gain item upgrade
-			pass
-		4:
-			## gain special super upgrade (change rarities of match)
-			pass
-	return levelupdata
-
 func get_random_equipped_weapon():
 	return player.get_random_frame()
+func get_random_equipped_item():
+	if active_items.size() > 0:
+		return active_items.get(randi_range(0, active_items.size() - 1))
+	else:
+		return null

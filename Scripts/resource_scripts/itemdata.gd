@@ -15,10 +15,12 @@ enum item_types{unset, handle, attachment, projectile, weapon, item, mod}
 @export_category("Misc Fields (common, but not always active)")
 @export var default_stats: StatsResource = null
 @export var default_status_effects: StatusEffects = null
-@export var rarity_stat_modifiers: StatsResource = null
-@export var rarity_status_effects_modifiers: StatusEffects = null
+@export var default_rarity_stat_modifiers: StatsResource = null
+@export var default_rarity_status_effects_modifiers: StatusEffects = null
 var stats: StatsResource = null
 var status_effects: StatusEffects = null
+var rarity_stat_modifiers: StatsResource = null
+var rarity_status_effect_modifiers: StatusEffects = null
 @export var rarity_cost_modifier = 1
 enum item_rarities {unset, common, rare, epic, legendary, exclusive}
 @export var item_rarity: int
@@ -59,6 +61,8 @@ var made_item: bool = false
 var ready: bool = false
 static var count: int = 0
 var ID: int 
+
+signal DataUpdated
 
 static func get_rarity(i: int) -> String:
 	match(i):
@@ -108,10 +112,16 @@ func set_rarity(rarity: item_rarities):
 	if item_rarity > 1:
 		item_buy_cost = item_buy_cost + (rarity_cost_modifier * item_rarity) #TODO: finalize equation
 		if has_stats:
-			for key in stats.statsbase:
-				stats.set_stat_base(key, stats.get_stat_base(key) + item_rarity * rarity_stat_modifiers.get_stat_base(key))
-				#stats.set_stat_factor(key, stats.get_stat_factor(key) + sqrt(item_rarity * rarity_stat_modifiers.get_stat_factor(key))) #TODO: find a way to add factor stats
-		#TODO: Do the same rarity calculations for Status Effects if desired
+			## New Implementation: 
+			stats.remove_stats(rarity_stat_modifiers) # remove old modifiers
+			rarity_stat_modifiers = default_rarity_stat_modifiers.duplicate(true) # make new stat modifier variable
+			for key in rarity_stat_modifiers.statsbase:
+				rarity_stat_modifiers.set_stat_base(key, item_rarity * rarity_stat_modifiers.get_stat_base(key)) # calculate new stat modifier values TODO: make calculation better
+				rarity_stat_modifiers.set_stat_factor(key, rarity_stat_modifiers.get_stat_factor(key)) #TODO: Find a way to implement factor changes based on rarity if desired
+			stats.add_stats(rarity_stat_modifiers) # add stats modifier back
+			#TODO: Do the same rarity calculations for Status Effects if desired
+	DataUpdated.emit()
+	print("emit data updated")
 
 func randomize_stats():
 	pass #TODO: randomize stats variable values
@@ -224,3 +234,21 @@ func make_frame() -> Weapon_Frame:
 	item_type = item_types.weapon
 	item_image # set to combo of all images somehow
 	return new_frame
+## The 'Stats' inside the actual component is just a reference to the 'Stats' this ItemData has, so we can just add stats to this and it works.
+func upgrade_component_level():
+	pass
+
+func upgrade_component_rarity():
+	match(item_rarity):
+		item_rarities.unset:
+			pass
+		item_rarities.common:
+			set_rarity(item_rarities.rare)
+		item_rarities.rare:
+			set_rarity(item_rarities.epic)
+		item_rarities.epic:
+			set_rarity(item_rarities.legendary)
+		item_rarities.legendary:
+			set_rarity(item_rarities.exclusive)
+		item_rarities.exclusive:
+			pass

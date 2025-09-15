@@ -1,19 +1,20 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://cm20tfthpmadh"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=10 format=3 uid="uid://cm20tfthpmadh"]
 
 [ext_resource type="Resource" uid="uid://kflxc34jwioc" path="res://Scenes/Weapons/pistol/resources/pistol_handle_stats.tres" id="1_ldj3s"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_e0kkr"]
 [ext_resource type="Texture2D" uid="uid://bl3gg2nqff0e1" path="res://Art/New_Weapons/Pistol/Handle_Pistol.png" id="2_ldj3s"]
+[ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_rrl0q"]
 [ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="3_7fkoq"]
 [ext_resource type="PackedScene" uid="uid://ge7a2yumy0ed" path="res://Scenes/Weapons/pistol/pistol_handle.tscn" id="3_rrl0q"]
 
-[sub_resource type="Resource" id="Resource_rrl0q"]
+[sub_resource type="Resource" id="Resource_65pnb"]
 script = ExtResource("3_7fkoq")
 parent_object_name = "not_set"
 statsbase = {
 "attackspeed": 0.0,
 "buildup": 0.0,
 "count": 0.0,
-"damage": 10.0,
+"damage": 0.0,
 "duration": 0.0,
 "hp": 0.0,
 "luck": 0.0,
@@ -47,6 +48,38 @@ statsfactor = {
 }
 metadata/_custom_type_script = "uid://dwj80yu0v1qdt"
 
+[sub_resource type="Resource" id="Resource_sagog"]
+script = ExtResource("2_rrl0q")
+defense_burning = 0.0
+defense_frost = 0.0
+defense_poison = 0.0
+defense_bleed = 0.0
+defense_shock = 0.0
+defense_wet = 0.0
+attack_burning = 0.0
+attack_frost = 0.0
+attack_poison = 0.0
+attack_bleed = 0.0
+attack_shock = 0.0
+attack_wet = 0.0
+metadata/_custom_type_script = "uid://dhqfnnqd2n054"
+
+[sub_resource type="Resource" id="Resource_5x66f"]
+script = ExtResource("2_rrl0q")
+defense_burning = 0.0
+defense_frost = 0.0
+defense_poison = 0.0
+defense_bleed = 0.0
+defense_shock = 0.0
+defense_wet = 0.0
+attack_burning = 0.0
+attack_frost = 0.0
+attack_poison = 0.0
+attack_bleed = 0.0
+attack_shock = 0.0
+attack_wet = 0.0
+metadata/_custom_type_script = "uid://dhqfnnqd2n054"
+
 [resource]
 script = ExtResource("2_e0kkr")
 item_packed_scene = ExtResource("3_rrl0q")
@@ -58,7 +91,9 @@ border_color = Color(1, 1, 1, 1)
 item_image = ExtResource("2_ldj3s")
 randomizable = true
 default_stats = ExtResource("1_ldj3s")
-rarity_stat_modifiers = SubResource("Resource_rrl0q")
+default_status_effects = SubResource("Resource_5x66f")
+default_rarity_stat_modifiers = SubResource("Resource_65pnb")
+default_rarity_status_effects_modifiers = SubResource("Resource_sagog")
 rarity_cost_modifier = 1
 item_rarity = 0
 item_buy_cost = 5.0
