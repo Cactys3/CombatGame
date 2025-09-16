@@ -3,13 +3,6 @@ extends Attachment
 func get_scene() -> PackedScene:
 	return preload("res://Scenes/Weapons/railgun/railgun_attachment.tscn")
 
-## called in ready
-func setdata():
-	var descrip = "An attachment for a railgun."
-	var image = preload("res://Art/New_Weapons/Railgun/Railgun_Attachment.png")
-	pass#data.setdata("RailA", descrip, ItemData.ATTACHMENT, "common", Color.AQUAMARINE, image, 5, 0.8)
-
-
 ##Projects a lazar beam aiming sight for awhile until firing a lazar blast that does a fuck ton of dmg and stuff.
 
 var hitbox: CollisionShape2D

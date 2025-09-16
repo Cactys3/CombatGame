@@ -30,7 +30,7 @@ func _ready() -> void:
 		toggle_button.call_deferred("_toggled", true)
 
 ## Handles calling Drop when an item is dropped over this inventory rect
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if ItemUI.dragging_some_item && get_global_rect().has_point(get_global_mouse_position()) && Input.is_action_just_released("left_click"):
 		var item: ItemUI = ItemUI.dragging_item
 		if item.inventory != self && !toggle_button.hide_ui: 

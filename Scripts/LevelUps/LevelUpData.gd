@@ -99,10 +99,11 @@ func carryout_new_component():
 
 static func get_random_level_up_option() -> LevelUpData:
 	var levelupdata: LevelUpData = LevelUpData.new()
+	var money: int
 	match(randi_range(0, 4)):
 		
 		0: ## gain random money
-			var money: int = randi_range(20, 50)
+			money = randi_range(20, 50)
 			levelupdata.set_money(money)
 		
 		1: ## upgrade random component's rarity
@@ -111,7 +112,7 @@ static func get_random_level_up_option() -> LevelUpData:
 				levelupdata.set_itemdata(comp, types.component_rarity)
 				print("weapon: " + comp.item_name)
 			else:
-				var money: int = randi_range(20, 50) ## TODO: try again if failed?
+				money = randi_range(20, 50) ## TODO: try again if failed?
 				levelupdata.set_money(money)
 				print("money as backup due to no equipped weapons")
 		
@@ -121,7 +122,7 @@ static func get_random_level_up_option() -> LevelUpData:
 				levelupdata.set_itemdata(item, types.item_rarity)
 				print("item: " + item.item_name)
 			else:
-				var money: int = randi_range(20, 50) ## TODO: try again if failed?
+				money = randi_range(20, 50) ## TODO: try again if failed?
 				levelupdata.set_money(money)
 				print("money as backup due to no equipped items")
 		
@@ -137,6 +138,6 @@ static func get_random_level_up_option() -> LevelUpData:
 			print("NEW ITEM!")
 		
 		_:
-			var money: int = randi_range(20, 50)
+			money = randi_range(20, 50)
 			levelupdata.set_money(money) ## Implement others
 	return levelupdata

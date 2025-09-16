@@ -31,7 +31,7 @@ func _ready() -> void:
 func _connect_signals():
 	GameManager.instance.toggle_inventory.connect(toggle_inventory)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("Escape_Menu"):
 		pause_esc()
 	if Input.is_action_just_pressed("Tab_Menu"):

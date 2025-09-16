@@ -81,12 +81,12 @@ static func get_rarity(i: int) -> String:
 	return "unset"
 
 ## happens only once when itemdata is created
-func setup(randomize: bool, rarity: item_rarities):
+func setup(randomize_bool: bool, rarity: item_rarities):
 	if has_stats:
 		stats = default_stats.duplicate()
 	if has_status_effects:
 		status_effects = default_status_effects.duplicate()
-	if randomize:
+	if randomize_bool:
 		randomize_stats()
 	if has_rarity:
 		set_rarity(rarity)

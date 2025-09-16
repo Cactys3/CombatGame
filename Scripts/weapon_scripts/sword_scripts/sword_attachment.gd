@@ -19,13 +19,6 @@ var attacked_objects: Array[Node2D]
 func get_scene() -> PackedScene:
 	return preload("res://Scenes/Weapons/sword/sword_attachment.tscn")
 
-## called in ready
-func setdata():
-	var descrip = "An attachment for a sword."
-	var image = preload("res://Art/New_Weapons/Sword/Attachment_Sword.png")
-	pass#data.setdata("Flame", descrip, ItemData.ATTACHMENT, "common", Color.BEIGE, image, 5, 0.8)
-
-
 func _ready() -> void:
 	super()
 

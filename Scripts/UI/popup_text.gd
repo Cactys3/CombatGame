@@ -29,7 +29,7 @@ func _process(delta: float) -> void:
 		anim.play("fade")
 		done = true
 
-func setup(new_text: String, new_fontsize: int, new_position: Vector2, new_lifetime: float, max_offsets: Vector2):
+func setup(new_text: String, new_fontsize: float, new_position: Vector2, new_lifetime: float, max_offsets: Vector2):
 	curr_text = new_text 
 	curr_text = "[center]  " + curr_text + "  [/center]"
 	curr_text = "[url=https://neal.fun/]" + curr_text + "[/url]"

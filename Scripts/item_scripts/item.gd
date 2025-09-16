@@ -8,7 +8,7 @@ var manager: GameManager:
 	get():
 		return GameManager.instance
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func _ready() -> void:

@@ -36,6 +36,7 @@ func new_add(item: ItemUI):
 	match(item.data.item_type):
 		ItemData.item_types.weapon:
 			item.item_parent = WeaponParent
+			item.show_component_visuals()
 			WeaponParent.add_child(item)
 			WeaponParent.queue_sort()
 		ItemData.item_types.item:
@@ -47,6 +48,7 @@ func new_remove(item: ItemUI):
 	print("new_remove_equipment")
 	match(item.data.item_type):
 		ItemData.item_types.weapon:
+			item.hide_component_visuals()
 			WeaponParent.remove_child(item)
 			WeaponParent.queue_sort()
 		ItemData.item_types.item:

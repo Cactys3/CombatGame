@@ -24,7 +24,6 @@ static var attachment_list: Array
 
 ## Returns Random Attachment
 static func get_rand_attachment() -> ItemData:
-	var data: ItemData
 	match randi_range(0, 3):
 		0:
 			return setup_data(FLAMETHROWER_ATTACHMENT.duplicate(true))
@@ -36,7 +35,6 @@ static func get_rand_attachment() -> ItemData:
 			return setup_data(SWORD_ATTACHMENT.duplicate(true))
 		_:
 			return setup_data(FLAMETHROWER_ATTACHMENT.duplicate(true))
-	return data.make_item()
 ## Returns Random Handle
 static func get_rand_handle() -> ItemData:
 	match randi_range(0, 3):
@@ -108,7 +106,6 @@ static func get_rand_item() -> ItemData:
 			return setup_data(DAMAGE_BUFF.duplicate(true))
 ## Returns a random equipment from weapon/handle/attachment/handle/item/etc
 static func get_rand_equipment() -> Object:
-	var ui_man = GameManager.instance.ui_man
 	var equipment
 	match randi_range(0, 5):
 		0:
@@ -204,19 +201,19 @@ static func setup_data(item: ItemData) -> ItemData:
 	return data
 ## returns a random ItemData rarity
 static func random_rarity() -> int:
-	return randi_range(1, ItemData.item_rarities.size())
+	return randi_range(1, ItemData.item_rarities.size() - 1)
 ## Makes an ItemUI for a given ItemData
 static func make_itemUI(item: ItemData) -> ItemUI:
 	var UI: ItemUI = ItemUI.SCENE.instantiate()
 	UI.set_item(item)
 	return UI
 ## Makes an ItemData for Weapon and adds the Components
-static func setup_weapon(a: ItemData, h: ItemData, p: ItemData) -> ItemData:
+static func setup_weapon(a: ItemData, h: ItemData, proj: ItemData) -> ItemData:
 	var data: ItemData = ItemData.new()
 	data.has_rarity = true
 	data.setup(true, random_rarity())
 	a.setup(true, random_rarity())
 	h.setup(true, random_rarity())
-	p.setup(true, random_rarity())
-	data.set_components(a, h, p)
+	proj.setup(true, random_rarity())
+	data.set_components(a, h, proj)
 	return data

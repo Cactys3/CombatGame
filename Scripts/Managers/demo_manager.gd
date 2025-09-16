@@ -37,7 +37,7 @@ var current_difficulty: float = 1
 enum scene_states{shop, combat, encounter}
 var scene_state: scene_states = scene_states.shop
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("escape") && can_access_menus:
 		shop.visible = !shop.visible
 	if Input.is_action_just_pressed("test_1"):

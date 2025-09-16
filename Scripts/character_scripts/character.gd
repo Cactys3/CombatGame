@@ -51,11 +51,12 @@ func _ready() -> void:
 
 func make_stats_visual():
 	stats_visual = load("res://Scenes/UI/stats_visual.tscn").instantiate()
+	print(is_instance_valid(GameManager.instance.ui_man.tab_menu_parent))
 	GameManager.instance.ui_man.tab_menu_parent.add_child(stats_visual)
 	stats_visual.global_position = Vector2.ZERO#Vector2(-310, -20)
 	stats_visual.set_stats(player_stats, "Player Stats")
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ability1"):
 		character_ability(1)
 	if Input.is_action_just_pressed("ability2"):

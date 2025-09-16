@@ -130,11 +130,11 @@ func _process(delta: float) -> void:
 			if is_player_nearby(curr_range):
 				projectile_cooldown_stopwatch = 0
 				#print("shot projectile")
-				var p: EnemyProjectile = projectile.instantiate()
-				GameManager.instance.weapon_parent.add_child(p)
-				p.modulate = self.modulate
-				p.global_position = global_position
-				p.setup(player, self, homing, curr_speed, curr_acceleration, curr_lifetime, curr_piercing)
+				var proj: EnemyProjectile = projectile.instantiate()
+				GameManager.instance.weapon_parent.add_child(proj)
+				proj.modulate = self.modulate
+				proj.global_position = global_position
+				proj.setup(player, self, homing, curr_speed, curr_acceleration, curr_lifetime, curr_piercing)
 
 func _physics_process(_delta: float) -> void:
 	if !ImReady:
@@ -154,8 +154,8 @@ func _physics_process(_delta: float) -> void:
 func movement_process(_delta: float) ->void:
 	move_towards(player.global_position, curr_movespeed, _delta)
 ## Overriden by enemies who want different projectile vs melee damage
-func damage_player_projectile(player: Node2D):
-	damage_player(player)
+func damage_player_projectile(damage_player: Node2D):
+	damage_player(damage_player)
 
 func shoot_projectile():
 	pass
@@ -175,15 +175,15 @@ func _on_damage_hitbox_body_entered(body: Node2D) -> void:
 	if body.has_method("damage") && body.is_in_group("player"):
 		damage_player(body)
 
-func damage_player(player: Node2D):
+func damage_player(damage_player: Node2D):
 	cooldown_stopwatch = 0;
 	var attack: Attack = Attack.new()
 	attack.setup(curr_damage, global_position, 0, StatusEffectDictionary.new(), self, weapon_stun, 0, weapon_knockback)
-	player.damage(attack) #TODO: put into game manager?
+	damage_player.damage(attack) #TODO: put into game manager?
 	if melee_attacks:
 		damage_hitbox.set_deferred("monitoring", false)
 
-func move_towards(new_position: Vector2, movespeed: float, delta:float):
+func move_towards(new_position: Vector2, movespeed: float, _delta:float):
 	var direction: Vector2 = (new_position - global_position).normalized()
 	linear_velocity = linear_velocity.move_toward(Vector2(direction.x * movespeed, direction.y * movespeed), 9)
 

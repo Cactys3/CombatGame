@@ -27,6 +27,11 @@ var ID = 0
 @export var DescriptionLabel: RichTextLabel
 @export var HandleVisual: TextureRect
 @export var AttachmentVisual: TextureRect 
+@export var HandleBackground: TextureRect
+@export var AttachmentBackground: TextureRect
+@export var AttachmentParent: Control
+@export var HandleParent: Control
+@export var ShowComponentVisuals: bool = false
 const DescriptionMaxY: float = 120
 const DescriptionMaxX: float = 120
 
@@ -96,6 +101,17 @@ func show_details():
 func hide_details():
 	DescriptionPanel.visible = false
 	showing_details = false
+
+func show_component_visuals():
+	print("Showing")
+	ShowComponentVisuals = true
+	HandleParent.visible = true
+	AttachmentParent.visible = true
+
+func hide_component_visuals():
+	ShowComponentVisuals = false
+	HandleParent.visible = false
+	AttachmentParent.visible = false
 
 func _process(delta: float) -> void:
 	if !is_instance_valid(dragging_item):

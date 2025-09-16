@@ -8,7 +8,6 @@ static var instance: GameManager
 ## Managers
 @export var ui_man: UIManager 
 @export var shop_man: ShopManager
-@export var instance_man: InstanceManager
 @export var player: Player_Script
 ## Parents
 @export var xp_parent: Node2D
@@ -29,7 +28,7 @@ var hp: float = 0:
 	set(value):
 		hp = value
 		ui_man.set_hp(str(value))
-		player.health = value
+		player.health = int(value)
 var level: float = 0: ## level
 	set(value): #TODO: maybe send to instancemanager and make game harder by level
 		level = value
@@ -102,14 +101,13 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func global_stats_visual():
-	const STATS_VISUAL = preload("res://Scenes/UI/stats_visual.tscn")
 	var s = STATS_VISUAL.instantiate()
 	ui_man.tab_menu_parent.add_child(s)
 	s.global_position = Vector2(-310, -0)
 	s.set_stats(global_stats, "Global Stats")
 
 ## Just handles inputs for testing right now
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed("ability1") && ui_man.paused_for_tab:
 		ui_man.shop.stock(3)

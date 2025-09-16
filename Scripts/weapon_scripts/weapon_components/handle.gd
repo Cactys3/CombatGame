@@ -104,7 +104,7 @@ func ProcessStaticSlot(delta: float) -> void:
 	else:
 		ready_to_fire = false
 
-func ProcessUnique(delta: float) -> void:
+func ProcessUnique(_delta: float) -> void:
 	pass
 
 func RotateTowardsPosition(new_position: Vector2, _delta: float) -> void:
