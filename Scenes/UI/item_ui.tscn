@@ -30,32 +30,74 @@ anti_aliasing = false
 texture_filter = 1
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 3
-anchor_right = 0.062
-anchor_bottom = 0.111
-offset_right = 0.32
-offset_bottom = 0.0399971
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -60.0
+offset_right = 60.0
+offset_bottom = 120.0
+grow_horizontal = 2
 mouse_default_cursor_shape = 6
 script = ExtResource("1_xojv8")
 NameLabel = NodePath("ItemName")
-IconTexture = NodePath("ItemVisual")
+IconTexture = NodePath("Background/ItemVisual")
 BackgroundTexture = NodePath("Background")
 DescriptionPanel = NodePath("DescriptionPanel")
 DescriptionLabel = NodePath("DescriptionPanel/DescriptionText")
-HandleVisual = NodePath("Handle/HandleVisual")
-AttachmentVisual = NodePath("Attachment/AttachmentVisual")
+HandleVisual = NodePath("Handle/HandleBackground/HandleVisual")
+AttachmentVisual = NodePath("Attachment/AttachmentBackground/AttachmentVisual")
 HandleBackground = NodePath("Handle/HandleBackground")
 AttachmentBackground = NodePath("Attachment/AttachmentBackground")
 AttachmentParent = NodePath("Attachment")
 HandleParent = NodePath("Handle")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Attachment" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_left = 240.0
+offset_right = 360.0
+offset_bottom = 120.0
+
+[node name="AttachmentBackground" type="TextureRect" parent="Attachment"]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 120.0
+texture = ExtResource("2_o07fp")
+
+[node name="AttachmentVisual" type="TextureRect" parent="Attachment/AttachmentBackground"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(3, 3)
+texture = ExtResource("3_hfdbq")
+
+[node name="Handle" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_left = 120.0
+offset_right = 240.0
+offset_bottom = 120.0
+
+[node name="HandleBackground" type="TextureRect" parent="Handle"]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 120.0
 texture = ExtResource("2_o07fp")
 
-[node name="ItemVisual" type="TextureRect" parent="."]
+[node name="HandleVisual" type="TextureRect" parent="Handle/HandleBackground"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(3, 3)
+texture = ExtResource("3_hfdbq")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 120.0
+texture = ExtResource("2_o07fp")
+
+[node name="ItemVisual" type="TextureRect" parent="Background"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -106,43 +148,3 @@ bbcode_enabled = true
 text = "Default Description"
 shortcut_keys_enabled = false
 selection_enabled = true
-
-[node name="Attachment" type="Control" parent="."]
-anchors_preset = 0
-offset_left = 240.0
-offset_right = 280.0
-offset_bottom = 40.0
-
-[node name="AttachmentBackground" type="TextureRect" parent="Attachment"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(3, 3)
-texture = ExtResource("2_o07fp")
-
-[node name="AttachmentVisual" type="TextureRect" parent="Attachment"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(3, 3)
-texture = ExtResource("3_hfdbq")
-
-[node name="Handle" type="Control" parent="."]
-anchors_preset = 0
-offset_left = 120.0
-offset_right = 160.0
-offset_bottom = 40.0
-
-[node name="HandleBackground" type="TextureRect" parent="Handle"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(3, 3)
-texture = ExtResource("2_o07fp")
-
-[node name="HandleVisual" type="TextureRect" parent="Handle"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(3, 3)
-texture = ExtResource("3_hfdbq")

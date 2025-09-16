@@ -104,14 +104,18 @@ func hide_details():
 
 func show_component_visuals():
 	print("Showing")
+	HandleBackground.self_modulate = data.handle.border_color
+	AttachmentBackground.self_modulate = data.attachment.border_color
 	ShowComponentVisuals = true
 	HandleParent.visible = true
 	AttachmentParent.visible = true
+	size = Vector2(360, size.y)
 
 func hide_component_visuals():
 	ShowComponentVisuals = false
 	HandleParent.visible = false
 	AttachmentParent.visible = false
+	size = Vector2(120, size.y)
 
 func _process(delta: float) -> void:
 	if !is_instance_valid(dragging_item):

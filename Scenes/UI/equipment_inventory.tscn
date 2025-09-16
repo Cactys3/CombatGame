@@ -91,8 +91,9 @@ metadata/_tab_index = 0
 
 [node name="Items" type="VBoxContainer" parent="VBoxContainer/TabContainer/item"]
 clip_contents = true
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(360, 120)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 1
 alignment = 1
 
@@ -106,5 +107,6 @@ metadata/_tab_index = 1
 
 [node name="Weapons" type="VBoxContainer" parent="VBoxContainer/TabContainer/weapon"]
 clip_contents = true
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(360, 120)
 layout_mode = 2
+size_flags_horizontal = 3
