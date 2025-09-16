@@ -108,7 +108,6 @@ shortcut_keys_enabled = false
 selection_enabled = true
 
 [node name="Attachment" type="Control" parent="."]
-visible = false
 anchors_preset = 0
 offset_left = 240.0
 offset_right = 280.0
@@ -129,7 +128,6 @@ scale = Vector2(3, 3)
 texture = ExtResource("3_hfdbq")
 
 [node name="Handle" type="Control" parent="."]
-visible = false
 anchors_preset = 0
 offset_left = 120.0
 offset_right = 160.0

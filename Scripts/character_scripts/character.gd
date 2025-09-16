@@ -51,6 +51,8 @@ func _ready() -> void:
 
 func make_stats_visual():
 	stats_visual = load("res://Scenes/UI/stats_visual.tscn").instantiate()
+	print(is_instance_valid(GameManager.instance))
+	print(is_instance_valid(GameManager.instance.ui_man))
 	print(is_instance_valid(GameManager.instance.ui_man.tab_menu_parent))
 	GameManager.instance.ui_man.tab_menu_parent.add_child(stats_visual)
 	stats_visual.global_position = Vector2.ZERO#Vector2(-310, -20)
