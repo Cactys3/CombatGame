@@ -69,6 +69,7 @@ func attack():
 func create_projectiles():
 	# Create the first bullet by default
 	var new_bullet = projectile.get_instance()
+	new_bullet.visible = false
 	#add_child(new_bullet)
 	#remove_child(new_bullet)
 	#new_bullet.scale = frame.scale
@@ -78,7 +79,7 @@ func create_projectiles():
 	else:
 		GameManager.instance.weapon_parent.add_child(new_bullet)
 	new_bullet.global_position = global_position
-	
+	new_bullet.visible = true
 	# Create any extra bullets using @export values to offset them by angle and position
 	var offset: int = 0
 	for i:int in frame.get_stat(StatsResource.COUNT) - 1:
@@ -87,6 +88,7 @@ func create_projectiles():
 		MultipleProjectileOffset *= -1
 		MultipleProjectileAngleOffset *= -1
 		new_bullet = projectile.get_instance()
+		new_bullet.visible = false
 		#new_bullet.scale = frame.scale
 		var target_angle = Vector2(cos(frame.rotation), sin(frame.rotation)).rotated(MultipleProjectileAngleOffset * (offset) * 0.01)
 		new_bullet.setup(frame, target_angle)
@@ -95,12 +97,14 @@ func create_projectiles():
 		else:
 			GameManager.instance.weapon_parent.add_child(new_bullet)
 		new_bullet.global_position = global_position + Vector2(-sin(frame.rotation), cos(frame.rotation)).normalized() * MultipleProjectileOffset * (offset)
+		new_bullet.visible = true
 
 func init_projectile(new_position: Vector2, new_scale: Vector2, new_direction: Vector2) -> Projectile:
 	if projectile == null:
 		push_error("projectile null in attachment script")
 		return null
 	var new_bullet:Projectile = projectile.get_instance()
+	new_bullet.visible = false
 	#new_bullet.scale = new_scale
 	new_bullet.setup(frame, new_direction)
 	if (handle.AimType == Handle.AimTypes.Spinning): #handle aim types special cases
@@ -108,7 +112,7 @@ func init_projectile(new_position: Vector2, new_scale: Vector2, new_direction: V
 	else:
 		GameManager.instance.weapon_parent.add_child(new_bullet)
 	new_bullet.global_position = new_position
-	
+	new_bullet.visible = true
 	return new_bullet
 
 func get_cooldown() -> float:

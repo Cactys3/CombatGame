@@ -9,6 +9,7 @@ static var instance: GameManager
 @export var ui_man: UIManager 
 @export var shop_man: ShopManager
 @export var player: Player_Script
+@export var instance_man: InstanceManager
 ## Parents
 @export var xp_parent: Node2D
 @export var enemy_parent: Node2D
@@ -70,6 +71,7 @@ signal pause_game(value: bool)
 signal level_up()
 # For UI Methods
 signal toggle_inventory() #TODO: add bool value to keep track of toggle state?
+signal toggle_esc()
 signal set_xp(value: float)
 signal set_money(value: float)
 signal set_level(value: float)
@@ -109,13 +111,13 @@ func global_stats_visual():
 ## Just handles inputs for testing right now
 func _process(_delta: float) -> void:
 	
-	if Input.is_action_just_pressed("ability1") && ui_man.paused_for_tab:
+	if Input.is_action_just_pressed("ability1") && ui_man.tab_menu_parent.visible == true:
 		ui_man.shop.stock(3)
 	
-	if Input.is_action_just_pressed("ability2") && ui_man.paused_for_tab:
+	if Input.is_action_just_pressed("ability2") && ui_man.tab_menu_parent.visible == true:
 		ui_man.shop.reroll()
 	
-	if Input.is_action_just_pressed("ability3") && ui_man.paused_for_tab:
+	if Input.is_action_just_pressed("ability3") && ui_man.tab_menu_parent.visible == true:
 		money += 10
 		ui_man.cheat_inventory.clear()
 		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(2)))
@@ -145,7 +147,7 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("test_5") && ui_man.paused_for_tab:
 		pass#ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/flamethrower_handle.gd").new())
 	
-	if Input.is_action_just_pressed("test_6") && ui_man.paused_for_tab:
+	if Input.is_action_just_pressed("test_6") && ui_man.tab_menu_parent.visible == true:
 		var test1 = ShopManager.make_itemUI(shop_man.get_rand_equipment())
 		var test2 = ShopManager.make_itemUI(shop_man.get_rand_attachment())
 		
@@ -215,14 +217,6 @@ func craft_weapon(handle: ItemUI, attachment: ItemUI, projectile: ItemUI) -> boo
 	return false
 
 func add_weapon_to_player(weapon: Weapon_Frame) -> bool:
-	#if weapon: && weapon.is_ready:
-		#if !weapon.frame_ready:
-			#weapon.make_frame()
-		#weapon.equipped = true
-		#player.add_frame(weapon.weapon)
-		#print("added weapon to player: " + weapon.data.item_name)
-		#return true
-	#return false
 	if !weapon:
 		return false
 	player.add_frame(weapon)

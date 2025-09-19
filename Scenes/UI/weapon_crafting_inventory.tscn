@@ -94,7 +94,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_a6fc1")
 
 [node name="ProjectileHolder" type="PanelContainer" parent="VBoxContainer/Components Panel"]
 custom_minimum_size = Vector2(60, 60)
-layout_mode = 2
+layout_mode = 0
 offset_left = 205.0
 offset_top = 16.0
 offset_right = 265.0
@@ -103,7 +103,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_5yj2l")
 
 [node name="AttachmentHolder" type="PanelContainer" parent="VBoxContainer/Components Panel"]
 custom_minimum_size = Vector2(60, 60)
-layout_mode = 2
+layout_mode = 0
 offset_left = 107.0
 offset_top = 105.0
 offset_right = 167.0

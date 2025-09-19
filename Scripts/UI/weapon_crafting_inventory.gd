@@ -1,5 +1,7 @@
 extends Inventory
 
+class_name forge_inventory
+
 @export var ModsPage: Control
 @export var StatsPage: Control
 @export var HandleHolder: Control
@@ -11,6 +13,8 @@ var attachment: ItemUI = null
 var projectile: ItemUI = null
 var mods: Array[ItemUI]
 const flyweight: ItemUI = null
+
+signal crafted_weapon
 
 func _ready() -> void:
 	super()
@@ -31,6 +35,7 @@ func make_weapon() -> bool:
 			new_remove(handle) ## TODO: replaced remove with new_remove
 			new_remove(attachment)
 			new_remove(projectile) # TODO: handle if remove fails (remove by force)
+			crafted_weapon.emit()
 			print("crafted weapon success")
 			return true
 	print("crafted weapon failure")

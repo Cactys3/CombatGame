@@ -1,4 +1,5 @@
 extends Inventory
+class_name EquipmentInventory
 
 @export var ItemParent: Control
 @export var WeaponParent: Control

@@ -1,5 +1,5 @@
 extends Inventory
-
+class_name ShopInventory
 ## AutoRestock when items are removed
 @export var auto_restock: bool = false
 @export var delete_on_sell: bool = true

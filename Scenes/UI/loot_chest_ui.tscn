@@ -1,0 +1,139 @@
+[gd_scene load_steps=9 format=3 uid="uid://bjggm4l8hm8ih"]
+
+[ext_resource type="Script" uid="uid://bfi32j4s2aid2" path="res://Scripts/UI/LootChestUI.gd" id="1_ilwj1"]
+[ext_resource type="Texture2D" uid="uid://n0k0l26reyna" path="res://Art/UI/ItemBackground.png" id="1_ys4ad"]
+[ext_resource type="Texture2D" uid="uid://lqpckh7fkgjy" path="res://Art/UI/MissingTexture.png" id="2_ilwj1"]
+[ext_resource type="Texture2D" uid="uid://dse2bya4o8hm8" path="res://Art/placeholder/placeholder_CHEST.png" id="3_gay0n"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ilwj1"]
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_2asgr"]
+font_size = 64
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o2j1a"]
+atlas = ExtResource("3_gay0n")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qyp0k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2j1a")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="LootChestUI" type="Control" node_paths=PackedStringArray("ProjectileImage", "HandleImage", "AttachmentImage", "TextLabel", "AttachmentLabel", "HandleLabel", "ProjectileLabel")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_right = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_ilwj1")
+ProjectileImage = NodePath("ProjectileBorder/Image")
+HandleImage = NodePath("HandleBorder/Image")
+AttachmentImage = NodePath("AttachmentBorder/Image")
+TextLabel = NodePath("Label")
+AttachmentLabel = NodePath("AttachmentBorder/Label")
+HandleLabel = NodePath("HandleBorder/Label")
+ProjectileLabel = NodePath("ProjectileBorder/Label")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 834.0
+offset_top = 184.0
+offset_right = 1146.0
+offset_bottom = 235.0
+text = "You Got Loot!"
+label_settings = SubResource("LabelSettings_ilwj1")
+
+[node name="ProjectileBorder" type="Sprite2D" parent="."]
+position = Vector2(1350, 411)
+scale = Vector2(10, 10)
+texture = ExtResource("1_ys4ad")
+
+[node name="Image" type="Sprite2D" parent="ProjectileBorder"]
+texture_filter = 1
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("2_ilwj1")
+
+[node name="Label" type="Label" parent="ProjectileBorder"]
+custom_minimum_size = Vector2(50, 50)
+offset_left = -13.799995
+offset_top = -14.3
+offset_right = 264.2
+offset_bottom = 269.7
+scale = Vector2(0.1, 0.1)
+text = "You Got Loot!"
+label_settings = SubResource("LabelSettings_2asgr")
+horizontal_alignment = 1
+autowrap_mode = 2
+clip_text = true
+
+[node name="AttachmentBorder" type="Sprite2D" parent="."]
+position = Vector2(1000, 411)
+scale = Vector2(10, 10)
+texture = ExtResource("1_ys4ad")
+
+[node name="Image" type="Sprite2D" parent="AttachmentBorder"]
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("2_ilwj1")
+
+[node name="Label" type="Label" parent="AttachmentBorder"]
+custom_minimum_size = Vector2(20, 20)
+offset_left = -14.099998
+offset_top = -14.1
+offset_right = 264.9
+offset_bottom = 268.9
+scale = Vector2(0.1, 0.1)
+text = "You Got Loot!"
+label_settings = SubResource("LabelSettings_2asgr")
+horizontal_alignment = 1
+autowrap_mode = 2
+clip_text = true
+
+[node name="HandleBorder" type="Sprite2D" parent="."]
+position = Vector2(650, 411.00003)
+scale = Vector2(10, 10)
+texture = ExtResource("1_ys4ad")
+
+[node name="Image" type="Sprite2D" parent="HandleBorder"]
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("2_ilwj1")
+
+[node name="Label" type="Label" parent="HandleBorder"]
+custom_minimum_size = Vector2(50, 50)
+offset_left = -14.1
+offset_top = -13.9000025
+offset_right = 267.9
+offset_bottom = 265.1
+scale = Vector2(0.1, 0.1)
+text = "You Got Loot!"
+label_settings = SubResource("LabelSettings_2asgr")
+horizontal_alignment = 1
+autowrap_mode = 2
+clip_text = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(973, 664)
+scale = Vector2(25, 25)
+sprite_frames = SubResource("SpriteFrames_qyp0k")
+
+[node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 0
+offset_left = 837.0
+offset_top = 731.0
+offset_right = 1137.0
+offset_bottom = 831.0
+text = "Okay!"
+
+[connection signal="button_down" from="Button" to="." method="_on_button_down"]
