@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://dbfx0pgjmmdgy"]
 
-[ext_resource type="Script" uid="uid://d2q8eeh4e5ai8" path="res://Scripts/character_scripts/webfisher.gd" id="1_ieu52"]
+[ext_resource type="Script" uid="uid://dbmaqkwopy58v" path="res://Scripts/character_scripts/webfisher.gd" id="1_ieu52"]
 [ext_resource type="Script" uid="uid://cg066cmtt0y4" path="res://Scripts/misc/sprite_position_rounder.gd" id="3_owm7s"]
 [ext_resource type="Texture2D" uid="uid://dvur2jw4hot5w" path="res://Art/Characters/WebFishingCat.png" id="3_y3rn3"]
 

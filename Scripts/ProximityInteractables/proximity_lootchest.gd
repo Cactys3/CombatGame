@@ -1,5 +1,5 @@
 extends Node2D
-
+class_name Loot
 
 const LOOT_CHEST_UI = preload("uid://bjggm4l8hm8ih")
 
@@ -42,3 +42,9 @@ func toggle_ui():
 		ui.queue_free()
 		entered = false
 		GameManager.instance.ui_man.pause_misc(false)
+		queue_free()
+
+
+func _on_area_2d_body_exited(_body: Node2D) -> void:
+	#toggle_ui()
+	pass#print("welp")

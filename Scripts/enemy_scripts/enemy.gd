@@ -141,14 +141,6 @@ func _physics_process(_delta: float) -> void:
 		return
 	if !stunned:
 		movement_process(_delta)
-	#var A = null
-	#var vA = A.linear_velocity
-	#var mA = A.get_mass()
-	#var vB = linear_velocity
-	#var mB = get_mass()
-	#linear_velocity = ((mB - mA) / (mA + mB)) * vB + (2.0 * mA / (mA + mB)) * vA
-
-	
 
 ## Overriden by extender for custom enemy movement
 func movement_process(_delta: float) ->void:
