@@ -144,7 +144,8 @@ func add_frame(new_frame: Weapon_Frame):
 	player_stats.add_stats(new_frame.stats)
 	stats_visual.refresh()
 	new_frame.make_stats_visual(weapon_list.size())
-	add_child(new_frame)
+	call_deferred("add_child", new_frame)
+	#add_child(new_frame) this errors?
 
 func remove_frame(frame_sought: Weapon_Frame) -> bool:
 	if frame_sought && weapon_list.has(frame_sought):
