@@ -7,6 +7,10 @@ const GRUB = preload("uid://dojorw4mt1dsw")
 const JUB = preload("uid://b4ljdiupnggrv")
 const THUB = preload("uid://drjvl1sgqrjuy")
 
+const FORGE = preload("uid://le5tbb8urp88")
+const LOOT_CHEST = preload("uid://cll8qcsho5mrw")
+const SHOP = preload("uid://cytotq02c1x2a")
+
 var total_stopwatch: float
 var spawning_stopwatch: float
 var spawning_cooldown: float
@@ -15,6 +19,10 @@ var spawning_cooldown: float
 @export var background_parent: Node2D
 var spawning: bool = false
 
+var num_shops: int = 20
+var num_forges: int = 20
+var proximity_dic: Dictionary
+
 var loaded_chunk_position: Vector2 = Vector2.ZERO
 var chunk_y: float = 360
 var chunk_x: float = 640
@@ -22,7 +30,6 @@ var chunk_grid: Vector2 = Vector2.ZERO
 var chunk_rect: ColorRect
 var chunks: Array[Sprite2D]
 var loaded_chunk: Sprite2D
-
 var chunks_dic: Dictionary
 
 ## Handles Spawning Enemies Based on Instance State variables
@@ -37,6 +44,18 @@ func _ready() -> void:
 	spawning_stopwatch = 0 
 	spawning_cooldown = 1
 	chunk_rect = ColorRect.new()
+	for i in num_forges:
+		var new_forge: Vector2 = Vector2(randi_range(-100, 100), randi_range(-100, 100))
+		if !proximity_dic.has(new_forge):
+			proximity_dic.get_or_add(new_forge, FORGE)
+		else:
+			proximity_dic.get_or_add(Vector2(randi_range(-100, 100), randi_range(-100, 100)), FORGE)
+	for i in num_shops:
+		var new_forge: Vector2 = Vector2(randi_range(-100, 100), randi_range(-100, 100))
+		if !proximity_dic.has(new_forge):
+			proximity_dic.get_or_add(new_forge, SHOP)
+		else:
+			proximity_dic.get_or_add(Vector2(randi_range(-100, 100), randi_range(-100, 100)), SHOP)
 
 func _process(delta: float) -> void:
 	handle_chunks()
@@ -57,6 +76,7 @@ func _process(delta: float) -> void:
 func handle_chunks():
 	var refresh: bool = true
 	var pos = GameManager.instance.player.position
+	## Check If Load New Chunk
 	if pos.x >= loaded_chunk_position.x + (chunk_x / 2):
 		loaded_chunk_position = Vector2(loaded_chunk_position.x + chunk_x, loaded_chunk_position.y)
 		chunk_grid = Vector2(chunk_grid.x + 1, chunk_grid.y)
@@ -133,6 +153,8 @@ func handle_chunks():
 		chunks.append(new_chunk_south_east)
 		chunks_dic.get_or_add(chunk_grid + Vector2(1, -1), new_chunk_south_east)
 
+func load_chunk(chunk: Vector2):
+	pass
 
 func draw_new_visual():
 	chunk_rect.color = Color(0, 0, 0, 0)
