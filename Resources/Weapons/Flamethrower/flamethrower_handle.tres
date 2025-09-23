@@ -3,7 +3,7 @@
 [ext_resource type="Resource" uid="uid://cmyggekbys27w" path="res://Scenes/Weapons/flamethrower/resources/flamethrower_handle_stats.tres" id="1_ilfdf"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_qxij8"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_te188"]
-[ext_resource type="Texture2D" uid="uid://ctcyk6f73ll3f" path="res://Art/New_Weapons/Flamethrower/Handle_Flamethrower.png" id="2_vbtsm"]
+[ext_resource type="Texture2D" uid="uid://ctcyk6f73ll3f" path="res://Art/New_Weapons/flamethrower/Handle_Flamethrower.png" id="2_vbtsm"]
 [ext_resource type="PackedScene" uid="uid://2abx260rgyvs" path="res://Scenes/Weapons/flamethrower/flamethrower_handle.tscn" id="3_te188"]
 [ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="3_vbtsm"]
 

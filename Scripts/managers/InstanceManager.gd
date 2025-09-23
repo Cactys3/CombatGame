@@ -1,16 +1,23 @@
 extends Node2D
 
 class_name InstanceManager
-const Tile1 = preload("uid://w8o0ryem7012")
+## Images
+const Test1 = preload("uid://w8o0ryem7012")
+const Tile1 = preload("uid://dvumjquc3ofs4")
+const TileBlank = preload("uid://doyhfeyvrpplf")
+
+## Enemies
 const FLUB = preload("uid://ckhl8l6bj1bvv")
 const GRUB = preload("uid://dojorw4mt1dsw")
 const JUB = preload("uid://b4ljdiupnggrv")
 const THUB = preload("uid://drjvl1sgqrjuy")
 
+## Proximity Events
 const FORGE = preload("uid://le5tbb8urp88")
 const LOOT_CHEST = preload("uid://cll8qcsho5mrw")
 const SHOP = preload("uid://cytotq02c1x2a")
 
+## Spawning Stuff
 var total_stopwatch: float
 var spawning_stopwatch: float
 var spawning_cooldown: float
@@ -18,11 +25,13 @@ var spawning_cooldown: float
 @export var spawn_deadzone: CollisionShape2D
 @export var background_parent: Node2D
 var spawning: bool = false
-
-var num_shops: int = 20
-var num_forges: int = 20
+var num_shops: int = 50
+var num_forges: int = 50
 var proximity_dic: Dictionary
+var map_height: int = 10 ## this many chunks tall
+var map_width: int = 10 ## this many chunks wide
 
+## Chunks
 var loaded_chunk_position: Vector2 = Vector2.ZERO
 var chunk_y: float = 360
 var chunk_x: float = 640
@@ -31,6 +40,8 @@ var chunk_rect: ColorRect
 var chunks: Array[Sprite2D]
 var loaded_chunk: Sprite2D
 var chunks_dic: Dictionary
+
+var started: bool = false
 
 ## Handles Spawning Enemies Based on Instance State variables
 ## Handles Spawning Bosses
@@ -45,17 +56,17 @@ func _ready() -> void:
 	spawning_cooldown = 1
 	chunk_rect = ColorRect.new()
 	for i in num_forges:
-		var new_forge: Vector2 = Vector2(randi_range(-100, 100), randi_range(-100, 100))
+		var new_forge: Vector2 = Vector2(randi_range(-(map_width * chunk_x) / 2, (map_height * chunk_y) / 2), randi_range(-(map_width * chunk_x) / 2, (map_height * chunk_y) / 2))
 		if !proximity_dic.has(new_forge):
-			proximity_dic.get_or_add(new_forge, FORGE)
+			proximity_dic.get_or_add(new_forge, [FORGE, false])
 		else:
-			proximity_dic.get_or_add(Vector2(randi_range(-100, 100), randi_range(-100, 100)), FORGE)
+			proximity_dic.get_or_add(Vector2(randi_range(-(map_width * chunk_x) / 2, (map_height * chunk_y) / 2), randi_range(-(map_width * chunk_x) / 2, (map_height * chunk_y) / 2)), FORGE)
 	for i in num_shops:
-		var new_forge: Vector2 = Vector2(randi_range(-100, 100), randi_range(-100, 100))
-		if !proximity_dic.has(new_forge):
-			proximity_dic.get_or_add(new_forge, SHOP)
+		var new_shop: Vector2 = Vector2(randi_range(-(map_width * chunk_x) / 2, (map_height * chunk_y) / 2), randi_range(-(map_width * chunk_x) / 2, (map_height * chunk_y) / 2))
+		if !proximity_dic.has(new_shop):
+			proximity_dic.get_or_add(new_shop, [SHOP, false])
 		else:
-			proximity_dic.get_or_add(Vector2(randi_range(-100, 100), randi_range(-100, 100)), SHOP)
+			proximity_dic.get_or_add(Vector2(randi_range(-(map_width * chunk_x) / 2, (map_height * chunk_y) / 2), randi_range(-(map_width * chunk_x) / 2, (map_height * chunk_y) / 2)), SHOP)
 
 func _process(delta: float) -> void:
 	handle_chunks()
@@ -77,7 +88,11 @@ func handle_chunks():
 	var refresh: bool = true
 	var pos = GameManager.instance.player.position
 	## Check If Load New Chunk
-	if pos.x >= loaded_chunk_position.x + (chunk_x / 2):
+	if !started:
+		loaded_chunk_position = Vector2(loaded_chunk_position.x, loaded_chunk_position.y)
+		chunk_grid = Vector2(chunk_grid.x, chunk_grid.y)
+		started = true
+	elif pos.x >= loaded_chunk_position.x + (chunk_x / 2):
 		loaded_chunk_position = Vector2(loaded_chunk_position.x + chunk_x, loaded_chunk_position.y)
 		chunk_grid = Vector2(chunk_grid.x + 1, chunk_grid.y)
 	elif pos.x <= loaded_chunk_position.x - (chunk_x / 2):
@@ -93,68 +108,74 @@ func handle_chunks():
 		refresh = false
 	if refresh:
 		draw_new_visual()
-		loaded_chunk
-		var new_chunk: Sprite2D = Sprite2D.new()
-		new_chunk.texture = Tile1
-		background_parent.add_child(new_chunk)
-		new_chunk.position = (chunk_grid * Vector2(640, 360))
-		chunks.append(new_chunk)
-		chunks_dic.get_or_add(chunk_grid, new_chunk)
-		loaded_chunk = new_chunk
+		print("refresh:")
+		var spawnables: Array[PackedScene]
 		
-		##TODO: Run a chunks_dic.has(chunk_grid) before making each new background
-		var new_chunk_north: Sprite2D = Sprite2D.new()
-		new_chunk_north.texture = Tile1
-		background_parent.add_child(new_chunk_north)
-		new_chunk_north.position = ((chunk_grid + Vector2(0, 1)) * Vector2(640, 360))
-		chunks.append(new_chunk_north)
-		chunks_dic.get_or_add(chunk_grid + Vector2(0, 1), new_chunk_north)
-		var new_chunk_south: Sprite2D = Sprite2D.new()
-		new_chunk_south.texture = Tile1
-		background_parent.add_child(new_chunk_south)
-		new_chunk_south.position = ((chunk_grid + Vector2(0, -1)) * Vector2(640, 360))
-		chunks.append(new_chunk_south)
-		chunks_dic.get_or_add(chunk_grid + Vector2(0, -1), new_chunk_south)
-		var new_chunk_east: Sprite2D = Sprite2D.new()
-		new_chunk_east.texture = Tile1
-		background_parent.add_child(new_chunk_east)
-		new_chunk_east.position = ((chunk_grid + Vector2(1, 0)) * Vector2(640, 360))
-		chunks.append(new_chunk_east)
-		chunks_dic.get_or_add(chunk_grid + Vector2(1, 0), new_chunk_east)
-		var new_chunk_west: Sprite2D = Sprite2D.new()
-		new_chunk_west.texture = Tile1
-		background_parent.add_child(new_chunk_west)
-		new_chunk_west.position = ((chunk_grid + Vector2(-1, 0)) * Vector2(640, 360))
-		chunks.append(new_chunk_west)
-		chunks_dic.get_or_add(chunk_grid + Vector2(-1, 0), new_chunk_west)
+		for key in proximity_dic:
+			#print("/n/nlooking at key: " + str(key))
+			if Rect2(chunk_grid * Vector2(-640*1.5, -360*1.5), Vector2(640 * 3, 360 * 3)).has_point(key):
+				#print("point has key: " + str(key))
+				var thing: Array = proximity_dic.get(key)
+				if thing[1] == false:
+					#print("key is being instantiated at: " + str(key))
+					proximity_dic.set(key, [thing[0], true])
+					var real_thing = thing[0].instantiate()
+					GameManager.instance.xp_parent.add_child(real_thing)
+					real_thing.position = key
+					print("new key exists: " + str(real_thing.position))
+			else:
+				pass#print(str(Rect2(chunk_grid * Vector2(640, 360), Vector2(640 * 6, 360 * 6))) + " does not have point: " + str(key))
 		
-		var new_chunk_north_west: Sprite2D = Sprite2D.new()
-		new_chunk_north_west.texture = Tile1
-		background_parent.add_child(new_chunk_north_west)
-		new_chunk_north_west.position = ((chunk_grid + Vector2(-1, 1)) * Vector2(640, 360))
-		chunks.append(new_chunk_north_west)
-		chunks_dic.get_or_add(chunk_grid + Vector2(-1, 1), new_chunk_north_west)
-		var new_chunk_south_west: Sprite2D = Sprite2D.new()
-		new_chunk_south_west.texture = Tile1
-		background_parent.add_child(new_chunk_south_west)
-		new_chunk_south_west.position = ((chunk_grid + Vector2(-1, -1)) * Vector2(640, 360))
-		chunks.append(new_chunk_south_west)
-		chunks_dic.get_or_add(chunk_grid + Vector2(-1, -1), new_chunk_south_west)
-		var new_chunk_north_east: Sprite2D = Sprite2D.new()
-		new_chunk_north_east.texture = Tile1
-		background_parent.add_child(new_chunk_north_east)
-		new_chunk_north_east.position = ((chunk_grid + Vector2(1, 1)) * Vector2(640, 360))
-		chunks.append(new_chunk_north_east)
-		chunks_dic.get_or_add(chunk_grid + Vector2(1, 1), new_chunk_north_east)
-		var new_chunk_south_east: Sprite2D = Sprite2D.new()
-		new_chunk_south_east.texture = Tile1
-		background_parent.add_child(new_chunk_south_east)
-		new_chunk_south_east.position = ((chunk_grid + Vector2(1, -1)) * Vector2(640, 360))
-		chunks.append(new_chunk_south_east)
-		chunks_dic.get_or_add(chunk_grid + Vector2(1, -1), new_chunk_south_east)
+		if !chunks_dic.has(chunk_grid):
+			load_chunk(chunk_grid)
+		else:
+			pass#print("already had: Main")
+		if !chunks_dic.has(chunk_grid + Vector2(0, -1)):
+			load_chunk(chunk_grid + Vector2(0, -1))
+		else:
+			pass#print("already had: N")
+		if !chunks_dic.has(chunk_grid + Vector2(0, 1)):
+			load_chunk(chunk_grid + Vector2(0, 1))
+		else:
+			pass#print("already had: S")
+		if !chunks_dic.has(chunk_grid + Vector2(1, 0)):
+			load_chunk(chunk_grid + Vector2(1, 0))
+		else:
+			pass#print("already had: E")
+		if !chunks_dic.has(chunk_grid + Vector2(-1, 0)):
+			load_chunk(chunk_grid + Vector2(-1, 0))
+		else:
+			pass#print("already had: W")
+		if !chunks_dic.has(chunk_grid + Vector2(-1, -1)):
+			load_chunk(chunk_grid + Vector2(-1, -1))
+		else:
+			pass#print("already had: NW")
+		if !chunks_dic.has(chunk_grid + Vector2(-1, 1)):
+			load_chunk(chunk_grid + Vector2(-1, 1))
+		else:
+			pass#print("already had: SW")
+		if !chunks_dic.has(chunk_grid + Vector2(1, -1)):
+			load_chunk(chunk_grid + Vector2(1, -1))
+		else:
+			pass#print("already had: NE")
+		if !chunks_dic.has(chunk_grid + Vector2(1, 1)):
+			load_chunk(chunk_grid + Vector2(1, 1))
+		else:
+			pass#print("already had: SE")
 
-func load_chunk(chunk: Vector2):
-	pass
+func load_chunk(chunk_id: Vector2):
+	var new_chunk: Sprite2D = Sprite2D.new()
+	new_chunk.visible = false
+	print(abs(chunk_id))
+	if abs(chunk_id.x) > abs(map_width) || abs(chunk_id.y) > abs(map_height):
+		new_chunk.texture = TileBlank
+	else:
+		new_chunk.texture = Tile1
+	background_parent.add_child(new_chunk)
+	new_chunk.position = ((chunk_id) * Vector2(640, 360))
+	chunks.append(new_chunk)
+	chunks_dic.get_or_add(chunk_id, new_chunk)
+	new_chunk.visible = true
 
 func draw_new_visual():
 	chunk_rect.color = Color(0, 0, 0, 0)
@@ -162,7 +183,7 @@ func draw_new_visual():
 	chunk_rect.position = loaded_chunk_position - Vector2(chunk_x / 2, chunk_y / 2)
 	chunk_rect.size = Vector2(chunk_x, chunk_y)
 	chunk_rect.color = Color(1, 0, 0, .1)
-	GameManager.instance.xp_parent.add_child(chunk_rect)
+	background_parent.add_child(chunk_rect)
 
 func spawn_random_enemy(pos: Vector2):
 	var enemy = GRUB.instantiate()
