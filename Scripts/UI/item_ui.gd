@@ -105,7 +105,7 @@ func hide_details():
 func show_component_visuals():
 	print("Showing")
 	HandleBackground.self_modulate = data.handle.border_color
-	AttachmentBackground.self_modulate = data.attachment.border_color
+	AttachmentBackground.self_modulate = data.attachment.border_color	
 	ShowComponentVisuals = true
 	HandleParent.visible = true
 	AttachmentParent.visible = true
