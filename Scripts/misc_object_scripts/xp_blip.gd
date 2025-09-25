@@ -42,6 +42,7 @@ func _entered_body(body: Node2D) -> void:
 	#print("body")
 	if body.is_in_group("player"):
 		game_man.xp += xp_value
+		visible = false
 		queue_free()
 	pass # Replace with function body.
 

@@ -153,14 +153,13 @@ func shoot_projectile():
 	pass
 
 func die():
+	visible = false
 	GameManager.instance.money += money_on_death
 	var new_xp = xp.instantiate()
 	GameManager.instance.xp_parent.add_child(new_xp)
 	new_xp.global_position = global_position
-	#print(name + str(global_position))
-	#GameManager.instance.xp_parent.call_deferred("add_child", new_xp)
 	new_xp.set_xp(xp_on_death)
-	#print(new_xp.name + str(new_xp.global_position))
+	GameManager.instance.EnemyKilled.emit()
 	queue_free()
 
 func _on_damage_hitbox_body_entered(body: Node2D) -> void:

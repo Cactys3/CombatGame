@@ -30,6 +30,15 @@ var event_arr: Array
 var map_height: int = 10 ## this many chunks tall
 var map_width: int = 10 ## this many chunks wide
 
+## Enemies
+static var enemies_spawned: int = 0
+static var enemies_killed: int = 0
+static var enemies_alive: int = 0
+## kills until next boss spawn
+var kills_needed: int = 50 
+## kills aquired since last boss spawn
+var kills_left: int = 0 
+
 ## Chunks
 var loaded_chunk_position: Vector2 = Vector2.ZERO
 var chunk_y: float = 360
@@ -54,26 +63,31 @@ func _ready() -> void:
 	spawning_stopwatch = 0 
 	spawning_cooldown = 1
 	chunk_rect = ColorRect.new()
+	call_deferred("connect_signals")
+
+func connect_signals():
+	GameManager.instance.EnemyKilled.connect(enemy_killed)
 
 func _process(delta: float) -> void:
-	handle_chunks()
-	
+	var pos = GameManager.instance.player.position
+	handle_chunks(pos)
+	handle_enemy_spawns(delta, pos)
+
+func handle_enemy_spawns(delta: float, pos: Vector2):
 	total_stopwatch += delta
 	if spawning:
 		spawning_stopwatch += delta
 	## Set Stopwatch Label
 	GameManager.instance.ui_man.stopwatch_label.text = str(int(total_stopwatch / 60)) + ":" + str(int(fmod(total_stopwatch, 60.0))) 
-	
 	if spawning_stopwatch > spawning_cooldown:
 		if spawning_cooldown > 0.1:
 			spawning_cooldown -= 0.001
 		spawning_stopwatch = 0
-		spawn_random_enemy(random_position())
-		print("spawn enemy")
+		spawn_enemy(GRUB, random_position(pos))
 
-func handle_chunks():
+## Handles spawning new chunks and calculating whats inside them
+func handle_chunks(pos: Vector2):
 	var refresh: bool = true
-	var pos = GameManager.instance.player.position
 	## Check If Load New Chunk
 	if !started:
 		loaded_chunk_position = Vector2(loaded_chunk_position.x, loaded_chunk_position.y)
@@ -170,7 +184,7 @@ func load_event(scene: PackedScene, chunk: Vector2):
 	var new_max := center + half
 	new_event.position = Vector2(randf_range(new_min.x, new_max.x), randf_range(new_min.y, new_max.y))
 	event_arr.append(new_event)
-	print("Load in Chunk: " + str(chunk) + " Event at: " + str(new_event.position))
+	#print("Load in Chunk: " + str(chunk) + " Event at: " + str(new_event.position))
 
 func draw_new_visual():
 	chunk_rect.color = Color(0, 0, 0, 0)
@@ -180,21 +194,35 @@ func draw_new_visual():
 	chunk_rect.color = Color(1, 0, 0, .1)
 	background_parent.add_child(chunk_rect)
 
-func spawn_random_enemy(pos: Vector2):
-	var enemy = GRUB.instantiate()
+func spawn_enemy(scene: PackedScene, pos: Vector2):
+	enemies_alive += 1
+	enemies_spawned += 1
+	var enemy = scene.instantiate()
 	enemy.visible = false
-	GameManager.instance.enemy_parent.add_child(enemy)
 	enemy.global_position = pos
+	GameManager.instance.enemy_parent.add_child(enemy)
 	enemy.visible = true
+
+func enemy_killed():
+	enemies_alive -= 1
+	enemies_killed += 1
+	print("Killed: " + str(enemies_killed))
+	
 
 func toggle_spawning(value: bool):
 	spawning = value
 
-func random_position() -> Vector2:
+func random_position(player_pos: Vector2) -> Vector2:
 	# Random radius between deadzone and circle radius
 	var r = sqrt(randf()) * (spawn_area.shape.radius - spawn_deadzone.shape.radius) + spawn_deadzone.shape.radius
 	# Return global position + random offset
-	return GameManager.instance.player.global_position + Vector2(cos(randf_range(0, TAU)), sin(randf_range(0, TAU))) * r
+	var angle = Vector2(cos(randf_range(0, TAU)), sin(randf_range(0, TAU))).normalized()
+	var pos = player_pos + angle * r
+	#print("radius: " + str(r))
+	#print("angle: " + str(angle))
+	#print("position: " + str(pos))
+	#print("distance to player: " + str(player_pos.distance_to(pos)))
+	return pos
 
 
 

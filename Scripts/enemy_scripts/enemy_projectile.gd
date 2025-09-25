@@ -50,4 +50,5 @@ func _on_body_entered(body: Node2D) -> void:
 func die():
 	if !_dead:
 		_dead = true
+		visible = false
 		queue_free()
