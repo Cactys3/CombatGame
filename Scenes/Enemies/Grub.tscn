@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://dojorw4mt1dsw"]
 
-[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/Enemy.gd" id="1_yjqvm"]
+[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy.gd" id="1_yjqvm"]
 [ext_resource type="Resource" uid="uid://d2vkyrbiy2gh0" path="res://Scenes/Enemies/Resources/grub_stats.tres" id="2_8ri7c"]
 [ext_resource type="Texture2D" uid="uid://d2peq71x62qh" path="res://Art/Characters/FirstEnemy.png" id="2_wnpdl"]
 [ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="3_wcdpf"]
@@ -64,9 +64,10 @@ damage_hitbox = NodePath("Damage_Hitbox")
 xp_on_death = 20
 money_on_death = 20
 weapon_knockback = 900.0
+self_knockback_onhit = 500.0
 base_damage = 20.0
 base_movespeed = 150.0
-base_health = 20.0
+base_health = 50.0
 base_knockback_modifier = 1.0
 base_cooldown = 0.1
 base_range = 20.0

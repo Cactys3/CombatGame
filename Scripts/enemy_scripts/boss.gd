@@ -26,5 +26,8 @@ func drop_loot():
 	loot.position = position
 	loot.visible = true
 
+func death_signal():
+	GameManager.instance.BossKilled.emit()
+
 func unlock_weapon():
 	pass

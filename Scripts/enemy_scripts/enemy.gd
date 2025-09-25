@@ -11,13 +11,14 @@ class_name Enemy
 @export var money_on_death: int
 @export var weapon_knockback: float
 @export var weapon_stun: float
+@export var self_knockback_onhit: float
 @export var base_damage: float
 @export var base_movespeed: float
 @export var base_health: float
 @export var base_regen: float
 @export var base_knockback_modifier: float
 @export var base_damage_reduction: float
-@export var base_cooldown: float
+@export var base_cooldown: float = 1
 @export_category("Enemy Projectile Stats")
 @export var projectile: PackedScene
 @export var shoots_projectiles: bool
@@ -159,12 +160,18 @@ func die():
 	GameManager.instance.xp_parent.add_child(new_xp)
 	new_xp.global_position = global_position
 	new_xp.set_xp(xp_on_death)
-	GameManager.instance.EnemyKilled.emit()
+	death_signal()
 	queue_free()
+
+func death_signal():
+	GameManager.instance.EnemyKilled.emit()
 
 func _on_damage_hitbox_body_entered(body: Node2D) -> void:
 	if body.has_method("damage") && body.is_in_group("player"):
 		damage_player(body)
+		## Handles self knockback on attack player
+		if self_knockback_onhit != 0:
+			apply_knockback(body.global_position, self_knockback_onhit)
 
 func damage_player(damage_player: Node2D):
 	cooldown_stopwatch = 0;
@@ -195,7 +202,8 @@ func damage(attack: Attack):
 		if stun_time_left < 1 && can_be_stunned:
 			stun_time_left = 0.2
 			stunned = true
-		call_deferred("set_linear_velocity", (global_position - attack.position).normalized() * attack.knockback * curr_knockback_modifier)
+		apply_knockback(attack.position, attack.knockback)
+		#call_deferred("set_linear_velocity", (global_position - attack.position).normalized() * attack.knockback * curr_knockback_modifier)
 	var dmg_text: PopupText = POPUP_TEXT.instantiate()
 	GameManager.instance.xp_parent.add_child(dmg_text)
 	dmg_text.global_position = Vector2.ZERO
@@ -203,3 +211,6 @@ func damage(attack: Attack):
 	
 	if curr_health <= 0:
 		die()
+
+func apply_knockback(attack_pos: Vector2, knockback: float):
+	call_deferred("set_linear_velocity", (global_position - attack_pos).normalized() * knockback * curr_knockback_modifier)

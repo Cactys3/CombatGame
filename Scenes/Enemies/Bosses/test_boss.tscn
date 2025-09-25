@@ -156,18 +156,23 @@ height = 14.0
 radius = 9.0
 height = 18.0
 
-[node name="TestBoss" type="RigidBody2D" node_paths=PackedStringArray("damage_hitbox")]
+[node name="TestBoss" type="RigidBody2D" node_paths=PackedStringArray("damage_hitbox") groups=["enemy"]]
+collision_layer = 32
+collision_mask = 32
+mass = 10.0
+gravity_scale = 0.0
+lock_rotation = true
 script = ExtResource("1_lx1eu")
 stats = SubResource("Resource_lgiu1")
 melee_attacks = true
 damage_hitbox = NodePath("Damage_Hitbox")
 can_be_knockbacked = false
 can_be_stunned = false
-xp_on_death = 100
+xp_on_death = 2000
 money_on_death = 100
-weapon_knockback = 20.0
+weapon_knockback = 1500.0
 base_damage = 50.0
-base_movespeed = 10.0
+base_movespeed = 40.0
 base_health = 200.0
 base_knockback_modifier = 10.0
 base_damage_reduction = 10.0

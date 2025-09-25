@@ -64,7 +64,8 @@ var paused_for_esc: bool = false
 var paused_for_tab: bool = false
 var paused_for_level_up: bool = false
 var paused_for_shop: bool = false
-
+var level_up_queue: int = 0
+var leveling_up: bool = false
 ## Signals
 # For GameManager Systems
 signal pause_game(value: bool)
@@ -80,6 +81,7 @@ signal add_item_to_player_inventory(item: Item)
 # For Item Mechanics
 signal EnemyDamaged(enemy: Enemy, attack: Attack)
 signal EnemyKilled(enemy: Enemy, attack: Attack)
+signal BossKilled(boss: Boss, attack: Attack)
 signal PlayerDamaged(player: Player_Script, attack: Attack)
 signal PlayerKilled(player: Player_Script, attack: Attack)
 signal RoundEnded(round_number: int)
@@ -110,6 +112,9 @@ func global_stats_visual():
 
 ## Just handles inputs for testing right now
 func _process(_delta: float) -> void:
+	
+	if !leveling_up && level_up_queue > 0:
+		create_level_up_instance()
 	
 	if Input.is_action_just_pressed("ability1") && ui_man.tab_menu_parent.visible == true:
 		ui_man.shop.stock(3)
@@ -312,6 +317,10 @@ func can_unequip(item: ItemUI) -> bool:
 	return true ## Check if player has weapon equipped
 
 func create_level_up_instance():
+	if leveling_up:
+		level_up_queue += 1
+		return
+	leveling_up = true
 	ui_man.pause_level_up()
 	## get 3 random things w/ variable references
 	var one = LevelUpData.get_random_level_up_option()
@@ -328,11 +337,8 @@ func create_level_up_instance():
 	choice.carryout_level_up()
 	instance.free_instance()
 	ui_man.pause_level_up()
-	## wait for LevelUpInstance to choose one of those things
-	
-	## do whatever that thing was
-	
-	## delete LevelUpInstance
+	level_up_queue -= 1
+	leveling_up = false
 
 func get_random_equipped_weapon():
 	return player.get_random_frame()

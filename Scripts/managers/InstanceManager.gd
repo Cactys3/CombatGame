@@ -12,6 +12,10 @@ const GRUB = preload("uid://dojorw4mt1dsw")
 const JUB = preload("uid://b4ljdiupnggrv")
 const THUB = preload("uid://drjvl1sgqrjuy")
 
+## Bosses
+const TESTBOSS = preload("uid://davhmwwacx2xv")
+
+
 ## Proximity Events
 const FORGE = preload("uid://le5tbb8urp88")
 const LOOT_CHEST = preload("uid://cll8qcsho5mrw")
@@ -34,6 +38,11 @@ var map_width: int = 10 ## this many chunks wide
 static var enemies_spawned: int = 0
 static var enemies_killed: int = 0
 static var enemies_alive: int = 0
+## Bosses
+static var bosses_spawned: int = 0
+static var bosses_killed: int = 0
+static var bosses_alive: int = 0
+
 ## kills until next boss spawn
 var kills_needed: int = 50 
 ## kills aquired since last boss spawn
@@ -67,6 +76,7 @@ func _ready() -> void:
 
 func connect_signals():
 	GameManager.instance.EnemyKilled.connect(enemy_killed)
+	GameManager.instance.BossKilled.connect(boss_killed)
 
 func _process(delta: float) -> void:
 	var pos = GameManager.instance.player.position
@@ -203,11 +213,29 @@ func spawn_enemy(scene: PackedScene, pos: Vector2):
 	GameManager.instance.enemy_parent.add_child(enemy)
 	enemy.visible = true
 
+func spawn_boss(scene: PackedScene, pos: Vector2):
+	bosses_alive += 1
+	bosses_spawned += 1
+	var boss = scene.instantiate()
+	boss.visible = false
+	boss.global_position = pos
+	GameManager.instance.enemy_parent.add_child(boss)
+	boss.visible = true
+
 func enemy_killed():
 	enemies_alive -= 1
 	enemies_killed += 1
+	GameManager.instance.ui_man.enemies_killed_label.text = str(enemies_killed)
 	print("Killed: " + str(enemies_killed))
-	
+	if kills_left <= 0:
+		kills_needed = kills_needed * 0.95
+		kills_left = kills_needed
+		spawn_boss(TESTBOSS, random_position(GameManager.instance.player.position))
+
+func boss_killed():
+	bosses_killed += 1
+	bosses_alive -= 1
+	GameManager.instance.ui_man.bosses_killed_label.text = str(bosses_killed)
 
 func toggle_spawning(value: bool):
 	spawning = value
@@ -223,8 +251,6 @@ func random_position(player_pos: Vector2) -> Vector2:
 	#print("position: " + str(pos))
 	#print("distance to player: " + str(player_pos.distance_to(pos)))
 	return pos
-
-
 
 func SpawningButtonPressed() -> void:
 	toggle_spawning(!spawning)
