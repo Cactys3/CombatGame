@@ -5,6 +5,7 @@ class_name UIManager
 @export var xp_label: Label
 @export var level_label: Label
 @export var hp_label: Label
+@export var fps_label: Label
 @export var stopwatch_label: Label
 @export var enemies_killed_label: Label
 @export var bosses_killed_label: Label

@@ -80,6 +80,7 @@ func connect_signals():
 
 func _process(delta: float) -> void:
 	var pos = GameManager.instance.player.position
+	GameManager.instance.ui_man.fps_label.text = str(Engine.get_frames_per_second())
 	handle_chunks(pos)
 	handle_enemy_spawns(delta, pos)
 
