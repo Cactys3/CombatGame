@@ -32,4 +32,5 @@ default_status_effects = SubResource("Resource_d2vgt")
 default_rarity_stat_modifiers = SubResource("Resource_8havq")
 default_rarity_status_effects_modifiers = SubResource("Resource_foq67")
 has_stats = true
+has_status_effects = true
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"

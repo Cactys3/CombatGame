@@ -112,7 +112,7 @@ func RotateTowardsPosition(new_position: Vector2, _delta: float) -> void:
  #TODO: try global_position instead of player.global_position for how weapon aiming looks
 
 func GetOrbitPosition(target_angle: float) -> Vector2:
-	return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * ORBIT_DISTANCE * frame.get_stat(StatsResource.SIZE) #TODO: implement scale better with offset
+	return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * ORBIT_DISTANCE * (frame.get_stat(StatsResource.SIZE) + 1) #TODO: implement scale better with offset
 
 func IsAimingAtEnemy(enemy: Node2D) -> bool:
 	if enemy != null:

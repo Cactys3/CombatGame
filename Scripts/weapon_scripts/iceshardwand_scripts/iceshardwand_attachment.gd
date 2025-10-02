@@ -6,3 +6,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	super(delta)
+
+func attack():
+	print("attacking")
+	super()

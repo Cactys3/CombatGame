@@ -22,7 +22,7 @@ func get_instance():
 @export var stats: StatsResource #= StatsResource.new()
 ## Not decided, holds attack, defense, current values
 #@export var status: StatusEffects = StatusEffects.new()
-@export var status: StatusEffectDictionary #= StatusEffectDictionary.new()
+@export var status: StatusEffects #= StatusEffectDictionary.new()
 
 var data: ItemData = ItemData.new()
 var frame: Weapon_Frame
@@ -43,7 +43,7 @@ func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
 	direction = enemy_direction.normalized()
 	rotation = direction.angle() 
 	var size_value = frame_stats.get_stat(StatsResource.SIZE)
-	self.scale = Vector2(size_value, size_value)
+	self.scale = Vector2(size_value, size_value) + Vector2(1, 1)
 	
 	lifetime = frame.get_stat(StatsResource.DURATION)
 	

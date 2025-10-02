@@ -17,27 +17,9 @@ statsbase = {
 "movespeed": 0.0,
 "piercing": 10.0,
 "range": 40.0,
-"size": 1.2,
+"size": 0.2,
 "stance": 0.0,
 "velocity": 25.0,
 "weight": 20.0,
 "xp": 0.0
-}
-statsfactor = {
-"attackspeed": 1.0,
-"buildup": 1.0,
-"count": 1.0,
-"damage": 1.0,
-"duration": 1.0,
-"hp": 1.0,
-"luck": 1.0,
-"mogul": 1.0,
-"movespeed": 1.0,
-"piercing": 1.0,
-"range": 1.0,
-"size": 1.0,
-"stance": 1.0,
-"velocity": 1.0,
-"weight": 1.0,
-"xp": 1.0
 }
