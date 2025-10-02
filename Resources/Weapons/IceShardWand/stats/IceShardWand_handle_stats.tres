@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="StatsResource" load_steps=2 format=3 uid="uid://dd81cgp60b4vt"]
+
+[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="1_cpjpt"]
+
+[resource]
+script = ExtResource("1_cpjpt")
+parent_object_name = "IceShardWand Handle"
+metadata/_custom_type_script = "uid://dwj80yu0v1qdt"

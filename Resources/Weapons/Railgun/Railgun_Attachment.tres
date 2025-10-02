@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=10 format=3 uid="uid://bge0021itql7d"]
 
-[ext_resource type="Resource" uid="uid://clp72jc346r1b" path="res://Scenes/Weapons/railgun/resources/railgun_attachment_stats.tres" id="1_vdayk"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_iug86"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_kvm3q"]
-[ext_resource type="Texture2D" uid="uid://ce8uthmoy4tfg" path="res://Art/New_Weapons/Railgun/Railgun_Attachment.png" id="2_vdayk"]
+[ext_resource type="Texture2D" uid="uid://ce8uthmoy4tfg" path="res://Art/Weapons/Railgun/Railgun_Attachment.png" id="2_vdayk"]
+[ext_resource type="Resource" uid="uid://clp72jc346r1b" path="res://Resources/Weapons/Railgun/stats/railgun_attachment_stats.tres" id="3_7fom8"]
 [ext_resource type="PackedScene" uid="uid://cbptmran7tknt" path="res://Scenes/Weapons/railgun/railgun_attachment.tscn" id="3_iug86"]
 [ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="3_yi1k5"]
 
@@ -28,7 +28,7 @@ item_type = 2
 item_color = Color(0.896634, 0, 0.42478, 1)
 item_image = ExtResource("2_vdayk")
 randomizable = true
-default_stats = ExtResource("1_vdayk")
+default_stats = ExtResource("3_7fom8")
 default_status_effects = SubResource("Resource_pubr2")
 default_rarity_stat_modifiers = SubResource("Resource_7fom8")
 default_rarity_status_effects_modifiers = SubResource("Resource_spjxj")

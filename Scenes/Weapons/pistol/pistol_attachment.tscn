@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://rbimtghqmg7r"]
 
 [ext_resource type="Script" uid="uid://bfhm88tyltpfx" path="res://Scripts/weapon_scripts/pistol_scripts/pistol_attachment.gd" id="1_bgemh"]
-[ext_resource type="Resource" uid="uid://bt8px2dm8ep0j" path="res://Scenes/Weapons/pistol/resources/pistol_attachment_stats.tres" id="2_c3eyu"]
-[ext_resource type="Texture2D" uid="uid://bubjo75ouhbaj" path="res://Art/New_Weapons/Pistol/Attachment_Pistol.png" id="2_drna1"]
+[ext_resource type="Resource" uid="uid://bt8px2dm8ep0j" path="res://Resources/Weapons/Pistol/stats/pistol_attachment_stats.tres" id="2_c3eyu"]
+[ext_resource type="Texture2D" uid="uid://bubjo75ouhbaj" path="res://Art/Weapons/Pistol/Attachment_Pistol.png" id="2_drna1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a855e"]
 atlas = ExtResource("2_drna1")

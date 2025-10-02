@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=10 format=3 uid="uid://iyd6tki6q303"]
 
-[ext_resource type="Resource" uid="uid://thj5nou3a6nn" path="res://Scenes/Weapons/sword/resources/sword_attachment_stats.tres" id="1_70jyv"]
-[ext_resource type="Texture2D" uid="uid://bt3ow0fhp6e68" path="res://Art/New_Weapons/Sword/Attachment_Sword.png" id="2_70jyv"]
+[ext_resource type="Texture2D" uid="uid://bt3ow0fhp6e68" path="res://Art/Weapons/Sword/Attachment_Sword.png" id="2_70jyv"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_lu3rw"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_oeyxg"]
+[ext_resource type="Resource" uid="uid://thj5nou3a6nn" path="res://Resources/Weapons/Sword/stats/sword_attachment_stats.tres" id="3_j1fc0"]
 [ext_resource type="PackedScene" uid="uid://d1adyx7c46ut8" path="res://Scenes/Weapons/sword/sword_attachment.tscn" id="3_oeyxg"]
 [ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="3_r3i51"]
 
@@ -28,7 +28,7 @@ item_type = 2
 item_color = Color(1, 0.379176, 0.611459, 1)
 item_image = ExtResource("2_70jyv")
 randomizable = true
-default_stats = ExtResource("1_70jyv")
+default_stats = ExtResource("3_j1fc0")
 default_status_effects = SubResource("Resource_c2cot")
 default_rarity_stat_modifiers = SubResource("Resource_j1fc0")
 default_rarity_status_effects_modifiers = SubResource("Resource_1nkab")

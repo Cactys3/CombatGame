@@ -1,0 +1,80 @@
+[gd_scene load_steps=12 format=3 uid="uid://m37gbpi4rmf"]
+
+[ext_resource type="Script" uid="uid://dk67ukgy03cih" path="res://Scripts/weapon_scripts/iceshardwand_scripts/iceshardwand_projectile.gd" id="1_g5jbl"]
+[ext_resource type="Texture2D" uid="uid://dkjeea6q4ft8f" path="res://Art/Weapons/IceShardWand/Projectile_IceShardWand.png" id="1_utnmd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g5jbl"]
+atlas = ExtResource("1_utnmd")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktklf"]
+atlas = ExtResource("1_utnmd")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4b7vd"]
+atlas = ExtResource("1_utnmd")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hme1p"]
+atlas = ExtResource("1_utnmd")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bnj6n"]
+atlas = ExtResource("1_utnmd")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ulu6i"]
+atlas = ExtResource("1_utnmd")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dv4g6"]
+atlas = ExtResource("1_utnmd")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a5e8j"]
+atlas = ExtResource("1_utnmd")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t206k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g5jbl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktklf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4b7vd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hme1p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bnj6n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ulu6i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dv4g6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5e8j")
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="IceShardWand_Projectile" type="Area2D"]
+script = ExtResource("1_g5jbl")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_t206k")
+autoplay = "default"
+frame = 7
+frame_progress = 1.0
+
+[connection signal="area_exited" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

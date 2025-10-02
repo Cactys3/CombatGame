@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="StatsResource" load_steps=2 format=3 uid="uid://kflxc34jwioc"]
+
+[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="1_hn85t"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_hn85t")
+parent_object_name = "pistol_handle"
+statsbase = {
+"attackspeed": 1.0,
+"buildup": 0.0,
+"count": 0.0,
+"damage": 10.0,
+"duration": 0.0,
+"hp": 0.0,
+"luck": 0.0,
+"mogul": 0.0,
+"movespeed": 0.0,
+"piercing": 0.0,
+"range": 10.0,
+"size": 0.0,
+"stance": 0.0,
+"velocity": 0.0,
+"weight": 0.0,
+"xp": 0.0
+}
+statsfactor = {
+"attackspeed": 1.0,
+"buildup": 1.0,
+"count": 1.0,
+"damage": 1.1,
+"duration": 1.0,
+"hp": 1.0,
+"luck": 1.0,
+"mogul": 1.0,
+"movespeed": 1.0,
+"piercing": 1.0,
+"range": 1.1,
+"size": 0.7,
+"stance": 1.0,
+"velocity": 1.1,
+"weight": 0.9,
+"xp": 1.0
+}

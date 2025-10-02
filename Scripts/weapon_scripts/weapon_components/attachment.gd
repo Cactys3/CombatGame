@@ -6,8 +6,6 @@ const PISTOL = preload("res://Scenes/Weapons/pistol/pistol_attachment.tscn")
 const FLAMETHROWER = preload("res://Scenes/Weapons/flamethrower/flamethrower_attachment.tscn")
 const SWORD = preload("res://Scenes/Weapons/sword/sword_attachment.tscn")
 
-#const FLAMETHROWER = preload("res://Resources/Weapons/Flamethrower/flamethrower_attachment.tres")
-
 func get_scene() -> PackedScene:
 	return preload("res://Scenes/Weapons/pistol/pistol_attachment.tscn")
 
@@ -126,11 +124,3 @@ func make_attack() -> Attack:
 
 func set_stats() -> void:
 	pass # setup the stat values inside the class so they dont get reset when changing stat dictionary
-
-
-#how should attachment extenders work?
-#Create methods for ProcessCooldown(delta) and Attack() that extenders override.
-#Create generic methods for creating a projectile with the right size/parent so extenders can use that
-#extenders should always (with exceptions) call super on read and process 
-#extenders have their own hitbox references and do all that themselves
-#extenders have their own animations but have to include handle in these animations? or animations work to change position of weapon_frame?

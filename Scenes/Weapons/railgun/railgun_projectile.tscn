@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://b605pualaip1m"]
 
 [ext_resource type="Script" uid="uid://hd66jc8makw5" path="res://Scripts/weapon_scripts/railgun_scripts/railgun_projectile.gd" id="1_vned4"]
-[ext_resource type="Resource" uid="uid://dfh3cgblwlx5" path="res://Scenes/Weapons/railgun/resources/railgun_projectile_stats.tres" id="2_5ab7y"]
-[ext_resource type="Texture2D" uid="uid://cdam8n8g4gbi2" path="res://Art/New_Weapons/Railgun/LazarBeam.png" id="2_27xwe"]
-[ext_resource type="Resource" uid="uid://dgn3e741g83hp" path="res://Scenes/Weapons/railgun/resources/railgun_projectile_status.tres" id="3_5ab7y"]
+[ext_resource type="Resource" uid="uid://dfh3cgblwlx5" path="res://Resources/Weapons/Railgun/stats/railgun_projectile_stats.tres" id="2_5ab7y"]
+[ext_resource type="Texture2D" uid="uid://cdam8n8g4gbi2" path="res://Art/Weapons/Railgun/LazarBeam.png" id="2_27xwe"]
+[ext_resource type="Resource" uid="uid://dgn3e741g83hp" path="res://Resources/Weapons/Railgun/stats/railgun_projectile_status.tres" id="3_5ab7y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ugjh4"]
 atlas = ExtResource("2_27xwe")

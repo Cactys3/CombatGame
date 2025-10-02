@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=10 format=3 uid="uid://btq01ual2w8vn"]
 
-[ext_resource type="Resource" uid="uid://br3kpgfsuteco" path="res://Scenes/Weapons/sword/resources/sword_handle_stats.tres" id="1_eakhu"]
-[ext_resource type="Texture2D" uid="uid://dyn358jlt11hp" path="res://Art/New_Weapons/Sword/Handle_Sword.png" id="2_eakhu"]
+[ext_resource type="Resource" uid="uid://br3kpgfsuteco" path="res://Resources/Weapons/Sword/stats/sword_handle_stats.tres" id="1_eakhu"]
+[ext_resource type="Texture2D" uid="uid://dyn358jlt11hp" path="res://Art/Weapons/Sword/Handle_Sword.png" id="2_eakhu"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_g72k8"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_tw6dc"]
 [ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="3_a56wt"]

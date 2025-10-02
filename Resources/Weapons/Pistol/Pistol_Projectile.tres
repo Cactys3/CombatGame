@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=10 format=3 uid="uid://bskpa46ldvhg6"]
 
-[ext_resource type="Resource" uid="uid://dtbagx7lwlpe0" path="res://Scenes/Weapons/pistol/resources/pistol_projectile_stats.tres" id="1_jadpu"]
+[ext_resource type="Resource" uid="uid://dtbagx7lwlpe0" path="res://Resources/Weapons/Pistol/stats/pistol_projectile_stats.tres" id="1_jadpu"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_604b6"]
-[ext_resource type="Texture2D" uid="uid://dnueduipb01yj" path="res://Art/New_Weapons/Pistol/Bulletaseprite.png" id="2_jadpu"]
+[ext_resource type="Texture2D" uid="uid://dnueduipb01yj" path="res://Art/Weapons/Pistol/Bulletaseprite.png" id="2_jadpu"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_r6olb"]
 [ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="3_4ja03"]
 [ext_resource type="PackedScene" uid="uid://dcln1rwdu42hl" path="res://Scenes/Weapons/pistol/pistol_bullet.tscn" id="3_r6olb"]

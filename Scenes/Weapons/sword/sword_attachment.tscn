@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://d1adyx7c46ut8"]
 
 [ext_resource type="Script" uid="uid://du1jbl08uf8dw" path="res://Scripts/weapon_scripts/sword_scripts/sword_attachment.gd" id="1_jjysa"]
-[ext_resource type="Resource" uid="uid://thj5nou3a6nn" path="res://Scenes/Weapons/sword/resources/sword_attachment_stats.tres" id="2_e16m8"]
-[ext_resource type="Texture2D" uid="uid://bt3ow0fhp6e68" path="res://Art/New_Weapons/Sword/Attachment_Sword.png" id="2_kxonl"]
+[ext_resource type="Resource" uid="uid://thj5nou3a6nn" path="res://Resources/Weapons/Sword/stats/sword_attachment_stats.tres" id="2_e16m8"]
+[ext_resource type="Texture2D" uid="uid://bt3ow0fhp6e68" path="res://Art/Weapons/Sword/Attachment_Sword.png" id="2_kxonl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gxxfy"]
 atlas = ExtResource("2_kxonl")
