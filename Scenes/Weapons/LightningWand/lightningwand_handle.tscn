@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://3je5k2hnlfep"]
+
+[ext_resource type="Script" uid="uid://vfqhfysj4fm8" path="res://Scripts/weapon_scripts/iceshardwand_scripts/iceshardwand_attachment.gd" id="1_kb7lh"]
+[ext_resource type="Texture2D" uid="uid://di55vghj6uw1n" path="res://Art/Weapons/LightningWand/Handle_LightningWand.png" id="2_0adg7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p6dtr"]
+atlas = ExtResource("2_0adg7")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0adg7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p6dtr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="LightningWand_handle" type="Area2D" node_paths=PackedStringArray("visual")]
+script = ExtResource("1_kb7lh")
+visual = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0adg7")
+autoplay = "default"

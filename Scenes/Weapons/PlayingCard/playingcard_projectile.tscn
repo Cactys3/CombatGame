@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://dntojoycrv5me"]
+
+[ext_resource type="Texture2D" uid="uid://ctekysqm3q8wt" path="res://Art/Weapons/PlayingCard/Projectile_PlayingCard.png" id="1_73xl0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04s3l"]
+atlas = ExtResource("1_73xl0")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wxygb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_04s3l")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g5jbl"]
+size = Vector2(15, 16)
+
+[node name="PlayingCard_Projectile" type="Area2D"]
+collision_layer = 4
+collision_mask = 8
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_wxygb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -1)
+shape = SubResource("RectangleShape2D_g5jbl")
+
+[connection signal="area_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

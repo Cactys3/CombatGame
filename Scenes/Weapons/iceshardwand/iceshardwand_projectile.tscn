@@ -143,8 +143,8 @@ animation = &"FadeOut"
 autoplay = "FadeIn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 0)
+position = Vector2(-1, -1)
 shape = SubResource("RectangleShape2D_g5jbl")
 
-[connection signal="area_exited" from="." to="." method="_on_body_entered"]
+[connection signal="area_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

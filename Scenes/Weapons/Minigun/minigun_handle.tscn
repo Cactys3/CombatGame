@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://blqq45ul37nx0"]
+
+[ext_resource type="Script" uid="uid://vfqhfysj4fm8" path="res://Scripts/weapon_scripts/iceshardwand_scripts/iceshardwand_attachment.gd" id="1_votck"]
+[ext_resource type="Texture2D" uid="uid://xywhs6e7wreo" path="res://Art/Weapons/Minigun/Handle_Minigun.png" id="2_tokk4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tsyvm"]
+atlas = ExtResource("2_tokk4")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3wnrc"]
+atlas = ExtResource("2_tokk4")
+region = Rect2(32, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vsgc3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tsyvm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3wnrc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Minigun_handle" type="Area2D" node_paths=PackedStringArray("visual")]
+script = ExtResource("1_votck")
+visual = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_vsgc3")
+autoplay = "default"

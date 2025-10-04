@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbcwmwubu6tw7"]
+
+[ext_resource type="Script" uid="uid://vfqhfysj4fm8" path="res://Scripts/weapon_scripts/iceshardwand_scripts/iceshardwand_attachment.gd" id="1_fr20c"]
+[ext_resource type="Texture2D" uid="uid://fx13s6ppsv30" path="res://Art/Weapons/PlayingCard/Handle_PlayingCard.png" id="2_kblls"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c3tn4"]
+atlas = ExtResource("2_kblls")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kblls"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c3tn4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="PlayingCard_handle" type="Area2D" node_paths=PackedStringArray("visual")]
+script = ExtResource("1_fr20c")
+visual = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_kblls")
+autoplay = "default"
