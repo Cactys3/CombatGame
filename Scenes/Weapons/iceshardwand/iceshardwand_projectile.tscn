@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://m37gbpi4rmf"]
+[gd_scene load_steps=21 format=3 uid="uid://m37gbpi4rmf"]
 
 [ext_resource type="Script" uid="uid://dk67ukgy03cih" path="res://Scripts/weapon_scripts/iceshardwand_scripts/iceshardwand_projectile.gd" id="1_g5jbl"]
 [ext_resource type="Texture2D" uid="uid://dkjeea6q4ft8f" path="res://Art/Weapons/IceShardWand/Projectile_IceShardWand.png" id="1_utnmd"]
@@ -35,6 +35,38 @@ region = Rect2(96, 0, 16, 16)
 atlas = ExtResource("1_utnmd")
 region = Rect2(112, 0, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_82qo4"]
+atlas = ExtResource("1_utnmd")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0riu2"]
+atlas = ExtResource("1_utnmd")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oy42a"]
+atlas = ExtResource("1_utnmd")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0ytl"]
+atlas = ExtResource("1_utnmd")
+region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_frg71"]
+atlas = ExtResource("1_utnmd")
+region = Rect2(176, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3u8gd"]
+atlas = ExtResource("1_utnmd")
+region = Rect2(192, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_noct6"]
+atlas = ExtResource("1_utnmd")
+region = Rect2(208, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4hen1"]
+atlas = ExtResource("1_utnmd")
+region = Rect2(224, 0, 16, 16)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_t206k"]
 animations = [{
 "frames": [{
@@ -63,18 +95,56 @@ animations = [{
 "texture": SubResource("AtlasTexture_a5e8j")
 }],
 "loop": false,
-"name": &"default",
+"name": &"FadeIn",
 "speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_82qo4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0riu2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oy42a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d0ytl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_frg71")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3u8gd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_noct6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4hen1")
+}],
+"loop": false,
+"name": &"FadeOut",
+"speed": 0.0
 }]
 
-[node name="IceShardWand_Projectile" type="Area2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g5jbl"]
+size = Vector2(15, 16)
+
+[node name="IceShardWand_Projectile" type="Area2D" node_paths=PackedStringArray("anim")]
+collision_layer = 4
+collision_mask = 8
 script = ExtResource("1_g5jbl")
+anim = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_t206k")
-autoplay = "default"
-frame = 7
-frame_progress = 1.0
+animation = &"FadeOut"
+autoplay = "FadeIn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_g5jbl")
 
 [connection signal="area_exited" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

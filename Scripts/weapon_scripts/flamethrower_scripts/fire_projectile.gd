@@ -8,13 +8,13 @@ extends Projectile
 
 const type = preload("res://Scripts/weapon_scripts/flamethrower_scripts/fire_projectile.gd")
 
-func get_instance():
-	var ret: type = preload("res://Scenes/Weapons/flamethrower/fire_projectile.tscn").instantiate()
-	add_child(ret)
-	ret.status = ret.status.duplicate()
-	ret.stats = ret.stats.duplicate()
-	remove_child(ret)
-	return ret
+#func get_instance():
+	#var ret: type = preload("res://Scenes/Weapons/flamethrower/fire_projectile.tscn").instantiate()
+	#add_child(ret)
+	#ret.status = ret.status.duplicate()
+	#ret.stats = ret.stats.duplicate()
+	#remove_child(ret)
+	#return ret
 
 func _process(delta: float) -> void:
 	super(delta)

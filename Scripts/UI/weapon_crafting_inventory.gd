@@ -81,9 +81,9 @@ func new_add(item: ItemUI):
 			item.item_parent = HandleHolder
 		ItemData.item_types.projectile:
 			if projectile != null:
-				var p: ItemUI = projectile
+				var proj: ItemUI = projectile
 				new_remove(projectile)
-				GameManager.instance.ui_man.storage.new_add(p) # TODO: rework into real code
+				GameManager.instance.ui_man.storage.new_add(proj) # TODO: rework into real code
 			projectile = item
 			ProjectileHolder.add_child(item)
 			item.item_parent = ProjectileHolder

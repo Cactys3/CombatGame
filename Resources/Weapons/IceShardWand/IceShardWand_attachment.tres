@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=10 format=3 uid="uid://jdw6cfs0i7n4"]
 
-[ext_resource type="Texture2D" uid="uid://lqpckh7fkgjy" path="res://Art/UI/MissingTexture.png" id="1_tu8qs"]
 [ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="1_wma0j"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_507i0"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_ev38d"]
 [ext_resource type="Resource" uid="uid://divekkwwkxmne" path="res://Resources/Weapons/IceShardWand/stats/IceShardWand_attachment_stats.tres" id="3_tim22"]
 [ext_resource type="PackedScene" uid="uid://b8272rgvp6uyk" path="res://Scenes/Weapons/iceshardwand/iceshardwand_attachment.tscn" id="4_507i0"]
+[ext_resource type="Texture2D" uid="uid://cgojkulm6x1wk" path="res://Art/Weapons/IceShardWand/Attachment_IceShardWand.png" id="4_tim22"]
 
 [sub_resource type="Resource" id="Resource_tim22"]
 script = ExtResource("1_wma0j")
@@ -26,6 +26,7 @@ item_name = "Ice Shards Wand Attachment"
 item_description = "Ice Shards Wand Attachment"
 item_type = 2
 item_color = Color(0.35813847, 0.3766308, 0.93860155, 1)
+item_image = ExtResource("4_tim22")
 randomizable = true
 default_stats = ExtResource("3_tim22")
 default_status_effects = SubResource("Resource_tjmrm")

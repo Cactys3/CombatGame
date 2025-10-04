@@ -52,11 +52,11 @@ func _process(delta: float) -> void:
 			if is_player_nearby(curr_range):
 				projectile_cooldown_stopwatch = 0
 				print("shot projectile")
-				var p: EnemyProjectile = projectile.instantiate()
-				GameManager.instance.weapon_parent.add_child(p)
-				p.modulate = self.modulate
-				p.global_position = global_position
-				p.setup(player, self, homing, curr_speed, curr_acceleration, curr_lifetime, curr_piercing)
+				var proj: EnemyProjectile = projectile.instantiate()
+				GameManager.instance.weapon_parent.add_child(proj)
+				proj.modulate = self.modulate
+				proj.global_position = global_position
+				proj.setup(player, self, homing, curr_speed, curr_acceleration, curr_lifetime, curr_piercing)
 
 func movement_process(_delta: float) ->void:
 	if on_cooldown:

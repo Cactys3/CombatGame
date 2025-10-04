@@ -2,24 +2,28 @@ extends Projectile
 
 @export var anim: AnimatedSprite2D
 
-func get_instance():
-	const type = preload("uid://dk67ukgy03cih")
-	var ret: type = preload("uid://m37gbpi4rmf").instantiate()
-	add_child(ret)
-	ret.status = ret.status.duplicate()
-	ret.stats = ret.stats.duplicate()
-	remove_child(ret)
-	return ret
+var fadingout: bool = false
+var AttackedBodyCd: int = 1
+var AttackedBodyStopwatch: float = 0
+
 
 ## Remove movement code
 func _process(delta: float) -> void:
+	if !fadingout && anim.frame == anim.sprite_frames.get_frame_count(anim.animation) - 1:
+		anim.play("FadeOut")
+		fadingout = true
+	
+	AttackedBodyStopwatch += delta
+	if AttackedBodyStopwatch >= AttackedBodyStopwatch:
+		AttackedObjects.clear()
+	
 	stopwatch += delta
 	if (stopwatch > lifetime):
 		die()
 
-
 func attack_body(body: Node2D) -> void:
 	if !AttackedObjects.has(body):
-		if (anim.frame / anim.sprite_frames.get_frame_count(anim.animation)) > (collision_counter / piercing):
-			anim.frame = (anim.frame + 1) % anim.sprite_frames.get_frame_count(anim.animation)
 		super(body)
+		## While % of pierces is higher than % through fade animation, add 1 to fade animation
+		while (float(anim.frame + 1)  / float(anim.sprite_frames.get_frame_count(anim.animation))) < (collision_counter / piercing):
+			anim.frame = (anim.frame + 1)

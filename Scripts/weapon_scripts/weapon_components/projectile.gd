@@ -8,12 +8,9 @@ const PISTOL = preload("res://Scenes/Weapons/pistol/pistol_bullet.tscn")
 const RAILGUN = preload("res://Scenes/Weapons/railgun/railgun_projectile.tscn")
 const SWORD = preload("res://Scenes/Weapons/sword/sword_projectile.tscn")
 func get_instance():
-	const type = preload("res://Scripts/weapon_scripts/flamethrower_scripts/fire_projectile.gd")
-	var ret: type = preload("res://Scenes/Weapons/flamethrower/fire_projectile.tscn").instantiate()
-	add_child(ret)
-	ret.status = ret.status.duplicate()
-	ret.stats = ret.stats.duplicate()
-	remove_child(ret)
+	#const type = preload("res://Scripts/weapon_scripts/flamethrower_scripts/fire_projectile.gd")
+	#var ret: type = preload("res://Scenes/Weapons/flamethrower/fire_projectile.tscn").instantiate()
+	var ret: Projectile = data.get_item()
 	return ret
 
 ## TODO: Acceleration? Positive and Negative
@@ -44,7 +41,7 @@ func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
 	rotation = direction.angle() 
 	var size_value = frame_stats.get_stat(StatsResource.SIZE)
 	self.scale = Vector2(size_value, size_value) + Vector2(1, 1)
-	
+	piercing = frame_stats.get_stat(StatsResource.PIERCING)
 	lifetime = frame.get_stat(StatsResource.DURATION)
 	
 	speed = (1 + frame.get_stat(StatsResource.VELOCITY)) * 13
@@ -80,7 +77,7 @@ func _on_body_entered(body: Node2D) -> void: #TODO: testing this queueAttacks th
 
 func make_attack() -> Attack:
 	var new_attack: Attack = Attack.new()
-	new_attack.setup(frame_stats.get_stat(frame_stats.DAMAGE), global_position, frame_stats.get_stat(frame_stats.BUILDUP), status, self, 0, 0, frame_stats.get_stat(frame_stats.WEIGHT) * (frame_stats.get_stat(frame_stats.DAMAGE) / 30))
+	new_attack.setup(frame_stats.get_stat(frame_stats.DAMAGE), global_position, frame_stats.get_stat(frame_stats.BUILDUP), status.AttackValues, self, 0, 0, frame_stats.get_stat(frame_stats.WEIGHT) * (frame_stats.get_stat(frame_stats.DAMAGE) / 30))
 	#TODO: determine how to calculate knockback
 	return new_attack
 

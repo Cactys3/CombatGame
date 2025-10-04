@@ -2,13 +2,13 @@ extends Projectile
 
 const type = preload("res://Scripts/weapon_scripts/sword_scripts/sword_projectile.gd")
 
-func get_instance():
-	var ret: type = preload("res://Scenes/Weapons/sword/sword_projectile.tscn").instantiate()
-	add_child(ret)
-	ret.status = ret.status.duplicate()
-	ret.stats = ret.stats.duplicate()
-	remove_child(ret)
-	return ret
+#func get_instance():
+	#var ret: type = preload("res://Scenes/Weapons/sword/sword_projectile.tscn").instantiate()
+	#add_child(ret)
+	#ret.status = ret.status.duplicate()
+	#ret.stats = ret.stats.duplicate()
+	#remove_child(ret)
+	#return ret
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 

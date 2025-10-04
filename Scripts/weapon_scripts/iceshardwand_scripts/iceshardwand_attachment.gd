@@ -1,6 +1,5 @@
 extends Attachment
 
-
 func _ready() -> void:
 	super()
 
@@ -10,3 +9,5 @@ func _process(delta: float) -> void:
 func attack():
 	print("attacking")
 	super()
+
+	
