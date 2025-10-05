@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=10 format=3 uid="uid://cdjl76edb4lor"]
+
+[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="1_73qnu"]
+[ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_6tvyt"]
+[ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_y7j28"]
+[ext_resource type="Resource" uid="uid://b3hb5atq03s8e" path="res://Resources/Weapons/PlayingCard/stats/playingcard_attachment_stats.tres" id="3_n3x44"]
+[ext_resource type="Texture2D" uid="uid://cgmiohybhkut5" path="res://Art/Weapons/PlayingCard/Attachment_PlayingCard.png" id="4_y7j28"]
+[ext_resource type="PackedScene" uid="uid://cft3eo1p5etf4" path="res://Scenes/Weapons/PlayingCard/playingcard_attachment.tscn" id="5_n3x44"]
+
+[sub_resource type="Resource" id="Resource_qxwog"]
+script = ExtResource("1_73qnu")
+metadata/_custom_type_script = "uid://dwj80yu0v1qdt"
+
+[sub_resource type="Resource" id="Resource_12ind"]
+script = ExtResource("2_y7j28")
+metadata/_custom_type_script = "uid://dhqfnnqd2n054"
+
+[sub_resource type="Resource" id="Resource_iqspe"]
+script = ExtResource("2_y7j28")
+metadata/_custom_type_script = "uid://dhqfnnqd2n054"
+
+[resource]
+script = ExtResource("2_6tvyt")
+item_packed_scene = ExtResource("5_n3x44")
+item_name = "playingcard attachment"
+item_type = 2
+item_image = ExtResource("4_y7j28")
+default_stats = ExtResource("3_n3x44")
+default_status_effects = SubResource("Resource_iqspe")
+default_rarity_stat_modifiers = SubResource("Resource_qxwog")
+default_rarity_status_effects_modifiers = SubResource("Resource_12ind")
+has_stats = true
+metadata/_custom_type_script = "uid://dnj6pao77g7bt"

@@ -78,7 +78,6 @@ func _on_body_entered(body: Node2D) -> void: #TODO: testing this queueAttacks th
 func make_attack() -> Attack:
 	var new_attack: Attack = Attack.new()
 	new_attack.setup(frame_stats.get_stat(frame_stats.DAMAGE), global_position, frame_stats.get_stat(frame_stats.BUILDUP), status.AttackValues, self, 0, 0, frame_stats.get_stat(frame_stats.WEIGHT) * (frame_stats.get_stat(frame_stats.DAMAGE) / 30))
-	#TODO: determine how to calculate knockback
 	return new_attack
 
 func die():

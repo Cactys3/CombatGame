@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=10 format=3 uid="uid://4u1g60mvfky6"]
+
+[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="1_1bj2u"]
+[ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_0m302"]
+[ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_c3c1s"]
+[ext_resource type="Resource" uid="uid://6or6c7oyfioh" path="res://Resources/Weapons/RocketLauncher/stats/rocketlauncher_handle_stats.tres" id="3_6d2sk"]
+[ext_resource type="Texture2D" uid="uid://ianxvnvbmh1l" path="res://Art/Weapons/RocketLauncher/Handle_RocketLauncher.png" id="4_0m302"]
+[ext_resource type="PackedScene" uid="uid://m6hwe7bkci7c" path="res://Scenes/Weapons/RocketLauncher/rocketlauncher_handle.tscn" id="5_6d2sk"]
+
+[sub_resource type="Resource" id="Resource_bry36"]
+script = ExtResource("1_1bj2u")
+metadata/_custom_type_script = "uid://dwj80yu0v1qdt"
+
+[sub_resource type="Resource" id="Resource_wtiwa"]
+script = ExtResource("2_0m302")
+metadata/_custom_type_script = "uid://dhqfnnqd2n054"
+
+[sub_resource type="Resource" id="Resource_26eyj"]
+script = ExtResource("2_0m302")
+metadata/_custom_type_script = "uid://dhqfnnqd2n054"
+
+[resource]
+script = ExtResource("2_c3c1s")
+item_packed_scene = ExtResource("5_6d2sk")
+item_name = "rocketlauncher handle"
+item_type = 1
+item_image = ExtResource("4_0m302")
+default_stats = ExtResource("3_6d2sk")
+default_status_effects = SubResource("Resource_26eyj")
+default_rarity_stat_modifiers = SubResource("Resource_bry36")
+default_rarity_status_effects_modifiers = SubResource("Resource_wtiwa")
+has_stats = true
+metadata/_custom_type_script = "uid://dnj6pao77g7bt"

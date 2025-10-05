@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=10 format=3 uid="uid://4kw7nsj5nfn8"]
+
+[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="1_8dn8w"]
+[ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_cg874"]
+[ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_kh5jh"]
+[ext_resource type="Resource" uid="uid://dx8nhn6fatryy" path="res://Resources/Weapons/LightningWand/stats/lightningwand_projectile_stats.tres" id="3_cp00k"]
+[ext_resource type="Texture2D" uid="uid://k0yemg28hfk4" path="res://Art/Weapons/LightningWand/Projectile_LightningWand.png" id="4_66pxa"]
+[ext_resource type="PackedScene" uid="uid://bp1n2hov0ig57" path="res://Scenes/Weapons/LightningWand/lightningwand_projectile.tscn" id="5_cg874"]
+
+[sub_resource type="Resource" id="Resource_iugyv"]
+script = ExtResource("1_8dn8w")
+metadata/_custom_type_script = "uid://dwj80yu0v1qdt"
+
+[sub_resource type="Resource" id="Resource_stdc8"]
+script = ExtResource("2_cg874")
+metadata/_custom_type_script = "uid://dhqfnnqd2n054"
+
+[sub_resource type="Resource" id="Resource_7ed61"]
+script = ExtResource("2_cg874")
+metadata/_custom_type_script = "uid://dhqfnnqd2n054"
+
+[resource]
+script = ExtResource("2_kh5jh")
+item_packed_scene = ExtResource("5_cg874")
+item_name = "lightningwand projectile"
+item_description = "lightning!"
+item_type = 3
+item_image = ExtResource("4_66pxa")
+default_stats = ExtResource("3_cp00k")
+default_status_effects = SubResource("Resource_7ed61")
+default_rarity_stat_modifiers = SubResource("Resource_iugyv")
+default_rarity_status_effects_modifiers = SubResource("Resource_stdc8")
+has_stats = true
+has_status_effects = true
+metadata/_custom_type_script = "uid://dnj6pao77g7bt"

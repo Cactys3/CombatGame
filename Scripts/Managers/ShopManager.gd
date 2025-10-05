@@ -14,17 +14,29 @@ const RAILGUN_PROJECTILE = preload("res://Resources/Weapons/Railgun/Railgun_Proj
 const SWORD_ATTACHMENT = preload("res://Resources/Weapons/Sword/Sword_Attachment.tres")
 const SWORD_HANDLE = preload("res://Resources/Weapons/Sword/Sword_Handle.tres")
 const SWORD_PROJECTILE = preload("res://Resources/Weapons/Sword/Sword_Projectile.tres")
+const LIGHTNINGWAND_ATTACHMENT = preload("uid://clly02oxeamom")
+const LIGHTNINGWAND_HANDLE = preload("uid://cu6ysxvvobwys")
+const LIGHTNINGWAND_PROJECTILE = preload("uid://4kw7nsj5nfn8")
 const ICESHARDWAND_ATTACHMENT = preload("uid://jdw6cfs0i7n4")
 const ICESHARDWAND_HANDLE = preload("uid://bjawd7hv468np")
 const ICESHARDWAND_PROJECTILE = preload("uid://c0dl8tcaqnjry")
+const MINIGUN_ATTACHMENT = preload("uid://dijy473l8v6a6")
+const MINIGUN_HANDLE = preload("uid://b8d1h262qm51j")
+const MINIGUN_PROJECTILE = preload("uid://2ytfi6larlk7")
+const PLAYINGCARD_ATTACHMENT = preload("uid://cdjl76edb4lor")
+const PLAYINGCARD_HANDLE = preload("uid://i1hoqf7l5n4y")
+const PLAYINGCARD_PROJECTILE = preload("uid://qc4mltub7f0n")
+const ROCKETLAUNCHER_ATTACHMENT = preload("uid://d2guitpedxrfd")
+const ROCKETLAUNCHER_HANDLE = preload("uid://4u1g60mvfky6")
+const ROCKETLAUNCHER_PROJECTILE = preload("uid://hnjh1hbninse")
 
 ## Items
 const DAMAGE_BUFF = preload("res://Resources/Items/DamageBuff/DamageBuff.tres")
 ## Arrays
 const item_list: Array = [DAMAGE_BUFF]
-const attachment_list: Array = [FLAMETHROWER_ATTACHMENT, PISTOL_ATTACHMENT, RAILGUN_ATTACHMENT, SWORD_ATTACHMENT, ICESHARDWAND_ATTACHMENT]
-const handle_list: Array = [FLAMETHROWER_HANDLE, PISTOL_HANDLE, RAILGUN_HANDLE, SWORD_HANDLE, ICESHARDWAND_HANDLE]
-const projectile_list: Array = [FLAMETHROWER_PROJECTILE, PISTOL_PROJECTILE, RAILGUN_PROJECTILE, SWORD_PROJECTILE, ICESHARDWAND_PROJECTILE]
+const attachment_list: Array = [FLAMETHROWER_ATTACHMENT, PISTOL_ATTACHMENT, RAILGUN_ATTACHMENT, SWORD_ATTACHMENT, ICESHARDWAND_ATTACHMENT, ROCKETLAUNCHER_ATTACHMENT, PLAYINGCARD_ATTACHMENT, LIGHTNINGWAND_ATTACHMENT, MINIGUN_ATTACHMENT]
+const handle_list: Array = [FLAMETHROWER_HANDLE, PISTOL_HANDLE, RAILGUN_HANDLE, SWORD_HANDLE, ICESHARDWAND_HANDLE, ROCKETLAUNCHER_HANDLE, PLAYINGCARD_HANDLE, LIGHTNINGWAND_HANDLE, MINIGUN_HANDLE]
+const projectile_list: Array = [FLAMETHROWER_PROJECTILE, PISTOL_PROJECTILE, RAILGUN_PROJECTILE, SWORD_PROJECTILE, ICESHARDWAND_PROJECTILE, ROCKETLAUNCHER_PROJECTILE, PLAYINGCARD_PROJECTILE, LIGHTNINGWAND_PROJECTILE, MINIGUN_PROJECTILE]
 
 ## Returns Random Attachment
 static func get_rand_attachment() -> ItemData:

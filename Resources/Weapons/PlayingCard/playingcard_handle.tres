@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=10 format=3 uid="uid://i1hoqf7l5n4y"]
+
+[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="1_j3wwf"]
+[ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_3wi65"]
+[ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_xtfoy"]
+[ext_resource type="Resource" uid="uid://b31p0wyxyx5un" path="res://Resources/Weapons/PlayingCard/stats/playingcard_handle_stats.tres" id="3_287p0"]
+[ext_resource type="Texture2D" uid="uid://fx13s6ppsv30" path="res://Art/Weapons/PlayingCard/Handle_PlayingCard.png" id="4_xtfoy"]
+[ext_resource type="PackedScene" uid="uid://cbcwmwubu6tw7" path="res://Scenes/Weapons/PlayingCard/playingcard_handle.tscn" id="5_287p0"]
+
+[sub_resource type="Resource" id="Resource_ng1pa"]
+script = ExtResource("1_j3wwf")
+metadata/_custom_type_script = "uid://dwj80yu0v1qdt"
+
+[sub_resource type="Resource" id="Resource_7jxbd"]
+script = ExtResource("2_xtfoy")
+metadata/_custom_type_script = "uid://dhqfnnqd2n054"
+
+[sub_resource type="Resource" id="Resource_be4to"]
+script = ExtResource("2_xtfoy")
+metadata/_custom_type_script = "uid://dhqfnnqd2n054"
+
+[resource]
+script = ExtResource("2_3wi65")
+item_packed_scene = ExtResource("5_287p0")
+item_name = "playingcard handle"
+item_type = 1
+item_image = ExtResource("4_xtfoy")
+default_stats = ExtResource("3_287p0")
+default_status_effects = SubResource("Resource_be4to")
+default_rarity_stat_modifiers = SubResource("Resource_ng1pa")
+default_rarity_status_effects_modifiers = SubResource("Resource_7jxbd")
+has_stats = true
+metadata/_custom_type_script = "uid://dnj6pao77g7bt"

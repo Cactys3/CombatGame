@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dyvtyyry7qh1w"]
 
-[ext_resource type="Script" uid="uid://vfqhfysj4fm8" path="res://Scripts/weapon_scripts/iceshardwand_scripts/iceshardwand_attachment.gd" id="1_25x2y"]
 [ext_resource type="Texture2D" uid="uid://do31l1rvcqrxg" path="res://Art/Weapons/LightningWand/Attachment_LightningWand.png" id="2_mufcc"]
+[ext_resource type="Script" uid="uid://cqkpxa67idxc4" path="res://Scripts/weapon_scripts/lightingwand_scripts/lightningwand_attachment.gd" id="3_18vqy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_18vqy"]
 atlas = ExtResource("2_mufcc")
@@ -19,7 +19,7 @@ animations = [{
 }]
 
 [node name="LightningWand_Attachment" type="Area2D" node_paths=PackedStringArray("visual")]
-script = ExtResource("1_25x2y")
+script = ExtResource("3_18vqy")
 visual = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

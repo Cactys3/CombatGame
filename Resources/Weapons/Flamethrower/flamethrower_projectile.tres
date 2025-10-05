@@ -34,4 +34,5 @@ default_rarity_stat_modifiers = SubResource("Resource_gp51e")
 default_rarity_status_effects_modifiers = SubResource("Resource_tioxn")
 item_rarity = 1
 has_stats = true
+has_status_effects = true
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"

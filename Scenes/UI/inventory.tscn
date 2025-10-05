@@ -26,9 +26,9 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_2ndhy")
 script = ExtResource("1_haeh0")
-label_text = "Storage"
 toggle_button = NodePath("VBoxContainer/DragBar/ToggleUIButton")
 drag_bar = NodePath("VBoxContainer/DragBar")
+label_text = "Storage"
 default_item_parent = NodePath("VBoxContainer/Inventory-Scroll/Inventory-Grid")
 
 [node name="Panel" type="Panel" parent="."]
@@ -38,7 +38,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_q0o84")
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 clip_contents = true
 layout_mode = 2
-size_flags_vertical = 0
 alignment = 1
 
 [node name="DragBar" parent="VBoxContainer" node_paths=PackedStringArray("parent") instance=ExtResource("2_r7528")]
@@ -46,7 +45,7 @@ layout_mode = 2
 parent = NodePath("../..")
 
 [node name="ToggleUIButton" parent="VBoxContainer/DragBar" instance=ExtResource("3_ow2mg")]
-layout_mode = 2
+layout_mode = 0
 anchors_preset = 0
 offset_left = -45.0
 offset_top = -19.0
@@ -54,12 +53,12 @@ offset_right = -32.0
 offset_bottom = -6.0
 scale = Vector2(3, 3)
 theme_override_font_sizes/font_size = 1
-theme_override_font_sizes/font_size = 1
 
 [node name="Inventory-Scroll" type="ScrollContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(450, 570)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
 [node name="Inventory-Grid" type="GridContainer" parent="VBoxContainer/Inventory-Scroll"]

@@ -32,4 +32,5 @@ default_status_effects = SubResource("Resource_wav82")
 default_rarity_stat_modifiers = SubResource("Resource_7ehlr")
 default_rarity_status_effects_modifiers = SubResource("Resource_hlig3")
 has_stats = true
+has_status_effects = true
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"

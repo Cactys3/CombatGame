@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bx44wm0sm3hdf"]
 
-[ext_resource type="Script" uid="uid://vfqhfysj4fm8" path="res://Scripts/weapon_scripts/iceshardwand_scripts/iceshardwand_attachment.gd" id="1_55r0e"]
 [ext_resource type="Texture2D" uid="uid://b4pc3200bwyaj" path="res://Art/Weapons/Minigun/Attachment_Minigun.png" id="2_efucv"]
+[ext_resource type="Script" uid="uid://ccs7bvq0fb7ce" path="res://Scripts/weapon_scripts/minigun_scripts/minigun_attachment.gd" id="3_10udb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_10udb"]
 atlas = ExtResource("2_efucv")
@@ -26,7 +26,7 @@ animations = [{
 }]
 
 [node name="Minigun_Attachment" type="Area2D" node_paths=PackedStringArray("visual")]
-script = ExtResource("1_55r0e")
+script = ExtResource("3_10udb")
 visual = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

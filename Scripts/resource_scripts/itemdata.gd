@@ -159,7 +159,7 @@ func make_item():
 			if has_stats:
 				ret.set_stats(stats) #TODO: Choosing not to duplicate stats here because should be same reference?
 			if has_status_effects:
-				ret.status_effects = status_effects
+				ret.status = status_effects
 			ret.data = self
 			item = ret
 			return ret
@@ -170,7 +170,7 @@ func make_item():
 			if has_stats:
 				ret.stats = stats #TODO: Choosing not to duplicate stats here because should be same reference?
 			if has_status_effects:
-				ret.status_effects = status_effects
+				ret.status = status_effects
 			ret.data = self
 			item = ret
 			return ret
@@ -179,7 +179,7 @@ func make_item():
 			if has_stats:
 				ret.stats = stats #TODO: Choosing not to duplicate stats here because should be same reference?
 			if has_status_effects:
-				ret.status_effects = status_effects
+				ret.status = status_effects
 			ret.data = self
 			item = ret
 			return ret

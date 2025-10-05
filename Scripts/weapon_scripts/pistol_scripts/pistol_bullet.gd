@@ -13,8 +13,3 @@ const type = preload("res://Scripts/weapon_scripts/pistol_scripts/pistol_bullet.
 
 func _process(delta: float) -> void:
 	super(delta)
-
-
-func _ready() -> void:
-	status = status.duplicate()
-	stats = stats.duplicate()

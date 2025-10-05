@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=10 format=3 uid="uid://2ytfi6larlk7"]
+
+[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="1_re1r8"]
+[ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_mqu8b"]
+[ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_simsl"]
+[ext_resource type="Resource" uid="uid://djcco02peu4rx" path="res://Resources/Weapons/Minigun/stats/minigun_projectile_stats.tres" id="3_6uxhk"]
+[ext_resource type="Texture2D" uid="uid://cdc3h24ipivnu" path="res://Art/Weapons/Minigun/Projectile_Minigun.png" id="4_simsl"]
+[ext_resource type="PackedScene" uid="uid://c0pum6hjulfa3" path="res://Scenes/Weapons/Minigun/minigun_projectile.tscn" id="5_6uxhk"]
+
+[sub_resource type="Resource" id="Resource_oagxw"]
+script = ExtResource("1_re1r8")
+metadata/_custom_type_script = "uid://dwj80yu0v1qdt"
+
+[sub_resource type="Resource" id="Resource_mw1hj"]
+script = ExtResource("2_simsl")
+metadata/_custom_type_script = "uid://dhqfnnqd2n054"
+
+[sub_resource type="Resource" id="Resource_jm6i2"]
+script = ExtResource("2_simsl")
+metadata/_custom_type_script = "uid://dhqfnnqd2n054"
+
+[resource]
+script = ExtResource("2_mqu8b")
+item_packed_scene = ExtResource("5_6uxhk")
+item_name = "minigun projectile"
+item_type = 3
+item_image = ExtResource("4_simsl")
+default_stats = ExtResource("3_6uxhk")
+default_status_effects = SubResource("Resource_jm6i2")
+default_rarity_stat_modifiers = SubResource("Resource_oagxw")
+default_rarity_status_effects_modifiers = SubResource("Resource_mw1hj")
+has_stats = true
+has_status_effects = true
+metadata/_custom_type_script = "uid://dnj6pao77g7bt"

@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://bhmg0uejph1w0"]
+[gd_scene load_steps=6 format=3 uid="uid://bhmg0uejph1w0"]
 
+[ext_resource type="Script" uid="uid://cogrpy84nwn5k" path="res://Scripts/weapon_scripts/rocketlauncher_scripts/rocketlauncher_projectile.gd" id="1_6een8"]
 [ext_resource type="Texture2D" uid="uid://d3m5e7rxigb4n" path="res://Art/Weapons/RocketLauncher/Projectile_RocketLauncher.png" id="1_jacgg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6een8"]
@@ -23,6 +24,7 @@ size = Vector2(15, 16)
 [node name="RocketLauncherProjectile" type="Area2D"]
 collision_layer = 4
 collision_mask = 8
+script = ExtResource("1_6een8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_l6olc")
