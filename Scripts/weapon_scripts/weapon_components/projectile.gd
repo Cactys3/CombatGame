@@ -40,7 +40,7 @@ func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
 	direction = enemy_direction.normalized()
 	rotation = direction.angle() 
 	var size_value = frame_stats.get_stat(StatsResource.SIZE) + StatsResource.get_default(StatsResource.SIZE)
-	self.scale = Vector2(size_value, size_value) + Vector2(1, 1)
+	self.scale = Vector2(size_value, size_value)
 	piercing = frame_stats.get_stat(StatsResource.PIERCING) + StatsResource.get_default(StatsResource.PIERCING)
 	lifetime = frame.get_stat(StatsResource.DURATION) + StatsResource.get_default(StatsResource.DURATION)
 	
