@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://d1adyx7c46ut8"]
+[gd_scene load_steps=9 format=3 uid="uid://d1adyx7c46ut8"]
 
 [ext_resource type="Script" uid="uid://du1jbl08uf8dw" path="res://Scripts/weapon_scripts/sword_scripts/sword_attachment.gd" id="1_jjysa"]
-[ext_resource type="Resource" uid="uid://thj5nou3a6nn" path="res://Resources/Weapons/Sword/stats/sword_attachment_stats.tres" id="2_e16m8"]
 [ext_resource type="Texture2D" uid="uid://bt3ow0fhp6e68" path="res://Art/Weapons/Sword/Attachment_Sword.png" id="2_kxonl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gxxfy"]
@@ -63,7 +62,6 @@ collision_layer = 4
 collision_mask = 8
 script = ExtResource("1_jjysa")
 melee_hitbox = NodePath("Sword Hitbox")
-stats = ExtResource("2_e16m8")
 visual = NodePath("Sword Sprites")
 
 [node name="Sword Sprites" type="AnimatedSprite2D" parent="."]

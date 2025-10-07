@@ -129,11 +129,12 @@ func _process(_delta: float) -> void:
 			ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(index)))
 			ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_handle(index)))
 			ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(index)))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_rand_item()))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_rand_item()))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_rand_item()))
+		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_rand_item()))
+		for index in ShopManager.handle_list.size():
 			ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(index)))
-		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_rand_item()))
-		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_rand_item()))
-		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_rand_item()))
-		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_rand_item()))
 	
 	if Input.is_action_just_pressed("test_5") && ui_man.paused_for_tab:
 		pass#ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/flamethrower_handle.gd").new())

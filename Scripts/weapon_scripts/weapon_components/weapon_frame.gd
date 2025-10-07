@@ -168,7 +168,7 @@ func set_variables():#Give components references to each other
 	pass
 
 func handle_stats() -> void: #Do anything that needs to be done to utilize a stat change
-	scale = Vector2(get_stat(stats.SIZE), get_stat(stats.SIZE)) + Vector2(1, 1) # default value is at stats.SIZE = 0
+	scale = Vector2(get_stat(stats.SIZE), get_stat(stats.SIZE)) + Vector2(StatsResource.get_default(StatsResource.SIZE), StatsResource.get_default(StatsResource.SIZE)) # default value is at stats.SIZE = 0
 	if handle != null:
 		handle.scale = scale
 	if attachment != null:

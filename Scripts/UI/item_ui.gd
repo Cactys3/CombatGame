@@ -74,7 +74,8 @@ func reset_item():
 
 func set_item(new_data: ItemData):
 	data = new_data
-	data.connect("DataUpdated", reset_item)
+	if !data.is_connected("DataUpdated", reset_item):
+		data.connect("DataUpdated", reset_item)
 	NameLabel.text = data.item_name
 	DescriptionLabel.text = data.item_description
 	DescriptionPanel.self_modulate = data.item_color

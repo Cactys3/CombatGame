@@ -35,15 +35,19 @@ var money: float:
 		money = value
 ## speed, maxhealth, stance get by StatsResource
 var health: int
+var curr_speed: float = -999
 var speed: float:
 	get():
-		return get_stat(StatsResource.MOVESPEED)
+		if player_stats.MustRecalculate || curr_speed == -999:
+			print(player_stats.MustRecalculate)
+			curr_speed = get_stat(StatsResource.MOVESPEED) + StatsResource.get_default(StatsResource.MOVESPEED)
+		return curr_speed
 var maxhealth: float:
 	get():
-		return get_stat(StatsResource.HP)
+		return get_stat(StatsResource.HP) + StatsResource.get_default(StatsResource.HP)
 var stance: float:
 	get():
-		return get_stat(StatsResource.STANCE)
+		return get_stat(StatsResource.STANCE) + StatsResource.get_default(StatsResource.STANCE)
 
 func _ready() -> void:
 	call_deferred("set_stats")

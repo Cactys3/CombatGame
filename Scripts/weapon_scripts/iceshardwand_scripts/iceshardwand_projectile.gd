@@ -5,7 +5,10 @@ extends Projectile
 var fadingout: bool = false
 var AttackedBodyCd: int = 1
 var AttackedBodyStopwatch: float = 0
+var anim_length: float = 1
 
+func _ready() -> void:
+	anim_length = anim.sprite_frames.get_frame_count(anim.animation) - 1
 
 ## Remove movement code
 func _process(delta: float) -> void:
@@ -24,6 +27,6 @@ func _process(delta: float) -> void:
 func attack_body(body: Node2D) -> void:
 	if !AttackedObjects.has(body):
 		super(body)
-		## While % of pierces is higher than % through fade animation, add 1 to fade animation
-		while (float(anim.frame + 1)  / float(anim.sprite_frames.get_frame_count(anim.animation))) < (collision_counter / piercing):
-			anim.frame = (anim.frame + 1)
+		if piercing > 0:
+			anim.frame = ceilf((collision_counter / piercing) * anim_length)
+		

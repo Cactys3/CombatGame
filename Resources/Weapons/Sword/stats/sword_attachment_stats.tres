@@ -5,39 +5,3 @@
 [resource]
 script = ExtResource("1_ludsp")
 parent_object_name = "sword_attachment"
-statsbase = {
-"attackspeed": 3.0,
-"buildup": 3.0,
-"count": 1.0,
-"damage": 20.0,
-"duration": 5.0,
-"hp": 0.0,
-"luck": 0.0,
-"mogul": 0.0,
-"movespeed": 0.0,
-"piercing": 10.0,
-"range": 30.0,
-"size": 0.2,
-"stance": 0.0,
-"velocity": 10.0,
-"weight": 15.0,
-"xp": 0.0
-}
-statsfactor = {
-"attackspeed": 1.0,
-"buildup": 1.0,
-"count": 1.0,
-"damage": 1.15,
-"duration": 1.0,
-"hp": 1.0,
-"luck": 1.0,
-"mogul": 1.0,
-"movespeed": 1.0,
-"piercing": 1.0,
-"range": 1.0,
-"size": 1.0,
-"stance": 1.0,
-"velocity": 1.0,
-"weight": 1.0,
-"xp": 1.0
-}

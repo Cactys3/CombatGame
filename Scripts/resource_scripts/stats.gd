@@ -19,8 +19,50 @@ const MOVESPEED = "movespeed"
 const XP = "xp"
 const MOGUL = "mogul"
 const LUCK = "luck"
+#new
+const CRITCHANCE = "critchance"
+const CRITDAMAGE = "critdamage"
+const GHOSTLY = "ghostly"
+const REGEN = "regen"
+const MAGNETIZE = "magentize"
+const LIFESTEAL = "lifesteal"
+const BONUSVSELITES = "bonusvselites"
+const SHIELD = "shield"
+const DIFFICULTY = "difficulty"
+const REVIES = "revies"
+const THORNS = "thorns"
 
 @export var parent_object_name = "not_set"
+
+static var defaultstats = {
+	DAMAGE: 100.0,
+	RANGE: 50.0,
+	WEIGHT: 0.0,
+	ATTACKSPEED: 5.0,
+	VELOCITY: 50.0,
+	COUNT: 1.0,
+	PIERCING: 1.0,
+	DURATION: 5.0,
+	BUILDUP: 1.0,
+	SIZE: 1.0,
+	HP: 100.0,
+	STANCE: 0.0,
+	MOVESPEED: 100.0,
+	XP: 1.0,
+	MOGUL: 1.0,
+	LUCK: 1.0,
+	CRITCHANCE: 0.01,
+	CRITDAMAGE: 0.5,
+	GHOSTLY: 0.0,
+	REGEN: 1.0,
+	MAGNETIZE: 50.0,
+	LIFESTEAL: 0.0,
+	BONUSVSELITES: 0.0,
+	SHIELD: 0.0,
+	DIFFICULTY: 1.0,
+	REVIES: 0.0,
+	THORNS: 0.0
+	}
 
 @export var statsbase = { #everything must be default at 0 because they are always added in add_stats and should default to adding 0
 	DAMAGE: 0.0,
@@ -32,13 +74,25 @@ const LUCK = "luck"
 	PIERCING: 0.0,
 	DURATION: 0.0,
 	BUILDUP: 0.0,
-	SIZE: 0.0, #when edit this, edit this: scale = Vector2(value, value)
+	SIZE: 0.0, 
 	HP: 0.0,
 	STANCE: 0.0,
 	MOVESPEED: 0.0,
 	XP: 0.0,
 	MOGUL: 0.0,
-	LUCK: 0.0, }
+	LUCK: 0.0, 
+	CRITCHANCE: 0.0,
+	CRITDAMAGE: 0.0,
+	GHOSTLY: 0.0,
+	REGEN: 0.0,
+	MAGNETIZE: 0.0,
+	LIFESTEAL: 0.0,
+	BONUSVSELITES: 0.0,
+	SHIELD: 0.0,
+	DIFFICULTY: 0.0,
+	REVIES: 0.0,
+	THORNS: 0.0
+	}
 
 @export var statsfactor = {
 	DAMAGE: 1.0,
@@ -50,13 +104,25 @@ const LUCK = "luck"
 	PIERCING: 1.0,
 	DURATION: 1.0,
 	BUILDUP: 1.0,
-	SIZE: 1.0, #when edit this, edit this: scale = Vector2(value, value)
+	SIZE: 1.0,
 	HP: 1.0,
 	STANCE: 1.0,
 	MOVESPEED: 1.0,
 	XP: 1.0,
 	MOGUL: 1.0,
-	LUCK: 1.0, }
+	LUCK: 1.0, 
+	CRITCHANCE: 1.0,
+	CRITDAMAGE: 1.0,
+	GHOSTLY: 1.0,
+	REGEN: 1.0,
+	MAGNETIZE: 1.0,
+	LIFESTEAL: 1.0,
+	BONUSVSELITES: 1.0,
+	SHIELD: 1.0,
+	DIFFICULTY: 1.0,
+	REVIES: 1.0,
+	THORNS: 1.0
+	}
 
 var listofaffection: Array[StatsResource] = [] #the list of stats that affect this stat
 var listofaffected: Array[StatsResource] = [] #the list of stats that this stat affects
@@ -97,6 +163,7 @@ func get_stat(key: String) -> float:
 func GetAllStatsRecursive(list: Array[StatsResource]):
 	if !list.has(self):
 		list.append(self)
+		MustRecalculate = false
 		for stat in listofaffection:
 			stat.GetAllStatsRecursive(list)
 
@@ -160,3 +227,10 @@ func get_copy() -> StatsResource: #TODO: update for new stats implementation
 	temp.listofaffected.clear()
 	temp.listofaffection.clear()
 	return temp
+
+static func get_default(stat: String) -> float:
+	if defaultstats.has(stat):
+		return defaultstats.get(stat)
+	else:
+		push_error("Potential ERROR getting stat, not found in dictionary")
+		return -999

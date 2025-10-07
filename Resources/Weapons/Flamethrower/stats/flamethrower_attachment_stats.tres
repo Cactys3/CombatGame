@@ -5,21 +5,3 @@
 [resource]
 script = ExtResource("1_8bqf5")
 parent_object_name = "flamethrower_attachment"
-statsbase = {
-"attackspeed": 8.0,
-"buildup": 5.0,
-"count": 1.0,
-"damage": 5.0,
-"duration": 3.0,
-"hp": 0.0,
-"luck": 0.0,
-"mogul": 0.0,
-"movespeed": 0.0,
-"piercing": 10.0,
-"range": 40.0,
-"size": 0.2,
-"stance": 0.0,
-"velocity": 25.0,
-"weight": 20.0,
-"xp": 0.0
-}

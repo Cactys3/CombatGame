@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://pg6tqlcb8dtb"]
 
 [ext_resource type="Script" uid="uid://bru3152x1t68u" path="res://Scripts/weapon_scripts/weapon_components/projectile.gd" id="1_jemkq"]
-[ext_resource type="Texture2D" uid="uid://dnueduipb01yj" path="res://Art/New_Weapons/Pistol/Bulletaseprite.png" id="1_kxke1"]
+[ext_resource type="Texture2D" uid="uid://dnueduipb01yj" path="res://Art/Weapons/Pistol/Bulletaseprite.png" id="1_kxke1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_78p6o"]
 size = Vector2(5, 3)

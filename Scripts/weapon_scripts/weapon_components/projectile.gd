@@ -29,8 +29,8 @@ var speed: float
 var direction:Vector2
 var frame_stats: StatsResource
 var AttackedObjects: Array[Node2D] = []
-var collision_counter = 0
-var stopwatch = 0.0
+var collision_counter: float = 0
+var stopwatch: float = 0.0
 var lifetime = 10
 
 func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
@@ -39,12 +39,12 @@ func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
 	frame = base_gun
 	direction = enemy_direction.normalized()
 	rotation = direction.angle() 
-	var size_value = frame_stats.get_stat(StatsResource.SIZE)
+	var size_value = frame_stats.get_stat(StatsResource.SIZE) + StatsResource.get_default(StatsResource.SIZE)
 	self.scale = Vector2(size_value, size_value) + Vector2(1, 1)
-	piercing = frame_stats.get_stat(StatsResource.PIERCING)
-	lifetime = frame.get_stat(StatsResource.DURATION)
+	piercing = frame_stats.get_stat(StatsResource.PIERCING) + StatsResource.get_default(StatsResource.PIERCING)
+	lifetime = frame.get_stat(StatsResource.DURATION) + StatsResource.get_default(StatsResource.DURATION)
 	
-	speed = (1 + frame.get_stat(StatsResource.VELOCITY)) * 13
+	speed = (frame.get_stat(StatsResource.VELOCITY) + StatsResource.get_default(StatsResource.VELOCITY)) * 13
 	
 	setdata()
 
@@ -77,7 +77,7 @@ func _on_body_entered(body: Node2D) -> void: #TODO: testing this queueAttacks th
 
 func make_attack() -> Attack:
 	var new_attack: Attack = Attack.new()
-	new_attack.setup(frame_stats.get_stat(frame_stats.DAMAGE), global_position, frame_stats.get_stat(frame_stats.BUILDUP), status.AttackValues, self, 0, 0, frame_stats.get_stat(frame_stats.WEIGHT) * (frame_stats.get_stat(frame_stats.DAMAGE) / 30))
+	new_attack.setup(frame_stats.get_stat(frame_stats.DAMAGE) + StatsResource.get_default(StatsResource.DAMAGE), global_position, frame_stats.get_stat(frame_stats.BUILDUP) + StatsResource.get_default(StatsResource.BUILDUP), status.AttackValues, self, 0, 0, (frame_stats.get_stat(frame_stats.WEIGHT) + StatsResource.get_default(StatsResource.WEIGHT)) * ((frame_stats.get_stat(frame_stats.DAMAGE) + StatsResource.get_default(StatsResource.DAMAGE)) / 30))
 	return new_attack
 
 func die():

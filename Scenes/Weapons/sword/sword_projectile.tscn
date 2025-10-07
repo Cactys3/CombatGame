@@ -1,9 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://cikwtalbjcmxf"]
+[gd_scene load_steps=11 format=3 uid="uid://cikwtalbjcmxf"]
 
 [ext_resource type="Script" uid="uid://wf7p15rriad8" path="res://Scripts/weapon_scripts/sword_scripts/sword_projectile.gd" id="1_lahgh"]
-[ext_resource type="Resource" uid="uid://mrc0342gtaia" path="res://Resources/Weapons/Sword/stats/sword_projectile_stats.tres" id="2_righm"]
 [ext_resource type="Texture2D" uid="uid://ifm808khcaoe" path="res://Art/Weapons/Sword/projectile_sword.png" id="2_u2dc3"]
-[ext_resource type="Resource" uid="uid://jh81qjhxvank" path="res://Resources/Weapons/Sword/stats/sword_projectile_status.tres" id="3_righm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xmj4n"]
 atlas = ExtResource("2_u2dc3")
@@ -62,8 +60,6 @@ size = Vector2(31, 16)
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("1_lahgh")
-stats = ExtResource("2_righm")
-status = ExtResource("3_righm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_18op8")

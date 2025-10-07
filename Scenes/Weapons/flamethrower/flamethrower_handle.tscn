@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://2abx260rgyvs"]
+[gd_scene load_steps=5 format=3 uid="uid://2abx260rgyvs"]
 
 [ext_resource type="Script" uid="uid://ew3jrvaipb0b" path="res://Scripts/weapon_scripts/flamethrower_scripts/flamethrower_handle.gd" id="1_40hlj"]
-[ext_resource type="Resource" uid="uid://cmyggekbys27w" path="res://Resources/Weapons/Flamethrower/stats/flamethrower_handle_stats.tres" id="2_lbu8a"]
 [ext_resource type="Texture2D" uid="uid://ctcyk6f73ll3f" path="res://Art/Weapons/flamethrower/Handle_Flamethrower.png" id="2_p341h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rmcu2"]
@@ -21,7 +20,6 @@ animations = [{
 
 [node name="flamethrower_handle" type="Area2D" node_paths=PackedStringArray("visual")]
 script = ExtResource("1_40hlj")
-stats = ExtResource("2_lbu8a")
 visual = NodePath("AnimatedSprite2D")
 ROTATION_SPEED = 10.0
 AimType = 3
