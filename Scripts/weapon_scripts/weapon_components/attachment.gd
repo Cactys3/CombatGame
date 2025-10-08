@@ -65,18 +65,7 @@ func attack():
 
 func create_projectiles():
 	# Create the first bullet by default
-	var new_bullet = projectile.get_instance()
-	new_bullet.visible = false
-	#add_child(new_bullet)
-	#remove_child(new_bullet)
-	#new_bullet.scale = frame.scale
-	new_bullet.setup(frame, Vector2(cos(frame.rotation), sin(frame.rotation)))
-	if (handle.AimType == Handle.AimTypes.Spinning): #handle aim types special cases
-		GameManager.instance.weapon_parent.add_child(new_bullet)
-	else:
-		GameManager.instance.weapon_parent.add_child(new_bullet)
-	new_bullet.global_position = global_position
-	new_bullet.visible = true
+	init_projectile(global_position, Vector2(cos(frame.rotation), sin(frame.rotation)))
 	# Create any extra bullets using @export values to offset them by angle and position
 	var offset: int = 0
 	for i:int in frame.get_stat(StatsResource.COUNT) + StatsResource.get_default(StatsResource.COUNT) - 1:
@@ -84,25 +73,14 @@ func create_projectiles():
 			offset += 1
 		MultipleProjectileOffset *= -1
 		MultipleProjectileAngleOffset *= -1
-		new_bullet = projectile.get_instance()
-		new_bullet.visible = false
-		#new_bullet.scale = frame.scale
-		var target_angle = Vector2(cos(frame.rotation), sin(frame.rotation)).rotated(MultipleProjectileAngleOffset * (offset) * 0.01)
-		new_bullet.setup(frame, target_angle)
-		if (handle.AimType == Handle.AimTypes.Spinning): #handle aim types special cases
-			frame.player.add_child(new_bullet)
-		else:
-			GameManager.instance.weapon_parent.add_child(new_bullet)
-		new_bullet.global_position = global_position + Vector2(-sin(frame.rotation), cos(frame.rotation)).normalized() * MultipleProjectileOffset * (offset)
-		new_bullet.visible = true
+		init_projectile(global_position + Vector2(-sin(frame.rotation), cos(frame.rotation)).normalized() * MultipleProjectileOffset * (offset), Vector2(cos(frame.rotation), sin(frame.rotation)))
 
-func init_projectile(new_position: Vector2, new_scale: Vector2, new_direction: Vector2) -> Projectile:
+func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectile:
 	if projectile == null:
 		push_error("projectile null in attachment script")
 		return null
 	var new_bullet:Projectile = projectile.get_instance()
 	new_bullet.visible = false
-	#new_bullet.scale = new_scale
 	new_bullet.setup(frame, new_direction)
 	if (handle.AimType == Handle.AimTypes.Spinning): #handle aim types special cases
 		frame.player.add_child(new_bullet)

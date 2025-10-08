@@ -36,11 +36,11 @@ const THORNS = "thorns"
 
 static var defaultstats = {
 	DAMAGE: 100.0,
-	RANGE: 50.0,
+	RANGE: 500.0,
 	WEIGHT: 0.0,
 	ATTACKSPEED: 5.0,
 	VELOCITY: 50.0,
-	COUNT: 1.0,
+	COUNT: 3.0,
 	PIERCING: 1.0,
 	DURATION: 5.0,
 	BUILDUP: 1.0,

@@ -33,6 +33,8 @@ var collision_counter: float = 0
 var stopwatch: float = 0.0
 var lifetime = 10
 
+var dead: bool = false
+
 func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
 	frame_stats = base_gun.stats.get_copy() # get copy incase gun is freed
 	frame_stats.parent_object_name = name
@@ -56,6 +58,8 @@ func getdata() -> ItemData:
 	return data
 
 func _process(delta: float) -> void: #TODO: testing pyhsics_process vs process (and queued attacks)
+	if dead:
+		return
 	position += direction * speed * delta
 	stopwatch += delta
 	if (stopwatch > lifetime):
@@ -63,6 +67,9 @@ func _process(delta: float) -> void: #TODO: testing pyhsics_process vs process (
 
 ## this can be overriden by polymorph (what's it called?) to do unique attacks
 func attack_body(body: Node2D) -> void:
+	if dead:
+		return
+	
 	if !AttackedObjects.has(body):
 		var new_attack = make_attack()
 		body.damage(new_attack)
@@ -72,6 +79,8 @@ func attack_body(body: Node2D) -> void:
 			die() 
 
 func _on_body_entered(body: Node2D) -> void: #TODO: testing this queueAttacks things because deepseek said accessing my stats like this could corrupt because physics vs main thread multithreading...
+	if dead:
+		return
 	if body.has_method("damage"):
 		frame.QueuedAttacks.append(frame.AttackEvent.new(body, self))
 
@@ -81,4 +90,6 @@ func make_attack() -> Attack:
 	return new_attack
 
 func die():
+	dead = true
 	queue_free()
+	
