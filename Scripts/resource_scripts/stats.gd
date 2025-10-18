@@ -38,7 +38,7 @@ static var defaultstats = {
 	DAMAGE: 10.0,
 	RANGE: 500.0,
 	WEIGHT: 0.0,
-	ATTACKSPEED: 2.0,
+	ATTACKSPEED: 0.5,
 	VELOCITY: 50.0,
 	COUNT: 1.0,
 	PIERCING: 1.0,

@@ -29,4 +29,3 @@ func attack_body(body: Node2D) -> void:
 		super(body)
 		if piercing > 0:
 			anim.frame = ceilf((collision_counter / piercing) * anim_length)
-		
