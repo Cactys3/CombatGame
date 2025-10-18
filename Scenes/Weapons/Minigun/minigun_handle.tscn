@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://blqq45ul37nx0"]
+[gd_scene load_steps=13 format=3 uid="uid://blqq45ul37nx0"]
 
 [ext_resource type="Script" uid="uid://b8nq4amqwgaml" path="res://Scripts/weapon_scripts/minigun_scripts/minigun_handle.gd" id="1_tokk4"]
 [ext_resource type="Texture2D" uid="uid://xywhs6e7wreo" path="res://Art/Weapons/Minigun/Handle_Minigun.png" id="2_tokk4"]
@@ -34,9 +34,24 @@ region = Rect2(0, 0, 16, 16)
 atlas = ExtResource("3_tsyvm")
 region = Rect2(16, 0, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_nni70"]
+atlas = ExtResource("3_tsyvm")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5mxhx"]
+atlas = ExtResource("3_tsyvm")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ynxr"]
+atlas = ExtResource("3_tsyvm")
+region = Rect2(64, 0, 16, 16)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_nni70"]
 animations = [{
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
 "loop": true,
 "name": &"0",
 "speed": 5.0
@@ -56,6 +71,25 @@ animations = [{
 "loop": true,
 "name": &"2",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nni70")
+}],
+"loop": true,
+"name": &"3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5mxhx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ynxr")
+}],
+"loop": true,
+"name": &"4",
+"speed": 5.0
 }]
 
 [node name="Minigun_handle" type="Area2D" node_paths=PackedStringArray("visual")]
@@ -70,4 +104,5 @@ autoplay = "default"
 [node name="OverheatVisual" type="AnimatedSprite2D" parent="."]
 position = Vector2(-5, -2)
 sprite_frames = SubResource("SpriteFrames_nni70")
-animation = &"2"
+animation = &"4"
+autoplay = "0"

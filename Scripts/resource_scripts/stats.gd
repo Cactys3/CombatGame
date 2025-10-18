@@ -31,6 +31,7 @@ const SHIELD = "shield"
 const DIFFICULTY = "difficulty"
 const REVIES = "revies"
 const THORNS = "thorns"
+const ACCURACY = "accuracy"
 
 @export var parent_object_name = "not_set"
 
@@ -40,6 +41,7 @@ static var defaultstats = {
 	WEIGHT: 0.0,
 	ATTACKSPEED: 0.5,
 	VELOCITY: 50.0,
+	ACCURACY: 0,
 	COUNT: 1.0,
 	PIERCING: 1.0,
 	DURATION: 5.0,
@@ -70,6 +72,7 @@ static var defaultstats = {
 	WEIGHT: 0.0,
 	ATTACKSPEED: 0.0,
 	VELOCITY: 0.0,
+	ACCURACY: 0.0,
 	COUNT: 0.0,
 	PIERCING: 0.0,
 	DURATION: 0.0,
@@ -100,6 +103,7 @@ static var defaultstats = {
 	WEIGHT: 1.0,
 	ATTACKSPEED: 1.0,
 	VELOCITY: 1.0,
+	ACCURACY: 1.0,
 	COUNT: 1.0,
 	PIERCING: 1.0,
 	DURATION: 1.0,
