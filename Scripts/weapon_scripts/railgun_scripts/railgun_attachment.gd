@@ -11,9 +11,11 @@ func _ready() -> void:
 	super()
 
 func _process(delta: float) -> void:
-	process_cooldown(delta)
+	super(delta)
 
 func attack():
 	#play animation (has sound?) wait until animation is done, then shoot projectile, then wait and swap back to default animation
 	visual.play("Attack")
+	await visual.animation_finished
 	super()
+	visual.play("PostAttack")

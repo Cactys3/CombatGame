@@ -14,8 +14,7 @@ func _process(delta: float) -> void:
 func die():
 	if !dead:
 		dead = true
-		#unique: play death mechanic (fizzle out)
+		## unique: play death mechanic (fizzle out)
 		anim.play("die")
 		await get_tree().create_timer(3).timeout
-		queue_free()
-	
+		super()

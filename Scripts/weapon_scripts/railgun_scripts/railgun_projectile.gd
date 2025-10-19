@@ -15,3 +15,10 @@ const type = preload("res://Scripts/weapon_scripts/railgun_scripts/railgun_proje
 
 func _process(delta: float) -> void:
 	super(delta)
+
+## Hard Code lifetime
+func setdata():
+	lifetime = 0.1
+
+func process_movement(delta: float) -> void:
+	pass

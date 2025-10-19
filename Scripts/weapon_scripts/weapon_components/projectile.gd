@@ -21,10 +21,16 @@ func get_instance():
 #@export var status: StatusEffects = StatusEffects.new()
 @export var status: StatusEffects #= StatusEffectDictionary.new()
 
+## Is this projectile somehow not original/from gun
+var is_clone: bool = false
+
 var data: ItemData = ItemData.new()
 var frame: Weapon_Frame
+var damage: float
 var count: float 
 var piercing: float
+var buildup: float
+var weight: float
 var speed: float
 var direction:Vector2
 var frame_stats: StatsResource
@@ -34,21 +40,28 @@ var stopwatch: float = 0.0
 var lifetime = 10
 
 var dead: bool = false
+signal died(pos: Vector2, cloned: bool)
+
+func _ready():
+	## TODO: fix the issue where bullets flash around the screen when created
+	await get_tree().create_timer(0.02).timeout
+	visible = true
 
 func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
 	frame_stats = base_gun.stats.get_copy() # get copy incase gun is freed
 	frame_stats.parent_object_name = name
 	frame = base_gun
-	direction = enemy_direction.normalized()
-	rotation = direction.angle() 
 	var size_value = frame_stats.get_stat(StatsResource.SIZE) + StatsResource.get_default(StatsResource.SIZE)
 	self.scale = Vector2(size_value, size_value)
+	direction = enemy_direction.normalized()
 	piercing = frame_stats.get_stat(StatsResource.PIERCING) + StatsResource.get_default(StatsResource.PIERCING)
 	lifetime = frame.get_stat(StatsResource.DURATION) + StatsResource.get_default(StatsResource.DURATION)
-	
+	damage = frame_stats.get_stat(frame_stats.DAMAGE) + StatsResource.get_default(StatsResource.DAMAGE)
 	speed = (frame.get_stat(StatsResource.VELOCITY) + StatsResource.get_default(StatsResource.VELOCITY)) * 13
-	
+	buildup = frame_stats.get_stat(frame_stats.BUILDUP) + StatsResource.get_default(StatsResource.BUILDUP)
+	weight = (frame_stats.get_stat(frame_stats.WEIGHT) + StatsResource.get_default(StatsResource.WEIGHT))
 	setdata()
+
 
 ## meant to be overriden by extender
 func setdata():
@@ -60,10 +73,13 @@ func getdata() -> ItemData:
 func _process(delta: float) -> void: #TODO: testing pyhsics_process vs process (and queued attacks)
 	if dead:
 		return
-	position += direction * speed * delta
+	process_movement(delta)
 	stopwatch += delta
 	if (stopwatch > lifetime):
 		die()
+
+func process_movement(delta: float) -> void:
+	position += direction * speed * delta
 
 ## this can be overriden by polymorph (what's it called?) to do unique attacks
 func attack_body(body: Node2D) -> void:
@@ -86,10 +102,11 @@ func _on_body_entered(body: Node2D) -> void: #TODO: testing this queueAttacks th
 
 func make_attack() -> Attack:
 	var new_attack: Attack = Attack.new()
-	new_attack.setup(frame_stats.get_stat(frame_stats.DAMAGE) + StatsResource.get_default(StatsResource.DAMAGE), global_position, frame_stats.get_stat(frame_stats.BUILDUP) + StatsResource.get_default(StatsResource.BUILDUP), status.AttackValues, self, 0, 0, (frame_stats.get_stat(frame_stats.WEIGHT) + StatsResource.get_default(StatsResource.WEIGHT)) * ((frame_stats.get_stat(frame_stats.DAMAGE) + StatsResource.get_default(StatsResource.DAMAGE)) / 30))
+	new_attack.setup(damage, global_position, buildup, status.AttackValues, self, 0, 0, weight * (damage / 30))
 	return new_attack
 
 func die():
+	visible = false
 	dead = true
+	died.emit(global_position, is_clone)
 	queue_free()
-	

@@ -65,15 +65,18 @@ func attack():
 
 func create_projectiles():
 	# Create the first bullet by default
-	init_projectile(global_position, Vector2(cos(frame.rotation), sin(frame.rotation)))
+	# Randomize Direction Based on inaccuracy
+	var inaccuracy: float = StatsResource.get_default(StatsResource.INACCURACY) + stats.get_stat(StatsResource.INACCURACY) 
+	var direction = Vector2(cos(frame.rotation), sin(frame.rotation)).rotated(deg_to_rad(randf_range(-inaccuracy, inaccuracy)))
+	init_projectile(global_position, direction)
 	# Create any extra bullets using @export values to offset them by angle and position
-	var offset: int = 0
+	var proj_offset: int = 0
 	for i:int in frame.get_stat(StatsResource.COUNT) + StatsResource.get_default(StatsResource.COUNT) - 1:
 		if i % 2 == 0:
-			offset += 1
+			proj_offset += 1
 		MultipleProjectileOffset *= -1
 		MultipleProjectileAngleOffset *= -1
-		init_projectile(global_position + Vector2(-sin(frame.rotation), cos(frame.rotation)).normalized() * MultipleProjectileOffset * (offset), Vector2(cos(frame.rotation), sin(frame.rotation)))
+		init_projectile(global_position + Vector2(-sin(frame.rotation), cos(frame.rotation)).normalized() * MultipleProjectileOffset * (proj_offset), Vector2(cos(frame.rotation), sin(frame.rotation)))
 
 func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectile:
 	if projectile == null:
@@ -87,8 +90,16 @@ func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectil
 	else:
 		GameManager.instance.weapon_parent.add_child(new_bullet)
 	new_bullet.global_position = new_position
-	new_bullet.visible = true
+	new_bullet.rotation = new_direction.normalized().angle()
+	new_bullet.died.connect(projectile_died)
 	return new_bullet
+
+func call_def(object, method: String, arg):
+	object.call_deferred(method, arg)
+
+## to be overridden
+func projectile_died(pos: Vector2, is_clone: bool):
+	pass
 
 func get_cooldown() -> float:
 	return attacksperX / max(0.0001, frame.get_stat(StatsResource.ATTACKSPEED) + StatsResource.get_default(StatsResource.ATTACKSPEED)) #attackspeed is attacks per second so cd is 1/as

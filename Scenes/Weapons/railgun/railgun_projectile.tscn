@@ -1,26 +1,38 @@
-[gd_scene load_steps=5 format=3 uid="uid://b605pualaip1m"]
+[gd_scene load_steps=6 format=3 uid="uid://b605pualaip1m"]
 
 [ext_resource type="Script" uid="uid://hd66jc8makw5" path="res://Scripts/weapon_scripts/railgun_scripts/railgun_projectile.gd" id="1_vned4"]
-[ext_resource type="Texture2D" uid="uid://cdam8n8g4gbi2" path="res://Art/Weapons/Railgun/LazarBeam.png" id="2_27xwe"]
+[ext_resource type="Texture2D" uid="uid://bvdexb41t5f0j" path="res://Art/Weapons/Railgun/Railgun_Projectile.png" id="2_rsydi"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ugjh4"]
-atlas = ExtResource("2_27xwe")
-region = Rect2(0, 0, 32, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_er3ne"]
+atlas = ExtResource("2_rsydi")
+region = Rect2(0, 0, 1024, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_11qdj"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ugjh4")
+"texture": SubResource("AtlasTexture_er3ne")
 }],
 "loop": false,
 "name": &"default",
 "speed": 1.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rsydi"]
+size = Vector2(506, 7)
+
 [node name="railgun_projectile" type="Area2D"]
+collision_layer = 5
+collision_mask = 8
 script = ExtResource("1_vned4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_11qdj")
 autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(260, -0.5)
+shape = SubResource("RectangleShape2D_rsydi")
+
+[connection signal="area_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
