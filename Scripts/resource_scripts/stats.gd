@@ -159,7 +159,22 @@ func get_stat(key: String) -> float:
 		for stat in TotalListOfStats:
 			base += stat.statsbase[key]
 			factor *= stat.statsfactor[key]
-		return base * factor
+		return (base * factor) + get_default(key) 
+	else:
+		push_error("Potential ERROR getting stat, not found in dictionary")
+		return -999
+
+func get_stat_without_default(key: String) -> float:
+	if statsbase.has(key):
+		if (MustRecalculate): # If list of all affecting stats has changed since last calculation, recalculate
+			TotalListOfStats = []
+			GetAllStatsRecursive(TotalListOfStats) # Get a list of all stats that are in the chain of stats that affect this stats, no duplicates
+		var base = 0
+		var factor = 1
+		for stat in TotalListOfStats:
+			base += stat.statsbase[key]
+			factor *= stat.statsfactor[key]
+		return (base * factor)
 	else:
 		push_error("Potential ERROR getting stat, not found in dictionary")
 		return -999

@@ -51,15 +51,15 @@ func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
 	frame_stats = base_gun.stats.get_copy() # get copy incase gun is freed
 	frame_stats.parent_object_name = name
 	frame = base_gun
-	var size_value = frame_stats.get_stat(StatsResource.SIZE) + StatsResource.get_default(StatsResource.SIZE)
+	var size_value = frame_stats.get_stat(StatsResource.SIZE) 
 	self.scale = Vector2(size_value, size_value)
 	direction = enemy_direction.normalized()
-	piercing = frame_stats.get_stat(StatsResource.PIERCING) + StatsResource.get_default(StatsResource.PIERCING)
-	lifetime = frame.get_stat(StatsResource.DURATION) + StatsResource.get_default(StatsResource.DURATION)
-	damage = frame_stats.get_stat(frame_stats.DAMAGE) + StatsResource.get_default(StatsResource.DAMAGE)
-	speed = (frame.get_stat(StatsResource.VELOCITY) + StatsResource.get_default(StatsResource.VELOCITY)) * 13
-	buildup = frame_stats.get_stat(frame_stats.BUILDUP) + StatsResource.get_default(StatsResource.BUILDUP)
-	weight = (frame_stats.get_stat(frame_stats.WEIGHT) + StatsResource.get_default(StatsResource.WEIGHT))
+	piercing = frame_stats.get_stat(StatsResource.PIERCING)
+	lifetime = frame.get_stat(StatsResource.DURATION)
+	damage = frame_stats.get_stat(frame_stats.DAMAGE) 
+	speed = (frame.get_stat(StatsResource.VELOCITY)) * 13
+	buildup = frame_stats.get_stat(frame_stats.BUILDUP) 
+	weight = (frame_stats.get_stat(frame_stats.WEIGHT))
 	setdata()
 
 

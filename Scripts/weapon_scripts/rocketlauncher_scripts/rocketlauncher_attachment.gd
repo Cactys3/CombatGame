@@ -17,7 +17,7 @@ func projectile_died(pos: Vector2, is_clone: bool):
 		return
 	## Create Clones in a circle from original projectile's position
 	var radial_offset: float = 0.0
-	var count: float = frame.get_stat(StatsResource.COUNT) + StatsResource.get_default(StatsResource.COUNT)
+	var count: float = frame.get_stat(StatsResource.COUNT) 
 	## At least have 3 clones min, but don't add 3 to count if count > 3
 	if count < 3:
 		count = 3

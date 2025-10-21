@@ -66,12 +66,12 @@ func attack():
 func create_projectiles():
 	# Create the first bullet by default
 	# Randomize Direction Based on inaccuracy
-	var inaccuracy: float = StatsResource.get_default(StatsResource.INACCURACY) + stats.get_stat(StatsResource.INACCURACY) 
+	var inaccuracy: float =  stats.get_stat(StatsResource.INACCURACY) 
 	var direction = Vector2(cos(frame.rotation), sin(frame.rotation)).rotated(deg_to_rad(randf_range(-inaccuracy, inaccuracy)))
 	init_projectile(global_position, direction)
 	# Create any extra bullets using @export values to offset them by angle and position
 	var proj_offset: int = 0
-	for i:int in frame.get_stat(StatsResource.COUNT) + StatsResource.get_default(StatsResource.COUNT) - 1:
+	for i:int in frame.get_stat(StatsResource.COUNT) - 1:
 		if i % 2 == 0:
 			proj_offset += 1
 		MultipleProjectileOffset *= -1
@@ -102,7 +102,7 @@ func projectile_died(pos: Vector2, is_clone: bool):
 	pass
 
 func get_cooldown() -> float:
-	return attacksperX / max(0.0001, frame.get_stat(StatsResource.ATTACKSPEED) + StatsResource.get_default(StatsResource.ATTACKSPEED)) #attackspeed is attacks per second so cd is 1/as
+	return attacksperX / max(0.0001, frame.get_stat(StatsResource.ATTACKSPEED)) #attackspeed is attacks per second so cd is 1/as
 
 func make_attack() -> Attack:
 	var new_attack: Attack = Attack.new()

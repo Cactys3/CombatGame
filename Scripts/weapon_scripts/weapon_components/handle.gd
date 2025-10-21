@@ -78,7 +78,7 @@ func ProcessAtMouse(delta: float) -> void:
 	var slot_offset_value = alternating_sign * ((TAU / 30) * ((temp_slot_variable - 1)))
 	frame.global_position = GetOrbitPosition((get_global_mouse_position() - player.global_position).normalized().angle() + slot_offset_value)
 	#Rotate Towards Object
-	var nearest_enemy: Node2D = frame.get_enemy_nearby(frame.get_stat(stats.RANGE) + StatsResource.get_default(StatsResource.RANGE))
+	var nearest_enemy: Node2D = frame.get_enemy_nearby(frame.get_stat(stats.RANGE))
 	if nearest_enemy != null:
 		RotateTowardsPosition(nearest_enemy.global_position, delta)
 		if !ready_to_fire && IsAimingAtEnemy(nearest_enemy):
@@ -94,7 +94,7 @@ func ProcessStaticSlot(delta: float) -> void:
 		temp_count = 4
 	frame.global_position = GetOrbitPosition((TAU * (weapon_slot / temp_count)))#weapon_count)))
 	#Rotate Towards Object
-	var nearest_enemy = frame.get_enemy_nearby(frame.get_stat(stats.RANGE) + StatsResource.get_default(StatsResource.RANGE))
+	var nearest_enemy = frame.get_enemy_nearby(frame.get_stat(stats.RANGE))
 	if nearest_enemy != null:
 		#Rotate towards Enemy if exists
 		RotateTowardsPosition(nearest_enemy.global_position, delta)
@@ -112,7 +112,7 @@ func RotateTowardsPosition(new_position: Vector2, _delta: float) -> void:
  #TODO: try global_position instead of player.global_position for how weapon aiming looks
 
 func GetOrbitPosition(target_angle: float) -> Vector2:
-	return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * ORBIT_DISTANCE * (frame.get_stat(StatsResource.SIZE) + StatsResource.get_default(StatsResource.SIZE)) #TODO: implement scale better with offset
+	return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * ORBIT_DISTANCE * (frame.get_stat(StatsResource.SIZE)) #TODO: implement scale better with offset
 
 func IsAimingAtEnemy(enemy: Node2D) -> bool:
 	if enemy != null:

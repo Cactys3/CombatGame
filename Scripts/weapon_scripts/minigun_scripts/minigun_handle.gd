@@ -45,7 +45,7 @@ func ProcessUnique(_delta: float) -> void:
 			var slot_offset_value = alternating_sign * ((TAU / 30) * ((temp_slot_variable - 1)))
 			frame.global_position = GetOrbitPosition((get_global_mouse_position() - player.global_position).normalized().angle() + slot_offset_value)
 			#Rotate Towards Object
-			var nearest_enemy: Node2D = frame.get_enemy_nearby(frame.get_stat(stats.RANGE) + StatsResource.get_default(StatsResource.RANGE))
+			var nearest_enemy: Node2D = frame.get_enemy_nearby(frame.get_stat(stats.RANGE))
 			if nearest_enemy != null:
 				RotateTowardsPosition(nearest_enemy.global_position, _delta)
 				if !ready_to_fire && IsAimingAtEnemy(nearest_enemy):
