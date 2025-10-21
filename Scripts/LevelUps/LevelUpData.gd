@@ -10,7 +10,8 @@ var border_color: Color = Color.WHITE_SMOKE
 var description: String = "Default Description"
 var type: types
 enum types{new_component, new_item, component_rarity, component_level, item_rarity, item_level, money, weapon_upgrade, special}
-var itemdata: ItemData = null
+var itemdata: ItemData 
+var LevelUpgrades: Array[LevelUpgrade] 
 ## sets up the data using an ItemData
 func set_itemdata(data:ItemData, new_type: types):
 	option_name = data.item_name
@@ -22,13 +23,21 @@ func set_itemdata(data:ItemData, new_type: types):
 	type = new_type
 	match(new_type):
 		types.component_rarity:
-			option_name = "upgrade rarity of: " + option_name
+			option_name = "upgrade rarity of: " + option_name + "\n" + data.get_rarity_upgrade_text()
 		types.item_rarity:
-			option_name = "upgrade rarity of: " + option_name
+			option_name = "upgrade rarity of: " + option_name + "\n" + data.get_rarity_upgrade_text()
 		types.new_component:
 			option_name = "gain new component: " + option_name
 		types.new_item:
 			option_name = "gain new item: " + option_name
+		types.component_level: 
+			LevelUpgrades = data.get_level_upgrades()
+			option_name = "Upgrade Level of Component: " + option_name + "\n" 
+			for upgrade in LevelUpgrades:
+				if upgrade.factor_stat:
+					option_name += "% bonus stat" + upgrade.stat_name + ": " + str(data.stats.get_stat_factor(upgrade.stat_name)) + " --> " + str(data.stats.get_stat_factor(upgrade.stat_name) + upgrade.change_value)
+				else:
+					option_name += "base stat " + upgrade.stat_name + ": " + str(data.stats.get_stat_base(upgrade.stat_name)) + " --> " + str(data.stats.get_stat_base(upgrade.stat_name) + upgrade.change_value)
 		_:
 			option_name =  "misc: " + option_name
 ## sets up the data via parameters
@@ -59,7 +68,7 @@ func carryout_level_up():
 		types.item_rarity:
 			carryout_item_rarity()
 		types.component_level:
-			pass
+			carryout_component_level()
 		types.item_level:
 			pass 
 		types.new_component:
@@ -80,6 +89,10 @@ func carryout_component_rarity():
 	print("COMPONENT RARITY! from: " + str(itemdata.item_rarity))
 	itemdata.upgrade_component_rarity()
 	print("COMPONENT RARITY! to: " + str(itemdata.item_rarity))
+func carryout_component_level():
+	print("COMPONENT LEVEL! from: " + str(itemdata.level))
+	itemdata.upgrade_component_level(LevelUpgrades)
+	print("COMPONENT LEVEL! to: " + str(itemdata.level))
 func carryout_item_rarity():
 	print("ITEM RARITY! from: " + str(itemdata.item_rarity))
 	itemdata.upgrade_component_rarity()
@@ -99,15 +112,21 @@ func carryout_new_component():
 
 static func get_random_level_up_option() -> LevelUpData:
 	var levelupdata: LevelUpData = LevelUpData.new()
+	
+	var choice = randi_range(0, 5)
+	## Weighted options
+	
+	
+	
 	var money: int
-	match(randi_range(0, 4)):
+	match(choice):
 		
 		0: ## gain random money
 			money = randi_range(20, 50)
 			levelupdata.set_money(money)
 		
 		1: ## upgrade random component's rarity
-			var comp: ItemData = GameManager.instance.get_random_equipped_weapon().data
+			var comp: ItemData = GameManager.instance.get_random_equipped_comp()
 			if comp != null:
 				levelupdata.set_itemdata(comp, types.component_rarity)
 				print("weapon: " + comp.item_name)
@@ -116,9 +135,9 @@ static func get_random_level_up_option() -> LevelUpData:
 				levelupdata.set_money(money)
 				print("money as backup due to no equipped weapons")
 		
-		2:
+		2: ## upgrade random item's rarity
 			if GameManager.instance.get_random_equipped_item() != null:
-				var item: ItemData = GameManager.instance.get_random_equipped_item().data
+				var item: ItemData = GameManager.instance.get_random_equipped_item()
 				levelupdata.set_itemdata(item, types.item_rarity)
 				print("item: " + item.item_name)
 			else:
@@ -126,18 +145,34 @@ static func get_random_level_up_option() -> LevelUpData:
 				levelupdata.set_money(money)
 				print("money as backup due to no equipped items")
 		
-		3:
+		3: ## get new component
 			var item: ItemData = ShopManager.get_rand_component()
 			levelupdata.set_itemdata(item, LevelUpData.types.new_component)
 			print("NEW COMPONENT!")
 		
-		4:
-			## gain random new item
+		4: ## gain random new item
 			var item: ItemData = ShopManager.get_rand_item()
 			levelupdata.set_itemdata(item, LevelUpData.types.new_item)
 			print("NEW ITEM!")
+		
+		5: ## upgrade random comp level
+			var comp: ItemData = GameManager.instance.get_random_equipped_comp()
+			if comp != null:
+				levelupdata.set_itemdata(comp, types.component_level)
+				print("weapon: " + comp.item_name)
+			else:
+				money = randi_range(20, 50) ## TODO: try again if failed?
+				levelupdata.set_money(money)
+				print("money as backup due to no equipped weapons")
 		
 		_:
 			money = randi_range(20, 50)
 			levelupdata.set_money(money) ## Implement others
 	return levelupdata
+
+
+## For Level Up
+## Get Data from ItemData --> Component/Item's method
+## This returns the stats and values to be added to the stats
+## Calculate the old and new value of the stats and make that the name of the upgrade
+## If Chosen, Apply those values to the Stats object of ItemData

@@ -208,11 +208,17 @@ func get_stat_factor(key: String) -> float:
 func set_stat_base(key: String, value: float):
 	if statsbase.has(key):
 		statsbase[key] = value
+		MustRecalculate = true
+	else:
+		print("Tried and Failed to set BaseStat: " + key + " to: " + str(value))
 
 ## edits this statsresource only value of factor stat (only used when isolated statsresource)
 func set_stat_factor(key: String, value: float):
 	if statsfactor.has(key):
 		statsfactor[key] = value
+		MustRecalculate = true
+	else:
+		print("Tried and Failed to set FactorStat: " + key + " to: " + str(value))
 
 func print_stats() -> void:
 	print("\nFactors: ")

@@ -328,8 +328,19 @@ func create_level_up_instance():
 	level_up_queue -= 1
 	leveling_up = false
 
-func get_random_equipped_weapon():
-	return player.get_random_frame()
+func get_random_equipped_weapon() -> ItemData:
+	return player.get_random_frame().data
+func get_random_equipped_comp() -> ItemData:
+	var frame: Weapon_Frame = player.get_random_frame()
+	if frame:
+		match(randf_range(1, 3)):
+			1: 
+				return frame.attachment.data
+			2:
+				return frame.handle.data
+			_:
+				return frame.projectile.data
+	return null
 func get_random_equipped_item():
 	if active_items.size() > 0:
 		return active_items.get(randi_range(0, active_items.size() - 1))

@@ -57,6 +57,7 @@ const EXCLUSIVE_COLOR: Color = Color.ORANGE_RED
 const MISSINGTEXTURE = preload("res://Art/UI/MissingTexture.png")
 
 var item: Node = null
+var level: int = 0
 var made_item: bool = false
 var ready: bool = false
 static var count: int = 0
@@ -78,7 +79,7 @@ static func get_rarity(i: int) -> String:
 			return "exclusive"
 		item_rarities.unset:
 			return "unset"
-	return "unset"
+	return "even further beyond"
 
 ## happens only once when itemdata is created
 func setup(randomize_bool: bool, rarity: item_rarities):
@@ -234,9 +235,39 @@ func make_frame() -> Weapon_Frame:
 	item_type = item_types.weapon
 	item_image # set to combo of all images somehow
 	return new_frame
+
+## Calculates new level's upgrades, returns them in an array of LevelUpgrades
+func get_level_upgrades() -> Array:
+	var arr: Array[LevelUpgrade]
+	level += 1
+	if item && item.has_method("get_level_upgrades"):
+		arr = item.get_level_upgrades(self)
+	elif item_packed_scene:
+		var s = item_packed_scene.instantiate()
+		if s.has_method("get_level_upgrades"):
+			arr = item.get_level_upgrades(self)
+		else:
+			push_error("Trying to get level upgrade of: " + item_name)
+	else:
+		push_error("No Packed Scene? Trying to get level upgrade of: " + item_name)
+	return arr
+
 ## The 'Stats' inside the actual component is just a reference to the 'Stats' this ItemData has, so we can just add stats to this and it works.
-func upgrade_component_level():
-	pass
+func upgrade_component_level(arr: Array[LevelUpgrade]):
+	## Get Stats to Upgrade
+	## Upgrade them a percent between a random range
+	## ItemPackedScene is the object, can do ItemPackedScene.instantiate().upgrade_component_level(stats) if it's static'
+	for upgrade in arr:
+		if upgrade.factor_stat:
+			stats.set_stat_factor(upgrade.stat_name, stats.get_stat_factor(upgrade.stat_name) + upgrade.change_value)
+		else:
+			print("Adding: " + str(upgrade.change_value) + " to: " + upgrade.stat_name + " of: " + item_name)
+			print("Get_Stats(): " + str(stats.get_stat(upgrade.stat_name)))
+			print("get_stat_base(): " + str(stats.get_stat_base(upgrade.stat_name)))
+			stats.set_stat_base(upgrade.stat_name, stats.get_stat_base(upgrade.stat_name) + upgrade.change_value)
+			print("Get_Stats() Post: " + str(stats.get_stat(upgrade.stat_name)))
+			print("get_stat_base() Post: " + str(stats.get_stat_base(upgrade.stat_name)))
+
 
 func upgrade_component_rarity():
 	match(item_rarity):
@@ -252,3 +283,6 @@ func upgrade_component_rarity():
 			set_rarity(item_rarities.exclusive)
 		item_rarities.exclusive:
 			pass
+
+func get_rarity_upgrade_text() -> String:
+	return get_rarity(item_rarity) + "-->" + get_rarity(item_rarity + 1)

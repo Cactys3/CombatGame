@@ -46,3 +46,9 @@ func player_Killed(player: Player_Script, attack: Attack):
 	pass
 func round_ended(round_number: int):
 	pass
+static func get_level_upgrades(itemdata: ItemData) -> Array[LevelUpgrade]:
+	var arr: Array[LevelUpgrade]
+	var u1: LevelUpgrade = LevelUpgrade.new()
+	u1.setup(StatsResource.DAMAGE, false, randf_range(15, 30))
+	#arr.append(u1)
+	return arr

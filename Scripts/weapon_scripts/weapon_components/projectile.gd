@@ -110,3 +110,11 @@ func die():
 	dead = true
 	died.emit(global_position, is_clone)
 	queue_free()
+
+## Overriden
+static func get_level_upgrades(itemdata: ItemData) -> Array[LevelUpgrade]:
+	var arr: Array[LevelUpgrade]
+	var u1: LevelUpgrade = LevelUpgrade.new()
+	u1.setup(StatsResource.DAMAGE, false, randf_range(15, 30))
+	arr.append(u1)
+	return arr
