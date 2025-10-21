@@ -38,23 +38,23 @@ var curr_health: float
 var curr_movespeed: float:
 	get():
 		if is_instance_valid(stats):
-			return stats.get_stat(stats.MOVESPEED) + base_movespeed
+			return stats.get_stat_without_default(stats.MOVESPEED) + base_movespeed
 		return base_movespeed
 var curr_regen: float 
 var curr_knockback_modifier: float:
 	get():
 		if is_instance_valid(stats):
-			return stats.get_stat(stats.WEIGHT) + base_knockback_modifier
+			return stats.get_stat_without_default(stats.WEIGHT) + base_knockback_modifier
 		return base_knockback_modifier
 var curr_damage_reduction: float:
 	get():
 		if is_instance_valid(stats):
-			return stats.get_stat(stats.STANCE) + base_damage_reduction
+			return stats.get_stat_without_default(stats.STANCE) + base_damage_reduction
 		return base_damage_reduction
 var curr_cooldown_max: float:
 	get():
 		if is_instance_valid(stats):
-			return base_cooldown #+ (5 / (stats.get_stat(stats.ATTACKSPEED) + 0.1)) #TODO: make this real calculation
+			return base_cooldown #+ (5 / (stats.get_stat_without_default(stats.ATTACKSPEED) + 0.1)) #TODO: make this real calculation
 		return base_cooldown
 var cooldown_stopwatch: float = 0
 ## Projectile Stats:
@@ -62,12 +62,12 @@ var projectile_cooldown_stopwatch: float = 0
 var curr_range: float:
 	get():
 		if is_instance_valid(stats):
-			return stats.get_stat(stats.RANGE) + base_range
+			return stats.get_stat_without_default(stats.RANGE) + base_range
 		return base_range
 var curr_speed: float:
 	get():
 		if is_instance_valid(stats):
-			return stats.get_stat(stats.VELOCITY) + base_speed
+			return stats.get_stat_without_default(stats.VELOCITY) + base_speed
 		return base_speed
 var curr_acceleration: float:
 	get():
@@ -75,21 +75,21 @@ var curr_acceleration: float:
 var curr_lifetime: float:
 	get():
 		if is_instance_valid(stats):
-			return stats.get_stat(stats.DURATION) + base_lifetime
+			return stats.get_stat_without_default(stats.DURATION) + base_lifetime
 		return base_lifetime
 var curr_piercing: float:
 	get():
 		if is_instance_valid(stats):
-			return stats.get_stat(stats.PIERCING) + base_piercing
+			return stats.get_stat_without_default(stats.PIERCING) + base_piercing
 		return base_piercing
 var curr_damage: float:
 	get():
 		if is_instance_valid(stats):
-			return stats.get_stat(stats.DAMAGE) + base_damage
+			return stats.get_stat_without_default(stats.DAMAGE) + base_damage
 		return base_damage
 var max_health: float:
 	get:
-		return stats.get_stat(stats.HP) + base_health
+		return stats.get_stat_without_default(stats.HP) + base_health
 
 var ImReady: bool = false
 
@@ -99,8 +99,8 @@ func _ready() -> void:
 	add_to_group("enemy")
 
 func set_stats():
-	curr_health = stats.get_stat(stats.HP) + base_health
-	curr_regen = base_regen #+ stats.get_stat(stats.REGEN)
+	curr_health = stats.get_stat_without_default(stats.HP) + base_health
+	curr_regen = base_regen #+ stats.get_stat_without_default(stats.REGEN)
 	player = get_tree().get_first_node_in_group("player")
 	ImReady = true
 

@@ -35,9 +35,9 @@ func set_itemdata(data:ItemData, new_type: types):
 			option_name = "Upgrade Level of Component: " + option_name + "\n" 
 			for upgrade in LevelUpgrades:
 				if upgrade.factor_stat:
-					option_name += "% bonus stat" + upgrade.stat_name + ": " + str(data.stats.get_stat_factor(upgrade.stat_name)) + " --> " + str(data.stats.get_stat_factor(upgrade.stat_name) + upgrade.change_value)
+					option_name += "% bonus stat" + upgrade.stat_name + ": " + str(round2(data.stats.get_stat_factor(upgrade.stat_name))) + " --> " + str(round2(data.stats.get_stat_factor(upgrade.stat_name) + upgrade.change_value))
 				else:
-					option_name += "base stat " + upgrade.stat_name + ": " + str(data.stats.get_stat_base(upgrade.stat_name)) + " --> " + str(data.stats.get_stat_base(upgrade.stat_name) + upgrade.change_value)
+					option_name += "base stat " + upgrade.stat_name + ": " + str(round2(data.stats.get_stat_base(upgrade.stat_name))) + " --> " + str(round2(data.stats.get_stat_base(upgrade.stat_name) + upgrade.change_value))
 		_:
 			option_name =  "misc: " + option_name
 ## sets up the data via parameters
@@ -170,9 +170,5 @@ static func get_random_level_up_option() -> LevelUpData:
 			levelupdata.set_money(money) ## Implement others
 	return levelupdata
 
-
-## For Level Up
-## Get Data from ItemData --> Component/Item's method
-## This returns the stats and values to be added to the stats
-## Calculate the old and new value of the stats and make that the name of the upgrade
-## If Chosen, Apply those values to the Stats object of ItemData
+func round2(num: float) -> float:
+	return round(num * pow(10, 2)) / pow(10, 2)
