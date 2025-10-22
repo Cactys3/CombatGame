@@ -1,8 +1,10 @@
 extends Node
 class_name GameManager
+
 const LEVEL_UP_SCREEN = preload("res://Scenes/UI/level_up_screen.tscn")
 static var STATS_VISUAL = preload("res://Scenes/UI/stats_visual.tscn")
 @onready var weapon_frame = preload("res://Scenes/Weapons/weapon_frame.tscn")
+
 ## Single Instance Object
 static var instance: GameManager
 ## Managers
@@ -15,6 +17,22 @@ static var instance: GameManager
 @export var enemy_parent: Node2D
 @export var weapon_parent: Node2D
 
+var weapon_count: int:
+	get():
+		return player.weapon_count
+	set(value):
+		player.weapon_count = value
+var weapon_limit: int = 10
+var item_count: int:
+	get():
+		return active_items.size()
+var item_limit: int = 10
+var weapon_limit_reached: bool:
+	get():
+		return has_weapon_room()
+var item_limit_reached: bool:
+	get():
+		return has_item_room()
 var active_items: Array[Item]
 var character_choice_stats: StatsResource = StatsResource.new()
 var global_stats: StatsResource = StatsResource.new()
@@ -299,7 +317,7 @@ func can_buy(price: float) -> bool:
 
 func can_equip(item: ItemUI) -> bool:
 	## Check if its a weapon or item, Check if there is room for weapon, etc..
-	return item.data.item_type == ItemData.item_types.weapon || item.data.item_type == ItemData.item_types.item
+	return (weapon_count <= weapon_limit && item.data.item_type == ItemData.item_types.weapon) || (item_count <= item_limit && item.data.item_type == ItemData.item_types.item)
 
 func can_unequip(item: ItemUI) -> bool:
 	return true ## Check if player has weapon equipped
@@ -327,6 +345,11 @@ func create_level_up_instance():
 	ui_man.pause_level_up()
 	level_up_queue -= 1
 	leveling_up = false
+
+func has_item_room():
+	return item_count <= item_limit
+func has_weapon_room():
+	return weapon_count <= weapon_limit
 
 func get_random_equipped_weapon() -> ItemData:
 	return player.get_random_frame().data

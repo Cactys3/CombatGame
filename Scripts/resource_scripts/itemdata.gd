@@ -15,12 +15,8 @@ enum item_types{unset, handle, attachment, projectile, weapon, item, mod}
 @export_category("Misc Fields (common, but not always active)")
 @export var default_stats: StatsResource = null
 @export var default_status_effects: StatusEffects = null
-@export var default_rarity_stat_modifiers: StatsResource = null
-@export var default_rarity_status_effects_modifiers: StatusEffects = null
 var stats: StatsResource = null
 var status_effects: StatusEffects = null
-var rarity_stat_modifiers: StatsResource = null
-var rarity_status_effect_modifiers: StatusEffects = null
 @export var rarity_cost_modifier = 1
 enum item_rarities {unset, common, rare, epic, legendary, exclusive}
 @export var item_rarity: int
@@ -112,20 +108,11 @@ func set_rarity(rarity: item_rarities):
 			border_color = DEFAULT_COLOR
 	if item_rarity > 1:
 		item_buy_cost = item_buy_cost + (rarity_cost_modifier * item_rarity) #TODO: finalize equation
-		if has_stats:
-			## New Implementation: 
-			stats.remove_stats(rarity_stat_modifiers) # remove old modifiers
-			rarity_stat_modifiers = default_rarity_stat_modifiers.duplicate(true) # make new stat modifier variable
-			for key in rarity_stat_modifiers.statsbase:
-				rarity_stat_modifiers.set_stat_base(key, item_rarity * rarity_stat_modifiers.get_stat_base(key)) # calculate new stat modifier values TODO: make calculation better
-				rarity_stat_modifiers.set_stat_factor(key, rarity_stat_modifiers.get_stat_factor(key)) #TODO: Find a way to implement factor changes based on rarity if desired
-			stats.add_stats(rarity_stat_modifiers) # add stats modifier back
-			#TODO: Do the same rarity calculations for Status Effects if desired
 	DataUpdated.emit()
 	print("emit data updated")
 
 func randomize_stats():
-	pass #TODO: randomize stats variable values
+	pass #TODO: randomize stats variable values if desired (pass stats into instance of real item's .randomize_stats() method)
 
 ## Instantiates the Item with values
 func get_item() -> Node:

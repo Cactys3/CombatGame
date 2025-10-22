@@ -115,7 +115,12 @@ static func get_random_level_up_option() -> LevelUpData:
 	
 	var choice = randi_range(0, 5)
 	## Weighted options
-	
+	# have more options to gain new components/items based on how little of them you have
+	# have more options to upgrade level of comp/item based on how many of them you have to level up
+	# can't present new comp/item if item/comp limit is reached
+	# remove rarity upgrade, remove money
+	var can_gain_item: bool = GameManager.instance.has_item_room()
+	var can_gain_weapon: bool = GameManager.instance.has_weapon_room()
 	
 	
 	var money: int

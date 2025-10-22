@@ -4,8 +4,8 @@
 [ext_resource type="Resource" uid="uid://b6x7ww5k6lrde" path="res://Resources/Items/DamageBuff/Stats_DamageBuff.tres" id="1_uj5nl"]
 [ext_resource type="Texture2D" uid="uid://vfsxq8j42aj1" path="res://Art/Items/DamageBuff.png" id="2_sgxyt"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_wlejx"]
-[ext_resource type="PackedScene" uid="uid://c2dpxowebfmdn" path="res://Scenes/Items/damage_buff/DamageBuff.tscn" id="3_wlejx"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="5_45hvh"]
+[ext_resource type="PackedScene" uid="uid://c2dpxowebfmdn" path="res://Scenes/Items/DamageBuff.tscn" id="5_sgxyt"]
 
 [sub_resource type="Resource" id="Resource_w2air"]
 script = ExtResource("1_sgxyt")
@@ -21,7 +21,7 @@ metadata/_custom_type_script = "uid://dhqfnnqd2n054"
 
 [resource]
 script = ExtResource("5_45hvh")
-item_packed_scene = ExtResource("3_wlejx")
+item_packed_scene = ExtResource("5_sgxyt")
 item_name = "Damage Buff"
 item_description = "Buffs damage!j09ergwpo[ijergaoij[weijrfogjioaergjoikaergiojaergjioaergjioae4rg"
 item_type = 5

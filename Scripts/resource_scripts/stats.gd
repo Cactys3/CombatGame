@@ -252,10 +252,13 @@ func get_copy() -> StatsResource: #TODO: update for new stats implementation
 	temp.listofaffected.clear()
 	temp.listofaffection.clear()
 	return temp
-
+## Returns default stat value when stat is set to 0
 static func get_default(stat: String) -> float:
 	if defaultstats.has(stat):
 		return defaultstats.get(stat)
 	else:
 		push_error("Potential ERROR getting stat, not found in dictionary")
 		return -999
+## Returns name of random stat
+static func get_rand_stat() -> String:
+	return defaultstats.key(randi() % defaultstats.size())
