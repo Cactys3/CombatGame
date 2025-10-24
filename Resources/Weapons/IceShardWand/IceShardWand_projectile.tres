@@ -1,19 +1,10 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=10 format=3 uid="uid://c0dl8tcaqnjry"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://c0dl8tcaqnjry"]
 
-[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="1_8havq"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_foq67"]
 [ext_resource type="Resource" uid="uid://4uxm6j7p3j7c" path="res://Resources/Weapons/IceShardWand/stats/IceShardWand_projectile_stats.tres" id="3_d2vgt"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="4_d2vgt"]
 [ext_resource type="PackedScene" uid="uid://m37gbpi4rmf" path="res://Scenes/Weapons/iceshardwand/iceshardwand_projectile.tscn" id="4_foq67"]
 [ext_resource type="Texture2D" uid="uid://dkjeea6q4ft8f" path="res://Art/Weapons/IceShardWand/Projectile_IceShardWand.png" id="4_h6058"]
-
-[sub_resource type="Resource" id="Resource_8havq"]
-script = ExtResource("1_8havq")
-metadata/_custom_type_script = "uid://dwj80yu0v1qdt"
-
-[sub_resource type="Resource" id="Resource_foq67"]
-script = ExtResource("2_foq67")
-metadata/_custom_type_script = "uid://dhqfnnqd2n054"
 
 [sub_resource type="Resource" id="Resource_d2vgt"]
 script = ExtResource("2_foq67")
@@ -30,8 +21,6 @@ item_image = ExtResource("4_h6058")
 randomizable = true
 default_stats = ExtResource("3_d2vgt")
 default_status_effects = SubResource("Resource_d2vgt")
-default_rarity_stat_modifiers = SubResource("Resource_8havq")
-default_rarity_status_effects_modifiers = SubResource("Resource_foq67")
 has_stats = true
 has_status_effects = true
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"

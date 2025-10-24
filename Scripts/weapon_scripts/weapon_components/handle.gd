@@ -20,6 +20,9 @@ var data: ItemData = ItemData.new()
 @export var attachment: Attachment
 @onready var player: Player_Script = get_tree().get_first_node_in_group("player")
 
+var spinning_offset: float = 0
+var spinning_speed: float = 3
+
 @export var ORBIT_DISTANCE: float = 55
 @export var ROTATION_SPEED: float = 20
 var current_angle: float = 0  #Stores the angle for smooth circular motion
@@ -59,8 +62,8 @@ func _process(_delta: float) -> void:
 			ProcessAtMouse(_delta)#each process must handle "ready_to_fire = true/false"
 		AimTypes.StaticSlot:
 			ProcessStaticSlot(_delta)
-		AimTypes.Unique:
-			ProcessUnique(_delta)
+		AimTypes.Spinning:
+			ProcessSpinning(_delta)
 		_:
 			ProcessUnique(_delta)
 
@@ -103,6 +106,12 @@ func ProcessStaticSlot(delta: float) -> void:
 			ready_to_fire = true
 	else:
 		ready_to_fire = false
+
+func ProcessSpinning(delta: float) -> void:
+	spinning_offset += delta * spinning_speed #TODO: Have a static value between all handles used to know how many of each aim type there are?
+	frame.global_position = GetOrbitPosition(spinning_offset + (TAU * (weapon_slot))) #should be used if there are multiple spinning weapons
+	frame.rotation = spinning_offset + (TAU * (weapon_slot)) #face directly outward (works?)
+	ready_to_fire = true
 
 func ProcessUnique(_delta: float) -> void:
 	pass

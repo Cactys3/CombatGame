@@ -1,19 +1,10 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=10 format=3 uid="uid://qc4mltub7f0n"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://qc4mltub7f0n"]
 
-[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="1_angmc"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_46ckr"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_flhk6"]
 [ext_resource type="Resource" uid="uid://syb4ppucrtil" path="res://Resources/Weapons/PlayingCard/stats/playingcard_projectile_stats.tres" id="3_ep0k8"]
 [ext_resource type="Texture2D" uid="uid://ctekysqm3q8wt" path="res://Art/Weapons/PlayingCard/Projectile_PlayingCard.png" id="4_flhk6"]
 [ext_resource type="PackedScene" uid="uid://dntojoycrv5me" path="res://Scenes/Weapons/PlayingCard/playingcard_projectile.tscn" id="5_ep0k8"]
-
-[sub_resource type="Resource" id="Resource_ypvc5"]
-script = ExtResource("1_angmc")
-metadata/_custom_type_script = "uid://dwj80yu0v1qdt"
-
-[sub_resource type="Resource" id="Resource_r8f68"]
-script = ExtResource("2_flhk6")
-metadata/_custom_type_script = "uid://dhqfnnqd2n054"
 
 [sub_resource type="Resource" id="Resource_fseub"]
 script = ExtResource("2_flhk6")
@@ -27,8 +18,6 @@ item_type = 3
 item_image = ExtResource("4_flhk6")
 default_stats = ExtResource("3_ep0k8")
 default_status_effects = SubResource("Resource_fseub")
-default_rarity_stat_modifiers = SubResource("Resource_ypvc5")
-default_rarity_status_effects_modifiers = SubResource("Resource_r8f68")
 has_stats = true
 has_status_effects = true
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"

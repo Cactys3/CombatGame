@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dyjlv0ta7p2dy"]
+
+[ext_resource type="Script" uid="uid://bontww6cp6sge" path="res://Scripts/weapon_scripts/boomerrang_scripts/boomerrang_handle.gd" id="1_1rouq"]
+[ext_resource type="Texture2D" uid="uid://qwwva32w0sek" path="res://Art/Weapons/BoomerRang/BoomerRang_Handle.png" id="2_1rouq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56s6e"]
+atlas = ExtResource("2_1rouq")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n6irj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_56s6e")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Handle" type="Area2D" node_paths=PackedStringArray("visual")]
+script = ExtResource("1_1rouq")
+visual = NodePath("AnimatedSprite2D")
+AimType = 1
+metadata/_custom_type_script = "uid://gg3fl42l4ul6"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_n6irj")

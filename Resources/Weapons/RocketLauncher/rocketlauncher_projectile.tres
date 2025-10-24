@@ -1,19 +1,10 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=10 format=3 uid="uid://hnjh1hbninse"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://hnjh1hbninse"]
 
-[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="1_uuvqo"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_qtown"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_shtvg"]
 [ext_resource type="Resource" uid="uid://dl7v6tmigmcle" path="res://Resources/Weapons/RocketLauncher/stats/rocketlauncher_projectile_stats.tres" id="3_esm4p"]
 [ext_resource type="Texture2D" uid="uid://d3m5e7rxigb4n" path="res://Art/Weapons/RocketLauncher/Projectile_RocketLauncher.png" id="4_shtvg"]
 [ext_resource type="PackedScene" uid="uid://bhmg0uejph1w0" path="res://Scenes/Weapons/RocketLauncher/rocketlauncher_projectile.tscn" id="5_esm4p"]
-
-[sub_resource type="Resource" id="Resource_4m7te"]
-script = ExtResource("1_uuvqo")
-metadata/_custom_type_script = "uid://dwj80yu0v1qdt"
-
-[sub_resource type="Resource" id="Resource_e5nw4"]
-script = ExtResource("2_shtvg")
-metadata/_custom_type_script = "uid://dhqfnnqd2n054"
 
 [sub_resource type="Resource" id="Resource_cpwec"]
 script = ExtResource("2_shtvg")
@@ -27,8 +18,6 @@ item_type = 3
 item_image = ExtResource("4_shtvg")
 default_stats = ExtResource("3_esm4p")
 default_status_effects = SubResource("Resource_cpwec")
-default_rarity_stat_modifiers = SubResource("Resource_4m7te")
-default_rarity_status_effects_modifiers = SubResource("Resource_e5nw4")
 has_stats = true
 has_status_effects = true
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"

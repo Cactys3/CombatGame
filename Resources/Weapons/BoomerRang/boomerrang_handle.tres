@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=5 format=3 uid="uid://cjti13rulqsp"]
+
+[ext_resource type="Resource" uid="uid://dfbjvo51j6ldq" path="res://Resources/Weapons/BoomerRang/stats/boomerrang_handle_stats.tres" id="1_2w2ip"]
+[ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="1_h8xv6"]
+[ext_resource type="Texture2D" uid="uid://qwwva32w0sek" path="res://Art/Weapons/BoomerRang/BoomerRang_Handle.png" id="2_2w2ip"]
+[ext_resource type="PackedScene" uid="uid://dyjlv0ta7p2dy" path="res://Scenes/Weapons/BoomerRang/BoomerRang_Handle.tscn" id="3_i34xr"]
+
+[resource]
+script = ExtResource("1_h8xv6")
+item_packed_scene = ExtResource("3_i34xr")
+item_name = "BoomerRang Handle"
+item_description = "BoomerRang "
+item_type = 1
+item_image = ExtResource("2_2w2ip")
+randomizable = true
+default_stats = ExtResource("1_2w2ip")
+has_stats = true
+metadata/_custom_type_script = "uid://dnj6pao77g7bt"

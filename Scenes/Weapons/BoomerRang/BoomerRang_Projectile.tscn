@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://bwxlq5s77sgiq"]
+
+[ext_resource type="Script" uid="uid://djfj77viwuhtm" path="res://Scripts/weapon_scripts/boomerrang_scripts/boomerrang_projectile.gd" id="1_tke08"]
+[ext_resource type="Texture2D" uid="uid://dmdmb3q6mm7lf" path="res://Art/Weapons/BoomerRang/BoomerRang_Projectile.png" id="2_tke08"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oxy8k"]
+atlas = ExtResource("2_tke08")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vt4wj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oxy8k")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7462f"]
+radius = 5.0
+
+[node name="Projectile" type="Area2D"]
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("1_tke08")
+metadata/_custom_type_script = "uid://bru3152x1t68u"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_vt4wj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(6, -1)
+shape = SubResource("CircleShape2D_7462f")
+
+[connection signal="area_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,19 +1,10 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=10 format=3 uid="uid://clly02oxeamom"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://clly02oxeamom"]
 
-[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="1_o5v8f"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_cc370"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_jl1rd"]
 [ext_resource type="Resource" uid="uid://bdspbv0igd8si" path="res://Resources/Weapons/LightningWand/stats/lightningwand_attachment_stats.tres" id="3_fmspq"]
 [ext_resource type="Texture2D" uid="uid://do31l1rvcqrxg" path="res://Art/Weapons/LightningWand/Attachment_LightningWand.png" id="4_3m26c"]
 [ext_resource type="PackedScene" uid="uid://dyvtyyry7qh1w" path="res://Scenes/Weapons/LightningWand/lightningwand_attachment.tscn" id="5_jl1rd"]
-
-[sub_resource type="Resource" id="Resource_pm1l2"]
-script = ExtResource("1_o5v8f")
-metadata/_custom_type_script = "uid://dwj80yu0v1qdt"
-
-[sub_resource type="Resource" id="Resource_1jqpa"]
-script = ExtResource("2_jl1rd")
-metadata/_custom_type_script = "uid://dhqfnnqd2n054"
 
 [sub_resource type="Resource" id="Resource_bchfn"]
 script = ExtResource("2_jl1rd")
@@ -28,7 +19,5 @@ item_type = 2
 item_image = ExtResource("4_3m26c")
 default_stats = ExtResource("3_fmspq")
 default_status_effects = SubResource("Resource_bchfn")
-default_rarity_stat_modifiers = SubResource("Resource_pm1l2")
-default_rarity_status_effects_modifiers = SubResource("Resource_1jqpa")
 has_stats = true
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"

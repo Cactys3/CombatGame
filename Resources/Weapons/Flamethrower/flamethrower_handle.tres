@@ -1,19 +1,10 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=10 format=3 uid="uid://dvbsp2ta8txva"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://dvbsp2ta8txva"]
 
 [ext_resource type="Resource" uid="uid://cmyggekbys27w" path="res://Resources/Weapons/Flamethrower/stats/flamethrower_handle_stats.tres" id="1_ilfdf"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_qxij8"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_te188"]
 [ext_resource type="Texture2D" uid="uid://ctcyk6f73ll3f" path="res://Art/Weapons/flamethrower/Handle_Flamethrower.png" id="2_vbtsm"]
 [ext_resource type="PackedScene" uid="uid://2abx260rgyvs" path="res://Scenes/Weapons/flamethrower/flamethrower_handle.tscn" id="3_te188"]
-[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="3_vbtsm"]
-
-[sub_resource type="Resource" id="Resource_a5avn"]
-script = ExtResource("3_vbtsm")
-metadata/_custom_type_script = "uid://dwj80yu0v1qdt"
-
-[sub_resource type="Resource" id="Resource_1r8k4"]
-script = ExtResource("2_te188")
-metadata/_custom_type_script = "uid://dhqfnnqd2n054"
 
 [sub_resource type="Resource" id="Resource_6cine"]
 script = ExtResource("2_te188")
@@ -31,8 +22,6 @@ item_image = ExtResource("2_vbtsm")
 randomizable = true
 default_stats = ExtResource("1_ilfdf")
 default_status_effects = SubResource("Resource_6cine")
-default_rarity_stat_modifiers = SubResource("Resource_a5avn")
-default_rarity_status_effects_modifiers = SubResource("Resource_1r8k4")
 item_rarity = 1
 has_stats = true
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"

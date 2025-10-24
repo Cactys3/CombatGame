@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=6 format=3 uid="uid://dmvjnybu7lt4d"]
+
+[ext_resource type="Resource" uid="uid://bgq40ysm2ylvx" path="res://Resources/Weapons/BoomerRang/stats/boomerrang_projectile_stats.tres" id="1_ggtgu"]
+[ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="1_x2at4"]
+[ext_resource type="Resource" uid="uid://cljpbbc1x84aw" path="res://Resources/Weapons/BoomerRang/stats/boomerrang_projectile_status.tres" id="2_d8qn1"]
+[ext_resource type="Texture2D" uid="uid://dmdmb3q6mm7lf" path="res://Art/Weapons/BoomerRang/BoomerRang_Projectile.png" id="2_ggtgu"]
+[ext_resource type="PackedScene" uid="uid://bwxlq5s77sgiq" path="res://Scenes/Weapons/BoomerRang/BoomerRang_Projectile.tscn" id="3_skmyj"]
+
+[resource]
+script = ExtResource("1_x2at4")
+item_packed_scene = ExtResource("3_skmyj")
+item_name = "BoomerRang Projectile"
+item_description = "BoomerRang "
+item_type = 3
+item_image = ExtResource("2_ggtgu")
+randomizable = true
+default_stats = ExtResource("1_ggtgu")
+default_status_effects = ExtResource("2_d8qn1")
+has_stats = true
+has_status_effects = true
+metadata/_custom_type_script = "uid://dnj6pao77g7bt"

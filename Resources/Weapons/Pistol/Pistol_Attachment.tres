@@ -1,19 +1,10 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=10 format=3 uid="uid://ctfk46g2goh5c"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://ctfk46g2goh5c"]
 
 [ext_resource type="Resource" uid="uid://bt8px2dm8ep0j" path="res://Resources/Weapons/Pistol/stats/pistol_attachment_stats.tres" id="1_lndgm"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_exam7"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_hmrk0"]
 [ext_resource type="Texture2D" uid="uid://bubjo75ouhbaj" path="res://Art/Weapons/Pistol/Attachment_Pistol.png" id="2_lndgm"]
 [ext_resource type="PackedScene" uid="uid://rbimtghqmg7r" path="res://Scenes/Weapons/pistol/pistol_attachment.tscn" id="3_exam7"]
-[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="3_j1kja"]
-
-[sub_resource type="Resource" id="Resource_dq1do"]
-script = ExtResource("3_j1kja")
-metadata/_custom_type_script = "uid://dwj80yu0v1qdt"
-
-[sub_resource type="Resource" id="Resource_dlgch"]
-script = ExtResource("2_exam7")
-metadata/_custom_type_script = "uid://dhqfnnqd2n054"
 
 [sub_resource type="Resource" id="Resource_7m0d7"]
 script = ExtResource("2_exam7")
@@ -30,7 +21,5 @@ item_image = ExtResource("2_lndgm")
 randomizable = true
 default_stats = ExtResource("1_lndgm")
 default_status_effects = SubResource("Resource_7m0d7")
-default_rarity_stat_modifiers = SubResource("Resource_dq1do")
-default_rarity_status_effects_modifiers = SubResource("Resource_dlgch")
 has_stats = true
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"

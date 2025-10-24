@@ -1,19 +1,10 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=10 format=3 uid="uid://dijy473l8v6a6"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://dijy473l8v6a6"]
 
-[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="1_rey7u"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_mm2jb"]
 [ext_resource type="Resource" uid="uid://caec4elo8hgpd" path="res://Resources/Weapons/Minigun/stats/minigun_attachment_stats.tres" id="3_4werf"]
 [ext_resource type="Texture2D" uid="uid://b4pc3200bwyaj" path="res://Art/Weapons/Minigun/Attachment_Minigun.png" id="4_yh3lw"]
 [ext_resource type="PackedScene" uid="uid://bx44wm0sm3hdf" path="res://Scenes/Weapons/Minigun/minigun_attachment.tscn" id="5_qn75u"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="6_1nvui"]
-
-[sub_resource type="Resource" id="Resource_ephyx"]
-script = ExtResource("1_rey7u")
-metadata/_custom_type_script = "uid://dwj80yu0v1qdt"
-
-[sub_resource type="Resource" id="Resource_fccm7"]
-script = ExtResource("2_mm2jb")
-metadata/_custom_type_script = "uid://dhqfnnqd2n054"
 
 [sub_resource type="Resource" id="Resource_vt34j"]
 script = ExtResource("2_mm2jb")
@@ -27,7 +18,5 @@ item_type = 2
 item_image = ExtResource("4_yh3lw")
 default_stats = ExtResource("3_4werf")
 default_status_effects = SubResource("Resource_vt34j")
-default_rarity_stat_modifiers = SubResource("Resource_ephyx")
-default_rarity_status_effects_modifiers = SubResource("Resource_fccm7")
 has_stats = true
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"

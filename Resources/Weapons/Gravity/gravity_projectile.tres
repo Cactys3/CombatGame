@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=6 format=3 uid="uid://0ji1vavkew0v"]
+
+[ext_resource type="Resource" uid="uid://lnr3qof10lwb" path="res://Resources/Weapons/Gravity/stats/gravity_projectile_stats.tres" id="1_lx0gg"]
+[ext_resource type="Resource" uid="uid://bn0iyahmaykym" path="res://Resources/Weapons/Gravity/stats/gravity_projectile_status.tres" id="2_4yobp"]
+[ext_resource type="Texture2D" uid="uid://p2oiip1fgff0" path="res://Art/Weapons/Gravity/Gravity_Projectile.png" id="2_j4nvc"]
+[ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_lx0gg"]
+[ext_resource type="PackedScene" uid="uid://qheeymi571cs" path="res://Scenes/Weapons/Gravity/Gravity_Projectile.tscn" id="3_j4nvc"]
+
+[resource]
+script = ExtResource("2_lx0gg")
+item_packed_scene = ExtResource("3_j4nvc")
+item_name = "Gravity Projectile"
+item_description = "Gravity "
+item_type = 3
+item_image = ExtResource("2_j4nvc")
+default_stats = ExtResource("1_lx0gg")
+default_status_effects = ExtResource("2_4yobp")
+has_stats = true
+has_status_effects = true
+metadata/_custom_type_script = "uid://dnj6pao77g7bt"

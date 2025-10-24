@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=5 format=3 uid="uid://derhf6jups3oa"]
+
+[ext_resource type="Resource" uid="uid://cavoy23vxlg43" path="res://Resources/Weapons/Gravity/stats/gravity_handle_stats.tres" id="1_dh10p"]
+[ext_resource type="Texture2D" uid="uid://bq3cv4vokvh0s" path="res://Art/Weapons/Gravity/Gravity_Handle.png" id="2_5j8yb"]
+[ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_dh10p"]
+[ext_resource type="PackedScene" uid="uid://c4eb4h2je04tl" path="res://Scenes/Weapons/Gravity/Gravity_Handle.tscn" id="3_5j8yb"]
+
+[resource]
+script = ExtResource("2_dh10p")
+item_packed_scene = ExtResource("3_5j8yb")
+item_name = "Gravity Handle"
+item_description = "Gravity "
+item_type = 1
+item_image = ExtResource("2_5j8yb")
+default_stats = ExtResource("1_dh10p")
+has_stats = true
+metadata/_custom_type_script = "uid://dnj6pao77g7bt"

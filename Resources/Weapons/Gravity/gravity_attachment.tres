@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=5 format=3 uid="uid://dkes2e3uubcbp"]
+
+[ext_resource type="Resource" uid="uid://d2otcnbtdch2i" path="res://Resources/Weapons/Gravity/stats/gravity_attachment_stats.tres" id="1_e5fu7"]
+[ext_resource type="Texture2D" uid="uid://b8p6s475l3n4e" path="res://Art/Weapons/Gravity/Gravity_Attachment.png" id="2_12hdf"]
+[ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_e5fu7"]
+[ext_resource type="PackedScene" uid="uid://dh5mra1ekfu8q" path="res://Scenes/Weapons/Gravity/Gravity_Attachment.tscn" id="3_12hdf"]
+
+[resource]
+script = ExtResource("2_e5fu7")
+item_packed_scene = ExtResource("3_12hdf")
+item_name = "Gravity Attachment"
+item_description = "Gravity "
+item_type = 2
+item_image = ExtResource("2_12hdf")
+default_stats = ExtResource("1_e5fu7")
+has_stats = true
+metadata/_custom_type_script = "uid://dnj6pao77g7bt"
