@@ -11,13 +11,13 @@ class_name Enemy
 @export var money_on_death: int
 @export var weapon_knockback: float
 @export var weapon_stun: float
-@export var self_knockback_onhit: float
+@export var self_knockback_onhit: float = 200
 @export var base_damage: float
 @export var base_movespeed: float
 @export var base_health: float
 @export var base_regen: float
-@export var base_knockback_modifier: float
-@export var base_damage_reduction: float
+@export var base_knockback_modifier: float = 1
+@export var base_damage_reduction: float = 0
 @export var base_cooldown: float = 1
 @export_category("Enemy Projectile Stats")
 @export var projectile: PackedScene

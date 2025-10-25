@@ -174,7 +174,7 @@ animation = &"Moving"
 autoplay = "Moving"
 offset = Vector2(-1.53, -8.68)
 
-[node name="Health_HitArea" type="Area2D" parent="." groups=["enemy"]]
+[node name="Health_HitArea" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("5_vi2rn")

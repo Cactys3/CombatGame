@@ -98,7 +98,7 @@ height = 26.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7x1lp"]
 radius = 14.0
 
-[node name="Thub" type="RigidBody2D" node_paths=PackedStringArray("damage_hitbox")]
+[node name="Thub" type="RigidBody2D" node_paths=PackedStringArray("damage_hitbox") groups=["enemy"]]
 mass = 20.0
 gravity_scale = 0.0
 lock_rotation = true
@@ -109,7 +109,6 @@ damage_hitbox = NodePath("Damage_Hitbox")
 xp_on_death = 29
 money_on_death = 20
 weapon_knockback = 1200.0
-self_knockback_onhit = 5.0
 base_damage = 25.0
 base_movespeed = 60.0
 base_health = 50.0
@@ -139,3 +138,5 @@ script = ExtResource("3_fy23m")
 [node name="Health_Hitbox" type="CollisionShape2D" parent="Health_HitArea"]
 position = Vector2(0, 13)
 shape = SubResource("CapsuleShape2D_7x1lp")
+
+[connection signal="body_entered" from="Damage_Hitbox" to="." method="_on_damage_hitbox_body_entered"]

@@ -6,6 +6,7 @@ extends Node
 
 var curr_size: Vector2
 
+## Game has to start in 4k or sm high resolution or else it doesn't work (can't set to resolutions higher than starting resolution)
 ## Automatically matches Windows' sizes to program's starting screensize. 
 ## Windows themselves automatically scale up according to their settings
 

@@ -199,7 +199,6 @@ damage_hitbox = NodePath("Damage_Hitbox")
 xp_on_death = 5
 money_on_death = 5
 weapon_knockback = 600.0
-self_knockback_onhit = 300.0
 base_damage = 20.0
 base_movespeed = 70.0
 

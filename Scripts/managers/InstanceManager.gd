@@ -15,16 +15,16 @@ const THUB = preload("uid://drjvl1sgqrjuy")
 ## Bosses
 const TESTBOSS = preload("uid://davhmwwacx2xv")
 
-
 ## Proximity Events
 const FORGE = preload("uid://le5tbb8urp88")
 const LOOT_CHEST = preload("uid://cll8qcsho5mrw")
 const SHOP = preload("uid://cytotq02c1x2a")
 
 ## Spawning Stuff
-var total_stopwatch: float
-var spawning_stopwatch: float
-var spawning_cooldown: float
+var total_stopwatch: float = 0
+var spawning_stopwatch: float = 0
+var spawning_cooldown: float = 1
+var spawning_phase: int = 1
 @export var spawn_area: CollisionShape2D
 @export var spawn_deadzone: CollisionShape2D
 @export var background_parent: Node2D
@@ -33,6 +33,8 @@ var spawning: bool = false
 var event_arr: Array
 var map_height: int = 10 ## this many chunks tall
 var map_width: int = 10 ## this many chunks wide
+
+
 
 ## Enemies
 static var enemies_spawned: int = 0
@@ -58,6 +60,9 @@ var chunks: Array[Sprite2D]
 var loaded_chunk: Sprite2D
 var chunks_dic: Dictionary
 
+## Rounds
+# have different 'events' that decide what enemies to spawn
+
 var started: bool = false
 
 ## Handles Spawning Enemies Based on Instance State variables
@@ -68,9 +73,6 @@ var started: bool = false
 # https://www.youtube.com/watch?v=0tPFpL977eY
 
 func _ready() -> void:
-	total_stopwatch = 0
-	spawning_stopwatch = 0 
-	spawning_cooldown = 1
 	chunk_rect = ColorRect.new()
 	call_deferred("connect_signals")
 
@@ -80,21 +82,57 @@ func connect_signals():
 
 func _process(delta: float) -> void:
 	var pos = GameManager.instance.player.position
+	## Set Temporary Labels
+	GameManager.instance.ui_man.stopwatch_label.text = str(int(total_stopwatch / 60)) + ":" + str(int(fmod(total_stopwatch, 60.0))) 
 	GameManager.instance.ui_man.fps_label.text = str(Engine.get_frames_per_second())
 	handle_chunks(pos)
 	handle_enemy_spawns(delta, pos)
 
 func handle_enemy_spawns(delta: float, pos: Vector2):
+	## TODO: below
+	## Set Enemies with percent changes of them each to spawn (ex: Grubs, 30%)
+	# use the weighted thing, give each enemy a weight and calculate percents based on that
+	## Set Spawning_Cooldown based on which how strong enemies are to spawn are
+	if total_stopwatch < 1 * 60: ## Minute 1 Spawns
+		if !(spawning_phase == 1):
+			pass
+	elif total_stopwatch < 2 * 60: ## Minute 2 Spawns
+		if !(spawning_phase == 2):
+			pass
+	elif total_stopwatch < 3 * 60: ## Minute 3 Spawns
+		if !(spawning_phase == 3):
+			pass
+	elif total_stopwatch < 4 * 60: ## Minute 4 Spawns
+		if !(spawning_phase == 4):
+			pass
+	
+	## Spawning Hordes Logic Goes Here 
+	
+	## Calculate which enemy will spawn
+	## Set spawning_cooldown based on how strong that enemy is and the current thing
+	## New Class: EnemySpawn
+	# - Enemy To Spawn
+	# - spawning_cooldown_modifier (added/subtracted to next spawning_cooldown)
+	# - weight value (in the percent to spawn calculation) to spawn it?
+	## New Class: WeightedSpawningList
+	# - get_random_enemy() -> enemy
+	# - add_enemy(enemy, weight)
+	
+	
+	## Default Enemy Spawning Logic:
 	total_stopwatch += delta
 	if spawning:
 		spawning_stopwatch += delta
-	## Set Stopwatch Label
-	GameManager.instance.ui_man.stopwatch_label.text = str(int(total_stopwatch / 60)) + ":" + str(int(fmod(total_stopwatch, 60.0))) 
 	if spawning_stopwatch > spawning_cooldown:
 		if spawning_cooldown > 0.1:
 			spawning_cooldown -= 0.001
 		spawning_stopwatch = 0
 		spawn_enemy(GRUB, random_position(pos))
+
+
+
+
+
 
 ## Handles spawning new chunks and calculating whats inside them
 func handle_chunks(pos: Vector2):
