@@ -109,7 +109,7 @@ func set_rarity(rarity: item_rarities):
 	if item_rarity > 1:
 		item_buy_cost = item_buy_cost + (rarity_cost_modifier * item_rarity) #TODO: finalize equation
 	DataUpdated.emit()
-	print("emit data updated")
+	#print("emit data updated")
 
 func randomize_stats():
 	pass #TODO: randomize stats variable values if desired (pass stats into instance of real item's .randomize_stats() method)
@@ -139,6 +139,7 @@ func get_item() -> Node:
 	return null
 
 func make_item():
+	made_item = true
 	## Need all these seperated because godot fucks everything up if we don't type the variable 'ret'
 	match(item_type):
 		item_types.item:
@@ -198,7 +199,6 @@ func set_components(new_attachment: ItemData, new_handle: ItemData, new_projecti
 	projectile = new_projectile
 	frame_ready = true
 	item_type = item_types.weapon
-	print("true false: " + attachment.stats.parent_object_name)
 	make_frame()
 
 ## Set the Item Components and weapon data based on components
@@ -210,7 +210,6 @@ func make_frame() -> Weapon_Frame:
 	new_frame.add_handle(handle.make_item())
 	new_frame.add_projectile(projectile.make_item())
 	new_frame.stats.add_stats(GameManager.instance.global_stats)
-	print("true false: " + attachment.stats.parent_object_name)
 	item_buy_cost = attachment.item_buy_cost + handle.item_buy_cost + projectile.item_buy_cost
 	item_sell_cost_modifier = (attachment.item_sell_cost_modifier + handle.item_sell_cost_modifier + projectile.item_sell_cost_modifier) / 3
 	item_name = attachment.item_name + handle.item_name + projectile.item_name 

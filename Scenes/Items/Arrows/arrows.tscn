@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsa22pw7rmqea"]
+
+[ext_resource type="Script" uid="uid://bnqp04n6rmagl" path="res://Scripts/item_scripts/Arrows.gd" id="1_f1gk3"]
+[ext_resource type="PackedScene" uid="uid://dbp3re4mbhwma" path="res://Scenes/Items/Arrows/arrow_projectile.tscn" id="2_s7n2a"]
+
+[node name="Node" type="Node"]
+script = ExtResource("1_f1gk3")
+projectile = ExtResource("2_s7n2a")

@@ -46,12 +46,12 @@ func _process(delta: float) -> void:
 	if shoots_projectiles:
 		if projectile_cooldown_stopwatch < curr_cooldown_max:
 			projectile_cooldown_stopwatch += delta
-			#print("cd: " + str(projectile_cooldown_stopwatch) + "/" + str(curr_cooldown_max))
+
 		else:
-			#print("range: "+ str(position.distance_to(player.position)) + "/" + str(curr_range))
+
 			if is_player_nearby(curr_range):
 				projectile_cooldown_stopwatch = 0
-				print("shot projectile")
+
 				var proj: EnemyProjectile = projectile.instantiate()
 				GameManager.instance.weapon_parent.add_child(proj)
 				proj.modulate = self.modulate
@@ -72,7 +72,7 @@ func movement_process(_delta: float) ->void:
 			dashing = true
 			damage_hitbox.monitoring = true
 			attacks_enabled = true
-			print("true")
+
 			collision_mask &= ~(1 << 5)
 			anim.play("Dashing")
 			charging = false
@@ -88,7 +88,7 @@ func movement_process(_delta: float) ->void:
 			dashing = false
 			damage_hitbox.monitoring = false
 			attacks_enabled = false
-			print("false")
+
 			collision_mask |= 1 << 5
 			on_cooldown = true
 			anim.play("Idle")

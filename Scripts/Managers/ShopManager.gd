@@ -36,13 +36,13 @@ const GRAVITY_ATTACHMENT = preload("uid://dkes2e3uubcbp")
 const GRAVITY_HANDLE = preload("uid://derhf6jups3oa")
 const GRAVITY_PROJECTILE = preload("uid://0ji1vavkew0v")
 
-
 ## Items
 const DAMAGE_BUFF = preload("uid://c0eepouojdno6")
 const RANDOM_STAT = preload("uid://r584yr4r6pbe")
+const ARROWS = preload("uid://difhyvvjuci4i")
 
 ## Arrays
-const item_list: Array = [DAMAGE_BUFF, RANDOM_STAT]
+const item_list: Array = [DAMAGE_BUFF, RANDOM_STAT, ARROWS]
 const attachment_list: Array = [FLAMETHROWER_ATTACHMENT, PISTOL_ATTACHMENT, RAILGUN_ATTACHMENT, SWORD_ATTACHMENT, ICESHARDWAND_ATTACHMENT, ROCKETLAUNCHER_ATTACHMENT, PLAYINGCARD_ATTACHMENT, LIGHTNINGWAND_ATTACHMENT, MINIGUN_ATTACHMENT, BOOMERRANG_ATTACHMENT, GRAVITY_ATTACHMENT]
 const handle_list: Array = [FLAMETHROWER_HANDLE, PISTOL_HANDLE, RAILGUN_HANDLE, SWORD_HANDLE, ICESHARDWAND_HANDLE, ROCKETLAUNCHER_HANDLE, PLAYINGCARD_HANDLE, LIGHTNINGWAND_HANDLE, MINIGUN_HANDLE, BOOMERRANG_HANDLE, GRAVITY_HANDLE]
 const projectile_list: Array = [FLAMETHROWER_PROJECTILE, PISTOL_PROJECTILE, RAILGUN_PROJECTILE, SWORD_PROJECTILE, ICESHARDWAND_PROJECTILE, ROCKETLAUNCHER_PROJECTILE, PLAYINGCARD_PROJECTILE, LIGHTNINGWAND_PROJECTILE, MINIGUN_PROJECTILE, BOOMERRANG_PROJECTILE, GRAVITY_PROJECTILE]
@@ -94,11 +94,8 @@ static func get_rand_equipment() -> Object:
 	return equipment
 ## 1 = FLAMETHROWER, 2 = PISTOL, 3 = RAILGUN, 4 = SWORD, other = RANDOM COMPONENTS
 static func get_attachment(num: int) -> ItemData:
-	print(str(num) + " is less than: " + str(attachment_list.size()))
 	if num < attachment_list.size() && num > -1:
-		print("true, so we return: " + attachment_list.get(num).item_name)
 		return setup_data(attachment_list.get(num).duplicate(true))
-	print("false")
 	return setup_data(attachment_list.get(get_random_unlocked_weapon_index()).duplicate(true))
 ## 1 = FLAMETHROWER, 2 = PISTOL, 3 = RAILGUN, 4 = SWORD, other = RANDOM COMPONENTS
 static func get_handle(num: int) -> ItemData:
@@ -115,11 +112,11 @@ static func get_weapon(num: int) -> ItemData:
 	return setup_weapon(get_attachment(num), get_handle(num), get_projectile(num))
 ## 1 = DamageBuff
 static func get_item(num: int) -> ItemData:
-	match num:
-		1:
-			return setup_data(DAMAGE_BUFF.duplicate(true))
-		_:
-			return setup_data(DAMAGE_BUFF.duplicate(true))
+	return setup_data(item_list.get(num).duplicate(true))
+	if item_list.size() <= num:
+		return setup_data(item_list.get(num).duplicate(true))
+	else:
+		return setup_data(DAMAGE_BUFF.duplicate(true))
 ## Sets ItemData up to be used
 static func setup_data(item: ItemData) -> ItemData:
 	var data = item.duplicate(true)

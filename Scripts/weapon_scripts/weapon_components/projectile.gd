@@ -94,7 +94,7 @@ func attack_body(body: Node2D) -> void:
 		if (collision_counter > piercing):
 			die() 
 
-func _on_body_entered(body: Node2D) -> void: #TODO: testing this queueAttacks things because deepseek said accessing my stats like this could corrupt because physics vs main thread multithreading...
+func _on_body_entered(body: Node2D) -> void: 
 	if dead:
 		return
 	if body.has_method("damage"):

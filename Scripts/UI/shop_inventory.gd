@@ -54,5 +54,4 @@ func can_add(item: ItemUI) -> bool:
 	return is_valid_type(item)
 
 func can_remove(item: ItemUI) -> bool:
-	print("can_remove_shop")
 	return is_instance_valid(item) && items.has(item) && GameManager.instance.can_buy(item.data.item_buy_cost)

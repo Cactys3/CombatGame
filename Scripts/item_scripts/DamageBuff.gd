@@ -8,9 +8,11 @@ var stats: StatsResource
 
 func _process(delta: float) -> void:
 	super(delta)
+	print(enabled)
 
 func _ready() -> void:
 	super()
+	
 #	Stats.set_stat_factor(StatsResource.DAMAGE, 1.1)
 
 func set_stats(new_stats: StatsResource):

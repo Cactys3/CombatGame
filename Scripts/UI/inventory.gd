@@ -40,27 +40,27 @@ func is_valid_type(item: ItemUI) -> bool:
 	return is_instance_valid(item)
 ## Adds Item Through Game Manager
 func ui_add(item: ItemUI) -> bool:
-	print("ui_add")
+	#print("ui_add")
 	if !GameManager.instance.move_item(item, item.inventory, self):
-		print("Can't Add: " + item.data.item_name)
-		print("itemss???????")
+		#print("Can't Add: " + item.data.item_name)
+		#print("itemss???????")
 		return false
 	return true
 
 func ui_remove(item: ItemUI):
-	print("ui_remove")
+	#print("ui_remove")
 	if !GameManager.instance.remove_item(item, self):
 		print("Can't Remove: " + item.data.item_name)
 
 func new_remove(item: ItemUI):
-	print("new_remove")
+	#print("new_remove")
 	if item.get_parent():
 		item.get_parent().remove_child(item)
 	items.erase(item)
 
 ## Force Adds Item without checking with Game Manager
 func new_add(item: ItemUI):
-	print("new_add")
+	#print("new_add")
 	item.inventory = self
 	item.item_parent = default_item_parent
 	item.position = Vector2.ZERO
@@ -69,15 +69,15 @@ func new_add(item: ItemUI):
 	items.append(item)
 
 func get_type() -> String:
-	print("get type: default-storage")
+	#print("get type: default-storage")
 	return STORAGE
 
 func can_add(item: ItemUI) -> bool:
-	print("can_add")
+	#print("can_add")
 	return is_valid_type(item)
 
 func can_remove(item: ItemUI) -> bool:
-	print("can_remove")
+	#print("can_remove")
 	return is_instance_valid(item) && items.has(item)
 
 

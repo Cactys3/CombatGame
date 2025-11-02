@@ -36,9 +36,7 @@ func make_weapon() -> bool:
 			new_remove(attachment)
 			new_remove(projectile) # TODO: handle if remove fails (remove by force)
 			crafted_weapon.emit()
-			print("crafted weapon success")
 			return true
-	print("crafted weapon failure")
 	return false
 
 ## Override
@@ -54,11 +52,9 @@ func can_add(item: ItemUI) -> bool:
 	return is_valid_type(item)
 
 func can_remove(item: ItemUI) -> bool:
-	print("can_remove_crafting")
 	return is_instance_valid(item) && items.has(item) 
 
 func new_add(item: ItemUI):
-	print("new_add_crafting")
 	items.append(item)
 	item.inventory = self
 	item.position = Vector2.ZERO

@@ -69,7 +69,7 @@ func connect_signals():
 		GameManager.instance.connect("toggle_inventory", toggle_ui)
 
 func reset_item():
-	print("reset item")
+	#print("reset item")
 	set_item(data)
 
 func set_item(new_data: ItemData):
@@ -81,8 +81,8 @@ func set_item(new_data: ItemData):
 	DescriptionPanel.self_modulate = data.item_color
 	IconTexture.texture = data.item_image
 	BackgroundTexture.self_modulate = data.border_color
-	print("background texture now: " + str(data.border_color))
-	print("real background texture now: " + str(BackgroundTexture.modulate))
+	#print("background texture now: " + str(data.border_color))
+	#print("real background texture now: " + str(BackgroundTexture.modulate))
 	if data.item_type == ItemData.item_types.weapon:
 		AttachmentVisual.texture = data.attachment_visual
 		HandleVisual.texture = data.handle_visual
@@ -97,14 +97,14 @@ func show_details():
 	DescriptionPanel.visible = true
 	showing_details = true
 	
-	print(ItemData.get_rarity(data.item_rarity) + " - " + data.item_name)
+	#print(ItemData.get_rarity(data.item_rarity) + " - " + data.item_name)
 
 func hide_details():
 	DescriptionPanel.visible = false
 	showing_details = false
 
 func show_component_visuals():
-	print("Showing")
+	#print("Showing")
 	HandleBackground.self_modulate = data.handle.border_color
 	AttachmentBackground.self_modulate = data.attachment.border_color	
 	ShowComponentVisuals = true

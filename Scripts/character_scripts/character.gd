@@ -39,7 +39,7 @@ var curr_speed: float = -999
 var speed: float:
 	get():
 		if player_stats.MustRecalculate || curr_speed == -999:
-			print(player_stats.MustRecalculate)
+			###print(player_stats.MustRecalculate)
 			curr_speed = get_stat(StatsResource.MOVESPEED)
 		return curr_speed
 var maxhealth: float:
@@ -96,10 +96,10 @@ func handle_moving(delta) -> void:
 	if (moving_state != moving):
 		set_moving_animation(moving)
 	
-	#print(velocity)
+	####print(velocity)
 
 func damage(attack: Attack):
-	#print("damage player: " + str(attack.damage))
+	####print("damage player: " + str(attack.damage))
 	var net_damage = attack.damage - stance
 	if net_damage == 0:
 		return
@@ -112,12 +112,12 @@ func damage(attack: Attack):
 		#stun_time_left += 0.1
 		#stunning = true
 		call_deferred("set", "velocity", (global_position - attack.position).normalized() * attack.knockback * knockback_modifier)
-		#print("Knockback: " + str((global_position - attack.position).normalized() * attack.knockback * knockback_modifier))
+		####print("Knockback: " + str((global_position - attack.position).normalized() * attack.knockback * knockback_modifier))
 	if health <= 0:
 		die()
 
 func die():
-	print("player died: " + str(health))
+	pass###print("player died: " + str(health))
 
 func add_frame(new_frame: Weapon_Frame):
 	weapon_list.append(new_frame)
@@ -126,25 +126,25 @@ func add_frame(new_frame: Weapon_Frame):
 		Handle.AimTypes.StaticSlot:
 			static_slot_count += 1
 			temp_count = static_slot_count
-			#print("Aim Type: StaticSlot, count: " + str(static_slot_count))
+			####print("Aim Type: StaticSlot, count: " + str(static_slot_count))
 		Handle.AimTypes.AtMouse:
 			at_mouse_count += 1
 			temp_count = at_mouse_count
-			#print("Aim Type: AtMouse, count: " + str(at_mouse_count))
+			####print("Aim Type: AtMouse, count: " + str(at_mouse_count))
 		Handle.AimTypes.Unique:
 			spin_aim_count += 1
 			temp_count = spin_aim_count
-			#print("Aim Type: Unique, count: " + str(unique_aim_count))
+			####print("Aim Type: Unique, count: " + str(unique_aim_count))
 		_:
 			weapon_count += 1
 			temp_count = weapon_count
-			#print("Aim Type: Default, count: " + str(weapon_count))
+			####print("Aim Type: Default, count: " + str(weapon_count))
 	var index: float = 0
 	for weapon in weapon_list:
 		if (weapon.handle.AimType == new_frame.handle.AimType):
 			index += 1
 			weapon.change_slot(index, temp_count)
-	print("Add Weapon Frame: " + new_frame.name)
+	###print("Add Weapon Frame: " + new_frame.name)
 	player_stats.add_stats(new_frame.stats)
 	stats_visual.refresh()
 	new_frame.make_stats_visual(weapon_list.size())
@@ -177,7 +177,7 @@ func remove_frame(frame_sought: Weapon_Frame) -> bool:
 		frame_sought.delete_stats_visual()
 		player_stats.remove_stats(frame_sought.stats)
 		stats_visual.refresh()
-		print("removed weapon: " + frame_sought.name)
+		###print("removed weapon: " + frame_sought.name)
 		return true
 	return false
 
@@ -195,7 +195,7 @@ func set_stats(): ## set_stats should call super()
 	GameManager.instance.hp = maxhealth
 
 func character_ability(number: int) -> void:
-	print("ability " + str(number))
+	pass###print("ability " + str(number))
 
 func on_level_up(new_level: float, old_level: float) -> void:
 	pass

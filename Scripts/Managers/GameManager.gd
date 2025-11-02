@@ -34,6 +34,7 @@ var item_limit_reached: bool:
 	get():
 		return has_item_room()
 var active_items: Array[Item]
+var items_affecting_stats: Array[Item]
 var character_choice_stats: StatsResource = StatsResource.new()
 var global_stats: StatsResource = StatsResource.new()
 
@@ -67,7 +68,7 @@ var xp: float = 0: ## Current (total?) XP Gained
 			xp_to_next_level *= xp_modifier_per_level
 			level += 1
 			emit_signal("level_up")
-			print("Gained Level Costing: " + str(int(xp_to_next_level)) + " XP Leftover: " + str(int(xp_gained_since_last_level) - int(xp_to_next_level)))
+			#print("Gained Level Costing: " + str(int(xp_to_next_level)) + " XP Leftover: " + str(int(xp_gained_since_last_level) - int(xp_to_next_level)))
 		player.xp = value
 	get():
 		return xp
@@ -143,17 +144,15 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ability3") && ui_man.tab_menu_parent.visible == true:
 		money += 10
 		ui_man.cheat_inventory.clear()
+		for index in ShopManager.item_list.size():
+			#print(index)
+			ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_item(index)))
 		for index in ShopManager.handle_list.size():
 			ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(index)))
 		for index in ShopManager.handle_list.size():
 			ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(index)))
 			ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_handle(index)))
 			ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(index)))
-		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_rand_item()))
-		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_rand_item()))
-		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_rand_item()))
-		ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_rand_item()))
-
 	
 	if Input.is_action_just_pressed("test_5") && ui_man.paused_for_tab:
 		pass#ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/flamethrower_handle.gd").new())
@@ -192,12 +191,13 @@ func buy_item(item: ItemData) -> bool:
 func add_item_to_player(item: Item) -> bool:
 	if (item):
 		active_items.append(item)
+		item.enable()
 		return true #TODO: add
-	print("add: " + str(is_instance_valid(item)))
 	return false
 
 func remove_item_from_player(item: Item) -> bool:
 	if item && active_items.has(item):
+		item.disable()
 		active_items.erase(item)
 		return true #TODO: remove
 	return false
@@ -269,14 +269,14 @@ func move_item(item: ItemUI, origin: Inventory, destination: Inventory) -> bool:
 			Inventory.EQUIPMENT:
 				match(item.data.item_type):
 					ItemData.item_types.weapon:
-						print("weapon!")
+						#print("weapon!")
 						if !add_weapon_to_player(item.data.get_item()):
-							print("!add_weapon_to_player")
+							#print("!add_weapon_to_player")
 							complete_move = false
 							return false
 					ItemData.item_types.item:
 						if !add_item_to_player(item.data.get_item()): ## TODO: new implementation: if !add_item_to_player(item.data.create_item()):
-							print("!add_item_to_player")
+							#print("!add_item_to_player")
 							complete_move = false
 							return false
 					_:
@@ -345,6 +345,14 @@ func create_level_up_instance():
 	ui_man.pause_level_up()
 	level_up_queue -= 1
 	leveling_up = false
+## Makes Item's Stats affect Global Stats
+func add_stats_item(item: Item, stats: StatsResource):
+	global_stats.add_stats(stats)
+	items_affecting_stats.append(item)
+## Removes Item's Stats from affecting Global Stats
+func remove_stats_item(item: Item, stats: StatsResource):
+	global_stats.remove_stats(stats)
+	items_affecting_stats.erase(item)
 
 func has_item_room():
 	return item_count <= item_limit
