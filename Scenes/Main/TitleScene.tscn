@@ -1,0 +1,127 @@
+[gd_scene load_steps=2 format=3 uid="uid://usy5uswcsdkg"]
+
+[ext_resource type="Script" uid="uid://dlqvwknfyt7ay" path="res://Scripts/managers/TitleManager.gd" id="1_bgkhj"]
+
+[node name="TitleScene" type="Node2D"]
+position = Vector2(1897, 640)
+
+[node name="TitleManager" type="Node" parent="." node_paths=PackedStringArray("main", "settings", "collection", "shop", "page_title", "button_back", "character_selection", "map_selection")]
+script = ExtResource("1_bgkhj")
+main = NodePath("../Main")
+settings = NodePath("../Settings")
+collection = NodePath("../Collection")
+shop = NodePath("../Shop")
+page_title = NodePath("../Always_Active/Page_Title")
+button_back = NodePath("../Always_Active/Button_Back")
+character_selection = NodePath("../Character_Selection")
+map_selection = NodePath("../Map_Selection")
+
+[node name="Always_Active" type="Node2D" parent="."]
+
+[node name="Page_Title" type="RichTextLabel" parent="Always_Active"]
+custom_minimum_size = Vector2(1300, 500)
+offset_left = -653.0
+offset_top = -559.0
+offset_right = 647.0
+offset_bottom = -59.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/normal_font_size = 256
+text = "Titlescreen"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="Button_Back" type="Button" parent="Always_Active"]
+custom_minimum_size = Vector2(400, 150)
+offset_left = 1407.0
+offset_top = -512.0
+offset_right = 1807.0
+offset_bottom = -362.0
+theme_override_font_sizes/font_size = 128
+text = "Back"
+
+[node name="Main" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button_Play" type="Button" parent="Main"]
+custom_minimum_size = Vector2(800, 250)
+layout_mode = 0
+offset_left = -1612.0
+offset_top = -360.0
+offset_right = -812.0
+offset_bottom = -110.0
+theme_override_font_sizes/font_size = 128
+text = "Play"
+
+[node name="Button_Settings" type="Button" parent="Main"]
+custom_minimum_size = Vector2(800, 250)
+layout_mode = 0
+offset_left = -1612.0
+offset_top = -64.0
+offset_right = -812.0
+offset_bottom = 186.0
+theme_override_font_sizes/font_size = 128
+text = "Settings
+"
+
+[node name="Button_Collection" type="Button" parent="Main"]
+custom_minimum_size = Vector2(800, 250)
+layout_mode = 0
+offset_left = -1612.0
+offset_top = 237.0
+offset_right = -812.0
+offset_bottom = 487.0
+theme_override_font_sizes/font_size = 128
+text = "Collection"
+
+[node name="Button_Shop" type="Button" parent="Main"]
+custom_minimum_size = Vector2(800, 250)
+layout_mode = 0
+offset_left = -1612.0
+offset_top = 523.0
+offset_right = -812.0
+offset_bottom = 773.0
+theme_override_font_sizes/font_size = 128
+text = "Shop
+"
+
+[node name="Collection" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Settings" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Shop" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Character_Selection" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Map_Selection" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -1897.0
+offset_top = -640.0
+offset_right = -1857.0
+offset_bottom = -600.0
+
+[connection signal="button_down" from="Always_Active/Button_Back" to="TitleManager" method="press_back"]
+[connection signal="button_down" from="Main/Button_Play" to="TitleManager" method="press_play"]
+[connection signal="button_down" from="Main/Button_Settings" to="TitleManager" method="press_settings"]
+[connection signal="button_down" from="Main/Button_Collection" to="TitleManager" method="press_collection"]
+[connection signal="button_down" from="Main/Button_Shop" to="TitleManager" method="press_shop"]

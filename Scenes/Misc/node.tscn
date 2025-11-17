@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cpfwv72003jp8"]
 
-[ext_resource type="PackedScene" uid="uid://dc0hdlr7wq3lq" path="res://Scenes/GameScene.tscn" id="1_6b8r6"]
+[ext_resource type="PackedScene" uid="uid://dc0hdlr7wq3lq" path="res://Scenes/Main/BaseScene.tscn" id="1_6b8r6"]
 [ext_resource type="FontFile" uid="uid://bd6vuhn6wymkm" path="res://Fonts/cozette/CozetteVector.ttf" id="2_hphxb"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_sy5k4"]
