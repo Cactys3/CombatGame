@@ -79,7 +79,7 @@ func create_projectiles():
 		init_projectile(global_position + Vector2(-sin(frame.rotation), cos(frame.rotation)).normalized() * MultipleProjectileOffset * (proj_offset), Vector2(cos(frame.rotation), sin(frame.rotation)))
 
 func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectile:
-	if projectile == null:
+	if projectile == null || !is_instance_valid(projectile):
 		push_error("projectile null in attachment script")
 		return null
 	var new_bullet:Projectile = projectile.get_instance()

@@ -8,12 +8,7 @@ const PISTOL = preload("res://Scenes/Weapons/pistol/pistol_bullet.tscn")
 const RAILGUN = preload("res://Scenes/Weapons/railgun/railgun_projectile.tscn")
 const SWORD = preload("res://Scenes/Weapons/sword/sword_projectile.tscn")
 func get_instance():
-	#const type = preload("res://Scripts/weapon_scripts/flamethrower_scripts/fire_projectile.gd")
-	#var ret: type = preload("res://Scenes/Weapons/flamethrower/fire_projectile.tscn").instantiate()
-	var ret: Projectile = data.get_item()
-	return ret
-
-## TODO: Acceleration? Positive and Negative
+	return data.get_item().duplicate()
 
 ## In the future, maybe used to set Projectile specific stats
 @export var stats: StatsResource #= StatsResource.new()

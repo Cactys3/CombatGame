@@ -1,8 +1,27 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://r584yr4r6pbe"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://r584yr4r6pbe"]
 
+[ext_resource type="Resource" uid="uid://utxe6mueje0v" path="res://Resources/Items/RandomStat/Stats_RandomStat.tres" id="1_jf8b6"]
 [ext_resource type="Texture2D" uid="uid://lqpckh7fkgjy" path="res://Art/UI/MissingTexture.png" id="1_wnvau"]
+[ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_42lpf"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_d7duh"]
+[ext_resource type="PackedScene" uid="uid://djebgwyt06n6i" path="res://Scenes/Items/RandomStat.tscn" id="4_42lpf"]
+
+[sub_resource type="Resource" id="Resource_w28ps"]
+script = ExtResource("2_42lpf")
+metadata/_custom_type_script = "uid://dhqfnnqd2n054"
 
 [resource]
 script = ExtResource("2_d7duh")
+item_packed_scene = ExtResource("4_42lpf")
+item_name = "Random Stat"
+item_description = "It's stats but random"
+item_type = 5
+item_color = Color(0.51520807, 0.08231128, 0.34512705, 1)
+border_color = Color(0.9633197, 0.79748636, 0.96716434, 1)
+randomizable = true
+default_stats = ExtResource("1_jf8b6")
+default_status_effects = SubResource("Resource_w28ps")
+item_rarity = 1
+has_stats = true
+has_status_effects = true
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"

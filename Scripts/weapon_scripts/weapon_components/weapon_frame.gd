@@ -102,6 +102,7 @@ func add_attachment(attachy: Attachment) -> bool:
 		return true
 
 func add_projectile(projecty: Projectile) -> bool:
+	print(projecty.name)
 	if (projectile != null):
 		push_error("Projectile was not null when trying to add_projectile")
 		return false

@@ -261,4 +261,5 @@ static func get_default(stat: String) -> float:
 		return -999
 ## Returns name of random stat
 static func get_rand_stat() -> String:
+	return defaultstats.keys()[(randi() % defaultstats.size())]
 	return defaultstats.key(randi() % defaultstats.size())

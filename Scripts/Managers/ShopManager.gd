@@ -38,24 +38,23 @@ const GRAVITY_PROJECTILE = preload("uid://0ji1vavkew0v")
 
 ## Items
 const DAMAGE_BUFF = preload("uid://c0eepouojdno6")
-const RANDOM_STAT = preload("uid://r584yr4r6pbe")
 const ARROWS = preload("uid://difhyvvjuci4i")
-
+const RANDOM_STAT = preload("uid://r584yr4r6pbe")
 ## Arrays
-const item_list: Array = [DAMAGE_BUFF, RANDOM_STAT, ARROWS]
+const item_list: Array = [DAMAGE_BUFF, ARROWS]
 const attachment_list: Array = [FLAMETHROWER_ATTACHMENT, PISTOL_ATTACHMENT, RAILGUN_ATTACHMENT, SWORD_ATTACHMENT, ICESHARDWAND_ATTACHMENT, ROCKETLAUNCHER_ATTACHMENT, PLAYINGCARD_ATTACHMENT, LIGHTNINGWAND_ATTACHMENT, MINIGUN_ATTACHMENT, BOOMERRANG_ATTACHMENT, GRAVITY_ATTACHMENT]
 const handle_list: Array = [FLAMETHROWER_HANDLE, PISTOL_HANDLE, RAILGUN_HANDLE, SWORD_HANDLE, ICESHARDWAND_HANDLE, ROCKETLAUNCHER_HANDLE, PLAYINGCARD_HANDLE, LIGHTNINGWAND_HANDLE, MINIGUN_HANDLE, BOOMERRANG_HANDLE, GRAVITY_HANDLE]
 const projectile_list: Array = [FLAMETHROWER_PROJECTILE, PISTOL_PROJECTILE, RAILGUN_PROJECTILE, SWORD_PROJECTILE, ICESHARDWAND_PROJECTILE, ROCKETLAUNCHER_PROJECTILE, PLAYINGCARD_PROJECTILE, LIGHTNINGWAND_PROJECTILE, MINIGUN_PROJECTILE, BOOMERRANG_PROJECTILE, GRAVITY_PROJECTILE]
 
 ## Returns Random Attachment
 static func get_rand_attachment() -> ItemData:
-	return setup_data(attachment_list.get(get_random_unlocked_weapon_index()).duplicate(true))
+	return setup_data(attachment_list.get(get_random_unlocked_weapon_index()).duplicate())
 ## Returns Random Handle
 static func get_rand_handle() -> ItemData:
-	return setup_data(handle_list.get(get_random_unlocked_weapon_index()).duplicate(true))
+	return setup_data(handle_list.get(get_random_unlocked_weapon_index()).duplicate())
 ## Returns Random Projectile
 static func get_rand_projectile() -> ItemData:
-	return setup_data(projectile_list.get(get_random_unlocked_weapon_index()).duplicate(true))
+	return setup_data(projectile_list.get(get_random_unlocked_weapon_index()).duplicate())
 ## Returns Random Component
 static func get_rand_component() -> ItemData:
 	match(randi_range(1, 3)):
@@ -74,7 +73,7 @@ static func get_rand_weapon() -> ItemData:
 		return get_weapon(get_random_unlocked_weapon_index())
 ## Returns Random Item
 static func get_rand_item() -> ItemData:
-	return setup_data((item_list.get(get_random_unlocked_item_index())).duplicate(true))
+	return setup_data((item_list.get(get_random_unlocked_item_index())).duplicate())
 ## Returns a random equipment from weapon/handle/attachment/handle/item/etc
 static func get_rand_equipment() -> Object:
 	var equipment
@@ -95,31 +94,31 @@ static func get_rand_equipment() -> Object:
 ## 1 = FLAMETHROWER, 2 = PISTOL, 3 = RAILGUN, 4 = SWORD, other = RANDOM COMPONENTS
 static func get_attachment(num: int) -> ItemData:
 	if num < attachment_list.size() && num > -1:
-		return setup_data(attachment_list.get(num).duplicate(true))
-	return setup_data(attachment_list.get(get_random_unlocked_weapon_index()).duplicate(true))
+		return setup_data(attachment_list.get(num).duplicate())
+	return setup_data(attachment_list.get(get_random_unlocked_weapon_index()).duplicate())
 ## 1 = FLAMETHROWER, 2 = PISTOL, 3 = RAILGUN, 4 = SWORD, other = RANDOM COMPONENTS
 static func get_handle(num: int) -> ItemData:
 	if num < handle_list.size() && num > -1:
-		return setup_data(handle_list.get(num).duplicate(true))
-	return setup_data(handle_list.get(get_random_unlocked_weapon_index()).duplicate(true))
+		return setup_data(handle_list.get(num).duplicate())
+	return setup_data(handle_list.get(get_random_unlocked_weapon_index()).duplicate())
 ## 1 = FLAMETHROWER, 2 = PISTOL, 3 = RAILGUN, 4 = SWORD, other = RANDOM COMPONENTS
 static func get_projectile(num: int) -> ItemData:
 	if num < projectile_list.size() && num > -1:
-		return setup_data(projectile_list.get(num).duplicate(true))
-	return setup_data(projectile_list.get(get_random_unlocked_weapon_index()).duplicate(true))
+		return setup_data(projectile_list.get(num).duplicate())
+	return setup_data(projectile_list.get(get_random_unlocked_weapon_index()).duplicate())
 ## 1 = FLAMETHROWER, 2 = PISTOL, 3 = RAILGUN, 4 = SWORD, other = RANDOM COMPONENTS
 static func get_weapon(num: int) -> ItemData:
 	return setup_weapon(get_attachment(num), get_handle(num), get_projectile(num))
 ## 1 = DamageBuff
 static func get_item(num: int) -> ItemData:
-	return setup_data(item_list.get(num).duplicate(true))
+	return setup_data(item_list.get(num).duplicate())
 	if item_list.size() <= num:
-		return setup_data(item_list.get(num).duplicate(true))
+		return setup_data(item_list.get(num).duplicate())
 	else:
-		return setup_data(DAMAGE_BUFF.duplicate(true))
+		return setup_data(DAMAGE_BUFF.duplicate())
 ## Sets ItemData up to be used
 static func setup_data(item: ItemData) -> ItemData:
-	var data = item.duplicate(true)
+	var data = item.duplicate()
 	data.setup(true, random_rarity())
 	return data
 ## returns a random ItemData rarity

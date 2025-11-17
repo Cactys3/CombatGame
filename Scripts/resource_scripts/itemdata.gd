@@ -19,7 +19,7 @@ var stats: StatsResource = null
 var status_effects: StatusEffects = null
 @export var rarity_cost_modifier = 1
 enum item_rarities {unset, common, rare, epic, legendary, exclusive}
-@export var item_rarity: int
+@export var item_rarity: item_rarities
 @export var item_buy_cost: float = 5
 @export var item_sell_cost_modifier: float = 0.8
 ## Booleans for optional Fields
