@@ -46,6 +46,16 @@ func _ready() -> void:
 	print("Tree paused: ", get_tree().paused)
 	
 	GAME_SCENE = load("res://Scenes/Main/BaseScene.tscn")
+	## Make sure file is created
+	Save.create_file(0)
+	
+	print(Save.load_data(0, Save.TEST_FLOAT))
+	print(Save.load_data(0, Save.TEST_INT))
+	print(Save.load_data(0, Save.TEST_STRING))
+	print(Save.load_data(0, Save.TEST_BOOL))
+	
+	Save.save_data(0, Save.TEST_FLOAT, 123)
+	Save.save_data(0, Save.Arrows, true)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="CombatGame"
-run/main_scene="uid://dc0hdlr7wq3lq"
+run/main_scene="uid://usy5uswcsdkg"
 config/features=PackedStringArray("4.5", "Forward Plus")
 run/max_fps=240
 boot_splash/use_filter=false

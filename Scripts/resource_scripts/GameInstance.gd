@@ -4,7 +4,7 @@ class_name GameInstance
 var TITLE_SCENE
 
 ## Sets up the GameInstance by giving parameter values (character should be resource so can change default values?)
-func setup(character: Resource, starting_money: int) -> void:
+func setup(character: Resource, map, run_modifiers) -> void:
 	#instantiate character
 	#setup gamemanager with starting money
 	#call start on gamemanager or enemyspawner or whatever to start game
