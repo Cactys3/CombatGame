@@ -1,11 +1,12 @@
 [gd_scene load_steps=2 format=3 uid="uid://usy5uswcsdkg"]
 
-[ext_resource type="Script" uid="uid://dlqvwknfyt7ay" path="res://Scripts/managers/TitleManager.gd" id="1_bgkhj"]
+[ext_resource type="Script" uid="uid://dlqvwknfyt7ay" path="res://Scripts/Managers/TitleManager.gd" id="1_bgkhj"]
 
 [node name="TitleScene" type="Node2D"]
 position = Vector2(1897, 640)
 
 [node name="TitleManager" type="Node" parent="." node_paths=PackedStringArray("main", "settings", "collection", "shop", "page_title", "button_back", "character_selection", "map_selection", "text_character", "text_map")]
+process_mode = 3
 script = ExtResource("1_bgkhj")
 main = NodePath("../Main")
 settings = NodePath("../Settings")

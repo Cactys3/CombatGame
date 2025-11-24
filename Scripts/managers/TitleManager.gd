@@ -1,5 +1,5 @@
 extends Node
-
+## Nodes
 @export var main: Control
 @export var settings: Control 
 @export var collection: Control 
@@ -16,9 +16,12 @@ extends Node
 @onready var choose_desert: Button = $"../Map_Selection/ScrollContainer/GridContainer/Choose_Desert"
 @onready var choose_ocean: Button = $"../Map_Selection/ScrollContainer/GridContainer/Choose_Ocean"
 @onready var choose_forest: Button = $"../Map_Selection/ScrollContainer/GridContainer/Choose_Forest"
-
-var GAME_SCENE
-
+## Instances
+var Test_Instance: String = "res://Scenes/Instances/test_instance.tscn"
+var BaseScene: String = "res://Scenes/Main/BaseScene.tscn"
+## Characters
+var WebFisher: String = "res://Scenes/Characters/character.tscn"
+## Map Choices
 var character: String ## Chosen character
 var map: String ## Chosen map
 
@@ -44,8 +47,7 @@ func _ready() -> void:
 	print("connect signals")
 	button_back.button_down.connect(set_main)
 	print("Tree paused: ", get_tree().paused)
-	
-	GAME_SCENE = load("res://Scenes/Main/BaseScene.tscn")
+
 	## Make sure file is created
 	Save.create_file(0)
 	
@@ -61,14 +63,12 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
 func set_character(new_char: String):
 	character = new_char
 	text_character.text = "Character: " + new_char
 func set_map(new_map: String):
 	map = new_map
 	text_map.text = "Map: " + new_map
-
 ### UI Code
 ## Sets up main buttons to be visible
 func set_main():
@@ -110,20 +110,31 @@ func press_map_select():
 	page_title.text = "Map Selection"
 ## Go to Game Scene
 func press_start_game():
-	if GAME_SCENE == null:
-		GAME_SCENE = load("res://Scenes/Main/BaseScene.tscn")
-	# setup window for game
 	var window = get_window()
 	window.size = Vector2(3840, 2160)
 	window.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
 	window.content_scale_stretch = Window.CONTENT_SCALE_STRETCH_INTEGER
 	#change scene
+	get_tree().paused = true
 	get_tree().current_scene.queue_free()
-	var instance = GAME_SCENE.instantiate()
-	get_tree().root.add_child(instance)
-	get_tree().current_scene = instance
 	
-	#get_tree().change_scene_to_file("res://Scenes/Main/BaseScene.tscn")
+	var base_scene: Node2D = load(BaseScene).instantiate()
+	var instance: GameInstance = setup_instance(base_scene)
+	get_tree().root.add_child(base_scene)
+	get_tree().current_scene = base_scene
+
+## Creates Instance with Chosen Values
+func setup_instance(base_scene) -> GameInstance:
+	#TODO: make it use chosen values
+	print("Creating instance with Map: " + map + ", Char: " + character)
+	
+	var game_instance: GameInstance = load(Test_Instance).instantiate()
+	base_scene.add_child(game_instance)
+	base_scene.setup_instance(game_instance)
+	var char: Character = load(WebFisher).instantiate()
+	game_instance.setup(char, null)
+	return game_instance
+
 ## Sets only parameter as visible
 func set_visible(nodes: Array[Control]):
 	main.visible = false

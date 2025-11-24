@@ -13,7 +13,7 @@ font_size = 48
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6bujb"]
 bg_color = Color(0.673704, 0.156556, 0.489744, 1)
 
-[node name="Panel" type="Panel"]
+[node name="DragBar" type="Panel"]
 custom_minimum_size = Vector2(30, 54)
 anchors_preset = 14
 anchor_top = 0.5
@@ -40,7 +40,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 max_lines_visible = 1
 
-[node name="DragBar" type="PanelContainer" parent="Label"]
+[node name="Panel" type="PanelContainer" parent="Label"]
 visible = false
 layout_mode = 1
 anchors_preset = 10
@@ -51,7 +51,6 @@ offset_bottom = 18.0
 grow_horizontal = 2
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_6bujb")
-script = ExtResource("1_rhfg0")
 
-[connection signal="mouse_entered" from="Label/DragBar" to="Label/DragBar" method="_enter"]
-[connection signal="mouse_exited" from="Label/DragBar" to="Label/DragBar" method="_exit"]
+[connection signal="mouse_entered" from="Label/Panel" to="Label/Panel" method="_enter"]
+[connection signal="mouse_exited" from="Label/Panel" to="Label/Panel" method="_exit"]

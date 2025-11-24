@@ -1,4 +1,4 @@
-extends Player_Script
+extends Character
 
 func _ready() -> void:
 	super()

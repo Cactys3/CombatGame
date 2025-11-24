@@ -1,7 +1,8 @@
 extends Node
 
-@export var GameWindow: Window
-@export var UiWindow: Window
+@onready var GameWindow: Window = $"../Window640"
+@onready var UiWindow: Window = $"../Window1920"
+
 
 
 var curr_size: Vector2

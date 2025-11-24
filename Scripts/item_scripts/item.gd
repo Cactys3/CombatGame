@@ -40,9 +40,9 @@ func enemy_damaged(enemy: Enemy, attack: Attack):
 	pass
 func enemy_killed(enemy: Enemy, attack: Attack):
 	pass
-func player_damaged(player: Player_Script, attack: Attack):
+func player_damaged(player: Character, attack: Attack):
 	pass
-func player_Killed(player: Player_Script, attack: Attack):
+func player_Killed(player: Character, attack: Attack):
 	pass
 func round_ended(round_number: int):
 	pass

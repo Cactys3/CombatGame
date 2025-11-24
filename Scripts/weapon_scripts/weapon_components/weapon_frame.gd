@@ -4,7 +4,7 @@ class_name Weapon_Frame
 const SCENE = preload("res://Scenes/Weapons/weapon_frame.tscn")
 
 #weapon_frame fields
-@onready var player: Player_Script = get_tree().get_first_node_in_group("player")
+@onready var player: Character = get_tree().get_first_node_in_group("player")
 #components
 @export var handle: Handle = null
 @export var attachment: Attachment = null

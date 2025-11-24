@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bi0s6cycq17p5"]
+
+[ext_resource type="Script" uid="uid://dxdam26umjf3s" path="res://Scripts/instance_scripts/test_instance.gd" id="1_78m7s"]
+
+[node name="GameInstance" type="Node2D"]
+script = ExtResource("1_78m7s")
+metadata/_custom_type_script = "uid://cto6lx32e0nty"

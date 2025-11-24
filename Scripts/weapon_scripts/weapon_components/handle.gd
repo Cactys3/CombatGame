@@ -18,7 +18,7 @@ var data: ItemData = ItemData.new()
 @export var offset: Vector2
 @export var frame: Weapon_Frame
 @export var attachment: Attachment
-@onready var player: Player_Script = get_tree().get_first_node_in_group("player")
+@onready var player: Character = get_tree().get_first_node_in_group("player")
 
 var spinning_offset: float = 0
 var spinning_speed: float = 3

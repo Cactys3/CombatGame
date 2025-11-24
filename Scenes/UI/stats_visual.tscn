@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://o387qlahldf"]
+[gd_scene load_steps=5 format=3 uid="uid://o387qlahldf"]
 
 [ext_resource type="Script" uid="uid://cf2hav4yib2ko" path="res://Scripts/UI/stats_display.gd" id="1_6ir1p"]
-[ext_resource type="PackedScene" uid="uid://m0vp852bqpjq" path="res://Scenes/UI/DragBar.tscn" id="2_36myq"]
 [ext_resource type="PackedScene" uid="uid://dvnb4uadqlav6" path="res://Scenes/UI/toggle_ui_button.tscn" id="3_wdkpi"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bv653"]
@@ -170,21 +169,12 @@ text = "Default
 "
 label_settings = SubResource("LabelSettings_bv653")
 
-[node name="DragBar" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_36myq")]
+[node name="ToggleUIButton" parent="." node_paths=PackedStringArray("ui_to_hide") instance=ExtResource("3_wdkpi")]
 layout_mode = 1
-anchors_preset = 10
-anchor_top = 0.0
-anchor_bottom = 0.0
-offset_bottom = 54.0
-grow_vertical = 1
-parent = NodePath("..")
-
-[node name="ToggleUIButton" parent="DragBar" node_paths=PackedStringArray("ui_to_hide") instance=ExtResource("3_wdkpi")]
-layout_mode = 1
-offset_left = -42.0
-offset_top = -20.0
-offset_right = -29.0
-offset_bottom = -7.0
+offset_left = 218.0
+offset_top = -826.0
+offset_right = 231.0
+offset_bottom = -813.0
 scale = Vector2(3, 3)
 theme_override_font_sizes/font_size = 1
-ui_to_hide = [NodePath("../../Panel/damage"), NodePath("../../Panel/range"), NodePath("../../Panel/weight"), NodePath("../../Panel/attackspeed"), NodePath("../../Panel/stance"), NodePath("../../Panel/velocity"), NodePath("../../Panel/count"), NodePath("../../Panel/piercing"), NodePath("../../Panel/duration"), NodePath("../../Panel/size"), NodePath("../../Panel/buildup"), NodePath("../../Panel/hp"), NodePath("../../Panel/xp"), NodePath("../../Panel/mogul"), NodePath("../../Panel/movespeed"), NodePath("../../Panel")]
+ui_to_hide = [NodePath("../Panel/damage"), NodePath("../Panel/range"), NodePath("../Panel/weight"), NodePath("../Panel/attackspeed"), NodePath("../Panel/stance"), NodePath("../Panel/velocity"), NodePath("../Panel/count"), NodePath("../Panel/piercing"), NodePath("../Panel/duration"), NodePath("../Panel/size"), NodePath("../Panel/buildup"), NodePath("../Panel/hp"), NodePath("../Panel/xp"), NodePath("../Panel/mogul"), NodePath("../Panel/movespeed"), NodePath("../Panel")]

@@ -2,7 +2,7 @@ extends Node
 class_name GameManager
 
 const LEVEL_UP_SCREEN = preload("res://Scenes/UI/level_up_screen.tscn")
-static var STATS_VISUAL = preload("res://Scenes/UI/stats_visual.tscn")
+#static var STATS_VISUAL = preload("res://Scenes/UI/stats_visual.tscn")
 @onready var weapon_frame = preload("res://Scenes/Weapons/weapon_frame.tscn")
 
 ## Single Instance Object
@@ -10,8 +10,7 @@ static var instance: GameManager
 ## Managers
 @export var ui_man: UIManager 
 @export var shop_man: ShopManager
-@export var player: Player_Script
-@export var instance_man: InstanceManager
+@export var player: Character
 ## Parents
 @export var xp_parent: Node2D
 @export var enemy_parent: Node2D
@@ -101,9 +100,31 @@ signal add_item_to_player_inventory(item: Item)
 signal EnemyDamaged(enemy: Enemy, attack: Attack)
 signal EnemyKilled(enemy: Enemy, attack: Attack)
 signal BossKilled(boss: Boss, attack: Attack)
-signal PlayerDamaged(player: Player_Script, attack: Attack)
-signal PlayerKilled(player: Player_Script, attack: Attack)
+signal PlayerDamaged(player: Character, attack: Attack)
+signal PlayerKilled(player: Character, attack: Attack)
 signal RoundEnded(round_number: int)
+
+func setup(new_player: Character):
+	player = new_player
+	#call_deferred("@level_setter", 0)
+	#call_deferred("@xp_setter", 0)
+	#call_deferred("@money_setter", starting_money)
+	#call_deferred("global_stats_visual")
+	#global_stats.add_stats(character_choice_stats)
+	#player.player_stats.add_stats(global_stats)
+	call_deferred("setup_deffered")
+	connect("level_up", create_level_up_instance)
+	
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
+func setup_deffered():
+	level = 0
+	xp = 0
+	money = starting_money
+	#global_stats_visual()
+	global_stats.add_stats(character_choice_stats)
+	player.player_stats.add_stats(global_stats)
+	get_tree().paused = false
 
 func _ready() -> void:
 	# Ensure only one instance exists
@@ -112,57 +133,16 @@ func _ready() -> void:
 		queue_free() 
 		return
 	instance = self  
-	call_deferred("@level_setter", 0)
-	call_deferred("@xp_setter", 0)
-	call_deferred("@money_setter", starting_money)
-	call_deferred("global_stats_visual")
-	global_stats.add_stats(character_choice_stats)
-	player.player_stats.add_stats(global_stats)
-	
-	connect("level_up", create_level_up_instance)
-	
-	process_mode = Node.PROCESS_MODE_ALWAYS
 
-func global_stats_visual():
-	var s = STATS_VISUAL.instantiate()
-	ui_man.tab_menu_parent.add_child(s)
-	s.global_position = Vector2(-310, -0)
-	s.set_stats(global_stats, "Global Stats")
+#func global_stats_visual():
+	#var s = STATS_VISUAL.instantiate()
+	#ui_man.tab_menu_parent.add_child(s)
+	#s.global_position = Vector2(-310, -0)
+	#s.set_stats(global_stats, "Global Stats")
 
-## Just handles inputs for testing right now
 func _process(_delta: float) -> void:
-	
 	if !leveling_up && level_up_queue > 0:
 		create_level_up_instance()
-	
-	if Input.is_action_just_pressed("ability1") && ui_man.tab_menu_parent.visible == true:
-		ui_man.shop.stock(3)
-	
-	if Input.is_action_just_pressed("ability2") && ui_man.tab_menu_parent.visible == true:
-		ui_man.shop.reroll()
-	
-	if Input.is_action_just_pressed("ability3") && ui_man.tab_menu_parent.visible == true:
-		money += 10
-		ui_man.cheat_inventory.clear()
-		for index in ShopManager.item_list.size():
-			#print(index)
-			ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_item(index)))
-		for index in ShopManager.handle_list.size():
-			ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(index)))
-		for index in ShopManager.handle_list.size():
-			ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(index)))
-			ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_handle(index)))
-			ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(index)))
-	
-	if Input.is_action_just_pressed("test_5") && ui_man.paused_for_tab:
-		pass#ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/flamethrower_handle.gd").new())
-	
-	if Input.is_action_just_pressed("test_6") && ui_man.tab_menu_parent.visible == true:
-		var test1 = ShopManager.make_itemUI(shop_man.get_rand_equipment())
-		var test2 = ShopManager.make_itemUI(shop_man.get_rand_attachment())
-		
-		ui_man.shop.ui_add(test1)
-		ui_man.shop.ui_add(test2)
 
 func pause(value: bool):
 	if paused != value:

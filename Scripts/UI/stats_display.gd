@@ -4,7 +4,7 @@ extends Control
 var stats: StatsResource
 
 @export var StartMinimized: bool = false
-@onready var toggle_ui: Toggle_UI = $DragBar/ToggleUIButton
+
 
 const SCENE = preload("res://Scenes/UI/stats_visual.tscn")
 
@@ -22,18 +22,22 @@ const SCENE = preload("res://Scenes/UI/stats_visual.tscn")
 @onready var xp: Label = $Panel/xp
 @onready var mogul: Label = $Panel/mogul
 @onready var movespeed: Label = $Panel/movespeed
-
-@onready var drag_bar: DraggableUI = $DragBar
+@onready var toggle_ui: Toggle_UI = $ToggleUIButton
 
 var stopwatch: float = 0
 
+var doneready = false
+
 func set_stats(new_stats: StatsResource, new_name: String):
 	stats = new_stats
-	drag_bar.set_label(new_name)
 	name = new_name
 	refresh()
 
 func _ready() -> void:
+	call_deferred("setup")
+	doneready = true
+
+func setup() -> void:
 	toggle_ui.StartDisabled = StartMinimized
 	damage.text = "damage: "
 	range.text = "range: "

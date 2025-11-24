@@ -1,7 +1,6 @@
 extends Control
 class_name DraggableUI
 
-
 @export var parent: Control
 static var dragging_some_ui: bool = false
 var mouse_hover: bool = false

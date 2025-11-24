@@ -1,5 +1,5 @@
 extends CharacterBody2D
-class_name Player_Script
+class_name Character
 
 @export var anim: AnimationPlayer
 @export var StartingMoney: int = 5
