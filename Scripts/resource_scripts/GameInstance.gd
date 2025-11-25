@@ -19,20 +19,20 @@ var spawn_area: CollisionShape2D
 var spawn_deadzone: CollisionShape2D
 ## Images
 const TileBlank = preload("uid://doyhfeyvrpplf")
-const TileExample = preload("uid://dvumjquc3ofs4")
 ## Enemies
 ## Bosses
 ## Proximity Events
 const FORGE = preload("uid://le5tbb8urp88")
 const LOOT_CHEST = preload("uid://cll8qcsho5mrw")
 const SHOP = preload("uid://cytotq02c1x2a")
-var events: Array[Event] # stores event objects of all spawnable events
+var events: Array[EventSpawn] # stores event objects of all spawnable events
+var enemies: Array[EnemySpawn] # stores enemies to spawn 
 ## Spawning Stuff
+var win_time: float = 10
 var total_stopwatch: float = 0
 var spawning_stopwatch: float = 0
 var spawning_cooldown: float = 1
-var spawning_phase: int = 1
-var spawning: bool = false
+var spawning_phase: int = -1
 var event_arr: Array
 var map_height: int = 10 ## this many chunks tall
 var map_width: int = 10 ## this many chunks wide
@@ -82,69 +82,35 @@ func connect_signals():
 	game_man.BossKilled.connect(boss_killed)
 ## Adds all events for this map to events - Override
 func setup_events(): 
-	var shop: Event = Event.new()
-	var forge: Event = Event.new()
-	shop.setup("shop", SHOP, 0.15, -1, 1)
-	forge.setup("forge", FORGE, 0.20, -1, 1)
+	events.append(EventSpawn.new("shop", SHOP, 0.15, -1, 1))
+	events.append(EventSpawn.new("forge", FORGE, 0.20, -1, 1))
 func _process(delta: float) -> void:
 	var pos = game_man.player.position
-	## Set Temporary Labels
-	ui_man.stopwatch_label.text = str(int(total_stopwatch / 60)) + ":" + str(int(fmod(total_stopwatch, 60.0))) 
-	ui_man.fps_label.text = str(Engine.get_frames_per_second())
+	ui_man.set_fps(str(Engine.get_frames_per_second()))
+	handle_stopwatch(delta)
+	handle_spawn_phases()
 	handle_chunks(pos)
-	handle_enemy_spawns(delta, pos)
+	handle_enemy_spawning(delta, pos)
 ## Creates MainMenu Scene and removes current Scene
 func return_to_main_menu() -> void:
+	## Tell Player They Won
+	ui_man.toggle_you_win(true)
+	get_tree().paused = true
+	await get_tree().create_timer(3.0).timeout
+	get_tree().paused = false
+	## Change Scenes
 	if TITLE_SCENE == null:
 		TITLE_SCENE = load("res://Scenes/Main/TitleScene.tscn")
-	get_tree().paused = false
-	#change scene
 	get_tree().current_scene.queue_free()
 	var new_instance = TITLE_SCENE.instantiate()
 	get_tree().root.add_child(new_instance)
 	get_tree().current_scene = new_instance
-
-func handle_enemy_spawns(delta: float, pos: Vector2):
-	## TODO: below
-	## Set Enemies with percent changes of them each to spawn (ex: Grubs, 30%)
-	# use the weighted thing, give each enemy a weight and calculate percents based on that
-	## Set Spawning_Cooldown based on which how strong enemies are to spawn are
-	if total_stopwatch < 1 * 60: ## Minute 1 Spawns
-		if !(spawning_phase == 1):
-			pass
-	elif total_stopwatch < 2 * 60: ## Minute 2 Spawns
-		if !(spawning_phase == 2):
-			pass
-	elif total_stopwatch < 3 * 60: ## Minute 3 Spawns
-		if !(spawning_phase == 3):
-			pass
-	elif total_stopwatch < 4 * 60: ## Minute 4 Spawns
-		if !(spawning_phase == 4):
-			pass
-	
-	## Spawning Hordes Logic Goes Here 
-	
-	## Calculate which enemy will spawn
-	## Set spawning_cooldown based on how strong that enemy is and the current thing
-	## New Class: EnemySpawn
-	# - Enemy To Spawn
-	# - spawning_cooldown_modifier (added/subtracted to next spawning_cooldown)
-	# - weight value (in the percent to spawn calculation) to spawn it?
-	## New Class: WeightedSpawningList
-	# - get_random_enemy() -> enemy
-	# - add_enemy(enemy, weight)
-	
-	
-	## Default Enemy Spawning Logic:
+## 
+func handle_stopwatch(delta: float):
 	total_stopwatch += delta
-	if spawning:
-		spawning_stopwatch += delta
-	if spawning_stopwatch > spawning_cooldown:
-		if spawning_cooldown > 0.1:
-			spawning_cooldown -= 0.001
-		spawning_stopwatch = 0
-		#spawn_enemy(GRUB, random_position(pos))
-
+	ui_man.set_stopwatch(str(int(total_stopwatch / 60)) + ":" + str(int(fmod(total_stopwatch, 60.0))))
+	if total_stopwatch >= win_time:
+		return_to_main_menu()
 ## Handles spawning new chunks and calculating whats inside them
 func handle_chunks(pos: Vector2):
 	var refresh: bool = true
@@ -207,7 +173,11 @@ func handle_chunks(pos: Vector2):
 			load_chunk(chunk_grid + Vector2(1, 1))
 		else:
 			pass#print("already had: SE")
-
+func handle_enemy_spawning(delta: float, pos: Vector2):
+	spawning_stopwatch += delta
+	if spawning_stopwatch > spawning_cooldown:
+		spawning_stopwatch = 0
+		spawn_enemies(pos)
 func load_chunk(chunk_id: Vector2):
 	var new_chunk: Sprite2D = Sprite2D.new()
 	new_chunk.visible = false
@@ -217,19 +187,26 @@ func load_chunk(chunk_id: Vector2):
 		new_chunk.texture = TileBlank
 	else:
 		new_chunk.texture = get_rand_tile()
-		handle_event_spawns(chunk_id)
+		spawn_events(chunk_id)
 	background_parent.add_child(new_chunk)
 	new_chunk.position = ((chunk_id) * Vector2(640, 360))
 	chunks.append(new_chunk)
 	chunks_dic.get_or_add(chunk_id, new_chunk)
 	new_chunk.visible = true
 ## Spawns any events that should be spawned in newly created chunk
-func handle_event_spawns(chunk_id: Vector2):
+func spawn_events(chunk_id: Vector2):
 	for event in events:
 		if event.can_spawn():
 			for i in event.max_per_tile:
 				if randf() < event.spawn_chance:
 					load_event(event.scene, chunk_id)
+## Goes through enemies in enemies and spawns based on data
+func spawn_enemies(pos: Vector2):
+	for enemy in enemies:
+		if enemy.can_spawn():
+			for i in enemy.max_attempts:
+				if randf() < enemy.spawn_chance:
+					spawn_enemy(enemy.scene, random_position(pos))
 
 func load_event(scene: PackedScene, chunk: Vector2):
 	var new_event = scene.instantiate()
@@ -241,7 +218,6 @@ func load_event(scene: PackedScene, chunk: Vector2):
 	var new_max := center + half
 	new_event.position = Vector2(randf_range(new_min.x, new_max.x), randf_range(new_min.y, new_max.y))
 	event_arr.append(new_event)
-	#print("Load in Chunk: " + str(chunk) + " Event at: " + str(new_event.position))
 
 func draw_new_visual():
 	chunk_rect.color = Color(0, 0, 0, 0)
@@ -284,9 +260,6 @@ func boss_killed():
 	bosses_alive -= 1
 	ui_man.bosses_killed_label.text = str(bosses_killed)
 
-func toggle_spawning(value: bool):
-	spawning = value
-
 func random_position(player_pos: Vector2) -> Vector2:
 	# Random radius between deadzone and circle radius
 	var r = sqrt(randf()) * (spawn_area.shape.radius - spawn_deadzone.shape.radius) + spawn_deadzone.shape.radius
@@ -296,19 +269,40 @@ func random_position(player_pos: Vector2) -> Vector2:
 	return pos
 
 func SpawningButtonPressed(b: bool) -> void:
-	toggle_spawning(b)
+	pass
 
 ## Overrides
-
+## Check/Change Spawn Phases, setup enemies/events accordingly
+func handle_spawn_phases():
+	pass
 ## Gets tile from matrix? - Override
 func get_tile() -> Texture2D:
-	return TileExample
+	return TileBlank
 ## Gets random tile for map - Override
 func get_rand_tile() -> Texture2D:
-	return TileExample
-
-
-class Event:
+	return TileBlank
+## Contains data for the data to consider each time enemies are spawned
+class EnemySpawn: ## TODO: add in functionality to enemy spawn in a line across the screen? just make a scene with that tbh
+	var name: String = "default"
+	var scene: PackedScene
+	## spawn chance from 0 to 1
+	var spawn_chance: float = 0
+	## number of attempts to try to spawn enemies at spawn chance
+	var max_attempts: int = -1
+	var ready: bool = false
+	func _init(new_name: String, new_scene: PackedScene, new_spawn_chance: float, new_max_attempts: int) -> void:
+		name = new_name
+		scene = new_scene
+		spawn_chance = new_spawn_chance
+		max_attempts = new_max_attempts
+		ready = true
+	## returns if enemy can spawn
+	func can_spawn() -> bool:
+		if !ready:
+			return false
+		return true
+## Contains data for the data to consider each time events are spawned
+class EventSpawn:
 	var name: String = "default"
 	var scene: PackedScene
 	## spawn chance from 0 to 1
@@ -320,7 +314,7 @@ class Event:
 	## max number of events per tile
 	var max_per_tile: int = 1
 	var ready: bool = false
-	func setup(new_name: String, new_scene: PackedScene, new_spawn_chance: float, new_max_spawns: int, new_max_per_tile: int):
+	func _init(new_name: String, new_scene: PackedScene, new_spawn_chance: float, new_max_spawns: int, new_max_per_tile: int) -> void:
 		name = new_name
 		scene = new_scene
 		spawn_chance = new_spawn_chance

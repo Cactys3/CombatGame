@@ -4,65 +4,61 @@ extends GameInstance
 
 ## Images
 const Test1 = preload("uid://w8o0ryem7012")
-const Tile1 = preload("uid://dvumjquc3ofs4")
+const TileGrass = preload("uid://dvumjquc3ofs4")
 ## Enemies
-const FLUB = preload("uid://ckhl8l6bj1bvv")
 const GRUB = preload("uid://dojorw4mt1dsw")
+const FLUB = preload("uid://ckhl8l6bj1bvv")
 const JUB = preload("uid://b4ljdiupnggrv")
 const THUB = preload("uid://drjvl1sgqrjuy")
 ## Bosses
 const TESTBOSS = preload("uid://davhmwwacx2xv")
 ## Proximity Events
+## Spawning Phases
+var phase_one_cutoff: float = 20
+var phase_two_cutoff: float = 40
+var phase_three_cutoff: float = 50
+
+func _ready() -> void:
+	win_time = 60
+	spawning_cooldown = 1
+	spawning_phase = -1
+	map_height = 3 ## this many chunks tall
+	map_width = 3 ## this many chunks wide
 
 func _process(delta: float) -> void:
 	super(delta)
-
 ## Overrides
-
-## Gets random tile for map
 func get_rand_tile() -> Texture2D:
-	return Tile1
-## Called each frame
-func handle_enemy_spawns(delta: float, pos: Vector2):
-	## TODO: below
-	## Set Enemies with percent changes of them each to spawn (ex: Grubs, 30%)
-	# use the weighted thing, give each enemy a weight and calculate percents based on that
-	## Set Spawning_Cooldown based on which how strong enemies are to spawn are
-	if total_stopwatch < 1 * 60: ## Minute 1 Spawns
-		if !(spawning_phase == 1):
-			pass
-	elif total_stopwatch < 2 * 60: ## Minute 2 Spawns
-		if !(spawning_phase == 2):
-			pass
-	elif total_stopwatch < 3 * 60: ## Minute 3 Spawns
-		if !(spawning_phase == 3):
-			pass
-	elif total_stopwatch < 4 * 60: ## Minute 4 Spawns
-		if !(spawning_phase == 4):
-			pass
-	
-	## Spawning Hordes Logic Goes Here 
-	
-	## Calculate which enemy will spawn
-	## Set spawning_cooldown based on how strong that enemy is and the current thing
-	## New Class: EnemySpawn
-	# - Enemy To Spawn
-	# - spawning_cooldown_modifier (added/subtracted to next spawning_cooldown)
-	# - weight value (in the percent to spawn calculation) to spawn it?
-	## New Class: WeightedSpawningList
-	# - get_random_enemy() -> enemy
-	# - add_enemy(enemy, weight)
-	
-	
-	## Default Enemy Spawning Logic:
-	total_stopwatch += delta
-	if spawning:
-		spawning_stopwatch += delta
-	if spawning_stopwatch > spawning_cooldown:
-		if spawning_cooldown > 0.1:
-			spawning_cooldown -= 0.001
-		spawning_stopwatch = 0
-		#spawn_enemy(GRUB, random_position(pos))
-## Adds all events for this map to events - Override
+	return TileGrass
+func handle_stopwatch(delta: float):
+	super(delta)
+func handle_spawn_phases():
+	print("checking: " + str(spawning_phase))
+	if spawning_phase < 1:
+		print("PHASE 1")
+		spawning_phase = 1
+		enemies.clear()
+		enemies.append(EnemySpawn.new("grub", GRUB, 0.3, 3))
+		enemies.append(EnemySpawn.new("flub", FLUB, 0.3, 3))
+		enemies.append(EnemySpawn.new("jub", JUB, 0.3, 3))
+		enemies.append(EnemySpawn.new("thub", THUB, 0.3, 3))
+	elif spawning_phase == 1 && total_stopwatch > phase_two_cutoff:
+		print("PHASE 2")
+		spawning_phase = 2
+		enemies.clear()
+		enemies.append(EnemySpawn.new("grub", GRUB, 0.6, 6))
+		enemies.append(EnemySpawn.new("flub", FLUB, 0, 1))
+		enemies.append(EnemySpawn.new("jub", JUB, 0, 1))
+		enemies.append(EnemySpawn.new("thub", THUB, .3, 1))
+	elif spawning_phase == 2 && total_stopwatch > phase_three_cutoff:
+		print("PHASE 3")
+		spawning_phase = 3
+		enemies.clear()
+		enemies.append(EnemySpawn.new("grub", GRUB, 0.1, 3))
+		enemies.append(EnemySpawn.new("flub", FLUB, 0.6, 3))
+		enemies.append(EnemySpawn.new("jub", JUB, 0.6, 2))
+		enemies.append(EnemySpawn.new("thub", THUB, 0.4, 4))
+func handle_enemy_spawning(delta: float, pos: Vector2):
+	super(delta, pos)
 func setup_events(): 
 	super()

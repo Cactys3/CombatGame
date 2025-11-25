@@ -134,7 +134,7 @@ weapon_parent = NodePath("../../../Window640/Offset/WeaponParent")
 position = Vector2(-320, -180)
 script = ExtResource("12_e4e03")
 
-[node name="UIManager" parent="Window1920/Offset" node_paths=PackedStringArray("money_label", "xp_label", "level_label", "hp_label", "fps_label", "stopwatch_label", "enemies_killed_label", "bosses_killed_label", "tab_menu_parent", "esc_menu_parent", "level_up_parent", "static_ui_parent", "misc_parent", "shop", "storage", "cheat_inventory", "equipment") instance=ExtResource("6_uv4m7")]
+[node name="UIManager" parent="Window1920/Offset" node_paths=PackedStringArray("money_label", "xp_label", "level_label", "hp_label", "fps_label", "stopwatch_label", "enemies_killed_label", "bosses_killed_label", "you_win", "tab_menu_parent", "esc_menu_parent", "level_up_parent", "static_ui_parent", "misc_parent", "shop", "storage", "cheat_inventory", "equipment") instance=ExtResource("6_uv4m7")]
 z_index = 6
 position = Vector2(0, 0)
 money_label = NodePath("StaticHUDparent/SimpleHUD/Money Label/Money")
@@ -145,6 +145,7 @@ fps_label = NodePath("StaticHUDparent/SimpleHUD/FPS Label/FPS")
 stopwatch_label = NodePath("StaticHUDparent/SimpleHUD/Time Label/Time")
 enemies_killed_label = NodePath("StaticHUDparent/SimpleHUD/EnemiesKilled Label/EnemiesKilled")
 bosses_killed_label = NodePath("StaticHUDparent/SimpleHUD/BossesKilled Label/BossesKilled")
+you_win = NodePath("StaticHUDparent/YouWin")
 tab_menu_parent = NodePath("TabMenuParent")
 esc_menu_parent = NodePath("EscMenuParent")
 level_up_parent = NodePath("LevelUpParent")
@@ -466,6 +467,14 @@ theme_override_colors/icon_pressed_color = Color(0.08510152, 0.7499544, 0.678776
 toggle_mode = true
 text = "Toggle Spawning"
 icon = SubResource("NoiseTexture2D_41mr8")
+
+[node name="YouWin" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent"]
+visible = false
+layout_mode = 0
+offset_right = 346.0
+offset_bottom = 242.0
+theme_override_font_sizes/font_size = 128
+text = "You Win!"
 
 [node name="WindowManager" type="Node" parent="."]
 script = ExtResource("27_fwf5d")

@@ -10,6 +10,8 @@ class_name UIManager
 @export var enemies_killed_label: Label
 @export var bosses_killed_label: Label
 
+@export var you_win: Label
+
 @export var tab_menu_parent: Control
 @export var esc_menu_parent: Control
 @export var level_up_parent: Control
@@ -157,6 +159,15 @@ func set_xp(value: String) -> void:
 
 func set_money(value: String) -> void:
 	money_label.text = value
+
+func set_stopwatch(value: String) -> void:
+	stopwatch_label.text = value
+
+func set_fps(value: String) -> void:
+	fps_label.text = value
+
+func toggle_you_win(value: bool) -> void:
+	you_win.visible = value
 
 func add_shop_items(items: Array[ItemData]) -> void:
 	if enabled:
