@@ -14,9 +14,6 @@ const THUB = preload("uid://drjvl1sgqrjuy")
 const TESTBOSS = preload("uid://davhmwwacx2xv")
 ## Proximity Events
 ## Spawning Phases
-var phase_one_cutoff: float = 20
-var phase_two_cutoff: float = 40
-var phase_three_cutoff: float = 50
 
 func _ready() -> void:
 	win_time = 60
@@ -24,7 +21,9 @@ func _ready() -> void:
 	spawning_phase = -1
 	map_height = 3 ## this many chunks tall
 	map_width = 3 ## this many chunks wide
-
+	phases.append(SpawningPhase.new(0, 20, phase_one))
+	phases.append(SpawningPhase.new(20, 20, phase_two))
+	phases.append(SpawningPhase.new(40, 20, phase_two))
 func _process(delta: float) -> void:
 	super(delta)
 ## Overrides
@@ -32,32 +31,30 @@ func get_rand_tile() -> Texture2D:
 	return TileGrass
 func handle_stopwatch(delta: float):
 	super(delta)
-func handle_spawn_phases():
-	print("checking: " + str(spawning_phase))
-	if spawning_phase < 1:
-		print("PHASE 1")
-		spawning_phase = 1
-		enemies.clear()
-		enemies.append(EnemySpawn.new("grub", GRUB, 0.3, 3))
-		enemies.append(EnemySpawn.new("flub", FLUB, 0.3, 3))
-		enemies.append(EnemySpawn.new("jub", JUB, 0.3, 3))
-		enemies.append(EnemySpawn.new("thub", THUB, 0.3, 3))
-	elif spawning_phase == 1 && total_stopwatch > phase_two_cutoff:
-		print("PHASE 2")
-		spawning_phase = 2
-		enemies.clear()
-		enemies.append(EnemySpawn.new("grub", GRUB, 0.6, 6))
-		enemies.append(EnemySpawn.new("flub", FLUB, 0, 1))
-		enemies.append(EnemySpawn.new("jub", JUB, 0, 1))
-		enemies.append(EnemySpawn.new("thub", THUB, .3, 1))
-	elif spawning_phase == 2 && total_stopwatch > phase_three_cutoff:
-		print("PHASE 3")
-		spawning_phase = 3
-		enemies.clear()
-		enemies.append(EnemySpawn.new("grub", GRUB, 0.1, 3))
-		enemies.append(EnemySpawn.new("flub", FLUB, 0.6, 3))
-		enemies.append(EnemySpawn.new("jub", JUB, 0.6, 2))
-		enemies.append(EnemySpawn.new("thub", THUB, 0.4, 4))
+func phase_one():
+	print("PHASE 1")
+	spawning_phase = 1
+	enemies.clear()
+	enemies.append(EnemySpawn.new("grub", GRUB, 0.3, 3))
+	enemies.append(EnemySpawn.new("flub", FLUB, 0.3, 3))
+	enemies.append(EnemySpawn.new("jub", JUB, 0.3, 3))
+	enemies.append(EnemySpawn.new("thub", THUB, 0.3, 3))
+func phase_two():
+	print("PHASE 2")
+	spawning_phase = 2
+	enemies.clear()
+	enemies.append(EnemySpawn.new("grub", GRUB, 0.6, 6))
+	enemies.append(EnemySpawn.new("flub", FLUB, 0, 1))
+	enemies.append(EnemySpawn.new("jub", JUB, 0, 1))
+	enemies.append(EnemySpawn.new("thub", THUB, .3, 1))
+func phase_three():
+	print("PHASE 3")
+	spawning_phase = 3
+	enemies.clear()
+	enemies.append(EnemySpawn.new("grub", GRUB, 0.1, 3))
+	enemies.append(EnemySpawn.new("flub", FLUB, 0.6, 3))
+	enemies.append(EnemySpawn.new("jub", JUB, 0.6, 2))
+	enemies.append(EnemySpawn.new("thub", THUB, 0.4, 4))
 func handle_enemy_spawning(delta: float, pos: Vector2):
 	super(delta, pos)
 func setup_events(): 

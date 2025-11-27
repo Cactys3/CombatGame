@@ -27,6 +27,8 @@ const LOOT_CHEST = preload("uid://cll8qcsho5mrw")
 const SHOP = preload("uid://cytotq02c1x2a")
 var events: Array[EventSpawn] # stores event objects of all spawnable events
 var enemies: Array[EnemySpawn] # stores enemies to spawn 
+var phases: Array[SpawningPhase] # stores the phases to spawn enemies in
+var current_phase: SpawningPhase
 ## Spawning Stuff
 var win_time: float = 10
 var total_stopwatch: float = 0
@@ -135,7 +137,7 @@ func handle_chunks(pos: Vector2):
 		refresh = false
 	if refresh:
 		draw_new_visual()
-		print("refresh: " + str(chunk_grid))
+		#print("refresh: " + str(chunk_grid))
 		
 		if !chunks_dic.has(chunk_grid):
 			load_chunk(chunk_grid)
@@ -274,7 +276,13 @@ func SpawningButtonPressed(b: bool) -> void:
 ## Overrides
 ## Check/Change Spawn Phases, setup enemies/events accordingly
 func handle_spawn_phases():
-	pass
+	if current_phase && current_phase.should_start(total_stopwatch):
+		return
+	for phase in phases:
+		if phase.should_start(total_stopwatch):
+			phase.start()
+			current_phase = phase
+			return
 ## Gets tile from matrix? - Override
 func get_tile() -> Texture2D:
 	return TileBlank
@@ -309,6 +317,7 @@ class EventSpawn:
 	var spawn_chance: float = 0
 	## number of events that can be created per map, -1 for infinite
 	var max_spawns: int = -1
+	
 	## number of events that have been spawned
 	var spawn_count: int = 0
 	## max number of events per tile
@@ -328,3 +337,18 @@ class EventSpawn:
 		if max_spawns == -1:
 			return true
 		return spawn_count < max_spawns
+class SpawningPhase:
+	var started: bool = false
+	var start_time: float
+	var duration: float
+	var start_method: Callable
+	func _init(new_start_time: float, new_duration: float, new_start_method: Callable):
+		start_time = new_start_time
+		duration = new_duration
+		start_method = new_start_method
+	func start():
+		if !started:
+			started = true
+			start_method.call()
+	func should_start(time: float):
+		return (time > start_time) && (time < start_time + duration)
