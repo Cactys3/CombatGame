@@ -1,26 +1,44 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1v8l8ulmvpo"]
+[gd_scene load_steps=10 format=3 uid="uid://bpx8cildenn6g"]
 
-[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy.gd" id="1_vqt1k"]
-[ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="2_fupns"]
+[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_t3jdu"]
+[ext_resource type="Resource" uid="uid://dj4tyv1iwljms" path="res://Scenes/Enemies/Sclarnk/sclarnk_stats.tres" id="2_qjy7h"]
+[ext_resource type="Texture2D" uid="uid://bvm32b4d2y5nd" path="res://Art/Characters/Hell/Sclarnk.png" id="3_481de"]
+[ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="4_4wbat"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8chwh"]
+atlas = ExtResource("3_481de")
+region = Rect2(0, 0, 32, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_62ues"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8chwh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8ayrs"]
-radius = 6.0
+radius = 9.055386
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jc408"]
-radius = 7.0
-height = 14.0
+radius = 5.0
+height = 50.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b6ujt"]
-radius = 9.0
-height = 18.0
+radius = 7.0
+height = 54.0
 
-[node name="Fluue" type="RigidBody2D" node_paths=PackedStringArray("damage_hitbox") groups=["enemy"]]
+[node name="Sclarnk" type="RigidBody2D" node_paths=PackedStringArray("damage_hitbox") groups=["enemy"]]
 collision_layer = 32
 collision_mask = 32
 mass = 20.0
 gravity_scale = 0.0
 lock_rotation = true
-script = ExtResource("1_vqt1k")
+script = ExtResource("1_t3jdu")
+stats = ExtResource("2_qjy7h")
 melee_attacks = true
 damage_hitbox = NodePath("Damage_Hitbox")
 xp_on_death = 5
@@ -30,8 +48,8 @@ base_damage = 20.0
 base_movespeed = 70.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-animation = &""
-autoplay = "Idle"
+position = Vector2(0, 11)
+sprite_frames = SubResource("SpriteFrames_62ues")
 offset = Vector2(0, -8.385)
 
 [node name="MinionBlock" type="CollisionShape2D" parent="."]
@@ -49,7 +67,7 @@ shape = SubResource("CapsuleShape2D_jc408")
 [node name="Health_HitArea" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 0
-script = ExtResource("2_fupns")
+script = ExtResource("4_4wbat")
 
 [node name="Health_Hitbox" type="CollisionShape2D" parent="Health_HitArea"]
 position = Vector2(0, 3)

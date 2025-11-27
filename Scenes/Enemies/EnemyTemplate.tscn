@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cwosx71g71ysy"]
 
-[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy.gd" id="1_8217j"]
+[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_8217j"]
 [ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="3_nlbgu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8ayrs"]

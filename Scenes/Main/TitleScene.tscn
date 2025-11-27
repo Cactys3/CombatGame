@@ -44,22 +44,26 @@ theme_override_font_sizes/font_size = 128
 text = "Back"
 
 [node name="Text_Map" type="RichTextLabel" parent="Always_Active"]
-custom_minimum_size = Vector2(800, 150)
-offset_left = 1101.0
-offset_top = -96.0
-offset_right = 1901.0
-offset_bottom = 54.0
+custom_minimum_size = Vector2(1600, 150)
+offset_left = 300.0
+offset_top = -90.0
+offset_right = 1900.0
+offset_bottom = 60.0
 theme_override_font_sizes/normal_font_size = 128
 fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 2
 
 [node name="Text_Character" type="RichTextLabel" parent="Always_Active"]
-custom_minimum_size = Vector2(800, 150)
-offset_left = 1109.0
-offset_top = -244.0
-offset_right = 1909.0
-offset_bottom = -94.0
+custom_minimum_size = Vector2(1600, 150)
+offset_left = 300.0
+offset_top = -250.0
+offset_right = 1900.0
+offset_bottom = -100.0
 theme_override_font_sizes/normal_font_size = 128
 fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 2
 
 [node name="Main" type="Control" parent="."]
 visible = false
@@ -155,39 +159,74 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 200.0
 grow_horizontal = 2
 grow_vertical = 2
+horizontal_scroll_mode = 0
 
 [node name="GridContainer" type="GridContainer" parent="Map_Selection/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-columns = 5
+columns = 4
 
-[node name="Choose_Desert" type="Button" parent="Map_Selection/ScrollContainer/GridContainer"]
+[node name="Choose_0" type="Button" parent="Map_Selection/ScrollContainer/GridContainer"]
 clip_contents = true
 custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 theme_override_font_sizes/font_size = 128
-text = "Desert
-"
+text = "Hell"
 
-[node name="Choose_Ocean" type="Button" parent="Map_Selection/ScrollContainer/GridContainer"]
+[node name="Choose_1" type="Button" parent="Map_Selection/ScrollContainer/GridContainer"]
 clip_contents = true
 custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 theme_override_font_sizes/font_size = 128
-text = "Ocean"
+text = "Test"
 
-[node name="Choose_Forest" type="Button" parent="Map_Selection/ScrollContainer/GridContainer"]
+[node name="Choose_2" type="Button" parent="Map_Selection/ScrollContainer/GridContainer"]
 clip_contents = true
 custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 theme_override_font_sizes/font_size = 128
-text = "Forest"
+text = "N/A"
+
+[node name="Choose_3" type="Button" parent="Map_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "N/A"
+
+[node name="Choose_4" type="Button" parent="Map_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "N/A"
+
+[node name="Choose_5" type="Button" parent="Map_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "N/A"
+
+[node name="Choose_6" type="Button" parent="Map_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "N/A"
+
+[node name="Choose_7" type="Button" parent="Map_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "N/A"
 
 [node name="Character_Selection" type="Control" parent="."]
-visible = false
 custom_minimum_size = Vector2(1600, 1600)
 layout_mode = 3
 anchors_preset = 0
@@ -213,34 +252,70 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+horizontal_scroll_mode = 0
 
 [node name="GridContainer" type="GridContainer" parent="Character_Selection/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-columns = 5
+columns = 4
 
-[node name="Choose_Cat" type="Button" parent="Character_Selection/ScrollContainer/GridContainer"]
+[node name="Choose_0" type="Button" parent="Character_Selection/ScrollContainer/GridContainer"]
 clip_contents = true
 custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 theme_override_font_sizes/font_size = 128
-text = "Cat"
-
-[node name="Choose_Dog" type="Button" parent="Character_Selection/ScrollContainer/GridContainer"]
-clip_contents = true
-custom_minimum_size = Vector2(400, 400)
-layout_mode = 2
-theme_override_font_sizes/font_size = 128
-text = "Dog	"
-
-[node name="Choose_Cow" type="Button" parent="Character_Selection/ScrollContainer/GridContainer"]
-clip_contents = true
-custom_minimum_size = Vector2(400, 400)
-layout_mode = 2
-theme_override_font_sizes/font_size = 128
-text = "Cow
+text = "WebFisher
 "
+
+[node name="Choose_1" type="Button" parent="Character_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "N/A"
+
+[node name="Choose_2" type="Button" parent="Character_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "N/A"
+
+[node name="Choose_3" type="Button" parent="Character_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "N/A"
+
+[node name="Choose_4" type="Button" parent="Character_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "N/A"
+
+[node name="Choose_5" type="Button" parent="Character_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "N/A"
+
+[node name="Choose_6" type="Button" parent="Character_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "N/A"
+
+[node name="Choose_7" type="Button" parent="Character_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "N/A"
 
 [connection signal="button_down" from="Always_Active/Button_Back" to="TitleManager" method="press_back"]
 [connection signal="button_down" from="Main/Button_Play" to="TitleManager" method="press_play"]
@@ -248,9 +323,20 @@ text = "Cow
 [connection signal="button_down" from="Main/Button_Collection" to="TitleManager" method="press_collection"]
 [connection signal="button_down" from="Main/Button_Shop" to="TitleManager" method="press_shop"]
 [connection signal="button_down" from="Map_Selection/Button" to="TitleManager" method="press_start_game"]
-[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_Desert" to="TitleManager" method="set_map" binds= ["desert"]]
-[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_Ocean" to="TitleManager" method="set_map" binds= ["ocean"]]
+[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_0" to="TitleManager" method="set_map" binds= [0]]
+[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_1" to="TitleManager" method="set_map" binds= [1]]
+[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_2" to="TitleManager" method="set_map" binds= [2]]
+[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_3" to="TitleManager" method="set_map" binds= [3]]
+[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_4" to="TitleManager" method="set_map" binds= [4]]
+[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_5" to="TitleManager" method="set_map" binds= [5]]
+[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_6" to="TitleManager" method="set_map" binds= [6]]
+[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_7" to="TitleManager" method="set_map" binds= [7]]
 [connection signal="button_down" from="Character_Selection/Button" to="TitleManager" method="press_map_select"]
-[connection signal="button_down" from="Character_Selection/ScrollContainer/GridContainer/Choose_Cat" to="TitleManager" method="set_character" binds= ["cat"]]
-[connection signal="button_down" from="Character_Selection/ScrollContainer/GridContainer/Choose_Dog" to="TitleManager" method="set_character" binds= ["dog"]]
-[connection signal="button_down" from="Character_Selection/ScrollContainer/GridContainer/Choose_Cow" to="TitleManager" method="set_character" binds= ["cow"]]
+[connection signal="button_down" from="Character_Selection/ScrollContainer/GridContainer/Choose_0" to="TitleManager" method="set_character" binds= [0]]
+[connection signal="button_down" from="Character_Selection/ScrollContainer/GridContainer/Choose_1" to="TitleManager" method="set_character" binds= [1]]
+[connection signal="button_down" from="Character_Selection/ScrollContainer/GridContainer/Choose_2" to="TitleManager" method="set_character" binds= [2]]
+[connection signal="button_up" from="Character_Selection/ScrollContainer/GridContainer/Choose_3" to="TitleManager" method="set_character" binds= [3]]
+[connection signal="button_down" from="Character_Selection/ScrollContainer/GridContainer/Choose_4" to="TitleManager" method="set_character" binds= [4]]
+[connection signal="button_down" from="Character_Selection/ScrollContainer/GridContainer/Choose_5" to="TitleManager" method="set_character" binds= [5]]
+[connection signal="button_down" from="Character_Selection/ScrollContainer/GridContainer/Choose_6" to="TitleManager" method="set_character" binds= [6]]
+[connection signal="button_down" from="Character_Selection/ScrollContainer/GridContainer/Choose_7" to="TitleManager" method="set_character" binds= [7]]

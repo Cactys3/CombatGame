@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=3 uid="uid://drjvl1sgqrjuy"]
 
-[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy.gd" id="1_lubyt"]
-[ext_resource type="Resource" uid="uid://d2vkyrbiy2gh0" path="res://Scenes/Enemies/Resources/grub_stats.tres" id="2_qklup"]
+[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_lubyt"]
+[ext_resource type="Resource" uid="uid://co4gvx1xlwl1w" path="res://Scenes/Enemies/Thub/thub_stats.tres" id="2_krib1"]
 [ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="3_fy23m"]
 [ext_resource type="Texture2D" uid="uid://b60twpjxkj30q" path="res://Art/Characters/Thub.png" id="3_vreir"]
 
@@ -103,7 +103,7 @@ mass = 20.0
 gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_lubyt")
-stats = ExtResource("2_qklup")
+stats = ExtResource("2_krib1")
 melee_attacks = true
 damage_hitbox = NodePath("Damage_Hitbox")
 xp_on_death = 29

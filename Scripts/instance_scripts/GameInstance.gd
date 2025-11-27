@@ -89,7 +89,8 @@ func setup_events():
 func _process(delta: float) -> void:
 	var pos = game_man.player.position
 	ui_man.set_fps(str(Engine.get_frames_per_second()))
-	handle_stopwatch(delta)
+	if game_man && game_man.paused == false:
+		handle_stopwatch(delta)
 	handle_spawn_phases()
 	handle_chunks(pos)
 	handle_enemy_spawning(delta, pos)
@@ -183,7 +184,6 @@ func handle_enemy_spawning(delta: float, pos: Vector2):
 func load_chunk(chunk_id: Vector2):
 	var new_chunk: Sprite2D = Sprite2D.new()
 	new_chunk.visible = false
-	print(abs(chunk_id))
 	# if chunk is without of map bounds
 	if abs(chunk_id.x) > abs(map_width) || abs(chunk_id.y) > abs(map_height):
 		new_chunk.texture = TileBlank

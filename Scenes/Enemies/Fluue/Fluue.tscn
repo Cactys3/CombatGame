@@ -1,26 +1,43 @@
-[gd_scene load_steps=6 format=3 uid="uid://bpx8cildenn6g"]
+[gd_scene load_steps=10 format=3 uid="uid://d1v8l8ulmvpo"]
 
-[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy.gd" id="1_1nen0"]
-[ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="2_7fljh"]
+[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_stydw"]
+[ext_resource type="Resource" uid="uid://q1crbk6syugb" path="res://Scenes/Enemies/Fluue/fluue_stats.tres" id="2_3o72h"]
+[ext_resource type="Texture2D" uid="uid://beyct05pgtpgx" path="res://Art/Characters/Hell/Fluue.png" id="3_38g22"]
+[ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="4_54okv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ihur"]
+atlas = ExtResource("3_38g22")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x6nht"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ihur")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8ayrs"]
 radius = 6.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jc408"]
-radius = 7.0
-height = 14.0
+radius = 5.0
+height = 22.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b6ujt"]
-radius = 9.0
-height = 18.0
+height = 40.0
 
-[node name="Sclarnk" type="RigidBody2D" node_paths=PackedStringArray("damage_hitbox") groups=["enemy"]]
+[node name="Fluue" type="RigidBody2D" node_paths=PackedStringArray("damage_hitbox") groups=["enemy"]]
 collision_layer = 32
 collision_mask = 32
 mass = 20.0
 gravity_scale = 0.0
 lock_rotation = true
-script = ExtResource("1_1nen0")
+script = ExtResource("1_stydw")
+stats = ExtResource("2_3o72h")
 melee_attacks = true
 damage_hitbox = NodePath("Damage_Hitbox")
 xp_on_death = 5
@@ -30,8 +47,8 @@ base_damage = 20.0
 base_movespeed = 70.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-animation = &""
-autoplay = "Idle"
+position = Vector2(0, 12)
+sprite_frames = SubResource("SpriteFrames_x6nht")
 offset = Vector2(0, -8.385)
 
 [node name="MinionBlock" type="CollisionShape2D" parent="."]
@@ -49,10 +66,11 @@ shape = SubResource("CapsuleShape2D_jc408")
 [node name="Health_HitArea" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 0
-script = ExtResource("2_7fljh")
+script = ExtResource("4_54okv")
 
 [node name="Health_Hitbox" type="CollisionShape2D" parent="Health_HitArea"]
 position = Vector2(0, 3)
+rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_b6ujt")
 
 [connection signal="body_entered" from="Damage_Hitbox" to="." method="_on_damage_hitbox_body_entered"]

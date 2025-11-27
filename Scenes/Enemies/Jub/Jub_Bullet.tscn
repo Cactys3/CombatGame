@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://ci2cd4gwhq203"]
 
-[ext_resource type="Script" uid="uid://bhyuqdca562sq" path="res://Scripts/enemy_scripts/enemy_projectile.gd" id="1_ubyha"]
+[ext_resource type="Script" uid="uid://bhyuqdca562sq" path="res://Scripts/enemy_scripts/enemy_types/enemy_projectile.gd" id="1_ubyha"]
 [ext_resource type="Texture2D" uid="uid://dkwo5ym6c4dn1" path="res://Art/Characters/Jub.png" id="2_c0fvg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c0fvg"]

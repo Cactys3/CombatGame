@@ -3,10 +3,11 @@ extends Node2D
 @export var EnemyParent: Node2D
 
 @onready var player: Character = get_tree().get_first_node_in_group("player")
-const grub = preload("res://Scenes/Enemies/Grub.tscn")
-const jub = preload("res://Scenes/Enemies/Jub.tscn")
-const flub = preload("res://Scenes/Enemies/Flub.tscn")
-const thub = preload("res://Scenes/Enemies/Thub.tscn")
+const flub = preload("uid://ckhl8l6bj1bvv")
+const grub = preload("uid://dojorw4mt1dsw")
+const jub = preload("uid://b4ljdiupnggrv")
+const thub = preload("uid://drjvl1sgqrjuy")
+
 @export var shop: Panel
 @onready var xp = preload("res://Scenes/Misc/xp_blip.tscn")
 @onready var weapon_frame = preload("res://Scenes/Weapons/weapon_frame.tscn")

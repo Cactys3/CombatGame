@@ -1,6 +1,6 @@
 [gd_scene load_steps=26 format=3 uid="uid://davhmwwacx2xv"]
 
-[ext_resource type="Script" uid="uid://bnhsdpro70dgj" path="res://Scripts/enemy_scripts/boss.gd" id="1_lx1eu"]
+[ext_resource type="Script" uid="uid://bnhsdpro70dgj" path="res://Scripts/enemy_scripts/enemy_types/boss.gd" id="1_lx1eu"]
 [ext_resource type="Texture2D" uid="uid://bux8yx4uc71lq" path="res://Art/Characters/Flub.png" id="2_cgvw7"]
 [ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="2_jc26i"]
 [ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="3_jc26i"]

@@ -10,20 +10,18 @@ extends Node
 @export var map_selection: Control 
 @export var text_character: RichTextLabel
 @export var text_map: RichTextLabel
-@onready var choose_cat: Button = $"../Character_Selection/ScrollContainer/GridContainer/Choose_Cat"
-@onready var choose_dog: Button = $"../Character_Selection/ScrollContainer/GridContainer/Choose_Dog"
-@onready var choose_cow: Button = $"../Character_Selection/ScrollContainer/GridContainer/Choose_Cow"
-@onready var choose_desert: Button = $"../Map_Selection/ScrollContainer/GridContainer/Choose_Desert"
-@onready var choose_ocean: Button = $"../Map_Selection/ScrollContainer/GridContainer/Choose_Ocean"
-@onready var choose_forest: Button = $"../Map_Selection/ScrollContainer/GridContainer/Choose_Forest"
+
+const BaseScene: String = "res://Scenes/Main/BaseScene.tscn"
 ## Instances
-var Test_Instance: String = "res://Scenes/Instances/test_instance.tscn"
-var BaseScene: String = "res://Scenes/Main/BaseScene.tscn"
+var HELL: duple = duple.new("HELL", "res://Scenes/Instances/hell_instance.tscn")
+var TEST: duple = duple.new("TEST", "res://Scenes/Instances/test_instance.tscn")
 ## Characters
-var WebFisher: String = "res://Scenes/Characters/character.tscn"
-## Map Choices
-var character: String ## Chosen character
-var map: String ## Chosen map
+var WEBFISHER: duple = duple.new("WEBFISHER", "res://Scenes/Characters/character.tscn")
+## Choice Variables
+var character: int ## Chosen character
+var map: int ## Chosen map
+var characters: Array[duple] = [WEBFISHER]
+var maps: Array[duple] = [HELL, TEST]
 
 
 var array: Array[Control] = [main, settings, collection, shop, character_selection, map_selection]
@@ -63,12 +61,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-func set_character(new_char: String):
-	character = new_char
-	text_character.text = "Character: " + new_char
-func set_map(new_map: String):
-	map = new_map
-	text_map.text = "Map: " + new_map
+
 ### UI Code
 ## Sets up main buttons to be visible
 func set_main():
@@ -125,16 +118,27 @@ func press_start_game():
 
 ## Creates Instance with Chosen Values
 func setup_instance(base_scene) -> GameInstance:
-	#TODO: make it use chosen values
-	print("Creating instance with Map: " + map + ", Char: " + character)
-	
-	var game_instance: GameInstance = load(Test_Instance).instantiate()
+	print("Creating instance with Map: " + maps[map].key + ", Char: " + characters[character].key)
+	var game_instance: GameInstance = get_instance()
+	var chosen_character: Character = get_character()
 	base_scene.add_child(game_instance)
 	base_scene.setup_instance(game_instance)
-	var char: Character = load(WebFisher).instantiate()
-	game_instance.setup(char, null)
+	game_instance.setup(chosen_character, null)
 	return game_instance
 
+## Returns chosen instance
+func get_instance() -> GameInstance:
+	return load(maps[map].value).instantiate()
+func get_character() -> Character:
+	return load(characters[character].value).instantiate()
+func set_map(index: int):
+	if maps.size() > index:
+		map = index
+		text_map.text = "Map: " + maps[map].key
+func set_character(index: int):
+	if characters.size() > index:
+		character = index
+		text_character.text = "Character: " + characters[character].key
 ## Sets only parameter as visible
 func set_visible(nodes: Array[Control]):
 	main.visible = false
@@ -145,3 +149,10 @@ func set_visible(nodes: Array[Control]):
 	map_selection.visible = false
 	for node in nodes:
 		node.visible = true
+
+class duple:
+	var key: String
+	var value: String
+	func _init(new_key: String, new_value: String):
+		key = new_key
+		value = new_value

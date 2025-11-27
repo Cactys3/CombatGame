@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://drc2cjwn1pcsv"
-path="res://.godot/imported/Imp.png-e22e99066bb9f065843c7622521311be.ctex"
+uid="uid://cctoa8i4776qs"
+path="res://.godot/imported/Kle.png-47ac9f52ca3ae1721c57e8b90906b3c9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Characters/Hell/Imp.png"
-dest_files=["res://.godot/imported/Imp.png-e22e99066bb9f065843c7622521311be.ctex"]
+source_file="res://Art/Characters/Hell/Kle.png"
+dest_files=["res://.godot/imported/Kle.png-47ac9f52ca3ae1721c57e8b90906b3c9.ctex"]
 
 [params]
 
