@@ -27,8 +27,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	super(delta)
 ## Overrides
-func get_rand_tile() -> Texture2D:
-	return TileGrass
+func add_tiles():
+	TILES.append(TileGrass) 
 func handle_stopwatch(delta: float):
 	super(delta)
 func phase_one():

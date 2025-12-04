@@ -19,6 +19,7 @@ var spawn_area: CollisionShape2D
 var spawn_deadzone: CollisionShape2D
 ## Images
 const TileBlank = preload("uid://doyhfeyvrpplf")
+var TILES: Array = []
 ## Enemies
 ## Bosses
 ## Proximity Events
@@ -79,6 +80,7 @@ func setup(character: Character, run_modifiers) -> void:
 	call_deferred("connect_signals")
 	setup_events()
 	game_man.setup(character)
+	add_tiles()
 func connect_signals():
 	game_man.EnemyKilled.connect(enemy_killed)
 	game_man.BossKilled.connect(boss_killed)
@@ -137,7 +139,7 @@ func handle_chunks(pos: Vector2):
 	else:
 		refresh = false
 	if refresh:
-		draw_new_visual()
+		#draw_new_visual()
 		#print("refresh: " + str(chunk_grid))
 		
 		if !chunks_dic.has(chunk_grid):
@@ -274,6 +276,8 @@ func SpawningButtonPressed(b: bool) -> void:
 	pass
 
 ## Overrides
+func add_tiles():
+	pass
 ## Check/Change Spawn Phases, setup enemies/events accordingly
 func handle_spawn_phases():
 	if current_phase && current_phase.should_start(total_stopwatch):
@@ -284,11 +288,13 @@ func handle_spawn_phases():
 			current_phase = phase
 			return
 ## Gets tile from matrix? - Override
-func get_tile() -> Texture2D:
+func get_tile(index: int) -> Texture2D:
+	if TILES.size() > index && index > -1:
+		return TILES[index]
 	return TileBlank
 ## Gets random tile for map - Override
 func get_rand_tile() -> Texture2D:
-	return TileBlank
+	return TILES[randi_range(0, TILES.size() - 1)]
 ## Contains data for the data to consider each time enemies are spawned
 class EnemySpawn: ## TODO: add in functionality to enemy spawn in a line across the screen? just make a scene with that tbh
 	var name: String = "default"

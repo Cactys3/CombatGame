@@ -3,6 +3,7 @@ extends GameInstance
 ## Hell
 
 ## Images
+const TILE1 = preload("uid://lxfss4n84nxu")
 
 ## Enemies
 const FLUUE = preload("uid://d1v8l8ulmvpo")
@@ -25,8 +26,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	super(delta)
 ## Overrides
-func get_rand_tile() -> Texture2D:
-	return TileBlank
+func add_tiles():
+	TILES.append(TILE1) 
 func handle_stopwatch(delta: float):
 	super(delta)
 func phase_one():
