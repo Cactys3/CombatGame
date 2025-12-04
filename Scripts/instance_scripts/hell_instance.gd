@@ -12,7 +12,9 @@ const KLE = preload("uid://i0ead3kcc77p")
 const SCLARNK = preload("uid://bpx8cildenn6g")
 ## Bosses
 
-## Proximity Events
+## Events
+const ROCKS = preload("uid://cmcbroiw30fy8")
+
 
 func _ready() -> void:
 	win_time = 60*20
@@ -23,6 +25,7 @@ func _ready() -> void:
 	phases.append(SpawningPhase.new(0, 45, phase_one))
 	phases.append(SpawningPhase.new(45, 60, phase_two))
 	phases.append(SpawningPhase.new(60+45, 20, phase_two))
+	events.append(EventSpawn.new("Rocks", ROCKS, 0.1, -1, 4))
 func _process(delta: float) -> void:
 	super(delta)
 ## Overrides
