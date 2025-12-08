@@ -1,7 +1,6 @@
 extends Enemy
 
 @export var acceleration: float
-@export var anim: AnimatedSprite2D
 
 func _ready() -> void:
 	super()

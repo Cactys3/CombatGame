@@ -31,7 +31,7 @@ height = 32.0
 radius = 12.0
 height = 36.0
 
-[node name="Jarre" type="RigidBody2D" node_paths=PackedStringArray("damage_hitbox") groups=["enemy"]]
+[node name="Jarre" type="RigidBody2D" node_paths=PackedStringArray("damage_hitbox", "anim") groups=["enemy"]]
 collision_layer = 32
 collision_mask = 32
 mass = 20.0
@@ -39,13 +39,12 @@ gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_xdft2")
 stats = ExtResource("2_nr24a")
-melee_attacks = true
 damage_hitbox = NodePath("Damage_Hitbox")
 xp_on_death = 5
-money_on_death = 5
 weapon_knockback = 300.0
 base_damage = 20.0
 base_movespeed = 70.0
+anim = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 12)

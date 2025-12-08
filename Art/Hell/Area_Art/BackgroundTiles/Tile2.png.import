@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cctoa8i4776qs"
-path="res://.godot/imported/Kle.png-47ac9f52ca3ae1721c57e8b90906b3c9.ctex"
+uid="uid://b0a3oqmb2tg1w"
+path="res://.godot/imported/Tile2.png-f254623ab1bf3ea04ab0ea6c7bdd2af5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Characters/Hell/Kle.png"
-dest_files=["res://.godot/imported/Kle.png-47ac9f52ca3ae1721c57e8b90906b3c9.ctex"]
+source_file="res://Art/Hell/Area_Art/BackgroundTiles/Tile2.png"
+dest_files=["res://.godot/imported/Tile2.png-f254623ab1bf3ea04ab0ea6c7bdd2af5.ctex"]
 
 [params]
 

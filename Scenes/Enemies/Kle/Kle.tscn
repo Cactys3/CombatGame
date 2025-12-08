@@ -31,7 +31,7 @@ height = 14.0
 radius = 6.0
 height = 18.0
 
-[node name="Kle" type="RigidBody2D" node_paths=PackedStringArray("damage_hitbox") groups=["enemy"]]
+[node name="Kle" type="RigidBody2D" node_paths=PackedStringArray("damage_hitbox", "anim") groups=["enemy"]]
 collision_layer = 32
 collision_mask = 32
 mass = 20.0
@@ -39,13 +39,13 @@ gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_kk8om")
 stats = ExtResource("2_tslju")
-melee_attacks = true
 damage_hitbox = NodePath("Damage_Hitbox")
 xp_on_death = 5
-money_on_death = 5
 weapon_knockback = 300.0
 base_damage = 20.0
 base_movespeed = 70.0
+turns_towards_movement = true
+anim = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 13)

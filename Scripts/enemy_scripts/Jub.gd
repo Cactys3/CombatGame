@@ -3,7 +3,7 @@ extends Enemy
 ## Moves into range of player
 ## Shoots projectile
 ## Strafes in a direction (trying to stay in range of player)
-@export var anim: AnimatedSprite2D
+
 
 var curr_strafe_direction: Vector2 = Vector2.ZERO
 var player_in_range: bool = false

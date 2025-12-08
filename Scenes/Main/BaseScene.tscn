@@ -1,15 +1,17 @@
-[gd_scene load_steps=17 format=3 uid="uid://dc0hdlr7wq3lq"]
+[gd_scene load_steps=19 format=3 uid="uid://dc0hdlr7wq3lq"]
 
 [ext_resource type="Script" uid="uid://bb13nkhmcojis" path="res://Scenes/Instances/InstanceRoot.gd" id="1_eeah7"]
+[ext_resource type="PackedScene" uid="uid://dxv17gll2bx2l" path="res://Scenes/Instances/Hell/HellPuddle.tscn" id="2_qrryo"]
+[ext_resource type="Texture2D" uid="uid://ctekysqm3q8wt" path="res://Art/Weapons/PlayingCard/Projectile_PlayingCard.png" id="3_eeah7"]
 [ext_resource type="PackedScene" uid="uid://bhfq62xt07h37" path="res://Scenes/UI/ui.tscn" id="6_uv4m7"]
-[ext_resource type="Script" uid="uid://q2s0hxfba110" path="res://Scripts/Managers/GameManager.gd" id="9_u5ctk"]
-[ext_resource type="Script" uid="uid://13p8bkyp17w" path="res://Scripts/Managers/TestingManager.gd" id="10_cwiy3"]
-[ext_resource type="Script" uid="uid://5tltnj2xg8ps" path="res://Scripts/Managers/ShopManager.gd" id="12_e4e03"]
+[ext_resource type="Script" uid="uid://q2s0hxfba110" path="res://Scripts/managers/GameManager.gd" id="9_u5ctk"]
+[ext_resource type="Script" uid="uid://13p8bkyp17w" path="res://Scripts/managers/TestingManager.gd" id="10_cwiy3"]
+[ext_resource type="Script" uid="uid://5tltnj2xg8ps" path="res://Scripts/managers/ShopManager.gd" id="12_e4e03"]
 [ext_resource type="PackedScene" uid="uid://bcwklkqeim2sq" path="res://Scenes/UI/inventory.tscn" id="17_gf2b2"]
 [ext_resource type="PackedScene" uid="uid://bwuwo8e451bxt" path="res://Scenes/UI/shop_inventory.tscn" id="18_85yrk"]
 [ext_resource type="PackedScene" uid="uid://dildbwxsp3g8d" path="res://Scenes/UI/equipment_inventory.tscn" id="19_gvcvg"]
 [ext_resource type="PackedScene" uid="uid://cwomrgi81thyq" path="res://Scenes/UI/weapon_crafting_inventory.tscn" id="20_41mr8"]
-[ext_resource type="Script" uid="uid://xirmq1j15ex1" path="res://Scripts/Managers/WindowManager.gd" id="27_fwf5d"]
+[ext_resource type="Script" uid="uid://xirmq1j15ex1" path="res://Scripts/managers/WindowManager.gd" id="27_fwf5d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_41mr8"]
 radius = 652.96
@@ -74,6 +76,9 @@ position = Vector2(320, 180)
 
 [node name="EventParent" type="Node2D" parent="Window640/Offset"]
 
+[node name="HellPuddle" parent="Window640/Offset/EventParent" instance=ExtResource("2_qrryo")]
+position = Vector2(-145, -11)
+
 [node name="EnemyParent" type="Node2D" parent="Window640/Offset"]
 
 [node name="XP Parent" type="Node2D" parent="Window640/Offset" groups=["xp_parent"]]
@@ -81,6 +86,19 @@ position = Vector2(320, 180)
 [node name="CharacterParent" type="Node2D" parent="Window640/Offset"]
 
 [node name="Camera2D" type="Camera2D" parent="Window640/Offset/CharacterParent"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Window640/Offset/CharacterParent"]
+position = Vector2(-237.33334, -43)
+collision_layer = 64
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Window640/Offset/CharacterParent/StaticBody2D"]
+position = Vector2(-4.3333235, 2.6666667)
+polygon = PackedVector2Array(20, 20, 0, 15, 0, -15, 20, -20)
+
+[node name="Sprite2D" type="Sprite2D" parent="Window640/Offset/CharacterParent/StaticBody2D"]
+position = Vector2(6.666677, 1)
+texture = ExtResource("3_eeah7")
 
 [node name="WeaponParent" type="Node2D" parent="Window640/Offset"]
 

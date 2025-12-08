@@ -75,6 +75,7 @@ func _physics_process(_delta: float) -> void:
 	handle_moving(_delta)
 	move_and_slide()
 
+
 func handle_moving(delta) -> void:
 	var moving_state = moving
 	var directionX := Input.get_axis("left", "right")

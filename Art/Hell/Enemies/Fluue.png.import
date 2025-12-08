@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lxfss4n84nxu"
-path="res://.godot/imported/Tile1.png-45adb774a75e4ef74e186c2574fe66e3.ctex"
+uid="uid://beyct05pgtpgx"
+path="res://.godot/imported/Fluue.png-9e3378766bb61067b6618279ed226150.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Area Art/Hell/BackgroundTiles/Tile1.png"
-dest_files=["res://.godot/imported/Tile1.png-45adb774a75e4ef74e186c2574fe66e3.ctex"]
+source_file="res://Art/Hell/Enemies/Fluue.png"
+dest_files=["res://.godot/imported/Fluue.png-9e3378766bb61067b6618279ed226150.ctex"]
 
 [params]
 

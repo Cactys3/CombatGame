@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://beyct05pgtpgx"
-path="res://.godot/imported/Fluue.png-9d0e07ebf892c24e0cf3ecec6f06ee4e.ctex"
+uid="uid://bvm32b4d2y5nd"
+path="res://.godot/imported/Sclarnk.png-3a5c1535245f14d27ee1330e9e045ce2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Characters/Hell/Fluue.png"
-dest_files=["res://.godot/imported/Fluue.png-9d0e07ebf892c24e0cf3ecec6f06ee4e.ctex"]
+source_file="res://Art/Hell/Enemies/Sclarnk.png"
+dest_files=["res://.godot/imported/Sclarnk.png-3a5c1535245f14d27ee1330e9e045ce2.ctex"]
 
 [params]
 

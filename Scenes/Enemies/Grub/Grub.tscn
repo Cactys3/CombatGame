@@ -51,7 +51,7 @@ height = 28.0
 radius = 9.0
 height = 26.0
 
-[node name="Grub" type="RigidBody2D" node_paths=PackedStringArray("damage_hitbox") groups=["enemy"]]
+[node name="Grub" type="RigidBody2D" node_paths=PackedStringArray("damage_hitbox", "anim") groups=["enemy"]]
 collision_layer = 32
 collision_mask = 32
 mass = 5.0
@@ -59,7 +59,6 @@ gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_yjqvm")
 stats = ExtResource("2_8ri7c")
-melee_attacks = true
 damage_hitbox = NodePath("Damage_Hitbox")
 xp_on_death = 20
 money_on_death = 20
@@ -73,6 +72,7 @@ base_speed = 20.0
 base_acceleration = 20.0
 base_lifetime = 20.0
 base_piercing = 20.0
+anim = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_mr5sk")

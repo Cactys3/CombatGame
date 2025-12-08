@@ -2,6 +2,7 @@ extends Projectile
 
 @export var anim: AnimatedSprite2D
 
+
 var fadingout: bool = false
 var AttackedBodyCd: int = 1
 var AttackedBodyStopwatch: float = 0

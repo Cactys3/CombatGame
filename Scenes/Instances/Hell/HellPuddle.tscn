@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://dxv17gll2bx2l"]
+
+[ext_resource type="Texture2D" uid="uid://dyogr3hdrggr7" path="res://Art/Hell/Events/Puddle.png" id="1_abymy"]
+[ext_resource type="Script" uid="uid://cbv22q4kqipq8" path="res://Scripts/testing/test_Collisions.gd" id="1_b2aml"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b2aml"]
+atlas = ExtResource("1_abymy")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_upuuh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b2aml")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_abymy"]
+radius = 12.5
+
+[node name="HellPuddle" type="StaticBody2D"]
+collision_layer = 64
+collision_mask = 2
+script = ExtResource("1_b2aml")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_upuuh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2.5, 4)
+shape = SubResource("CircleShape2D_abymy")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

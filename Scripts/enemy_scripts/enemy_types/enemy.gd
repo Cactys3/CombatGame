@@ -3,31 +3,34 @@ class_name Enemy
 
 @export_category("Enemy Stats")
 @export var stats: StatsResource# = StatsResource.new()
-@export var melee_attacks: bool
-@export var damage_hitbox:Area2D
+@export var melee_attacks: bool = true
+@export var damage_hitbox: Area2D
 @export var can_be_knockbacked:bool = true
 @export var can_be_stunned:bool = true
-@export var xp_on_death: int
-@export var money_on_death: int
-@export var weapon_knockback: float
-@export var weapon_stun: float
-@export var self_knockback_onhit: float = 200
-@export var base_damage: float
-@export var base_movespeed: float
-@export var base_health: float
-@export var base_regen: float
+@export var xp_on_death: int = 10
+@export var money_on_death: int = 5
+@export var weapon_knockback: float = 20.0
+@export var weapon_stun: float = 0
+@export var self_knockback_onhit: float = 200.0
+@export var base_damage: float = 10
+@export var base_movespeed: float = 60
+@export var base_health: float = 40
+@export var base_regen: float = 0
 @export var base_knockback_modifier: float = 1
 @export var base_damage_reduction: float = 0
 @export var base_cooldown: float = 1
 @export_category("Enemy Projectile Stats")
 @export var projectile: PackedScene
-@export var shoots_projectiles: bool
-@export var homing: bool
-@export var base_range: float
-@export var base_speed: float
-@export var base_acceleration: float
-@export var base_lifetime: float
-@export var base_piercing: float
+@export var shoots_projectiles: bool = false
+@export var homing: bool = false
+@export var base_range: float = 100
+@export var base_speed: float = 100
+@export var base_acceleration: float = 2
+@export var base_lifetime: float = 15
+@export var base_piercing: float = 0
+@export_category("Misc")
+@export var turns_towards_movement: bool = false
+@export var anim: AnimatedSprite2D 
 const POPUP_TEXT = preload("res://Scenes/UI/popup_text.tscn")
 const xp = preload("res://Scenes/Misc/xp_blip.tscn")
 var player: Character
@@ -90,7 +93,8 @@ var curr_damage: float:
 var max_health: float:
 	get:
 		return stats.get_stat_without_default(stats.HP) + base_health
-
+## Misc:
+var facing_left: bool
 var ImReady: bool = false
 
 func _ready() -> void:
@@ -184,6 +188,11 @@ func damage_player(damage_player: Node2D):
 func move_towards(new_position: Vector2, movespeed: float, _delta:float):
 	var direction: Vector2 = (new_position - global_position).normalized()
 	linear_velocity = linear_velocity.move_toward(Vector2(direction.x * movespeed, direction.y * movespeed), 9)
+	
+	var new_facing_left: bool = linear_velocity.x < 0
+	if anim && turns_towards_movement && facing_left != new_facing_left:
+		facing_left = new_facing_left
+		anim.flip_h = !facing_left
 
 func is_player_nearby(distance: float) -> bool:
 	if global_position.distance_to(player.global_position) <= distance:

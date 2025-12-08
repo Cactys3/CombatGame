@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://5gi5phh1b18p"
-path="res://.godot/imported/Jarre.png-96415a5b243e8d07ffc84ff62e960e40.ctex"
+uid="uid://dyogr3hdrggr7"
+path="res://.godot/imported/Puddle.png-eecc6669d940fc0f18fc524c47741205.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Characters/Hell/Jarre.png"
-dest_files=["res://.godot/imported/Jarre.png-96415a5b243e8d07ffc84ff62e960e40.ctex"]
+source_file="res://Art/Hell/Events/Puddle.png"
+dest_files=["res://.godot/imported/Puddle.png-eecc6669d940fc0f18fc524c47741205.ctex"]
 
 [params]
 

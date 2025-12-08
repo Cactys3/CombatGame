@@ -155,18 +155,12 @@ script = ExtResource("1_iixip")
 anim = NodePath("AnimatedSprite2D")
 stats = ExtResource("2_si758")
 xp_on_death = 3
-money_on_death = 5
 weapon_knockback = 5.0
-base_damage = 10.0
 base_movespeed = 70.0
-base_health = 40.0
 base_cooldown = 3.0
 projectile = ExtResource("3_j73id")
 shoots_projectiles = true
 base_range = 130.0
-base_speed = 100.0
-base_acceleration = 2.0
-base_lifetime = 15.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_r0cek")

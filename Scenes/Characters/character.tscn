@@ -107,9 +107,7 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o7fmw"]
-radius = 5.0
-height = 24.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7qr7h"]
 
 [sub_resource type="GDScript" id="GDScript_0dobi"]
 script/source = "extends Area2D
@@ -130,7 +128,8 @@ radius = 49.010204
 
 [node name="Character" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
-collision_mask = 0
+collision_mask = 64
+platform_on_leave = 2
 script = ExtResource("1_ieu52")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("Target")]
@@ -142,7 +141,7 @@ Target = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 0)
-shape = SubResource("CapsuleShape2D_o7fmw")
+shape = SubResource("RectangleShape2D_7qr7h")
 
 [node name="XP_range" type="Area2D" parent="." groups=["xp_range"]]
 collision_layer = 256

@@ -1,7 +1,6 @@
 extends Enemy
 
 ## Walks towards player until in range, Then Charges up and Dashes at player
-@export var anim: AnimatedSprite2D
 @export var chargetime: float
 @export var dashtime: float
 @export var walkspeed_modifier: float

@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bj2nfedstjwtm"]
+
+[ext_resource type="Texture2D" uid="uid://dbrids0frndoa" path="res://Art/Hell/Events/Spikes.png" id="1_t50jh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kb0rv"]
+atlas = ExtResource("1_t50jh")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a42u1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kb0rv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2o65g"]
+size = Vector2(18, 22)
+
+[node name="HellSpikes" type="StaticBody2D"]
+collision_layer = 64
+collision_mask = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_a42u1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3, -2)
+shape = SubResource("RectangleShape2D_2o65g")

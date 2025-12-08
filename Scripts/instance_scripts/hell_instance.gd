@@ -4,7 +4,10 @@ extends GameInstance
 
 ## Images
 const TILE1 = preload("uid://lxfss4n84nxu")
-
+const TILE2 = preload("uid://b0a3oqmb2tg1w")
+const TILE3 = preload("uid://d3nouxti5p02i")
+const TILE4 = preload("uid://c3t4kda6cwqs8")
+const TILE5 = preload("uid://dn7pcp5orn4l8")
 ## Enemies
 const FLUUE = preload("uid://d1v8l8ulmvpo")
 const JARRE = preload("uid://b1me3l65aoeu1")
@@ -14,7 +17,9 @@ const SCLARNK = preload("uid://bpx8cildenn6g")
 
 ## Events
 const ROCKS = preload("uid://cmcbroiw30fy8")
-
+const PUDDLE = preload("uid://dxv17gll2bx2l")
+const SPIKES = preload("uid://bj2nfedstjwtm")
+const BALL = preload("uid://dyk1bgwdqiq2d")
 
 func _ready() -> void:
 	win_time = 60*20
@@ -25,12 +30,19 @@ func _ready() -> void:
 	phases.append(SpawningPhase.new(0, 45, phase_one))
 	phases.append(SpawningPhase.new(45, 60, phase_two))
 	phases.append(SpawningPhase.new(60+45, 20, phase_two))
-	events.append(EventSpawn.new("Rocks", ROCKS, 0.1, -1, 4))
+	events.append(EventSpawn.new("Rocks", ROCKS, 0.25, -1, 1))
+	events.append(EventSpawn.new("Spikes", SPIKES, 0.25, -1, 1))
+	events.append(EventSpawn.new("Puddle", PUDDLE, 0.25, -1, 1))
+	events.append(EventSpawn.new("Ball", BALL, 0.25, -1, 1))
 func _process(delta: float) -> void:
 	super(delta)
 ## Overrides
 func add_tiles():
 	TILES.append(TILE1) 
+	TILES.append(TILE2) 
+	TILES.append(TILE3) 
+	TILES.append(TILE4) 
+	TILES.append(TILE5) 
 func handle_stopwatch(delta: float):
 	super(delta)
 func phase_one():
