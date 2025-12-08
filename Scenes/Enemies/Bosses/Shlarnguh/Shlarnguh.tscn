@@ -1,0 +1,91 @@
+[gd_scene load_steps=12 format=3 uid="uid://cxv2mja6rt14"]
+
+[ext_resource type="Script" uid="uid://bnhsdpro70dgj" path="res://Scripts/enemy_scripts/enemy_types/boss.gd" id="1_od6ad"]
+[ext_resource type="Resource" uid="uid://y1168wxk1m7y" path="res://Scenes/Enemies/Bosses/Shlarnguh/shlarnguh_stats.tres" id="2_34us7"]
+[ext_resource type="Texture2D" uid="uid://clvmkppoeppux" path="res://Art/Hell/Enemies/Shlarnguh.png" id="2_od6ad"]
+[ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="3_vp1ft"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_34us7"]
+atlas = ExtResource("2_od6ad")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vp1ft"]
+atlas = ExtResource("2_od6ad")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0k0t"]
+atlas = ExtResource("2_od6ad")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fepuh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_34us7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vp1ft")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u0k0t")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fepuh"]
+radius = 16.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l6hk7"]
+radius = 24.0
+height = 54.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h51jg"]
+radius = 29.0
+height = 64.0
+
+[node name="Shlarnguh" type="RigidBody2D" node_paths=PackedStringArray("damage_hitbox", "anim")]
+mass = 50.0
+gravity_scale = 0.0
+script = ExtResource("1_od6ad")
+stats = ExtResource("2_34us7")
+damage_hitbox = NodePath("Damage_Hitbox")
+xp_on_death = 100
+money_on_death = 99
+weapon_knockback = 60.0
+weapon_stun = 2.0
+base_damage = 40.0
+base_movespeed = 50.0
+base_health = 200.0
+base_regen = 5.0
+base_knockback_modifier = 0.5
+anim = NodePath("AnimatedSprite2D")
+metadata/_custom_type_script = "uid://bnhsdpro70dgj"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 13)
+sprite_frames = SubResource("SpriteFrames_fepuh")
+autoplay = "default"
+offset = Vector2(0, -8.385)
+
+[node name="MinionBlock" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_fepuh")
+
+[node name="Damage_Hitbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox"]
+position = Vector2(1, 5)
+shape = SubResource("CapsuleShape2D_l6hk7")
+
+[node name="Health_HitArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("3_vp1ft")
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_HitArea"]
+position = Vector2(1, 3)
+shape = SubResource("CapsuleShape2D_h51jg")

@@ -94,8 +94,10 @@ var max_health: float:
 	get:
 		return stats.get_stat_without_default(stats.HP) + base_health
 ## Misc:
-var facing_left: bool
+var facing_left: bool = true
 var ImReady: bool = false
+## Called on death with position of death
+signal death(position: Vector2)
 
 func _ready() -> void:
 	call_deferred("set_stats")
@@ -158,6 +160,7 @@ func shoot_projectile():
 	pass
 
 func die():
+	death.emit(position)
 	visible = false
 	GameManager.instance.money += money_on_death
 	var new_xp = xp.instantiate()

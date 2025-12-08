@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_7o6ka")
+parent_object_name = "Fluue"
 metadata/_custom_type_script = "uid://dwj80yu0v1qdt"

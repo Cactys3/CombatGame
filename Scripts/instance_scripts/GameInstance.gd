@@ -6,6 +6,7 @@ class_name GameInstance
 static var instance: GameInstance
 var TITLE_SCENE
 ## Nodes
+var character: Character
 var camera: Camera2D
 var game_man: GameManager
 var ui_man: UIManager
@@ -28,6 +29,7 @@ const LOOT_CHEST = preload("uid://cll8qcsho5mrw")
 const SHOP = preload("uid://cytotq02c1x2a")
 var events: Array[EventSpawn] # stores event objects of all spawnable events
 var enemies: Array[EnemySpawn] # stores enemies to spawn 
+var bosses: Array[BossSpawn] # stores bosses to spawn
 var phases: Array[SpawningPhase] # stores the phases to spawn enemies in
 var current_phase: SpawningPhase
 ## Spawning Stuff
@@ -72,14 +74,15 @@ func _ready() -> void:
 		return
 	instance = self  
 ## Sets up the GameInstance by giving parameter values (character should be resource so can change default values?)
-func setup(character: Character, run_modifiers) -> void:
-	character_parent.add_child(character)
-	camera.reparent(character)
+func setup(new_character: Character, run_modifiers) -> void:
+	character_parent.add_child(new_character)
+	camera.reparent(new_character)
 	TITLE_SCENE = load("res://Scenes/Main/TitleScene.tscn")
 	chunk_rect = ColorRect.new()
 	call_deferred("connect_signals")
 	setup_events()
-	game_man.setup(character)
+	game_man.setup(new_character)
+	character = new_character
 	add_tiles()
 func connect_signals():
 	game_man.EnemyKilled.connect(enemy_killed)
@@ -89,7 +92,7 @@ func setup_events():
 	events.append(EventSpawn.new("shop", SHOP, 0.15, -1, 1))
 	events.append(EventSpawn.new("forge", FORGE, 0.20, -1, 1))
 func _process(delta: float) -> void:
-	var pos = game_man.player.position
+	var pos = character.position #game_man.player.position
 	ui_man.set_fps(str(Engine.get_frames_per_second()))
 	if game_man && game_man.paused == false:
 		handle_stopwatch(delta)
@@ -178,11 +181,13 @@ func handle_chunks(pos: Vector2):
 			load_chunk(chunk_grid + Vector2(1, 1))
 		else:
 			pass#print("already had: SE")
+## Only spawn enemies / check to spawn bosses every so often
 func handle_enemy_spawning(delta: float, pos: Vector2):
 	spawning_stopwatch += delta
 	if spawning_stopwatch > spawning_cooldown:
 		spawning_stopwatch = 0
 		spawn_enemies(pos)
+		spawn_bosses(pos)
 func load_chunk(chunk_id: Vector2):
 	var new_chunk: Sprite2D = Sprite2D.new()
 	new_chunk.visible = false
@@ -211,7 +216,16 @@ func spawn_enemies(pos: Vector2):
 			for i in enemy.max_attempts:
 				if randf() < enemy.spawn_chance:
 					spawn_enemy(enemy.scene, random_position(pos))
-
+## Goes through enemies in enemies and spawns based on data
+func spawn_bosses(pos: Vector2):
+	for boss in bosses:
+		if boss.can_spawn():
+			if boss.spawn_once_on_start:
+				boss.spawn_once_on_start = false
+				spawn_boss(boss.scene, random_position(pos))
+			for i in boss.get_spawns(enemies_killed, total_stopwatch):
+				spawn_boss(boss.scene, random_position(pos))
+			
 func load_event(scene: PackedScene, chunk: Vector2):
 	var new_event = scene.instantiate()
 	event_parent.add_child(new_event)
@@ -249,6 +263,20 @@ func spawn_boss(scene: PackedScene, pos: Vector2):
 	game_man.enemy_parent.add_child(boss)
 	boss.visible = true
 
+func spawn_final_boss(scene: PackedScene, pos: Vector2):
+	bosses_alive += 1
+	bosses_spawned += 1
+	var boss: Boss = scene.instantiate()
+	boss.visible = false
+	boss.global_position = pos
+	game_man.enemy_parent.add_child(boss)
+	boss.visible = true
+	
+	boss.death.connect(final_boss_death)
+
+func final_boss_death(boss_position: Vector2):
+	return_to_main_menu()
+
 func enemy_killed():
 	enemies_alive -= 1
 	enemies_killed += 1
@@ -275,18 +303,22 @@ func random_position(player_pos: Vector2) -> Vector2:
 func SpawningButtonPressed(b: bool) -> void:
 	pass
 
+
+
 ## Overrides
 func add_tiles():
 	pass
 ## Check/Change Spawn Phases, setup enemies/events accordingly
 func handle_spawn_phases():
-	if current_phase && current_phase.should_start(total_stopwatch):
+	## Check if current phase continues
+	if current_phase && current_phase.should_start_or_continue(total_stopwatch):
 		return
+	## Find new phase since current phase is completed
 	for phase in phases:
-		if phase.should_start(total_stopwatch):
-			phase.start()
+		if phase.should_start_or_continue(total_stopwatch):
 			current_phase = phase
 			return
+	## Didn't find a phase...?
 ## Gets tile from matrix? - Override
 func get_tile(index: int) -> Texture2D:
 	if TILES.size() > index && index > -1:
@@ -311,6 +343,41 @@ class EnemySpawn: ## TODO: add in functionality to enemy spawn in a line across 
 		max_attempts = new_max_attempts
 		ready = true
 	## returns if enemy can spawn
+	func can_spawn() -> bool:
+		if !ready:
+			return false
+		return true
+## Contains data for a boss to spawn, determines when it will spawn/what makes it spawn
+class BossSpawn:
+	var name: String = "default"
+	var scene: PackedScene
+	## Number of times it can spawn max, per instance
+	var max_spawns: int 
+	var kills_per_spawn: int ## Number of enemy kills needed before spawning
+	var time_per_spawn: float ## Amount of time needed between each spawn
+	var spawn_once_on_start: bool ## If it will spawn once automatically 
+	var enemies_killed: int
+	var time_elapsed: float
+	var ready: bool = false
+	func _init(new_enemies_killed: int, new_time_elapsed: float, new_name: String, new_scene: PackedScene, new_spawn_once_on_start: bool, new_kills_per_spawn: int, new_time_per_spawn: float) -> void:
+		enemies_killed = new_enemies_killed
+		time_elapsed = new_time_elapsed
+		name = new_name
+		scene = new_scene
+		kills_per_spawn = new_kills_per_spawn
+		time_per_spawn = new_time_per_spawn
+		spawn_once_on_start = new_spawn_once_on_start
+		ready = true
+	func get_spawns(new_enemies_killed: int, new_time_elapsed: float) -> int:
+		var ret: int = 0
+		if kills_per_spawn > 0 && new_enemies_killed - enemies_killed >= kills_per_spawn:
+			ret += 1
+			enemies_killed += kills_per_spawn
+		if time_per_spawn > 0 && new_time_elapsed - time_elapsed >= time_per_spawn:
+			ret += 1
+			time_elapsed += time_per_spawn
+		return ret
+	## returns if boss can spawn
 	func can_spawn() -> bool:
 		if !ready:
 			return false
@@ -344,17 +411,25 @@ class EventSpawn:
 			return true
 		return spawn_count < max_spawns
 class SpawningPhase:
-	var started: bool = false
-	var start_time: float
-	var duration: float
-	var start_method: Callable
-	func _init(new_start_time: float, new_duration: float, new_start_method: Callable):
-		start_time = new_start_time
+	var name: String = "default"
+	var started: bool = false ## Has this phase started
+	var completed: bool = false ## Has this phased completed
+	var initial_time: float ## Time that the phase started
+	var duration: float ## Time that the phase lasts
+	var start_method: Callable ## Method to setup the phase
+	func _init(new_name: String, new_duration: float, new_start_method: Callable):
+		name = new_name
 		duration = new_duration
 		start_method = new_start_method
-	func start():
+	func should_start_or_continue(time: float):
+		if completed:
+			return false
 		if !started:
 			started = true
 			start_method.call()
-	func should_start(time: float):
-		return (time > start_time) && (time < start_time + duration)
+			initial_time = time
+			return true
+		if (time - initial_time) > duration:
+			completed = true
+			return false
+		return true

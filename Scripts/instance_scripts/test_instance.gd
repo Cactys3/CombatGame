@@ -21,9 +21,9 @@ func _ready() -> void:
 	spawning_phase = -1
 	map_height = 3 ## this many chunks tall
 	map_width = 3 ## this many chunks wide
-	phases.append(SpawningPhase.new(0, 20, phase_one))
-	phases.append(SpawningPhase.new(20, 20, phase_two))
-	phases.append(SpawningPhase.new(40, 20, phase_two))
+	phases.append(SpawningPhase.new("phase 1", 20, phase_one))
+	phases.append(SpawningPhase.new("phase 2", 20, phase_two))
+	phases.append(SpawningPhase.new("phase 3", 20, phase_two))
 func _process(delta: float) -> void:
 	super(delta)
 ## Overrides
