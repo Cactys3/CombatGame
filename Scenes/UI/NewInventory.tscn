@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://cu6nvv3r8tgkl"]
+[gd_scene load_steps=17 format=3 uid="uid://cu6nvv3r8tgkl"]
 
 [ext_resource type="Script" uid="uid://cuxh8wu55linp" path="res://Scenes/UI/InventoryAOI.gd" id="1_fk1j6"]
 [ext_resource type="Texture2D" uid="uid://cctoa8i4776qs" path="res://Art/Hell/Enemies/Kle.png" id="1_iac8f"]
 [ext_resource type="Script" uid="uid://b1a7tpasthds3" path="res://Scenes/UI/AOI_manager.gd" id="1_poti5"]
+[ext_resource type="PackedScene" uid="uid://o387qlahldf" path="res://Scenes/UI/stats_visual.tscn" id="3_8f5sv"]
 [ext_resource type="Script" uid="uid://bvqeuacomwur3" path="res://Scripts/UI/equipment_inventory.gd" id="4_4in3a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbd61"]
@@ -27,8 +28,9 @@ border_color = Color(0.13333334, 0.1254902, 0.20392157, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fk1j6"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[sub_resource type="LabelSettings" id="LabelSettings_fk1j6"]
+[sub_resource type="LabelSettings" id="LabelSettings_8f5sv"]
 font_size = 32
+font_color = Color(0.3882353, 0.60784316, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8f5sv"]
 bg_color = Color(0.27450982, 0.25882354, 0.42352942, 1)
@@ -41,6 +43,15 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tjp51"]
 bg_color = Color(0.23921569, 0.23137255, 0.32156864, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.4627451, 0.25882354, 0.5411765, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_4in3a"]
+font_size = 32
+font_color = Color(0.4627451, 0.25882354, 0.5411765, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4in3a"]
 bg_color = Color(0.23921569, 0.23137255, 0.32156864, 1)
@@ -111,37 +122,41 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_poti5")
 [node name="HBoxContainer" type="HBoxContainer" parent="Main/Main/Inventory/Left/Buttons/ButtonsPanel"]
 layout_mode = 2
 
-[node name="Button4" type="Button" parent="Main/Main/Inventory/Left/Buttons/ButtonsPanel/HBoxContainer"]
+[node name="Button1" type="Button" parent="Main/Main/Inventory/Left/Buttons/ButtonsPanel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.27450982, 0.25882354, 0.42352942, 1)
+theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_fk1j6")
-text = "Button
-"
-
-[node name="Button3" type="Button" parent="Main/Main/Inventory/Left/Buttons/ButtonsPanel/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 16
-theme_override_styles/normal = SubResource("StyleBoxFlat_fk1j6")
-text = "Button
-"
+text = "Alphabetical"
+text_overrun_behavior = 1
 
 [node name="Button2" type="Button" parent="Main/Main/Inventory/Left/Buttons/ButtonsPanel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.27450982, 0.25882354, 0.42352942, 1)
+theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_fk1j6")
-text = "Button
-"
+text = "Rarity"
+text_overrun_behavior = 1
 
-[node name="Button" type="Button" parent="Main/Main/Inventory/Left/Buttons/ButtonsPanel/HBoxContainer"]
+[node name="Button3" type="Button" parent="Main/Main/Inventory/Left/Buttons/ButtonsPanel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.27450982, 0.25882354, 0.42352942, 1)
+theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_fk1j6")
-text = "Button
-"
+text = "Type"
+text_overrun_behavior = 1
+
+[node name="Button4" type="Button" parent="Main/Main/Inventory/Left/Buttons/ButtonsPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.27450982, 0.25882354, 0.42352942, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_fk1j6")
+text = "Random"
+text_overrun_behavior = 1
 
 [node name="OffsetRight" type="Control" parent="Main/Main/Inventory/Left/Buttons"]
 layout_mode = 2
@@ -163,7 +178,7 @@ offset_bottom = 8.0
 size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "Inventory"
-label_settings = SubResource("LabelSettings_fk1j6")
+label_settings = SubResource("LabelSettings_8f5sv")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -206,7 +221,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_o2jd4")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel"]
+[node name="HBox" type="HBoxContainer" parent="Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -214,14 +229,47 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Stats" type="Panel" parent="Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBoxContainer"]
+[node name="Margin" type="MarginContainer" parent="Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_top = 35
+theme_override_constants/margin_bottom = 20
+
+[node name="Stats" type="Panel" parent="Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBox/Margin"]
 custom_minimum_size = Vector2(100, 150)
 layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
+size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_tjp51")
 
-[node name="StatsLabel" type="Label" parent="Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBoxContainer/Stats"]
+[node name="MarginContainer" type="MarginContainer" parent="Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBox/Margin/Stats"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="StatsDisplay" parent="Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBox/Margin/Stats/MarginContainer" instance=ExtResource("3_8f5sv")]
+layout_mode = 2
+hide_damage = true
+hide_range = true
+hide_attackspeed = true
+hide_velocity = true
+hide_count = true
+hide_piercing = true
+hide_duration = true
+hide_buildup = true
+hide_critchance = true
+hide_critdamage = true
+hide_lifesteal = true
+hide_bonusvselites = true
+hide_inaccuracy = true
+
+[node name="StatsLabel" type="Label" parent="Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBox/Margin/Stats"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -232,31 +280,37 @@ offset_right = 30.0
 offset_bottom = -7.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 32
-text = "Stats"
+text = "Player Stats"
+label_settings = SubResource("LabelSettings_4in3a")
 horizontal_alignment = 1
 
-[node name="StatsScroll" type="ScrollContainer" parent="Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBoxContainer/Stats"]
-layout_mode = 0
-offset_right = 70.0
-offset_bottom = 120.0
+[node name="Margin2" type="MarginContainer" parent="Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_top = 35
+theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBoxContainer/Stats/StatsScroll"]
+[node name="Aspect" type="AspectRatioContainer" parent="Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBox/Margin2"]
 layout_mode = 2
 
-[node name="CharacterImage" type="TextureRect" parent="Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBoxContainer"]
+[node name="CharacterImage" type="TextureRect" parent="Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBox/Margin2/Aspect"]
 layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
+size_flags_horizontal = 3
 texture = ExtResource("1_iac8f")
 
-[node name="Attributes" type="Panel" parent="Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBoxContainer"]
+[node name="Margin3" type="MarginContainer" parent="Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_top = 35
+theme_override_constants/margin_bottom = 20
+
+[node name="Attributes" type="Panel" parent="Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBox/Margin3"]
 custom_minimum_size = Vector2(100, 150)
 layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
+size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_tjp51")
 
-[node name="Label" type="Label" parent="Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBoxContainer/Attributes"]
+[node name="Label" type="Label" parent="Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBox/Margin3/Attributes"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -268,14 +322,18 @@ offset_bottom = -7.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 32
 text = "Attributes"
+label_settings = SubResource("LabelSettings_4in3a")
 horizontal_alignment = 1
 
-[node name="Scroll" type="ScrollContainer" parent="Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBoxContainer/Attributes"]
-layout_mode = 0
-offset_right = 70.0
-offset_bottom = 120.0
+[node name="Scroll" type="ScrollContainer" parent="Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBox/Margin3/Attributes"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBoxContainer/Attributes/Scroll"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBox/Margin3/Attributes/Scroll"]
 layout_mode = 2
 
 [node name="Equipment" type="Panel" parent="Main/Main/RightPanel/DividerBox/Right/RightBox" node_paths=PackedStringArray("ItemParent", "WeaponParent", "default_item_parent")]
@@ -316,7 +374,7 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "Character"
-label_settings = SubResource("LabelSettings_fk1j6")
+label_settings = SubResource("LabelSettings_8f5sv")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -336,6 +394,11 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "Equipment"
-label_settings = SubResource("LabelSettings_fk1j6")
+label_settings = SubResource("LabelSettings_8f5sv")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[connection signal="pressed" from="Main/Main/Inventory/Left/Buttons/ButtonsPanel/HBoxContainer/Button1" to="Main/Main/Inventory" method="button1"]
+[connection signal="pressed" from="Main/Main/Inventory/Left/Buttons/ButtonsPanel/HBoxContainer/Button2" to="Main/Main/Inventory" method="button2"]
+[connection signal="pressed" from="Main/Main/Inventory/Left/Buttons/ButtonsPanel/HBoxContainer/Button3" to="Main/Main/Inventory" method="button3"]
+[connection signal="pressed" from="Main/Main/Inventory/Left/Buttons/ButtonsPanel/HBoxContainer/Button4" to="Main/Main/Inventory" method="button4"]

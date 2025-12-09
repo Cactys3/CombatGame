@@ -1,180 +1,304 @@
-[gd_scene load_steps=5 format=3 uid="uid://o387qlahldf"]
+[gd_scene load_steps=9 format=3 uid="uid://o387qlahldf"]
 
 [ext_resource type="Script" uid="uid://cf2hav4yib2ko" path="res://Scripts/UI/stats_display.gd" id="1_6ir1p"]
-[ext_resource type="PackedScene" uid="uid://dvnb4uadqlav6" path="res://Scenes/UI/toggle_ui_button.tscn" id="3_wdkpi"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bv653"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fm0b5"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_bv653"]
-font_size = 32
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fm0b5"]
+bg_color = Color(0.23921569, 0.23137255, 0.32156864, 1)
 
-[node name="Panel" type="Panel"]
-custom_minimum_size = Vector2(300, 600)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -300.0
-offset_right = 150.0
-offset_bottom = 300.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxEmpty_bv653")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_si0ms"]
+bg_color = Color(0.23921569, 0.23137255, 0.32156864, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bv653"]
+bg_color = Color(0.4627451, 0.25882354, 0.5411765, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ckhmj"]
+bg_color = Color(0.23921569, 0.23137255, 0.32156864, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_edmny"]
+bg_color = Color(0.23921569, 0.23137255, 0.32156864, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_fm0b5"]
+font_color = Color(0.37254903, 0.8039216, 0.89411765, 1)
+
+[node name="StatsDisplay" type="PanelContainer"]
+offset_right = 358.0
+offset_bottom = 407.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fm0b5")
 script = ExtResource("1_6ir1p")
 
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_constants/separation = 0
 
-[node name="damage" type="Label" parent="Panel"]
-layout_mode = 0
-offset_top = 152.0
-offset_right = 84.0
-offset_bottom = 207.0
-text = "Default
-"
-label_settings = SubResource("LabelSettings_bv653")
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_constants/separation = 0
 
-[node name="range" type="Label" parent="Panel"]
-layout_mode = 0
-offset_top = 172.0
-offset_right = 84.0
-offset_bottom = 227.0
-text = "Default
-"
-label_settings = SubResource("LabelSettings_bv653")
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.27450982, 0.25882354, 0.42352942, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_fm0b5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_si0ms")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bv653")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ckhmj")
+theme_override_styles/focus = SubResource("StyleBoxFlat_edmny")
+text = "Default"
+text_overrun_behavior = 1
 
-[node name="weight" type="Label" parent="Panel"]
-layout_mode = 0
-offset_top = 192.0
-offset_right = 84.0
-offset_bottom = 247.0
-text = "Default
-"
-label_settings = SubResource("LabelSettings_bv653")
+[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.27450982, 0.25882354, 0.42352942, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_fm0b5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_si0ms")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bv653")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ckhmj")
+theme_override_styles/focus = SubResource("StyleBoxFlat_edmny")
+text = "Alphabetical"
+text_overrun_behavior = 1
 
-[node name="attackspeed" type="Label" parent="Panel"]
-layout_mode = 0
-offset_top = 212.0
-offset_right = 84.0
-offset_bottom = 267.0
-text = "Default
-"
-label_settings = SubResource("LabelSettings_bv653")
+[node name="Button3" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.27450982, 0.25882354, 0.42352942, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_fm0b5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_si0ms")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bv653")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ckhmj")
+theme_override_styles/focus = SubResource("StyleBoxFlat_edmny")
+text = "Numerical"
+text_overrun_behavior = 1
 
-[node name="stance" type="Label" parent="Panel"]
-layout_mode = 0
-offset_top = 232.0
-offset_right = 84.0
-offset_bottom = 287.0
-text = "Default
-"
-label_settings = SubResource("LabelSettings_bv653")
+[node name="Button4" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.27450982, 0.25882354, 0.42352942, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_fm0b5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_si0ms")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bv653")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ckhmj")
+theme_override_styles/focus = SubResource("StyleBoxFlat_edmny")
+text = "Random"
+text_overrun_behavior = 1
 
-[node name="velocity" type="Label" parent="Panel"]
-layout_mode = 0
-offset_top = 252.0
-offset_right = 84.0
-offset_bottom = 307.0
-text = "Default
-"
-label_settings = SubResource("LabelSettings_bv653")
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+size_flags_vertical = 3
 
-[node name="count" type="Label" parent="Panel"]
-layout_mode = 0
-offset_top = 272.0
-offset_right = 84.0
-offset_bottom = 327.0
-text = "Default
-"
-label_settings = SubResource("LabelSettings_bv653")
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
 
-[node name="piercing" type="Label" parent="Panel"]
-layout_mode = 0
-offset_top = 292.0
-offset_right = 84.0
-offset_bottom = 347.0
-text = "Default
-"
-label_settings = SubResource("LabelSettings_bv653")
+[node name="damage" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
 
-[node name="duration" type="Label" parent="Panel"]
-layout_mode = 0
-offset_top = 312.0
-offset_right = 84.0
-offset_bottom = 367.0
-text = "Default
-"
-label_settings = SubResource("LabelSettings_bv653")
+[node name="range" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
 
-[node name="size" type="Label" parent="Panel"]
-layout_mode = 0
-offset_top = 332.0
-offset_right = 84.0
-offset_bottom = 387.0
-text = "Default
-"
-label_settings = SubResource("LabelSettings_bv653")
+[node name="weight" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
 
-[node name="buildup" type="Label" parent="Panel"]
-layout_mode = 0
-offset_top = 352.0
-offset_right = 84.0
-offset_bottom = 407.0
-text = "Default
-"
-label_settings = SubResource("LabelSettings_bv653")
+[node name="attackspeed" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
 
-[node name="hp" type="Label" parent="Panel"]
-layout_mode = 0
-offset_top = 372.0
-offset_right = 84.0
-offset_bottom = 427.0
-text = "Default
-"
-label_settings = SubResource("LabelSettings_bv653")
+[node name="velocity" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
 
-[node name="xp" type="Label" parent="Panel"]
-layout_mode = 0
-offset_top = 392.0
-offset_right = 84.0
-offset_bottom = 447.0
-text = "Default
-"
-label_settings = SubResource("LabelSettings_bv653")
+[node name="count" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
 
-[node name="mogul" type="Label" parent="Panel"]
-layout_mode = 0
-offset_top = 412.0
-offset_right = 84.0
-offset_bottom = 467.0
-text = "Default
-"
-label_settings = SubResource("LabelSettings_bv653")
+[node name="piercing" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
 
-[node name="movespeed" type="Label" parent="Panel"]
-layout_mode = 0
-offset_top = 432.0
-offset_right = 84.0
-offset_bottom = 487.0
-text = "Default
-"
-label_settings = SubResource("LabelSettings_bv653")
+[node name="duration" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
 
-[node name="ToggleUIButton" parent="." node_paths=PackedStringArray("ui_to_hide") instance=ExtResource("3_wdkpi")]
-layout_mode = 1
-offset_left = 218.0
-offset_top = -826.0
-offset_right = 231.0
-offset_bottom = -813.0
-scale = Vector2(3, 3)
-theme_override_font_sizes/font_size = 1
-ui_to_hide = [NodePath("../Panel/damage"), NodePath("../Panel/range"), NodePath("../Panel/weight"), NodePath("../Panel/attackspeed"), NodePath("../Panel/stance"), NodePath("../Panel/velocity"), NodePath("../Panel/count"), NodePath("../Panel/piercing"), NodePath("../Panel/duration"), NodePath("../Panel/size"), NodePath("../Panel/buildup"), NodePath("../Panel/hp"), NodePath("../Panel/xp"), NodePath("../Panel/mogul"), NodePath("../Panel/movespeed"), NodePath("../Panel")]
+[node name="buildup" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
+
+[node name="size" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
+
+[node name="hp" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
+
+[node name="stance" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
+
+[node name="movespeed" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
+
+[node name="xp" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
+
+[node name="mogul" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
+
+[node name="luck" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
+
+[node name="critchance" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
+
+[node name="critdamage" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
+
+[node name="ghostly" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
+
+[node name="regen" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
+
+[node name="magnetize" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
+
+[node name="lifesteal" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
+
+[node name="bonusvselites" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
+
+[node name="shield" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
+
+[node name="difficulty" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
+
+[node name="revies" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
+
+[node name="thorns" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
+
+[node name="inaccuracy" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+text = "Default"
+label_settings = SubResource("LabelSettings_fm0b5")
+vertical_alignment = 1
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Button" to="." method="button1"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Button2" to="." method="button2"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Button3" to="." method="button3"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Button4" to="." method="button4"]

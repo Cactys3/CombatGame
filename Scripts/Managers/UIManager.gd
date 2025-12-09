@@ -39,6 +39,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	inventory = AOIman.inventory
 	equipment = AOIman.equipment
+	AOIman.set_character_stats_display(GameManager.instance.player.player_stats)
 
 func _connect_signals():
 	GameManager.instance.toggle_inventory.connect(toggle_inventory)

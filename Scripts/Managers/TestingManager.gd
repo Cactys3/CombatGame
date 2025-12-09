@@ -31,19 +31,15 @@ func _process(_delta: float) -> void:
 		t.global_position = Vector2(randf_range(-500, 500), randf_range(-500, 500))
 
 	if Input.is_action_just_pressed("test_3"):
-		GameManager.instance.add_weapon_to_player(ShopManager.get_weapon(0).get_item())
-
+		GameManager.instance.ui_man.equipment.ui_add(ShopManager.make_itemUI(ShopManager.get_weapon(0)))
 	if Input.is_action_just_pressed("test_4"):
-		GameManager.instance.add_weapon_to_player(ShopManager.get_weapon(1).get_item())
-
+		GameManager.instance.ui_man.equipment.ui_add(ShopManager.make_itemUI(ShopManager.get_weapon(1)))
 	if Input.is_action_just_pressed("test_5"):
-		GameManager.instance.add_weapon_to_player(ShopManager.get_weapon(2).get_item())
-
+		GameManager.instance.ui_man.equipment.ui_add(ShopManager.make_itemUI(ShopManager.get_weapon(2)))
 	if Input.is_action_just_pressed("test_6"):
-		GameManager.instance.add_weapon_to_player(ShopManager.get_weapon(3).get_item())
-
+		GameManager.instance.ui_man.equipment.ui_add(ShopManager.make_itemUI(ShopManager.get_weapon(3)))
 	if Input.is_action_just_pressed("test_7"):
-		GameManager.instance.add_weapon_to_player(ShopManager.get_weapon(4).get_item())
+		GameManager.instance.ui_man.equipment.ui_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
 		
 		
 	## Formerly in Game Manager:
@@ -51,17 +47,16 @@ func _process(_delta: float) -> void:
 	var game_man: GameManager = GameManager.instance
 	
 	if Input.is_action_just_pressed("ability1"):
-		game_man.ui_man.shop.stock(3)
-		print("STOCK")
+		for i in 5:
+			GameManager.instance.ui_man.inventory.ui_add(ShopManager.get_rand_equipment().get_item())
 	
 	if Input.is_action_just_pressed("ability2"):
-		game_man.ui_man.shop.reroll()
+		pass
 	
 	if Input.is_action_just_pressed("ability3"):
 		game_man.money += 10
 		game_man.ui_man.cheat_inventory.clear()
 		for index in ShopManager.item_list.size():
-			#print(index)
 			game_man.ui_man.cheat_inventory.backend_add(ShopManager.make_itemUI(ShopManager.get_item(index)))
 		for index in ShopManager.handle_list.size():
 			game_man.ui_man.cheat_inventory.backend_add(ShopManager.make_itemUI(ShopManager.get_weapon(index)))
@@ -70,12 +65,9 @@ func _process(_delta: float) -> void:
 			game_man.ui_man.cheat_inventory.backend_add(ShopManager.make_itemUI(ShopManager.get_handle(index)))
 			game_man.ui_man.cheat_inventory.backend_add(ShopManager.make_itemUI(ShopManager.get_projectile(index)))
 	
-	if Input.is_action_just_pressed("test_5") && game_man.ui_man.paused_for_tab:
-		pass#ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/flamethrower_handle.gd").new())
+	if Input.is_action_just_pressed("test_5"):
+		pass
 	
-	if Input.is_action_just_pressed("test_6") && game_man.ui_man.tab_menu_parent.visible == true:
+	if Input.is_action_just_pressed("test_6"):
 		var test1 = ShopManager.make_itemUI(game_man.shop_man.get_rand_equipment())
-		var test2 = ShopManager.make_itemUI(game_man.shop_man.get_rand_attachment())
-		
-		game_man.ui_man.shop.ui_add(test1)
-		game_man.ui_man.shop.ui_add(test2)
+		game_man.ui_man.inventory.ui_add(test1)

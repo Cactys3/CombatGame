@@ -61,6 +61,9 @@ func can_remove(item: ItemUI) -> bool:
 # Can show only items of a certian type: components, etc
 
 ## Sorting Functions, Reorders items as children
+func sort_random():
+	items.shuffle()
+	reset_children()
 func sort_type():
 	items.sort_custom(func(a: ItemUI, b: ItemUI): 
 		return a.data.item_type > b.data.item_type)
@@ -95,3 +98,28 @@ func sort_alphabetically():
 func reset_children():
 	for i in range(items.size()):
 		default_item_parent.move_child(items[i], i)
+var last_clicked: int = -1
+func button1():
+	if last_clicked == 1:
+		sort_reverse_alphabetically()
+		last_clicked = -1
+	else:
+		sort_alphabetically()
+		last_clicked = 1
+func button2():
+	if last_clicked == 2:
+		sort_reverse_rarity()
+		last_clicked = -1
+	else:
+		sort_rarity()
+		last_clicked = 2
+func button3():
+	if last_clicked == 3:
+		sort_reverse_type()
+		last_clicked = -1
+	else:
+		sort_type()
+		last_clicked = 3
+func button4():
+	sort_random()
+	last_clicked = 4

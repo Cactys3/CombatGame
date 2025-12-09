@@ -152,8 +152,8 @@ mass = 3.0
 gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_iixip")
-anim = NodePath("AnimatedSprite2D")
 stats = ExtResource("2_si758")
+melee_attacks = false
 xp_on_death = 3
 weapon_knockback = 5.0
 base_movespeed = 70.0
@@ -161,6 +161,7 @@ base_cooldown = 3.0
 projectile = ExtResource("3_j73id")
 shoots_projectiles = true
 base_range = 130.0
+anim = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_r0cek")
