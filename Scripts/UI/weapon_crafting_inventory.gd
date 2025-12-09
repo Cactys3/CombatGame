@@ -24,17 +24,15 @@ func _process(delta: float) -> void:
 
 ## If successful: Adds weapon to player, adds weapon UI to equipment UI, destroys this weapon crafting menu
 func make_weapon() -> bool:
-	if toggle_button.hide_ui:
-		return false
 	if handle != null && attachment != null && projectile != null:
 		if ItemUI.dragging_some_item:
 			ItemUI.dragging_item.dragging = false # TODO: bug when make weapon button overlaps with item, this 'if' doesn't fix
 			ItemUI.dragging_some_item = false
 			ItemUI.dragging_some_ui = false
 		if GameManager.instance.craft_weapon(handle, attachment, projectile): # TODO: Next the weapon is added to the player's equipment inventory, in this script OR GameManager
-			new_remove(handle) ## TODO: replaced remove with new_remove
-			new_remove(attachment)
-			new_remove(projectile) # TODO: handle if remove fails (remove by force)
+			backend_remove(handle) ## TODO: replaced remove with new_remove
+			backend_remove(attachment)
+			backend_remove(projectile) # TODO: handle if remove fails (remove by force)
 			crafted_weapon.emit()
 			return true
 	return false
@@ -54,7 +52,7 @@ func can_add(item: ItemUI) -> bool:
 func can_remove(item: ItemUI) -> bool:
 	return is_instance_valid(item) && items.has(item) 
 
-func new_add(item: ItemUI):
+func backend_add(item: ItemUI):
 	items.append(item)
 	item.inventory = self
 	item.position = Vector2.ZERO
@@ -62,24 +60,24 @@ func new_add(item: ItemUI):
 		ItemData.item_types.attachment:
 			if attachment != null:
 				var a: ItemUI = attachment
-				new_remove(attachment)
-				GameManager.instance.ui_man.storage.new_add(a) # TODO: rework into real code
+				backend_remove(attachment)
+				GameManager.instance.ui_man.storage.backend_add(a) # TODO: rework into real code
 			attachment = item
 			AttachmentHolder.add_child(item)
 			item.item_parent = AttachmentHolder
 		ItemData.item_types.handle:
 			if handle != null:
 				var h: ItemUI = handle
-				new_remove(handle)
-				GameManager.instance.ui_man.storage.new_add(h) # TODO: rework into real code
+				backend_remove(handle)
+				GameManager.instance.ui_man.storage.backend_add(h) # TODO: rework into real code
 			handle = item
 			HandleHolder.add_child(item)
 			item.item_parent = HandleHolder
 		ItemData.item_types.projectile:
 			if projectile != null:
 				var proj: ItemUI = projectile
-				new_remove(projectile)
-				GameManager.instance.ui_man.storage.new_add(proj) # TODO: rework into real code
+				backend_remove(projectile)
+				GameManager.instance.ui_man.storage.backend_add(proj) # TODO: rework into real code
 			projectile = item
 			ProjectileHolder.add_child(item)
 			item.item_parent = ProjectileHolder
@@ -92,7 +90,7 @@ func new_add(item: ItemUI):
 		_:
 			printerr("baddd")
 
-func new_remove(item: ItemUI):
+func backend_remove(item: ItemUI):
 	print("new_remove_crafting")
 	if item.get_parent():
 		item.get_parent().remove_child(item)

@@ -2,10 +2,7 @@ class_name StatsDisplay
 extends Control
 
 var stats: StatsResource
-
 @export var StartMinimized: bool = false
-
-
 const SCENE = preload("res://Scenes/UI/stats_visual.tscn")
 
 @onready var damage: Label = $Panel/damage
@@ -25,7 +22,6 @@ const SCENE = preload("res://Scenes/UI/stats_visual.tscn")
 @onready var toggle_ui: Toggle_UI = $ToggleUIButton
 
 var stopwatch: float = 0
-
 var doneready = false
 
 func set_stats(new_stats: StatsResource, new_name: String):

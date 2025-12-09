@@ -203,7 +203,7 @@ func craft_weapon(handle: ItemUI, attachment: ItemUI, projectile: ItemUI) -> boo
 		var weapon: Weapon_Frame = data.get_item()
 		
 		if add_weapon_to_player(weapon): #TODO: if player can hold more weapons
-			ui_man.equipment.new_add(ShopManager.make_itemUI(data))
+			ui_man.equipment.backend_add(ShopManager.make_itemUI(data))
 			return true
 	return false
 
@@ -266,9 +266,9 @@ func move_item(item: ItemUI, origin: Inventory, destination: Inventory) -> bool:
 		if complete_move:
 			money += money_net_change
 			if remove_origin:
-				origin.new_remove(item)
+				origin.backend_remove(item)
 			if add_destination:
-				destination.new_add(item)
+				destination.backend_add(item)
 			return true
 	return false
 
@@ -288,7 +288,7 @@ func remove_item(item: ItemUI, origin: Inventory) -> bool:
 						pass
 			Inventory.SHOP:
 				pass
-		origin.new_remove(item)
+		origin.backend_remove(item)
 		return true
 	return false
 

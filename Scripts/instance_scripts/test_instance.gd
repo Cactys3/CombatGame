@@ -17,7 +17,7 @@ const TESTBOSS = preload("uid://davhmwwacx2xv")
 
 func _ready() -> void:
 	win_time = 60
-	spawning_cooldown = 1
+	spawning_cooldown = 1000000
 	spawning_phase = -1
 	map_height = 3 ## this many chunks tall
 	map_width = 3 ## this many chunks wide

@@ -18,7 +18,6 @@ func _body_entered(body: Node2D) -> void:
 		shop.position = Vector2(-650, -140)
 		shop.num_of_items = 5
 		shop.reroll()
-		shop.drag_bar.set_label("Randomly Generated Shop")
 		GameManager.instance.ui_man.pause_proximity(true)
 		entered = true
 

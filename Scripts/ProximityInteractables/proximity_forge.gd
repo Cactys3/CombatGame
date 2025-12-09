@@ -20,7 +20,6 @@ func _body_entered(body: Node2D) -> void:
 		GameManager.instance.ui_man.tab_menu_parent.add_child(forge)
 		forge.position = Vector2(-650, -140)
 		forge.clear()
-		forge.drag_bar.set_label("Proximity Forge")
 		GameManager.instance.ui_man.pause_proximity(true)
 		entered = true
 

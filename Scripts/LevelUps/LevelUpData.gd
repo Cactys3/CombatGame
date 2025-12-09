@@ -102,13 +102,13 @@ func carryout_new_item():
 	print("NEW ITEM: " + itemdata.item_name)
 	print("NEW ITEM: " + itemdata.item_name)
 	itemdata.make_item()
-	GameManager.instance.ui_man.storage.new_add(ShopManager.make_itemUI(itemdata))#GameManager.instance.ui_man.equipment.new_add(ShopManager.make_itemUI(itemdata))
+	GameManager.instance.ui_man.storage.backend_add(ShopManager.make_itemUI(itemdata))#GameManager.instance.ui_man.equipment.backend_add(ShopManager.make_itemUI(itemdata))
 func carryout_new_component():
 	print("NEW COMPONENT: " + itemdata.item_name)
 	print("NEW COMPONENT: " + itemdata.item_name)
 	print("NEW COMPONENT: " + itemdata.item_name)
 	itemdata.make_item()
-	GameManager.instance.ui_man.storage.new_add(ShopManager.make_itemUI(itemdata))
+	GameManager.instance.ui_man.storage.backend_add(ShopManager.make_itemUI(itemdata))
 
 static func get_random_level_up_option() -> LevelUpData:
 	var levelupdata: LevelUpData = LevelUpData.new()

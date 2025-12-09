@@ -1,6 +1,6 @@
 extends Node2D
 class_name UIManager
-
+## Labels
 @export var money_label: Label
 @export var xp_label: Label
 @export var level_label: Label
@@ -9,20 +9,20 @@ class_name UIManager
 @export var stopwatch_label: Label
 @export var enemies_killed_label: Label
 @export var bosses_killed_label: Label
-
 @export var you_win: Label
-
+## Parents
 @export var tab_menu_parent: Control
 @export var esc_menu_parent: Control
 @export var level_up_parent: Control
 @export var static_ui_parent: Control
 @export var misc_parent: Control
-
-## FOR TESTING:
-@export var shop: Inventory
-@export var storage: Inventory
-@export var cheat_inventory: Inventory
-@export var equipment: Inventory
+## Inventories
+@export var AOIman: AOI_Manager
+@export var cheat_inventory: Inventory 
+#@export var shop: ShopInventory 
+#@export var forge: forge_inventory 
+var inventory: Inventory
+var equipment: EquipmentInventory
 var enabled: bool = true
 
 var paused: bool = false ## Is Game Instance Paused or Not
@@ -37,6 +37,8 @@ signal delete_proximity
 func _ready() -> void:
 	call_deferred("_connect_signals")
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	inventory = AOIman.inventory
+	equipment = AOIman.equipment
 
 func _connect_signals():
 	GameManager.instance.toggle_inventory.connect(toggle_inventory)
@@ -168,10 +170,3 @@ func set_fps(value: String) -> void:
 
 func toggle_you_win(value: bool) -> void:
 	you_win.visible = value
-
-func add_shop_items(items: Array[ItemData]) -> void:
-	if enabled:
-		for item in items:
-			var item_ui: ItemUI = preload("res://Scenes/UI/item_ui.tscn").instantiate()
-			item_ui.set_item(item)
-			shop.add(item_ui)

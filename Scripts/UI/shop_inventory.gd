@@ -17,7 +17,7 @@ func _process(delta: float) -> void:
 	handle_drop_visual()
 
 func handle_drop_visual():
-	if !showing_drop && !toggle_button.hide_ui && ItemUI.dragging_some_item:
+	if !showing_drop &&  ItemUI.dragging_some_item:
 		showing_drop = true
 		if !ItemUI.dragging_item.inventory == self:
 			drop_text.text = "Drop to Sell: $" + str(ItemUI.dragging_item.data.item_buy_cost * ItemUI.dragging_item.data.item_sell_cost_modifier)
@@ -25,7 +25,7 @@ func handle_drop_visual():
 			drop_text.text = "Take to Buy: $" + str(ItemUI.dragging_item.data.item_buy_cost)
 		drop_visual.visible = true
 	
-	if showing_drop && (!ItemUI.dragging_some_item || toggle_button.hide_ui):
+	if showing_drop && (!ItemUI.dragging_some_item):
 		showing_drop = false
 		drop_visual.visible = false
 
@@ -34,14 +34,14 @@ func reroll() -> bool:
 	for i in range(num_of_items):
 		var item = (ShopManager.make_itemUI(ShopManager.get_rand_equipment()))
 		
-		new_add(item)
+		backend_add(item)
 	return true
 
 func stock(count: int) -> bool:
 	for i in range(count):
 		var item = (ShopManager.make_itemUI(ShopManager.get_rand_equipment()))
 		
-		new_add(item)
+		backend_add(item)
 	return true
 
 ## Override

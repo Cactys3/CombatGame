@@ -33,7 +33,7 @@ func _body_entered(body: Node2D) -> void:
 			ui.set_images(handle.item_image, attachment.item_image, projectile.item_image)
 		var weapon: ItemUI = ShopManager.make_itemUI(ShopManager.setup_weapon(attachment, handle, projectile))
 		if !GameManager.instance.move_item(weapon, null, GameManager.instance.ui_man.equipment):
-			GameManager.instance.ui_man.storage.new_add(weapon)
+			GameManager.instance.ui_man.storage.backend_add(weapon)
 		GameManager.instance.ui_man.pause_misc(true)
 		entered = true
 

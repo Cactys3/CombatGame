@@ -5,11 +5,6 @@ const STORAGE: String = "storage"
 const SHOP: String = "shop"
 const EQUIPMENT: String = "equipment"
 const CRAFTING: String = "crafting"
-@export var StartMinimized: bool = false
-@export var toggle_button: Toggle_UI
-@export var drag_bar: DraggableUI
-@export var color: Color
-@export var label_text: String
 @export var default_item_parent: Control
 var items: Array[ItemUI] = []
 
@@ -18,106 +13,85 @@ func clear() -> bool:
 		item.free_draggable_ui()
 	items.clear()
 	return true
-
 func _ready() -> void:
-	if not toggle_button && $VBoxContainer/DragBar/ToggleUIButton:
-		toggle_button = $VBoxContainer/DragBar/ToggleUIButton
-	if color:
-		drag_bar.modulate = color
-	if label_text:
-		drag_bar.set_label(label_text)
-	if StartMinimized:
-		toggle_button.call_deferred("_toggled", true)
-
+	pass
 ## Handles calling Drop when an item is dropped over this inventory rect
 func _process(_delta: float) -> void:
 	if ItemUI.dragging_some_item && get_global_rect().has_point(get_global_mouse_position()) && Input.is_action_just_released("left_click"):
 		var item: ItemUI = ItemUI.dragging_item
-		if item.inventory != self && !toggle_button.hide_ui: 
+		if item.inventory != self:
 			call_deferred("ui_add", item)
-
+## Returns if item is valid for this inventory
 func is_valid_type(item: ItemUI) -> bool:
 	return is_instance_valid(item)
 ## Adds Item Through Game Manager
 func ui_add(item: ItemUI) -> bool:
-	#print("ui_add")
 	if !GameManager.instance.move_item(item, item.inventory, self):
-		#print("Can't Add: " + item.data.item_name)
-		#print("itemss???????")
 		return false
 	return true
-
+## Removes Item Through Game Manager
 func ui_remove(item: ItemUI):
-	#print("ui_remove")
 	if !GameManager.instance.remove_item(item, self):
 		print("Can't Remove: " + item.data.item_name)
-
-func new_remove(item: ItemUI):
-	#print("new_remove")
+## Removes an Item from the backend
+func backend_remove(item: ItemUI):
 	if item.get_parent():
 		item.get_parent().remove_child(item)
 	items.erase(item)
-
-## Force Adds Item without checking with Game Manager
-func new_add(item: ItemUI):
-	#print("new_add")
+## Adds an Item to the backend
+func backend_add(item: ItemUI):
 	item.inventory = self
 	item.item_parent = default_item_parent
 	item.position = Vector2.ZERO
 	default_item_parent.add_child(item)
 	default_item_parent.queue_sort()
 	items.append(item)
-
+## Returns the type this inventory is
 func get_type() -> String:
-	#print("get type: default-storage")
 	return STORAGE
-
+## Returns if item can currently be added to self
 func can_add(item: ItemUI) -> bool:
-	#print("can_add")
 	return is_valid_type(item)
-
+## Returns if item can currently be removed from self
 func can_remove(item: ItemUI) -> bool:
-	#print("can_remove")
 	return is_instance_valid(item) && items.has(item)
 
+## Add Functionality:
+# Can sort items array via: Alphabetical, etc
+# Can show only items of a certian type: components, etc
 
-
-## Old Implementation:
-#func check_item(item: ItemUI) -> bool:
-	#return is_instance_valid(item)
-#
-#func add(item : ItemUI) -> bool:
-	#if check_item(item):
-		#_add_item(item)
-		#return true
-	#return false
-#
-### Item requested to be moved away from this inventory
-#func remove(item: ItemUI) -> bool:
-	#if is_instance_valid(item) && items.has(item):
-		#item.get_parent().remove_child(item)
-		#items.erase(item)
-		#return true
-	#return false
-#
-### Item requested to be moved into this inventory
-#func move(item: ItemUI) -> bool:
-	#if check_item(item) && item.inventory.remove(item):
-		#_add_item(item)
-		#return true
-	#return false
-#
-### Item Dragged and Dropped over this inventory
-#func drop(item: ItemUI) -> void:
-	#if item.inventory == self:
-		#pass
-	#else:
-		#move(item)
-#
-#func _add_item(item: ItemUI) -> void:
-	#item.inventory = self
-	#item.item_parent = default_item_parent
-	#item.position = Vector2.ZERO
-	#default_item_parent.add_child(item)
-	#default_item_parent.queue_sort()
-	#items.append(item)
+## Sorting Functions, Reorders items as children
+func sort_type():
+	items.sort_custom(func(a: ItemUI, b: ItemUI): 
+		return a.data.item_type > b.data.item_type)
+	reset_children()
+func sort_reverse_type():
+	items.sort_custom(func(a: ItemUI, b: ItemUI): 
+		return a.data.item_type < b.data.item_type)
+	reset_children()
+func sort_rarity():
+	items.sort_custom(func(a: ItemUI, b: ItemUI): 
+		if !a.data.has_rarity:
+			return false
+		if !b.data.has_rarity:
+			return true
+		return a.data.item_rarity > b.data.item_rarity)
+	reset_children()
+func sort_reverse_rarity():
+	items.sort_custom(func(a: ItemUI, b: ItemUI): 
+		if !a.data.has_rarity:
+			return false
+		if !b.data.has_rarity:
+			return true
+		return a.data.item_rarity > b.data.item_rarity)
+	reset_children()
+func sort_reverse_alphabetically():
+	items.sort_custom(func(a, b): return a.data.item_name > b.data.item_name)
+	reset_children()
+func sort_alphabetically():
+	items.sort_custom(func(a, b): return a.data.item_name < b.data.item_name)
+	reset_children()
+## Sets item children in order of array index
+func reset_children():
+	for i in range(items.size()):
+		default_item_parent.move_child(items[i], i)

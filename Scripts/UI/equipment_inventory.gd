@@ -28,7 +28,7 @@ func can_add(item: ItemUI) -> bool:
 func can_remove(item: ItemUI) -> bool:
 	return is_instance_valid(item) && items.has(item) && GameManager.instance.can_unequip(item)
 
-func new_add(item: ItemUI):
+func backend_add(item: ItemUI):
 	item.inventory = self
 	item.position = Vector2.ZERO
 	items.append(item)
@@ -44,7 +44,7 @@ func new_add(item: ItemUI):
 			ItemParent.queue_sort()
 			item.get_item().enable()
 
-func new_remove(item: ItemUI):
+func backend_remove(item: ItemUI):
 	match(item.data.item_type):
 		ItemData.item_types.weapon:
 			item.hide_component_visuals()

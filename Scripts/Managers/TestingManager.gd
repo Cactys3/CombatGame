@@ -50,24 +50,25 @@ func _process(_delta: float) -> void:
 	
 	var game_man: GameManager = GameManager.instance
 	
-	if Input.is_action_just_pressed("ability1") && game_man.ui_man.tab_menu_parent.visible == true:
+	if Input.is_action_just_pressed("ability1"):
 		game_man.ui_man.shop.stock(3)
+		print("STOCK")
 	
-	if Input.is_action_just_pressed("ability2") && game_man.ui_man.tab_menu_parent.visible == true:
+	if Input.is_action_just_pressed("ability2"):
 		game_man.ui_man.shop.reroll()
 	
-	if Input.is_action_just_pressed("ability3") && game_man.ui_man.tab_menu_parent.visible == true:
+	if Input.is_action_just_pressed("ability3"):
 		game_man.money += 10
 		game_man.ui_man.cheat_inventory.clear()
 		for index in ShopManager.item_list.size():
 			#print(index)
-			game_man.ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_item(index)))
+			game_man.ui_man.cheat_inventory.backend_add(ShopManager.make_itemUI(ShopManager.get_item(index)))
 		for index in ShopManager.handle_list.size():
-			game_man.ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_weapon(index)))
+			game_man.ui_man.cheat_inventory.backend_add(ShopManager.make_itemUI(ShopManager.get_weapon(index)))
 		for index in ShopManager.handle_list.size():
-			game_man.ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_attachment(index)))
-			game_man.ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_handle(index)))
-			game_man.ui_man.cheat_inventory.new_add(ShopManager.make_itemUI(ShopManager.get_projectile(index)))
+			game_man.ui_man.cheat_inventory.backend_add(ShopManager.make_itemUI(ShopManager.get_attachment(index)))
+			game_man.ui_man.cheat_inventory.backend_add(ShopManager.make_itemUI(ShopManager.get_handle(index)))
+			game_man.ui_man.cheat_inventory.backend_add(ShopManager.make_itemUI(ShopManager.get_projectile(index)))
 	
 	if Input.is_action_just_pressed("test_5") && game_man.ui_man.paused_for_tab:
 		pass#ui_man.inventory.add(preload("res://Scripts/flamethrower_scripts/flamethrower_handle.gd").new())
