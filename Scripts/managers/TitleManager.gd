@@ -23,11 +23,15 @@ var map: int ## Chosen map
 var characters: Array[duple] = [WEBFISHER]
 var maps: Array[duple] = [HELL, TEST]
 
+var global_stats: StatsResource = StatsResource.new()
 
 var array: Array[Control] = [main, settings, collection, shop, character_selection, map_selection]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	## For testing:
+	global_stats.parent_object_name = "Global Stats"
+	
 	set_process_input(true)
 	set_process_unhandled_input(true)
 	# For buttons specifically:
@@ -123,7 +127,7 @@ func setup_instance(base_scene) -> GameInstance:
 	var chosen_character: Character = get_character()
 	base_scene.add_child(game_instance)
 	base_scene.setup_instance(game_instance)
-	game_instance.setup(chosen_character, null)
+	game_instance.setup(chosen_character, global_stats, null)
 	return game_instance
 
 ## Returns chosen instance
@@ -149,6 +153,11 @@ func set_visible(nodes: Array[Control]):
 	map_selection.visible = false
 	for node in nodes:
 		node.visible = true
+
+func _quickstart():
+	character = 0
+	map = 0
+	press_start_game()
 
 class duple:
 	var key: String

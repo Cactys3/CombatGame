@@ -255,6 +255,7 @@ theme_override_constants/margin_bottom = 5
 
 [node name="StatsDisplay" parent="Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBox/Margin/Stats/MarginContainer" instance=ExtResource("3_8f5sv")]
 layout_mode = 2
+only_show_changed = true
 hide_damage = true
 hide_range = true
 hide_attackspeed = true

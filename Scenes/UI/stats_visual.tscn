@@ -74,7 +74,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_si0ms")
 theme_override_styles/hover = SubResource("StyleBoxFlat_bv653")
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ckhmj")
 theme_override_styles/focus = SubResource("StyleBoxFlat_edmny")
-text = "Numerical"
+text = "Hide Unchanged"
 text_overrun_behavior = 1
 
 [node name="Button4" type="Button" parent="VBoxContainer/HBoxContainer"]

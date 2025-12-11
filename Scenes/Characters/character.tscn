@@ -1,9 +1,15 @@
-[gd_scene load_steps=21 format=3 uid="uid://dbfx0pgjmmdgy"]
+[gd_scene load_steps=23 format=3 uid="uid://dbfx0pgjmmdgy"]
 
 [ext_resource type="Script" uid="uid://d2q8eeh4e5ai8" path="res://Scripts/character_scripts/webfisher.gd" id="1_ieu52"]
 [ext_resource type="Texture2D" uid="uid://dwa5l83b0wca6" path="res://Art/Characters/DefaultCharacter/DefaultCharacter.png" id="2_7qr7h"]
+[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="2_nv3ih"]
 [ext_resource type="Script" uid="uid://cg066cmtt0y4" path="res://Scripts/misc/sprite_position_rounder.gd" id="3_owm7s"]
 [ext_resource type="Texture2D" uid="uid://dvur2jw4hot5w" path="res://Art/Characters/WebFishingCat.png" id="3_y3rn3"]
+
+[sub_resource type="Resource" id="Resource_ipqrv"]
+script = ExtResource("2_nv3ih")
+parent_object_name = "WebFisher"
+metadata/_custom_type_script = "uid://dwj80yu0v1qdt"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nv3ih"]
 atlas = ExtResource("2_7qr7h")
@@ -131,6 +137,7 @@ collision_layer = 2
 collision_mask = 64
 platform_on_leave = 2
 script = ExtResource("1_ieu52")
+player_stats = SubResource("Resource_ipqrv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("Target")]
 sprite_frames = SubResource("SpriteFrames_tvp78")

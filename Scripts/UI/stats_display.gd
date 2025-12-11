@@ -5,6 +5,8 @@ var stats: StatsResource
 
 const SCENE = preload("res://Scenes/UI/stats_visual.tscn")
 
+@export var only_show_changed: bool = false
+
 @export var hide_damage: bool = false
 @export var hide_range: bool = false
 @export var hide_weight: bool = false
@@ -86,6 +88,179 @@ func set_stats(new_stats: StatsResource, new_name: String):
 func _ready():
 	array = [damage, _range, weight, attackspeed, velocity, count, duration, _size, buildup, stance, hp, xp, mogul, movespeed, piercing, luck, critchance, critdamage, ghostly, regen, magnetize, lifesteal, bonusvselites, shield, difficulty, revies, thorns, inaccuracy]
 	default_order = [damage, _range, weight, attackspeed, velocity, count, duration, _size, buildup, stance, hp, xp, mogul, movespeed, piercing, luck, critchance, critdamage, ghostly, regen, magnetize, lifesteal, bonusvselites, shield, difficulty, revies, thorns, inaccuracy]
+	hide_hides()
+func refresh():
+	if stats:
+		if only_show_changed:
+			hide_defaults()
+		else:
+			for element in array:
+				element.visible = true
+		damage.text = "damage: " + str(stats.get_stat(StatsResource.DAMAGE))
+		_range.text = "range: " + str(stats.get_stat(StatsResource.RANGE))
+		weight.text = "weight: " + str(stats.get_stat(StatsResource.WEIGHT))
+		attackspeed.text = "attackspeed: " + str(stats.get_stat(StatsResource.ATTACKSPEED))
+		velocity.text = "velocity: " + str(stats.get_stat(StatsResource.VELOCITY))
+		count.text = "count: " + str(stats.get_stat(StatsResource.COUNT))
+		piercing.text = "piercing: " + str(stats.get_stat(StatsResource.PIERCING))
+		duration.text = "duration: " + str(stats.get_stat(StatsResource.DURATION))
+		buildup.text = "buildup: " + str(stats.get_stat(StatsResource.BUILDUP))
+		_size.text = "size: " + str(stats.get_stat(StatsResource.SIZE))
+		hp.text = "hp: " + str(stats.get_stat(StatsResource.HP))
+		stance.text = "stance: " + str(stats.get_stat(StatsResource.STANCE))
+		movespeed.text = "movespeed: " + str(stats.get_stat(StatsResource.MOVESPEED))
+		xp.text = "xp: " + str(stats.get_stat(StatsResource.XP))
+		mogul.text = "mogul: " + str(stats.get_stat(StatsResource.MOGUL))
+		luck.text = "luck: " + str(stats.get_stat(StatsResource.LUCK))
+		critchance.text = "critchance: " + str(stats.get_stat(StatsResource.CRITCHANCE))
+		critdamage.text = "critdamage: " + str(stats.get_stat(StatsResource.CRITDAMAGE))
+		ghostly.text = "ghostly: " + str(stats.get_stat(StatsResource.GHOSTLY))
+		regen.text = "regen: " + str(stats.get_stat(StatsResource.REGEN))
+		magnetize.text = "magnetize: " + str(stats.get_stat(StatsResource.MAGNETIZE))
+		lifesteal.text = "lifesteal: " + str(stats.get_stat(StatsResource.LIFESTEAL))
+		bonusvselites.text = "bonusvselites: " + str(stats.get_stat(StatsResource.BONUSVSELITES))
+		shield.text = "shield: " + str(stats.get_stat(StatsResource.SHIELD))
+		difficulty.text = "difficulty: " + str(stats.get_stat(StatsResource.DIFFICULTY))
+		revies.text = "revies: " + str(stats.get_stat(StatsResource.REVIES))
+		thorns.text = "thorns: " + str(stats.get_stat(StatsResource.THORNS))
+		inaccuracy.text = "inaccuracy: " + str(stats.get_stat(StatsResource.INACCURACY))
+func sort_random():
+	array.shuffle()
+	reset_children()
+func sort_reverse_alphabetically():
+	array.sort_custom(func(a, b): return a.name > b.name)
+	reset_children()
+func sort_alphabetically():
+	array.sort_custom(func(a, b): return a.name < b.name)
+	reset_children()
+func sort_reverse_default():
+	array = default_order.duplicate()
+	array.reverse()
+	reset_children()
+func sort_default():
+	array = default_order.duplicate() # array.sort_custom(func(a, b): return default_order.find(a) < default_order.find(b))
+	reset_children()
+func sort_numerically():
+	pass
+func reset_children():
+	for i in range(array.size()):
+		label_parent.move_child(array[i], i)
+## Hides stats that aren't changed from default value
+func hide_defaults():
+	if stats.is_stat_default(StatsResource.DAMAGE):
+		damage.visible = false
+	else:
+		damage.visible = true
+	if stats.is_stat_default(StatsResource.RANGE):
+		_range.visible = false
+	else:
+		_range.visible = true
+	if stats.is_stat_default(StatsResource.WEIGHT):
+		weight.visible = false
+	else:
+		weight.visible = true
+	if stats.is_stat_default(StatsResource.ATTACKSPEED):
+		attackspeed.visible = false
+	else:
+		attackspeed.visible = true
+	if stats.is_stat_default(StatsResource.VELOCITY):
+		velocity.visible = false
+	else:
+		velocity.visible = true
+	if stats.is_stat_default(StatsResource.COUNT):
+		count.visible = false
+	else:
+		count.visible = true
+	if stats.is_stat_default(StatsResource.PIERCING):
+		piercing.visible = false
+	else:
+		piercing.visible = true
+	if stats.is_stat_default(StatsResource.DURATION):
+		duration.visible = false
+	else:
+		duration.visible = true
+	if stats.is_stat_default(StatsResource.BUILDUP):
+		buildup.visible = false
+	else:
+		buildup.visible = true
+	if stats.is_stat_default(StatsResource.SIZE):
+		_size.visible = false
+	else:
+		_size.visible = true
+	if stats.is_stat_default(StatsResource.HP):
+		hp.visible = false
+	else:
+		hp.visible = true
+	if stats.is_stat_default(StatsResource.STANCE):
+		stance.visible = false
+	else:
+		stance.visible = true
+	if stats.is_stat_default(StatsResource.MOVESPEED):
+		movespeed.visible = false
+	else:
+		movespeed.visible = true
+	if stats.is_stat_default(StatsResource.XP):
+		xp.visible = false
+	else:
+		xp.visible = true
+	if stats.is_stat_default(StatsResource.MOGUL):
+		mogul.visible = false
+	else:
+		mogul.visible = true
+	if stats.is_stat_default(StatsResource.LUCK):
+		luck.visible = false
+	else:
+		luck.visible = true
+	if stats.is_stat_default(StatsResource.CRITCHANCE):
+		critchance.visible = false
+	else:
+		critchance.visible = true
+	if stats.is_stat_default(StatsResource.CRITDAMAGE):
+		critdamage.visible = false
+	else:
+		critdamage.visible = true
+	if stats.is_stat_default(StatsResource.GHOSTLY):
+		ghostly.visible = false
+	else:
+		ghostly.visible = true
+	if stats.is_stat_default(StatsResource.REGEN):
+		regen.visible = false
+	else:
+		regen.visible = true
+	if stats.is_stat_default(StatsResource.MAGNETIZE):
+		magnetize.visible = false
+	else:
+		magnetize.visible = true
+	if stats.is_stat_default(StatsResource.LIFESTEAL):
+		lifesteal.visible = false
+	else:
+		lifesteal.visible = true
+	if stats.is_stat_default(StatsResource.BONUSVSELITES):
+		bonusvselites.visible = false
+	else:
+		bonusvselites.visible = true
+	if stats.is_stat_default(StatsResource.SHIELD):
+		shield.visible = false
+	else:
+		shield.visible = true
+	if stats.is_stat_default(StatsResource.DIFFICULTY):
+		difficulty.visible = false
+	else:
+		difficulty.visible = true
+	if stats.is_stat_default(StatsResource.REVIES):
+		revies.visible = false
+	else:
+		revies.visible = true
+	if stats.is_stat_default(StatsResource.THORNS):
+		thorns.visible = false
+	else:
+		thorns.visible = true
+	if stats.is_stat_default(StatsResource.INACCURACY):
+		inaccuracy.visible = false
+	else:
+		inaccuracy.visible = true
+## Removes elements from arrays based on if they are set to be hidden
+func hide_hides():
 	if hide_damage: 
 		array.erase(damage)
 		default_order.erase(damage)
@@ -198,59 +373,15 @@ func _ready():
 		array.erase(inaccuracy)
 		default_order.erase(inaccuracy)
 		inaccuracy.visible = false
-func refresh():
-	if stats:
-		damage.text = "damage: " + str(stats.get_stat(StatsResource.DAMAGE))
-		_range.text = "range: " + str(stats.get_stat(StatsResource.RANGE))
-		weight.text = "weight: " + str(stats.get_stat(StatsResource.WEIGHT))
-		attackspeed.text = "attackspeed: " + str(stats.get_stat(StatsResource.ATTACKSPEED))
-		velocity.text = "velocity: " + str(stats.get_stat(StatsResource.VELOCITY))
-		count.text = "count: " + str(stats.get_stat(StatsResource.COUNT))
-		piercing.text = "piercing: " + str(stats.get_stat(StatsResource.PIERCING))
-		duration.text = "duration: " + str(stats.get_stat(StatsResource.DURATION))
-		buildup.text = "buildup: " + str(stats.get_stat(StatsResource.BUILDUP))
-		_size.text = "size: " + str(stats.get_stat(StatsResource.SIZE))
-		hp.text = "hp: " + str(stats.get_stat(StatsResource.HP))
-		stance.text = "stance: " + str(stats.get_stat(StatsResource.STANCE))
-		movespeed.text = "movespeed: " + str(stats.get_stat(StatsResource.MOVESPEED))
-		xp.text = "xp: " + str(stats.get_stat(StatsResource.XP))
-		mogul.text = "mogul: " + str(stats.get_stat(StatsResource.MOGUL))
-		luck.text = "luck: " + str(stats.get_stat(StatsResource.LUCK))
-		critchance.text = "critchance: " + str(stats.get_stat(StatsResource.CRITCHANCE))
-		critdamage.text = "critdamage: " + str(stats.get_stat(StatsResource.CRITDAMAGE))
-		ghostly.text = "ghostly: " + str(stats.get_stat(StatsResource.GHOSTLY))
-		regen.text = "regen: " + str(stats.get_stat(StatsResource.REGEN))
-		magnetize.text = "magnetize: " + str(stats.get_stat(StatsResource.MAGNETIZE))
-		lifesteal.text = "lifesteal: " + str(stats.get_stat(StatsResource.LIFESTEAL))
-		bonusvselites.text = "bonusvselites: " + str(stats.get_stat(StatsResource.BONUSVSELITES))
-		shield.text = "shield: " + str(stats.get_stat(StatsResource.SHIELD))
-		difficulty.text = "difficulty: " + str(stats.get_stat(StatsResource.DIFFICULTY))
-		revies.text = "revies: " + str(stats.get_stat(StatsResource.REVIES))
-		thorns.text = "thorns: " + str(stats.get_stat(StatsResource.THORNS))
-		inaccuracy.text = "inaccuracy: " + str(stats.get_stat(StatsResource.INACCURACY))
-func sort_random():
-	array.shuffle()
-	reset_children()
-func sort_reverse_alphabetically():
-	array.sort_custom(func(a, b): return a.name > b.name)
-	reset_children()
-func sort_alphabetically():
-	array.sort_custom(func(a, b): return a.name < b.name)
-	reset_children()
-func sort_reverse_default():
-	array = default_order.duplicate()
-	array.reverse()
-	reset_children()
-func sort_default():
-	array = default_order.duplicate() # array.sort_custom(func(a, b): return default_order.find(a) < default_order.find(b))
-	reset_children()
-func sort_numerically():
-	pass
-func reset_children():
-	for i in range(array.size()):
-		label_parent.move_child(array[i], i)
+## Gets the name of all stats objects affecting this one
+func get_affecting_names():
+	var a: Array[StatsResource]
+	stats.GetAllStatsRecursive(a)
+	for stat in a:
+		print(stat.parent_object_name)
 
 func button1():
+	get_affecting_names()
 	if last_clicked == 1:
 		sort_reverse_default()
 		last_clicked = -1
@@ -265,8 +396,8 @@ func button2():
 		sort_alphabetically()
 		last_clicked = 2
 func button3():
-	sort_numerically()
-	last_clicked = 3
+	only_show_changed = !only_show_changed
+	refresh()
 func button4():
 	sort_random()
 	last_clicked = 4

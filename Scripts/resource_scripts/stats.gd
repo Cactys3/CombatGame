@@ -132,7 +132,7 @@ var listofaffection: Array[StatsResource] = [] #the list of stats that affect th
 var listofaffected: Array[StatsResource] = [] #the list of stats that this stat affects
 var MustRecalculate: bool = true
 var TotalListOfStats: Array[StatsResource] #list of stats used for stat calculations
-
+## If valid, Recalculates then adds stats to this stats object
 func add_stats(other: StatsResource) -> void: #adds the other stats to listofaffection
 	if other == null || other == self || listofaffection.has(other):
 		print("\nPotential ERROR when trying to add_stats\n")
@@ -140,7 +140,7 @@ func add_stats(other: StatsResource) -> void: #adds the other stats to listofaff
 	Recalculate() # Must Recalculate TotalListofAffectionStats as we added a new stat
 	listofaffection.append(other) #since the other stats is affecting this now, add it to the our listofaffection
 	other.listofaffected.append(self)
-
+##If valid, Recalculates then removes stats from this stats object
 func remove_stats(other: StatsResource) -> void: #removes the stat from affecting this stat
 	if other == null || other == self || !listofaffection.has(other):
 		print("\nPotential ERROR: other stat is null when trying to remove_stats\n\t (OR doesn't include self in list of affection)\n")
@@ -148,7 +148,7 @@ func remove_stats(other: StatsResource) -> void: #removes the stat from affectin
 	Recalculate()# Must Recalculate TotalListofAffectionStats as we removed a stat
 	listofaffection.erase(other) #since the other stats is affecting this now, add it to the other stat's listofaffection
 	other.listofaffected.erase(self)
-
+## If valid, checks recalculate then returns the total calculated stat
 func get_stat(key: String) -> float:
 	if statsbase.has(key):
 		if (MustRecalculate): # If list of all affecting stats has changed since last calculation, recalculate
@@ -163,7 +163,7 @@ func get_stat(key: String) -> float:
 	else:
 		push_error("Potential ERROR getting stat, not found in dictionary")
 		return -999
-
+## If valid, checks recalculate then returns the total calculated stat but without default
 func get_stat_without_default(key: String) -> float:
 	if statsbase.has(key):
 		if (MustRecalculate): # If list of all affecting stats has changed since last calculation, recalculate
@@ -178,19 +178,18 @@ func get_stat_without_default(key: String) -> float:
 	else:
 		push_error("Potential ERROR getting stat, not found in dictionary")
 		return -999
-
+## Gets a list of all stats OBJECTS that are affecting this stats object, not the individual stats
 func GetAllStatsRecursive(list: Array[StatsResource]):
 	if !list.has(self):
 		list.append(self)
 		MustRecalculate = false
 		for stat in listofaffection:
 			stat.GetAllStatsRecursive(list)
-
+## Recursively says every stat object affected should recalculate
 func Recalculate():
 	MustRecalculate = true
 	for stat in listofaffected:
 		stat.Recalculate()
-
 ## returns total stats calculation of base stat
 func get_stat_base(key: String) -> float:
 	if statsbase.has(key):
@@ -204,7 +203,6 @@ func get_stat_base(key: String) -> float:
 	else:
 		push_error("Potential ERROR getting stat, not found in dictionary")
 		return -999
-
 ## returns total stats calculation of factor stat
 func get_stat_factor(key: String) -> float:
 	if statsfactor.has(key):
@@ -218,7 +216,6 @@ func get_stat_factor(key: String) -> float:
 	else:
 		push_error("Potential ERROR getting stat, not found in dictionary")
 		return -999
-
 ## edits this statsresource only value of base stat (only used when isolated statsresource)
 func set_stat_base(key: String, value: float):
 	if statsbase.has(key):
@@ -226,7 +223,6 @@ func set_stat_base(key: String, value: float):
 		MustRecalculate = true
 	else:
 		print("Tried and Failed to set BaseStat: " + key + " to: " + str(value))
-
 ## edits this statsresource only value of factor stat (only used when isolated statsresource)
 func set_stat_factor(key: String, value: float):
 	if statsfactor.has(key):
@@ -234,15 +230,19 @@ func set_stat_factor(key: String, value: float):
 		MustRecalculate = true
 	else:
 		print("Tried and Failed to set FactorStat: " + key + " to: " + str(value))
-
+## Prints all the stats from stats factor, then statsbase. Does not calculate stats
 func print_stats() -> void:
+	if MustRecalculate:
+		print("Stats are wrong, must recalculate first")
 	print("\nFactors: ")
 	for key in statsfactor:#if they have no changes in either dictionary, it's just adding the default 0 so no change!
 		print(key + " - " + str(statsfactor[key]))
 	print("\nBases: ")
 	for key in statsbase:
 		print(key + " - " + str(statsbase[key]))
-
+## Returns if the stat is default or changed
+func is_stat_default(stat: String):
+	return get_stat_without_default(stat) == 0
 func get_copy() -> StatsResource: #TODO: update for new stats implementation
 	var temp: StatsResource = StatsResource.new()
 	for key in statsfactor:

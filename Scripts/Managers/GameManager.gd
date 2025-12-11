@@ -34,8 +34,7 @@ var item_limit_reached: bool:
 		return has_item_room()
 var active_items: Array[Item]
 var items_affecting_stats: Array[Item]
-var character_choice_stats: StatsResource = StatsResource.new()
-var global_stats: StatsResource = StatsResource.new()
+var global_stats: StatsResource
 
 var xp_to_next_level: float = 100
 var xp_gained_since_last_level: float = 0
@@ -104,25 +103,17 @@ signal PlayerDamaged(player: Character, attack: Attack)
 signal PlayerKilled(player: Character, attack: Attack)
 signal RoundEnded(round_number: int)
 
-func setup(new_player: Character):
+func setup(new_player: Character, new_global_stats: StatsResource):
 	player = new_player
-	#call_deferred("@level_setter", 0)
-	#call_deferred("@xp_setter", 0)
-	#call_deferred("@money_setter", starting_money)
-	#call_deferred("global_stats_visual")
-	#global_stats.add_stats(character_choice_stats)
-	#player.player_stats.add_stats(global_stats)
 	call_deferred("setup_deffered")
 	connect("level_up", create_level_up_instance)
-	
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	global_stats = new_global_stats
 
 func setup_deffered():
 	level = 0
 	xp = 0
 	money = starting_money
-	#global_stats_visual()
-	global_stats.add_stats(character_choice_stats)
 	player.player_stats.add_stats(global_stats)
 	get_tree().paused = false
 
@@ -133,12 +124,6 @@ func _ready() -> void:
 		queue_free() 
 		return
 	instance = self  
-
-#func global_stats_visual():
-	#var s = STATS_VISUAL.instantiate()
-	#ui_man.tab_menu_parent.add_child(s)
-	#s.global_position = Vector2(-310, -0)
-	#s.set_stats(global_stats, "Global Stats")
 
 func _process(_delta: float) -> void:
 	if !leveling_up && level_up_queue > 0:
@@ -183,13 +168,6 @@ func remove_item_from_player(item: Item) -> bool:
 	return false
 
 func remove_weapon_from_player(weapon: Weapon_Frame) -> bool:
-	#if weapon && weapon.is_ready:
-		#if !weapon.frame_ready:
-			#weapon.make_frame()
-		#if player.remove_frame(weapon.weapon):
-			#weapon.equipped = false
-			#return true
-	#return false
 	if player.remove_frame(weapon): 
 		return true
 	return false

@@ -34,6 +34,15 @@ text = "Titlescreen"
 fit_content = true
 horizontal_alignment = 1
 
+[node name="Quickstart" type="Button" parent="Always_Active"]
+custom_minimum_size = Vector2(400, 150)
+offset_left = 1298.0
+offset_top = 1300.0
+offset_right = 1838.0
+offset_bottom = 1450.0
+theme_override_font_sizes/font_size = 128
+text = "Quickstart"
+
 [node name="Button_Back" type="Button" parent="Always_Active"]
 custom_minimum_size = Vector2(400, 150)
 offset_left = 1407.0
@@ -227,6 +236,7 @@ theme_override_font_sizes/font_size = 128
 text = "N/A"
 
 [node name="Character_Selection" type="Control" parent="."]
+visible = false
 custom_minimum_size = Vector2(1600, 1600)
 layout_mode = 3
 anchors_preset = 0
@@ -317,6 +327,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 128
 text = "N/A"
 
+[connection signal="pressed" from="Always_Active/Quickstart" to="TitleManager" method="_quickstart"]
 [connection signal="button_down" from="Always_Active/Button_Back" to="TitleManager" method="press_back"]
 [connection signal="button_down" from="Main/Button_Play" to="TitleManager" method="press_play"]
 [connection signal="button_down" from="Main/Button_Settings" to="TitleManager" method="press_settings"]

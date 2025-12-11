@@ -3,7 +3,7 @@ class_name Character
 
 @export var anim: AnimationPlayer
 @export var StartingMoney: int = 5
-@export var player_stats: StatsResource = StatsResource.new()
+@export var player_stats: StatsResource
 var stats_visual = null
 @export var hp_regen:float = 0
 @export var knockback_modifier:float = 1
