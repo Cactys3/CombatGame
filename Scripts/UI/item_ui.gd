@@ -97,6 +97,7 @@ func show_details():
 	DescriptionPanel.visible = true
 	showing_details = true
 	
+	inventory.set_description(data.item_name, data.item_description, data.stats)
 	#print(ItemData.get_rarity(data.item_rarity) + " - " + data.item_name)
 
 func hide_details():

@@ -48,7 +48,7 @@ func _process(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed("ability1"):
 		for i in 5:
-			GameManager.instance.ui_man.inventory.ui_add(ShopManager.get_rand_equipment().get_item())
+			GameManager.instance.ui_man.inventory.ui_add(ShopManager.make_itemUI(ShopManager.get_rand_equipment()))
 	
 	if Input.is_action_just_pressed("ability2"):
 		pass

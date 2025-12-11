@@ -18,8 +18,6 @@ var data: ItemData
 
 var QueuedAttacks: Array[AttackEvent] = [] #TODO: not used, to create attack need to use stats which defeats point of queue
 
-var stats_visual
-
 func _ready() -> void:
 	stats.parent_object_name = name
 	stats.add_stats(GameManager.instance.global_stats)
@@ -34,21 +32,21 @@ func _process(_delta: float) -> void:
 			if is_instance_valid(event.attackee) && is_instance_valid(event.attacker):
 				event.attacker.attack_body(event.attackee)
 
-func make_stats_visual(i: int):
-	if stats_visual:
-		stats_visual.queue_free()
-		stats_visual = null
-	const STATS_VISUAL = preload("res://Scenes/UI/stats_visual.tscn")
-	stats_visual = STATS_VISUAL.instantiate()
-	GameManager.instance.ui_man.tab_menu_parent.add_child(stats_visual)
-	stats_visual.global_position = Vector2(0, i* 20)#Vector2(-310, i * 20)
-	print(i)
-	stats_visual.set_stats(stats, "W: " + name)
-
-func delete_stats_visual():
-	if (stats_visual):
-		stats_visual.queue_free()
-	stats_visual = null
+#func make_stats_visual(i: int):
+	#if stats_visual:
+		#stats_visual.queue_free()
+		#stats_visual = null
+	#const STATS_VISUAL = preload("res://Scenes/UI/stats_visual.tscn")
+	#stats_visual = STATS_VISUAL.instantiate()
+	#GameManager.instance.ui_man.tab_menu_parent.add_child(stats_visual)
+	#stats_visual.global_position = Vector2(0, i* 20)#Vector2(-310, i * 20)
+	#print(i)
+	#stats_visual.set_stats(stats, "W: " + name)
+#
+#func delete_stats_visual():
+	#if (stats_visual):
+		#stats_visual.queue_free()
+	#stats_visual = null
 
 func get_enemy_nearby(distance: float) -> Variant:
 	var nearest_enemy = null

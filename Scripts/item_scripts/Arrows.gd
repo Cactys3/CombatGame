@@ -1,5 +1,6 @@
 extends Item
 
+var status: StatusEffects = null
 var stats: StatsResource = null
 var curr_timer: float = 0
 var max_timer: float = 3

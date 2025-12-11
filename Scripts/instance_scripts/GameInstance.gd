@@ -98,9 +98,9 @@ func _process(delta: float) -> void:
 	ui_man.set_fps(str(Engine.get_frames_per_second()))
 	if game_man && game_man.paused == false:
 		handle_stopwatch(delta)
+		handle_enemy_spawning(delta, pos)
 	handle_spawn_phases()
 	handle_chunks(pos)
-	handle_enemy_spawning(delta, pos)
 ## Creates MainMenu Scene and removes current Scene
 func return_to_main_menu() -> void:
 	## Tell Player They Won
@@ -227,7 +227,7 @@ func spawn_bosses(pos: Vector2):
 				spawn_boss(boss.scene, random_position(pos))
 			for i in boss.get_spawns(enemies_killed, total_stopwatch):
 				spawn_boss(boss.scene, random_position(pos))
-			
+
 func load_event(scene: PackedScene, chunk: Vector2):
 	var new_event = scene.instantiate()
 	event_parent.add_child(new_event)

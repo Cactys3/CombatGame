@@ -150,18 +150,22 @@ func remove_stats(other: StatsResource) -> void: #removes the stat from affectin
 	other.listofaffected.erase(self)
 ## If valid, checks recalculate then returns the total calculated stat
 func get_stat(key: String) -> float:
-	if statsbase.has(key):
+	if statsbase.has(key) && statsfactor.has(key):
 		if (MustRecalculate): # If list of all affecting stats has changed since last calculation, recalculate
 			TotalListOfStats = []
 			GetAllStatsRecursive(TotalListOfStats) # Get a list of all stats that are in the chain of stats that affect this stats, no duplicates
 		var base = 0
 		var factor = 1
-		for stat in TotalListOfStats:
-			base += stat.statsbase[key]
-			factor *= stat.statsfactor[key]
+		for stat: StatsResource in TotalListOfStats:
+			if !(stat.statsbase.has(key) && stat.statsfactor.has(key)):
+				printerr("StatsResource, " + stat.parent_object_name + ", doesn't have stat, " + str(key) + ".")
+			else:
+				base += stat.statsbase[key]
+				factor *= stat.statsfactor[key]
 		return (base * factor) + get_default(key) 
 	else:
-		push_error("Potential ERROR getting stat, not found in dictionary")
+		push_error("ERROR getting stat: " + key +  " from: " + parent_object_name + ". Base: " + str(statsbase.has(key)) + ", Factor: " + str(statsfactor.has(key)))
+		
 		return -999
 ## If valid, checks recalculate then returns the total calculated stat but without default
 func get_stat_without_default(key: String) -> float:

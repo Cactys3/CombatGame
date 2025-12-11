@@ -4,7 +4,7 @@ class_name Character
 @export var anim: AnimationPlayer
 @export var StartingMoney: int = 5
 @export var player_stats: StatsResource
-var stats_visual = null
+
 @export var hp_regen:float = 0
 @export var knockback_modifier:float = 1
 @export var can_be_knockbacked:bool = true
@@ -51,13 +51,13 @@ var stance: float:
 
 func _ready() -> void:
 	call_deferred("set_stats")
-	call_deferred("make_stats_visual")
+	#call_deferred("make_stats_visual")
 
-func make_stats_visual():
-	stats_visual = load("res://Scenes/UI/stats_visual.tscn").instantiate()
-	GameManager.instance.ui_man.tab_menu_parent.add_child(stats_visual)
-	stats_visual.global_position = Vector2.ZERO#Vector2(-310, -20)
-	stats_visual.set_stats(player_stats, "Player Stats")
+#func make_stats_visual():
+	#stats_visual = load("res://Scenes/UI/stats_visual.tscn").instantiate()
+	#GameManager.instance.ui_man.tab_menu_parent.add_child(stats_visual)
+	#stats_visual.global_position = Vector2.ZERO#Vector2(-310, -20)
+	#stats_visual.set_stats(player_stats, "Player Stats")
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ability1"):
@@ -147,8 +147,7 @@ func add_frame(new_frame: Weapon_Frame):
 			weapon.change_slot(index, temp_count)
 	###print("Add Weapon Frame: " + new_frame.name)
 	player_stats.add_stats(new_frame.stats)
-	stats_visual.refresh()
-	new_frame.make_stats_visual(weapon_list.size())
+	#new_frame.make_stats_visual(weapon_list.size())
 	call_deferred("add_child", new_frame)
 	#add_child(new_frame) this errors?
 
@@ -175,9 +174,8 @@ func remove_frame(frame_sought: Weapon_Frame) -> bool:
 				index += 1
 				weapon.change_slot(index, temp_count)
 		remove_child(frame_sought)
-		frame_sought.delete_stats_visual()
+		#frame_sought.delete_stats_visual()
 		player_stats.remove_stats(frame_sought.stats)
-		stats_visual.refresh()
 		###print("removed weapon: " + frame_sought.name)
 		return true
 	return false

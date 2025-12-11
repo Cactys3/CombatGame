@@ -97,7 +97,10 @@ func _on_body_entered(body: Node2D) -> void:
 
 func make_attack() -> Attack:
 	var new_attack: Attack = Attack.new()
-	new_attack.setup(damage, global_position, buildup, status.AttackValues, self, 0, 0, weight * (damage / 30))
+	if status:
+		new_attack.setup(damage, global_position, buildup, status.AttackValues, self, 0, 0, weight * (damage / 30))
+	else:
+		new_attack.setup(damage, global_position, buildup, null, self, 0, 0, weight * (damage / 30))
 	return new_attack
 
 func die():

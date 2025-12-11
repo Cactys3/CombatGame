@@ -7,6 +7,9 @@ const EQUIPMENT: String = "equipment"
 const CRAFTING: String = "crafting"
 @export var default_item_parent: Control
 var items: Array[ItemUI] = []
+@export var description_body: Label
+@export var description_title: Label
+@export var description_stats: StatsDisplay
 
 func clear() -> bool:
 	for item in items:
@@ -59,6 +62,18 @@ func can_remove(item: ItemUI) -> bool:
 ## Add Functionality:
 # Can sort items array via: Alphabetical, etc
 # Can show only items of a certian type: components, etc
+## Sets the description page
+func set_description(title: String, body: String, stats: StatsResource):
+	if description_stats:
+		if stats:
+			description_stats.set_stats(stats, title)
+			description_stats.visible = true
+		else:
+			description_stats.visible = false
+	if description_body:
+		description_body.text = body
+	if description_title:
+		description_title.text = title
 
 ## Sorting Functions, Reorders items as children
 func sort_random():
