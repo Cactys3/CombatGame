@@ -8,7 +8,7 @@
 
 [sub_resource type="Resource" id="Resource_nv3ih"]
 script = ExtResource("2_nv3ih")
-parent_object_name = "webfisher"
+parent_object_name = "fake webfisher"
 metadata/_custom_type_script = "uid://dwj80yu0v1qdt"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nv3ih"]

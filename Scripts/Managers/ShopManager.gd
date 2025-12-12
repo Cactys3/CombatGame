@@ -46,6 +46,19 @@ const attachment_list: Array = [FLAMETHROWER_ATTACHMENT, PISTOL_ATTACHMENT, RAIL
 const handle_list: Array = [FLAMETHROWER_HANDLE, PISTOL_HANDLE, RAILGUN_HANDLE, SWORD_HANDLE, ICESHARDWAND_HANDLE, ROCKETLAUNCHER_HANDLE, PLAYINGCARD_HANDLE, LIGHTNINGWAND_HANDLE, MINIGUN_HANDLE, BOOMERRANG_HANDLE, GRAVITY_HANDLE]
 const projectile_list: Array = [FLAMETHROWER_PROJECTILE, PISTOL_PROJECTILE, RAILGUN_PROJECTILE, SWORD_PROJECTILE, ICESHARDWAND_PROJECTILE, ROCKETLAUNCHER_PROJECTILE, PLAYINGCARD_PROJECTILE, LIGHTNINGWAND_PROJECTILE, MINIGUN_PROJECTILE, BOOMERRANG_PROJECTILE, GRAVITY_PROJECTILE]
 
+## Weapon Indexes
+const flamethrower_index: int = 0
+const pistol_index: int = 1
+const railgun_index: int = 2
+const sword_index: int = 3
+const iceshardwand_index: int = 4
+const rocketlauncher_index: int = 5
+const playingcard_index: int = 6
+const lightningwand_index: int = 7
+const minigun_index: int = 8
+const boomerrang_index: int = 9
+const gravity_index: int = 10
+
 ## Returns Random Attachment
 static func get_rand_attachment() -> ItemData:
 	return setup_data(attachment_list.get(get_random_unlocked_weapon_index()).duplicate())

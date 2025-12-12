@@ -103,19 +103,22 @@ signal PlayerDamaged(player: Character, attack: Attack)
 signal PlayerKilled(player: Character, attack: Attack)
 signal RoundEnded(round_number: int)
 
-func setup(new_player: Character, new_global_stats: StatsResource):
+func setup(new_player: Character, starting_weapon: int, new_global_stats: StatsResource):
 	player = new_player
-	call_deferred("setup_deffered")
+	call_deferred("setup_deffered", starting_weapon)
 	connect("level_up", create_level_up_instance)
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	global_stats = new_global_stats
 
-func setup_deffered():
+func setup_deffered(starting_weapon: int):
 	level = 0
 	xp = 0
 	money = starting_money
 	player.player_stats.add_stats(global_stats)
 	get_tree().paused = false
+	var weapon: ItemData = ShopManager.get_weapon(starting_weapon)
+	add_weapon_to_player(weapon.get_item())
+	ui_man.equipment.backend_add(ShopManager.make_itemUI(weapon))
 
 func _ready() -> void:
 	# Ensure only one instance exists

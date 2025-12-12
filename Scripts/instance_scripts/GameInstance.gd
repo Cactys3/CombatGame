@@ -75,14 +75,14 @@ func _ready() -> void:
 		return
 	instance = self  
 ## Sets up the GameInstance by giving parameter values (character should be resource so can change default values?)
-func setup(new_character: Character, new_global_stats: StatsResource, run_modifiers) -> void:
+func setup(new_character: Character, new_weapon: int, new_global_stats: StatsResource, run_modifiers) -> void:
 	character_parent.add_child(new_character)
 	camera.reparent(new_character)
 	TITLE_SCENE = load("res://Scenes/Main/TitleScene.tscn")
 	chunk_rect = ColorRect.new()
 	call_deferred("connect_signals")
 	setup_events()
-	game_man.setup(new_character, new_global_stats)
+	game_man.setup(new_character, new_weapon, new_global_stats)
 	character = new_character
 	global_stats = new_global_stats
 	add_tiles()

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="StatsResource" load_steps=2 format=3 uid="uid://ce5c7enc615f"]
+
+[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="1_50qn0"]
+
+[resource]
+script = ExtResource("1_50qn0")
+parent_object_name = "Webfisher_Starting_Stats"
+metadata/_custom_type_script = "uid://dwj80yu0v1qdt"

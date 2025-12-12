@@ -34,29 +34,29 @@ const THORNS = "thorns"
 const INACCURACY = "inaccuracy"
 
 @export var parent_object_name = "not_set"
-
+## Currently set pretty high as I'm not making individual stats for everything
 static var defaultstats = {
-	DAMAGE: 50.0,
-	RANGE: 500.0,
+	DAMAGE: 20.0,
+	RANGE: 50.0,
 	WEIGHT: 0.0,
-	ATTACKSPEED: 20.5,
-	VELOCITY: 10.0,
+	ATTACKSPEED: 5.0,
+	VELOCITY: 20.0,
 	INACCURACY: 3,
 	COUNT: 1.0,
-	PIERCING: 1.0,
-	DURATION: 5.0,
+	PIERCING: 0.0,
+	DURATION: 1.0,
 	BUILDUP: 1.0,
 	SIZE: 1.0,
-	HP: 100.0,
+	HP: 1.0,
 	STANCE: 0.0,
-	MOVESPEED: 100.0,
+	MOVESPEED: 60.0,
 	XP: 1.0,
 	MOGUL: 1.0,
 	LUCK: 1.0,
 	CRITCHANCE: 0.01,
 	CRITDAMAGE: 0.5,
 	GHOSTLY: 0.0,
-	REGEN: 1.0,
+	REGEN: 0.0,
 	MAGNETIZE: 50.0,
 	LIFESTEAL: 0.0,
 	BONUSVSELITES: 0.0,
@@ -238,12 +238,16 @@ func set_stat_factor(key: String, value: float):
 func print_stats() -> void:
 	if MustRecalculate:
 		print("Stats are wrong, must recalculate first")
-	print("\nFactors: ")
-	for key in statsfactor:#if they have no changes in either dictionary, it's just adding the default 0 so no change!
-		print(key + " - " + str(statsfactor[key]))
-	print("\nBases: ")
-	for key in statsbase:
-		print(key + " - " + str(statsbase[key]))
+	var list: Array[StatsResource]
+	GetAllStatsRecursive(list)
+	for l in list:
+		print("\n\nList: " + l.parent_object_name)
+		print("\nFactors: ")
+		for key in l.statsfactor:#if they have no changes in either dictionary, it's just adding the default 0 so no change!
+			print(key + " - " + str(l.statsfactor[key]))
+		print("\nBases: ")
+		for key in l.statsbase:
+			print(key + " - " + str(l.statsbase[key]))
 ## Returns if the stat is default or changed
 func is_stat_default(stat: String):
 	return get_stat_without_default(stat) == 0

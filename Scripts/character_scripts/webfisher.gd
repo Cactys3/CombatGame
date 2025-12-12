@@ -7,13 +7,6 @@ func _process(delta: float) -> void:
 	super(delta)
 
 func set_stats():
-	# TODO: later make these a seperate stats instance that affects the global stats inside game manager so these affect the weapons too
-	player_stats.set_stat_base(StatsResource.HP, 100)
-	player_stats.set_stat_base(StatsResource.STANCE, 0)
-	player_stats.set_stat_base(StatsResource.MOVESPEED, 200)
-	player_stats.set_stat_base(StatsResource.XP, 1)
-	player_stats.set_stat_base(StatsResource.MOGUL, 1)
-	player_stats.set_stat_base(StatsResource.LUCK, 0)
 	super()
 
 func character_ability(number: int) -> void:
