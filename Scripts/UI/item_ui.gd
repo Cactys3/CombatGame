@@ -81,8 +81,6 @@ func set_item(new_data: ItemData):
 	DescriptionPanel.self_modulate = data.item_color
 	IconTexture.texture = data.item_image
 	BackgroundTexture.self_modulate = data.border_color
-	#print("background texture now: " + str(data.border_color))
-	#print("real background texture now: " + str(BackgroundTexture.modulate))
 	if data.item_type == ItemData.item_types.weapon:
 		AttachmentVisual.texture = data.attachment_visual
 		HandleVisual.texture = data.handle_visual
@@ -97,7 +95,7 @@ func show_details():
 	DescriptionPanel.visible = true
 	showing_details = true
 	
-	inventory.set_description(data.item_name, data.item_description, data.stats)
+	inventory.set_description(data)
 	#print(ItemData.get_rarity(data.item_rarity) + " - " + data.item_name)
 
 func hide_details():

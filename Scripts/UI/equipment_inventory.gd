@@ -58,18 +58,16 @@ func backend_add(item: ItemUI):
 			set_item_count(ItemCount + 1)
 
 func backend_remove(item: ItemUI):
+	super(item)
 	match(item.data.item_type):
 		ItemData.item_types.weapon:
 			item.hide_component_visuals()
-			WeaponParent.remove_child(item)
 			WeaponParent.queue_sort()
 			set_weapon_count(WeaponCount - 1)
 		ItemData.item_types.item:
-			ItemParent.remove_child(item)
 			ItemParent.queue_sort()
 			item.get_item().disable()
 			set_item_count(ItemCount - 1)
-	items.erase(item)
 
 func set_weapon_count(count: int):
 	WeaponCount = count

@@ -476,6 +476,7 @@ layout_mode = 2
 
 [node name="Title" type="Label" parent="HBoxContainer/Right/Right/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.4627451, 0.25882354, 0.5411765, 1)
 theme_override_font_sizes/font_size = 32
 text = "Default Title"
 autowrap_mode = 3
@@ -483,6 +484,7 @@ autowrap_mode = 3
 [node name="Body" type="Label" parent="HBoxContainer/Right/Right/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.37254903, 0.8039216, 0.89411765, 1)
 text = "Default Text"
 autowrap_mode = 3
 

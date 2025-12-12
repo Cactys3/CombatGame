@@ -10,6 +10,7 @@ var items: Array[ItemUI] = []
 @export var description_body: Label
 @export var description_title: Label
 @export var description_stats: StatsDisplay
+var showing_item: ItemData = null
 
 func clear() -> bool:
 	for item in items:
@@ -41,6 +42,8 @@ func backend_remove(item: ItemUI):
 	if item.get_parent():
 		item.get_parent().remove_child(item)
 	items.erase(item)
+	if showing_item == item.data:
+		reset_description()
 ## Adds an Item to the backend
 func backend_add(item: ItemUI):
 	item.inventory = self
@@ -63,17 +66,30 @@ func can_remove(item: ItemUI) -> bool:
 # Can sort items array via: Alphabetical, etc
 # Can show only items of a certian type: components, etc
 ## Sets the description page
-func set_description(title: String, body: String, stats: StatsResource):
-	if description_stats:
-		if stats:
-			description_stats.set_stats(stats, title)
-			description_stats.visible = true
-		else:
-			description_stats.visible = false
+func set_description(data: ItemData):
+	reset_description()
+	showing_item = data
+	if description_stats && data.stats:
+		description_stats.set_stats(data.stats, data.item_name)
+		description_stats.visible = true
 	if description_body:
-		description_body.text = body
+		description_body.text = data.item_description
+		if data.has_rarity:
+			description_body.text += "\n" + "Rarity: " + ItemData.get_rarity(data.item_rarity)
+		if data.level:
+			description_body.text += "\n" + "Level: " + str(data.level)
+		if description_title:
+			description_title.text = data.item_name
+## Sets description boxes to be default
+func reset_description():
+	showing_item = null
+	if description_body:
+		description_body.text = "Item Description"
 	if description_title:
-		description_title.text = title
+		description_title.text = "Hover an Item first!"
+	if description_stats:
+		description_stats.visible = false
+
 
 ## Sorting Functions, Reorders items as children
 func sort_random():

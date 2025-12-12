@@ -1,19 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://d2ai3a1ewnryl"]
+[gd_scene load_steps=6 format=3 uid="uid://d2ai3a1ewnryl"]
 
 [ext_resource type="Script" uid="uid://bhsre7ysyiwus" path="res://Scripts/UI/item_ui.gd" id="1_xojv8"]
-[ext_resource type="Texture2D" uid="uid://n0k0l26reyna" path="res://Art/UI/ItemBackground.png" id="2_o07fp"]
 [ext_resource type="Texture2D" uid="uid://lqpckh7fkgjy" path="res://Art/UI/MissingTexture.png" id="3_hfdbq"]
 [ext_resource type="FontFile" uid="uid://hudga6l8g608" path="res://Fonts/monogram/ttf/monogram.ttf" id="4_jga5b"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ytgoh"]
 font = ExtResource("4_jga5b")
+font_color = Color(0.37254903, 0.8039216, 0.89411765, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwy7p"]
 content_margin_left = 2.0
 content_margin_top = 2.0
 content_margin_right = 2.0
 content_margin_bottom = 2.0
-bg_color = Color(1, 0.146026, 0.795461, 0.780392)
+bg_color = Color(0.49411765, 0.6039216, 0.7921569, 0.19215687)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -50,6 +50,7 @@ HandleBackground = NodePath("Handle/HandleBackground")
 AttachmentBackground = NodePath("Attachment/AttachmentBackground")
 AttachmentParent = NodePath("Attachment")
 HandleParent = NodePath("Handle")
+ShowComponentVisuals = null
 
 [node name="Attachment" type="Control" parent="."]
 visible = false
@@ -62,7 +63,6 @@ offset_bottom = 120.0
 layout_mode = 0
 offset_right = 120.0
 offset_bottom = 120.0
-texture = ExtResource("2_o07fp")
 
 [node name="AttachmentVisual" type="TextureRect" parent="Attachment/AttachmentBackground"]
 layout_mode = 0
@@ -82,7 +82,6 @@ offset_bottom = 120.0
 layout_mode = 0
 offset_right = 120.0
 offset_bottom = 120.0
-texture = ExtResource("2_o07fp")
 
 [node name="HandleVisual" type="TextureRect" parent="Handle/HandleBackground"]
 layout_mode = 0
@@ -95,7 +94,6 @@ texture = ExtResource("3_hfdbq")
 layout_mode = 0
 offset_right = 120.0
 offset_bottom = 120.0
-texture = ExtResource("2_o07fp")
 
 [node name="ItemVisual" type="TextureRect" parent="Background"]
 layout_mode = 0
@@ -119,6 +117,7 @@ autowrap_mode = 2
 clip_text = true
 
 [node name="DescriptionPanel" type="Panel" parent="."]
+visible = false
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 1
 anchors_preset = 15
@@ -144,6 +143,7 @@ grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 2
 mouse_filter = 1
+theme_override_colors/default_color = Color(1, 0.7951483, 0.91682863, 1)
 bbcode_enabled = true
 text = "Default Description"
 shortcut_keys_enabled = false
