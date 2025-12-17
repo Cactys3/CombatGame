@@ -61,7 +61,7 @@ func backend_add(item: ItemUI):
 			if attachment != null:
 				var a: ItemUI = attachment
 				backend_remove(attachment)
-				GameManager.instance.ui_man.storage.backend_add(a) # TODO: rework into real code
+				GameManager.instance.ui_man.inventory.backend_add(a) # TODO: rework into real code
 			attachment = item
 			AttachmentHolder.add_child(item)
 			item.item_parent = AttachmentHolder
@@ -69,7 +69,7 @@ func backend_add(item: ItemUI):
 			if handle != null:
 				var h: ItemUI = handle
 				backend_remove(handle)
-				GameManager.instance.ui_man.storage.backend_add(h) # TODO: rework into real code
+				GameManager.instance.ui_man.inventory.backend_add(h) # TODO: rework into real code
 			handle = item
 			HandleHolder.add_child(item)
 			item.item_parent = HandleHolder
@@ -77,7 +77,7 @@ func backend_add(item: ItemUI):
 			if projectile != null:
 				var proj: ItemUI = projectile
 				backend_remove(projectile)
-				GameManager.instance.ui_man.storage.backend_add(proj) # TODO: rework into real code
+				GameManager.instance.ui_man.inventory.backend_add(proj) # TODO: rework into real code
 			projectile = item
 			ProjectileHolder.add_child(item)
 			item.item_parent = ProjectileHolder

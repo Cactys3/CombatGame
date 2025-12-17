@@ -1,8 +1,8 @@
 extends Node
 class_name GameManager
 
-const LEVEL_UP_SCREEN = preload("res://Scenes/UI/level_up_screen.tscn")
-#static var STATS_VISUAL = preload("res://Scenes/UI/stats_visual.tscn")
+const LEVEL_UP_UI = preload("uid://cykl0goweao0i")
+
 @onready var weapon_frame = preload("res://Scenes/Weapons/weapon_frame.tscn")
 
 ## Single Instance Object
@@ -294,12 +294,12 @@ func create_level_up_instance():
 	var two = LevelUpData.get_random_level_up_option()
 	var three = LevelUpData.get_random_level_up_option()
 	## setup LevelUpInstance with those random things and their details (color, name, etc)
-	var instance = LEVEL_UP_SCREEN.instantiate()
-	instance.global_position = Vector2.ZERO
+	var instance = LEVEL_UP_UI.instantiate()
+	instance.global_position = Vector2(-42, -170)
 	ui_man.level_up_parent.add_child(instance)
-	instance.setup(1, one)
-	instance.setup(2, two)
-	instance.setup(3, three)
+	instance.add_choice(one)
+	instance.add_choice(two)
+	instance.add_choice(three)
 	var choice: LevelUpData = await instance.get_choice()
 	choice.carryout_level_up()
 	instance.free_instance()

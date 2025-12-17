@@ -1,0 +1,71 @@
+[gd_scene load_steps=5 format=3 uid="uid://cykl0goweao0i"]
+
+[ext_resource type="Script" uid="uid://cifngod288w00" path="res://Scripts/UI/LevelUpInstance.gd" id="1_fg6de"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fg6de"]
+bg_color = Color(0.27450982, 0.25882354, 0.42352942, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.13333334, 0.1254902, 0.20392157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gapvn"]
+bg_color = Color(0.23921569, 0.23137255, 0.32156864, 1)
+border_width_left = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.13333334, 0.1254902, 0.20392157, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_fg6de"]
+font_size = 32
+font_color = Color(0.3882353, 0.60784316, 1, 1)
+
+[node name="LevelUpUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_fg6de")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(550, 700)
+layout_mode = 1
+offset_right = 550.0
+offset_bottom = 700.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_fg6de")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Offset1" type="Control" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_gapvn")
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Level Up!"
+label_settings = SubResource("LabelSettings_fg6de")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Offset2" type="Control" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+
+[node name="LevelUpParent" type="VBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20

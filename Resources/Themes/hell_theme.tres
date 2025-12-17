@@ -1,0 +1,12 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://d3s3r5lc0ymim"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2x5wj"]
+bg_color = Color(0.23921569, 0.23137255, 0.32156864, 1)
+
+[resource]
+Button/styles/disabled = null
+Button/styles/focus = null
+Button/styles/hover = null
+Button/styles/normal = null
+Button/styles/pressed = null
+Panel/styles/panel = SubResource("StyleBoxFlat_2x5wj")

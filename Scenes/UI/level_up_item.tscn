@@ -1,0 +1,95 @@
+[gd_scene load_steps=6 format=3 uid="uid://d3vs4t8t4nfr7"]
+
+[ext_resource type="Texture2D" uid="uid://lqpckh7fkgjy" path="res://Art/UI/MissingTexture.png" id="1_10yde"]
+[ext_resource type="Script" uid="uid://c2rw8jgaw83e3" path="res://Scripts/UI/level_up_item.gd" id="1_pu7dp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pu7dp"]
+bg_color = Color(0.23921569, 0.23137255, 0.32156864, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.13333334, 0.1254902, 0.20392157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hvjrs"]
+bg_color = Color(0.27450982, 0.25882354, 0.42352942, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.13333334, 0.1254902, 0.20392157, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_hvjrs"]
+font_color = Color(0.4627451, 0.25882354, 0.5411765, 1)
+
+[node name="LevelUpItem" type="Panel"]
+custom_minimum_size = Vector2(370, 100)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_pu7dp")
+script = ExtResource("1_pu7dp")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_pu7dp")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hvjrs")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hvjrs")
+theme_override_styles/focus = SubResource("StyleBoxFlat_hvjrs")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 7.0
+offset_right = 290.0
+offset_bottom = 20.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Title"
+label_settings = SubResource("LabelSettings_hvjrs")
+horizontal_alignment = 1
+autowrap_mode = 3
+clip_text = true
+
+[node name="Image" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_left = 21.0
+offset_top = 30.0
+offset_right = 71.0
+offset_bottom = 80.0
+texture = ExtResource("1_10yde")
+
+[node name="RarityOrNew" type="Label" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 7.0
+offset_right = 82.0
+offset_bottom = 20.0
+text = "Rarity"
+
+[node name="Type" type="Label" parent="."]
+layout_mode = 0
+offset_left = 298.0
+offset_top = 7.0
+offset_right = 358.0
+offset_bottom = 20.0
+text = "Type"
+horizontal_alignment = 2
+
+[node name="Body" type="Label" parent="."]
+custom_minimum_size = Vector2(270, 45)
+layout_mode = 0
+offset_left = 74.0
+offset_top = 32.0
+offset_right = 344.0
+offset_bottom = 77.0
+text = "Body"
+autowrap_mode = 3
+clip_text = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

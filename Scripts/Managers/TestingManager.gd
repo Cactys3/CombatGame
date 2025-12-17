@@ -40,8 +40,9 @@ func _process(_delta: float) -> void:
 		GameManager.instance.ui_man.equipment.ui_add(ShopManager.make_itemUI(ShopManager.get_weapon(3)))
 	if Input.is_action_just_pressed("test_7"):
 		GameManager.instance.ui_man.equipment.ui_add(ShopManager.make_itemUI(ShopManager.get_weapon(4)))
-		
-		
+	if Input.is_action_just_pressed("test_0"):
+		GameManager.instance.level_up.emit()
+	
 	## Formerly in Game Manager:
 	
 	var game_man: GameManager = GameManager.instance
