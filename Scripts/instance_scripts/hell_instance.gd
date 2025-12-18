@@ -50,30 +50,30 @@ func add_tiles():
 func handle_stopwatch(delta: float):
 	super(delta)
 func phase_one():
-	print("PHASE 1 - Easy Start")
+	#print("PHASE 1 - Easy Start")
 	spawning_phase = 1
 	enemies.clear()
 	enemies.append(EnemySpawn.new("KLE", KLE, 0.3, 3))
 func phase_two():
-	print("PHASE 2 - Introduce Big Guy")
+	#print("PHASE 2 - Introduce Big Guy")
 	spawning_phase = 2
 	enemies.clear()
 	enemies.append(EnemySpawn.new("KLE", KLE, 0.6, 6))
 	enemies.append(EnemySpawn.new("JARRE", JARRE, 0.3, 1))
 func phase_three():
-	print("PHASE 3 - Change it up")
+	#print("PHASE 3 - Change it up")
 	spawning_phase = 3
 	enemies.clear()
 	enemies.append(EnemySpawn.new("SCLARNK", SCLARNK, 0.1, 3))
 	enemies.append(EnemySpawn.new("FLUUE", FLUUE, 0.5, 5))
 func phase_four():
-	print("PHASE 4 - Swarm!")
+	#print("PHASE 4 - Swarm!")
 	spawning_phase = 4
 	enemies.clear()
 	enemies.append(EnemySpawn.new("KLE", KLE, 0.3, 2))
 	enemies.append(EnemySpawn.new("GUREL", GUREL, 0.4, 10))
 func phase_five():
-	print("PHASE 5 - Make it harder, everyone!")
+	#print("PHASE 5 - Make it harder, everyone!")
 	spawning_phase = 5
 	enemies.clear()
 	enemies.append(EnemySpawn.new("SCLARNK", SCLARNK, 0.3, 2))
@@ -82,7 +82,7 @@ func phase_five():
 	enemies.append(EnemySpawn.new("KLE", KLE, 0.3, 1))
 	enemies.append(EnemySpawn.new("GUREL", GUREL, 0.4, 3))
 func phase_six():
-	print("PHASE 6 - Boss Time")
+	#print("PHASE 6 - Boss Time")
 	spawning_phase = 6
 	enemies.clear()
 	enemies.append(EnemySpawn.new("SCLARNK", SCLARNK, 0.25, 4))

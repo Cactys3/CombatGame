@@ -13,7 +13,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if enabled:
 		curr_timer = curr_timer + delta
-		print(curr_timer)
+		#print(curr_timer)
 		if curr_timer >= max_timer:
 			create_projectiles()
 			curr_timer = 0

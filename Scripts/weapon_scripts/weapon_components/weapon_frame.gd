@@ -84,7 +84,7 @@ func add_attachment(attachy: Attachment) -> bool:
 		return true
 
 func add_projectile(projecty: Projectile) -> bool:
-	print(projecty.name)
+	#print(projecty.name)
 	if (projectile != null):
 		push_error("Projectile was not null when trying to add_projectile")
 		return false
@@ -97,7 +97,7 @@ func add_projectile(projecty: Projectile) -> bool:
 
 func remove_attachment() -> Attachment:
 	if (attachment == null):
-		print("Handle was null when trying to remove_handle")
+		#print("Handle was null when trying to remove_handle")
 		return null
 	else:
 		remove_child(attachment)
@@ -114,7 +114,7 @@ func remove_attachment() -> Attachment:
 
 func remove_handle() -> Handle:
 	if (handle == null):
-		print("Handle was null when trying to remove_handle")
+		#print("Handle was null when trying to remove_handle")
 		return null
 	else:
 		remove_child(handle)
@@ -130,7 +130,7 @@ func remove_handle() -> Handle:
 
 func remove_projectile() -> Projectile:
 	if (projectile == null):
-		print("Projectile was null when trying to remove_projectile")
+		#print("Projectile was null when trying to remove_projectile")
 		return null
 	else:
 		stats.remove_stats(projectile.stats)

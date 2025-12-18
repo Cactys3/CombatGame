@@ -178,7 +178,7 @@ func remove_weapon_from_player(weapon: Weapon_Frame) -> bool:
 func craft_weapon(handle: ItemUI, attachment: ItemUI, projectile: ItemUI) -> bool:
 	if (handle && attachment && projectile) && (handle.data.item_type == ItemData.item_types.handle && attachment.data.item_type == ItemData.item_types.attachment && projectile.data.item_type == ItemData.item_types.projectile):
 		
-		var data: ItemData = ItemData.new()
+		var data: ItemData = ItemData.new()#ItemData.item_types.weapon, "weapon", StatsResource.new(), null)
 		data.setup(false, ShopManager.random_rarity())
 		data.set_components(attachment.data, handle.data, projectile.data)
 		var weapon: Weapon_Frame = data.get_item()

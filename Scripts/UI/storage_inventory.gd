@@ -8,5 +8,5 @@ func _process(delta: float) -> void:
 
 ## Override
 func get_type() -> String:
-	print("get type: storage")
+	#print("get type: storage")
 	return STORAGE

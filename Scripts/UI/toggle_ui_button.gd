@@ -43,7 +43,7 @@ func _toggled(toggled_on: bool) -> void:
 	
 	for ui in ui_to_disable:
 		if ui:
-			print(g)
+			#print(g)
 			g+= 1
 			if toggled_on:
 				ui.propagate_call("set", ["mouse_filter", MOUSE_FILTER_PASS])

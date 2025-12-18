@@ -94,7 +94,7 @@ const Lose = "Lose"
 const data: Array[String] = [TEST_INT, TEST_STRING, TEST_FLOAT, TEST_BOOL]
 ## Writes the inputted data to save file if valid
 static func save_data(slot: int, data_name: String, data_value):
-	print("SaveData(" + str(slot) + ", " + data_name + ", " + str(data_value) + ")")
+	#print("SaveData(" + str(slot) + ", " + data_name + ", " + str(data_value) + ")")
 	if !data.has(data_name):
 		push_warning("Trying to save data that doesn't exist, key: " + data_name + ", value: " + str(data_value) + ", Slot: " + str(slot))
 		return
@@ -119,7 +119,7 @@ static func save_data(slot: int, data_name: String, data_value):
 	file = FileAccess.open(get_filepath(slot), FileAccess.WRITE)
 	file.store_string(updated_text)
 	file.close()
-	print("SaveData() Success: " + str(found) + ", Value: " + str(load_data(slot, data_name)))
+	#print("SaveData() Success: " + str(found) + ", Value: " + str(load_data(slot, data_name)))
 ## Reads the inputted data from the save file if valid, Assumes no duplicates
 static func load_data(slot: int, data_name: String) -> Variant:
 	if !data.has(data_name):
@@ -172,3 +172,9 @@ static func get_filepath(slot: int) -> String:
 ## Adds data to place where it should be
 static func add_key(slot: int, key: String, value, lines: Array[String]) -> Array[String]:
 	return lines
+## Write to file, unlock new weapon
+static func unlock_weapon(index: int):
+	pass
+## Write to file, unlock achievement:
+static func unlock_achievement(index: int):
+	pass

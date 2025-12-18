@@ -59,17 +59,17 @@ func _ready() -> void:
 	window.move_to_center()
 	set_main()
 	
-	print("connect signals")
+	#print("connect signals")
 	button_back.button_down.connect(set_main)
-	print("Tree paused: ", get_tree().paused)
+	#print("Tree paused: ", get_tree().paused)
 
 	## Make sure file is created
 	Save.create_file(0)
 	
-	print(Save.load_data(0, Save.TEST_FLOAT))
-	print(Save.load_data(0, Save.TEST_INT))
-	print(Save.load_data(0, Save.TEST_STRING))
-	print(Save.load_data(0, Save.TEST_BOOL))
+	#print(Save.load_data(0, Save.TEST_FLOAT))
+	#print(Save.load_data(0, Save.TEST_INT))
+	#print(Save.load_data(0, Save.TEST_STRING))
+	#print(Save.load_data(0, Save.TEST_BOOL))
 	
 	Save.save_data(0, Save.TEST_FLOAT, 123)
 	Save.save_data(0, Save.Arrows, true)
@@ -81,44 +81,44 @@ func _process(delta: float) -> void:
 ### UI Code
 ## Sets up main buttons to be visible
 func set_main():
-	print("Main")
+	#print("Main")
 	set_visible([main])
 	page_title.text = "Titlescreen"
 ## Return to previous screen
 func press_back() -> void:
-	print("back")
+	#print("back")
 	set_main()
 ## Go to Character Selection
 func press_play() -> void:
-	print("play")
+	#print("play")
 	press_character_select()
 ## Go to Settings
 func press_settings() -> void:
-	print("setting")
+	#print("setting")
 	set_visible([settings])
 	page_title.text = "Settings"
 ## Go to Collection
 func press_collection() -> void:
-	print("collection")
+	#print("collection")
 	set_visible([collection])
 	page_title.text = "Collection"
 ## Go to Shop
 func press_shop() -> void:
-	print("shop")
+	#print("shop")
 	set_visible([shop])
 	page_title.text = "Shop"
 ## Go to Character Select
 func press_character_select():
-	print("character_select")
+	#print("character_select")
 	set_visible([character_selection])
 	page_title.text = "Character Selection"
 func press_weapon_select():
-	print("weapon_selection")
+	#print("weapon_selection")
 	set_visible([weapon_selection])
 	page_title.text = "Weapon Select"
 ## Go to Map Select
 func press_map_select():
-	print("map_select")
+	#print("map_select")
 	set_visible([map_selection])
 	page_title.text = "Map Selection"
 ## Go to Game Scene
@@ -137,7 +137,7 @@ func press_start_game():
 	get_tree().current_scene = base_scene
 ## Creates Instance with Chosen Values
 func setup_instance(base_scene) -> GameInstance:
-	print("Creating instance with Map: " + maps[map].key + ", Char: " + characters[character].key)
+	#print("Creating instance with Map: " + maps[map].key + ", Char: " + characters[character].key)
 	var game_instance: GameInstance = get_instance()
 	var chosen_character: Character = get_character()
 	var chosen_weapon: int = get_weapon()

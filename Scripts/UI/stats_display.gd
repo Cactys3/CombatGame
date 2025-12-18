@@ -6,36 +6,46 @@ extends Control
 const SCENE = preload("res://Scenes/UI/stats_visual.tscn")
 
 @export var only_show_changed: bool = false
-
-@export var hide_damage: bool = false
-@export var hide_range: bool = false
-@export var hide_weight: bool = false
-@export var hide_attackspeed: bool = false
-@export var hide_velocity: bool = false
-@export var hide_count: bool = false
-@export var hide_piercing: bool = false
-@export var hide_duration: bool = false
-@export var hide_buildup: bool = false
-@export var hide_size: bool = false
-@export var hide_hp: bool = false
-@export var hide_stance: bool = false
-@export var hide_movespeed: bool = false
-@export var hide_xp: bool = false
-@export var hide_mogul: bool = false
-@export var hide_luck: bool = false
-@export var hide_critchance: bool = false
-@export var hide_critdamage: bool = false
-@export var hide_ghostly: bool = false
-@export var hide_regen: bool = false
-@export var hide_magnetize: bool = false
-@export var hide_lifesteal: bool = false
-@export var hide_bonusvselites: bool = false
-@export var hide_shield: bool = false
-@export var hide_difficulty: bool = false
-@export var hide_revies: bool = false
-@export var hide_thorns: bool = false
-@export var hide_inaccuracy: bool = false
+@export var hide_weapon_only: bool = false
+@export var hide_player_only: bool = false
+@export var hide_misc_only: bool = false
+## overrides the above, 1 for true, 0 for false
+@export_category("Individual Stats: Overrides the above, 1 = true, 0 = false, -1 = above")
+@export var show_damage: int = -1
+@export var show_range: int = -1
+@export var show_weight: int = -1
+@export var show_attackspeed: int = -1
+@export var show_velocity: int = -1
+@export var show_count: int = -1
+@export var show_piercing: int = -1
+@export var show_duration: int = -1
+@export var show_buildup: int = -1
+@export var show_size: int = -1
+@export var show_hp: int = -1
+@export var show_stance: int = -1
+@export var show_movespeed: int = -1
+@export var show_xp: int = -1
+@export var show_mogul: int = -1
+@export var show_luck: int = -1
+@export var show_critchance: int = -1
+@export var show_critdamage: int = -1
+@export var show_ghostly: int = -1
+@export var show_regen: int = -1
+@export var show_magnetize: int = -1
+@export var show_lifesteal: int = -1
+@export var show_bonusvselites: int = -1
+@export var show_shield: int = -1
+@export var show_difficulty: int = -1
+@export var show_revies: int = -1
+@export var show_thorns: int = -1
+@export var show_inaccuracy: int = -1
 ## Labels
+@onready var hp: Label = $VBoxContainer/ScrollContainer/VBoxContainer/hp
+@onready var stance: Label = $VBoxContainer/ScrollContainer/VBoxContainer/stance
+@onready var movespeed: Label = $VBoxContainer/ScrollContainer/VBoxContainer/movespeed
+@onready var xp: Label = $VBoxContainer/ScrollContainer/VBoxContainer/xp
+@onready var mogul: Label = $VBoxContainer/ScrollContainer/VBoxContainer/mogul
+@onready var luck: Label = $VBoxContainer/ScrollContainer/VBoxContainer/luck
 @onready var damage: Label = $VBoxContainer/ScrollContainer/VBoxContainer/damage
 @onready var _range: Label = $VBoxContainer/ScrollContainer/VBoxContainer/range
 @onready var weight: Label = $VBoxContainer/ScrollContainer/VBoxContainer/weight
@@ -46,12 +56,6 @@ const SCENE = preload("res://Scenes/UI/stats_visual.tscn")
 @onready var duration: Label = $VBoxContainer/ScrollContainer/VBoxContainer/duration
 @onready var buildup: Label = $VBoxContainer/ScrollContainer/VBoxContainer/buildup
 @onready var _size: Label = $VBoxContainer/ScrollContainer/VBoxContainer/size
-@onready var hp: Label = $VBoxContainer/ScrollContainer/VBoxContainer/hp
-@onready var stance: Label = $VBoxContainer/ScrollContainer/VBoxContainer/stance
-@onready var movespeed: Label = $VBoxContainer/ScrollContainer/VBoxContainer/movespeed
-@onready var xp: Label = $VBoxContainer/ScrollContainer/VBoxContainer/xp
-@onready var mogul: Label = $VBoxContainer/ScrollContainer/VBoxContainer/mogul
-@onready var luck: Label = $VBoxContainer/ScrollContainer/VBoxContainer/luck
 @onready var critchance: Label = $VBoxContainer/ScrollContainer/VBoxContainer/critchance
 @onready var critdamage: Label = $VBoxContainer/ScrollContainer/VBoxContainer/critdamage
 @onready var ghostly: Label = $VBoxContainer/ScrollContainer/VBoxContainer/ghostly
@@ -67,15 +71,43 @@ const SCENE = preload("res://Scenes/UI/stats_visual.tscn")
 
 @onready var label_parent: VBoxContainer = $VBoxContainer/ScrollContainer/VBoxContainer
 
+@onready var dict: Dictionary = {
+	damage: show_damage,
+	_range: show_range,
+	weight: show_weight,
+	attackspeed: show_attackspeed,
+	velocity: show_velocity,
+	count: show_count,
+	piercing: show_piercing,
+	duration: show_duration,
+	buildup: show_buildup,
+	_size: show_size,
+	hp: show_hp,
+	stance: show_stance,
+	movespeed: show_movespeed,
+	xp: show_xp,
+	mogul: show_mogul,
+	luck: show_luck,
+	critchance: show_critchance,
+	critdamage: show_critdamage,
+	ghostly: show_ghostly,
+	regen: show_regen,
+	magnetize: show_magnetize,
+	lifesteal: show_lifesteal,
+	bonusvselites: show_bonusvselites,
+	shield: show_shield,
+	difficulty: show_difficulty,
+	revies: show_revies,
+	thorns: show_thorns,
+	inaccuracy: show_inaccuracy
+}
+@onready var misc: Array[Label] = [_size, luck, bonusvselites, difficulty]
+@onready var players: Array[Label] = [hp, weight, stance, movespeed, xp, mogul, ghostly, regen, magnetize, shield, revies, thorns]
+@onready var weapons: Array[Label] = [damage, _range, attackspeed, velocity, count, piercing, duration, buildup, critchance, critdamage, inaccuracy]
 var last_clicked: float = -1
-var array: Array[Label]
-var default_order: Array[Label]
-#var stopwatch: float = 0
-#func _process(delta: float) -> void:
-	#stopwatch += delta
-	#if (stopwatch > 3):
-		#refresh()
-		#stopwatch = 0
+@onready var array: Array[Label] = [hp, shield, regen, xp, mogul, movespeed, stance, damage, _range, attackspeed, piercing, velocity, count, duration, _size, weight, luck, buildup, critchance, critdamage, ghostly, magnetize, lifesteal, bonusvselites, difficulty, revies, thorns, inaccuracy]
+@onready var default_order: Array[Label] = [hp, shield, regen, xp, mogul, movespeed, stance, damage, _range, attackspeed, piercing, velocity, count, duration, _size, weight, luck, buildup, critchance, critdamage, ghostly, magnetize, lifesteal, bonusvselites, difficulty, revies, thorns, inaccuracy]
+
 func set_stats(new_stats: StatsResource, new_name: String):
 	stats = new_stats
 	name = new_name
@@ -88,9 +120,14 @@ func set_stats(new_stats: StatsResource, new_name: String):
 func _ready():
 	if stats:
 		set_stats(stats, stats.parent_object_name)
-	array = [damage, _range, weight, attackspeed, velocity, count, duration, _size, buildup, stance, hp, xp, mogul, movespeed, piercing, luck, critchance, critdamage, ghostly, regen, magnetize, lifesteal, bonusvselites, shield, difficulty, revies, thorns, inaccuracy]
-	default_order = [damage, _range, weight, attackspeed, velocity, count, duration, _size, buildup, stance, hp, xp, mogul, movespeed, piercing, luck, critchance, critdamage, ghostly, regen, magnetize, lifesteal, bonusvselites, shield, difficulty, revies, thorns, inaccuracy]
+	if hide_weapon_only:
+		hide_weapons()
+	if hide_player_only:
+		hide_players()
+	if hide_misc_only:
+		hide_misc()
 	hide_hides()
+	sort_default()
 func refresh():
 	if stats:
 		if only_show_changed:
@@ -263,118 +300,29 @@ func hide_defaults():
 		inaccuracy.visible = true
 ## Removes elements from arrays based on if they are set to be hidden
 func hide_hides():
-	if hide_damage: 
-		array.erase(damage)
-		default_order.erase(damage)
-		damage.visible = false
-	if hide_range: 
-		array.erase(_range)
-		default_order.erase(_range)
-		_range.visible = false
-	if hide_weight: 
-		array.erase(weight)
-		default_order.erase(weight)
-		weight.visible = false
-	if hide_attackspeed: 
-		array.erase(attackspeed)
-		default_order.erase(attackspeed)
-		attackspeed.visible = false
-	if hide_velocity: 
-		array.erase(velocity)
-		default_order.erase(velocity)
-		velocity.visible = false
-	if hide_count: 
-		array.erase(count)
-		default_order.erase(count)
-		count.visible = false
-	if hide_piercing: 
-		array.erase(piercing)
-		default_order.erase(piercing)
-		piercing.visible = false
-	if hide_duration: 
-		array.erase(duration)
-		default_order.erase(duration)
-		duration.visible = false
-	if hide_buildup: 
-		array.erase(buildup)
-		default_order.erase(buildup)
-		buildup.visible = false
-	if hide_size: 
-		array.erase(_size)
-		default_order.erase(_size)
-		_size.visible = false
-	if hide_hp: 
-		array.erase(hp)
-		default_order.erase(hp)
-		hp.visible = false
-	if hide_stance: 
-		array.erase(stance)
-		default_order.erase(stance)
-		stance.visible = false
-	if hide_movespeed: 
-		array.erase(movespeed)
-		default_order.erase(movespeed)
-		movespeed.visible = false
-	if hide_xp: 
-		array.erase(xp)
-		default_order.erase(xp)
-		xp.visible = false
-	if hide_mogul: 
-		array.erase(mogul)
-		default_order.erase(mogul)
-		mogul.visible = false
-	if hide_luck: 
-		array.erase(luck)
-		default_order.erase(luck)
-		luck.visible = false
-	if hide_critchance: 
-		array.erase(critchance)
-		default_order.erase(critchance)
-		critchance.visible = false
-	if hide_critdamage: 
-		array.erase(critdamage)
-		default_order.erase(critdamage)
-		critdamage.visible = false
-	if hide_ghostly: 
-		array.erase(ghostly)
-		default_order.erase(ghostly)
-		ghostly.visible = false
-	if hide_regen: 
-		array.erase(regen)
-		default_order.erase(regen)
-		regen.visible = false
-	if hide_magnetize: 
-		array.erase(magnetize)
-		default_order.erase(magnetize)
-		magnetize.visible = false
-	if hide_lifesteal: 
-		array.erase(lifesteal)
-		default_order.erase(lifesteal)
-		lifesteal.visible = false
-	if hide_bonusvselites: 
-		array.erase(bonusvselites)
-		default_order.erase(bonusvselites)
-		bonusvselites.visible = false
-	if hide_shield: 
-		array.erase(shield)
-		default_order.erase(shield)
-		shield.visible = false
-	if hide_difficulty: 
-		array.erase(difficulty)
-		default_order.erase(difficulty)
-		difficulty.visible = false
-	if hide_revies: 
-		array.erase(revies)
-		default_order.erase(revies)
-		revies.visible = false
-	if hide_thorns: 
-		array.erase(thorns)
-		default_order.erase(thorns)
-		thorns.visible = false
-	if hide_inaccuracy: 
-		array.erase(inaccuracy)
-		default_order.erase(inaccuracy)
-		inaccuracy.visible = false
+	for key in dict:
+		print(str(dict[key]) + " is: " + str(key))
+		if dict[key] == 0:
+			array.erase(key)
+			default_order.erase(key)
+			key.visible = false
+		elif dict[key] == 1:
+			key.visible = true
+func hide_weapons():
+	for label in weapons:
+		array.erase(label)
+		default_order.erase(label)
+		label.visible = false
+func hide_players():
+	for label in players:
+		array.erase(label)
+		default_order.erase(label)
+		label.visible = false
+func hide_misc():
+	for label in misc:
+		array.erase(label)
+		default_order.erase(label)
+		label.visible = false
 ## Gets the name of all stats objects affecting this one
 func get_affecting_names():
 	var a: Array[StatsResource]

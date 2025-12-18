@@ -60,7 +60,14 @@ static var count: int = 0
 var ID: int 
 
 signal DataUpdated
-
+func initialize(type: item_types, name: String, new_default_stats: StatsResource, new_default_status: StatusEffects) -> void:
+	item_type = type
+	item_name = name
+	if new_default_stats:
+		default_stats = new_default_stats
+	if new_default_status:
+		default_status_effects = new_default_status
+##
 static func get_rarity(i: int) -> String:
 	match(i):
 		item_rarities.common:
@@ -76,7 +83,6 @@ static func get_rarity(i: int) -> String:
 		item_rarities.unset:
 			return "unset"
 	return "even further beyond"
-
 ## happens only once when itemdata is created
 func setup(randomize_bool: bool, rarity: item_rarities):
 	if has_stats:
@@ -89,7 +95,6 @@ func setup(randomize_bool: bool, rarity: item_rarities):
 		set_rarity(rarity)
 	count += 1
 	ID = count ## TODO: use this ID to track items? useful for matching itemdata to item/weapon when removing
-
 ## Changes Variable Values based on rarity, assumes all values are default to begin with
 func set_rarity(rarity: item_rarities):
 	item_rarity = rarity
@@ -110,10 +115,9 @@ func set_rarity(rarity: item_rarities):
 		item_buy_cost = item_buy_cost + (rarity_cost_modifier * item_rarity) #TODO: finalize equation
 	DataUpdated.emit()
 	#print("emit data updated")
-
+##
 func randomize_stats():
 	pass #TODO: randomize stats variable values if desired (pass stats into instance of real item's .randomize_stats() method)
-
 ## Instantiates the Item with values
 func get_item() -> Node:
 	if made_item:
@@ -137,7 +141,7 @@ func get_item() -> Node:
 		item_types.mod:
 			return make_item()
 	return null
-
+##
 func make_item():
 	made_item = true
 	## Need all these seperated because godot fucks everything up if we don't type the variable 'ret'
@@ -190,17 +194,18 @@ func make_item():
 			ret.data = self
 			item = ret
 			return ret
-
 ## Sets Weapon Components and setsup this ItemData to hold a Weapon
 func set_components(new_attachment: ItemData, new_handle: ItemData, new_projectile: ItemData):
+	## Setup to be a weapon itemdata
+	has_stats = true
+	default_stats = StatsResource.new()
+	item_type = item_types.weapon
 	setup(true, item_rarity)
 	attachment = new_attachment
 	handle = new_handle
 	projectile = new_projectile
 	frame_ready = true
-	item_type = item_types.weapon
 	make_frame()
-
 ## Set the Item Components and weapon data based on components
 func make_frame() -> Weapon_Frame:
 	made_item = true
@@ -221,7 +226,6 @@ func make_frame() -> Weapon_Frame:
 	item_type = item_types.weapon
 	item_image # set to combo of all images somehow
 	return new_frame
-
 ## Calculates new level's upgrades, returns them in an array of LevelUpgrades
 func get_level_upgrades() -> Array:
 	var arr: Array[LevelUpgrade]
@@ -237,7 +241,6 @@ func get_level_upgrades() -> Array:
 	else:
 		push_error("No Packed Scene? Trying to get level upgrade of: " + item_name)
 	return arr
-
 ## The 'Stats' inside the actual component is just a reference to the 'Stats' this ItemData has, so we can just add stats to this and it works.
 func upgrade_component_level(arr: Array[LevelUpgrade]):
 	## Get Stats to Upgrade
@@ -247,14 +250,13 @@ func upgrade_component_level(arr: Array[LevelUpgrade]):
 		if upgrade.factor_stat:
 			stats.set_stat_factor(upgrade.stat_name, stats.get_stat_factor(upgrade.stat_name) + upgrade.change_value)
 		else:
-			print("Adding: " + str(upgrade.change_value) + " to: " + upgrade.stat_name + " of: " + item_name)
-			print("Get_Stats(): " + str(stats.get_stat(upgrade.stat_name)))
-			print("get_stat_base(): " + str(stats.get_stat_base(upgrade.stat_name)))
+			#print("Adding: " + str(upgrade.change_value) + " to: " + upgrade.stat_name + " of: " + item_name)
+			#print("Get_Stats(): " + str(stats.get_stat(upgrade.stat_name)))
+			#print("get_stat_base(): " + str(stats.get_stat_base(upgrade.stat_name)))
 			stats.set_stat_base(upgrade.stat_name, stats.get_stat_base(upgrade.stat_name) + upgrade.change_value)
-			print("Get_Stats() Post: " + str(stats.get_stat(upgrade.stat_name)))
-			print("get_stat_base() Post: " + str(stats.get_stat_base(upgrade.stat_name)))
-
-
+			#print("Get_Stats() Post: " + str(stats.get_stat(upgrade.stat_name)))
+			#print("get_stat_base() Post: " + str(stats.get_stat_base(upgrade.stat_name)))
+##
 func upgrade_component_rarity():
 	match(item_rarity):
 		item_rarities.unset:
@@ -269,6 +271,6 @@ func upgrade_component_rarity():
 			set_rarity(item_rarities.exclusive)
 		item_rarities.exclusive:
 			pass
-
+##
 func get_rarity_upgrade_text() -> String:
 	return get_rarity(item_rarity) + "-->" + get_rarity(item_rarity + 1)

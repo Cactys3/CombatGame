@@ -16,4 +16,4 @@ func _ready() -> void:
 	three.statsbase["hp"] = 1
 	three.add_stats(one)
 	three.remove_stats(one)
-	three.print_stats()
+	#three.print_stats()

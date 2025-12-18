@@ -105,196 +105,168 @@ theme_override_constants/separation = 0
 [node name="damage" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="range" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="weight" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="attackspeed" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="velocity" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="count" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="piercing" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="duration" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="buildup" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="size" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="hp" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="stance" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="movespeed" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="xp" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="mogul" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="luck" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="critchance" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="critdamage" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="ghostly" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="regen" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="magnetize" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="lifesteal" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="bonusvselites" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="shield" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="difficulty" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="revies" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="thorns" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 
 [node name="inaccuracy" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
-text = "Default"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
 

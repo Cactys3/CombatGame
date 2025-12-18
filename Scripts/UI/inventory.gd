@@ -52,7 +52,7 @@ func backend_add(item: ItemUI):
 	default_item_parent.add_child(item)
 	default_item_parent.queue_sort()
 	items.append(item)
-	GameManager.instance.player.player_stats.print_stats()
+	#GameManager.instance.player.player_stats.print_stats()
 ## Returns the type this inventory is
 func get_type() -> String:
 	return STORAGE

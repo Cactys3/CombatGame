@@ -42,11 +42,11 @@ func is_valid_type(item: ItemUI):
 	return super(item) && (item.data.item_type == ItemData.item_types.attachment || item.data.item_type == ItemData.item_types.handle || item.data.item_type == ItemData.item_types.projectile || item.data.item_type == ItemData.item_types.mod)
 
 func get_type() -> String:
-	print("get type: crafting")
+	#print("get type: crafting")
 	return CRAFTING
 
 func can_add(item: ItemUI) -> bool:
-	print("can_add_crafting")
+	#print("can_add_crafting")
 	return is_valid_type(item)
 
 func can_remove(item: ItemUI) -> bool:
@@ -91,7 +91,7 @@ func backend_add(item: ItemUI):
 			printerr("baddd")
 
 func backend_remove(item: ItemUI):
-	print("new_remove_crafting")
+	#print("new_remove_crafting")
 	if item.get_parent():
 		item.get_parent().remove_child(item)
 	items.erase(item)
@@ -109,144 +109,3 @@ func backend_remove(item: ItemUI):
 			pass
 		_:
 			print("bad bad bad this is bad bad this bad") ## uhm
-
-
-## Old Implementation:
-#func check_item(item: ItemUI) -> bool:
-	#return super(item) && (item.data.item_type == ItemData.ATTACHMENT || item.data.item_type == ItemData.HANDLE || item.data.item_type == ItemData.PROJECTILE || item.data.item_type == ItemData.MOD)
-#
-#func _add_item(item: ItemUI) -> void:
-	#match item.data.item_type:
-		#ItemData.ATTACHMENT:
-			#if attachment != null:
-				#var a: ItemUI = attachment
-				#remove(attachment)
-				#GameManager.instance.ui_man.storage.add(a) # TODO: rework into real code
-			#attachment = item
-			#AttachmentHolder.add_child(item)
-			#item.item_parent = AttachmentHolder
-		#ItemData.HANDLE:
-			#if handle != null:
-				#var h: ItemUI = handle
-				#remove(handle)
-				#GameManager.instance.ui_man.storage.add(h) # TODO: rework into real code
-			#handle = item
-			#HandleHolder.add_child(item)
-			#item.item_parent = HandleHolder
-		#ItemData.PROJECTILE:
-			#if projectile != null:
-				#var p: ItemUI = projectile
-				#remove(projectile)
-				#GameManager.instance.ui_man.storage.add(p) # TODO: rework into real code
-			#projectile = item
-			#ProjectileHolder.add_child(item)
-			#item.item_parent = ProjectileHolder
-		#ItemData.MOD:
-			#if mods.size() >= 2: # TODO: max mod size reached?
-				#pass
-			#mods.append(item)
-			#ModHolder.add_child(item)
-			#item.item_parent = ModHolder
-		#_:
-			#printerr("baddd")
-			#return
-	#items.append(item)
-	#item.inventory = self
-	#item.position = Vector2.ZERO
-#
-### Item requested to be moved away from this inventory
-#func remove(item: ItemUI) -> bool:
-	#if is_instance_valid(item):
-		#match item.data.item_type:
-			#ItemData.ATTACHMENT:
-				#if attachment == item:
-					#item.get_parent().remove_child(item)
-					#attachment = null
-					#return true
-			#ItemData.HANDLE:
-				#if handle == item:
-					#item.get_parent().remove_child(item)
-					#handle = null
-					#return true
-			#ItemData.PROJECTILE:
-				#if projectile == item:
-					#item.get_parent().remove_child(item)
-					#projectile = null
-					#return true
-			#ItemData.MOD:
-				#if items.has(item):
-					#item.get_parent().remove_child(item)
-					#items.erase(item)
-					#return true
-	#print("Remove item false for weapon_crafting, item: " + item.data.item_name)
-	#return false # TODO: this reports false when this inven doesn't have the item, is that good..?
-
-## Old Implementation:
-#func check_item(item: ItemUI) -> bool:
-	#return super(item) && (item.data.item_type == ItemData.ATTACHMENT || item.data.item_type == ItemData.HANDLE || item.data.item_type == ItemData.PROJECTILE || item.data.item_type == ItemData.MOD)
-#
-#func _add_item(item: ItemUI) -> void:
-	#match item.data.item_type:
-		#ItemData.ATTACHMENT:
-			#if attachment != null:
-				#var a: ItemUI = attachment
-				#remove(attachment)
-				#GameManager.instance.ui_man.storage.add(a) # TODO: rework into real code
-			#attachment = item
-			#AttachmentHolder.add_child(item)
-			#item.item_parent = AttachmentHolder
-		#ItemData.HANDLE:
-			#if handle != null:
-				#var h: ItemUI = handle
-				#remove(handle)
-				#GameManager.instance.ui_man.storage.add(h) # TODO: rework into real code
-			#handle = item
-			#HandleHolder.add_child(item)
-			#item.item_parent = HandleHolder
-		#ItemData.PROJECTILE:
-			#if projectile != null:
-				#var p: ItemUI = projectile
-				#remove(projectile)
-				#GameManager.instance.ui_man.storage.add(p) # TODO: rework into real code
-			#projectile = item
-			#ProjectileHolder.add_child(item)
-			#item.item_parent = ProjectileHolder
-		#ItemData.MOD:
-			#if mods.size() >= 2: # TODO: max mod size reached?
-				#pass
-			#mods.append(item)
-			#ModHolder.add_child(item)
-			#item.item_parent = ModHolder
-		#_:
-			#printerr("baddd")
-			#return
-	#items.append(item)
-	#item.inventory = self
-	#item.position = Vector2.ZERO
-#
-### Item requested to be moved away from this inventory
-#func remove(item: ItemUI) -> bool:
-	#if is_instance_valid(item):
-		#match item.data.item_type:
-			#ItemData.ATTACHMENT:
-				#if attachment == item:
-					#item.get_parent().remove_child(item)
-					#attachment = null
-					#return true
-			#ItemData.HANDLE:
-				#if handle == item:
-					#item.get_parent().remove_child(item)
-					#handle = null
-					#return true
-			#ItemData.PROJECTILE:
-				#if projectile == item:
-					#item.get_parent().remove_child(item)
-					#projectile = null
-					#return true
-			#ItemData.MOD:
-				#if items.has(item):
-					#item.get_parent().remove_child(item)
-					#items.erase(item)
-					#return true
-	#print("Remove item false for weapon_crafting, item: " + item.data.item_name)
-	#return false # TODO: this reports false when this inven doesn't have the item, is that good..?

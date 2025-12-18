@@ -59,7 +59,7 @@ func set_money(amount: int):
 	type = types.money
 ## this level up optin was chosen, carry out the level up, this method is polymorph
 func carryout_level_up():
-	print("CHOSE CHOICE: " + str(type))
+	#print("CHOSE CHOICE: " + str(type))
 	match(type):
 		types.money:
 			carryout_money()
@@ -80,33 +80,33 @@ func carryout_level_up():
 		_:
 			carryout_money()
 func carryout_money():
-	print("MORE MONEY")
-	print("MORE MONEY")
-	print("MORE MONEY")
-	print("MORE MONEY")
+	#print("MORE MONEY")
+	#print("MORE MONEY")
+	#print("MORE MONEY")
+	#print("MORE MONEY")
 	GameManager.instance.money += money
 func carryout_component_rarity():
-	print("COMPONENT RARITY! from: " + str(itemdata.item_rarity))
+	#print("COMPONENT RARITY! from: " + str(itemdata.item_rarity))
 	itemdata.upgrade_component_rarity()
-	print("COMPONENT RARITY! to: " + str(itemdata.item_rarity))
+	#print("COMPONENT RARITY! to: " + str(itemdata.item_rarity))
 func carryout_component_level():
-	print("COMPONENT LEVEL! from: " + str(itemdata.level))
+	#print("COMPONENT LEVEL! from: " + str(itemdata.level))
 	itemdata.upgrade_component_level(LevelUpgrades)
-	print("COMPONENT LEVEL! to: " + str(itemdata.level))
+	#print("COMPONENT LEVEL! to: " + str(itemdata.level))
 func carryout_item_rarity():
-	print("ITEM RARITY! from: " + str(itemdata.item_rarity))
+	#print("ITEM RARITY! from: " + str(itemdata.item_rarity))
 	itemdata.upgrade_component_rarity()
-	print("ITEM RARITY! to: " + str(itemdata.item_rarity))
+	#print("ITEM RARITY! to: " + str(itemdata.item_rarity))
 func carryout_new_item():
-	print("NEW ITEM: " + itemdata.item_name)
-	print("NEW ITEM: " + itemdata.item_name)
-	print("NEW ITEM: " + itemdata.item_name)
+	#print("NEW ITEM: " + itemdata.item_name)
+	#print("NEW ITEM: " + itemdata.item_name)
+	#print("NEW ITEM: " + itemdata.item_name)
 	itemdata.make_item()
 	GameManager.instance.ui_man.inventory.backend_add(ShopManager.make_itemUI(itemdata))#GameManager.instance.ui_man.equipment.backend_add(ShopManager.make_itemUI(itemdata))
 func carryout_new_component():
-	print("NEW COMPONENT: " + itemdata.item_name)
-	print("NEW COMPONENT: " + itemdata.item_name)
-	print("NEW COMPONENT: " + itemdata.item_name)
+	#print("NEW COMPONENT: " + itemdata.item_name)
+	#print("NEW COMPONENT: " + itemdata.item_name)
+	#print("NEW COMPONENT: " + itemdata.item_name)
 	itemdata.make_item()
 	GameManager.instance.ui_man.inventory.backend_add(ShopManager.make_itemUI(itemdata))
 
@@ -134,41 +134,41 @@ static func get_random_level_up_option() -> LevelUpData:
 			var comp: ItemData = GameManager.instance.get_random_equipped_comp()
 			if comp != null:
 				levelupdata.set_itemdata(comp, types.component_rarity)
-				print("weapon: " + comp.item_name)
+				#print("weapon: " + comp.item_name)
 			else:
 				money = randi_range(20, 50) ## TODO: try again if failed?
 				levelupdata.set_money(money)
-				print("money as backup due to no equipped weapons")
+				#print("money as backup due to no equipped weapons")
 		
 		2: ## upgrade random item's rarity
 			if GameManager.instance.get_random_equipped_item() != null:
 				var item: ItemData = GameManager.instance.get_random_equipped_item()
 				levelupdata.set_itemdata(item, types.item_rarity)
-				print("item: " + item.item_name)
+				#print("item: " + item.item_name)
 			else:
 				money = randi_range(20, 50) ## TODO: try again if failed?
 				levelupdata.set_money(money)
-				print("money as backup due to no equipped items")
+				#print("money as backup due to no equipped items")
 		
 		3: ## get new component
 			var item: ItemData = ShopManager.get_rand_component()
 			levelupdata.set_itemdata(item, LevelUpData.types.new_component)
-			print("NEW COMPONENT!")
+			#print("NEW COMPONENT!")
 		
 		4: ## gain random new item
 			var item: ItemData = ShopManager.get_rand_item()
 			levelupdata.set_itemdata(item, LevelUpData.types.new_item)
-			print("NEW ITEM!")
+			#print("NEW ITEM!")
 		
 		5: ## upgrade random comp level
 			var comp: ItemData = GameManager.instance.get_random_equipped_comp()
 			if comp != null:
 				levelupdata.set_itemdata(comp, types.component_level)
-				print("weapon: " + comp.item_name)
+				#print("weapon: " + comp.item_name)
 			else:
 				money = randi_range(20, 50) ## TODO: try again if failed?
 				levelupdata.set_money(money)
-				print("money as backup due to no equipped weapons")
+				#print("money as backup due to no equipped weapons")
 		
 		_:
 			money = randi_range(20, 50)

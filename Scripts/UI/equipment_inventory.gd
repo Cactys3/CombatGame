@@ -23,15 +23,15 @@ func _process(delta: float) -> void:
 func is_valid_type(item: ItemUI):
 	#print("testing: " + item.data.item_type)
 	#print(item.data.item_type == ItemData.ITEM || item.data.item_type == ItemData.WEAPON)
-	print(super(item))
+	#print(super(item))
 	return super(item) && (item.data.item_type == ItemData.item_types.item || item.data.item_type == ItemData.item_types.weapon)
 
 func get_type() -> String:
-	print("get type: equipment")
+	#print("get type: equipment")
 	return EQUIPMENT
 
 func can_add(item: ItemUI) -> bool:
-	print("can_add_equipment")
+	#print("can_add_equipment")
 	if (item.data.item_type == ItemData.item_types.weapon) && WeaponCount >= WeaponCapacity:
 		return false
 	return is_valid_type(item) && GameManager.instance.can_equip(item) 

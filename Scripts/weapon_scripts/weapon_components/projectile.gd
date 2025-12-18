@@ -19,7 +19,7 @@ func get_instance():
 ## Is this projectile somehow not original/from gun
 var is_clone: bool = false
 
-var data: ItemData = ItemData.new()
+var data: ItemData = ItemData.new()#ItemData.item_types.projectile, "projectile", StatsResource.new(), StatusEffects.new())
 var frame: Weapon_Frame
 var damage: float
 var count: float 

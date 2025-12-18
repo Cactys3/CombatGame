@@ -46,11 +46,11 @@ func stock(count: int) -> bool:
 
 ## Override
 func get_type() -> String:
-	print("get type: shop")
+	#print("get type: shop")
 	return SHOP
 
 func can_add(item: ItemUI) -> bool:
-	print("can_add_shop")
+	#print("can_add_shop")
 	return is_valid_type(item)
 
 func can_remove(item: ItemUI) -> bool:

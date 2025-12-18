@@ -8,7 +8,7 @@ var stats: StatsResource
 
 func _process(delta: float) -> void:
 	super(delta)
-	print(enabled)
+	#print(enabled)
 
 func _ready() -> void:
 	super()

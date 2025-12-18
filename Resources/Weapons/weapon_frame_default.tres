@@ -1,17 +1,9 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=9 format=3 uid="uid://ctdtmah4hb48l"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://ctdtmah4hb48l"]
 
 [ext_resource type="Texture2D" uid="uid://lqpckh7fkgjy" path="res://Art/UI/MissingTexture.png" id="1_d4n35"]
 [ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="1_mm64k"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_3e3bs"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_4p5o0"]
-
-[sub_resource type="Resource" id="Resource_mm64k"]
-script = ExtResource("1_mm64k")
-metadata/_custom_type_script = "uid://dwj80yu0v1qdt"
-
-[sub_resource type="Resource" id="Resource_ogt41"]
-script = ExtResource("2_3e3bs")
-metadata/_custom_type_script = "uid://dhqfnnqd2n054"
 
 [sub_resource type="Resource" id="Resource_3e3bs"]
 script = ExtResource("1_mm64k")
@@ -26,7 +18,5 @@ script = ExtResource("2_4p5o0")
 item_color = Color(0.282353, 0.239216, 0.545098, 1)
 default_stats = SubResource("Resource_3e3bs")
 default_status_effects = SubResource("Resource_phlqm")
-default_rarity_stat_modifiers = SubResource("Resource_mm64k")
-default_rarity_status_effects_modifiers = SubResource("Resource_ogt41")
 has_stats = true
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"

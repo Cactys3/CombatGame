@@ -10,7 +10,7 @@ const SWORD = preload("res://Scenes/Weapons/sword/sword_handle.tscn")
 func get_scene() -> PackedScene:
 	return preload("res://Scenes/Weapons/pistol/pistol_handle.tscn")
 
-var data: ItemData = ItemData.new()
+var data: ItemData = ItemData.new()#ItemData.item_types.handle, "handle", StatsResource.new(), null)
 
 @export var stats: StatsResource# = StatsResource.new()
 

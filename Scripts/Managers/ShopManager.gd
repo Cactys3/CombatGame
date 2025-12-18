@@ -144,7 +144,7 @@ static func make_itemUI(item: ItemData) -> ItemUI:
 	return UI
 ## Makes an ItemData for Weapon and adds the Components
 static func setup_weapon(a: ItemData, h: ItemData, proj: ItemData) -> ItemData:
-	var data: ItemData = ItemData.new()
+	var data: ItemData = ItemData.new()#ItemData.item_types.weapon, "weapon", StatsResource.new(), null)
 	data.has_rarity = true
 	data.setup(true, random_rarity())
 	a.setup(true, random_rarity())

@@ -283,7 +283,7 @@ func enemy_killed():
 	enemies_alive -= 1
 	enemies_killed += 1
 	ui_man.enemies_killed_label.text = str(enemies_killed)
-	print("Killed: " + str(enemies_killed))
+	#print("Killed: " + str(enemies_killed))
 	if kills_left <= 0:
 		kills_needed = kills_needed * 0.95
 		kills_left = kills_needed

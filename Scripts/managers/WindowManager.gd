@@ -45,7 +45,7 @@ func set_program_size(size: Vector2, fullscreen: bool):
 var curr: int = 1
 
 func _on_pressed() -> void:
-	print("Changed Resolution from: " + str(curr))
+	#print("Changed Resolution from: " + str(curr))
 	match curr:
 		1:
 			set_program_size(Vector2(1920, 1080), false)
@@ -57,4 +57,4 @@ func _on_pressed() -> void:
 			set_program_size(Vector2(1280, 720), false)
 			curr = 1
 	
-	print("To: " + str(get_tree().root.size.y))
+	#print("To: " + str(get_tree().root.size.y))

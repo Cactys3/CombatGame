@@ -67,7 +67,7 @@ func ProcessUnique(_delta: float) -> void:
 		overheated = false
 	
 	## Handle Overheat Animation
-		print(max_overheat)
+		#print(max_overheat)
 	if overheated:
 		if overheat_level != 4:
 			overheat_visual.play("4")

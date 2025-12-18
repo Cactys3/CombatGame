@@ -170,6 +170,7 @@ can_be_stunned = false
 xp_on_death = 2000
 money_on_death = 100
 weapon_knockback = 1500.0
+self_knockback_onhit = 20.0
 base_damage = 50.0
 base_movespeed = 40.0
 base_health = 200.0

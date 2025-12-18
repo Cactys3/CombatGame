@@ -17,7 +17,7 @@ var string: String = "hello  \n"
 static var IDindex: int = 1
 var ID = 0
 ## Given by Item's Variables
-#var data: ItemData = ItemData.new()
+
 
 ## Control Nodes Visual Representation
 @export var NameLabel: Label

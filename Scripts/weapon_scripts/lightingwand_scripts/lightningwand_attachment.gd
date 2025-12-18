@@ -9,7 +9,7 @@ func _process(delta: float) -> void:
 func create_projectiles():
 	#unique mechanic: spawn projectile ontop of enemy
 	var enemy = frame.get_enemy_nearby(frame.stats.get_stat(StatsResource.RANGE) * 20)
-	print(enemy)
+	#print(enemy)
 	if enemy != null:
 		var enemypos = enemy.global_position
 		# Create the first bullet by default

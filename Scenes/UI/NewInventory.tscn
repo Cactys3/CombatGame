@@ -304,19 +304,8 @@ theme_override_constants/margin_bottom = 5
 
 [node name="StatsDisplay" parent="HBoxContainer/Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBox/Margin/Stats/MarginContainer" instance=ExtResource("3_8f5sv")]
 layout_mode = 2
-hide_damage = true
-hide_range = true
-hide_attackspeed = true
-hide_velocity = true
-hide_count = true
-hide_piercing = true
-hide_duration = true
-hide_buildup = true
-hide_critchance = true
-hide_critdamage = true
-hide_lifesteal = true
-hide_bonusvselites = true
-hide_inaccuracy = true
+hide_weapon_only = true
+hide_misc_only = true
 
 [node name="StatsLabel" type="Label" parent="HBoxContainer/Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBox/Margin/Stats"]
 layout_mode = 1
@@ -399,6 +388,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_4in3a")
 script = ExtResource("4_4in3a")
+WeaponCapacity = null
 ItemParent = NodePath("Scroll/Grid")
 WeaponParent = NodePath("Scroll/Grid")
 ItemCountLabel = NodePath("ItemCount")

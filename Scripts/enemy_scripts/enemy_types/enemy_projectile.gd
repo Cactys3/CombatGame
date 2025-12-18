@@ -39,7 +39,7 @@ func _process(_delta: float):
 		die()
 
 func _on_body_entered(body: Node2D) -> void:
-	print(body.name)
+	#print(body.name)
 	if body.has_method("damage"):
 		pierce_count += 1
 		if is_instance_valid(parent_enemy):

@@ -1,6 +1,12 @@
 extends Resource
 class_name StatsResource
-
+#mainly player stats:
+const HP = "hp"
+const STANCE = "stance"
+const MOVESPEED = "movespeed"
+const XP = "xp"
+const MOGUL = "mogul"
+const LUCK = "luck"
 #mainly weapon stats:
 const DAMAGE = "damage"
 const RANGE = "range"
@@ -12,13 +18,6 @@ const PIERCING = "piercing"
 const DURATION = "duration"
 const BUILDUP = "buildup"
 const SIZE = "size"
-#mainly player stats:
-const HP = "hp"
-const STANCE = "stance"
-const MOVESPEED = "movespeed"
-const XP = "xp"
-const MOGUL = "mogul"
-const LUCK = "luck"
 #new
 const CRITCHANCE = "critchance"
 const CRITDAMAGE = "critdamage"
@@ -36,6 +35,12 @@ const INACCURACY = "inaccuracy"
 @export var parent_object_name = "not_set"
 ## Currently set pretty high as I'm not making individual stats for everything
 static var defaultstats = {
+	HP: 1.0,
+	STANCE: 0.0,
+	MOVESPEED: 60.0,
+	XP: 1.0,
+	MOGUL: 1.0,
+	LUCK: 1.0,
 	DAMAGE: 20.0,
 	RANGE: 50.0,
 	WEIGHT: 0.0,
@@ -47,12 +52,6 @@ static var defaultstats = {
 	DURATION: 1.0,
 	BUILDUP: 1.0,
 	SIZE: 1.0,
-	HP: 1.0,
-	STANCE: 0.0,
-	MOVESPEED: 60.0,
-	XP: 1.0,
-	MOGUL: 1.0,
-	LUCK: 1.0,
 	CRITCHANCE: 0.01,
 	CRITDAMAGE: 0.5,
 	GHOSTLY: 0.0,
@@ -67,6 +66,12 @@ static var defaultstats = {
 	}
 
 @export var statsbase = { #everything must be default at 0 because they are always added in add_stats and should default to adding 0
+	HP: 0.0,
+	STANCE: 0.0,
+	MOVESPEED: 0.0,
+	XP: 0.0,
+	MOGUL: 0.0,
+	LUCK: 0.0, 
 	DAMAGE: 0.0,
 	RANGE: 0.0,
 	WEIGHT: 0.0,
@@ -78,12 +83,6 @@ static var defaultstats = {
 	DURATION: 0.0,
 	BUILDUP: 0.0,
 	SIZE: 0.0, 
-	HP: 0.0,
-	STANCE: 0.0,
-	MOVESPEED: 0.0,
-	XP: 0.0,
-	MOGUL: 0.0,
-	LUCK: 0.0, 
 	CRITCHANCE: 0.0,
 	CRITDAMAGE: 0.0,
 	GHOSTLY: 0.0,
@@ -98,6 +97,12 @@ static var defaultstats = {
 	}
 
 @export var statsfactor = {
+	HP: 1.0,
+	STANCE: 1.0,
+	MOVESPEED: 1.0,
+	XP: 1.0,
+	MOGUL: 1.0,
+	LUCK: 1.0, 
 	DAMAGE: 1.0,
 	RANGE: 1.0,
 	WEIGHT: 1.0,
@@ -109,12 +114,6 @@ static var defaultstats = {
 	DURATION: 1.0,
 	BUILDUP: 1.0,
 	SIZE: 1.0,
-	HP: 1.0,
-	STANCE: 1.0,
-	MOVESPEED: 1.0,
-	XP: 1.0,
-	MOGUL: 1.0,
-	LUCK: 1.0, 
 	CRITCHANCE: 1.0,
 	CRITDAMAGE: 1.0,
 	GHOSTLY: 1.0,
@@ -135,7 +134,7 @@ var TotalListOfStats: Array[StatsResource] #list of stats used for stat calculat
 ## If valid, Recalculates then adds stats to this stats object
 func add_stats(other: StatsResource) -> void: #adds the other stats to listofaffection
 	if other == null || other == self || listofaffection.has(other):
-		print("\nPotential ERROR when trying to add_stats\n")
+		#print("\nPotential ERROR when trying to add_stats\n")
 		return
 	Recalculate() # Must Recalculate TotalListofAffectionStats as we added a new stat
 	listofaffection.append(other) #since the other stats is affecting this now, add it to the our listofaffection
@@ -143,7 +142,7 @@ func add_stats(other: StatsResource) -> void: #adds the other stats to listofaff
 ##If valid, Recalculates then removes stats from this stats object
 func remove_stats(other: StatsResource) -> void: #removes the stat from affecting this stat
 	if other == null || other == self || !listofaffection.has(other):
-		print("\nPotential ERROR: other stat is null when trying to remove_stats\n\t (OR doesn't include self in list of affection)\n")
+		#print("\nPotential ERROR: other stat is null when trying to remove_stats\n\t (OR doesn't include self in list of affection)\n")
 		return
 	Recalculate()# Must Recalculate TotalListofAffectionStats as we removed a stat
 	listofaffection.erase(other) #since the other stats is affecting this now, add it to the other stat's listofaffection

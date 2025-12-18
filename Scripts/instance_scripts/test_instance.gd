@@ -32,7 +32,7 @@ func add_tiles():
 func handle_stopwatch(delta: float):
 	super(delta)
 func phase_one():
-	print("PHASE 1")
+	#print("PHASE 1")
 	spawning_phase = 1
 	enemies.clear()
 	enemies.append(EnemySpawn.new("grub", GRUB, 0.3, 3))
@@ -40,7 +40,7 @@ func phase_one():
 	enemies.append(EnemySpawn.new("jub", JUB, 0.3, 3))
 	enemies.append(EnemySpawn.new("thub", THUB, 0.3, 3))
 func phase_two():
-	print("PHASE 2")
+	#print("PHASE 2")
 	spawning_phase = 2
 	enemies.clear()
 	enemies.append(EnemySpawn.new("grub", GRUB, 0.6, 6))
@@ -48,7 +48,7 @@ func phase_two():
 	enemies.append(EnemySpawn.new("jub", JUB, 0, 1))
 	enemies.append(EnemySpawn.new("thub", THUB, .3, 1))
 func phase_three():
-	print("PHASE 3")
+	#print("PHASE 3")
 	spawning_phase = 3
 	enemies.clear()
 	enemies.append(EnemySpawn.new("grub", GRUB, 0.1, 3))
