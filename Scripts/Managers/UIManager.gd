@@ -91,7 +91,8 @@ func pause_proximity(b: bool) -> bool:
 			GameManager.instance.toggle_inventory.emit()
 	else:
 		delete_proximity.emit()
-		GameManager.instance.toggle_inventory.emit()
+		if tab_menu_parent.visible:
+			GameManager.instance.toggle_inventory.emit()
 	return true
 ## paused for tab loses to everything
 func pause_tab() -> bool:

@@ -1,7 +1,7 @@
 class_name StatsDisplay
 extends Control
 
-var stats: StatsResource
+@export var stats: StatsResource
 
 const SCENE = preload("res://Scenes/UI/stats_visual.tscn")
 
@@ -86,6 +86,8 @@ func set_stats(new_stats: StatsResource, new_name: String):
 	timer.start()
 	refresh()
 func _ready():
+	if stats:
+		set_stats(stats, stats.parent_object_name)
 	array = [damage, _range, weight, attackspeed, velocity, count, duration, _size, buildup, stance, hp, xp, mogul, movespeed, piercing, luck, critchance, critdamage, ghostly, regen, magnetize, lifesteal, bonusvselites, shield, difficulty, revies, thorns, inaccuracy]
 	default_order = [damage, _range, weight, attackspeed, velocity, count, duration, _size, buildup, stance, hp, xp, mogul, movespeed, piercing, luck, critchance, critdamage, ghostly, regen, magnetize, lifesteal, bonusvselites, shield, difficulty, revies, thorns, inaccuracy]
 	hide_hides()

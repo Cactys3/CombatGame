@@ -1,0 +1,168 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7qlnftpauy23"]
+
+[ext_resource type="Script" uid="uid://c2yiwoidyd1sh" path="res://Scripts/UI/shop_option.gd" id="1_588nd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_588nd"]
+bg_color = Color(0.8509804, 0.34117648, 0.3882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ajnuo"]
+bg_color = Color(0.6745098, 0.19607843, 0.19607843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xfs7d"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.27058825, 0.15686275, 0.23529412, 1)
+
+[node name="Option" type="Control"]
+custom_minimum_size = Vector2(350, 75)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_588nd")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Price" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.9843137, 0.9490196, 0.21176471, 1)
+theme_override_font_sizes/font_size = 32
+text = "$000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxFlat_588nd")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_588nd")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ajnuo")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ajnuo")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ajnuo")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel2" type="Panel" parent="HBoxContainer/Button/HBoxContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_xfs7d")
+
+[node name="image" type="TextureRect" parent="HBoxContainer/Button/HBoxContainer/Panel2"]
+texture_filter = 1
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="HBoxContainer/Button/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_xfs7d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Button/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Offset" type="Control" parent="HBoxContainer/Button/HBoxContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(5, 5)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Button/HBoxContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Offset1" type="Control" parent="HBoxContainer/Button/HBoxContainer/Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Title" type="Label" parent="HBoxContainer/Button/HBoxContainer/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.37254903, 0.8039216, 0.89411765, 1)
+text = "Title"
+
+[node name="Rarity" type="Label" parent="HBoxContainer/Button/HBoxContainer/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.6745098, 0.19607843, 0.19607843, 1)
+text = "Title"
+horizontal_alignment = 2
+
+[node name="Offset2" type="Control" parent="HBoxContainer/Button/HBoxContainer/Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/Button/HBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Offset1" type="Control" parent="HBoxContainer/Button/HBoxContainer/Panel/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Body" type="Label" parent="HBoxContainer/Button/HBoxContainer/Panel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.4627451, 0.25882354, 0.5411765, 1)
+text = "BodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBodyBody"
+autowrap_mode = 3
+clip_text = true
+
+[node name="Offset2" type="Control" parent="HBoxContainer/Button/HBoxContainer/Panel/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Offset2" type="Control" parent="HBoxContainer/Button/HBoxContainer/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(5, 5)
+layout_mode = 2
+mouse_filter = 1
+
+[connection signal="mouse_entered" from="HBoxContainer/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="HBoxContainer/Button" to="." method="_on_button_pressed"]
