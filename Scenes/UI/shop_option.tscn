@@ -16,14 +16,22 @@ border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0.27058825, 0.15686275, 0.23529412, 1)
 
-[node name="Option" type="Control"]
+[node name="shop_option" type="Control"]
 custom_minimum_size = Vector2(350, 75)
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -37.5
+offset_right = 175.0
+offset_bottom = 37.5
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_588nd")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]

@@ -94,6 +94,8 @@ text_overrun_behavior = 1
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
 custom_minimum_size = Vector2(1, 1)
@@ -269,6 +271,9 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
+
+[node name="HScrollBar" type="HScrollBar" parent="."]
+layout_mode = 2
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Button" to="." method="button1"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Button2" to="." method="button2"]

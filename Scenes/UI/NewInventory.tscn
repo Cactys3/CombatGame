@@ -111,6 +111,12 @@ autowrap_mode = 3
 [node name="Stats" parent="HBoxContainer/Left/Right/VBoxContainer" instance=ExtResource("3_8f5sv")]
 layout_mode = 2
 size_flags_vertical = 3
+button_color = Color(0.23921569, 0.23137255, 0.32156864, 1)
+button_text_color = Color(0.3882353, 0.60784316, 1, 1)
+text_color = Color(0.8392157, 0, 0, 1)
+scroll_color = Color(0.30281207, 0.49512315, 0.7970608, 1)
+scroll_grabber_color = Color(0.51000834, 0.0008744395, 0.6365751, 1)
+scroll_grabber_hover_color = Color(0.77779126, 0.37897223, 1, 1)
 
 [node name="OffsetDown" type="Control" parent="HBoxContainer/Left"]
 layout_mode = 2
@@ -304,6 +310,11 @@ theme_override_constants/margin_bottom = 5
 
 [node name="StatsDisplay" parent="HBoxContainer/Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBox/Margin/Stats/MarginContainer" instance=ExtResource("3_8f5sv")]
 layout_mode = 2
+button_color = Color(0.23921569, 0.23137255, 0.32156864, 1)
+button_text_color = Color(0.3882353, 0.60784316, 1, 1)
+text_color = Color(0.8392157, 0, 0, 1)
+scroll_grabber_color = Color(0.51000834, 0.0008744395, 0.6365751, 1)
+scroll_grabber_hover_color = Color(0.77779126, 0.37897223, 1, 1)
 hide_weapon_only = true
 hide_misc_only = true
 
@@ -388,11 +399,11 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_4in3a")
 script = ExtResource("4_4in3a")
-WeaponCapacity = null
 ItemParent = NodePath("Scroll/Grid")
 WeaponParent = NodePath("Scroll/Grid")
 ItemCountLabel = NodePath("ItemCount")
 WeaponCountLabel = NodePath("WeaponCount")
+WeaponCapacity = null
 default_item_parent = NodePath("Scroll/Grid")
 description_body = NodePath("../../../../../../../Right/Right/VBoxContainer/Body")
 description_title = NodePath("../../../../../../../Right/Right/VBoxContainer/Title")
@@ -501,6 +512,11 @@ autowrap_mode = 3
 [node name="Stats" parent="HBoxContainer/Right/Right/VBoxContainer" instance=ExtResource("3_8f5sv")]
 layout_mode = 2
 size_flags_vertical = 3
+button_color = Color(0.23921569, 0.23137255, 0.32156864, 1)
+button_text_color = Color(0.3882353, 0.60784316, 1, 1)
+text_color = Color(0.8392157, 0, 0, 1)
+scroll_grabber_color = Color(0.51000834, 0.0008744395, 0.6365751, 1)
+scroll_grabber_hover_color = Color(0.77779126, 0.37897223, 1, 1)
 
 [node name="OffsetDown" type="Control" parent="HBoxContainer/Right"]
 layout_mode = 2

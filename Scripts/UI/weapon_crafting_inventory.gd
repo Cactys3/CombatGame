@@ -39,14 +39,13 @@ func make_weapon() -> bool:
 
 ## Override
 func is_valid_type(item: ItemUI):
-	return super(item) && (item.data.item_type == ItemData.item_types.attachment || item.data.item_type == ItemData.item_types.handle || item.data.item_type == ItemData.item_types.projectile || item.data.item_type == ItemData.item_types.mod)
+	return super(item) && (item.data.item_type == ItemData.item_types.attachment || item.data.item_type == ItemData.item_types.handle || item.data.item_type == ItemData.item_types.projectile)
 
 func get_type() -> String:
 	#print("get type: crafting")
 	return CRAFTING
 
 func can_add(item: ItemUI) -> bool:
-	#print("can_add_crafting")
 	return is_valid_type(item)
 
 func can_remove(item: ItemUI) -> bool:

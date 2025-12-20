@@ -25,7 +25,7 @@ border_blend = true
 anti_aliasing = false
 anti_aliasing_size = 0.01
 
-[node name="weapon_crafting_inventory" type="Control" node_paths=PackedStringArray("ModsPage", "StatsPage", "HandleHolder", "AttachmentHolder", "ProjectileHolder", "ModHolder", "drag_bar")]
+[node name="weapon_crafting_inventory" type="Control" node_paths=PackedStringArray("ModsPage", "StatsPage", "HandleHolder", "AttachmentHolder", "ProjectileHolder", "ModHolder")]
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 3
 anchors_preset = 8
@@ -47,8 +47,6 @@ HandleHolder = NodePath("VBoxContainer/Components Panel/HandleHolder")
 AttachmentHolder = NodePath("VBoxContainer/Components Panel/AttachmentHolder")
 ProjectileHolder = NodePath("VBoxContainer/Components Panel/ProjectileHolder")
 ModHolder = NodePath("VBoxContainer/Details View/Mods Panel/ModsHolder")
-drag_bar = NodePath("VBoxContainer/DragBar")
-label_text = "Crafting"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(300, 582)

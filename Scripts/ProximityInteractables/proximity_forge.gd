@@ -1,9 +1,6 @@
 extends Node2D
 
 const FORGE_INVENTORY = preload("uid://cwomrgi81thyq")
-
-
-
 var forge: forge_inventory
 var entered: bool = false
 

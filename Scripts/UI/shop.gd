@@ -12,6 +12,8 @@ func add_option(data: ItemData):
 	var option = SHOP_OPTION.instantiate()
 	option_parent.add_child(option)
 	option.setup(data, method, set_stat)
-func set_stat(stats: StatsResource):
-	stats_display.set_stats(stats, stats.parent_object_name)
-	stats_display.only_show_changed = true
+func set_stat(data: ItemData):
+	if data.has_stats:
+		var stats = data.stats
+		stats_display.set_stats(stats, stats.parent_object_name)
+		stats_display.only_show_changed = true

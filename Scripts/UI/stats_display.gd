@@ -5,6 +5,14 @@ extends Control
 
 const SCENE = preload("res://Scenes/UI/stats_visual.tscn")
 
+@export_category("Visuals")
+@export var button_color: Color
+@export var button_text_color: Color
+@export var text_color: Color
+@export var scroll_color: Color
+@export var scroll_grabber_color: Color
+@export var scroll_grabber_hover_color: Color
+@export_category("General Stat Showings")
 @export var only_show_changed: bool = false
 @export var hide_weapon_only: bool = false
 @export var hide_player_only: bool = false
@@ -68,9 +76,11 @@ const SCENE = preload("res://Scenes/UI/stats_visual.tscn")
 @onready var revies: Label = $VBoxContainer/ScrollContainer/VBoxContainer/revies
 @onready var thorns: Label = $VBoxContainer/ScrollContainer/VBoxContainer/thorns
 @onready var inaccuracy: Label = $VBoxContainer/ScrollContainer/VBoxContainer/inaccuracy
-
+## More Children
+@onready var buttons: Array[Button] = [$VBoxContainer/HBoxContainer/Button, $VBoxContainer/HBoxContainer/Button2, $VBoxContainer/HBoxContainer/Button3, $VBoxContainer/HBoxContainer/Button4]
+@onready var scroll: ScrollContainer = $VBoxContainer/ScrollContainer
 @onready var label_parent: VBoxContainer = $VBoxContainer/ScrollContainer/VBoxContainer
-
+## Variables
 @onready var dict: Dictionary = {
 	damage: show_damage,
 	_range: show_range,
@@ -99,8 +109,7 @@ const SCENE = preload("res://Scenes/UI/stats_visual.tscn")
 	difficulty: show_difficulty,
 	revies: show_revies,
 	thorns: show_thorns,
-	inaccuracy: show_inaccuracy
-}
+	inaccuracy: show_inaccuracy }
 @onready var misc: Array[Label] = [_size, luck, bonusvselites, difficulty]
 @onready var players: Array[Label] = [hp, weight, stance, movespeed, xp, mogul, ghostly, regen, magnetize, shield, revies, thorns]
 @onready var weapons: Array[Label] = [damage, _range, attackspeed, velocity, count, piercing, duration, buildup, critchance, critdamage, inaccuracy]
@@ -118,6 +127,31 @@ func set_stats(new_stats: StatsResource, new_name: String):
 	timer.start()
 	refresh()
 func _ready():
+	if button_text_color:
+		for button in buttons:
+			button.add_theme_color_override("font_color", button_text_color)
+	if button_color:
+		var box: StyleBox = StyleBoxFlat.new()
+		box.bg_color = button_color
+		for button in buttons:
+			button.add_theme_stylebox_override("normal", box)
+	if text_color:
+		for label in array:
+			label.add_theme_color_override("font_color", text_color)
+	if scroll_color:
+		var box: StyleBox = StyleBoxFlat.new()
+		box.bg_color = scroll_color
+		scroll.get_v_scroll_bar().custom_minimum_size = Vector2(8, 0)
+		scroll.get_v_scroll_bar().add_theme_stylebox_override("scroll", box)
+	if scroll_grabber_color:
+		var box: StyleBox = StyleBoxFlat.new()
+		box.bg_color = scroll_grabber_color
+		scroll.get_v_scroll_bar().add_theme_stylebox_override("grabber", box)
+	if scroll_grabber_hover_color:
+		var box: StyleBox = StyleBoxFlat.new()
+		box.bg_color = scroll_grabber_hover_color
+		scroll.get_v_scroll_bar().add_theme_stylebox_override("grabber_highlight", box)
+		scroll.get_v_scroll_bar().add_theme_stylebox_override("grabber_pressed", box)
 	if stats:
 		set_stats(stats, stats.parent_object_name)
 	if hide_weapon_only:

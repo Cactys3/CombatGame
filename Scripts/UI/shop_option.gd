@@ -31,8 +31,6 @@ func _on_button_pressed() -> void:
 	if method:
 		if method.call(data):
 			queue_free()
-
-
 func _on_button_mouse_entered() -> void:
 	if data && data.stats:
 		hover_method.call(data.stats)
