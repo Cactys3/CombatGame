@@ -1,8 +1,18 @@
-[gd_scene load_steps=9 format=3 uid="uid://o387qlahldf"]
+[gd_scene load_steps=12 format=3 uid="uid://o387qlahldf"]
 
 [ext_resource type="Script" uid="uid://cf2hav4yib2ko" path="res://Scripts/UI/stats_display.gd" id="1_6ir1p"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fm0b5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hefly"]
+bg_color = Color(0.23921569, 0.23137255, 0.32156864, 1)
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vap2t"]
+bg_color = Color(0.27450982, 0.25882354, 0.42352942, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ikbf8"]
+bg_color = Color(0.37084645, 0.35262692, 0.5537238, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fm0b5"]
 bg_color = Color(0.23921569, 0.23137255, 0.32156864, 1)
@@ -27,6 +37,9 @@ offset_right = 358.0
 offset_bottom = 407.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_fm0b5")
 script = ExtResource("1_6ir1p")
+scroll_stylebox = SubResource("StyleBoxFlat_hefly")
+scroll_grabber_stylebox = SubResource("StyleBoxFlat_vap2t")
+scroll_grabber_hover_stylebox = SubResource("StyleBoxFlat_ikbf8")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(1, 1)
@@ -271,9 +284,6 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
-
-[node name="HScrollBar" type="HScrollBar" parent="."]
-layout_mode = 2
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Button" to="." method="button1"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Button2" to="." method="button2"]

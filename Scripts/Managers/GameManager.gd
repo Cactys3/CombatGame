@@ -155,104 +155,44 @@ func buy_item(item: ItemData) -> bool:
 		money -= item.item_buy_cost
 		return true
 	return false
-## Activates Item (equipment item)
-func add_item_to_player(item: Item) -> bool:
-	if (item):
-		active_items.append(item)
-		item.enable()
-		return true #TODO: add
-	return false
-
-func remove_item_from_player(item: Item) -> bool:
-	if item && active_items.has(item):
-		item.disable()
-		active_items.erase(item)
-		return true #TODO: remove
-	return false
-
-func remove_weapon_from_player(weapon: Weapon_Frame) -> bool:
-	if player.remove_frame(weapon): 
-		return true
-	return false
-
-func craft_weapon(handle: ItemUI, attachment: ItemUI, projectile: ItemUI) -> bool:
-	if (handle && attachment && projectile) && (handle.data.item_type == ItemData.item_types.handle && attachment.data.item_type == ItemData.item_types.attachment && projectile.data.item_type == ItemData.item_types.projectile):
-		
-		var data: ItemData = ItemData.new()#ItemData.item_types.weapon, "weapon", StatsResource.new(), null)
-		data.setup(false, ShopManager.random_rarity())
-		data.set_components(attachment.data, handle.data, projectile.data)
-		var weapon: Weapon_Frame = data.get_item()
-		
-		if add_weapon_to_player(weapon): #TODO: if player can hold more weapons
-			ui_man.equipment.backend_add(ShopManager.make_itemUI(data))
-			return true
-	return false
-
-func add_weapon_to_player(weapon: Weapon_Frame) -> bool:
-	if !weapon:
-		return false
+## Activates Item 
+func add_item_to_player(item: Item) -> void:
+	active_items.append(item)
+	item.enable()
+## Equips Weapon
+func add_weapon_to_player(weapon: Weapon_Frame) -> void:
 	player.add_frame(weapon)
-	return true
-
+func remove_item_from_player(item: Item) -> void:
+	item.disable()
+	active_items.erase(item)
+func remove_weapon_from_player(weapon: Weapon_Frame) -> void:
+	player.remove_frame(weapon)
 # Inventory System Methods:
 ## Check if item can be removed and can be added, then does so
 func move_item(item: ItemUI, origin: Inventory, destination: Inventory) -> bool:
-	if item && destination && destination.can_add(item) && (!origin || (origin && origin.can_remove(item))):
-		var complete_move: bool = true
-		var remove_origin: bool = true
-		var add_destination: bool = true
+	print("move_item(" + item.name + ", " + origin.name + ", " + destination.name + ")")
+	if item && destination && destination.can_add(item) && (!origin || origin.can_remove(item)):
 		var money_net_change = 0.0
-		if !origin:
-			remove_origin = false # Skip if adding new Item not already in an inventory
-		else:
-			match(origin.get_type()):
-				Inventory.STORAGE:
-					pass
-				Inventory.EQUIPMENT:
-					match(item.data.item_type):
-						ItemData.item_types.weapon:
-							if !remove_weapon_from_player(item.data.get_item()):
-								complete_move = false
-								return false
-						ItemData.item_types.item:
-							if !remove_item_from_player(item.data.get_item()):
-								complete_move = false
-								return false
-						_:
-							pass
-				Inventory.SHOP:
+		if origin:
+			origin.backend_remove(item)
+			if origin.get_type() == Inventory.EQUIPMENT:
+				if item.data.item_type == ItemData.item_types.weapon:
+					remove_weapon_from_player(item.data.get_item())
+				elif item.data.item_type == ItemData.item_types.item:
+					remove_item_from_player(item.data.get_item())
+			elif origin.get_type() == Inventory.SHOP:
 					money_net_change += -item.data.item_buy_cost
-				_:
-					pass
-		match(destination.get_type()):
-			Inventory.STORAGE:
-				pass
-			Inventory.EQUIPMENT:
-				match(item.data.item_type):
-					ItemData.item_types.weapon:
-						#print("weapon!")
-						if !add_weapon_to_player(item.data.get_item()):
-							#print("!add_weapon_to_player")
-							complete_move = false
-							return false
-					ItemData.item_types.item:
-						if !add_item_to_player(item.data.get_item()): ## TODO: new implementation: if !add_item_to_player(item.data.create_item()):
-							#print("!add_item_to_player")
-							complete_move = false
-							return false
-					_:
-						pass
-			Inventory.SHOP:
-				money_net_change += item.data.item_buy_cost * item.data.item_sell_cost_modifier
-		if complete_move:
-			money += money_net_change
-			if remove_origin:
-				origin.backend_remove(item)
-			if add_destination:
-				destination.backend_add(item)
-			return true
+		if destination.get_type() == Inventory.EQUIPMENT:
+			if item.data.item_type == ItemData.item_types.weapon:
+				add_weapon_to_player(item.data.get_item())
+			elif item.data.item_type == ItemData.item_types.item:
+				add_item_to_player(item.data.get_item())
+		elif destination.get_type() == Inventory.EQUIPMENT:
+			money_net_change += item.data.item_buy_cost * item.data.item_sell_cost_modifier
+		destination.backend_add(item)
+		money += money_net_change
+		return true
 	return false
-
 ## Checks if item can be removed, then removes it, used for moving items to non-inventories
 func remove_item(item: ItemUI, origin: Inventory) -> bool:
 	if item && origin && origin.can_remove(item):
@@ -272,17 +212,13 @@ func remove_item(item: ItemUI, origin: Inventory) -> bool:
 		origin.backend_remove(item)
 		return true
 	return false
-
 func can_buy(price: float) -> bool:
 	return price <= money
-
 func can_equip(item: ItemUI) -> bool:
 	## Check if its a weapon or item, Check if there is room for weapon, etc..
 	return (weapon_count <= weapon_limit && item.data.item_type == ItemData.item_types.weapon) || (item_count <= item_limit && item.data.item_type == ItemData.item_types.item)
-
 func can_unequip(item: ItemUI) -> bool:
 	return true ## Check if player has weapon equipped
-
 func create_level_up_instance():
 	if leveling_up:
 		level_up_queue += 1

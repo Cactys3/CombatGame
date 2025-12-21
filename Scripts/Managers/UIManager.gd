@@ -19,8 +19,6 @@ class_name UIManager
 ## Inventories
 @export var AOIman: AOI_Manager
 @export var cheat_inventory: Inventory 
-#@export var shop: ShopInventory 
-#@export var forge: forge_inventory 
 var inventory: Inventory
 var equipment: EquipmentInventory
 var enabled: bool = true

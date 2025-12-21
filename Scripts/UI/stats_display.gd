@@ -9,9 +9,9 @@ const SCENE = preload("res://Scenes/UI/stats_visual.tscn")
 @export var button_color: Color
 @export var button_text_color: Color
 @export var text_color: Color
-@export var scroll_color: Color
-@export var scroll_grabber_color: Color
-@export var scroll_grabber_hover_color: Color
+@export var scroll_stylebox: StyleBox
+@export var scroll_grabber_stylebox: StyleBox
+@export var scroll_grabber_hover_stylebox: StyleBox
 @export_category("General Stat Showings")
 @export var only_show_changed: bool = false
 @export var hide_weapon_only: bool = false
@@ -117,6 +117,8 @@ var last_clicked: float = -1
 @onready var array: Array[Label] = [hp, shield, regen, xp, mogul, movespeed, stance, damage, _range, attackspeed, piercing, velocity, count, duration, _size, weight, luck, buildup, critchance, critdamage, ghostly, magnetize, lifesteal, bonusvselites, difficulty, revies, thorns, inaccuracy]
 @onready var default_order: Array[Label] = [hp, shield, regen, xp, mogul, movespeed, stance, damage, _range, attackspeed, piercing, velocity, count, duration, _size, weight, luck, buildup, critchance, critdamage, ghostly, magnetize, lifesteal, bonusvselites, difficulty, revies, thorns, inaccuracy]
 
+var is_ready: bool = false
+
 func set_stats(new_stats: StatsResource, new_name: String):
 	stats = new_stats
 	name = new_name
@@ -126,6 +128,7 @@ func set_stats(new_stats: StatsResource, new_name: String):
 	timer.wait_time = 3.0
 	timer.start()
 	refresh()
+	is_ready = true
 func _ready():
 	if button_text_color:
 		for button in buttons:
@@ -138,20 +141,14 @@ func _ready():
 	if text_color:
 		for label in array:
 			label.add_theme_color_override("font_color", text_color)
-	if scroll_color:
-		var box: StyleBox = StyleBoxFlat.new()
-		box.bg_color = scroll_color
+	if scroll_stylebox:
 		scroll.get_v_scroll_bar().custom_minimum_size = Vector2(8, 0)
-		scroll.get_v_scroll_bar().add_theme_stylebox_override("scroll", box)
-	if scroll_grabber_color:
-		var box: StyleBox = StyleBoxFlat.new()
-		box.bg_color = scroll_grabber_color
-		scroll.get_v_scroll_bar().add_theme_stylebox_override("grabber", box)
-	if scroll_grabber_hover_color:
-		var box: StyleBox = StyleBoxFlat.new()
-		box.bg_color = scroll_grabber_hover_color
-		scroll.get_v_scroll_bar().add_theme_stylebox_override("grabber_highlight", box)
-		scroll.get_v_scroll_bar().add_theme_stylebox_override("grabber_pressed", box)
+		scroll.get_v_scroll_bar().add_theme_stylebox_override("scroll", scroll_stylebox)
+	if scroll_grabber_stylebox:
+		scroll.get_v_scroll_bar().add_theme_stylebox_override("grabber", scroll_grabber_stylebox)
+	if scroll_grabber_hover_stylebox:
+		scroll.get_v_scroll_bar().add_theme_stylebox_override("grabber_highlight", scroll_grabber_hover_stylebox)
+		scroll.get_v_scroll_bar().add_theme_stylebox_override("grabber_pressed", scroll_grabber_hover_stylebox)
 	if stats:
 		set_stats(stats, stats.parent_object_name)
 	if hide_weapon_only:
@@ -335,7 +332,6 @@ func hide_defaults():
 ## Removes elements from arrays based on if they are set to be hidden
 func hide_hides():
 	for key in dict:
-		print(str(dict[key]) + " is: " + str(key))
 		if dict[key] == 0:
 			array.erase(key)
 			default_order.erase(key)
@@ -361,27 +357,29 @@ func hide_misc():
 func get_affecting_names():
 	var a: Array[StatsResource]
 	stats.GetAllStatsRecursive(a)
-	for stat in a:
-		print(stat.parent_object_name)
 
 func button1():
-	get_affecting_names()
-	if last_clicked == 1:
-		sort_reverse_default()
-		last_clicked = -1
-	else:
-		sort_default()
-		last_clicked = 1
+	if is_ready:
+		get_affecting_names()
+		if last_clicked == 1:
+			sort_reverse_default()
+			last_clicked = -1
+		else:
+			sort_default()
+			last_clicked = 1
 func button2():
-	if last_clicked == 2:
-		sort_reverse_alphabetically()
-		last_clicked = -1
-	else:
-		sort_alphabetically()
-		last_clicked = 2
+	if is_ready:
+		if last_clicked == 2:
+			sort_reverse_alphabetically()
+			last_clicked = -1
+		else:
+			sort_alphabetically()
+			last_clicked = 2
 func button3():
-	only_show_changed = !only_show_changed
-	refresh()
+	if is_ready:
+		only_show_changed = !only_show_changed
+		refresh()
 func button4():
-	sort_random()
-	last_clicked = 4
+	if is_ready:
+		sort_random()
+		last_clicked = 4

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bxdeumld7epke"]
+[gd_scene load_steps=7 format=3 uid="uid://bxdeumld7epke"]
 
 [ext_resource type="Texture2D" uid="uid://qo3jcyvbqi4e" path="res://Art/Hell/UI/Forge_Hell.png" id="1_sye38"]
 [ext_resource type="Script" uid="uid://e16j8gnfxht2" path="res://Scripts/UI/forge.gd" id="1_w8kvo"]
@@ -9,17 +9,8 @@
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pli00"]
 texture = ExtResource("1_sye38")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_johy7"]
-bg_color = Color(0.5647059, 0, 0, 0.27450982)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vcplx"]
-bg_color = Color(0.8745098, 0.44313726, 0.14901961, 0.3647059)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_johy7"]
-
-[node name="Forge" type="Control" node_paths=PackedStringArray("handle_option", "attachment_option", "projectile_option", "stats_display", "default_item_parent", "description_stats")]
+[node name="Forge" type="Control" node_paths=PackedStringArray("default_item_parent", "description_stats")]
 texture_filter = 1
-custom_minimum_size = Vector2(500, 500)
 layout_mode = 3
 anchor_right = 0.13000001
 anchor_bottom = 0.23200001
@@ -28,10 +19,6 @@ offset_bottom = -0.120025635
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_w8kvo")
-handle_option = NodePath("PanelContainer/VBoxContainer/Bottom/OffsetBox/Items/HandleOption")
-attachment_option = NodePath("PanelContainer/VBoxContainer/Bottom/OffsetBox/Items/AttachmentOption")
-projectile_option = NodePath("PanelContainer/VBoxContainer/Bottom/OffsetBox/Items/ProjectileOption")
-stats_display = NodePath("PanelContainer/VBoxContainer/Bottom/OffsetBox/StatsDisplay")
 default_item_parent = NodePath("Parent")
 description_stats = NodePath("PanelContainer/VBoxContainer/Bottom/OffsetBox/StatsDisplay")
 
@@ -40,7 +27,6 @@ custom_minimum_size = Vector2(500, 500)
 layout_mode = 1
 offset_right = 500.0
 offset_bottom = 500.0
-mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxTexture_pli00")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
@@ -55,33 +41,14 @@ theme_override_constants/separation = 0
 [node name="Offset" type="Control" parent="PanelContainer/VBoxContainer/Top"]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
-mouse_filter = 1
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/Top"]
 layout_mode = 2
 size_flags_vertical = 1
-mouse_filter = 1
 theme_override_colors/font_color = Color(0.8745098, 0.44313726, 0.14901961, 1)
 theme_override_font_sizes/font_size = 64
 text = "Forge"
 horizontal_alignment = 1
-
-[node name="Button" type="Button" parent="PanelContainer/VBoxContainer/Top/Label"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 152.0
-offset_top = 6.0
-offset_right = -163.0
-offset_bottom = 4.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-theme_override_styles/normal = SubResource("StyleBoxFlat_johy7")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_vcplx")
-theme_override_styles/hover = SubResource("StyleBoxFlat_vcplx")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_johy7")
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/Top"]
 layout_mode = 2
@@ -92,7 +59,6 @@ stretch_mode = 5
 [node name="Offset3" type="Control" parent="PanelContainer/VBoxContainer/Top"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-mouse_filter = 1
 
 [node name="Bottom" type="VBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -107,37 +73,31 @@ theme_override_constants/separation = 0
 [node name="Offset4" type="Control" parent="PanelContainer/VBoxContainer/Bottom/OffsetBox"]
 custom_minimum_size = Vector2(35, 0)
 layout_mode = 2
-mouse_filter = 1
 
 [node name="Items" type="VBoxContainer" parent="PanelContainer/VBoxContainer/Bottom/OffsetBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 5
 
-[node name="HandleOption" parent="PanelContainer/VBoxContainer/Bottom/OffsetBox/Items" instance=ExtResource("4_johy7")]
+[node name="ForgeOption" parent="PanelContainer/VBoxContainer/Bottom/OffsetBox/Items" instance=ExtResource("4_johy7")]
 custom_minimum_size = Vector2(250, 75)
 layout_mode = 2
-mouse_filter = 1
 
-[node name="AttachmentOption" parent="PanelContainer/VBoxContainer/Bottom/OffsetBox/Items" instance=ExtResource("4_johy7")]
+[node name="ForgeOption2" parent="PanelContainer/VBoxContainer/Bottom/OffsetBox/Items" instance=ExtResource("4_johy7")]
 custom_minimum_size = Vector2(250, 75)
 layout_mode = 2
-mouse_filter = 1
 
-[node name="ProjectileOption" parent="PanelContainer/VBoxContainer/Bottom/OffsetBox/Items" instance=ExtResource("4_johy7")]
+[node name="ForgeOption3" parent="PanelContainer/VBoxContainer/Bottom/OffsetBox/Items" instance=ExtResource("4_johy7")]
 custom_minimum_size = Vector2(250, 75)
 layout_mode = 2
-mouse_filter = 1
 
 [node name="Offset2" type="Control" parent="PanelContainer/VBoxContainer/Bottom/OffsetBox"]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
-mouse_filter = 1
 
 [node name="StatsDisplay" parent="PanelContainer/VBoxContainer/Bottom/OffsetBox" instance=ExtResource("2_pli00")]
 layout_mode = 2
 size_flags_horizontal = 3
-mouse_filter = 1
 button_color = Color(0.5647059, 0, 0, 1)
 button_text_color = Color(0.8745098, 0.44313726, 0.14901961, 1)
 text_color = Color(0.9843137, 0.9490196, 0.21176471, 1)
@@ -145,18 +105,13 @@ text_color = Color(0.9843137, 0.9490196, 0.21176471, 1)
 [node name="Offset3" type="Control" parent="PanelContainer/VBoxContainer/Bottom/OffsetBox"]
 custom_minimum_size = Vector2(35, 0)
 layout_mode = 2
-mouse_filter = 1
 
 [node name="offset" type="Control" parent="PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
-mouse_filter = 1
 
 [node name="Parent" type="Control" parent="."]
 visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-mouse_filter = 1
-
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Top/Label/Button" to="." method="make_weapon"]

@@ -22,6 +22,7 @@ func _ready() -> void:
 ## Handles calling Drop when an item is dropped over this inventory rect
 func _process(_delta: float) -> void:
 	if ItemUI.dragging_some_item && get_global_rect().has_point(get_global_mouse_position()) && Input.is_action_just_released("left_click"):
+		print("Add")
 		var item: ItemUI = ItemUI.dragging_item
 		if item.inventory != self:
 			call_deferred("ui_add", item)
@@ -62,7 +63,6 @@ func can_add(item: ItemUI) -> bool:
 ## Returns if item can currently be removed from self
 func can_remove(item: ItemUI) -> bool:
 	return is_instance_valid(item) && items.has(item)
-
 ## Add Functionality:
 # Can sort items array via: Alphabetical, etc
 # Can show only items of a certian type: components, etc
@@ -90,7 +90,6 @@ func reset_description():
 		description_title.text = "Hover an Item first!"
 	if description_stats:
 		description_stats.visible = false
-
 
 ## Sorting Functions, Reorders items as children
 func sort_random():

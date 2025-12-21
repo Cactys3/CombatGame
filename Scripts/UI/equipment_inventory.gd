@@ -10,7 +10,6 @@ class_name EquipmentInventory
 var WeaponCount: int = 0
 var ItemCount: int = 0
 
-
 func _ready() -> void:
 	super()
 	set_item_count(ItemCount)
@@ -31,10 +30,7 @@ func get_type() -> String:
 	return EQUIPMENT
 
 func can_add(item: ItemUI) -> bool:
-	#print("can_add_equipment")
-	if (item.data.item_type == ItemData.item_types.weapon) && WeaponCount >= WeaponCapacity:
-		return false
-	return is_valid_type(item) && GameManager.instance.can_equip(item) 
+	return is_valid_type(item) && GameManager.instance.can_equip(item)  && !(item.data.item_type == ItemData.item_types.weapon && WeaponCount >= WeaponCapacity)
 
 func can_remove(item: ItemUI) -> bool:
 	return is_instance_valid(item) && items.has(item) && GameManager.instance.can_unequip(item)

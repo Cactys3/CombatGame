@@ -234,23 +234,18 @@ grow_vertical = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="ShopInventory" parent="Window1920/Offset/UIManager/TabMenuParent" instance=ExtResource("18_85yrk")]
-visible = false
 layout_mode = 1
-offset_left = 602.0
-offset_top = -162.0
-offset_right = 1052.0
-offset_bottom = 438.0
-auto_restock = null
-delete_on_sell = null
-num_of_items = null
+offset_left = -744.0
+offset_top = 665.0
+offset_right = -294.0
+offset_bottom = 1265.0
 
 [node name="weapon_crafting_inventory" parent="Window1920/Offset/UIManager/TabMenuParent" instance=ExtResource("20_41mr8")]
-visible = false
 layout_mode = 1
-offset_left = 567.0
-offset_top = -197.0
-offset_right = 867.0
-offset_bottom = 103.0
+offset_left = -287.0
+offset_top = 668.0
+offset_right = 13.0
+offset_bottom = 968.0
 
 [node name="EscMenuParent" type="Control" parent="Window1920/Offset/UIManager"]
 visible = false

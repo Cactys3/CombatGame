@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7qlnftpauy23"]
+[gd_scene load_steps=7 format=3 uid="uid://b7qlnftpauy23"]
 
 [ext_resource type="Script" uid="uid://c2yiwoidyd1sh" path="res://Scripts/UI/shop_option.gd" id="1_588nd"]
 
@@ -8,6 +8,10 @@ bg_color = Color(0.8509804, 0.34117648, 0.3882353, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ajnuo"]
 bg_color = Color(0.6745098, 0.19607843, 0.19607843, 1)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_588nd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oebfj"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xfs7d"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_left = 5
@@ -16,7 +20,7 @@ border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0.27058825, 0.15686275, 0.23529412, 1)
 
-[node name="shop_option" type="Control"]
+[node name="shop_option" type="Control" node_paths=PackedStringArray("button", "image", "title", "rarity", "body", "price")]
 custom_minimum_size = Vector2(350, 75)
 layout_mode = 3
 anchors_preset = 8
@@ -33,6 +37,12 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_588nd")
+button = NodePath("HBoxContainer/Button")
+image = NodePath("HBoxContainer/Button/HBoxContainer/Panel2/image")
+title = NodePath("HBoxContainer/Button/HBoxContainer/Panel/VBoxContainer/HBoxContainer/Title")
+rarity = NodePath("HBoxContainer/Button/HBoxContainer/Panel/VBoxContainer/HBoxContainer/Rarity")
+body = NodePath("HBoxContainer/Button/HBoxContainer/Panel/VBoxContainer/HBoxContainer2/Body")
+price = NodePath("HBoxContainer/Price")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -57,10 +67,10 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_588nd")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_588nd")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ajnuo")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ajnuo")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_ajnuo")
-theme_override_styles/focus = SubResource("StyleBoxFlat_ajnuo")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_588nd")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_oebfj")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Button"]
 layout_mode = 1

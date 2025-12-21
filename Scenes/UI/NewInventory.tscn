@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cu6nvv3r8tgkl"]
+[gd_scene load_steps=21 format=3 uid="uid://cu6nvv3r8tgkl"]
 
 [ext_resource type="Script" uid="uid://cuxh8wu55linp" path="res://Scenes/UI/InventoryAOI.gd" id="1_fk1j6"]
 [ext_resource type="Texture2D" uid="uid://cctoa8i4776qs" path="res://Art/Hell/Enemies/Kle.png" id="1_iac8f"]
@@ -13,6 +13,15 @@ border_width_top = 20
 border_width_right = 20
 border_width_bottom = 20
 border_color = Color(0.13333334, 0.1254902, 0.20392157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3scq6"]
+bg_color = Color(0.5802528, 0.3531882, 0.623151, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vq26r"]
+bg_color = Color(0.7605357, 0.30912784, 0.4362017, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kcwj8"]
+bg_color = Color(0.9743381, 0, 0.4473555, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iac8f"]
 bg_color = Color(0.23921569, 0.23137255, 0.32156864, 1)
@@ -114,9 +123,9 @@ size_flags_vertical = 3
 button_color = Color(0.23921569, 0.23137255, 0.32156864, 1)
 button_text_color = Color(0.3882353, 0.60784316, 1, 1)
 text_color = Color(0.8392157, 0, 0, 1)
-scroll_color = Color(0.30281207, 0.49512315, 0.7970608, 1)
-scroll_grabber_color = Color(0.51000834, 0.0008744395, 0.6365751, 1)
-scroll_grabber_hover_color = Color(0.77779126, 0.37897223, 1, 1)
+scroll_stylebox = SubResource("StyleBoxFlat_3scq6")
+scroll_grabber_stylebox = SubResource("StyleBoxFlat_vq26r")
+scroll_grabber_hover_stylebox = SubResource("StyleBoxFlat_kcwj8")
 
 [node name="OffsetDown" type="Control" parent="HBoxContainer/Left"]
 layout_mode = 2
@@ -221,7 +230,7 @@ horizontal_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-columns = 4
+columns = 2
 
 [node name="InventoryLabel" type="Label" parent="HBoxContainer/Main/Main/Inventory"]
 layout_mode = 0
@@ -313,8 +322,9 @@ layout_mode = 2
 button_color = Color(0.23921569, 0.23137255, 0.32156864, 1)
 button_text_color = Color(0.3882353, 0.60784316, 1, 1)
 text_color = Color(0.8392157, 0, 0, 1)
-scroll_grabber_color = Color(0.51000834, 0.0008744395, 0.6365751, 1)
-scroll_grabber_hover_color = Color(0.77779126, 0.37897223, 1, 1)
+scroll_stylebox = SubResource("StyleBoxFlat_3scq6")
+scroll_grabber_stylebox = SubResource("StyleBoxFlat_vq26r")
+scroll_grabber_hover_stylebox = SubResource("StyleBoxFlat_kcwj8")
 hide_weapon_only = true
 hide_misc_only = true
 
@@ -515,8 +525,9 @@ size_flags_vertical = 3
 button_color = Color(0.23921569, 0.23137255, 0.32156864, 1)
 button_text_color = Color(0.3882353, 0.60784316, 1, 1)
 text_color = Color(0.8392157, 0, 0, 1)
-scroll_grabber_color = Color(0.51000834, 0.0008744395, 0.6365751, 1)
-scroll_grabber_hover_color = Color(0.77779126, 0.37897223, 1, 1)
+scroll_stylebox = SubResource("StyleBoxFlat_3scq6")
+scroll_grabber_stylebox = SubResource("StyleBoxFlat_vq26r")
+scroll_grabber_hover_stylebox = SubResource("StyleBoxFlat_kcwj8")
 
 [node name="OffsetDown" type="Control" parent="HBoxContainer/Right"]
 layout_mode = 2
