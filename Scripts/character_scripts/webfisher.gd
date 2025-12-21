@@ -6,8 +6,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	super(delta)
 
-func set_stats():
-	super()
+
 
 func character_ability(number: int) -> void:
 	match(number):

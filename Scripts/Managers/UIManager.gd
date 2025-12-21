@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 class_name UIManager
 ## Labels
 @export var money_label: Label
@@ -19,6 +19,8 @@ class_name UIManager
 ## Inventories
 @export var AOIman: AOI_Manager
 @export var cheat_inventory: Inventory 
+## Other
+@export var hud: HUD
 var inventory: Inventory
 var equipment: EquipmentInventory
 var enabled: bool = true
@@ -38,6 +40,12 @@ func _ready() -> void:
 	inventory = AOIman.inventory
 	equipment = AOIman.equipment
 	AOIman.set_character_stats_display(GameManager.instance.player.player_stats)
+	if tab_menu_parent.visible:
+		tab_menu_parent.visible = false
+	if esc_menu_parent.visible:
+		esc_menu_parent.visible = false
+	if misc_parent.visible:
+		misc_parent.visible = false
 
 func _connect_signals():
 	GameManager.instance.toggle_inventory.connect(toggle_inventory)
@@ -153,20 +161,34 @@ func toggle_inventory() -> void:
 func set_level(value: String) -> void:
 	level_label.text = value
 
-func set_hp(value: String) -> void:
+func set_max_hp(percent: float) -> void:
+	hud.set_max_hp(percent)
+
+func set_shield(value: String, percent: float) -> void:
+	hud.set_shield(percent)
+
+func set_hp(value: String, percent: float) -> void:
 	hp_label.text = value
-
-func set_xp(value: String) -> void:
+	hud.set_hp(percent)
+	
+func set_xp(value: String, percent: float) -> void:
 	xp_label.text = value
+	hud.set_xp(percent)
 
-func set_money(value: String) -> void:
-	money_label.text = value
+func set_money(value: float) -> void:
+	money_label.text = str(roundi(value))
+	hud.set_money(value)
 
-func set_stopwatch(value: String) -> void:
-	stopwatch_label.text = value
+func set_stopwatch(value: float) -> void:
+	stopwatch_label.text = str(int(value / 60)) + ":" + str(int(fmod(value, 60.0)))
+	hud.set_time(value)
 
-func set_fps(value: String) -> void:
-	fps_label.text = value
+func set_kills(value: float) -> void:
+	hud.set_kills(value)
+	enemies_killed_label.text = str(value)
+
+func set_fps(value: float) -> void:
+	fps_label.text = str(roundi(value))
 
 func toggle_you_win(value: bool) -> void:
 	you_win.visible = value

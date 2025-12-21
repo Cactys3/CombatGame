@@ -42,24 +42,39 @@ var xp_modifier_per_level: float = 1.1
 var xp_from_past_levels: float = 0
 var starting_money: float = 15
 
+var max_hp: float:
+	get():
+		return player.maxhealth
+var max_shield: float:
+	get():
+		return player.maxshield
+var shield: float = 0:
+	set(value):
+		shield = value
+		if max_shield > 0:
+			ui_man.set_shield(str(value), value / max_shield)
+		else:
+			ui_man.set_shield("0", 0)
 var hp: float = 0:
 	set(value):
 		hp = value
-		ui_man.set_hp(str(value))
-		player.health = int(value)
+		ui_man.set_hp(str(value), hp / max_hp)
 var level: float = 0: ## level
 	set(value): #TODO: maybe send to instancemanager and make game harder by level
 		level = value
 		ui_man.set_level(str(int(value)))
-		player.level = value
 	get(): # calculate level based on total xp
 		return level 
 var xp: float = 0: ## Current (total?) XP Gained
 	set(value):
-		if (xp < value):
-			xp_gained_since_last_level += (value - xp)
-		xp = value
-		ui_man.set_xp(str(int(value)))
+		var xp_just_added: float = 0
+		if (value > xp): ## Factor in xp_gain only when adding xp, not subtracting xp
+			xp_just_added = (value - xp) * player.xp_gain
+		else:
+			xp_just_added = (value - xp) 
+		xp_gained_since_last_level += (xp_just_added)
+		xp = xp + xp_just_added
+		ui_man.set_xp(str(int(xp)), xp_gained_since_last_level / xp_to_next_level)
 		while xp_gained_since_last_level > xp_to_next_level:
 			xp_from_past_levels += xp_to_next_level
 			xp_gained_since_last_level -= xp_to_next_level
@@ -67,14 +82,13 @@ var xp: float = 0: ## Current (total?) XP Gained
 			level += 1
 			emit_signal("level_up")
 			#print("Gained Level Costing: " + str(int(xp_to_next_level)) + " XP Leftover: " + str(int(xp_gained_since_last_level) - int(xp_to_next_level)))
-		player.xp = value
-	get():
-		return xp
 var money: float = 0: ## Current Money Held
 	set(value):
-		money = value
-		ui_man.set_money(str(value))
-		player.money = value
+		if value > money: ## Factor in money_gain when adding money
+			money = money + (value - money) * player.money_gain
+		else:
+			money = value
+		ui_man.set_money(value)
 ## TODO: Heiarchy of pausable menus that overwrite each other. EX: if esc menu is active, everything else is paused, even if level up screen is happening, it is paused
 var paused: bool = false ## Is Game Instance Paused or Not
 var paused_for_esc: bool = false
@@ -229,15 +243,15 @@ func create_level_up_instance():
 	var two = LevelUpData.get_random_level_up_option()
 	var three = LevelUpData.get_random_level_up_option()
 	## setup LevelUpInstance with those random things and their details (color, name, etc)
-	var instance = LEVEL_UP_UI.instantiate()
-	instance.global_position = Vector2(-42, -170)
-	ui_man.level_up_parent.add_child(instance)
-	instance.add_choice(one)
-	instance.add_choice(two)
-	instance.add_choice(three)
-	var choice: LevelUpData = await instance.get_choice()
+	var level_instance = LEVEL_UP_UI.instantiate()
+	#level_instance.position = Vector2(0, 0)
+	ui_man.level_up_parent.add_child(level_instance)
+	level_instance.add_choice(one)
+	level_instance.add_choice(two)
+	level_instance.add_choice(three)
+	var choice: LevelUpData = await level_instance.get_choice()
 	choice.carryout_level_up()
-	instance.free_instance()
+	level_instance.free_instance()
 	ui_man.pause_level_up()
 	level_up_queue -= 1
 	leveling_up = false

@@ -9,56 +9,48 @@ class_name Character
 @export var knockback_modifier:float = 1
 @export var can_be_knockbacked:bool = true
 @export var can_be_stunned:bool = true
+## States
 var stunning:bool = false
 var stun_time_left: float = 0
 var moving: bool = false
+## Weapons
 var weapon_list: Array[Weapon_Frame]
-var weapon_count: float = 0
+var weapon_count: int = 0
 var static_slot_count: int = 0
 var at_mouse_count: int = 0
 var spin_aim_count: int = 0
-## level, xp, money managed and set by GameManager
-var level: float:
-	set(value):
-		if value > level:
-			on_level_up(value, level)
-		level = value
-var xp: float:
-	set(value):
-		if value > xp:
-			on_gain_xp(value, xp)
-		xp = value
-var money: float:
-	set(value):
-		if value > money:
-			on_gain_money(value, money)
-		money = value
-## speed, maxhealth, stance get by StatsResource
-var health: int
-var curr_speed: float = -999
-var speed: float:
+## Current Variables
+var curr_speed: float
+## Stat Variables
+var maxspeed: float:
 	get():
-		if player_stats.MustRecalculate || curr_speed == -999:
-			#print(player_stats.MustRecalculate)
-			curr_speed = get_stat(StatsResource.MOVESPEED)
-		return curr_speed
+		return get_stat(StatsResource.MOVESPEED)
 var maxhealth: float:
 	get():
 		return get_stat(StatsResource.HP) 
+var maxshield: float:
+	get():
+		return get_stat(StatsResource.SHIELD)
 var stance: float:
 	get():
 		return get_stat(StatsResource.STANCE)
+var size: float:
+	get():
+		return get_stat(StatsResource.SIZE)
+var xp_gain: float:
+	get():
+		return get_stat(StatsResource.XP)
+var money_gain: float:
+	get():
+		return get_stat(StatsResource.MOGUL)
 
 func _ready() -> void:
-	call_deferred("set_stats")
-	#call_deferred("make_stats_visual")
-
-#func make_stats_visual():
-	#stats_visual = load("res://Scenes/UI/stats_visual.tscn").instantiate()
-	#GameManager.instance.ui_man.tab_menu_parent.add_child(stats_visual)
-	#stats_visual.global_position = Vector2.ZERO#Vector2(-310, -20)
-	#stats_visual.set_stats(player_stats, "Player Stats")
-
+	call_deferred("initialize_stats")
+func initialize_stats() -> void:
+	player_stats.set_changed_method(stat_changed_method)
+	curr_speed = maxspeed
+	GameManager.instance.hp = maxhealth
+	GameManager.instance.shield = maxshield
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ability1"):
 		character_ability(1)
@@ -66,7 +58,6 @@ func _process(_delta: float) -> void:
 		character_ability(2)
 	if Input.is_action_just_pressed("ability3"):
 		character_ability(3)
-
 func _physics_process(_delta: float) -> void:
 	if stun_time_left > 0:
 		stun_time_left -= _delta 
@@ -74,8 +65,12 @@ func _physics_process(_delta: float) -> void:
 		stunning = false
 	handle_moving(_delta)
 	move_and_slide()
-
-
+	handle_regens(_delta)
+func handle_regens(delta) -> void:
+	if GameManager.instance.shield < maxshield:
+		GameManager.instance.shield += 5 * delta
+	if hp_regen > 0 && GameManager.instance.hp < maxhealth:
+		GameManager.instance.hp += hp_regen * delta
 func handle_moving(delta) -> void:
 	var moving_state = moving
 	var directionX := Input.get_axis("left", "right")
@@ -83,43 +78,46 @@ func handle_moving(delta) -> void:
 	if !stunning: ## Stun Time prevents the player from inputting movement commands, but doesn't change their current velocity
 		var new_velocity: Vector2
 		if directionX:
-			new_velocity.x = round(directionX) * speed
+			new_velocity.x = round(directionX) * curr_speed
 			moving = true
 		else:
 			new_velocity.x = 0
 		var directionY := Input.get_axis("up", "down")
 		if directionY:
-			new_velocity.y = round(directionY) * speed
+			new_velocity.y = round(directionY) * curr_speed
 			moving = true
 		else:
 			new_velocity.y = 0
-		velocity = velocity.move_toward(new_velocity.normalized() * speed, delta * 7000)
+		velocity = velocity.move_toward(new_velocity.normalized() * curr_speed, delta * 7000)
 	if (moving_state != moving):
 		set_moving_animation(moving)
 	
 	#print(velocity)
-
 func damage(attack: Attack):
-	#print("damage player: " + str(attack.damage))
+	## Consider Stance
 	var net_damage = attack.damage - stance
-	if net_damage == 0:
-		return
-	
-	GameManager.instance.hp -= net_damage
+	## Consider Sheild
+	if net_damage > 0 && GameManager.instance.shield > 0:
+		if (GameManager.instance.shield > net_damage):
+			GameManager.instance.shield -= net_damage
+			net_damage = 0
+		else:
+			net_damage -= GameManager.instance.shield
+			GameManager.instance.shield = 0
+	## Consider HP
+	if net_damage > 0:
+		GameManager.instance.hp -= net_damage
+	## Consider Stun
 	if can_be_stunned && attack.stun != 0:
 		stun_time_left += attack.stun
 		stunning = true
+	## Consider Knockback
 	if can_be_knockbacked && attack.knockback != 0:
-		#stun_time_left += 0.1
-		#stunning = true
 		call_deferred("set", "velocity", (global_position - attack.position).normalized() * attack.knockback * knockback_modifier)
-		#print("Knockback: " + str((global_position - attack.position).normalized() * attack.knockback * knockback_modifier))
-	if health <= 0:
+	if GameManager.instance.hp <= 0:
 		die()
-
 func die():
 	pass#print("player died: " + str(health))
-
 func add_frame(new_frame: Weapon_Frame):
 	weapon_list.append(new_frame)
 	var temp_count = weapon_count
@@ -150,7 +148,6 @@ func add_frame(new_frame: Weapon_Frame):
 	#new_frame.make_stats_visual(weapon_list.size())
 	call_deferred("add_child", new_frame)
 	#add_child(new_frame) this errors?
-
 func remove_frame(frame_sought: Weapon_Frame) -> bool:
 	if frame_sought && weapon_list.has(frame_sought):
 		weapon_list.erase(frame_sought)
@@ -179,32 +176,27 @@ func remove_frame(frame_sought: Weapon_Frame) -> bool:
 		#print("removed weapon: " + frame_sought.name)
 		return true
 	return false
-
 func get_stat(stat: String) -> float:
 	return player_stats.get_stat(stat)
-
 func get_random_frame() -> Weapon_Frame:
 	if weapon_list.size() > 0:
 		return weapon_list.get(randi_range(0, weapon_list.size() - 1))
 	else:
 		return null
-
-## funcs to be overriden for special character mechanics (or item mechanics)
-func set_stats(): ## set_stats should call super()
-	GameManager.instance.hp = maxhealth
-
+## func reapplies all affects that stats have based on newly checked values
+func stat_changed_method():
+	# hp, size, xp gain, money gain, etc
+	transform.scaled(Vector2(size, size))
+	GameManager.instance.hp = GameManager.instance.hp ## checks maxhp to setup UI properly
+	GameManager.instance.shield = GameManager.instance.shield ## checks maxshield to setup UI properly
 func character_ability(number: int) -> void:
 	pass#print("ability " + str(number))
-
 func on_level_up(new_level: float, old_level: float) -> void:
 	pass
-
 func on_gain_xp(new_xp: float, old_xp: float) -> void:
 	pass
-
 func on_gain_money(new_money: float, old_money: float) -> void:
 	pass
-
 func set_moving_animation(boolean: bool):
 	if boolean && is_instance_valid(anim) && anim.has_animation("play"):
 		anim.play("move")

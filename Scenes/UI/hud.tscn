@@ -1,0 +1,302 @@
+[gd_scene load_steps=9 format=3 uid="uid://cvrebkaqtisv6"]
+
+[ext_resource type="Script" uid="uid://cb83sv1b16det" path="res://Scripts/UI/hud.gd" id="1_fdl0h"]
+[ext_resource type="Texture2D" uid="uid://d3i2vwnurbmlo" path="res://Art/UI/XpLeft.png" id="1_ny26j"]
+[ext_resource type="Texture2D" uid="uid://blf6qgqofolod" path="res://Art/UI/XpRight.png" id="2_fdl0h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ny26j"]
+bg_color = Color(0.13333334, 0.1254902, 0.20392157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wkk6c"]
+bg_color = Color(0.37254903, 0.8039216, 0.89411765, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8glcj"]
+bg_color = Color(0.79607844, 0.85882354, 0.9882353, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fdl0h"]
+bg_color = Color(0.6745098, 0.19607843, 0.19607843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vsu76"]
+bg_color = Color(0.3882353, 0.60784316, 1, 1)
+
+[node name="hud" type="Control"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = -1920.0
+offset_bottom = 30.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+mouse_filter = 2
+script = ExtResource("1_fdl0h")
+
+[node name="XP" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Offset" type="Control" parent="XP"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="Offsets_X" type="HBoxContainer" parent="XP"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="Offset" type="Control" parent="XP/Offsets_X"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="XP" type="Control" parent="XP/Offsets_X"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="XP_Background" type="HBoxContainer" parent="XP/Offsets_X/XP"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="XP_Left" type="TextureRect" parent="XP/Offsets_X/XP/XP_Background"]
+self_modulate = Color(0.13333334, 0.1254902, 0.20392157, 1)
+layout_mode = 2
+texture = ExtResource("1_ny26j")
+expand_mode = 3
+
+[node name="XP_Middle" type="Panel" parent="XP/Offsets_X/XP/XP_Background"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ny26j")
+
+[node name="XP_Right" type="TextureRect" parent="XP/Offsets_X/XP/XP_Background"]
+self_modulate = Color(0.13333334, 0.1254902, 0.20392157, 1)
+layout_mode = 2
+texture = ExtResource("2_fdl0h")
+expand_mode = 3
+
+[node name="XP_BAR" type="HBoxContainer" parent="XP/Offsets_X/XP"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -10.0
+offset_right = 32.0
+offset_bottom = 10.0
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="Offset" type="Control" parent="XP/Offsets_X/XP/XP_BAR"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="XP_Left" type="TextureRect" parent="XP/Offsets_X/XP/XP_BAR"]
+self_modulate = Color(0.37254903, 0.8039216, 0.89411765, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_ny26j")
+expand_mode = 3
+
+[node name="XP_Middle" type="Panel" parent="XP/Offsets_X/XP/XP_BAR"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wkk6c")
+
+[node name="XP_Right" type="TextureRect" parent="XP/Offsets_X/XP/XP_BAR"]
+self_modulate = Color(0.37254903, 0.8039216, 0.89411765, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_fdl0h")
+expand_mode = 3
+
+[node name="Offset2" type="Control" parent="XP/Offsets_X/XP/XP_BAR"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="Offset2" type="Control" parent="XP/Offsets_X"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Labels" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 372.0
+offset_bottom = 66.0
+grow_vertical = 2
+theme_override_constants/separation = 40
+
+[node name="Silver" type="Label" parent="Labels"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.79607844, 0.85882354, 0.9882353, 1)
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Money" type="Label" parent="Labels"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9843137, 0.9490196, 0.21176471, 1)
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Kills" type="Label" parent="Labels"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6745098, 0.19607843, 0.19607843, 1)
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HP" type="Control" parent="."]
+custom_minimum_size = Vector2(20, 20)
+anchors_preset = 0
+offset_left = 32.0
+offset_top = 121.0
+offset_right = 187.0
+offset_bottom = 141.0
+
+[node name="HP" type="Control" parent="HP"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="HP_Background" type="HBoxContainer" parent="HP/HP"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="HP_Left" type="TextureRect" parent="HP/HP/HP_Background"]
+self_modulate = Color(0.79607844, 0.85882354, 0.9882353, 1)
+layout_mode = 2
+texture = ExtResource("1_ny26j")
+expand_mode = 3
+
+[node name="HP_Background" type="Panel" parent="HP/HP/HP_Background"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_8glcj")
+
+[node name="HP_Right" type="TextureRect" parent="HP/HP/HP_Background"]
+self_modulate = Color(0.79607844, 0.85882354, 0.9882353, 1)
+layout_mode = 2
+texture = ExtResource("2_fdl0h")
+expand_mode = 3
+
+[node name="HP_BAR" type="HBoxContainer" parent="HP/HP"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 14.0
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="HP_Left" type="TextureRect" parent="HP/HP/HP_BAR"]
+self_modulate = Color(0.6745098, 0.19607843, 0.19607843, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_ny26j")
+expand_mode = 3
+
+[node name="HP" type="Panel" parent="HP/HP/HP_BAR"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fdl0h")
+
+[node name="HP_Right" type="TextureRect" parent="HP/HP/HP_BAR"]
+self_modulate = Color(0.6745098, 0.19607843, 0.19607843, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_fdl0h")
+expand_mode = 3
+
+[node name="Shield" type="Control" parent="."]
+custom_minimum_size = Vector2(10, 10)
+anchors_preset = 0
+offset_left = 36.0
+offset_top = 111.0
+offset_right = 46.0
+offset_bottom = 121.0
+
+[node name="Shield" type="Control" parent="Shield"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="Shield" type="HBoxContainer" parent="Shield/Shield"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 10.0
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="Shield_Left" type="TextureRect" parent="Shield/Shield/Shield"]
+self_modulate = Color(0.3882353, 0.60784316, 1, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_ny26j")
+expand_mode = 3
+
+[node name="Shield" type="Panel" parent="Shield/Shield/Shield"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vsu76")
+
+[node name="Shield_Right" type="TextureRect" parent="Shield/Shield/Shield"]
+self_modulate = Color(0.3882353, 0.60784316, 1, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_fdl0h")
+expand_mode = 3
+
+[node name="Time" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -60.0
+offset_top = 43.0
+offset_right = 60.0
+offset_bottom = 94.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.41960785, 0.41960785, 1)
+theme_override_font_sizes/font_size = 64
+text = "0:0"
+horizontal_alignment = 1
+vertical_alignment = 1

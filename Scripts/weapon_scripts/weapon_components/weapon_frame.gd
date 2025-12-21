@@ -42,9 +42,9 @@ func get_enemy_nearby(distance: float) -> Variant:
 				nearest_enemy = enemy
 	return nearest_enemy
 
-func change_slot(slot: int, max) -> void:#Called when Weapon is created #TODO: does the weapon only need slot number to start?
+func change_slot(slot: int, _max: int) -> void:#Called when Weapon is created #TODO: does the weapon only need slot number to start?
 	handle.weapon_slot = slot
-	handle.weapon_count = max #TODO: Only Static Slot (cardinal direction) weapons should add to this thing
+	handle.weapon_count = _max #TODO: Only Static Slot (cardinal direction) weapons should add to this thing
 
 #new methods
 func add_handle(handy: Handle) -> bool:

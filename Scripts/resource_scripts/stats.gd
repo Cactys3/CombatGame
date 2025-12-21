@@ -31,11 +31,10 @@ const DIFFICULTY = "difficulty"
 const REVIES = "revies"
 const THORNS = "thorns"
 const INACCURACY = "inaccuracy"
-
 @export var parent_object_name = "not_set"
 ## Currently set pretty high as I'm not making individual stats for everything
 static var defaultstats = {
-	HP: 1.0,
+	HP: 100.0,
 	STANCE: 0.0,
 	MOVESPEED: 60.0,
 	XP: 1.0,
@@ -64,7 +63,6 @@ static var defaultstats = {
 	REVIES: 0.0,
 	THORNS: 0.0
 	}
-
 @export var statsbase = { #everything must be default at 0 because they are always added in add_stats and should default to adding 0
 	HP: 0.0,
 	STANCE: 0.0,
@@ -95,7 +93,6 @@ static var defaultstats = {
 	REVIES: 0.0,
 	THORNS: 0.0
 	}
-
 @export var statsfactor = {
 	HP: 1.0,
 	STANCE: 1.0,
@@ -126,11 +123,14 @@ static var defaultstats = {
 	REVIES: 1.0,
 	THORNS: 1.0
 	}
-
 var listofaffection: Array[StatsResource] = [] #the list of stats that affect this stat
 var listofaffected: Array[StatsResource] = [] #the list of stats that this stat affects
 var MustRecalculate: bool = true
 var TotalListOfStats: Array[StatsResource] #list of stats used for stat calculations
+## Method that is called when a stat is changed
+var stat_changed_method: Callable
+func set_changed_method(method: Callable) -> void:
+	stat_changed_method = method
 ## If valid, Recalculates then adds stats to this stats object
 func add_stats(other: StatsResource) -> void: #adds the other stats to listofaffection
 	if other == null || other == self || listofaffection.has(other):
@@ -190,6 +190,8 @@ func GetAllStatsRecursive(list: Array[StatsResource]):
 			stat.GetAllStatsRecursive(list)
 ## Recursively says every stat object affected should recalculate
 func Recalculate():
+	if stat_changed_method:
+		stat_changed_method.call()
 	MustRecalculate = true
 	for stat in listofaffected:
 		stat.Recalculate()
@@ -269,4 +271,4 @@ static func get_default(stat: String) -> float:
 ## Returns name of random stat
 static func get_rand_stat() -> String:
 	return defaultstats.keys()[(randi() % defaultstats.size())]
-	return defaultstats.key(randi() % defaultstats.size())
+	#return defaultstats.key(randi() % defaultstats.size())

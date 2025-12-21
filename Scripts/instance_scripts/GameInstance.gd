@@ -95,7 +95,7 @@ func setup_events():
 	events.append(EventSpawn.new("forge", FORGE, 0.20, -1, 1))
 func _process(delta: float) -> void:
 	var pos = character.position #game_man.player.position
-	ui_man.set_fps(str(Engine.get_frames_per_second()))
+	ui_man.set_fps(Engine.get_frames_per_second())
 	if game_man && game_man.paused == false:
 		handle_stopwatch(delta)
 		handle_enemy_spawning(delta, pos)
@@ -118,7 +118,7 @@ func return_to_main_menu() -> void:
 ## 
 func handle_stopwatch(delta: float):
 	total_stopwatch += delta
-	ui_man.set_stopwatch(str(int(total_stopwatch / 60)) + ":" + str(int(fmod(total_stopwatch, 60.0))))
+	ui_man.set_stopwatch(total_stopwatch)
 	if total_stopwatch >= win_time:
 		return_to_main_menu()
 ## Handles spawning new chunks and calculating whats inside them
@@ -282,7 +282,7 @@ func final_boss_death(boss_position: Vector2):
 func enemy_killed():
 	enemies_alive -= 1
 	enemies_killed += 1
-	ui_man.enemies_killed_label.text = str(enemies_killed)
+	ui_man.set_kills(enemies_killed)
 	#print("Killed: " + str(enemies_killed))
 	if kills_left <= 0:
 		kills_needed = kills_needed * 0.95

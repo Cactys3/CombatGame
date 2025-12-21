@@ -12,8 +12,8 @@ class_name Enemy
 @export var weapon_knockback: float = 20.0
 @export var weapon_stun: float = 0
 @export var self_knockback_onhit: float = 200.0
-@export var base_damage: float = 10
-@export var base_movespeed: float = 60
+@export var base_damage: float = 5
+@export var base_movespeed: float = 30
 @export var base_health: float = 40
 @export var base_regen: float = 0
 @export var base_knockback_modifier: float = 1
@@ -153,8 +153,8 @@ func _physics_process(_delta: float) -> void:
 func movement_process(_delta: float) ->void:
 	move_towards(player.global_position, curr_movespeed, _delta)
 ## Overriden by enemies who want different projectile vs melee damage
-func damage_player_projectile(damage_player: Node2D):
-	damage_player(damage_player)
+func damage_player_projectile(_damage_player: Node2D):
+	damage_player(_damage_player)
 
 func shoot_projectile():
 	pass
@@ -180,11 +180,11 @@ func _on_damage_hitbox_body_entered(body: Node2D) -> void:
 		if self_knockback_onhit != 0:
 			apply_knockback(body.global_position, self_knockback_onhit)
 
-func damage_player(damage_player: Node2D):
+func damage_player(_damage_player: Node2D):
 	cooldown_stopwatch = 0;
 	var attack: Attack = Attack.new()
 	attack.setup(curr_damage, global_position, 0, StatusEffectDictionary.new(), self, weapon_stun, 0, weapon_knockback)
-	damage_player.damage(attack) #TODO: put into game manager?
+	_damage_player.damage(attack) #TODO: put into game manager?
 	if melee_attacks:
 		damage_hitbox.set_deferred("monitoring", false)
 

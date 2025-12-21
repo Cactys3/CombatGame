@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dc0hdlr7wq3lq"]
+[gd_scene load_steps=23 format=3 uid="uid://dc0hdlr7wq3lq"]
 
 [ext_resource type="Script" uid="uid://bb13nkhmcojis" path="res://Scenes/Instances/InstanceRoot.gd" id="1_eeah7"]
 [ext_resource type="PackedScene" uid="uid://dxv17gll2bx2l" path="res://Scenes/Instances/Hell/HellPuddle.tscn" id="2_qrryo"]
@@ -6,11 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://cytotq02c1x2a" path="res://Scenes/ProximityInteractables/proximity_shop.tscn" id="3_qq1a1"]
 [ext_resource type="PackedScene" uid="uid://le5tbb8urp88" path="res://Scenes/ProximityInteractables/proximity_forge.tscn" id="3_u5ql4"]
 [ext_resource type="PackedScene" uid="uid://davhmwwacx2xv" path="res://Scenes/Enemies/Bosses/test_boss.tscn" id="6_u5ql4"]
-[ext_resource type="PackedScene" uid="uid://bhfq62xt07h37" path="res://Scenes/UI/ui.tscn" id="6_uv4m7"]
 [ext_resource type="PackedScene" uid="uid://cu6nvv3r8tgkl" path="res://Scenes/UI/NewInventory.tscn" id="8_qq1a1"]
 [ext_resource type="Script" uid="uid://q2s0hxfba110" path="res://Scripts/managers/GameManager.gd" id="9_u5ctk"]
+[ext_resource type="Script" uid="uid://illqvubum1r1" path="res://Scripts/managers/UIManager.gd" id="10_627tp"]
 [ext_resource type="Script" uid="uid://13p8bkyp17w" path="res://Scripts/managers/TestingManager.gd" id="10_cwiy3"]
 [ext_resource type="Script" uid="uid://5tltnj2xg8ps" path="res://Scripts/managers/ShopManager.gd" id="12_e4e03"]
+[ext_resource type="PackedScene" uid="uid://cvrebkaqtisv6" path="res://Scenes/UI/hud.tscn" id="15_6si6h"]
 [ext_resource type="PackedScene" uid="uid://bcwklkqeim2sq" path="res://Scenes/UI/inventory.tscn" id="17_gf2b2"]
 [ext_resource type="PackedScene" uid="uid://bwuwo8e451bxt" path="res://Scenes/UI/shop_inventory.tscn" id="18_85yrk"]
 [ext_resource type="PackedScene" uid="uid://cwomrgi81thyq" path="res://Scenes/UI/weapon_crafting_inventory.tscn" id="20_41mr8"]
@@ -22,9 +23,6 @@ radius = 652.96
 [sub_resource type="CircleShape2D" id="CircleShape2D_wafdh"]
 radius = 400.0
 
-[sub_resource type="LabelSettings" id="LabelSettings_gf2b2"]
-font_size = 64
-
 [sub_resource type="LabelSettings" id="LabelSettings_tpk5p"]
 font_size = 32
 
@@ -34,6 +32,9 @@ font_size = 32
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_41mr8"]
 width = 20
 height = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_gf2b2"]
+font_size = 64
 
 [node name="GameInstance" type="Node2D" node_paths=PackedStringArray("camera", "game_man", "ui_man", "background_parent", "event_parent", "enemy_parent", "xp_parent", "character_parent", "weapon_parent", "spawn_area", "spawn_deadzone")]
 process_mode = 3
@@ -101,18 +102,10 @@ polygon = PackedVector2Array(20, 20, 0, 15, 0, -15, 20, -20)
 position = Vector2(10.444397, -2.670288e-05)
 texture = ExtResource("3_eeah7")
 
-[node name="ProximityForge2" parent="Window640/Offset/EventParent/StaticBody2D" instance=ExtResource("3_u5ql4")]
-position = Vector2(-94.88887, -62.666676)
-
-[node name="ProximityForge3" parent="Window640/Offset/EventParent/StaticBody2D" instance=ExtResource("3_u5ql4")]
-position = Vector2(-81.88886, 7.333326)
-
-[node name="ProximityForge4" parent="Window640/Offset/EventParent/StaticBody2D" instance=ExtResource("3_u5ql4")]
-position = Vector2(87.44447, -61.666676)
-
 [node name="EnemyParent" type="Node2D" parent="Window640/Offset"]
 
 [node name="TestBoss" parent="Window640/Offset/EnemyParent" instance=ExtResource("6_u5ql4")]
+position = Vector2(216, -76.333336)
 loot_drop_title = "You got a Test  Weapon!"
 loot_drop_id_handle = 2
 loot_drop_id_attachment = 3
@@ -153,16 +146,22 @@ content_scale_size = Vector2i(1920, 1080)
 content_scale_mode = 2
 content_scale_aspect = 1
 
-[node name="Offset" type="Node2D" parent="Window1920"]
-process_mode = 1
-position = Vector2(727, 365)
+[node name="Offset" type="Control" parent="Window1920"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="TestingManager" type="Node2D" parent="Window1920/Offset" node_paths=PackedStringArray("EnemyParent") groups=["weapon_manager"]]
+position = Vector2(960, 0)
 script = ExtResource("10_cwiy3")
 EnemyParent = NodePath("../../../Window640/Offset/EnemyParent")
 
 [node name="GameManager" type="Node2D" parent="Window1920/Offset" node_paths=PackedStringArray("ui_man", "shop_man", "xp_parent", "enemy_parent", "weapon_parent") groups=["gamemanager"]]
 process_mode = 3
+position = Vector2(960, 0)
 script = ExtResource("9_u5ctk")
 ui_man = NodePath("../UIManager")
 shop_man = NodePath("../ShopManager")
@@ -171,11 +170,18 @@ enemy_parent = NodePath("../../../Window640/Offset/EnemyParent")
 weapon_parent = NodePath("../../../Window640/Offset/WeaponParent")
 
 [node name="ShopManager" type="Node2D" parent="Window1920/Offset" groups=["shopmanager"]]
+position = Vector2(960, 0)
 script = ExtResource("12_e4e03")
 
-[node name="UIManager" parent="Window1920/Offset" node_paths=PackedStringArray("money_label", "xp_label", "level_label", "hp_label", "fps_label", "stopwatch_label", "enemies_killed_label", "bosses_killed_label", "you_win", "tab_menu_parent", "esc_menu_parent", "level_up_parent", "static_ui_parent", "misc_parent", "AOIman", "cheat_inventory") instance=ExtResource("6_uv4m7")]
-z_index = 6
-position = Vector2(0, 0)
+[node name="UIManager" type="Control" parent="Window1920/Offset" node_paths=PackedStringArray("money_label", "xp_label", "level_label", "hp_label", "fps_label", "stopwatch_label", "enemies_killed_label", "bosses_killed_label", "you_win", "tab_menu_parent", "esc_menu_parent", "level_up_parent", "static_ui_parent", "misc_parent", "AOIman", "cheat_inventory", "hud")]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_627tp")
 money_label = NodePath("StaticHUDparent/SimpleHUD/Money Label/Money")
 xp_label = NodePath("StaticHUDparent/SimpleHUD/XP Label/XP")
 level_label = NodePath("StaticHUDparent/SimpleHUD/LVL Label/LVL")
@@ -190,125 +196,36 @@ esc_menu_parent = NodePath("EscMenuParent")
 level_up_parent = NodePath("LevelUpParent")
 static_ui_parent = NodePath("StaticHUDparent")
 misc_parent = NodePath("MiscParent")
-AOIman = NodePath("TabMenuParent/Control")
+AOIman = NodePath("TabMenuParent/AIO")
 cheat_inventory = NodePath("TabMenuParent/Cheat Inventory")
-
-[node name="MiscParent" type="Control" parent="Window1920/Offset/UIManager"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Button" type="Button" parent="Window1920/Offset/UIManager/MiscParent"]
-layout_mode = 0
-offset_left = -718.0
-offset_top = -352.0
-offset_right = -608.0
-offset_bottom = -318.0
-text = "Change Resolution
-Current: "
-
-[node name="TabMenuParent" type="Control" parent="Window1920/Offset/UIManager"]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Control" parent="Window1920/Offset/UIManager/TabMenuParent" instance=ExtResource("8_qq1a1")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = -719.0
-offset_top = -164.0
-offset_right = -719.0
-offset_bottom = -164.0
-grow_horizontal = 1
-grow_vertical = 1
-
-[node name="Cheat Inventory" parent="Window1920/Offset/UIManager/TabMenuParent" instance=ExtResource("17_gf2b2")]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 9.1
-anchor_top = 17.0
-anchor_right = 20.35
-anchor_bottom = 32.7
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 0.0
-offset_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="ShopInventory" parent="Window1920/Offset/UIManager/TabMenuParent" instance=ExtResource("18_85yrk")]
-layout_mode = 1
-offset_left = -744.0
-offset_top = 665.0
-offset_right = -294.0
-offset_bottom = 1265.0
-
-[node name="weapon_crafting_inventory" parent="Window1920/Offset/UIManager/TabMenuParent" instance=ExtResource("20_41mr8")]
-layout_mode = 1
-offset_left = -287.0
-offset_top = 668.0
-offset_right = 13.0
-offset_bottom = 968.0
-
-[node name="EscMenuParent" type="Control" parent="Window1920/Offset/UIManager"]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Panel" type="Panel" parent="Window1920/Offset/UIManager/EscMenuParent"]
-layout_mode = 0
-offset_left = -87.0
-offset_top = -23.0
-offset_right = 513.0
-offset_bottom = 377.0
-
-[node name="Label" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel"]
-layout_mode = 0
-offset_left = 194.0
-offset_top = 91.0
-offset_right = 386.0
-offset_bottom = 142.0
-text = "Esc Menu"
-label_settings = SubResource("LabelSettings_gf2b2")
-
-[node name="Button" type="Button" parent="Window1920/Offset/UIManager/EscMenuParent/Panel"]
-custom_minimum_size = Vector2(200, 100)
-layout_mode = 0
-offset_left = 191.0
-offset_top = 220.0
-offset_right = 427.0
-offset_bottom = 320.0
-theme_override_font_sizes/font_size = 32
-text = "Return to Main Menu"
-
-[node name="LevelUpParent" type="Control" parent="Window1920/Offset/UIManager"]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+hud = NodePath("StaticHUDparent/hud")
 
 [node name="StaticHUDparent" type="Control" parent="Window1920/Offset/UIManager"]
 process_mode = 1
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="hud" parent="Window1920/Offset/UIManager/StaticHUDparent" instance=ExtResource("15_6si6h")]
+layout_mode = 1
+offset_right = 0.0
+offset_bottom = 0.0
 
 [node name="SimpleHUD" type="Panel" parent="Window1920/Offset/UIManager/StaticHUDparent"]
-layout_mode = 0
-offset_left = -713.0
-offset_top = 565.0
-offset_right = 1177.0
-offset_bottom = 704.0
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -945.0
+offset_top = -139.0
+offset_right = 945.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="LVL Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD"]
 custom_minimum_size = Vector2(10, 10)
@@ -467,15 +384,137 @@ icon = SubResource("NoiseTexture2D_41mr8")
 
 [node name="YouWin" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent"]
 visible = false
-layout_mode = 0
-offset_right = 346.0
-offset_bottom = 242.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -121.0
+offset_right = 192.0
+offset_bottom = 121.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_font_sizes/font_size = 128
 text = "You Win!"
+
+[node name="MiscParent" type="Control" parent="Window1920/Offset/UIManager"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="Window1920/Offset/UIManager/MiscParent"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 821.0
+offset_top = -478.0
+offset_right = 931.0
+offset_bottom = -444.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Change Resolution
+Current: "
+
+[node name="TabMenuParent" type="Control" parent="Window1920/Offset/UIManager"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AIO" parent="Window1920/Offset/UIManager/TabMenuParent" instance=ExtResource("8_qq1a1")]
+layout_mode = 1
+offset_left = -153.0
+offset_top = 47.0
+offset_right = -153.0
+offset_bottom = 47.0
+
+[node name="Cheat Inventory" parent="Window1920/Offset/UIManager/TabMenuParent" instance=ExtResource("17_gf2b2")]
+layout_mode = 1
+offset_left = 14.0
+offset_top = 520.0
+offset_right = 464.0
+offset_bottom = 1148.0
+metadata/_edit_use_anchors_ = true
+
+[node name="ShopInventory" parent="Window1920/Offset/UIManager/TabMenuParent" instance=ExtResource("18_85yrk")]
+layout_mode = 1
+offset_left = -744.0
+offset_top = 517.0
+offset_right = -294.0
+offset_bottom = 1117.0
+
+[node name="weapon_crafting_inventory" parent="Window1920/Offset/UIManager/TabMenuParent" instance=ExtResource("20_41mr8")]
+layout_mode = 1
+offset_left = -287.0
+offset_top = 520.0
+offset_right = 13.0
+offset_bottom = 820.0
+
+[node name="LevelUpParent" type="Control" parent="Window1920/Offset/UIManager"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EscMenuParent" type="Control" parent="Window1920/Offset/UIManager"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Window1920/Offset/UIManager/EscMenuParent"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -200.0
+offset_right = 300.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel"]
+layout_mode = 0
+offset_left = 194.0
+offset_top = 91.0
+offset_right = 386.0
+offset_bottom = 142.0
+text = "Esc Menu"
+label_settings = SubResource("LabelSettings_gf2b2")
+
+[node name="Button" type="Button" parent="Window1920/Offset/UIManager/EscMenuParent/Panel"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 0
+offset_left = 191.0
+offset_top = 220.0
+offset_right = 427.0
+offset_bottom = 320.0
+theme_override_font_sizes/font_size = 32
+text = "Return to Main Menu"
 
 [node name="WindowManager" type="Node" parent="."]
 script = ExtResource("27_fwf5d")
 
+[connection signal="toggled" from="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/Button" to="." method="SpawningButtonPressed"]
 [connection signal="pressed" from="Window1920/Offset/UIManager/MiscParent/Button" to="WindowManager" method="_on_pressed"]
 [connection signal="button_down" from="Window1920/Offset/UIManager/EscMenuParent/Panel/Button" to="." method="return_to_main_menu"]
-[connection signal="toggled" from="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/Button" to="." method="SpawningButtonPressed"]

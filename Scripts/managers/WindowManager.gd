@@ -3,6 +3,8 @@ extends Node
 @onready var GameWindow: Window = $"../Window640"
 @onready var UiWindow: Window = $"../Window1920"
 
+@onready var Game_Offset: Node2D = $"../Window640/Offset"
+@onready var UI_Offset: Control = $"../Window1920/Offset"
 
 
 var curr_size: Vector2
@@ -40,6 +42,7 @@ func set_program_size(size: Vector2, fullscreen: bool):
 		DisplayServer.window_set_position(r.position + Vector2i(int((r.size.x - DisplayServer.window_get_size().x)/2), int((r.size.y - DisplayServer.window_get_size().y)/2)))
 	## Keep track of curr size
 	curr_size = size
+	#UI_Offset.position = Vector2(size.x / 2, 0) # If Node2D, if Control = not needed
 
 
 var curr: int = 1
