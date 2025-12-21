@@ -170,7 +170,6 @@ func remove_weapon_from_player(weapon: Weapon_Frame) -> void:
 # Inventory System Methods:
 ## Check if item can be removed and can be added, then does so
 func move_item(item: ItemUI, origin: Inventory, destination: Inventory) -> bool:
-	print("move_item(" + item.name + ", " + origin.name + ", " + destination.name + ")")
 	if item && destination && destination.can_add(item) && (!origin || origin.can_remove(item)):
 		var money_net_change = 0.0
 		if origin:

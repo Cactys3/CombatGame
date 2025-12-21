@@ -17,7 +17,7 @@ bg_color = Color(0.8745098, 0.44313726, 0.14901961, 0.3647059)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_johy7"]
 
-[node name="Forge" type="Control" node_paths=PackedStringArray("handle_option", "attachment_option", "projectile_option", "stats_display", "default_item_parent", "description_stats")]
+[node name="Forge" type="Control" node_paths=PackedStringArray("handle_option", "attachment_option", "projectile_option", "stats_display")]
 texture_filter = 1
 custom_minimum_size = Vector2(500, 500)
 layout_mode = 3
@@ -32,8 +32,6 @@ handle_option = NodePath("PanelContainer/VBoxContainer/Bottom/OffsetBox/Items/Ha
 attachment_option = NodePath("PanelContainer/VBoxContainer/Bottom/OffsetBox/Items/AttachmentOption")
 projectile_option = NodePath("PanelContainer/VBoxContainer/Bottom/OffsetBox/Items/ProjectileOption")
 stats_display = NodePath("PanelContainer/VBoxContainer/Bottom/OffsetBox/StatsDisplay")
-default_item_parent = NodePath("Parent")
-description_stats = NodePath("PanelContainer/VBoxContainer/Bottom/OffsetBox/StatsDisplay")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(500, 500)

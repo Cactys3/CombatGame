@@ -15,6 +15,7 @@ func _body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		forge = FORGE.instantiate()
 		forge.crafted_weapon.connect(toggle_forge)
+		forge.crafted_weapon.connect(queue_free)
 		GameManager.instance.ui_man.tab_menu_parent.add_child(forge)
 		forge.position = Vector2(650, -140)
 		forge.clear()
@@ -26,3 +27,4 @@ func toggle_forge():
 		forge.clear()
 		forge.queue_free()
 		entered = false
+		GameManager.instance.ui_man.pause_proximity(false)

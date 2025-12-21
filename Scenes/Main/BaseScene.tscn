@@ -101,6 +101,15 @@ polygon = PackedVector2Array(20, 20, 0, 15, 0, -15, 20, -20)
 position = Vector2(10.444397, -2.670288e-05)
 texture = ExtResource("3_eeah7")
 
+[node name="ProximityForge2" parent="Window640/Offset/EventParent/StaticBody2D" instance=ExtResource("3_u5ql4")]
+position = Vector2(-94.88887, -62.666676)
+
+[node name="ProximityForge3" parent="Window640/Offset/EventParent/StaticBody2D" instance=ExtResource("3_u5ql4")]
+position = Vector2(-81.88886, 7.333326)
+
+[node name="ProximityForge4" parent="Window640/Offset/EventParent/StaticBody2D" instance=ExtResource("3_u5ql4")]
+position = Vector2(87.44447, -61.666676)
+
 [node name="EnemyParent" type="Node2D" parent="Window640/Offset"]
 
 [node name="TestBoss" parent="Window640/Offset/EnemyParent" instance=ExtResource("6_u5ql4")]
