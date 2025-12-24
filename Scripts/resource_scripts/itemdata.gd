@@ -211,10 +211,10 @@ func make_frame() -> Weapon_Frame:
 	made_item = true
 	var new_frame: Weapon_Frame = Weapon_Frame.SCENE.instantiate()
 	new_frame.stats = StatsResource.new()
+	new_frame.stats.add_stats(GameManager.instance.global_stats)
 	new_frame.add_attachment(attachment.make_item())
 	new_frame.add_handle(handle.make_item())
 	new_frame.add_projectile(projectile.make_item())
-	new_frame.stats.add_stats(GameManager.instance.global_stats)
 	item_buy_cost = attachment.item_buy_cost + handle.item_buy_cost + projectile.item_buy_cost
 	item_sell_cost_modifier = (attachment.item_sell_cost_modifier + handle.item_sell_cost_modifier + projectile.item_sell_cost_modifier) / 3
 	item_name = attachment.item_name + handle.item_name + projectile.item_name 
@@ -222,9 +222,11 @@ func make_frame() -> Weapon_Frame:
 	attachment_visual = attachment.item_image
 	handle_visual = handle.item_image
 	new_frame.data = self
+	new_frame.name = item_name
 	item = new_frame
 	item_type = item_types.weapon
-	item_image # set to combo of all images somehow
+	item_image # TODO: set to combo of all images somehow
+	stats = new_frame.stats
 	return new_frame
 ## Calculates new level's upgrades, returns them in an array of LevelUpgrades
 func get_level_upgrades() -> Array:

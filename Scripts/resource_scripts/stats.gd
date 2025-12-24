@@ -123,10 +123,13 @@ static var defaultstats = {
 	REVIES: 1.0,
 	THORNS: 1.0
 	}
-var listofaffection: Array[StatsResource] = [] #the list of stats that affect this stat
-var listofaffected: Array[StatsResource] = [] #the list of stats that this stat affects
+## the list of stats that affect this stat
+var listofaffection: Array[StatsResource] = [] 
+## the list of stats that this stat affects
+var listofaffected: Array[StatsResource] = [] 
 var MustRecalculate: bool = true
-var TotalListOfStats: Array[StatsResource] #list of stats used for stat calculations
+## list of stats used for stat calculations
+var TotalListOfStats: Array[StatsResource] 
 ## Method that is called when a stat is changed
 var stat_changed_method: Callable
 func set_changed_method(method: Callable) -> void:
@@ -188,6 +191,13 @@ func GetAllStatsRecursive(list: Array[StatsResource]):
 		MustRecalculate = false
 		for stat in listofaffection:
 			stat.GetAllStatsRecursive(list)
+## Gets a list of all stat objects affecting, but doesn't reset MustRecalculate
+func External_GetAllStatsRecursive(list: Array[StatsResource]):
+	if !list.has(self):
+		list.append(self)
+		for stat in listofaffection:
+			stat.External_GetAllStatsRecursive(list)
+	return list
 ## Recursively says every stat object affected should recalculate
 func Recalculate():
 	if stat_changed_method:

@@ -1,10 +1,8 @@
 class_name StatsDisplay
 extends Control
-
 @export var stats: StatsResource
-
-const SCENE = preload("res://Scenes/UI/stats_visual.tscn")
-
+const LIST = preload("uid://201jmce6dn1q")
+const SCENE = preload("uid://o387qlahldf")
 @export_category("Visuals")
 @export var button_color: Color
 @export var button_text_color: Color
@@ -47,89 +45,229 @@ const SCENE = preload("res://Scenes/UI/stats_visual.tscn")
 @export var show_revies: int = -1
 @export var show_thorns: int = -1
 @export var show_inaccuracy: int = -1
-## Labels
-@onready var hp: Label = $VBoxContainer/ScrollContainer/VBoxContainer/hp
-@onready var stance: Label = $VBoxContainer/ScrollContainer/VBoxContainer/stance
-@onready var movespeed: Label = $VBoxContainer/ScrollContainer/VBoxContainer/movespeed
-@onready var xp: Label = $VBoxContainer/ScrollContainer/VBoxContainer/xp
-@onready var mogul: Label = $VBoxContainer/ScrollContainer/VBoxContainer/mogul
-@onready var luck: Label = $VBoxContainer/ScrollContainer/VBoxContainer/luck
-@onready var damage: Label = $VBoxContainer/ScrollContainer/VBoxContainer/damage
-@onready var _range: Label = $VBoxContainer/ScrollContainer/VBoxContainer/range
-@onready var weight: Label = $VBoxContainer/ScrollContainer/VBoxContainer/weight
-@onready var attackspeed: Label = $VBoxContainer/ScrollContainer/VBoxContainer/attackspeed
-@onready var velocity: Label = $VBoxContainer/ScrollContainer/VBoxContainer/velocity
-@onready var count: Label = $VBoxContainer/ScrollContainer/VBoxContainer/count
-@onready var piercing: Label = $VBoxContainer/ScrollContainer/VBoxContainer/piercing
-@onready var duration: Label = $VBoxContainer/ScrollContainer/VBoxContainer/duration
-@onready var buildup: Label = $VBoxContainer/ScrollContainer/VBoxContainer/buildup
-@onready var _size: Label = $VBoxContainer/ScrollContainer/VBoxContainer/size
-@onready var critchance: Label = $VBoxContainer/ScrollContainer/VBoxContainer/critchance
-@onready var critdamage: Label = $VBoxContainer/ScrollContainer/VBoxContainer/critdamage
-@onready var ghostly: Label = $VBoxContainer/ScrollContainer/VBoxContainer/ghostly
-@onready var regen: Label = $VBoxContainer/ScrollContainer/VBoxContainer/regen
-@onready var magnetize: Label = $VBoxContainer/ScrollContainer/VBoxContainer/magnetize
-@onready var lifesteal: Label = $VBoxContainer/ScrollContainer/VBoxContainer/lifesteal
-@onready var bonusvselites: Label = $VBoxContainer/ScrollContainer/VBoxContainer/bonusvselites
-@onready var shield: Label = $VBoxContainer/ScrollContainer/VBoxContainer/shield
-@onready var difficulty: Label = $VBoxContainer/ScrollContainer/VBoxContainer/difficulty
-@onready var revies: Label = $VBoxContainer/ScrollContainer/VBoxContainer/revies
-@onready var thorns: Label = $VBoxContainer/ScrollContainer/VBoxContainer/thorns
-@onready var inaccuracy: Label = $VBoxContainer/ScrollContainer/VBoxContainer/inaccuracy
-## More Children
+## Child Nodes
 @onready var buttons: Array[Button] = [$VBoxContainer/HBoxContainer/Button, $VBoxContainer/HBoxContainer/Button2, $VBoxContainer/HBoxContainer/Button3, $VBoxContainer/HBoxContainer/Button4]
-@onready var scroll: ScrollContainer = $VBoxContainer/ScrollContainer
-@onready var label_parent: VBoxContainer = $VBoxContainer/ScrollContainer/VBoxContainer
+@onready var title: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/Title
+@onready var scroll: ScrollContainer = $VBoxContainer/HBoxContainer2/ScrollContainer
+@onready var listparent: HBoxContainer = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer
+@onready var labelparent: VBoxContainer = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer
+## Labels
+@onready var damage: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/damage
+@onready var _range: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/range
+@onready var weight: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/weight
+@onready var attackspeed: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/attackspeed
+@onready var velocity: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/velocity
+@onready var count: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/count
+@onready var piercing: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/piercing
+@onready var duration: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/duration
+@onready var buildup: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/buildup
+@onready var _size: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/size
+@onready var hp: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/hp
+@onready var stance: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/stance
+@onready var movespeed: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/movespeed
+@onready var xp: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/xp
+@onready var mogul: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/mogul
+@onready var luck: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/luck
+@onready var critchance: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/critchance
+@onready var critdamage: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/critdamage
+@onready var ghostly: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/ghostly
+@onready var regen: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/regen
+@onready var magnetize: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/magnetize
+@onready var lifesteal: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/lifesteal
+@onready var bonusvselites: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/bonusvselites
+@onready var shield: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/shield
+@onready var difficulty: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/difficulty
+@onready var revies: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/revies
+@onready var thorns: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/thorns
+@onready var inaccuracy: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/inaccuracy
+@onready var statslabels = {
+	StatsResource.DAMAGE: damage,
+	StatsResource.RANGE: _range,
+	StatsResource.WEIGHT: weight,
+	StatsResource.ATTACKSPEED: attackspeed,
+	StatsResource.VELOCITY: velocity,
+	StatsResource.COUNT: count,
+	StatsResource.PIERCING: piercing,
+	StatsResource.DURATION: duration,
+	StatsResource.BUILDUP: buildup,
+	StatsResource.SIZE: _size,
+	StatsResource.HP: hp,
+	StatsResource.STANCE: stance,
+	StatsResource.MOVESPEED: movespeed,
+	StatsResource.XP: xp,
+	StatsResource.MOGUL: mogul,
+	StatsResource.LUCK: luck,
+	StatsResource.CRITCHANCE: critchance,
+	StatsResource.CRITDAMAGE: critdamage,
+	StatsResource.GHOSTLY: ghostly,
+	StatsResource.REGEN: regen,
+	StatsResource.MAGNETIZE: magnetize,
+	StatsResource.LIFESTEAL: lifesteal,
+	StatsResource.BONUSVSELITES: bonusvselites,
+	StatsResource.SHIELD: shield,
+	StatsResource.DIFFICULTY: difficulty,
+	StatsResource.REVIES: revies,
+	StatsResource.THORNS: thorns,
+	StatsResource.INACCURACY: inaccuracy }
+var lists: Array[StatsList]
 ## Variables
 @onready var dict: Dictionary = {
-	damage: show_damage,
-	_range: show_range,
-	weight: show_weight,
-	attackspeed: show_attackspeed,
-	velocity: show_velocity,
-	count: show_count,
-	piercing: show_piercing,
-	duration: show_duration,
-	buildup: show_buildup,
-	_size: show_size,
-	hp: show_hp,
-	stance: show_stance,
-	movespeed: show_movespeed,
-	xp: show_xp,
-	mogul: show_mogul,
-	luck: show_luck,
-	critchance: show_critchance,
-	critdamage: show_critdamage,
-	ghostly: show_ghostly,
-	regen: show_regen,
-	magnetize: show_magnetize,
-	lifesteal: show_lifesteal,
-	bonusvselites: show_bonusvselites,
-	shield: show_shield,
-	difficulty: show_difficulty,
-	revies: show_revies,
-	thorns: show_thorns,
-	inaccuracy: show_inaccuracy }
-@onready var misc: Array[Label] = [_size, luck, bonusvselites, difficulty]
-@onready var players: Array[Label] = [hp, weight, stance, movespeed, xp, mogul, ghostly, regen, magnetize, shield, revies, thorns]
-@onready var weapons: Array[Label] = [damage, _range, attackspeed, velocity, count, piercing, duration, buildup, critchance, critdamage, inaccuracy]
+	StatsResource.DAMAGE: show_damage,
+	StatsResource.RANGE: show_range,
+	StatsResource.WEIGHT: show_weight,
+	StatsResource.ATTACKSPEED: show_attackspeed,
+	StatsResource.VELOCITY: show_velocity,
+	StatsResource.COUNT: show_count,
+	StatsResource.PIERCING: show_piercing,
+	StatsResource.DURATION: show_duration,
+	StatsResource.BUILDUP: show_buildup,
+	StatsResource.SIZE: show_size,
+	StatsResource.HP: show_hp,
+	StatsResource.STANCE: show_stance,
+	StatsResource.MOVESPEED: show_movespeed,
+	StatsResource.XP: show_xp,
+	StatsResource.MOGUL: show_mogul,
+	StatsResource.LUCK: show_luck,
+	StatsResource.CRITCHANCE: show_critchance,
+	StatsResource.CRITDAMAGE: show_critdamage,
+	StatsResource.GHOSTLY: show_ghostly,
+	StatsResource.REGEN: show_regen,
+	StatsResource.MAGNETIZE: show_magnetize,
+	StatsResource.LIFESTEAL: show_lifesteal,
+	StatsResource.BONUSVSELITES: show_bonusvselites,
+	StatsResource.SHIELD: show_shield,
+	StatsResource.DIFFICULTY: show_difficulty,
+	StatsResource.REVIES: show_revies,
+	StatsResource.THORNS: show_thorns,
+	StatsResource.INACCURACY: show_inaccuracy}
+@onready var misc: Array[String] = [
+	StatsResource.SIZE,
+	StatsResource.LUCK,
+	StatsResource.BONUSVSELITES,
+	StatsResource.DIFFICULTY]
+@onready var players: Array[String] = [
+	StatsResource.HP,
+	StatsResource.WEIGHT,
+	StatsResource.STANCE,
+	StatsResource.MOVESPEED,
+	StatsResource.XP,
+	StatsResource.MOGUL,
+	StatsResource.GHOSTLY,
+	StatsResource.REGEN,
+	StatsResource.MAGNETIZE,
+	StatsResource.SHIELD,
+	StatsResource.REVIES,
+	StatsResource.THORNS]
+@onready var weapons: Array[String] = [
+	StatsResource.DAMAGE,
+	StatsResource.RANGE,
+	StatsResource.ATTACKSPEED,
+	StatsResource.VELOCITY,
+	StatsResource.COUNT,
+	StatsResource.PIERCING,
+	StatsResource.DURATION,
+	StatsResource.BUILDUP,
+	StatsResource.CRITCHANCE,
+	StatsResource.CRITDAMAGE,
+	StatsResource.INACCURACY]
+@onready var array: Array[String] = [
+	StatsResource.HP,
+	StatsResource.SHIELD,
+	StatsResource.REGEN,
+	StatsResource.XP,
+	StatsResource.MOGUL,
+	StatsResource.MOVESPEED,
+	StatsResource.STANCE,
+	StatsResource.DAMAGE,
+	StatsResource.RANGE,
+	StatsResource.ATTACKSPEED,
+	StatsResource.PIERCING,
+	StatsResource.VELOCITY,
+	StatsResource.COUNT,
+	StatsResource.DURATION,
+	StatsResource.SIZE,
+	StatsResource.WEIGHT,
+	StatsResource.LUCK,
+	StatsResource.BUILDUP,
+	StatsResource.CRITCHANCE,
+	StatsResource.CRITDAMAGE,
+	StatsResource.GHOSTLY,
+	StatsResource.MAGNETIZE,
+	StatsResource.LIFESTEAL,
+	StatsResource.BONUSVSELITES,
+	StatsResource.DIFFICULTY,
+	StatsResource.REVIES,
+	StatsResource.THORNS,
+	StatsResource.INACCURACY]
+@onready var default_order: Array[String] = [
+	StatsResource.HP,
+	StatsResource.SHIELD,
+	StatsResource.REGEN,
+	StatsResource.XP,
+	StatsResource.MOGUL,
+	StatsResource.MOVESPEED,
+	StatsResource.STANCE,
+	StatsResource.DAMAGE,
+	StatsResource.RANGE,
+	StatsResource.ATTACKSPEED,
+	StatsResource.PIERCING,
+	StatsResource.VELOCITY,
+	StatsResource.COUNT,
+	StatsResource.DURATION,
+	StatsResource.SIZE,
+	StatsResource.WEIGHT,
+	StatsResource.LUCK,
+	StatsResource.BUILDUP,
+	StatsResource.CRITCHANCE,
+	StatsResource.CRITDAMAGE,
+	StatsResource.GHOSTLY,
+	StatsResource.MAGNETIZE,
+	StatsResource.LIFESTEAL,
+	StatsResource.BONUSVSELITES,
+	StatsResource.DIFFICULTY,
+	StatsResource.REVIES,
+	StatsResource.THORNS,
+	StatsResource.INACCURACY]
 var last_clicked: float = -1
-@onready var array: Array[Label] = [hp, shield, regen, xp, mogul, movespeed, stance, damage, _range, attackspeed, piercing, velocity, count, duration, _size, weight, luck, buildup, critchance, critdamage, ghostly, magnetize, lifesteal, bonusvselites, difficulty, revies, thorns, inaccuracy]
-@onready var default_order: Array[Label] = [hp, shield, regen, xp, mogul, movespeed, stance, damage, _range, attackspeed, piercing, velocity, count, duration, _size, weight, luck, buildup, critchance, critdamage, ghostly, magnetize, lifesteal, bonusvselites, difficulty, revies, thorns, inaccuracy]
-
 var is_ready: bool = false
-
+var timer
+## Backup
+func _ready() -> void:
+	if stats:
+		set_stats(stats, stats.parent_object_name)
+## Sets up the node
 func set_stats(new_stats: StatsResource, new_name: String):
-	stats = new_stats
+	## Setup Based on Parameters
+	for list in lists:
+		list.queue_free()
+	lists.clear()
+	var index: int = 1
+	var mainlist: StatsList = LIST.instantiate()
+	mainlist.setup(new_stats, index)
+	index += 1
+	listparent.add_child(mainlist)
+	lists.append(mainlist)
+	var affecting_stats: Array[StatsResource]
+	affecting_stats = new_stats.External_GetAllStatsRecursive(affecting_stats)
+	
+	for stat in new_stats.listofaffection:
+			if !stat.parent_object_name.to_lower().contains("global"):
+				if stat != new_stats:
+					var newlist: StatsList = LIST.instantiate()
+					newlist.setup(stat, index)
+					index += 1
+					listparent.add_child(newlist)
+					lists.append(newlist)
 	name = new_name
-	var timer = Timer.new()
+	if timer:
+		timer.queue_free()
+	timer = Timer.new()
 	add_child(timer)
 	timer.timeout.connect(refresh)
 	timer.wait_time = 3.0
 	timer.start()
-	refresh()
-	is_ready = true
-func _ready():
+	title.text = new_name
+	## Setup based on @exports
 	if button_text_color:
 		for button in buttons:
 			button.add_theme_color_override("font_color", button_text_color)
@@ -138,9 +276,9 @@ func _ready():
 		box.bg_color = button_color
 		for button in buttons:
 			button.add_theme_stylebox_override("normal", box)
-	if text_color:
-		for label in array:
-			label.add_theme_color_override("font_color", text_color)
+	#if text_color:
+		#for list in lists:
+			#list.set_text_color(text_color)
 	if scroll_stylebox:
 		scroll.get_v_scroll_bar().custom_minimum_size = Vector2(8, 0)
 		scroll.get_v_scroll_bar().add_theme_stylebox_override("scroll", scroll_stylebox)
@@ -149,8 +287,6 @@ func _ready():
 	if scroll_grabber_hover_stylebox:
 		scroll.get_v_scroll_bar().add_theme_stylebox_override("grabber_highlight", scroll_grabber_hover_stylebox)
 		scroll.get_v_scroll_bar().add_theme_stylebox_override("grabber_pressed", scroll_grabber_hover_stylebox)
-	if stats:
-		set_stats(stats, stats.parent_object_name)
 	if hide_weapon_only:
 		hide_weapons()
 	if hide_player_only:
@@ -159,49 +295,28 @@ func _ready():
 		hide_misc()
 	hide_hides()
 	sort_default()
+	refresh()
+	is_ready = true
 func refresh():
 	if stats:
 		if only_show_changed:
 			hide_defaults()
 		else:
 			for element in array:
-				element.visible = true
-		damage.text = "damage: " + str(stats.get_stat(StatsResource.DAMAGE))
-		_range.text = "range: " + str(stats.get_stat(StatsResource.RANGE))
-		weight.text = "weight: " + str(stats.get_stat(StatsResource.WEIGHT))
-		attackspeed.text = "attackspeed: " + str(stats.get_stat(StatsResource.ATTACKSPEED))
-		velocity.text = "velocity: " + str(stats.get_stat(StatsResource.VELOCITY))
-		count.text = "count: " + str(stats.get_stat(StatsResource.COUNT))
-		piercing.text = "piercing: " + str(stats.get_stat(StatsResource.PIERCING))
-		duration.text = "duration: " + str(stats.get_stat(StatsResource.DURATION))
-		buildup.text = "buildup: " + str(stats.get_stat(StatsResource.BUILDUP))
-		_size.text = "size: " + str(stats.get_stat(StatsResource.SIZE))
-		hp.text = "hp: " + str(stats.get_stat(StatsResource.HP))
-		stance.text = "stance: " + str(stats.get_stat(StatsResource.STANCE))
-		movespeed.text = "movespeed: " + str(stats.get_stat(StatsResource.MOVESPEED))
-		xp.text = "xp: " + str(stats.get_stat(StatsResource.XP))
-		mogul.text = "mogul: " + str(stats.get_stat(StatsResource.MOGUL))
-		luck.text = "luck: " + str(stats.get_stat(StatsResource.LUCK))
-		critchance.text = "critchance: " + str(stats.get_stat(StatsResource.CRITCHANCE))
-		critdamage.text = "critdamage: " + str(stats.get_stat(StatsResource.CRITDAMAGE))
-		ghostly.text = "ghostly: " + str(stats.get_stat(StatsResource.GHOSTLY))
-		regen.text = "regen: " + str(stats.get_stat(StatsResource.REGEN))
-		magnetize.text = "magnetize: " + str(stats.get_stat(StatsResource.MAGNETIZE))
-		lifesteal.text = "lifesteal: " + str(stats.get_stat(StatsResource.LIFESTEAL))
-		bonusvselites.text = "bonusvselites: " + str(stats.get_stat(StatsResource.BONUSVSELITES))
-		shield.text = "shield: " + str(stats.get_stat(StatsResource.SHIELD))
-		difficulty.text = "difficulty: " + str(stats.get_stat(StatsResource.DIFFICULTY))
-		revies.text = "revies: " + str(stats.get_stat(StatsResource.REVIES))
-		thorns.text = "thorns: " + str(stats.get_stat(StatsResource.THORNS))
-		inaccuracy.text = "inaccuracy: " + str(stats.get_stat(StatsResource.INACCURACY))
+				for list in lists:
+					list.set_stat_visible(element, true)
+					if statslabels.has(element):
+						statslabels[element].visible = true
+		for list in lists:
+			list.refresh()
 func sort_random():
 	array.shuffle()
 	reset_children()
 func sort_reverse_alphabetically():
-	array.sort_custom(func(a, b): return a.name > b.name)
+	array.sort_custom(func(a, b): return a > b)
 	reset_children()
 func sort_alphabetically():
-	array.sort_custom(func(a, b): return a.name < b.name)
+	array.sort_custom(func(a, b): return a < b)
 	reset_children()
 func sort_reverse_default():
 	array = default_order.duplicate()
@@ -214,121 +329,39 @@ func sort_numerically():
 	pass
 func reset_children():
 	for i in range(array.size()):
-		label_parent.move_child(array[i], i)
+		for list in lists:
+			list.reorder(array[i], i + 2) # +2 to offset title and underline nodes
+			labelparent.move_child(statslabels[array[i]], i + 2)
 ## Hides stats that aren't changed from default value
 func hide_defaults():
-	if stats.is_stat_default(StatsResource.DAMAGE):
-		damage.visible = false
-	else:
-		damage.visible = true
-	if stats.is_stat_default(StatsResource.RANGE):
-		_range.visible = false
-	else:
-		_range.visible = true
-	if stats.is_stat_default(StatsResource.WEIGHT):
-		weight.visible = false
-	else:
-		weight.visible = true
-	if stats.is_stat_default(StatsResource.ATTACKSPEED):
-		attackspeed.visible = false
-	else:
-		attackspeed.visible = true
-	if stats.is_stat_default(StatsResource.VELOCITY):
-		velocity.visible = false
-	else:
-		velocity.visible = true
-	if stats.is_stat_default(StatsResource.COUNT):
-		count.visible = false
-	else:
-		count.visible = true
-	if stats.is_stat_default(StatsResource.PIERCING):
-		piercing.visible = false
-	else:
-		piercing.visible = true
-	if stats.is_stat_default(StatsResource.DURATION):
-		duration.visible = false
-	else:
-		duration.visible = true
-	if stats.is_stat_default(StatsResource.BUILDUP):
-		buildup.visible = false
-	else:
-		buildup.visible = true
-	if stats.is_stat_default(StatsResource.SIZE):
-		_size.visible = false
-	else:
-		_size.visible = true
-	if stats.is_stat_default(StatsResource.HP):
-		hp.visible = false
-	else:
-		hp.visible = true
-	if stats.is_stat_default(StatsResource.STANCE):
-		stance.visible = false
-	else:
-		stance.visible = true
-	if stats.is_stat_default(StatsResource.MOVESPEED):
-		movespeed.visible = false
-	else:
-		movespeed.visible = true
-	if stats.is_stat_default(StatsResource.XP):
-		xp.visible = false
-	else:
-		xp.visible = true
-	if stats.is_stat_default(StatsResource.MOGUL):
-		mogul.visible = false
-	else:
-		mogul.visible = true
-	if stats.is_stat_default(StatsResource.LUCK):
-		luck.visible = false
-	else:
-		luck.visible = true
-	if stats.is_stat_default(StatsResource.CRITCHANCE):
-		critchance.visible = false
-	else:
-		critchance.visible = true
-	if stats.is_stat_default(StatsResource.CRITDAMAGE):
-		critdamage.visible = false
-	else:
-		critdamage.visible = true
-	if stats.is_stat_default(StatsResource.GHOSTLY):
-		ghostly.visible = false
-	else:
-		ghostly.visible = true
-	if stats.is_stat_default(StatsResource.REGEN):
-		regen.visible = false
-	else:
-		regen.visible = true
-	if stats.is_stat_default(StatsResource.MAGNETIZE):
-		magnetize.visible = false
-	else:
-		magnetize.visible = true
-	if stats.is_stat_default(StatsResource.LIFESTEAL):
-		lifesteal.visible = false
-	else:
-		lifesteal.visible = true
-	if stats.is_stat_default(StatsResource.BONUSVSELITES):
-		bonusvselites.visible = false
-	else:
-		bonusvselites.visible = true
-	if stats.is_stat_default(StatsResource.SHIELD):
-		shield.visible = false
-	else:
-		shield.visible = true
-	if stats.is_stat_default(StatsResource.DIFFICULTY):
-		difficulty.visible = false
-	else:
-		difficulty.visible = true
-	if stats.is_stat_default(StatsResource.REVIES):
-		revies.visible = false
-	else:
-		revies.visible = true
-	if stats.is_stat_default(StatsResource.THORNS):
-		thorns.visible = false
-	else:
-		thorns.visible = true
-	if stats.is_stat_default(StatsResource.INACCURACY):
-		inaccuracy.visible = false
-	else:
-		inaccuracy.visible = true
+	set_stat_visible(StatsResource.DAMAGE, stats.is_stat_default(StatsResource.DAMAGE))
+	set_stat_visible(StatsResource.RANGE, stats.is_stat_default(StatsResource.RANGE))
+	set_stat_visible(StatsResource.WEIGHT, stats.is_stat_default(StatsResource.WEIGHT))
+	set_stat_visible(StatsResource.ATTACKSPEED, stats.is_stat_default(StatsResource.ATTACKSPEED))
+	set_stat_visible(StatsResource.VELOCITY, stats.is_stat_default(StatsResource.VELOCITY))
+	set_stat_visible(StatsResource.COUNT, stats.is_stat_default(StatsResource.COUNT))
+	set_stat_visible(StatsResource.PIERCING, stats.is_stat_default(StatsResource.PIERCING))
+	set_stat_visible(StatsResource.DURATION, stats.is_stat_default(StatsResource.DURATION))
+	set_stat_visible(StatsResource.BUILDUP, stats.is_stat_default(StatsResource.BUILDUP))
+	set_stat_visible(StatsResource.SIZE, stats.is_stat_default(StatsResource.SIZE))
+	set_stat_visible(StatsResource.HP, stats.is_stat_default(StatsResource.HP))
+	set_stat_visible(StatsResource.STANCE, stats.is_stat_default(StatsResource.STANCE))
+	set_stat_visible(StatsResource.MOVESPEED, stats.is_stat_default(StatsResource.MOVESPEED))
+	set_stat_visible(StatsResource.XP, stats.is_stat_default(StatsResource.XP))
+	set_stat_visible(StatsResource.MOGUL, stats.is_stat_default(StatsResource.MOGUL))
+	set_stat_visible(StatsResource.LUCK, stats.is_stat_default(StatsResource.LUCK))
+	set_stat_visible(StatsResource.CRITCHANCE, stats.is_stat_default(StatsResource.CRITCHANCE))
+	set_stat_visible(StatsResource.CRITDAMAGE, stats.is_stat_default(StatsResource.CRITDAMAGE))
+	set_stat_visible(StatsResource.GHOSTLY, stats.is_stat_default(StatsResource.GHOSTLY))
+	set_stat_visible(StatsResource.REGEN, stats.is_stat_default(StatsResource.REGEN))
+	set_stat_visible(StatsResource.MAGNETIZE, stats.is_stat_default(StatsResource.MAGNETIZE))
+	set_stat_visible(StatsResource.LIFESTEAL, stats.is_stat_default(StatsResource.LIFESTEAL))
+	set_stat_visible(StatsResource.BONUSVSELITES, stats.is_stat_default(StatsResource.BONUSVSELITES))
+	set_stat_visible(StatsResource.SHIELD, stats.is_stat_default(StatsResource.SHIELD))
+	set_stat_visible(StatsResource.DIFFICULTY, stats.is_stat_default(StatsResource.DIFFICULTY))
+	set_stat_visible(StatsResource.REVIES, stats.is_stat_default(StatsResource.REVIES))
+	set_stat_visible(StatsResource.THORNS, stats.is_stat_default(StatsResource.THORNS))
+	set_stat_visible(StatsResource.INACCURACY, stats.is_stat_default(StatsResource.INACCURACY))
 ## Removes elements from arrays based on if they are set to be hidden
 func hide_hides():
 	for key in dict:
@@ -342,25 +375,29 @@ func hide_weapons():
 	for label in weapons:
 		array.erase(label)
 		default_order.erase(label)
-		label.visible = false
+		set_stat_visible(label, false)
 func hide_players():
 	for label in players:
 		array.erase(label)
 		default_order.erase(label)
-		label.visible = false
+		set_stat_visible(label, false)
 func hide_misc():
 	for label in misc:
 		array.erase(label)
 		default_order.erase(label)
-		label.visible = false
+		set_stat_visible(label, false)
 ## Gets the name of all stats objects affecting this one
-func get_affecting_names():
+func get_affecting_names() -> Array[StatsResource]:
 	var a: Array[StatsResource]
-	stats.GetAllStatsRecursive(a)
+	stats.External_GetAllStatsRecursive(a)
+	return a
+
+func set_stat_visible(key: String, value: bool) -> void:
+	for list in lists:
+		list.set_stat_visible(key, value)
 
 func button1():
 	if is_ready:
-		get_affecting_names()
 		if last_clicked == 1:
 			sort_reverse_default()
 			last_clicked = -1

@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://qo3jcyvbqi4e" path="res://Art/Hell/UI/Forge_Hell.png" id="1_sye38"]
 [ext_resource type="Script" uid="uid://e16j8gnfxht2" path="res://Scripts/UI/forge.gd" id="1_w8kvo"]
-[ext_resource type="PackedScene" uid="uid://o387qlahldf" path="res://Scenes/UI/stats_visual.tscn" id="2_pli00"]
+[ext_resource type="PackedScene" uid="uid://o387qlahldf" path="res://Scenes/UI/StatsDisplay/stats_visual.tscn" id="2_pli00"]
 [ext_resource type="Texture2D" uid="uid://wv5ai6loeonk" path="res://Art/Hell/UI/Forge_Anvil_Hell.png" id="3_fpotv"]
 [ext_resource type="PackedScene" uid="uid://cp4jxbjxcilvh" path="res://Scenes/UI/forge_option.tscn" id="4_johy7"]
 

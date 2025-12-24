@@ -12,18 +12,11 @@ const SCENE = preload("res://Scenes/Weapons/weapon_frame.tscn")
 
 @onready var manager = get_tree().get_first_node_in_group("weapon_manager")
 
-@export var stats: StatsResource = StatsResource.new()
+@export var stats: StatsResource #= StatsResource.new()
 
 var data: ItemData
 
 var QueuedAttacks: Array[AttackEvent] = [] #TODO: not used, to create attack need to use stats which defeats point of queue
-
-func _ready() -> void:
-	stats.parent_object_name = name
-	stats.add_stats(GameManager.instance.global_stats)
-	#stats = stats.duplicate()
-	#TODO: ADD GLOBAL STATS TO THIS STATS
-	#stats.add_stats(global_stats)
 
 func _process(_delta: float) -> void:
 	if !QueuedAttacks.is_empty():

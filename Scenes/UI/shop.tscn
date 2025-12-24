@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dleil6x66g7gl" path="res://Scripts/UI/shop.gd" id="1_rllpi"]
 [ext_resource type="Texture2D" uid="uid://bmca5sekljecn" path="res://Art/Hell/Characters/ShopKeeperHell.png" id="2_3jh66"]
-[ext_resource type="PackedScene" uid="uid://o387qlahldf" path="res://Scenes/UI/stats_visual.tscn" id="2_6qnyu"]
+[ext_resource type="PackedScene" uid="uid://o387qlahldf" path="res://Scenes/UI/StatsDisplay/stats_visual.tscn" id="2_6qnyu"]
 [ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="3_gm4r4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hs6wh"]
