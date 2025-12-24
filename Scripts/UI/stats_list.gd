@@ -92,6 +92,12 @@ func refresh():
 	else:
 		before = " + "
 		title.text = stats.parent_object_name
+		if title.text.to_lower().contains("handle"):
+			title.text = "Handle"
+		if title.text.to_lower().contains("projectile") || title.text.to_lower().contains("bullet"):
+			title.text = "Projectile"
+		if title.text.to_lower().contains("attachment"):
+			title.text = "Attachment"
 	for stat in statslabels:
 		statslabels[stat].text = before + str(roundi(stats.get_stat(stat))) + after
 ## Reorders given label to given position
@@ -100,7 +106,7 @@ func reorder(key: String, new_position: int):
 func _on_mouse_entered() -> void:
 	if ID != -1:
 		label = Label.new()
-		label.text = title.text
+		label.text = stats.parent_object_name
 		label.modulate = modulate
 		label.add_theme_constant_override("outline_size", 10)
 		label.add_theme_color_override("font_outline_color", Color.BLACK)
