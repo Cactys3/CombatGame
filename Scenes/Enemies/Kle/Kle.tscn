@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://i0ead3kcc77p"]
 
 [ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_kk8om"]
-[ext_resource type="Texture2D" uid="uid://cctoa8i4776qs" path="res://Art/Characters/Hell/Kle.png" id="2_je6n7"]
+[ext_resource type="Texture2D" uid="uid://cctoa8i4776qs" path="res://Art/Hell/Enemies/Kle.png" id="2_je6n7"]
 [ext_resource type="Resource" uid="uid://bu6bbovadmvj7" path="res://Scenes/Enemies/Kle/kle_stats.tres" id="2_tslju"]
 [ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="3_tslju"]
 

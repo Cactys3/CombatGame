@@ -46,9 +46,19 @@ func player_Killed(player: Character, attack: Attack):
 	pass
 func round_ended(round_number: int):
 	pass
-static func get_level_upgrades(itemdata: ItemData) -> Array[LevelUpgrade]:
-	var arr: Array[LevelUpgrade]
-	var u1: LevelUpgrade = LevelUpgrade.new()
+static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrade]:
+	var arr: Array[ItemData.LevelUpgrade]
+	var u1: ItemData.LevelUpgrade = ItemData.LevelUpgrade.new()
 	u1.setup(StatsResource.DAMAGE, false, randf_range(15, 30))
 	#arr.append(u1)
 	return arr
+
+## Returns a randomized stat object, using the given itemdata's variables like rarity
+static func randomize_stats(itemdata: ItemData) -> StatsResource:
+	var stats: StatsResource = StatsResource.new()
+	stats.set_stat_base(StatsResource.DAMAGE, randi_range(0, 20))
+	stats.set_stat_base(StatsResource.RANGE, randi_range(0, 20))
+	stats.set_stat_base(StatsResource.SIZE, randf())
+	stats.set_stat_base(StatsResource.VELOCITY, randi_range(0, 20))
+	stats.parent_object_name = "RNGrolls-default"
+	return stats

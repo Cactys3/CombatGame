@@ -1,17 +1,11 @@
-extends Area2D
+extends Components
 class_name Attachment
-
-const RAILGUN = preload("res://Scenes/Weapons/railgun/railgun_attachment.tscn")
-const PISTOL = preload("res://Scenes/Weapons/pistol/pistol_attachment.tscn")
-const FLAMETHROWER = preload("res://Scenes/Weapons/flamethrower/flamethrower_attachment.tscn")
-const SWORD = preload("res://Scenes/Weapons/sword/sword_attachment.tscn")
 
 func get_scene() -> PackedScene:
 	return preload("res://Scenes/Weapons/pistol/pistol_attachment.tscn")
 
-var data: ItemData = ItemData.new()#ItemData.item_types.attachment, "attachment", StatsResource.new(), null)
-
-@export var stats: StatsResource# = StatsResource.new()
+var data: ItemData = ItemData.new()
+@export var stats: StatsResource
 
 var bullets: Array[Projectile]
 ## Determines what attackspeed is, attacksperX = 2 means attackspeed is how many attacks every 2 seconds
@@ -113,10 +107,8 @@ func make_attack() -> Attack:
 func set_stats() -> void:
 	pass # setup the stat values inside the class so they dont get reset when changing stat dictionary
 
-## Overriden
-static func get_level_upgrades(itemdata: ItemData) -> Array[LevelUpgrade]:
-	var arr: Array[LevelUpgrade]
-	var u1: LevelUpgrade = LevelUpgrade.new()
-	u1.setup(StatsResource.DAMAGE, false, randf_range(15, 30))
-	arr.append(u1)
-	return arr
+## Returns a randomized stat object, using the given itemdata's variables like rarity
+static func randomize_stats(itemdata: ItemData) -> StatsResource:
+	var ret = super(itemdata)
+	ret.parent_object_name = "RNGrolls-attachment"
+	return ret

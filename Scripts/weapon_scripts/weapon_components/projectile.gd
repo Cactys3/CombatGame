@@ -1,12 +1,6 @@
-extends Area2D
+extends Components
 class_name Projectile
 
-#const FLAMETHROWER = preload("res://Resources/Weapons/Flamethrower/flamethrower_projectile.tres")
-
-const FLAMETHROWER = preload("res://Scenes/Weapons/flamethrower/fire_projectile.tscn")
-const PISTOL = preload("res://Scenes/Weapons/pistol/pistol_bullet.tscn")
-const RAILGUN = preload("res://Scenes/Weapons/railgun/railgun_projectile.tscn")
-const SWORD = preload("res://Scenes/Weapons/sword/sword_projectile.tscn")
 func get_instance():
 	return data.get_item().duplicate()
 
@@ -109,10 +103,8 @@ func die():
 	died.emit(global_position, is_clone)
 	queue_free()
 
-## Overriden
-static func get_level_upgrades(itemdata: ItemData) -> Array[LevelUpgrade]:
-	var arr: Array[LevelUpgrade]
-	var u1: LevelUpgrade = LevelUpgrade.new()
-	u1.setup(StatsResource.DAMAGE, false, randf_range(15, 30))
-	arr.append(u1)
-	return arr
+## Returns a randomized stat object, using the given itemdata's variables like rarity
+static func randomize_stats(itemdata: ItemData) -> StatsResource:
+	var ret = super(itemdata)
+	ret.parent_object_name = "RNGrolls-projectile"
+	return ret

@@ -137,9 +137,9 @@ func set_changed_method(method: Callable) -> void:
 ## If valid, Recalculates then adds stats to this stats object
 func add_stats(other: StatsResource) -> void: #adds the other stats to listofaffection
 	if other == null || other == self || listofaffection.has(other):
-		#print("\nPotential ERROR when trying to add_stats\n")
+		print("\nPotential ERROR when trying to add_stats\n")
 		return
-	Recalculate() # Must Recalculate TotalListofAffectionStats as we added a new stat
+	stats_changed() # Must Recalculate TotalListofAffectionStats as we added a new stat
 	listofaffection.append(other) #since the other stats is affecting this now, add it to the our listofaffection
 	other.listofaffected.append(self)
 ##If valid, Recalculates then removes stats from this stats object
@@ -147,15 +147,13 @@ func remove_stats(other: StatsResource) -> void: #removes the stat from affectin
 	if other == null || other == self || !listofaffection.has(other):
 		#print("\nPotential ERROR: other stat is null when trying to remove_stats\n\t (OR doesn't include self in list of affection)\n")
 		return
-	Recalculate()# Must Recalculate TotalListofAffectionStats as we removed a stat
+	stats_changed()# Must Recalculate TotalListofAffectionStats as we removed a stat
 	listofaffection.erase(other) #since the other stats is affecting this now, add it to the other stat's listofaffection
 	other.listofaffected.erase(self)
 ## If valid, checks recalculate then returns the total calculated stat
 func get_stat(key: String) -> float:
 	if statsbase.has(key) && statsfactor.has(key):
-		if (MustRecalculate): # If list of all affecting stats has changed since last calculation, recalculate
-			TotalListOfStats = []
-			GetAllStatsRecursive(TotalListOfStats) # Get a list of all stats that are in the chain of stats that affect this stats, no duplicates
+		Recalculate()
 		var base = 0
 		var factor = 1
 		for stat: StatsResource in TotalListOfStats:
@@ -164,17 +162,14 @@ func get_stat(key: String) -> float:
 			else:
 				base += stat.statsbase[key]
 				factor *= stat.statsfactor[key]
-		return (base * factor) + get_default(key) 
+		return (base * factor)# + get_default(key) 
 	else:
 		push_error("ERROR getting stat: " + key +  " from: " + parent_object_name + ". Base: " + str(statsbase.has(key)) + ", Factor: " + str(statsfactor.has(key)))
-		
 		return -999
 ## If valid, checks recalculate then returns the total calculated stat but without default
 func get_stat_without_default(key: String) -> float:
 	if statsbase.has(key):
-		if (MustRecalculate): # If list of all affecting stats has changed since last calculation, recalculate
-			TotalListOfStats = []
-			GetAllStatsRecursive(TotalListOfStats) # Get a list of all stats that are in the chain of stats that affect this stats, no duplicates
+		Recalculate()
 		var base = 0
 		var factor = 1
 		for stat in TotalListOfStats:
@@ -189,6 +184,7 @@ func GetAllStatsRecursive(list: Array[StatsResource]):
 	if !list.has(self):
 		list.append(self)
 		MustRecalculate = false
+		print("checking so many: " + str(listofaffection.size()))
 		for stat in listofaffection:
 			stat.GetAllStatsRecursive(list)
 ## Gets a list of all stat objects affecting, but doesn't reset MustRecalculate
@@ -200,17 +196,24 @@ func External_GetAllStatsRecursive(list: Array[StatsResource]):
 	return list
 ## Recursively says every stat object affected should recalculate
 func Recalculate():
+	if MustRecalculate || TotalListOfStats == []:
+		TotalListOfStats = []
+		GetAllStatsRecursive(TotalListOfStats)
+		if TotalListOfStats.size() > 1:
+			print(TotalListOfStats.size())
+			print("TotalListOfStats for " + parent_object_name + " is: ")
+			for l in TotalListOfStats:
+				print(l.parent_object_name)
+func stats_changed():
 	if stat_changed_method:
 		stat_changed_method.call()
 	MustRecalculate = true
 	for stat in listofaffected:
-		stat.Recalculate()
+		stat.stats_changed()
 ## returns total stats calculation of base stat
 func get_stat_base(key: String) -> float:
 	if statsbase.has(key):
-		if (MustRecalculate): # If list of all affecting stats has changed since last calculation, recalculate
-			TotalListOfStats = []
-			GetAllStatsRecursive(TotalListOfStats) # Get a list of all stats that are in the chain of stats that affect this stats, no duplicates
+		Recalculate()
 		var base = 0
 		for stat in TotalListOfStats:
 			base += stat.statsbase[key]
@@ -221,9 +224,7 @@ func get_stat_base(key: String) -> float:
 ## returns total stats calculation of factor stat
 func get_stat_factor(key: String) -> float:
 	if statsfactor.has(key):
-		if (MustRecalculate): # If list of all affecting stats has changed since last calculation, recalculate
-			TotalListOfStats = []
-			GetAllStatsRecursive(TotalListOfStats) # Get a list of all stats that are in the chain of stats that affect this stats, no duplicates
+		Recalculate()
 		var factor = 1
 		for stat in TotalListOfStats:
 			factor *= stat.statsfactor[key]
@@ -235,20 +236,19 @@ func get_stat_factor(key: String) -> float:
 func set_stat_base(key: String, value: float):
 	if statsbase.has(key):
 		statsbase[key] = value
-		MustRecalculate = true
+		stats_changed()
 	else:
 		print("Tried and Failed to set BaseStat: " + key + " to: " + str(value))
 ## edits this statsresource only value of factor stat (only used when isolated statsresource)
 func set_stat_factor(key: String, value: float):
 	if statsfactor.has(key):
 		statsfactor[key] = value
-		MustRecalculate = true
+		stats_changed()
 	else:
 		print("Tried and Failed to set FactorStat: " + key + " to: " + str(value))
 ## Prints all the stats from stats factor, then statsbase. Does not calculate stats
 func print_stats() -> void:
-	if MustRecalculate:
-		print("Stats are wrong, must recalculate first")
+	Recalculate()
 	var list: Array[StatsResource]
 	GetAllStatsRecursive(list)
 	for l in list:
@@ -259,6 +259,14 @@ func print_stats() -> void:
 		print("\nBases: ")
 		for key in l.statsbase:
 			print(key + " - " + str(l.statsbase[key]))
+## Prints stat and all affecting stats for given stat key
+func print_stat_tree(key: String):
+	Recalculate()
+	var list: Array[StatsResource]
+	GetAllStatsRecursive(list)
+	print("Self: " + parent_object_name + ", Factor: " + str(statsfactor[key]) +", Base: " + str(statsbase[key]))
+	for l in list:
+		print("Stats Object: " + l.parent_object_name + ", Factor: " + str(l.statsfactor[key]) +", Base: " + str(l.statsbase[key]))
 ## Returns if the stat is default or changed
 func is_stat_default(stat: String):
 	return get_stat_without_default(stat) == 0

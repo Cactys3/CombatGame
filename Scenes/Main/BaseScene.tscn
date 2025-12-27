@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dc0hdlr7wq3lq"]
+[gd_scene load_steps=23 format=3 uid="uid://dc0hdlr7wq3lq"]
 
 [ext_resource type="Script" uid="uid://bb13nkhmcojis" path="res://Scenes/Instances/InstanceRoot.gd" id="1_eeah7"]
 [ext_resource type="PackedScene" uid="uid://dxv17gll2bx2l" path="res://Scenes/Instances/Hell/HellPuddle.tscn" id="2_qrryo"]
@@ -10,9 +10,7 @@
 [ext_resource type="Script" uid="uid://q2s0hxfba110" path="res://Scripts/managers/GameManager.gd" id="9_u5ctk"]
 [ext_resource type="Script" uid="uid://illqvubum1r1" path="res://Scripts/managers/UIManager.gd" id="10_627tp"]
 [ext_resource type="Script" uid="uid://13p8bkyp17w" path="res://Scripts/managers/TestingManager.gd" id="10_cwiy3"]
-[ext_resource type="PackedScene" uid="uid://o387qlahldf" path="res://Scenes/UI/StatsDisplay/stats_visual.tscn" id="12_627tp"]
 [ext_resource type="Script" uid="uid://5tltnj2xg8ps" path="res://Scripts/managers/ShopManager.gd" id="12_e4e03"]
-[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="13_afe04"]
 [ext_resource type="PackedScene" uid="uid://cvrebkaqtisv6" path="res://Scenes/UI/hud.tscn" id="15_6si6h"]
 [ext_resource type="PackedScene" uid="uid://bcwklkqeim2sq" path="res://Scenes/UI/inventory.tscn" id="17_gf2b2"]
 [ext_resource type="PackedScene" uid="uid://bwuwo8e451bxt" path="res://Scenes/UI/shop_inventory.tscn" id="18_85yrk"]
@@ -24,41 +22,6 @@ radius = 652.96
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wafdh"]
 radius = 400.0
-
-[sub_resource type="Resource" id="Resource_okq7h"]
-script = ExtResource("13_afe04")
-parent_object_name = "new name"
-statsbase = {
-"attackspeed": 0.0,
-"bonusvselites": 0.0,
-"buildup": 3254.0,
-"count": 0.0,
-"critchance": 0.0,
-"critdamage": 12345.0,
-"damage": 0.0,
-"difficulty": 0.0,
-"duration": 0.0,
-"ghostly": 0.0,
-"hp": 23.0,
-"inaccuracy": 0.0,
-"lifesteal": 0.0,
-"luck": 23.0,
-"magentize": 0.0,
-"mogul": 154.0,
-"movespeed": 2323.0,
-"piercing": 0.0,
-"range": 0.0,
-"regen": 0.0,
-"revies": 0.0,
-"shield": 0.0,
-"size": 0.0,
-"stance": 23.0,
-"thorns": 0.0,
-"velocity": 15435431.0,
-"weight": 23124.0,
-"xp": 0.0
-}
-metadata/_custom_type_script = "uid://dwj80yu0v1qdt"
 
 [sub_resource type="LabelSettings" id="LabelSettings_tpk5p"]
 font_size = 32
@@ -300,14 +263,6 @@ offset_left = -287.0
 offset_top = 520.0
 offset_right = 13.0
 offset_bottom = 820.0
-
-[node name="StatsDisplay" parent="Window1920/Offset/UIManager/TabMenuParent" instance=ExtResource("12_627tp")]
-layout_mode = 0
-offset_left = 1401.0
-offset_top = 406.0
-offset_right = 1759.0
-offset_bottom = 813.0
-stats = SubResource("Resource_okq7h")
 
 [node name="StaticHUDparent" type="Control" parent="Window1920/Offset/UIManager"]
 process_mode = 1

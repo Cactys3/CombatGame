@@ -58,7 +58,10 @@ var shield: float = 0:
 var hp: float = 0:
 	set(value):
 		hp = value
-		ui_man.set_hp(str(value), hp / max_hp)
+		if max_hp > 0:
+			ui_man.set_hp(str(value), hp / max_hp)
+		else:
+			ui_man.set_hp(str(value), 0)
 var level: float = 0: ## level
 	set(value): #TODO: maybe send to instancemanager and make game harder by level
 		level = value

@@ -1,12 +1,6 @@
-extends Area2D
+extends Components
 class_name Handle
 
-#const FLAMETHROWER = preload("res://Resources/Weapons/Flamethrower/flamethrower_handle.tres")
-
-const FLAMETHROWER = preload("res://Scenes/Weapons/flamethrower/flamethrower_handle.tscn")
-const PISTOL = preload("res://Scenes/Weapons/pistol/pistol_handle.tscn")
-const RAILGUN = preload("res://Scenes/Weapons/railgun/railgun_handle.tscn")
-const SWORD = preload("res://Scenes/Weapons/sword/sword_handle.tscn")
 func get_scene() -> PackedScene:
 	return preload("res://Scenes/Weapons/pistol/pistol_handle.tscn")
 
@@ -143,11 +137,9 @@ func IsAimingAtAnyEnemy() -> bool:
 
 func set_stats() -> void:
 	pass # setup the stat values inside the class so they dont get reset when changing stat dictionary
+## Returns a randomized stat object, using the given itemdata's variables like rarity
 
-## Overriden
-static func get_level_upgrades(itemdata: ItemData) -> Array[LevelUpgrade]:
-	var arr: Array[LevelUpgrade]
-	var u1: LevelUpgrade = LevelUpgrade.new()
-	u1.setup(StatsResource.DAMAGE, false, randf_range(15, 30))
-	arr.append(u1)
-	return arr
+static func randomize_stats(itemdata: ItemData) -> StatsResource:
+	var ret = super(itemdata)
+	ret.parent_object_name = "RNGrolls-handle"
+	return ret

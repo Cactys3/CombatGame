@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=6 format=3 uid="uid://h14asth4wrqg"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://h14asth4wrqg"]
 
 [ext_resource type="Resource" uid="uid://mrc0342gtaia" path="res://Resources/Weapons/Sword/stats/sword_projectile_stats.tres" id="1_16m6r"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_fowgw"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_rl00u"]
+[ext_resource type="Texture2D" uid="uid://lqpckh7fkgjy" path="res://Art/UI/MissingTexture.png" id="3_fwmlo"]
 [ext_resource type="PackedScene" uid="uid://cikwtalbjcmxf" path="res://Scenes/Weapons/sword/sword_projectile.tscn" id="3_rl00u"]
 
 [sub_resource type="Resource" id="Resource_wav82"]

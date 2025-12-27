@@ -531,6 +531,7 @@ text = "Default Text"
 autowrap_mode = 3
 
 [node name="Stats" parent="HBoxContainer/Right/Right/VBoxContainer" instance=ExtResource("3_8f5sv")]
+custom_minimum_size = Vector2(0, 450)
 layout_mode = 2
 button_color = Color(0.23921569, 0.23137255, 0.32156864, 1)
 button_text_color = Color(0.3882353, 0.60784316, 1, 1)

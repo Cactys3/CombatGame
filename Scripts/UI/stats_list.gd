@@ -98,8 +98,27 @@ func refresh():
 			title.text = "Projectile"
 		if title.text.to_lower().contains("attachment"):
 			title.text = "Attachment"
+	
+	var everything_is_zero = true
 	for stat in statslabels:
-		statslabels[stat].text = before + str(roundi(stats.get_stat(stat))) + after
+		if !stats.is_stat_default(stat):
+			everything_is_zero = false
+		var number: String = str(snapped(stats.get_stat(stat), 0.01))
+		var decimals = 5 - number.split(".")[0].length()
+		if decimals > 0:
+			if "." in number:
+				number = number.rstrip("0").rstrip(".")
+		else:
+			number = number.split(".")[0]
+			print("would be: " + str(snapped(stats.get_stat(stat), 0.01)))
+			print("but is cut to: " + str(number))
+		statslabels[stat].text = before + number + after
+	
+	if everything_is_zero:
+		visible = false
+	else:
+		visible = true
+
 ## Reorders given label to given position
 func reorder(key: String, new_position: int):
 	move_child(statslabels[key], new_position)

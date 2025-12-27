@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_t3jdu"]
 [ext_resource type="Resource" uid="uid://dj4tyv1iwljms" path="res://Scenes/Enemies/Sclarnk/sclarnk_stats.tres" id="2_qjy7h"]
-[ext_resource type="Texture2D" uid="uid://bvm32b4d2y5nd" path="res://Art/Characters/Hell/Sclarnk.png" id="3_481de"]
+[ext_resource type="Texture2D" uid="uid://bvm32b4d2y5nd" path="res://Art/Hell/Enemies/Sclarnk.png" id="3_481de"]
 [ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="4_4wbat"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8chwh"]

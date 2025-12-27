@@ -1,6 +1,5 @@
 extends Node
 class_name ShopManager
-
 ## Weapon Components
 const FLAMETHROWER_ATTACHMENT = preload("res://Resources/Weapons/Flamethrower/flamethrower_attachment.tres")
 const FLAMETHROWER_HANDLE = preload("res://Resources/Weapons/Flamethrower/flamethrower_handle.tres")
@@ -35,17 +34,50 @@ const BOOMERRANG_PROJECTILE = preload("uid://dmvjnybu7lt4d")
 const GRAVITY_ATTACHMENT = preload("uid://dkes2e3uubcbp")
 const GRAVITY_HANDLE = preload("uid://derhf6jups3oa")
 const GRAVITY_PROJECTILE = preload("uid://0ji1vavkew0v")
-
 ## Items
 const DAMAGE_BUFF = preload("uid://c0eepouojdno6")
 const ARROWS = preload("uid://difhyvvjuci4i")
 const RANDOM_STAT = preload("uid://r584yr4r6pbe")
 ## Arrays
-const item_list: Array = [DAMAGE_BUFF, ARROWS]
-const attachment_list: Array = [FLAMETHROWER_ATTACHMENT, PISTOL_ATTACHMENT, RAILGUN_ATTACHMENT, SWORD_ATTACHMENT, ICESHARDWAND_ATTACHMENT, ROCKETLAUNCHER_ATTACHMENT, PLAYINGCARD_ATTACHMENT, LIGHTNINGWAND_ATTACHMENT, MINIGUN_ATTACHMENT, BOOMERRANG_ATTACHMENT, GRAVITY_ATTACHMENT]
-const handle_list: Array = [FLAMETHROWER_HANDLE, PISTOL_HANDLE, RAILGUN_HANDLE, SWORD_HANDLE, ICESHARDWAND_HANDLE, ROCKETLAUNCHER_HANDLE, PLAYINGCARD_HANDLE, LIGHTNINGWAND_HANDLE, MINIGUN_HANDLE, BOOMERRANG_HANDLE, GRAVITY_HANDLE]
-const projectile_list: Array = [FLAMETHROWER_PROJECTILE, PISTOL_PROJECTILE, RAILGUN_PROJECTILE, SWORD_PROJECTILE, ICESHARDWAND_PROJECTILE, ROCKETLAUNCHER_PROJECTILE, PLAYINGCARD_PROJECTILE, LIGHTNINGWAND_PROJECTILE, MINIGUN_PROJECTILE, BOOMERRANG_PROJECTILE, GRAVITY_PROJECTILE]
-
+const item_list: Array = [
+	DAMAGE_BUFF, 
+	ARROWS]
+const attachment_list: Array = [
+	FLAMETHROWER_ATTACHMENT, 
+	PISTOL_ATTACHMENT, 
+	RAILGUN_ATTACHMENT, 
+	SWORD_ATTACHMENT, 
+	ICESHARDWAND_ATTACHMENT, 
+	ROCKETLAUNCHER_ATTACHMENT, 
+	PLAYINGCARD_ATTACHMENT, 
+	LIGHTNINGWAND_ATTACHMENT, 
+	MINIGUN_ATTACHMENT, 
+	BOOMERRANG_ATTACHMENT, 
+	GRAVITY_ATTACHMENT]
+const handle_list: Array = [
+	FLAMETHROWER_HANDLE, 
+	PISTOL_HANDLE, 
+	RAILGUN_HANDLE, 
+	SWORD_HANDLE, 
+	ICESHARDWAND_HANDLE, 
+	ROCKETLAUNCHER_HANDLE, 
+	PLAYINGCARD_HANDLE, 
+	LIGHTNINGWAND_HANDLE, 
+	MINIGUN_HANDLE, 
+	BOOMERRANG_HANDLE, 
+	GRAVITY_HANDLE]
+const projectile_list: Array = [
+	FLAMETHROWER_PROJECTILE, 
+	PISTOL_PROJECTILE, 
+	RAILGUN_PROJECTILE, 
+	SWORD_PROJECTILE, 
+	ICESHARDWAND_PROJECTILE, 
+	ROCKETLAUNCHER_PROJECTILE,
+	PLAYINGCARD_PROJECTILE, 
+	LIGHTNINGWAND_PROJECTILE, 
+	MINIGUN_PROJECTILE, 
+	BOOMERRANG_PROJECTILE, 
+	GRAVITY_PROJECTILE]
 ## Weapon Indexes
 const flamethrower_index: int = 0
 const pistol_index: int = 1
@@ -58,7 +90,6 @@ const lightningwand_index: int = 7
 const minigun_index: int = 8
 const boomerrang_index: int = 9
 const gravity_index: int = 10
-
 ## Returns Random Attachment
 static func get_rand_attachment() -> ItemData:
 	return setup_data(attachment_list.get(get_random_unlocked_weapon_index()).duplicate())
@@ -146,7 +177,7 @@ static func make_itemUI(item: ItemData) -> ItemUI:
 static func setup_weapon(a: ItemData, h: ItemData, proj: ItemData) -> ItemData:
 	var data: ItemData = ItemData.new()#ItemData.item_types.weapon, "weapon", StatsResource.new(), null)
 	data.has_rarity = true
-	data.setup(true, random_rarity())
+	data.setup(false, random_rarity())
 	a.setup(true, random_rarity())
 	h.setup(true, random_rarity())
 	proj.setup(true, random_rarity())

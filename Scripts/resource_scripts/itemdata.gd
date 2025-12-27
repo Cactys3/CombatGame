@@ -12,11 +12,14 @@ enum item_types{unset, handle, attachment, projectile, weapon, item, mod}
 @export var item_image: Texture2D = preload("res://Art/UI/MissingTexture.png")
 @export var randomizable: bool = false
 ## Misc Fields (common, but not always active)
-@export_category("Misc Fields (common, but not always active)")
+@export_category("Stats/Status")
 @export var default_stats: StatsResource = null
-@export var default_status_effects: StatusEffects = null
 var stats: StatsResource = null
+## Stat object applied to 'Stats' to be passed around between consumed components
+var added_stats: StatsResource = null
+@export var default_status_effects: StatusEffects = null
 var status_effects: StatusEffects = null
+@export_category("Misc Fields (common, but not always active)")
 @export var rarity_cost_modifier = 1
 enum item_rarities {unset, common, rare, epic, legendary, exclusive}
 @export var item_rarity: item_rarities
@@ -60,14 +63,15 @@ static var count: int = 0
 var ID: int 
 
 signal DataUpdated
-func initialize(type: item_types, name: String, new_default_stats: StatsResource, new_default_status: StatusEffects) -> void:
+## NOT SETUP - Pass in all values to setup an ItemData like you would in @export inspector
+func initialize(scene: PackedScene, name: String, description: String, type: item_types, color: Color, image: Texture2D, new_randomizable: bool, new_default_stats: StatsResource, new_default_status: StatusEffects, new_rarity_cost_modifier: int, new_rarity: item_rarities, buy_cost: float, sell_cost_modifier: float, new_can_sell: bool, new_can_buy: bool, new_stackable: bool) -> void:
 	item_type = type
 	item_name = name
 	if new_default_stats:
 		default_stats = new_default_stats
 	if new_default_status:
 		default_status_effects = new_default_status
-##
+## Returns rarity for the given rarity_types index
 static func get_rarity(i: int) -> String:
 	match(i):
 		item_rarities.common:
@@ -83,16 +87,18 @@ static func get_rarity(i: int) -> String:
 		item_rarities.unset:
 			return "unset"
 	return "even further beyond"
-## happens only once when itemdata is created
-func setup(randomize_bool: bool, rarity: item_rarities):
+## Creates ItemData, called Once
+func setup(should_randomize: bool, starting_rarity: item_rarities):
 	if has_stats:
 		stats = default_stats.duplicate()
 	if has_status_effects:
 		status_effects = default_status_effects.duplicate()
-	if randomize_bool:
-		randomize_stats()
 	if has_rarity:
-		set_rarity(rarity)
+		set_rarity(starting_rarity)
+	## TODO: add starting level
+	## Must be done last as randomize uses other variables like rarity
+	if should_randomize && randomizable:
+		randomize_stats()
 	count += 1
 	ID = count ## TODO: use this ID to track items? useful for matching itemdata to item/weapon when removing
 ## Changes Variable Values based on rarity, assumes all values are default to begin with
@@ -115,9 +121,15 @@ func set_rarity(rarity: item_rarities):
 		item_buy_cost = item_buy_cost + (rarity_cost_modifier * item_rarity) #TODO: finalize equation
 	DataUpdated.emit()
 	#print("emit data updated")
-##
+## Calls randomize_stats on instantiated packed scene
 func randomize_stats():
-	pass #TODO: randomize stats variable values if desired (pass stats into instance of real item's .randomize_stats() method)
+	if item:
+		added_stats = item.randomize_stats(self)
+		stats.add_stats(added_stats)
+	elif item_packed_scene:
+		var scene = item_packed_scene.instantiate()
+		added_stats = scene.randomize_stats(self)
+		stats.add_stats(added_stats)
 ## Instantiates the Item with values
 func get_item() -> Node:
 	if made_item:
@@ -141,7 +153,7 @@ func get_item() -> Node:
 		item_types.mod:
 			return make_item()
 	return null
-##
+## Sets 'Item' to instantiated version based on already setup variables. Returns item
 func make_item():
 	made_item = true
 	## Need all these seperated because godot fucks everything up if we don't type the variable 'ret'
@@ -276,3 +288,26 @@ func upgrade_component_rarity():
 ##
 func get_rarity_upgrade_text() -> String:
 	return get_rarity(item_rarity) + "-->" + get_rarity(item_rarity + 1)
+## Stats can go up or down, multiplied by 1.0 to 1.5 based on rarity of rng roll
+
+class LevelUpgrade:
+	var changes: Array[StatChange]
+	var setup_complete: bool = false
+	func add_stat_change(name: String, factor: bool, value: float):
+		var new_change: StatChange = StatChange.new()
+		new_change.name = name
+		new_change.factor = factor
+		new_change.value = value
+		changes.append(new_change)
+		setup_complete = true
+	class StatChange:
+		## Stat to add to
+		var name: String
+		## If false, it's a base stat
+		var factor: bool
+		## Value to add to the stat
+		var value: float
+		func setup(new_name: String, new_factor: bool, new_value: float):
+			name = new_name
+			factor = new_factor
+			value = new_value

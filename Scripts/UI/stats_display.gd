@@ -238,6 +238,7 @@ func _ready() -> void:
 ## Sets up the node
 func set_stats(new_stats: StatsResource, new_name: String):
 	## Setup Based on Parameters
+	stats = new_stats
 	for list in lists:
 		list.queue_free()
 	lists.clear()
@@ -247,17 +248,14 @@ func set_stats(new_stats: StatsResource, new_name: String):
 	index += 1
 	listparent.add_child(mainlist)
 	lists.append(mainlist)
-	var affecting_stats: Array[StatsResource]
-	affecting_stats = new_stats.External_GetAllStatsRecursive(affecting_stats)
-	
+	## Only get stats one layer deep ie: listofaffection instead of recursive get all stats
 	for stat in new_stats.listofaffection:
-			if !stat.parent_object_name.to_lower().contains("global"):
-				if stat != new_stats:
-					var newlist: StatsList = LIST.instantiate()
-					newlist.setup(stat, index)
-					index += 1
-					listparent.add_child(newlist)
-					lists.append(newlist)
+			if stat != new_stats:
+				var newlist: StatsList = LIST.instantiate()
+				newlist.setup(stat, index)
+				index += 1
+				listparent.add_child(newlist)
+				lists.append(newlist)
 	name = new_name
 	if timer:
 		timer.queue_free()

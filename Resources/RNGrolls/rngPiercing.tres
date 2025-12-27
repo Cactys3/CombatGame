@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="RNGroll" load_steps=2 format=3 uid="uid://3430cy54j4rs"]
+
+[ext_resource type="Script" uid="uid://bxkxy273apgoe" path="res://Scripts/resource_scripts/RNGroll.gd" id="1_gfou4"]
+
+[resource]
+script = ExtResource("1_gfou4")
+metadata/_custom_type_script = "uid://bxkxy273apgoe"

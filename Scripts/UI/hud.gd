@@ -39,9 +39,10 @@ func set_xp(percent: float):
 		xp.size.x = percent * xp_max_width
 ## Sets the width of the HP HUD
 func set_hp(percent: float):
-	print("hp: " + str(percent))
 	hp_bar.visible = true
-	if percent >= 1:
+	if is_instance_valid(percent) || percent == NAN:
+		hp_bar.visible = false
+	elif percent >= 1:
 		hp.custom_minimum_size.x = hp_max_width
 		hp.size.x = hp_max_width
 		## TODO: play animation or smth, maybe different color if gaining 2 or more levels at once (percent > 2)

@@ -38,61 +38,21 @@ var attack_on_cd: bool = true
 var stun_time_left: float = 0
 var stunned: bool = false
 var curr_health: float
-var curr_movespeed: float:
-	get():
-		if is_instance_valid(stats):
-			return stats.get_stat_without_default(stats.MOVESPEED) + base_movespeed
-		return base_movespeed
+var curr_movespeed: float
 var curr_regen: float 
-var curr_knockback_modifier: float:
-	get():
-		if is_instance_valid(stats):
-			return stats.get_stat_without_default(stats.WEIGHT) + base_knockback_modifier
-		return base_knockback_modifier
-var curr_damage_reduction: float:
-	get():
-		if is_instance_valid(stats):
-			return stats.get_stat_without_default(stats.STANCE) + base_damage_reduction
-		return base_damage_reduction
-var curr_cooldown_max: float:
-	get():
-		if is_instance_valid(stats):
-			return base_cooldown #+ (5 / (stats.get_stat_without_default(stats.ATTACKSPEED) + 0.1)) #TODO: make this real calculation
-		return base_cooldown
+var curr_knockback_modifier: float
+var curr_damage_reduction: float
+var curr_cooldown_max: float
 var cooldown_stopwatch: float = 0
 ## Projectile Stats:
 var projectile_cooldown_stopwatch: float = 0
-var curr_range: float:
-	get():
-		if is_instance_valid(stats):
-			return stats.get_stat_without_default(stats.RANGE) + base_range
-		return base_range
-var curr_speed: float:
-	get():
-		if is_instance_valid(stats):
-			return stats.get_stat_without_default(stats.VELOCITY) + base_speed
-		return base_speed
-var curr_acceleration: float:
-	get():
-		return base_acceleration
-var curr_lifetime: float:
-	get():
-		if is_instance_valid(stats):
-			return stats.get_stat_without_default(stats.DURATION) + base_lifetime
-		return base_lifetime
-var curr_piercing: float:
-	get():
-		if is_instance_valid(stats):
-			return stats.get_stat_without_default(stats.PIERCING) + base_piercing
-		return base_piercing
-var curr_damage: float:
-	get():
-		if is_instance_valid(stats):
-			return stats.get_stat_without_default(stats.DAMAGE) + base_damage
-		return base_damage
-var max_health: float:
-	get:
-		return stats.get_stat_without_default(stats.HP) + base_health
+var curr_range: float
+var curr_speed: float
+var curr_acceleration: float
+var curr_lifetime: float
+var curr_piercing: float
+var curr_damage: float
+var max_health: float
 ## Misc:
 var facing_left: bool = true
 var ImReady: bool = false
@@ -101,14 +61,28 @@ signal death(position: Vector2)
 
 func _ready() -> void:
 	call_deferred("set_stats")
+	call_deferred("setup")
 	cooldown_stopwatch = 0 # make it ready to attack on start?
 	add_to_group("enemy")
-
+## called whever stats change
 func set_stats():
+	curr_regen = base_regen + stats.get_stat_without_default(stats.REGEN)
+	curr_movespeed = stats.get_stat_without_default(stats.MOVESPEED) + base_movespeed
+	curr_knockback_modifier = stats.get_stat_without_default(stats.WEIGHT) + base_knockback_modifier
+	curr_damage_reduction = stats.get_stat_without_default(stats.STANCE) + base_damage_reduction
+	curr_cooldown_max = base_cooldown ##TODO: setup based on stats
+	curr_range = stats.get_stat_without_default(stats.RANGE) + base_range
+	curr_speed = stats.get_stat_without_default(stats.VELOCITY) + base_speed
+	curr_acceleration = base_acceleration
+	curr_lifetime = stats.get_stat_without_default(stats.DURATION) + base_lifetime
+	curr_piercing = stats.get_stat_without_default(stats.PIERCING) + base_piercing
+	curr_damage = stats.get_stat_without_default(stats.DAMAGE) + base_damage
 	curr_health = stats.get_stat_without_default(stats.HP) + base_health
-	curr_regen = base_regen #+ stats.get_stat_without_default(stats.REGEN)
+
+func setup():
 	player = get_tree().get_first_node_in_group("player")
 	ImReady = true
+	stats.set_changed_method(set_stats)
 
 func _process(delta: float) -> void:
 	if !ImReady:

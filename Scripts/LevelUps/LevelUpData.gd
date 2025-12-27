@@ -11,7 +11,7 @@ var description: String = "Default Description"
 var type: types
 enum types{new_component, new_item, component_rarity, component_level, item_rarity, item_level, money, weapon_upgrade, special}
 var itemdata: ItemData 
-var LevelUpgrades: Array[LevelUpgrade] 
+var LevelUpgrades: Array[ItemData.LevelUpgrade] 
 ## sets up the data using an ItemData
 func set_itemdata(data:ItemData, new_type: types):
 	option_name = data.item_name
