@@ -20,9 +20,9 @@ func handle_drop_visual():
 	if !showing_drop &&  ItemUI.dragging_some_item:
 		showing_drop = true
 		if !ItemUI.dragging_item.inventory == self:
-			drop_text.text = "Drop to Sell: $" + str(ItemUI.dragging_item.data.item_buy_cost * ItemUI.dragging_item.data.item_sell_cost_modifier)
+			drop_text.text = "Drop to Sell: $" + str(ItemUI.dragging_item.data.get_cost(true))
 		else:
-			drop_text.text = "Take to Buy: $" + str(ItemUI.dragging_item.data.item_buy_cost)
+			drop_text.text = "Take to Buy: $" + str(ItemUI.dragging_item.data.get_cost(false))
 		drop_visual.visible = true
 	
 	if showing_drop && (!ItemUI.dragging_some_item):
@@ -54,4 +54,4 @@ func can_add(item: ItemUI) -> bool:
 	return is_valid_type(item)
 
 func can_remove(item: ItemUI) -> bool:
-	return is_instance_valid(item) && items.has(item) && GameManager.instance.can_buy(item.data.item_buy_cost)
+	return is_instance_valid(item) && items.has(item) && GameManager.instance.can_buy(item.data.get_cost(false))

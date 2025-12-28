@@ -65,9 +65,10 @@ var ID = -1.0
 var set_color: bool = false
 var label: Label
 func setup(new_stats: StatsResource, new_id: int):
-	stats = new_stats
-	ID = new_id
-	call_deferred("deferred")
+	if new_stats:
+		stats = new_stats
+		ID = new_id
+		call_deferred("deferred")
 ## Set the given stat label to given value of visibility
 func set_stat_visible(key: String, value: bool) -> void:
 	if statslabels.has(key):

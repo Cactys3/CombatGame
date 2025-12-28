@@ -231,6 +231,7 @@ var lists: Array[StatsList]
 var last_clicked: float = -1
 var is_ready: bool = false
 var timer
+var index: int = 0
 ## Backup
 func _ready() -> void:
 	if stats:
@@ -239,10 +240,8 @@ func _ready() -> void:
 func set_stats(new_stats: StatsResource, new_name: String):
 	## Setup Based on Parameters
 	stats = new_stats
-	for list in lists:
-		list.queue_free()
-	lists.clear()
-	var index: int = 1
+	clear_lists()
+	index = 1
 	var mainlist: StatsList = LIST.instantiate()
 	mainlist.setup(new_stats, index)
 	index += 1
@@ -256,6 +255,8 @@ func set_stats(new_stats: StatsResource, new_name: String):
 				index += 1
 				listparent.add_child(newlist)
 				lists.append(newlist)
+	setup_generic(new_name)
+func setup_generic(new_name: String):
 	name = new_name
 	if timer:
 		timer.queue_free()
@@ -389,10 +390,20 @@ func get_affecting_names() -> Array[StatsResource]:
 	var a: Array[StatsResource]
 	stats.External_GetAllStatsRecursive(a)
 	return a
-
+func clear_lists():
+	for list in lists:
+		list.queue_free()
+	lists.clear()
 func set_stat_visible(key: String, value: bool) -> void:
 	for list in lists:
 		list.set_stat_visible(key, value)
+## Adds a single stat list to the end of stats
+func add_single_stats(new_stats: StatsResource):
+	var list: StatsList = LIST.instantiate()
+	list.setup(new_stats, index)
+	index += 1
+	listparent.add_child(list)
+	lists.append(list)
 
 func button1():
 	if is_ready:

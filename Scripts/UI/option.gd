@@ -33,7 +33,7 @@ func setup(new_data: ItemData, new_method: Callable, new_hover_method: Callable)
 	set_body(data.item_description)
 	set_image(data.item_image)
 	set_rarity(ItemData.get_rarity(data.item_rarity))
-	set_price(str(data.item_buy_cost))
+	set_price(str(data.get_cost(false)))
 	#if main_panel_stylebox:
 		#for panel in main_panels:
 			#panel.add_theme_stylebox_override("panel", main_panel_stylebox)

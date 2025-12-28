@@ -1,9 +1,8 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://dd47rat0ky6fh"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=6 format=3 uid="uid://dd47rat0ky6fh"]
 
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_bxyty"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_c642n"]
 [ext_resource type="PackedScene" uid="uid://b605pualaip1m" path="res://Scenes/Weapons/railgun/railgun_projectile.tscn" id="3_bxyty"]
-[ext_resource type="Texture2D" uid="uid://lqpckh7fkgjy" path="res://Art/UI/MissingTexture.png" id="3_g2hyr"]
 [ext_resource type="Resource" uid="uid://dfh3cgblwlx5" path="res://Resources/Weapons/Railgun/stats/railgun_projectile_stats.tres" id="3_g24a1"]
 
 [sub_resource type="Resource" id="Resource_rsojv"]

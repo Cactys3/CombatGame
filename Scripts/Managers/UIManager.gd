@@ -17,7 +17,7 @@ class_name UIManager
 @export var static_ui_parent: Control
 @export var misc_parent: Control
 ## Inventories
-@export var AOIman: AOI_Manager
+@export var AIOman: AIO_Manager
 @export var cheat_inventory: Inventory 
 ## Other
 @export var hud: HUD
@@ -37,9 +37,9 @@ signal delete_proximity
 func _ready() -> void:
 	call_deferred("_connect_signals")
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	inventory = AOIman.inventory
-	equipment = AOIman.equipment
-	AOIman.set_character_stats_display(GameManager.instance.player.player_stats)
+	inventory = AIOman.inventory
+	equipment = AIOman.equipment
+	AIOman.set_character_stats_display(GameManager.instance.player.player_stats)
 	if tab_menu_parent.visible:
 		tab_menu_parent.visible = false
 	if esc_menu_parent.visible:

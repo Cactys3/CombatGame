@@ -1,5 +1,5 @@
 extends Control
-class_name AOI_Manager
+class_name AIO_Manager
 
 @export var inventory: Inventory 
 @export var equipment: EquipmentInventory

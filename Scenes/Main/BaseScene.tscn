@@ -173,7 +173,7 @@ weapon_parent = NodePath("../../../Window640/Offset/WeaponParent")
 position = Vector2(960, 0)
 script = ExtResource("12_e4e03")
 
-[node name="UIManager" type="Control" parent="Window1920/Offset" node_paths=PackedStringArray("money_label", "xp_label", "level_label", "hp_label", "fps_label", "stopwatch_label", "enemies_killed_label", "bosses_killed_label", "you_win", "tab_menu_parent", "esc_menu_parent", "level_up_parent", "static_ui_parent", "misc_parent", "AOIman", "cheat_inventory", "hud")]
+[node name="UIManager" type="Control" parent="Window1920/Offset" node_paths=PackedStringArray("money_label", "xp_label", "level_label", "hp_label", "fps_label", "stopwatch_label", "enemies_killed_label", "bosses_killed_label", "you_win", "tab_menu_parent", "esc_menu_parent", "level_up_parent", "static_ui_parent", "misc_parent", "AIOman", "cheat_inventory", "hud")]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -197,7 +197,7 @@ esc_menu_parent = NodePath("EscMenuParent")
 level_up_parent = NodePath("LevelUpParent")
 static_ui_parent = NodePath("StaticHUDparent")
 misc_parent = NodePath("MiscParent")
-AOIman = NodePath("TabMenuParent/AIO")
+AIOman = NodePath("TabMenuParent/AIO")
 cheat_inventory = NodePath("TabMenuParent/Cheat Inventory")
 hud = NodePath("StaticHUDparent/hud")
 

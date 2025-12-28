@@ -27,6 +27,7 @@ enum item_rarities {unset, common, rare, epic, legendary, exclusive}
 @export var item_sell_cost_modifier: float = 0.8
 ## Booleans for optional Fields
 @export_category("Booleans for optional Fields")
+@export var can_feed: bool = true
 @export var can_sell: bool = true
 @export var can_buy: bool = true
 @export var has_rarity: bool = true
@@ -64,7 +65,7 @@ var ID: int
 
 signal DataUpdated
 ## NOT SETUP - Pass in all values to setup an ItemData like you would in @export inspector
-func initialize(scene: PackedScene, name: String, description: String, type: item_types, color: Color, image: Texture2D, new_randomizable: bool, new_default_stats: StatsResource, new_default_status: StatusEffects, new_rarity_cost_modifier: int, new_rarity: item_rarities, buy_cost: float, sell_cost_modifier: float, new_can_sell: bool, new_can_buy: bool, new_stackable: bool) -> void:
+func initialize(scene: PackedScene, name: String, description: String, type: item_types, color: Color, image: Texture2D, new_randomizable: bool, new_default_stats: StatsResource, new_default_status: StatusEffects, new_rarity_cost_modifier: int, new_rarity: item_rarities, buy_cost: float, sell_cost_modifier: float, new_can_sell: bool, new_can_feed: bool, new_can_buy: bool, new_stackable: bool) -> void:
 	item_type = type
 	item_name = name
 	if new_default_stats:
@@ -86,6 +87,22 @@ static func get_rarity(i: int) -> String:
 			return "exclusive"
 		item_rarities.unset:
 			return "unset"
+	return "even further beyond"
+## Returns type for the given item_types index
+static func get_type(i: int) -> String:
+	match(i):
+		item_types.unset:
+			return "unset"
+		item_types.handle:
+			return "handle"
+		item_types.attachment:
+			return "attachment"
+		item_types.projectile:
+			return "projectile"
+		item_types.weapon:
+			return "weapon"
+		item_types.item:
+			return "item"
 	return "even further beyond"
 ## Creates ItemData, called Once
 func setup(should_randomize: bool, starting_rarity: item_rarities):
@@ -117,10 +134,7 @@ func set_rarity(rarity: item_rarities):
 			border_color = EXCLUSIVE_COLOR
 		_:
 			border_color = DEFAULT_COLOR
-	if item_rarity > 1:
-		item_buy_cost = item_buy_cost + (rarity_cost_modifier * item_rarity) #TODO: finalize equation
 	DataUpdated.emit()
-	#print("emit data updated")
 ## Calls randomize_stats on instantiated packed scene
 func randomize_stats():
 	if item:
@@ -227,7 +241,7 @@ func make_frame() -> Weapon_Frame:
 	new_frame.add_attachment(attachment.make_item())
 	new_frame.add_handle(handle.make_item())
 	new_frame.add_projectile(projectile.make_item())
-	item_buy_cost = attachment.item_buy_cost + handle.item_buy_cost + projectile.item_buy_cost
+	item_buy_cost = attachment.get_cost(false) + handle.get_cost(false) + projectile.get_cost(false)
 	item_sell_cost_modifier = (attachment.item_sell_cost_modifier + handle.item_sell_cost_modifier + projectile.item_sell_cost_modifier) / 3
 	item_name = attachment.item_name + handle.item_name + projectile.item_name 
 	item_description = attachment.item_name + handle.item_name + projectile.item_name
@@ -288,6 +302,22 @@ func upgrade_component_rarity():
 ##
 func get_rarity_upgrade_text() -> String:
 	return get_rarity(item_rarity) + "-->" + get_rarity(item_rarity + 1)
+## Parameter should be added_stats - Adds this item's added_stats to parameter item's added stats so this object can be consumed
+func transfer_additional_stats(stats_to_transfer_to: StatsResource):
+	if added_stats:
+		stats_to_transfer_to.add_stats(added_stats)
+## Calculates and returns cost
+func get_cost(sell: bool):
+	var cost = item_buy_cost
+	if sell:
+		cost *= item_sell_cost_modifier
+	if has_rarity: 
+		cost *= rarity_cost_modifier * (item_rarity + 1)
+	return cost
+## Returns if this is component or not
+func is_component() -> bool:
+	return item_type == item_types.handle || item_type == item_types.attachment || item_type == item_types.projectile
+
 ## Stats can go up or down, multiplied by 1.0 to 1.5 based on rarity of rng roll
 
 class LevelUpgrade:

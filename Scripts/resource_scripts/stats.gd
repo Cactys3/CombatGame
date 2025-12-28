@@ -184,7 +184,6 @@ func GetAllStatsRecursive(list: Array[StatsResource]):
 	if !list.has(self):
 		list.append(self)
 		MustRecalculate = false
-		print("checking so many: " + str(listofaffection.size()))
 		for stat in listofaffection:
 			stat.GetAllStatsRecursive(list)
 ## Gets a list of all stat objects affecting, but doesn't reset MustRecalculate
@@ -199,11 +198,6 @@ func Recalculate():
 	if MustRecalculate || TotalListOfStats == []:
 		TotalListOfStats = []
 		GetAllStatsRecursive(TotalListOfStats)
-		if TotalListOfStats.size() > 1:
-			print(TotalListOfStats.size())
-			print("TotalListOfStats for " + parent_object_name + " is: ")
-			for l in TotalListOfStats:
-				print(l.parent_object_name)
 func stats_changed():
 	if stat_changed_method:
 		stat_changed_method.call()

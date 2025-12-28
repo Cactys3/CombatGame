@@ -34,12 +34,14 @@ var ID = 0
 @export var ShowComponentVisuals: bool = false
 const DescriptionMaxY: float = 120
 const DescriptionMaxX: float = 120
-
+var right_clicking: bool = false
+var right_click_menu: Control = null
 var showing_details: bool = false
 #var mouse_hover: bool = false
 #var dragging: bool = false
 static var dragging_some_item: bool = false
 static var dragging_item: ItemUI = null
+
 #var offset: Vector2
 #var offset2: Vector2
 ## ideas for future
@@ -128,6 +130,10 @@ func _process(delta: float) -> void:
 		
 		if mouse_hover && !get_global_rect().has_point(get_global_mouse_position()):
 			mouse_hover = false
+			if right_click_menu && right_clicking:
+				right_click_menu.kill()
+				right_click_menu = null
+				right_clicking = false
 			hovered.erase(self)
 		
 		if dragging && !Input.is_action_pressed("left_click"):
@@ -141,7 +147,7 @@ func _process(delta: float) -> void:
 		if dragging && dragging_some_ui:
 			dragging_some_ui = false
 			inventory.z_index = 3
-		
+		## Left Click Drag
 		if mouse_hover && Input.is_action_just_pressed("left_click"):
 			var good: bool = true
 			for bar in hovered:
@@ -150,6 +156,8 @@ func _process(delta: float) -> void:
 				else:
 					if bar != self && bar.get_priority() > parent.get_priority():
 						good = false
+			if right_click_menu && right_click_menu.get_global_rect().has_point(get_global_mouse_position()):
+				good = false
 			if good:
 				dragging = true
 				dragging_some_ui = true
@@ -160,6 +168,23 @@ func _process(delta: float) -> void:
 				dragging_some_item = true
 				dragging_item = self
 				global_position = offset
+				if right_click_menu && right_clicking:
+					right_click_menu.call_deferred("kill")
+					right_click_menu = null
+					right_clicking = false
+		## Right Click Menu
+		if mouse_hover && dragging == false && Input.is_action_just_pressed("right_click"):
+			var good: bool = true
+			for bar in hovered:
+				if !is_instance_valid(bar):
+					pass
+				else:
+					if bar != self && bar.get_priority() > parent.get_priority():
+						good = false
+			if good:
+				right_click_menu = inventory.RightClick(self, get_global_mouse_position())
+				if right_click_menu != null:
+					right_clicking = true
 		
 		if showing_details && (!mouse_hover || dragging_some_item):
 			hide_details()

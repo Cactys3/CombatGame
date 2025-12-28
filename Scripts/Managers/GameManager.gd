@@ -88,10 +88,10 @@ var xp: float = 0: ## Current (total?) XP Gained
 var money: float = 0: ## Current Money Held
 	set(value):
 		if value > money: ## Factor in money_gain when adding money
-			money = money + (value - money) * player.money_gain
+			money = money + (value - money) * (player.money_gain + 1)
 		else:
 			money = value
-		ui_man.set_money(value)
+		ui_man.set_money(money)
 ## TODO: Heiarchy of pausable menus that overwrite each other. EX: if esc menu is active, everything else is paused, even if level up screen is happening, it is paused
 var paused: bool = false ## Is Game Instance Paused or Not
 var paused_for_esc: bool = false
@@ -163,13 +163,13 @@ func pause(value: bool):
 ## Handles Money Part of Selling item (maybe supposed to expand this)
 func sell_item(item: ItemData) -> bool:
 	if (item && item.can_sell):
-		money += item.item_buy_cost * item.item_sell_cost_modifier
+		money += item.get_cost(true)
 		return true
 	return false
 ## Handles Money Part of Buying item (maybe supposed to expand this)
 func buy_item(item: ItemData) -> bool:
-	if (item && (money > item.item_buy_cost)):
-		money -= item.item_buy_cost
+	if (item && (money > item.get_cost(false))):
+		money -= item.get_cost(false)
 		return true
 	return false
 ## Activates Item 
@@ -197,14 +197,14 @@ func move_item(item: ItemUI, origin: Inventory, destination: Inventory) -> bool:
 				elif item.data.item_type == ItemData.item_types.item:
 					remove_item_from_player(item.data.get_item())
 			elif origin.get_type() == Inventory.SHOP:
-					money_net_change += -item.data.item_buy_cost
+					money_net_change += -item.get_cost(false)
 		if destination.get_type() == Inventory.EQUIPMENT:
 			if item.data.item_type == ItemData.item_types.weapon:
 				add_weapon_to_player(item.data.get_item())
 			elif item.data.item_type == ItemData.item_types.item:
 				add_item_to_player(item.data.get_item())
 		elif destination.get_type() == Inventory.EQUIPMENT:
-			money_net_change += item.data.item_buy_cost * item.data.item_sell_cost_modifier
+			money_net_change += item.get_cost(true)
 		destination.backend_add(item)
 		money += money_net_change
 		return true

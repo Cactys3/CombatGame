@@ -89,7 +89,9 @@ func reset_description():
 		description_title.text = "Hover an Item first!"
 	if description_stats:
 		description_stats.visible = false
-
+## Sets up RightClick UI for the ItemUI or returns null
+func RightClick(item: ItemUI, pos: Vector2) -> Control:
+	return null
 ## Sorting Functions, Reorders items as children
 func sort_random():
 	items.shuffle()
