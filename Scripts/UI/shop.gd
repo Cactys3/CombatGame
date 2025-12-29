@@ -7,6 +7,7 @@ var method: Callable
 func setup(new_method: Callable, max_choices: int):
 	method = new_method
 	max_purchases.text = "Max Purchases: " + str(max_choices)
+	#GameManager.instance.ui_man.delete_proximity.connect(queue_free)
 ## Instantiate a shop option for the given data
 func add_option(data: ItemData):
 	var option = SHOP_OPTION.instantiate()
@@ -15,5 +16,5 @@ func add_option(data: ItemData):
 func set_stat(data: ItemData):
 	if data.has_stats:
 		var stats = data.stats
-		stats_display.set_stats(stats, stats.parent_object_name)
+		stats_display.setup_substats(stats, stats.parent_object_name)
 		stats_display.only_show_changed = true

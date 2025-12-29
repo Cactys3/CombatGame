@@ -146,7 +146,7 @@ func _process(delta: float) -> void:
 		
 		if dragging && dragging_some_ui:
 			dragging_some_ui = false
-			inventory.z_index = 3
+			#inventory.z_index = 3
 		## Left Click Drag
 		if mouse_hover && Input.is_action_just_pressed("left_click"):
 			var good: bool = true

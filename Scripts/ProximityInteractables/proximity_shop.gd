@@ -27,7 +27,7 @@ func _body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		shop = SHOP.instantiate()
 		GameManager.instance.ui_man.tab_menu_parent.add_child(shop)
-		shop.position = Vector2(650, -140)
+		shop.position = Vector2(1389.0, 289.0)
 		shop.setup(activate_option, max_choices)
 		for choice in choices:
 			shop.add_option(choice)

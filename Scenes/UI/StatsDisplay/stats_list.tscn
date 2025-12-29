@@ -16,7 +16,7 @@ script = ExtResource("1_n724n")
 [node name="Title" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "Total"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -25,7 +25,7 @@ clip_text = true
 [node name="Control" type="Control" parent="."]
 custom_minimum_size = Vector2(30, 2)
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 0
 
 [node name="Line2D" type="Line2D" parent="Control"]
 position = Vector2(12, 3.0000005)
@@ -36,7 +36,7 @@ default_color = Color(0, 0, 0, 1)
 [node name="damage" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -44,7 +44,7 @@ vertical_alignment = 1
 [node name="range" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -52,7 +52,7 @@ vertical_alignment = 1
 [node name="weight" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -60,7 +60,7 @@ vertical_alignment = 1
 [node name="attackspeed" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -68,7 +68,7 @@ vertical_alignment = 1
 [node name="velocity" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -76,7 +76,7 @@ vertical_alignment = 1
 [node name="count" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -84,7 +84,7 @@ vertical_alignment = 1
 [node name="piercing" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -92,7 +92,7 @@ vertical_alignment = 1
 [node name="duration" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -100,7 +100,7 @@ vertical_alignment = 1
 [node name="buildup" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -108,7 +108,7 @@ vertical_alignment = 1
 [node name="size" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -116,7 +116,7 @@ vertical_alignment = 1
 [node name="hp" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -124,7 +124,7 @@ vertical_alignment = 1
 [node name="stance" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -132,7 +132,7 @@ vertical_alignment = 1
 [node name="movespeed" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -140,7 +140,7 @@ vertical_alignment = 1
 [node name="xp" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -148,7 +148,7 @@ vertical_alignment = 1
 [node name="mogul" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -156,7 +156,7 @@ vertical_alignment = 1
 [node name="luck" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -164,7 +164,7 @@ vertical_alignment = 1
 [node name="critchance" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -172,7 +172,7 @@ vertical_alignment = 1
 [node name="critdamage" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -180,7 +180,7 @@ vertical_alignment = 1
 [node name="ghostly" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -188,7 +188,7 @@ vertical_alignment = 1
 [node name="regen" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -196,7 +196,7 @@ vertical_alignment = 1
 [node name="magnetize" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -204,7 +204,7 @@ vertical_alignment = 1
 [node name="lifesteal" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -212,7 +212,7 @@ vertical_alignment = 1
 [node name="bonusvselites" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -220,7 +220,7 @@ vertical_alignment = 1
 [node name="shield" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -228,7 +228,7 @@ vertical_alignment = 1
 [node name="difficulty" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -236,7 +236,7 @@ vertical_alignment = 1
 [node name="revies" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -244,7 +244,7 @@ vertical_alignment = 1
 [node name="thorns" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1
@@ -252,7 +252,7 @@ vertical_alignment = 1
 [node name="inaccuracy" type="Label" parent="."]
 custom_minimum_size = Vector2(30, 15)
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 0
 text = "11"
 label_settings = SubResource("LabelSettings_0ik7g")
 vertical_alignment = 1

@@ -60,15 +60,37 @@ class_name StatsList
 	StatsResource.REVIES: revies,
 	StatsResource.THORNS: thorns,
 	StatsResource.INACCURACY: inaccuracy }
+static var extra_stats: Control
 var stats: StatsResource
 var ID = -1.0
 var set_color: bool = false
 var label: Label
+var label_out: bool = false
+func _process(delta: float) -> void:
+	if stats && label_out && extra_stats == null && Input.is_action_just_pressed("left_click"):
+		extra_stats = preload("uid://o387qlahldf").instantiate()
+		extra_stats.call_deferred("setup_substats", stats, stats.parent_object_name)
+		var box: StyleBox = StyleBoxFlat.new()
+		box.bg_color = Color.hex(222034)
+		extra_stats.solid_background_panel = box
+		GameManager.instance.ui_man.static_ui_parent.add_child(extra_stats)
+		extra_stats.global_position = get_viewport().get_mouse_position()
+	elif stats && extra_stats != null && Input.is_action_just_pressed("right_click"):
+		extra_stats.queue_free()
+		extra_stats = null
+	if is_queued_for_deletion() && extra_stats:
+		extra_stats.queue_free()
+		extra_stats = null
+## Sets up statsList to automatically set labels based on given statsresource
 func setup(new_stats: StatsResource, new_id: int):
 	if new_stats:
 		stats = new_stats
 		ID = new_id
 		call_deferred("deferred")
+## Sets up statsList to do nothing except wait for labels to be set manually
+func setup_as_manual(new_id: int):
+	ID = new_id
+	call_deferred("deferred")
 ## Set the given stat label to given value of visibility
 func set_stat_visible(key: String, value: bool) -> void:
 	if statslabels.has(key):
@@ -77,21 +99,34 @@ func set_stat_visible(key: String, value: bool) -> void:
 func deferred():
 	if stats:
 		refresh()
+	else:
+		manual_refresh([])
 	if ID == 1:
 		title.clip_text = false
 		title.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		for currlabel in statslabels:
 			statslabels[currlabel].clip_text = false
 			statslabels[currlabel].horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	#if ID == 2:
+		#title.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		#for currlabel in statslabels:
+			#statslabels[currlabel].clip_text = false
+			#statslabels[currlabel].horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	var new_color: Color = Color(clampf(fposmod(1 - (0.1*ID) + randf_range(0, 0.2), 1.0), 0.2, 0.9), clampf(fposmod(1 - (0.1*ID) + randf_range(0, 0.2), 1.0), 0.2, 0.9),clampf(fposmod(1 - (0.1*ID) + randf_range(0, 0.2), 1.0), 0.2, 0.9))
 	modulate = new_color
 func refresh():
+	if !stats:
+		return
+	
 	var before: String = ""
 	var after: String = ""
 	if ID == 1:
-		after = " = "
+		after = " ="
 	else:
-		before = " + "
+		if ID == 2:
+			before = ""
+		else:
+			before = " + "
 		title.text = stats.parent_object_name
 		if title.text.to_lower().contains("handle"):
 			title.text = "Handle"
@@ -111,22 +146,78 @@ func refresh():
 				number = number.rstrip("0").rstrip(".")
 		else:
 			number = number.split(".")[0]
-			print("would be: " + str(snapped(stats.get_stat(stat), 0.01)))
-			print("but is cut to: " + str(number))
-		statslabels[stat].text = before + number + after
+		## Add Self Stat also 
+		if ID == 1:
+			if !stats.is_stat_default(stat):
+				everything_is_zero = false
+			var self_number: String = str(snapped(stats.statsfactor[stat] * stats.statsbase[stat], 0.01))
+			var self_decimals = 5 - self_number.split(".")[0].length()
+			if self_decimals > 0:
+				if "." in self_number:
+					self_number = self_number.rstrip("0").rstrip(".")
+			else:
+				self_number = self_number.split(".")[0]
+			if self_number == "0":
+				self_number = ""
+			else:
+				self_number += " +"
+			statslabels[stat].text = before + number + after + self_number
+		else:
+			statslabels[stat].text = before + number + after
+		
 	
 	if everything_is_zero:
 		visible = false
 	else:
 		visible = true
-
+func manual_refresh(all_stats: Array[StatsResource]):
+	if all_stats == []:
+		for stat in statslabels:
+			statslabels[stat].text = "0"
+		return
+	
+	var before: String = ""
+	var after: String = ""
+	if ID == 1:
+		after = " ="
+	else:
+		if ID == 2:
+			before = ""
+		else:
+			before = " + "
+		if title.text.to_lower().contains("handle"):
+			title.text = "Handle"
+		if title.text.to_lower().contains("projectile") || title.text.to_lower().contains("bullet"):
+			title.text = "Projectile"
+		if title.text.to_lower().contains("attachment"):
+			title.text = "Attachment"
+	## Calculate stat total
+	
+	for stat in statslabels:
+		var total_stat: float = 0
+		for statobject in all_stats:
+			if is_instance_valid(statobject):
+				total_stat += statobject.get_stat(stat)
+		
+		var number: String = str(snapped(total_stat, 0.01))
+		var decimals = 5 - number.split(".")[0].length()
+		if decimals > 0:
+			if "." in number:
+				number = number.rstrip("0").rstrip(".")
+		else:
+			number = number.split(".")[0]
+		statslabels[stat].text = before + number + after
 ## Reorders given label to given position
 func reorder(key: String, new_position: int):
 	move_child(statslabels[key], new_position)
 func _on_mouse_entered() -> void:
 	if ID != -1:
+		label_out = true
 		label = Label.new()
-		label.text = stats.parent_object_name
+		if stats:
+			label.text = stats.parent_object_name
+		else:
+			label.text = title.text
 		label.modulate = modulate
 		label.add_theme_constant_override("outline_size", 10)
 		label.add_theme_color_override("font_outline_color", Color.BLACK)
@@ -136,5 +227,11 @@ func _on_mouse_entered() -> void:
 		## TODO: Have OnClick, make a new StatsVisual that shows the stats affectin this StatList but NOT the original StatsVisual
 		## Free it on unhover or click again
 func _on_mouse_exited() -> void:
-	if ID != -1:
+	if ID != -1 && label_out:
+		label_out = false
 		label.queue_free()
+		label = null
+func free_children():
+	if extra_stats != null:
+		extra_stats.queue_free()
+		extra_stats = null

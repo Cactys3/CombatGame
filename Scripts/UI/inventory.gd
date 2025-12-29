@@ -70,7 +70,7 @@ func set_description(data: ItemData):
 	reset_description()
 	showing_item = data
 	if description_stats && data.stats:
-		description_stats.set_stats(data.stats, data.item_name)
+		description_stats.setup_substats(data.stats, data.item_name)
 		description_stats.visible = true
 	if description_body:
 		description_body.text = data.item_description

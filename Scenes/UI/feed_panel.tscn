@@ -50,6 +50,8 @@ text_color = Color(0.8392157, 0, 0, 1)
 scroll_stylebox = SubResource("StyleBoxFlat_5h6xq")
 scroll_grabber_stylebox = SubResource("StyleBoxFlat_5nvo2")
 scroll_grabber_hover_stylebox = SubResource("StyleBoxFlat_3j0xm")
+only_show_changed = true
+hide_player_only = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2

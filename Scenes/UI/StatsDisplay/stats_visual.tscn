@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cf2hav4yib2ko" path="res://Scripts/UI/stats_display.gd" id="1_trjae"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fm0b5"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y6ig4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hefly"]
 bg_color = Color(0.23921569, 0.23137255, 0.32156864, 1)
@@ -37,7 +37,7 @@ offset_right = 358.0
 offset_bottom = 407.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxEmpty_fm0b5")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_y6ig4")
 script = ExtResource("1_trjae")
 scroll_stylebox = SubResource("StyleBoxFlat_hefly")
 scroll_grabber_stylebox = SubResource("StyleBoxFlat_vap2t")
@@ -129,19 +129,20 @@ theme_override_constants/separation = 0
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_vertical = 2
 theme_override_constants/separation = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 size_flags_horizontal = 0
-size_flags_vertical = 3
+size_flags_vertical = 2
 theme_override_constants/separation = 0
 
 [node name="Title" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "Stats"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -150,7 +151,7 @@ clip_text = true
 [node name="Control" type="Control" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 0
 
 [node name="Line2D" type="Line2D" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/Control"]
 position = Vector2(12, 3.0000005)
@@ -161,6 +162,7 @@ default_color = Color(0.37254903, 0.8039216, 0.89411765, 1)
 [node name="damage" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "Damage: "
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -168,6 +170,7 @@ vertical_alignment = 1
 [node name="range" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "Range: "
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -175,6 +178,7 @@ vertical_alignment = 1
 [node name="weight" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "Weight"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -182,6 +186,7 @@ vertical_alignment = 1
 [node name="attackspeed" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "AttackSpeed:"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -189,6 +194,7 @@ vertical_alignment = 1
 [node name="velocity" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "Velocity"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -196,6 +202,7 @@ vertical_alignment = 1
 [node name="count" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "Count: "
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -203,6 +210,7 @@ vertical_alignment = 1
 [node name="piercing" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "Piercing:"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -210,6 +218,7 @@ vertical_alignment = 1
 [node name="duration" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "Duration:"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -217,6 +226,7 @@ vertical_alignment = 1
 [node name="buildup" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "Buildup:"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -224,6 +234,7 @@ vertical_alignment = 1
 [node name="size" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "Size: "
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -231,6 +242,7 @@ vertical_alignment = 1
 [node name="hp" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "Heath: "
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -238,6 +250,7 @@ vertical_alignment = 1
 [node name="stance" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "Stance: "
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -245,6 +258,7 @@ vertical_alignment = 1
 [node name="movespeed" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "Movespeed:"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -252,6 +266,7 @@ vertical_alignment = 1
 [node name="xp" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "XpGain:"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -259,6 +274,7 @@ vertical_alignment = 1
 [node name="mogul" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "Mogul: "
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -266,6 +282,7 @@ vertical_alignment = 1
 [node name="luck" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "Luck: "
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -273,6 +290,7 @@ vertical_alignment = 1
 [node name="critchance" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "CritChance:"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -280,6 +298,7 @@ vertical_alignment = 1
 [node name="critdamage" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "CritDamage:"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -287,6 +306,7 @@ vertical_alignment = 1
 [node name="ghostly" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "Ghostly: "
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -294,6 +314,7 @@ vertical_alignment = 1
 [node name="regen" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "Regen: "
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -301,6 +322,7 @@ vertical_alignment = 1
 [node name="magnetize" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "Magnetize: "
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -308,6 +330,7 @@ vertical_alignment = 1
 [node name="lifesteal" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "Lifesteal: "
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -315,6 +338,7 @@ vertical_alignment = 1
 [node name="bonusvselites" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "EliteDmg:"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -322,6 +346,7 @@ vertical_alignment = 1
 [node name="shield" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "Shield: "
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -329,6 +354,7 @@ vertical_alignment = 1
 [node name="difficulty" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "Difficulty:"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -336,6 +362,7 @@ vertical_alignment = 1
 [node name="revies" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "Revives: "
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -343,6 +370,7 @@ vertical_alignment = 1
 [node name="thorns" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "Thorns:"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1
@@ -350,6 +378,7 @@ vertical_alignment = 1
 [node name="inaccuracy" type="Label" parent="VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
+size_flags_vertical = 0
 text = "Inaccuracy:"
 label_settings = SubResource("LabelSettings_fm0b5")
 vertical_alignment = 1

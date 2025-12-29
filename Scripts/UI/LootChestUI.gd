@@ -56,7 +56,7 @@ func set_images(handle: Texture2D, attachment: Texture2D, projectile: Texture2D,
 	weapon_image.texture = weapon
 
 func set_stats(stats: StatsResource):
-	stats_display.set_stats(stats, stats.parent_object_name)
+	stats_display.setup_substats(stats, stats.parent_object_name)
 
 func movetowards(delta: float):
 	projectile_parent.global_position = projectile_parent.global_position.move_toward(offset + projectile_goal.global_position, delta * anim_speed)

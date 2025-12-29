@@ -7,6 +7,7 @@ const SCENE = preload("uid://o387qlahldf")
 @export var button_color: Color
 @export var button_text_color: Color
 @export var text_color: Color
+@export var solid_background_panel: StyleBox
 @export var scroll_stylebox: StyleBox
 @export var scroll_grabber_stylebox: StyleBox
 @export var scroll_grabber_hover_stylebox: StyleBox
@@ -232,12 +233,13 @@ var last_clicked: float = -1
 var is_ready: bool = false
 var timer
 var index: int = 0
+var single_stats: Array[StatsResource]
+var single_stat_total_list: StatsList
 ## Backup
-func _ready() -> void:
-	if stats:
-		set_stats(stats, stats.parent_object_name)
-## Sets up the node
-func set_stats(new_stats: StatsResource, new_name: String):
+## Sets up the statsdisplay for showing all the stats of this stats object
+func setup_substats(new_stats: StatsResource, new_name: String):
+	print("\n\nadd_stats: " + new_name + "dmg: ")
+	new_stats.print_stat_tree(StatsResource.RANGE)
 	## Setup Based on Parameters
 	stats = new_stats
 	clear_lists()
@@ -247,15 +249,45 @@ func set_stats(new_stats: StatsResource, new_name: String):
 	index += 1
 	listparent.add_child(mainlist)
 	lists.append(mainlist)
+	print("main stats: " + new_stats.parent_object_name + "dmg: " + str(new_stats.get_stat(StatsResource.RANGE)))
 	## Only get stats one layer deep ie: listofaffection instead of recursive get all stats
 	for stat in new_stats.listofaffection:
-			if stat != new_stats:
-				var newlist: StatsList = LIST.instantiate()
-				newlist.setup(stat, index)
-				index += 1
-				listparent.add_child(newlist)
-				lists.append(newlist)
+			#if stat != new_stats:
+			print("stat " + str(index) + ":" + stat.parent_object_name + "dmg: " + str(stat.get_stat(StatsResource.RANGE)))
+			stat.print_stat_tree(StatsResource.RANGE)
+			var newlist: StatsList = LIST.instantiate()
+			newlist.setup(stat, index)
+			index += 1
+			listparent.add_child(newlist)
+			lists.append(newlist)
 	setup_generic(new_name)
+## Sets up the statsdisplay for adding a bunch of single stats
+func setup_single_stats(new_name: String):
+	clear_lists()
+	single_stat_total_list = LIST.instantiate()
+	listparent.add_child(single_stat_total_list)
+	lists.append(single_stat_total_list)
+	single_stat_total_list.setup_as_manual(1)
+	index = 2
+	setup_generic(new_name)
+## Adds a single statlist for given stat, for use when showing a bunch of single stats, not when showing substats of a stats object
+func add_single_stats(new_stats: StatsResource):
+	var list: StatsList = LIST.instantiate()
+	list.setup(new_stats, index)
+	index += 1
+	listparent.add_child(list)
+	lists.append(list)
+	single_stats.append(new_stats)
+	single_stat_total_list.manual_refresh(single_stats)
+	for stat in dict:
+		if array.has(stat):
+			for l in lists:
+				l.set_stat_visible(stat, true)
+		else:
+			for l in lists:
+				l.set_stat_visible(stat, false)
+	sort_default()
+## Sets up the statsdisplay for use, is called for both adding single stats and showing all substats of one stat
 func setup_generic(new_name: String):
 	name = new_name
 	if timer:
@@ -267,6 +299,8 @@ func setup_generic(new_name: String):
 	timer.start()
 	title.text = new_name
 	## Setup based on @exports
+	if solid_background_panel:
+		add_theme_stylebox_override("panel", solid_background_panel)
 	if button_text_color:
 		for button in buttons:
 			button.add_theme_color_override("font_color", button_text_color)
@@ -308,6 +342,7 @@ func refresh():
 						statslabels[element].visible = true
 		for list in lists:
 			list.refresh()
+			
 func sort_random():
 	array.shuffle()
 	reset_children()
@@ -391,19 +426,17 @@ func get_affecting_names() -> Array[StatsResource]:
 	stats.External_GetAllStatsRecursive(a)
 	return a
 func clear_lists():
+	single_stats.clear()
 	for list in lists:
+		list.free_children()
 		list.queue_free()
 	lists.clear()
 func set_stat_visible(key: String, value: bool) -> void:
 	for list in lists:
 		list.set_stat_visible(key, value)
-## Adds a single stat list to the end of stats
-func add_single_stats(new_stats: StatsResource):
-	var list: StatsList = LIST.instantiate()
-	list.setup(new_stats, index)
-	index += 1
-	listparent.add_child(list)
-	lists.append(list)
+	for label in statslabels:
+		if label == key:
+			statslabels[label].visible = false
 
 func button1():
 	if is_ready:

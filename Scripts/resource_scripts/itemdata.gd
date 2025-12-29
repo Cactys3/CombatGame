@@ -116,6 +116,8 @@ func setup(should_randomize: bool, starting_rarity: item_rarities):
 	## Must be done last as randomize uses other variables like rarity
 	if should_randomize && randomizable:
 		randomize_stats()
+	else:
+		added_stats = StatsResource.new()
 	count += 1
 	ID = count ## TODO: use this ID to track items? useful for matching itemdata to item/weapon when removing
 ## Changes Variable Values based on rarity, assumes all values are default to begin with

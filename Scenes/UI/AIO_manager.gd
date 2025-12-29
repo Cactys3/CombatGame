@@ -6,4 +6,4 @@ class_name AIO_Manager
 @export var stats_display: StatsDisplay 
 
 func set_character_stats_display(stats: StatsResource):
-	stats_display.set_stats(stats, "Character")
+	stats_display.setup_substats(stats, "Character")

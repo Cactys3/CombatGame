@@ -78,4 +78,4 @@ func choose_option(data: ItemData):
 ## Display stats of hovered component
 func hover_option(data: ItemData):
 	if data && data.has_stats:
-		stats_display.set_stats(data.stats, data.item_name)
+		stats_display.setup_substats(data.stats, data.item_name)

@@ -37,6 +37,8 @@ func setup(inven: Inventory, new_item: ItemUI):
 	type = -1
 	stats.clear_lists()
 	
+	stats.setup_single_stats(new_item.data.item_name)
+	
 	type = new_item.data.item_type
 	print(ItemData.get_type(type))
 	
@@ -78,6 +80,7 @@ func _confirm_handle() -> void:
 	## Add Added Stats from handle
 	if inventory:
 		for item_to_feed in feed_items:
+			
 			item_to_feed.data.transfer_additional_stats(item_eating.data.handle.added_stats)
 			item_to_feed.free_draggable_ui()
 		inventory.show_side()

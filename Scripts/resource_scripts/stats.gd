@@ -145,7 +145,7 @@ func add_stats(other: StatsResource) -> void: #adds the other stats to listofaff
 ##If valid, Recalculates then removes stats from this stats object
 func remove_stats(other: StatsResource) -> void: #removes the stat from affecting this stat
 	if other == null || other == self || !listofaffection.has(other):
-		#print("\nPotential ERROR: other stat is null when trying to remove_stats\n\t (OR doesn't include self in list of affection)\n")
+		printerr("\nPotential ERROR: other stat is null when trying to remove_stats\n\t (OR doesn't include self in list of affection)\n")
 		return
 	stats_changed()# Must Recalculate TotalListofAffectionStats as we removed a stat
 	listofaffection.erase(other) #since the other stats is affecting this now, add it to the other stat's listofaffection
@@ -183,7 +183,7 @@ func get_stat_without_default(key: String) -> float:
 func GetAllStatsRecursive(list: Array[StatsResource]):
 	if !list.has(self):
 		list.append(self)
-		MustRecalculate = false
+		#MustRecalculate = false
 		for stat in listofaffection:
 			stat.GetAllStatsRecursive(list)
 ## Gets a list of all stat objects affecting, but doesn't reset MustRecalculate
@@ -197,6 +197,7 @@ func External_GetAllStatsRecursive(list: Array[StatsResource]):
 func Recalculate():
 	if MustRecalculate || TotalListOfStats == []:
 		TotalListOfStats = []
+		MustRecalculate = false
 		GetAllStatsRecursive(TotalListOfStats)
 func stats_changed():
 	if stat_changed_method:
@@ -258,9 +259,35 @@ func print_stat_tree(key: String):
 	Recalculate()
 	var list: Array[StatsResource]
 	GetAllStatsRecursive(list)
-	print("Self: " + parent_object_name + ", Factor: " + str(statsfactor[key]) +", Base: " + str(statsbase[key]))
+	var index: int = 1
+	var totalf: float = 0
+	var totalb: float = 0
+	var stat_str = "Self   "
+	var parent_str = parent_object_name
+	var factor_str = "keyF-%s" % get_stat_factor(key)
+	var base_str = "B-%s" % get_stat_base(key)
+	if factor_str == "F-1.0":
+		factor_str = "_____"
+	if base_str == "B-0.0":
+		base_str = "_____"
+	print("\n%-2s %-25s %-5s %s" % [stat_str, parent_str, factor_str, base_str])
 	for l in list:
-		print("Stats Object: " + l.parent_object_name + ", Factor: " + str(l.statsfactor[key]) +", Base: " + str(l.statsbase[key]))
+		stat_str = "Stat %d:" % index
+		parent_str = l.parent_object_name
+		factor_str = "F-%s" % l.statsfactor[key]
+		base_str = "B-%s" % l.statsbase[key]
+		if factor_str == "F-1.0":
+			factor_str = "_____"
+		else:
+			totalf += l.statsfactor[key]
+		if base_str == "B-0.0":
+			base_str = "_____"
+		else:
+			totalb += l.statsbase[key]
+		print("%-2s %-25s %-5s %s" % [stat_str, parent_str, factor_str, base_str])
+		#print("Stat " + str(index) + ": " + l.parent_object_name + " F-" + str(l.statsfactor[key]) +" B-" + str(l.statsbase[key]))
+		index += 1
+	print("Total Value Should Be: " + key + " = " + str(totalf) + ", " + str(totalb) + "\n")
 ## Returns if the stat is default or changed
 func is_stat_default(stat: String):
 	return get_stat_without_default(stat) == 0
@@ -284,3 +311,9 @@ static func get_default(stat: String) -> float:
 static func get_rand_stat() -> String:
 	return defaultstats.keys()[(randi() % defaultstats.size())]
 	#return defaultstats.key(randi() % defaultstats.size())
+## Untested
+func delete_stats():
+	for stats in listofaffected:
+		stats.remove_stats(self)
+	for stats in listofaffection:
+		remove_stats(stats)

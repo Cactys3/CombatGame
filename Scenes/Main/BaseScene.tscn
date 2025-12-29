@@ -235,6 +235,13 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
+[node name="Control" type="Control" parent="Window1920/Offset/UIManager/TabMenuParent"]
+anchors_preset = 0
+offset_left = 1389.0
+offset_top = 289.0
+offset_right = 1429.0
+offset_bottom = 329.0
+
 [node name="AIO" parent="Window1920/Offset/UIManager/TabMenuParent" instance=ExtResource("8_qq1a1")]
 layout_mode = 1
 offset_left = -153.0
