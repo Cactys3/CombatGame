@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_dkasr")
-parent_object_name = "Damage Buff Stats"
+parent_object_name = "Damage Buff"
 metadata/_custom_type_script = "uid://dwj80yu0v1qdt"

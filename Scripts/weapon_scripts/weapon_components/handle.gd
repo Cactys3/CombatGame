@@ -141,5 +141,5 @@ func set_stats() -> void:
 
 static func randomize_stats(itemdata: ItemData) -> StatsResource:
 	var ret = super(itemdata)
-	ret.parent_object_name = "RNGrolls-handle"
+	ret.parent_object_name = "Handle Rolls"
 	return ret

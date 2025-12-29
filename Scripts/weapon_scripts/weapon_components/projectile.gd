@@ -106,5 +106,5 @@ func die():
 ## Returns a randomized stat object, using the given itemdata's variables like rarity
 static func randomize_stats(itemdata: ItemData) -> StatsResource:
 	var ret = super(itemdata)
-	ret.parent_object_name = "RNGrolls-projectile"
+	ret.parent_object_name = "Projectile Rolls"
 	return ret

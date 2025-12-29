@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_dx8er")
-parent_object_name = "lightningwand attachment"
+parent_object_name = "Lightningwand Attachment"
 metadata/_custom_type_script = "uid://dwj80yu0v1qdt"

@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_amks8")
-parent_object_name = "lightningwand handle"
+parent_object_name = "Lightningwand Handle"
 metadata/_custom_type_script = "uid://dwj80yu0v1qdt"

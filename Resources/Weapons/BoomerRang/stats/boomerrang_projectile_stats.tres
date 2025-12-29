@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_yyipb")
+parent_object_name = "Boomerrang Projectile"
 metadata/_custom_type_script = "uid://dwj80yu0v1qdt"

@@ -60,5 +60,5 @@ static func randomize_stats(itemdata: ItemData) -> StatsResource:
 	stats.set_stat_base(StatsResource.RANGE, randi_range(0, 20))
 	stats.set_stat_base(StatsResource.SIZE, randf())
 	stats.set_stat_base(StatsResource.VELOCITY, randi_range(0, 20))
-	stats.parent_object_name = "RNGrolls-default"
+	stats.parent_object_name = "RNGrolls"
 	return stats

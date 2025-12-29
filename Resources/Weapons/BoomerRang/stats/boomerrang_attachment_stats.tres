@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_8w3ay")
+parent_object_name = "Boomerrang Attachment"
 metadata/_custom_type_script = "uid://dwj80yu0v1qdt"

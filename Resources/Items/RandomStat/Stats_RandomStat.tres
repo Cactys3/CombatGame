@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_xpb8n")
+parent_object_name = "Random Stat"
 metadata/_custom_type_script = "uid://dwj80yu0v1qdt"

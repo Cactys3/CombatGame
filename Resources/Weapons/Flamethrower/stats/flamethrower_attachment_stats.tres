@@ -4,4 +4,4 @@
 
 [resource]
 script = ExtResource("1_8bqf5")
-parent_object_name = "flamethrower_attachment"
+parent_object_name = "Flamethrower Attachment"

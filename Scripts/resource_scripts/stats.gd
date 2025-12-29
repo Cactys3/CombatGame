@@ -31,7 +31,65 @@ const DIFFICULTY = "difficulty"
 const REVIES = "revies"
 const THORNS = "thorns"
 const INACCURACY = "inaccuracy"
-@export var parent_object_name = "not_set"
+@export_placeholder("Name Go Here") var parent_object_name = "not_set"
+@export_group("Base Stats")
+@export var hp_base: float = 0.0
+@export var stance_base: float = 0.0
+@export var movespeed_base: float = 0.0
+@export var xp_base: float = 0.0
+@export var mogul_base: float = 0.0
+@export var luck_base: float = 0.0
+@export var damage_base: float = 0.0
+@export var range_base: float = 0.0
+@export var weight_base: float = 0.0
+@export var attackspeed_base: float = 0.0
+@export var velocity_base: float = 0.0
+@export var count_base: float = 0.0
+@export var piercing_base: float = 0.0
+@export var duration_base: float = 0.0
+@export var buildup_base: float = 0.0
+@export var size_base: float = 0.0
+@export var critchance_base: float = 0.0
+@export var critdamage_base: float = 0.0
+@export var ghostly_base: float = 0.0
+@export var regen_base: float = 0.0
+@export var magnetize_base: float = 0.0
+@export var lifesteal_base: float = 0.0
+@export var bonusvselites_base: float = 0.0
+@export var shield_base: float = 0.0
+@export var difficulty_base: float = 0.0
+@export var revies_base: float = 0.0
+@export var thorns_base: float = 0.0
+@export var inaccuracy_base: float = 0.0
+@export_group("Factor Stats")
+@export var hp_factor: float = 1.0
+@export var stance_factor: float = 1.0
+@export var movespeed_factor: float = 1.0
+@export var xp_factor: float = 1.0
+@export var mogul_factor: float = 1.0
+@export var luck_factor: float = 1.0
+@export var damage_factor: float = 1.0
+@export var range_factor: float = 1.0
+@export var weight_factor: float = 1.0
+@export var attackspeed_factor: float = 1.0
+@export var velocity_factor: float = 1.0
+@export var count_factor: float = 1.0
+@export var piercing_factor: float = 1.0
+@export var duration_factor: float = 1.0
+@export var buildup_factor: float = 1.0
+@export var size_factor: float = 1.0
+@export var critchance_factor: float = 1.0
+@export var critdamage_factor: float = 1.0
+@export var ghostly_factor: float = 1.0
+@export var regen_factor: float = 1.0
+@export var magnetize_factor: float = 1.0
+@export var lifesteal_factor: float = 1.0
+@export var bonusvselites_factor: float = 1.0
+@export var shield_factor: float = 1.0
+@export var difficulty_factor: float = 1.0
+@export var revies_factor: float = 1.0
+@export var thorns_factor: float = 1.0
+@export var inaccuracy_factor: float = 1.0
 ## Currently set pretty high as I'm not making individual stats for everything
 static var defaultstats = {
 	HP: 100.0,
@@ -63,7 +121,8 @@ static var defaultstats = {
 	REVIES: 0.0,
 	THORNS: 0.0
 	}
-@export var statsbase = { #everything must be default at 0 because they are always added in add_stats and should default to adding 0
+@export_group("Dictionaries")
+var statsbase = { #everything must be default at 0 because they are always added in add_stats and should default to adding 0
 	HP: 0.0,
 	STANCE: 0.0,
 	MOVESPEED: 0.0,
@@ -93,7 +152,7 @@ static var defaultstats = {
 	REVIES: 0.0,
 	THORNS: 0.0
 	}
-@export var statsfactor = {
+var statsfactor = {
 	HP: 1.0,
 	STANCE: 1.0,
 	MOVESPEED: 1.0,
@@ -132,6 +191,65 @@ var MustRecalculate: bool = true
 var TotalListOfStats: Array[StatsResource] 
 ## Method that is called when a stat is changed
 var stat_changed_method: Callable
+func _init() -> void:
+	## Base
+	statsbase[HP] = hp_base
+	statsbase[STANCE] = stance_base
+	statsbase[MOVESPEED] = movespeed_base
+	statsbase[XP] = xp_base
+	statsbase[MOGUL] = mogul_base
+	statsbase[LUCK] = luck_base
+	statsbase[DAMAGE] = damage_base
+	statsbase[RANGE] = range_base
+	statsbase[WEIGHT] = weight_base
+	statsbase[ATTACKSPEED] = attackspeed_base
+	statsbase[VELOCITY] = velocity_base
+	statsbase[INACCURACY] = inaccuracy_base
+	statsbase[COUNT] = count_base
+	statsbase[PIERCING] = piercing_base
+	statsbase[DURATION] = duration_base
+	statsbase[BUILDUP] = buildup_base
+	statsbase[SIZE] = size_base
+	statsbase[CRITCHANCE] = critchance_base
+	statsbase[CRITDAMAGE] = critdamage_base
+	statsbase[GHOSTLY] = ghostly_base
+	statsbase[REGEN] = regen_base
+	statsbase[MAGNETIZE] = magnetize_base
+	statsbase[LIFESTEAL] = lifesteal_base
+	statsbase[BONUSVSELITES] = bonusvselites_base
+	statsbase[SHIELD] = shield_base
+	statsbase[DIFFICULTY] = difficulty_base
+	statsbase[REVIES] = revies_base
+	statsbase[THORNS] = thorns_base
+	## Factor
+	statsfactor[HP] = hp_factor
+	statsfactor[STANCE] = stance_factor
+	statsfactor[MOVESPEED] = movespeed_factor
+	statsfactor[XP] = xp_factor
+	statsfactor[MOGUL] = mogul_factor
+	statsfactor[LUCK] = luck_factor
+	statsfactor[DAMAGE] = damage_factor
+	statsfactor[RANGE] = range_factor
+	statsfactor[WEIGHT] = weight_factor
+	statsfactor[ATTACKSPEED] = attackspeed_factor
+	statsfactor[VELOCITY] = velocity_factor
+	statsfactor[INACCURACY] = inaccuracy_factor
+	statsfactor[COUNT] = count_factor
+	statsfactor[PIERCING] = piercing_factor
+	statsfactor[DURATION] = duration_factor
+	statsfactor[BUILDUP] = buildup_factor
+	statsfactor[SIZE] = size_factor
+	statsfactor[CRITCHANCE] = critchance_factor
+	statsfactor[CRITDAMAGE] = critdamage_factor
+	statsfactor[GHOSTLY] = ghostly_factor
+	statsfactor[REGEN] = regen_factor
+	statsfactor[MAGNETIZE] = magnetize_factor
+	statsfactor[LIFESTEAL] = lifesteal_factor
+	statsfactor[BONUSVSELITES] = bonusvselites_factor
+	statsfactor[SHIELD] = shield_factor
+	statsfactor[DIFFICULTY] = difficulty_factor
+	statsfactor[REVIES] = revies_factor
+	statsfactor[THORNS] = thorns_factor
 func set_changed_method(method: Callable) -> void:
 	stat_changed_method = method
 ## If valid, Recalculates then adds stats to this stats object

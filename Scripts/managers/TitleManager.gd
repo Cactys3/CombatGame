@@ -43,7 +43,7 @@ var array: Array[Control] = [main, settings, collection, shop, character_selecti
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	## For testing:
-	global_stats.parent_object_name = "Global Stats"
+	global_stats.parent_object_name = "Globals"
 	
 	set_process_input(true)
 	set_process_unhandled_input(true)

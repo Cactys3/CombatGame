@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_tmmbd")
+parent_object_name = "Gravity Attachment"
 metadata/_custom_type_script = "uid://dwj80yu0v1qdt"

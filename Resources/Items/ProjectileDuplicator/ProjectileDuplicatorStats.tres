@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_5eq4h")
+parent_object_name = "Projectile Duplicator"
 metadata/_custom_type_script = "uid://dwj80yu0v1qdt"

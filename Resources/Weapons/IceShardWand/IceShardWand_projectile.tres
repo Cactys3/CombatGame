@@ -13,14 +13,14 @@ metadata/_custom_type_script = "uid://dhqfnnqd2n054"
 [resource]
 script = ExtResource("4_d2vgt")
 item_packed_scene = ExtResource("4_foq67")
-item_name = "Ice Shards Wand Projectile"
+item_name = "IceShardWand Projectile"
 item_description = "Ice Shards Wand Projectile"
 item_type = 3
 item_color = Color(0.4983244, 0.6964136, 1, 1)
 item_image = ExtResource("4_h6058")
+has_stats = true
 randomizable = true
 default_stats = ExtResource("3_d2vgt")
-default_status_effects = SubResource("Resource_d2vgt")
-has_stats = true
 has_status_effects = true
+default_status_effects = SubResource("Resource_d2vgt")
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"

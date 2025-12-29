@@ -13,13 +13,13 @@ metadata/_custom_type_script = "uid://dhqfnnqd2n054"
 [resource]
 script = ExtResource("2_ev38d")
 item_packed_scene = ExtResource("4_507i0")
-item_name = "Ice Shards Wand Attachment"
+item_name = "IceShardWand Attachment"
 item_description = "Ice Shards Wand Attachment"
 item_type = 2
 item_color = Color(0.35813847, 0.3766308, 0.93860155, 1)
 item_image = ExtResource("4_tim22")
+has_stats = true
 randomizable = true
 default_stats = ExtResource("3_tim22")
 default_status_effects = SubResource("Resource_tjmrm")
-has_stats = true
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"

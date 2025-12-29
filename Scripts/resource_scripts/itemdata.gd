@@ -1,51 +1,53 @@
 extends Resource
 class_name ItemData
 ## Generic Fields (always active)
-@export_category("Generic Fields (always active)")
 @export var item_packed_scene: PackedScene
-@export var item_name: String = "default name"
-@export var item_description: String = "default description"
-enum item_types{unset, handle, attachment, projectile, weapon, item, mod}
+@export_placeholder("Name Go Here") var item_name: String = "unset"
+@export_multiline var item_description: String = "default description"
 @export var item_type: item_types
 @export var item_color: Color = Color.DARK_SLATE_BLUE
 @export var border_color: Color = Color.WHITE
 @export var item_image: Texture2D = preload("res://Art/UI/MissingTexture.png")
-@export var randomizable: bool = false
+@export var item_buy_cost: float = 5
 ## Misc Fields (common, but not always active)
-@export_category("Stats/Status")
+@export_group("Stats")
+@export var has_stats: bool = false
+## Should randomized RNG stats be added to stats on setup
+@export var randomizable: bool = false
+## Can this data be fed to a weapon/component to transfer added stats
+@export var can_feed: bool = true
 @export var default_stats: StatsResource = null
+@export_group("Status")
+@export var has_status_effects: bool = false
+@export var default_status_effects: StatusEffects = null
+@export_group("Rarity")
+@export var has_rarity: bool = true
+## Cost will be multiplied by this number for each rarity increase
+@export var rarity_cost_modifier = 1
+@export var item_rarity: item_rarities
+@export_group("Buy and Sell")
+@export var can_sell: bool = true
+@export var can_buy: bool = true
+## Selling value will be buy cost multiplied by this number
+@export var item_sell_cost_modifier: float = 0.8
+
+## WeaponFrame Fields (only for weapons)
+var attachment: ItemData = null
+var handle: ItemData = null
+var projectile: ItemData = null
+var equipped: bool = false
+var is_ready: bool = false
+var frame_ready: bool = false
+var attachment_visual: Texture2D = null
+var handle_visual: Texture2D = null
+## Variables
+enum item_types{unset, handle, attachment, projectile, weapon, item, mod}
+enum item_rarities {unset, common, rare, epic, legendary, exclusive}
+var status_effects: StatusEffects = null
 var stats: StatsResource = null
 ## Stat object applied to 'Stats' to be passed around between consumed components
 var added_stats: StatsResource = null
-@export var default_status_effects: StatusEffects = null
-var status_effects: StatusEffects = null
-@export_category("Misc Fields (common, but not always active)")
-@export var rarity_cost_modifier = 1
-enum item_rarities {unset, common, rare, epic, legendary, exclusive}
-@export var item_rarity: item_rarities
-@export var item_buy_cost: float = 5
-@export var item_sell_cost_modifier: float = 0.8
-## Booleans for optional Fields
-@export_category("Booleans for optional Fields")
-@export var can_feed: bool = true
-@export var can_sell: bool = true
-@export var can_buy: bool = true
-@export var has_rarity: bool = true
-@export var has_stats: bool = false
-@export var has_status_effects: bool = false
-## WeaponFrame Fields (only for weapons)
-@export_category("WeaponFrame Fields (only for weapons)")
-@export var attachment: ItemData = null
-@export var handle: ItemData = null
-@export var projectile: ItemData = null
-@export var equipped: bool = false
-@export var is_ready: bool = false
-@export var frame_ready: bool = false
-@export var attachment_visual: Texture2D = null
-@export var handle_visual: Texture2D = null
-## Item Fields (only for items)
-@export_category("Item Fields (only for items)")
-@export var stackable: bool = false
+
 ## Rarity Colors
 const DEFAULT_COLOR: Color = Color.GRAY
 const COMMON_COLOR: Color = Color.LIME_GREEN

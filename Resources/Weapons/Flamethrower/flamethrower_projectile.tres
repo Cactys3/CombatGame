@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=6 format=3 uid="uid://cfpb6ubhymn15"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://cfpb6ubhymn15"]
 
 [ext_resource type="Resource" uid="uid://b86efdis6cvhv" path="res://Resources/Weapons/Flamethrower/stats/flamethrower_projectile_stats.tres" id="1_q8t3e"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_ncjks"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_vqt2v"]
 [ext_resource type="PackedScene" uid="uid://dlxqovibkkvb6" path="res://Scenes/Weapons/flamethrower/fire_projectile.tscn" id="3_ncjks"]
+[ext_resource type="Texture2D" uid="uid://lqpckh7fkgjy" path="res://Art/UI/MissingTexture.png" id="3_tn7ud"]
 
 [sub_resource type="Resource" id="Resource_mcwfv"]
 script = ExtResource("2_ncjks")
@@ -12,15 +13,15 @@ metadata/_custom_type_script = "uid://dhqfnnqd2n054"
 [resource]
 script = ExtResource("2_vqt2v")
 item_packed_scene = ExtResource("3_ncjks")
-item_name = "flamethrower projectile"
+item_name = "Flamethrower Projectile"
 item_description = "flamethrower projectile description"
 item_type = 3
 item_color = Color(0.590171, 0.00205518, 0.807427, 1)
 border_color = Color(0.288518, 0.288518, 0.288518, 1)
+has_stats = true
 randomizable = true
 default_stats = ExtResource("1_q8t3e")
+has_status_effects = true
 default_status_effects = SubResource("Resource_mcwfv")
 item_rarity = 1
-has_stats = true
-has_status_effects = true
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"
