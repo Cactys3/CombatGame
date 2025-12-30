@@ -3,6 +3,7 @@ class_name ItemData
 ## Generic Fields (always active)
 @export var item_packed_scene: PackedScene
 @export_placeholder("Name Go Here") var item_name: String = "unset"
+@export_placeholder("Like 'Pi'stol") var component_halfname: String
 @export_multiline var item_description: String = "default description"
 @export var item_type: item_types
 @export var item_color: Color = Color.DARK_SLATE_BLUE

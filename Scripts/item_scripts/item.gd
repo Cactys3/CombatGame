@@ -56,9 +56,6 @@ static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrad
 ## Returns a randomized stat object, using the given itemdata's variables like rarity
 static func randomize_stats(itemdata: ItemData) -> StatsResource:
 	var stats: StatsResource = StatsResource.new()
-	stats.set_stat_base(StatsResource.DAMAGE, randi_range(0, 20))
-	stats.set_stat_base(StatsResource.RANGE, randi_range(0, 20))
-	stats.set_stat_base(StatsResource.SIZE, randf())
-	stats.set_stat_base(StatsResource.VELOCITY, randi_range(0, 20))
+	stats.set_stat_base(StatsResource.DAMAGE, randi_range(-10, 10))
 	stats.parent_object_name = "RNGrolls"
 	return stats
