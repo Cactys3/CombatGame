@@ -58,7 +58,9 @@ var facing_left: bool = true
 var ImReady: bool = false
 ## Called on death with position of death
 signal death(position: Vector2)
-
+## Player Level at time Enemy was spawned
+var level: float = 2
+##
 func _ready() -> void:
 	call_deferred("set_stats")
 	call_deferred("setup")
@@ -77,12 +79,15 @@ func set_stats():
 	curr_lifetime = stats.get_stat_without_default(stats.DURATION) + base_lifetime
 	curr_piercing = stats.get_stat_without_default(stats.PIERCING) + base_piercing
 	curr_damage = stats.get_stat_without_default(stats.DAMAGE) + base_damage
-	curr_health = stats.get_stat_without_default(stats.HP) + base_health
-
+	curr_health = (stats.get_stat_without_default(stats.HP) + base_health) + (level * 2) ## TODO: level hp calculation?
+##
 func setup():
 	player = get_tree().get_first_node_in_group("player")
 	ImReady = true
 	stats.set_changed_method(set_stats)
+## Calculate HP with given Character Level
+func initialize(new_level: float):
+	level = new_level
 
 func _process(delta: float) -> void:
 	if !ImReady:

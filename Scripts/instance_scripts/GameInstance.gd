@@ -54,6 +54,10 @@ static var bosses_alive: int = 0
 var kills_needed: float = 50 
 ## kills aquired since last boss spawn
 var kills_left: float = 0 
+## Player Level, calculated in enemy health
+var level: float:
+	get():
+		return game_man.level
 ## Chunks
 var loaded_chunk_position: Vector2 = Vector2.ZERO
 var chunk_y: float = 360
@@ -251,6 +255,7 @@ func spawn_enemy(scene: PackedScene, pos: Vector2):
 	enemies_alive += 1
 	enemies_spawned += 1
 	var enemy = scene.instantiate()
+	enemy.initialize(level)
 	enemy.visible = false
 	enemy.global_position = pos
 	game_man.enemy_parent.add_child(enemy)
