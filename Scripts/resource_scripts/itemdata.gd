@@ -111,6 +111,7 @@ static func get_type(i: int) -> String:
 func setup(should_randomize: bool, starting_rarity: item_rarities):
 	if has_stats:
 		stats = default_stats.duplicate()
+		stats.setup()
 	if has_status_effects:
 		status_effects = default_status_effects.duplicate()
 	if has_rarity:

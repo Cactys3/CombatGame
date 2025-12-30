@@ -166,7 +166,7 @@ func set_weapon(index: int):
 		weapon = index
 		text_weapon.text = "Weapon: " + weapons[weapon].key
 func setup_global_stats():
-	global_stats.add_stats(load(characters[character].key))
+	global_stats = (load(characters[character].key))
 ## Sets only parameter as visible
 func set_visible(nodes: Array[Control]):
 	main.visible = false

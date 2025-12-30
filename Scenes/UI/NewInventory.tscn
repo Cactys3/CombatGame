@@ -140,6 +140,7 @@ text_color = Color(0.8392157, 0, 0, 1)
 scroll_stylebox = SubResource("StyleBoxFlat_3scq6")
 scroll_grabber_stylebox = SubResource("StyleBoxFlat_vq26r")
 scroll_grabber_hover_stylebox = SubResource("StyleBoxFlat_kcwj8")
+hide_player_only = true
 
 [node name="FeedPanel" parent="HBoxContainer/Left" instance=ExtResource("3_o2jd4")]
 layout_mode = 2
@@ -343,6 +344,7 @@ theme_override_constants/margin_bottom = 5
 [node name="StatsDisplay" parent="HBoxContainer/Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBox/Margin/Stats/MarginContainer" instance=ExtResource("3_8f5sv")]
 layout_mode = 2
 text_color = Color(0.37254903, 0.8039216, 0.89411765, 1)
+hide_weapon_only = true
 
 [node name="StatsLabel" type="Label" parent="HBoxContainer/Main/Main/RightPanel/DividerBox/Right/RightBox/CharacterPanel/HBox/Margin/Stats"]
 layout_mode = 1
@@ -545,6 +547,7 @@ text_color = Color(0.8392157, 0, 0, 1)
 scroll_stylebox = SubResource("StyleBoxFlat_3scq6")
 scroll_grabber_stylebox = SubResource("StyleBoxFlat_vq26r")
 scroll_grabber_hover_stylebox = SubResource("StyleBoxFlat_kcwj8")
+hide_player_only = true
 
 [node name="OffsetDown" type="Control" parent="HBoxContainer/Right"]
 layout_mode = 2

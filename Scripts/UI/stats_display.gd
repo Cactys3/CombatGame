@@ -238,7 +238,7 @@ var single_stat_total_list: StatsList
 ## Backup
 ## Sets up the statsdisplay for showing all the stats of this stats object
 func setup_substats(new_stats: StatsResource, new_name: String):
-	print("\n\nadd_stats: " + new_name + "dmg: ")
+	#print("\n\nadd_stats: " + new_name + "dmg: ")
 	new_stats.print_stat_tree(StatsResource.RANGE)
 	## Setup Based on Parameters
 	stats = new_stats
@@ -249,11 +249,11 @@ func setup_substats(new_stats: StatsResource, new_name: String):
 	index += 1
 	listparent.add_child(mainlist)
 	lists.append(mainlist)
-	print("main stats: " + new_stats.parent_object_name + "dmg: " + str(new_stats.get_stat(StatsResource.RANGE)))
+	#print("main stats: " + new_stats.parent_object_name + "dmg: " + str(new_stats.get_stat(StatsResource.RANGE)))
 	## Only get stats one layer deep ie: listofaffection instead of recursive get all stats
 	for stat in new_stats.listofaffection:
 			#if stat != new_stats:
-			print("stat " + str(index) + ":" + stat.parent_object_name + "dmg: " + str(stat.get_stat(StatsResource.RANGE)))
+			#print("stat " + str(index) + ":" + stat.parent_object_name + "dmg: " + str(stat.get_stat(StatsResource.RANGE)))
 			stat.print_stat_tree(StatsResource.RANGE)
 			var newlist: StatsList = LIST.instantiate()
 			newlist.setup(stat, index)

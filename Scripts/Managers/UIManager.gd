@@ -39,7 +39,6 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	inventory = AIOman.inventory
 	equipment = AIOman.equipment
-	AIOman.set_character_stats_display(GameManager.instance.player.player_stats)
 	if tab_menu_parent.visible:
 		tab_menu_parent.visible = false
 	if esc_menu_parent.visible:

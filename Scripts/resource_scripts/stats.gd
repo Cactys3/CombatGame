@@ -191,8 +191,12 @@ var MustRecalculate: bool = true
 var TotalListOfStats: Array[StatsResource] 
 ## Method that is called when a stat is changed
 var stat_changed_method: Callable
-func _init() -> void:
+var initialized: bool = false
+
+func setup() -> void:
+	initialized = true
 	## Base
+	print(resource_name + " set: " + HP + " to: " + str(hp_base))
 	statsbase[HP] = hp_base
 	statsbase[STANCE] = stance_base
 	statsbase[MOVESPEED] = movespeed_base
@@ -254,14 +258,21 @@ func set_changed_method(method: Callable) -> void:
 	stat_changed_method = method
 ## If valid, Recalculates then adds stats to this stats object
 func add_stats(other: StatsResource) -> void: #adds the other stats to listofaffection
+	if !initialized:
+		setup()
+	if (other.parent_object_name.contains("Web") || parent_object_name.contains("Web")):
+		print("add: " + other.parent_object_name + " to " + parent_object_name)
 	if other == null || other == self || listofaffection.has(other):
-		print("\nPotential ERROR when trying to add_stats\n")
+		printerr("\nPotential ERROR when trying to add_stats")
 		return
 	stats_changed() # Must Recalculate TotalListofAffectionStats as we added a new stat
 	listofaffection.append(other) #since the other stats is affecting this now, add it to the our listofaffection
 	other.listofaffected.append(self)
 ##If valid, Recalculates then removes stats from this stats object
 func remove_stats(other: StatsResource) -> void: #removes the stat from affecting this stat
+	if !initialized:
+		setup()
+	print("remove: " + other.parent_object_name + " to " + parent_object_name)
 	if other == null || other == self || !listofaffection.has(other):
 		printerr("\nPotential ERROR: other stat is null when trying to remove_stats\n\t (OR doesn't include self in list of affection)\n")
 		return
@@ -270,6 +281,8 @@ func remove_stats(other: StatsResource) -> void: #removes the stat from affectin
 	other.listofaffected.erase(self)
 ## If valid, checks recalculate then returns the total calculated stat
 func get_stat(key: String) -> float:
+	if !initialized:
+		setup()
 	if statsbase.has(key) && statsfactor.has(key):
 		Recalculate()
 		var base = 0
@@ -322,7 +335,11 @@ func stats_changed():
 		stat_changed_method.call()
 	MustRecalculate = true
 	for stat in listofaffected:
-		stat.stats_changed()
+		if stat != self && !listofaffection.has(stat):
+			stat.stats_changed()
+		else:
+			
+			printerr("Potential ERROR: calling stats_changed would have recursively looped as stat is in both listofaffection and listofaffected\nStat: " + parent_object_name + ", other: " + stat.parent_object_name)
 ## returns total stats calculation of base stat
 func get_stat_base(key: String) -> float:
 	if statsbase.has(key):
@@ -388,7 +405,7 @@ func print_stat_tree(key: String):
 		factor_str = "_____"
 	if base_str == "B-0.0":
 		base_str = "_____"
-	print("\n%-2s %-25s %-5s %s" % [stat_str, parent_str, factor_str, base_str])
+	#print("\n%-2s %-25s %-5s %s" % [stat_str, parent_str, factor_str, base_str])
 	for l in list:
 		stat_str = "Stat %d:" % index
 		parent_str = l.parent_object_name
@@ -402,10 +419,10 @@ func print_stat_tree(key: String):
 			base_str = "_____"
 		else:
 			totalb += l.statsbase[key]
-		print("%-2s %-25s %-5s %s" % [stat_str, parent_str, factor_str, base_str])
+		#print("%-2s %-25s %-5s %s" % [stat_str, parent_str, factor_str, base_str])
 		#print("Stat " + str(index) + ": " + l.parent_object_name + " F-" + str(l.statsfactor[key]) +" B-" + str(l.statsbase[key]))
 		index += 1
-	print("Total Value Should Be: " + key + " = " + str(totalf) + ", " + str(totalb) + "\n")
+	#print("Total Value Should Be: " + key + " = " + str(totalf) + ", " + str(totalb) + "\n")
 ## Returns if the stat is default or changed
 func is_stat_default(stat: String):
 	return get_stat_without_default(stat) == 0

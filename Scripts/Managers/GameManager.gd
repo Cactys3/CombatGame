@@ -131,11 +131,13 @@ func setup_deffered(starting_weapon: int):
 	level = 0
 	xp = 0
 	money = starting_money
+	print("added: " + global_stats.parent_object_name + " to "+ player.player_stats.parent_object_name)
 	player.player_stats.add_stats(global_stats)
 	get_tree().paused = false
 	var weapon: ItemData = ShopManager.get_weapon(starting_weapon)
 	add_weapon_to_player(weapon.get_item())
 	ui_man.equipment.backend_add(ShopManager.make_itemUI(weapon))
+	ui_man.AIOman.set_character_stats_display(player.player_stats)
 
 func _ready() -> void:
 	# Ensure only one instance exists
