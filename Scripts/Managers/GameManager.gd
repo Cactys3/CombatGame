@@ -15,6 +15,7 @@ static var instance: GameManager
 @export var xp_parent: Node2D
 @export var enemy_parent: Node2D
 @export var weapon_parent: Node2D
+@export var projectile_parent: Node2D
 
 var weapon_count: int:
 	get():
@@ -131,13 +132,19 @@ func setup_deffered(starting_weapon: int):
 	level = 0
 	xp = 0
 	money = starting_money
-	print("added: " + global_stats.parent_object_name + " to "+ player.player_stats.parent_object_name)
 	player.player_stats.add_stats(global_stats)
 	get_tree().paused = false
-	var weapon: ItemData = ShopManager.get_weapon(starting_weapon)
-	add_weapon_to_player(weapon.get_item())
-	ui_man.equipment.backend_add(ShopManager.make_itemUI(weapon))
 	ui_man.AIOman.set_character_stats_display(player.player_stats)
+	call_deferred("setup_weapon", starting_weapon)
+## It's Necessary to deferr this twice as it relies on stuff that is deferred once to happen (i don't know what exactly it relies on)
+func setup_weapon(starting_weapon: int):
+	var weapon: ItemData = ShopManager.get_weapon(starting_weapon)
+	if !ui_man.equipment.ui_add(ShopManager.make_itemUI(weapon)):
+		add_weapon_to_player(weapon.get_item())
+		ui_man.equipment.backend_add(ShopManager.make_itemUI(weapon))
+		print("fail")
+	else:
+		print("success")
 
 func _ready() -> void:
 	# Ensure only one instance exists

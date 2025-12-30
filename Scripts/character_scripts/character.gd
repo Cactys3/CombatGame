@@ -143,11 +143,13 @@ func add_frame(new_frame: Weapon_Frame):
 		if (weapon.handle.AimType == new_frame.handle.AimType):
 			index += 1
 			weapon.change_slot(index, temp_count)
-	#print("Add Weapon Frame: " + new_frame.name)
 	player_stats.add_stats(new_frame.stats)
 	#new_frame.make_stats_visual(weapon_list.size())
-	call_deferred("add_child", new_frame)
-	#add_child(new_frame) this errors?
+	if new_frame.get_parent():
+		call_deferred("reparent", new_frame)
+	else:
+		call_deferred("add_child", new_frame)
+
 func remove_frame(frame_sought: Weapon_Frame) -> bool:
 	if frame_sought && weapon_list.has(frame_sought):
 		weapon_list.erase(frame_sought)

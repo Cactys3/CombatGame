@@ -472,5 +472,5 @@ autowrap_mode = 3
 [connection signal="pressed" from="Weapon_Selection/ScrollContainer/GridContainer/Choose_3" to="TitleManager" method="set_weapon" binds= [3]]
 [connection signal="pressed" from="Weapon_Selection/ScrollContainer/GridContainer/Choose_4" to="TitleManager" method="set_weapon" binds= [4]]
 [connection signal="pressed" from="Weapon_Selection/ScrollContainer/GridContainer/Choose_5" to="TitleManager" method="set_weapon" binds= [5]]
-[connection signal="pressed" from="Weapon_Selection/ScrollContainer/GridContainer/Choose_6" to="TitleManager" method="set_weapon"]
-[connection signal="pressed" from="Weapon_Selection/ScrollContainer/GridContainer/Choose_7" to="TitleManager" method="set_weapon"]
+[connection signal="pressed" from="Weapon_Selection/ScrollContainer/GridContainer/Choose_6" to="TitleManager" method="set_weapon" binds= [6]]
+[connection signal="pressed" from="Weapon_Selection/ScrollContainer/GridContainer/Choose_7" to="TitleManager" method="set_weapon" binds= [7]]

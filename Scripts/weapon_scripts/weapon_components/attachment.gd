@@ -82,7 +82,7 @@ func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectil
 	if (handle.AimType == Handle.AimTypes.Spinning): #handle aim types special cases
 		frame.player.add_child(new_bullet)
 	else:
-		GameManager.instance.weapon_parent.add_child(new_bullet)
+		GameManager.instance.projectile_parent.add_child(new_bullet)
 	new_bullet.global_position = new_position
 	new_bullet.rotation = new_direction.normalized().angle()
 	new_bullet.died.connect(projectile_died)

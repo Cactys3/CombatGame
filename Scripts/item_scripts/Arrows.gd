@@ -48,7 +48,7 @@ func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectil
 	var new_bullet:Projectile = projectile.instantiate()
 	new_bullet.visible = false
 	new_bullet.setup_item(stats, new_direction)
-	GameManager.instance.weapon_parent.add_child(new_bullet)
+	GameManager.instance.projectile_parent.add_child(new_bullet)
 	new_bullet.global_position = new_position
 	new_bullet.rotation = new_direction.normalized().angle()
 	#new_bullet.died.connect(projectile_died)

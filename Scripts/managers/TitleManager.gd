@@ -195,3 +195,7 @@ class duple_int:
 	func _init(new_key: String, new_value: int):
 		key = new_key
 		value = new_value
+
+
+func _on_choose_0_pressed(extra_arg_0: int) -> void:
+	pass # Replace with function body.

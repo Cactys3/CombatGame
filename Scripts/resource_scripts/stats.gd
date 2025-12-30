@@ -196,7 +196,6 @@ var initialized: bool = false
 func setup() -> void:
 	initialized = true
 	## Base
-	print(resource_name + " set: " + HP + " to: " + str(hp_base))
 	statsbase[HP] = hp_base
 	statsbase[STANCE] = stance_base
 	statsbase[MOVESPEED] = movespeed_base
@@ -260,8 +259,6 @@ func set_changed_method(method: Callable) -> void:
 func add_stats(other: StatsResource) -> void: #adds the other stats to listofaffection
 	if !initialized:
 		setup()
-	if (other.parent_object_name.contains("Web") || parent_object_name.contains("Web")):
-		print("add: " + other.parent_object_name + " to " + parent_object_name)
 	if other == null || other == self || listofaffection.has(other):
 		printerr("\nPotential ERROR when trying to add_stats")
 		return
@@ -272,7 +269,6 @@ func add_stats(other: StatsResource) -> void: #adds the other stats to listofaff
 func remove_stats(other: StatsResource) -> void: #removes the stat from affecting this stat
 	if !initialized:
 		setup()
-	print("remove: " + other.parent_object_name + " to " + parent_object_name)
 	if other == null || other == self || !listofaffection.has(other):
 		printerr("\nPotential ERROR: other stat is null when trying to remove_stats\n\t (OR doesn't include self in list of affection)\n")
 		return

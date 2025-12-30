@@ -37,7 +37,7 @@ func _ready():
 	visible = true
 
 func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
-	frame_stats = base_gun.stats.get_copy() # get copy incase gun is freed
+	frame_stats = base_gun.stats # get copy incase gun is freed
 	frame_stats.parent_object_name = name
 	frame = base_gun
 	var size_value = frame_stats.get_stat(StatsResource.SIZE) 

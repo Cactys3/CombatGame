@@ -112,7 +112,7 @@ func _process(delta: float) -> void:
 				projectile_cooldown_stopwatch = 0
 				#print("shot projectile")
 				var proj: EnemyProjectile = projectile.instantiate()
-				GameManager.instance.weapon_parent.add_child(proj)
+				GameManager.instance.projectile_parent.add_child(proj)
 				proj.modulate = self.modulate
 				proj.global_position = global_position
 				proj.setup(player, self, homing, curr_speed, curr_acceleration, curr_lifetime, curr_piercing)
