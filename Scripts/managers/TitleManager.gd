@@ -181,6 +181,7 @@ func set_visible(nodes: Array[Control]):
 func _quickstart():
 	character = 0
 	map = 0
+	weapon = 1
 	press_start_game()
 
 class duple:

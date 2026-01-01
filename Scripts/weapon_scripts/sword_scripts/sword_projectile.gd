@@ -21,3 +21,10 @@ func attack_body(body: Node2D) -> void:
 		var new_attack = make_attack()
 		body.damage(new_attack)
 		AttackedObjects.append(body)
+
+static func randomize_stats(itemdata: ItemData) -> StatsResource:
+	var ret: StatsResource = StatsResource.new()
+	#ret.set_stat_base(StatsResource.DAMAGE, randi_range(-1, 3))
+	
+	ret.parent_object_name = "Magic Ball Rolls"
+	return ret

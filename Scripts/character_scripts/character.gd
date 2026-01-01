@@ -17,7 +17,8 @@ var moving: bool = false
 var weapon_list: Array[Weapon_Frame]
 var weapon_count: int = 0
 var static_slot_count: int = 0
-var at_mouse_count: int = 0
+var dynamic_at_mouse_count: int = 0
+var always_at_mouse_count: int = 0
 var spin_aim_count: int = 0
 ## Current Variables
 var curr_speed: float
@@ -125,19 +126,18 @@ func add_frame(new_frame: Weapon_Frame):
 		Handle.AimTypes.StaticSlot:
 			static_slot_count += 1
 			temp_count = static_slot_count
-			#print("Aim Type: StaticSlot, count: " + str(static_slot_count))
-		Handle.AimTypes.AtMouse:
-			at_mouse_count += 1
-			temp_count = at_mouse_count
-			#print("Aim Type: AtMouse, count: " + str(at_mouse_count))
+		Handle.AimTypes.DynamicAtMouse:
+			dynamic_at_mouse_count += 1
+			temp_count = dynamic_at_mouse_count
+		Handle.AimTypes.AlwaysAtMouse:
+			always_at_mouse_count += 1
+			temp_count = always_at_mouse_count
 		Handle.AimTypes.Unique:
 			spin_aim_count += 1
 			temp_count = spin_aim_count
-			#print("Aim Type: Unique, count: " + str(unique_aim_count))
 		_:
 			weapon_count += 1
 			temp_count = weapon_count
-			#print("Aim Type: Default, count: " + str(weapon_count))
 	var index: float = 0
 	for weapon in weapon_list:
 		if (weapon.handle.AimType == new_frame.handle.AimType):
@@ -158,9 +158,12 @@ func remove_frame(frame_sought: Weapon_Frame) -> bool:
 			Handle.AimTypes.StaticSlot:
 				static_slot_count -= 1
 				temp_count = static_slot_count
-			Handle.AimTypes.AtMouse:
-				at_mouse_count -= 1
-				temp_count = at_mouse_count
+			Handle.AimTypes.DynamicAtMouse:
+				dynamic_at_mouse_count -= 1
+				temp_count = dynamic_at_mouse_count
+			Handle.AimTypes.AlwaysAtMouse:
+				always_at_mouse_count -= 1
+				temp_count = always_at_mouse_count
 			Handle.AimTypes.Unique:
 				spin_aim_count -= 1
 				temp_count = spin_aim_count
@@ -173,9 +176,7 @@ func remove_frame(frame_sought: Weapon_Frame) -> bool:
 				index += 1
 				weapon.change_slot(index, temp_count)
 		remove_child(frame_sought)
-		#frame_sought.delete_stats_visual()
 		player_stats.remove_stats(frame_sought.stats)
-		#print("removed weapon: " + frame_sought.name)
 		return true
 	return false
 func get_stat(stat: String) -> float:

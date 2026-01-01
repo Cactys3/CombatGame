@@ -33,11 +33,11 @@ func set_itemdata(data:ItemData, new_type: types):
 		types.component_level: 
 			LevelUpgrades = data.get_level_upgrades()
 			option_name = "Upgrade Level of Component: " + option_name + "\n" 
-			for upgrade in LevelUpgrades:
-				if upgrade.factor_stat:
-					option_name += "% bonus stat" + upgrade.stat_name + ": " + str(round2(data.stats.get_stat_factor(upgrade.stat_name))) + " --> " + str(round2(data.stats.get_stat_factor(upgrade.stat_name) + upgrade.change_value))
+			for upgrade: ItemData.LevelUpgrade in LevelUpgrades:
+				if upgrade.factor:
+					option_name += "% bonus stat" + upgrade.name + ": " + str(round2(data.stats.get_stat_factor(upgrade.name))) + " --> " + str(round2(data.stats.get_stat_factor(upgrade.name) + upgrade.value))
 				else:
-					option_name += "base stat " + upgrade.stat_name + ": " + str(round2(data.stats.get_stat_base(upgrade.stat_name))) + " --> " + str(round2(data.stats.get_stat_base(upgrade.stat_name) + upgrade.change_value))
+					option_name += "base stat " + upgrade.name + ": " + str(round2(data.stats.get_stat_base(upgrade.name))) + " --> " + str(round2(data.stats.get_stat_base(upgrade.name) + upgrade.value))
 		_:
 			option_name =  "misc: " + option_name
 ## sets up the data via parameters

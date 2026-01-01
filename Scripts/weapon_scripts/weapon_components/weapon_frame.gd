@@ -25,6 +25,15 @@ func _process(_delta: float) -> void:
 			if is_instance_valid(event.attackee) && is_instance_valid(event.attacker):
 				event.attacker.attack_body(event.attackee)
 
+func get_nearest_enemy() -> Variant:
+	var nearest_enemy = null
+	for enemy in get_tree().get_nodes_in_group("enemy"):
+		if nearest_enemy == null:
+			nearest_enemy = enemy
+		elif global_position.distance_to(enemy.global_position) < global_position.distance_to(nearest_enemy.global_position):
+			nearest_enemy = enemy
+	return nearest_enemy
+
 func get_enemy_nearby(distance: float) -> Variant:
 	var nearest_enemy = null
 	for enemy in get_tree().get_nodes_in_group("enemy"):
@@ -54,7 +63,7 @@ func add_handle(handy: Handle) -> bool:
 		handle.rotation = 0
 		handle.frame = self
 		stats.add_stats(handle.stats)
-		handle_stats()
+		apply_stats()
 		set_variables()
 		return true
 
@@ -72,7 +81,7 @@ func add_attachment(attachy: Attachment) -> bool:
 		attachment.rotation = 0
 		attachment.frame = self
 		stats.add_stats(attachment.stats)
-		handle_stats()
+		apply_stats()
 		set_variables()
 		return true
 
@@ -84,7 +93,7 @@ func add_projectile(projecty: Projectile) -> bool:
 	else:
 		projectile = projecty
 		stats.add_stats(projectile.stats) #TODO: ensure projectile.stats are initialized by the export values/unique value/.tres file or whatever by this point
-		handle_stats()
+		apply_stats()
 		set_variables()
 		return true
 
@@ -130,8 +139,8 @@ func remove_projectile() -> Projectile:
 		var temp = projectile
 		projectile = null
 		return temp
-
-func set_variables():#Give components references to each other
+## Give components references to each other
+func set_variables():
 	if handle != null && attachment != null && projectile != null:
 		handle.attachment = attachment
 		attachment.handle = handle
@@ -142,8 +151,8 @@ func set_variables():#Give components references to each other
 		name = (handle.name + attachment.name + projectile.name).replace("_attachment", "").replace("_handle", "").replace("_projectile", "")
 		stats.parent_object_name = name
 	pass
-
-func handle_stats() -> void: #Do anything that needs to be done to utilize a stat change
+## Do anything that needs to be done to utilize a stat change
+func apply_stats() -> void: 
 	scale = Vector2(get_stat(stats.SIZE), get_stat(stats.SIZE))
 	if handle != null:
 		handle.scale = scale

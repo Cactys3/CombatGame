@@ -16,6 +16,7 @@ static var instance: GameManager
 @export var enemy_parent: Node2D
 @export var weapon_parent: Node2D
 @export var projectile_parent: Node2D
+@export var extra_stats_visual: StatsDisplay
 
 var weapon_count: int:
 	get():

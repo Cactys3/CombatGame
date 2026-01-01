@@ -5,9 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://ctekysqm3q8wt" path="res://Art/Weapons/PlayingCard/Projectile_PlayingCard.png" id="3_eeah7"]
 [ext_resource type="PackedScene" uid="uid://cytotq02c1x2a" path="res://Scenes/ProximityInteractables/proximity_shop.tscn" id="3_qq1a1"]
 [ext_resource type="PackedScene" uid="uid://le5tbb8urp88" path="res://Scenes/ProximityInteractables/proximity_forge.tscn" id="3_u5ql4"]
-[ext_resource type="PackedScene" uid="uid://davhmwwacx2xv" path="res://Scenes/Enemies/Bosses/test_boss.tscn" id="6_u5ql4"]
 [ext_resource type="PackedScene" uid="uid://cu6nvv3r8tgkl" path="res://Scenes/UI/NewInventory.tscn" id="8_qq1a1"]
 [ext_resource type="Script" uid="uid://q2s0hxfba110" path="res://Scripts/managers/GameManager.gd" id="9_u5ctk"]
+[ext_resource type="PackedScene" uid="uid://o387qlahldf" path="res://Scenes/UI/StatsDisplay/stats_visual.tscn" id="10_6si6h"]
 [ext_resource type="Script" uid="uid://illqvubum1r1" path="res://Scripts/managers/UIManager.gd" id="10_627tp"]
 [ext_resource type="Script" uid="uid://13p8bkyp17w" path="res://Scripts/managers/TestingManager.gd" id="10_cwiy3"]
 [ext_resource type="Script" uid="uid://5tltnj2xg8ps" path="res://Scripts/managers/ShopManager.gd" id="12_e4e03"]
@@ -104,13 +104,6 @@ texture = ExtResource("3_eeah7")
 
 [node name="EnemyParent" type="Node2D" parent="Window640/Offset"]
 
-[node name="TestBoss" parent="Window640/Offset/EnemyParent" instance=ExtResource("6_u5ql4")]
-position = Vector2(216, -76.333336)
-loot_drop_title = "You got a Test  Weapon!"
-loot_drop_id_handle = 2
-loot_drop_id_attachment = 3
-loot_drop_id_projectile = 4
-
 [node name="XP Parent" type="Node2D" parent="Window640/Offset" groups=["xp_parent"]]
 
 [node name="CharacterParent" type="Node2D" parent="Window640/Offset"]
@@ -161,9 +154,10 @@ position = Vector2(960, 0)
 script = ExtResource("10_cwiy3")
 EnemyParent = NodePath("../../../Window640/Offset/EnemyParent")
 
-[node name="GameManager" type="Node2D" parent="Window1920/Offset" node_paths=PackedStringArray("ui_man", "shop_man", "xp_parent", "enemy_parent", "weapon_parent", "projectile_parent") groups=["gamemanager"]]
+[node name="GameManager" type="Node2D" parent="Window1920/Offset" node_paths=PackedStringArray("ui_man", "shop_man", "xp_parent", "enemy_parent", "weapon_parent", "projectile_parent", "extra_stats_visual") groups=["gamemanager"]]
 process_mode = 3
 position = Vector2(960, 0)
+scale = Vector2(1, 1.021002)
 script = ExtResource("9_u5ctk")
 ui_man = NodePath("../UIManager")
 shop_man = NodePath("../ShopManager")
@@ -171,6 +165,7 @@ xp_parent = NodePath("../../../Window640/Offset/XP Parent")
 enemy_parent = NodePath("../../../Window640/Offset/EnemyParent")
 weapon_parent = NodePath("../../../Window640/Offset/WeaponParent")
 projectile_parent = NodePath("../../../Window640/Offset/ProjectileParent")
+extra_stats_visual = NodePath("../UIManager/MiscParent/StatsDisplay")
 
 [node name="ShopManager" type="Node2D" parent="Window1920/Offset" groups=["shopmanager"]]
 position = Vector2(960, 0)
@@ -229,7 +224,12 @@ grow_vertical = 2
 text = "Change Resolution
 Current: "
 
+[node name="StatsDisplay" parent="Window1920/Offset/UIManager/MiscParent" instance=ExtResource("10_6si6h")]
+visible = false
+layout_mode = 0
+
 [node name="TabMenuParent" type="Control" parent="Window1920/Offset/UIManager"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

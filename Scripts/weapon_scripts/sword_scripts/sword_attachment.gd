@@ -12,7 +12,7 @@ extends Attachment
 
 const ANIMATION_NAME = "attack"
 var range_offset = 10
-var base_range = 55
+var base_range = 30
 var speed: float = 1
 var attacked_objects: Array[Node2D]
 
@@ -58,6 +58,18 @@ func attack_body(body: Node) -> void:
 	body.damage(new_attack)
 
 func _on_body_entered(body: Node2D) -> void:
-	if (attacking && !attacked_objects.has(body) && body.has_method("damage")): #Hit each enemy only once per melee attack
+	print("enter")
+	if (!attacked_objects.has(body) && body.has_method("damage")): #Hit each enemy only once per melee attack
 		frame.QueuedAttacks.append(frame.AttackEvent.new(body, self)) #TODO: find out if really necessary to queue
 		attacked_objects.append(body)
+
+func _on_area_entered(area: Area2D) -> void:
+	_on_body_entered(area)
+
+static func randomize_stats(itemdata: ItemData) -> StatsResource:
+	var ret: StatsResource = StatsResource.new()
+	ret.set_stat_base(StatsResource.DAMAGE, randf_range(-1, 3))
+	ret.set_stat_base(StatsResource.RANGE, randf_range(-1, 3))
+	ret.set_stat_base(StatsResource.SIZE, randf_range(-0.1, 0.1))
+	ret.parent_object_name = "Sword Blade Rolls"
+	return ret

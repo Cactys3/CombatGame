@@ -219,10 +219,11 @@ collision_mask = 2
 position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_jc408")
 
-[node name="Health_HitArea" type="Area2D" parent="."]
+[node name="Health_HitArea" type="Area2D" parent="." node_paths=PackedStringArray("callee")]
 collision_layer = 8
-collision_mask = 0
+collision_mask = 4
 script = ExtResource("4_t6qkg")
+callee = NodePath("..")
 
 [node name="Health_Hitbox" type="CollisionShape2D" parent="Health_HitArea"]
 position = Vector2(0, 3)

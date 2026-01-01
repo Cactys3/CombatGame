@@ -152,7 +152,7 @@ static func get_projectile(num: int) -> ItemData:
 	return setup_data(projectile_list.get(get_random_unlocked_weapon_index()).duplicate())
 ## 1 = FLAMETHROWER, 2 = PISTOL, 3 = RAILGUN, 4 = SWORD, other = RANDOM COMPONENTS
 static func get_weapon(num: int) -> ItemData:
-	return setup_weapon(get_attachment(num), get_handle(num), get_projectile(num))
+	return setup_weapon(attachment_list.get(num).duplicate(), handle_list.get(num).duplicate(), projectile_list.get(num).duplicate())
 ## 1 = DamageBuff
 static func get_item(num: int) -> ItemData:
 	return setup_data(item_list.get(num).duplicate())

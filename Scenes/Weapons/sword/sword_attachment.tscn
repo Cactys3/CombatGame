@@ -62,6 +62,7 @@ collision_layer = 4
 collision_mask = 8
 script = ExtResource("1_jjysa")
 melee_hitbox = NodePath("Sword Hitbox")
+MeleeDamageFactor = 0.5
 visual = NodePath("Sword Sprites")
 
 [node name="Sword Sprites" type="AnimatedSprite2D" parent="."]
@@ -77,4 +78,5 @@ libraries = {
 position = Vector2(15, 0)
 shape = SubResource("RectangleShape2D_fvdxt")
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

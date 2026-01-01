@@ -8,7 +8,7 @@ func _process(delta: float) -> void:
 	super(delta)
 ## Avoids Using Frame as we don't have it
 func setup_item(base_stats: StatsResource, enemy_direction:Vector2):
-	frame_stats = base_stats.get_copy() # get copy incase gun is freed
+	frame_stats = base_stats.get_copy(false) # get copy incase gun is freed
 	frame_stats.parent_object_name = name
 	frame = null
 	var size_value = frame_stats.get_stat(StatsResource.SIZE) 

@@ -239,7 +239,7 @@ var single_stat_total_list: StatsList
 ## Sets up the statsdisplay for showing all the stats of this stats object
 func setup_substats(new_stats: StatsResource, new_name: String):
 	#print("\n\nadd_stats: " + new_name + "dmg: ")
-	new_stats.print_stat_tree(StatsResource.RANGE)
+	#new_stats.print_stat_tree(StatsResource.RANGE)
 	## Setup Based on Parameters
 	stats = new_stats
 	clear_lists()
@@ -251,10 +251,11 @@ func setup_substats(new_stats: StatsResource, new_name: String):
 	lists.append(mainlist)
 	#print("main stats: " + new_stats.parent_object_name + "dmg: " + str(new_stats.get_stat(StatsResource.RANGE)))
 	## Only get stats one layer deep ie: listofaffection instead of recursive get all stats
+	## TODO: if weapon, order it so it goes handle, attachment, projectile, then everything else
 	for stat in new_stats.listofaffection:
 			#if stat != new_stats:
 			#print("stat " + str(index) + ":" + stat.parent_object_name + "dmg: " + str(stat.get_stat(StatsResource.RANGE)))
-			stat.print_stat_tree(StatsResource.RANGE)
+			#stat.print_stat_tree(StatsResource.RANGE)
 			var newlist: StatsList = LIST.instantiate()
 			newlist.setup(stat, index)
 			index += 1
@@ -342,7 +343,7 @@ func refresh():
 						statslabels[element].visible = true
 		for list in lists:
 			list.refresh()
-			
+
 func sort_random():
 	array.shuffle()
 	reset_children()
@@ -437,6 +438,13 @@ func set_stat_visible(key: String, value: bool) -> void:
 	for label in statslabels:
 		if label == key:
 			statslabels[label].visible = false
+## Handles stuff and then queue_free()
+func delete():
+	## The stats are queue'ed free on queue_free
+	stats = null
+	single_stats.clear()
+	lists.clear()
+	queue_free()
 
 func button1():
 	if is_ready:

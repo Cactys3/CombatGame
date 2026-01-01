@@ -20,7 +20,7 @@ var spinning_speed: float = 3
 @export var ORBIT_DISTANCE: float = 55
 @export var ROTATION_SPEED: float = 20
 var current_angle: float = 0  #Stores the angle for smooth circular motion
-enum AimTypes{default, AtMouse, StaticSlot, Spinning, Unique}
+enum AimTypes{default, DynamicAtMouse, AlwaysAtMouse, StaticSlot, Spinning, Unique}
 @export var AimType: AimTypes = AimTypes.default
 
 @export var weapon_slot: float = 1
@@ -52,8 +52,10 @@ func getdata() -> ItemData:
 func _process(_delta: float) -> void:
 	#print("Its Me: " + str(self.name))
 	match AimType:
-		AimTypes.AtMouse:
-			ProcessAtMouse(_delta)#each process must handle "ready_to_fire = true/false"
+		AimTypes.DynamicAtMouse:
+			ProcessDynamicAtMouse(_delta)
+		AimTypes.AlwaysAtMouse:
+			ProcessAlwaysAtMouse(_delta)
 		AimTypes.StaticSlot:
 			ProcessStaticSlot(_delta)
 		AimTypes.Spinning:
@@ -61,7 +63,30 @@ func _process(_delta: float) -> void:
 		_:
 			ProcessUnique(_delta)
 
-func ProcessAtMouse(delta: float) -> void:
+func ProcessDynamicAtMouse(delta: float) -> void:
+	#Orbit Player Towards Mouse
+	var alternating_sign: float = 1
+	if (int(weapon_slot) % 2) == 0: #alternate being left of 1st weapon and right
+		alternating_sign = -1
+	var temp_slot_variable: float = weapon_slot
+	if weapon_slot > 2:
+		if (int(weapon_slot) % 2) != 0: #make distance only increase once a sword has been added on both left and right with same distance
+			temp_slot_variable = (weapon_slot + 1) / 2
+		else:
+			temp_slot_variable = (weapon_slot + 2) / 2
+	var slot_offset_value = alternating_sign * ((TAU / 30) * ((temp_slot_variable - 1)))
+	frame.global_position = GetOrbitPosition((get_global_mouse_position() - player.global_position).normalized().angle() + slot_offset_value)
+	#Rotate Towards Object
+	var nearest_enemy: Node2D = frame.get_enemy_nearby(frame.get_stat(stats.RANGE))
+	if nearest_enemy != null:
+		RotateTowardsPosition(nearest_enemy.global_position, delta)
+		if !ready_to_fire && IsAimingAtEnemy(nearest_enemy):
+			ready_to_fire = true
+	else:
+		RotateTowardsPosition(get_global_mouse_position(), delta)
+		ready_to_fire = false
+
+func ProcessAlwaysAtMouse(delta: float) -> void:
 	#Orbit Player Towards Mouse
 	var alternating_sign: float = 1
 	if (int(weapon_slot) % 2) == 0: #alternate being left of 1st weapon and right
@@ -115,7 +140,7 @@ func RotateTowardsPosition(new_position: Vector2, _delta: float) -> void:
  #TODO: try global_position instead of player.global_position for how weapon aiming looks
 
 func GetOrbitPosition(target_angle: float) -> Vector2:
-	return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * ORBIT_DISTANCE * (frame.get_stat(StatsResource.SIZE)) #TODO: implement scale better with offset
+	return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * ORBIT_DISTANCE# * (frame.get_stat(StatsResource.SIZE)) #TODO: implement scale better with offset
 
 func IsAimingAtEnemy(enemy: Node2D) -> bool:
 	if enemy != null:
@@ -136,7 +161,7 @@ func IsAimingAtAnyEnemy() -> bool:
 	return false
 
 func set_stats() -> void:
-	pass # setup the stat values inside the class so they dont get reset when changing stat dictionary
+	stats.set_changed_method(apply_stats)
 ## Returns a randomized stat object, using the given itemdata's variables like rarity
 
 static func randomize_stats(itemdata: ItemData) -> StatsResource:

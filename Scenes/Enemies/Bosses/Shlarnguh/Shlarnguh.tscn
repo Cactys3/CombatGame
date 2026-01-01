@@ -57,7 +57,7 @@ weapon_knockback = 60.0
 weapon_stun = 2.0
 base_damage = 40.0
 base_movespeed = 50.0
-base_health = 200.0
+base_health = 160.0
 base_regen = 5.0
 base_knockback_modifier = 0.5
 anim = NodePath("AnimatedSprite2D")
@@ -81,10 +81,11 @@ collision_mask = 2
 position = Vector2(1, 5)
 shape = SubResource("CapsuleShape2D_l6hk7")
 
-[node name="Health_HitArea" type="Area2D" parent="."]
+[node name="Health_HitArea" type="Area2D" parent="." node_paths=PackedStringArray("callee")]
 collision_layer = 8
-collision_mask = 0
+collision_mask = 4
 script = ExtResource("3_vp1ft")
+callee = NodePath("..")
 
 [node name="Health_Hitbox" type="CollisionShape2D" parent="Health_HitArea"]
 position = Vector2(1, 3)

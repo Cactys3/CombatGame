@@ -249,7 +249,10 @@ func make_frame() -> Weapon_Frame:
 	new_frame.add_projectile(projectile.make_item())
 	item_buy_cost = attachment.get_cost(false) + handle.get_cost(false) + projectile.get_cost(false)
 	item_sell_cost_modifier = (attachment.item_sell_cost_modifier + handle.item_sell_cost_modifier + projectile.item_sell_cost_modifier) / 3
-	item_name = attachment.item_name + handle.item_name + projectile.item_name 
+	if attachment.component_halfname + handle.component_halfname + projectile.component_halfname != "":
+		item_name = handle.component_halfname + attachment.component_halfname + projectile.component_halfname
+	else:
+		item_name = handle.item_name + attachment.item_name + projectile.item_name 
 	item_description = attachment.item_name + handle.item_name + projectile.item_name
 	attachment_visual = attachment.item_image
 	handle_visual = handle.item_image
@@ -281,15 +284,10 @@ func upgrade_component_level(arr: Array[LevelUpgrade]):
 	## Upgrade them a percent between a random range
 	## ItemPackedScene is the object, can do ItemPackedScene.instantiate().upgrade_component_level(stats) if it's static'
 	for upgrade in arr:
-		if upgrade.factor_stat:
-			stats.set_stat_factor(upgrade.stat_name, stats.get_stat_factor(upgrade.stat_name) + upgrade.change_value)
+		if upgrade.factor:
+			stats.set_stat_factor(upgrade.name, stats.get_stat_factor(upgrade.name) + upgrade.value)
 		else:
-			#print("Adding: " + str(upgrade.change_value) + " to: " + upgrade.stat_name + " of: " + item_name)
-			#print("Get_Stats(): " + str(stats.get_stat(upgrade.stat_name)))
-			#print("get_stat_base(): " + str(stats.get_stat_base(upgrade.stat_name)))
-			stats.set_stat_base(upgrade.stat_name, stats.get_stat_base(upgrade.stat_name) + upgrade.change_value)
-			#print("Get_Stats() Post: " + str(stats.get_stat(upgrade.stat_name)))
-			#print("get_stat_base() Post: " + str(stats.get_stat_base(upgrade.stat_name)))
+			stats.set_stat_base(upgrade.name, stats.get_stat_base(upgrade.name) + upgrade.value)
 ##
 func upgrade_component_rarity():
 	match(item_rarity):
@@ -327,23 +325,13 @@ func is_component() -> bool:
 ## Stats can go up or down, multiplied by 1.0 to 1.5 based on rarity of rng roll
 
 class LevelUpgrade:
-	var changes: Array[StatChange]
-	var setup_complete: bool = false
-	func add_stat_change(name: String, factor: bool, value: float):
-		var new_change: StatChange = StatChange.new()
-		new_change.name = name
-		new_change.factor = factor
-		new_change.value = value
-		changes.append(new_change)
-		setup_complete = true
-	class StatChange:
-		## Stat to add to
-		var name: String
-		## If false, it's a base stat
-		var factor: bool
-		## Value to add to the stat
-		var value: float
-		func setup(new_name: String, new_factor: bool, new_value: float):
-			name = new_name
-			factor = new_factor
-			value = new_value
+	## Stat to add to
+	var name: String
+	## If false, it's a base stat
+	var factor: bool
+	## Value to add to the stat
+	var value: float
+	func setup(new_name: String, new_factor: bool, new_value: float):
+		name = new_name
+		factor = new_factor
+		value = new_value

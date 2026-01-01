@@ -5,4 +5,7 @@
 [resource]
 script = ExtResource("1_2w3oq")
 parent_object_name = "Sword Projectile"
+velocity_base = 30.0
+count_base = 1.0
+duration_base = 10.0
 metadata/_custom_type_script = "uid://dwj80yu0v1qdt"

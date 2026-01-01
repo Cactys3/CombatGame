@@ -40,10 +40,6 @@ lock_rotation = true
 script = ExtResource("1_kk8om")
 stats = ExtResource("2_tslju")
 damage_hitbox = NodePath("Damage_Hitbox")
-xp_on_death = 5
-weapon_knockback = 300.0
-base_damage = 20.0
-base_movespeed = 70.0
 turns_towards_movement = true
 anim = NodePath("AnimatedSprite2D")
 
@@ -64,10 +60,11 @@ collision_mask = 2
 position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_jc408")
 
-[node name="Health_HitArea" type="Area2D" parent="."]
+[node name="Health_HitArea" type="Area2D" parent="." node_paths=PackedStringArray("callee")]
 collision_layer = 8
-collision_mask = 0
+collision_mask = 4
 script = ExtResource("3_tslju")
+callee = NodePath("..")
 
 [node name="Health_Hitbox" type="CollisionShape2D" parent="Health_HitArea"]
 position = Vector2(0, 3)

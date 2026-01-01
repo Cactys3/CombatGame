@@ -33,6 +33,7 @@ signal died(pos: Vector2, cloned: bool)
 
 func _ready():
 	## TODO: fix the issue where bullets flash around the screen when created
+	set_stats()
 	await get_tree().create_timer(0.02).timeout
 	visible = true
 
@@ -51,6 +52,8 @@ func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
 	weight = (frame_stats.get_stat(frame_stats.WEIGHT))
 	setdata()
 
+func set_stats() -> void:
+	stats.set_changed_method(apply_stats)
 
 ## meant to be overriden by extender
 func setdata():
@@ -74,7 +77,6 @@ func process_movement(delta: float) -> void:
 func attack_body(body: Node2D) -> void:
 	if dead:
 		return
-	
 	if !AttackedObjects.has(body):
 		var new_attack = make_attack()
 		body.damage(new_attack)

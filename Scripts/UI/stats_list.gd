@@ -60,27 +60,29 @@ class_name StatsList
 	StatsResource.REVIES: revies,
 	StatsResource.THORNS: thorns,
 	StatsResource.INACCURACY: inaccuracy }
-static var extra_stats: Control
+#static var extra_stats: StatsDisplay
 var stats: StatsResource
 var ID = -1.0
 var set_color: bool = false
 var label: Label
 var label_out: bool = false
+
 func _process(delta: float) -> void:
-	if stats && label_out && extra_stats == null && Input.is_action_just_pressed("left_click"):
-		extra_stats = preload("uid://o387qlahldf").instantiate()
-		extra_stats.call_deferred("setup_substats", stats, stats.parent_object_name)
-		var box: StyleBox = StyleBoxFlat.new()
-		box.bg_color = Color.hex(222034)
-		extra_stats.solid_background_panel = box
-		GameManager.instance.ui_man.static_ui_parent.add_child(extra_stats)
-		extra_stats.global_position = get_viewport().get_mouse_position()
-	elif stats && extra_stats != null && Input.is_action_just_pressed("right_click"):
-		extra_stats.queue_free()
-		extra_stats = null
-	if is_queued_for_deletion() && extra_stats:
-		extra_stats.queue_free()
-		extra_stats = null
+	pass#if stats && label_out && extra_stats == null && Input.is_action_just_pressed("left_click"):
+		#print("if")
+		#extra_stats = preload("uid://o387qlahldf").instantiate()
+		#extra_stats.call_deferred("setup_substats", stats.duplicate(true), stats.parent_object_name)
+		#var box: StyleBox = StyleBoxFlat.new()
+		#box.bg_color = Color.hex(222034)
+		#extra_stats.solid_background_panel = box
+		#GameManager.instance.ui_man.static_ui_parent.add_child(extra_stats)
+		#extra_stats.global_position = get_viewport().get_mouse_position()
+	#elif stats && extra_stats != null && Input.is_action_just_pressed("right_click"):
+		#print("elif")
+		#free_children()
+	#if is_queued_for_deletion() && extra_stats:
+		#print("queue_free")
+		#free_children()
 ## Sets up statsList to automatically set labels based on given statsresource
 func setup(new_stats: StatsResource, new_id: int):
 	if new_stats:
@@ -167,7 +169,7 @@ func refresh():
 		
 	
 	if everything_is_zero:
-		visible = false
+		pass#visible = false
 	else:
 		visible = true
 func manual_refresh(all_stats: Array[StatsResource]):
@@ -232,6 +234,7 @@ func _on_mouse_exited() -> void:
 		label.queue_free()
 		label = null
 func free_children():
-	if extra_stats != null:
-		extra_stats.queue_free()
-		extra_stats = null
+	pass	#if extra_stats != null:
+		#print("other")
+		#extra_stats.delete()
+		#extra_stats = null

@@ -53,7 +53,6 @@ func set_hp(percent: float):
 		hp.size.x = percent * hp_max_width
 ## Sets the width of the Shield HUD
 func set_shield(percent: float):
-	print(str(percent))
 	shield_parent.visible = true
 	#if percent >= 1:
 		## TODO: when shield is greater than 1.0? add another line of shield? add another color of shield ontop?

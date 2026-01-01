@@ -183,9 +183,9 @@ var statsfactor = {
 	THORNS: 1.0
 	}
 ## the list of stats that affect this stat
-var listofaffection: Array[StatsResource] = [] 
+var listofaffection: Array[StatsResource]
 ## the list of stats that this stat affects
-var listofaffected: Array[StatsResource] = [] 
+var listofaffected: Array[StatsResource]
 var MustRecalculate: bool = true
 ## list of stats used for stat calculations
 var TotalListOfStats: Array[StatsResource] 
@@ -389,7 +389,7 @@ func print_stats() -> void:
 func print_stat_tree(key: String):
 	Recalculate()
 	var list: Array[StatsResource]
-	GetAllStatsRecursive(list)
+	External_GetAllStatsRecursive(list)
 	var index: int = 1
 	var totalf: float = 0
 	var totalb: float = 0
@@ -422,14 +422,15 @@ func print_stat_tree(key: String):
 ## Returns if the stat is default or changed
 func is_stat_default(stat: String):
 	return get_stat_without_default(stat) == 0
-func get_copy() -> StatsResource: #TODO: update for new stats implementation
+func get_copy(transfer_affect_lists: bool) -> StatsResource: #TODO: update for new stats implementation
 	var temp: StatsResource = StatsResource.new()
 	for key in statsfactor:
 		temp.set_stat_factor(key, get_stat_factor(key))
 	for key in statsbase:
 		temp.set_stat_base(key, get_stat_base(key))
-	temp.listofaffected.clear()
-	temp.listofaffection.clear()
+	if transfer_affect_lists:
+		temp.listofaffected = listofaffected.duplicate()
+		temp.listofaffection = listofaffection.duplicate()
 	return temp
 ## Returns default stat value when stat is set to 0
 static func get_default(stat: String) -> float:

@@ -11,6 +11,8 @@ var bullets: Array[Projectile]
 ## Determines what attackspeed is, attacksperX = 2 means attackspeed is how many attacks every 2 seconds
 const attacksperX: int = 1
 
+@export var MeleeDamageFactor: float = 1
+
 @export var visual: AnimatedSprite2D 
 @export var offset: Vector2 
 @export var frame: Weapon_Frame 
@@ -98,14 +100,15 @@ func projectile_died(pos: Vector2, is_clone: bool):
 func get_cooldown() -> float:
 	return attacksperX / max(0.0001, frame.get_stat(StatsResource.ATTACKSPEED)) #attackspeed is attacks per second so cd is 1/as
 
+## Send altered values because it's a melee hitbox
 func make_attack() -> Attack:
 	var new_attack: Attack = Attack.new()
-	new_attack.setup(stats.get_stat(stats.DAMAGE), frame.player.global_position, stats.get_stat(stats.BUILDUP), StatusEffectDictionary.new(), self, 0, 0, stats.get_stat(stats.WEIGHT) * (stats.get_stat(stats.DAMAGE) / 10))
+	new_attack.setup(frame.stats.get_stat(stats.DAMAGE) * MeleeDamageFactor, frame.player.global_position, frame.stats.get_stat(StatsResource.BUILDUP), StatusEffectDictionary.new(), self, 0, 0, frame.stats.get_stat(StatsResource.WEIGHT) * (frame.stats.get_stat(StatsResource.DAMAGE) / 10))
 	 #TODO: determine how to calculate knockback
 	return new_attack
 
 func set_stats() -> void:
-	pass # setup the stat values inside the class so they dont get reset when changing stat dictionary
+	stats.set_changed_method(apply_stats)
 
 ## Returns a randomized stat object, using the given itemdata's variables like rarity
 static func randomize_stats(itemdata: ItemData) -> StatsResource:
