@@ -31,7 +31,6 @@ class_name ItemData
 @export var can_buy: bool = true
 ## Selling value will be buy cost multiplied by this number
 @export var item_sell_cost_modifier: float = 0.8
-
 ## WeaponFrame Fields (only for weapons)
 var attachment: ItemData = null
 var handle: ItemData = null

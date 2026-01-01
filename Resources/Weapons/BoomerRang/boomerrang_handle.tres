@@ -1,47 +1,19 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=34 format=3 uid="uid://cjti13rulqsp"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=5 format=3 uid="uid://cjti13rulqsp"]
 
 [ext_resource type="Resource" uid="uid://dfbjvo51j6ldq" path="res://Resources/Weapons/BoomerRang/stats/boomerrang_handle_stats.tres" id="1_2w2ip"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="1_h8xv6"]
 [ext_resource type="Texture2D" uid="uid://qwwva32w0sek" path="res://Art/Weapons/BoomerRang/BoomerRang_Handle.png" id="2_2w2ip"]
 [ext_resource type="PackedScene" uid="uid://dyjlv0ta7p2dy" path="res://Scenes/Weapons/BoomerRang/BoomerRang_Handle.tscn" id="3_i34xr"]
-[ext_resource type="Script" uid="uid://bxkxy273apgoe" path="res://Scripts/resource_scripts/RNGroll.gd" id="5_l5rbc"]
-[ext_resource type="Resource" uid="uid://ocy6mp6d1yna" path="res://Resources/RNGrolls/rngHP.tres" id="6_yai2j"]
-[ext_resource type="Resource" uid="uid://wbioa0pcle2" path="res://Resources/RNGrolls/rngStance.tres" id="7_ywhwo"]
-[ext_resource type="Resource" uid="uid://rc4hkb04y60y" path="res://Resources/RNGrolls/rngMovespeed.tres" id="8_qex87"]
-[ext_resource type="Resource" uid="uid://c8h7bwebly1jx" path="res://Resources/RNGrolls/rngXP.tres" id="9_6bsu5"]
-[ext_resource type="Resource" uid="uid://b1nfo7rmxf44d" path="res://Resources/RNGrolls/rngMogul.tres" id="10_nb5nr"]
-[ext_resource type="Resource" uid="uid://pjjpct36sdxs" path="res://Resources/RNGrolls/rngLuck.tres" id="11_p3oi5"]
-[ext_resource type="Resource" uid="uid://cov61cxfljru2" path="res://Resources/RNGrolls/rngDamage.tres" id="12_c5ev1"]
-[ext_resource type="Resource" uid="uid://38r07xk5lqeh" path="res://Resources/RNGrolls/rngRange.tres" id="13_hbvfn"]
-[ext_resource type="Resource" uid="uid://dftwe2agnet7w" path="res://Resources/RNGrolls/rngWeight.tres" id="14_cb7wk"]
-[ext_resource type="Resource" uid="uid://3y6xn3fnrwrq" path="res://Resources/RNGrolls/rngAttackspeed.tres" id="15_dfrh2"]
-[ext_resource type="Resource" uid="uid://d3niwqpcgi7ai" path="res://Resources/RNGrolls/rngVelocity.tres" id="16_mfrhr"]
-[ext_resource type="Resource" uid="uid://hg5g8mksqcav" path="res://Resources/RNGrolls/rngCount.tres" id="17_eu407"]
-[ext_resource type="Resource" uid="uid://3430cy54j4rs" path="res://Resources/RNGrolls/rngPiercing.tres" id="18_lvlgm"]
-[ext_resource type="Resource" uid="uid://dir8tfukhp4qb" path="res://Resources/RNGrolls/rngDuration.tres" id="19_cfnli"]
-[ext_resource type="Resource" uid="uid://bgx2sb5ead7qq" path="res://Resources/RNGrolls/rngBuildup.tres" id="20_1gtc1"]
-[ext_resource type="Resource" uid="uid://b36ga6p2v55a4" path="res://Resources/RNGrolls/rngSize.tres" id="21_ycq2v"]
-[ext_resource type="Resource" uid="uid://cjd531lbba3jb" path="res://Resources/RNGrolls/rngCritChance.tres" id="22_fiwtk"]
-[ext_resource type="Resource" uid="uid://b6q0vw37sk003" path="res://Resources/RNGrolls/rngCritDamage.tres" id="23_b6mwu"]
-[ext_resource type="Resource" uid="uid://b5qh54wik40mh" path="res://Resources/RNGrolls/rngGhostly.tres" id="24_ef7eu"]
-[ext_resource type="Resource" uid="uid://c7kaanq6tcwb" path="res://Resources/RNGrolls/rngRegen.tres" id="25_byi06"]
-[ext_resource type="Resource" uid="uid://bylfaiv7yc3cc" path="res://Resources/RNGrolls/rngMagnetize.tres" id="26_rb0bg"]
-[ext_resource type="Resource" uid="uid://dxm0oq2xanb7j" path="res://Resources/RNGrolls/rngLifesteal.tres" id="27_3omjd"]
-[ext_resource type="Resource" uid="uid://c638ysglox7y3" path="res://Resources/RNGrolls/rngBonusVsElite.tres" id="28_kqp3i"]
-[ext_resource type="Resource" uid="uid://dxl1y7sonni62" path="res://Resources/RNGrolls/rngShield.tres" id="29_gnofh"]
-[ext_resource type="Resource" uid="uid://bpd1h1naddib" path="res://Resources/RNGrolls/rngDifficulty.tres" id="30_hraig"]
-[ext_resource type="Resource" uid="uid://2bc4tdeq72ui" path="res://Resources/RNGrolls/rngRevives.tres" id="31_es6j7"]
-[ext_resource type="Resource" uid="uid://cab6tx6q4s53k" path="res://Resources/RNGrolls/rngThorns.tres" id="32_jqbgw"]
-[ext_resource type="Resource" uid="uid://c3ixwbm783dno" path="res://Resources/RNGrolls/rngInaccuracy.tres" id="33_vr0h8"]
 
 [resource]
 script = ExtResource("1_h8xv6")
 item_packed_scene = ExtResource("3_i34xr")
 item_name = "BoomerRang Handle"
-item_description = "BoomerRang "
+component_halfname = "Boo"
+item_description = "Boomerrang stock that tosses projectiles which return to sender eventually, potentially hitting enemies multiple times"
 item_type = 1
 item_image = ExtResource("2_2w2ip")
+has_stats = true
 randomizable = true
 default_stats = ExtResource("1_2w2ip")
-has_stats = true
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"

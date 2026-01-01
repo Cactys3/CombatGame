@@ -4,4 +4,9 @@
 
 [resource]
 script = ExtResource("1_im38h")
+range_base = 100.0
+velocity_base = 50.0
+count_base = 1.0
+piercing_base = 2.0
+duration_base = 10.0
 metadata/_custom_type_script = "uid://dwj80yu0v1qdt"

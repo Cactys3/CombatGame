@@ -5,4 +5,7 @@
 [resource]
 script = ExtResource("1_amks8")
 parent_object_name = "Lightningwand Handle"
+damage_base = 4.2
+range_base = 110.0
+attackspeed_base = -1.0
 metadata/_custom_type_script = "uid://dwj80yu0v1qdt"

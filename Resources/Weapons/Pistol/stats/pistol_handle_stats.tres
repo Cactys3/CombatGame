@@ -6,3 +6,5 @@
 resource_local_to_scene = true
 script = ExtResource("1_hn85t")
 parent_object_name = "pistol_handle"
+damage_base = 3.0
+range_base = 80.0

@@ -5,4 +5,7 @@
 [resource]
 script = ExtResource("1_fskb4")
 parent_object_name = "Lightningwand Projectile"
+count_base = 4.0
+duration_base = 10.0
+buildup_base = 2.0
 metadata/_custom_type_script = "uid://dwj80yu0v1qdt"

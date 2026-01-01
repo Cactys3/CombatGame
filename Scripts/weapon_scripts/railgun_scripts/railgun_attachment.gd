@@ -15,6 +15,7 @@ func _process(delta: float) -> void:
 
 func attack():
 	#play animation (has sound?) wait until animation is done, then shoot projectile, then wait and swap back to default animation
+	## TODO: Make projectile bigger
 	visual.play("Attack")
 	await visual.animation_finished
 	super()

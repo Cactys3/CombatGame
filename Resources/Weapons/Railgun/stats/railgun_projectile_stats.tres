@@ -5,4 +5,6 @@
 [resource]
 script = ExtResource("1_7qqh8")
 parent_object_name = "RailgunBeam"
+count_base = 1.0
+duration_base = 0.5
 metadata/_custom_type_script = "uid://dwj80yu0v1qdt"

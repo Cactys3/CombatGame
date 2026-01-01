@@ -5,3 +5,5 @@
 [resource]
 script = ExtResource("1_uu6nb")
 parent_object_name = "Flamethrower Handle"
+damage_base = 4.0
+duration_base = -4.0

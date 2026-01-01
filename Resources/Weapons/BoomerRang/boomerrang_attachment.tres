@@ -9,10 +9,11 @@
 script = ExtResource("1_60fxv")
 item_packed_scene = ExtResource("3_ny340")
 item_name = "BoomerRang Attachment"
-item_description = "BoomerRang "
+component_halfname = "mer"
+item_description = "Boomerrang blade with solid stats."
 item_type = 2
 item_image = ExtResource("2_83rri")
+has_stats = true
 randomizable = true
 default_stats = ExtResource("1_83rri")
-has_stats = true
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"

@@ -95,7 +95,7 @@ animations = [{
 [node name="Minigun_handle" type="Area2D" node_paths=PackedStringArray("visual")]
 script = ExtResource("1_tokk4")
 visual = NodePath("AnimatedSprite2D")
-AimType = 4
+AimType = 5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_vsgc3")

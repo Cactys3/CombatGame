@@ -5,4 +5,9 @@
 [resource]
 script = ExtResource("1_doqf8")
 parent_object_name = "IceShardWand Attachment"
+damage_base = 6.0
+attackspeed_base = 1.2
+piercing_base = 3.0
+duration_base = 4.0
+size_base = 0.4
 metadata/_custom_type_script = "uid://dwj80yu0v1qdt"

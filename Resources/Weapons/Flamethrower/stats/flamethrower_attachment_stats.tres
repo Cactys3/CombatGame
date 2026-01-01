@@ -5,3 +5,6 @@
 [resource]
 script = ExtResource("1_8bqf5")
 parent_object_name = "Flamethrower Attachment"
+damage_base = 3.0
+attackspeed_base = 5.0
+buildup_base = 1.5

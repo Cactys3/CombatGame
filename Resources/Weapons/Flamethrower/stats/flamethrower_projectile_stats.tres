@@ -5,4 +5,8 @@
 [resource]
 script = ExtResource("1_g6lco")
 parent_object_name = "Flamethrower Projectile"
+velocity_base = 35.0
+count_base = 1.0
+duration_base = 5.5
+buildup_base = 1.0
 metadata/_custom_type_script = "uid://dwj80yu0v1qdt"

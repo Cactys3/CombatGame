@@ -6,7 +6,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	super(delta)
 
-## Remove Checking Enemy Nearbye
+## Remove Checking Enemy Nearby
 func ProcessStaticSlot(delta: float) -> void:
 	#Orbit Player In Assigned Slot
 	var temp_count: float = weapon_count

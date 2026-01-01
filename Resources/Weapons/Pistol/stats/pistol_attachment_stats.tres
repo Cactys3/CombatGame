@@ -5,3 +5,6 @@
 [resource]
 script = ExtResource("1_hwanm")
 parent_object_name = "pistol_attachment"
+damage_base = 2.0
+attackspeed_base = 2.0
+count_base = 5.0

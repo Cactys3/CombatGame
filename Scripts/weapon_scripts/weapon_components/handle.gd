@@ -102,12 +102,11 @@ func ProcessAlwaysAtMouse(delta: float) -> void:
 	#Rotate Towards Object
 	var nearest_enemy: Node2D = frame.get_enemy_nearby(frame.get_stat(stats.RANGE))
 	if nearest_enemy != null:
-		RotateTowardsPosition(nearest_enemy.global_position, delta)
 		if !ready_to_fire && IsAimingAtEnemy(nearest_enemy):
 			ready_to_fire = true
 	else:
-		RotateTowardsPosition(get_global_mouse_position(), delta)
 		ready_to_fire = false
+	RotateTowardsPosition(get_global_mouse_position(), delta)
 
 func ProcessStaticSlot(delta: float) -> void:
 	#Orbit Player In Assigned Slot

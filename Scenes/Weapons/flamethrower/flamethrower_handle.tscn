@@ -22,7 +22,7 @@ animations = [{
 script = ExtResource("1_40hlj")
 visual = NodePath("AnimatedSprite2D")
 ROTATION_SPEED = 10.0
-AimType = 3
+AimType = 4
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0p55g")

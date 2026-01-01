@@ -21,7 +21,7 @@ animations = [{
 [node name="pistol_handle" type="Area2D" node_paths=PackedStringArray("visual")]
 script = ExtResource("1_iac6n")
 visual = NodePath("animation")
-AimType = 2
+AimType = 3
 
 [node name="animation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0y1w6")

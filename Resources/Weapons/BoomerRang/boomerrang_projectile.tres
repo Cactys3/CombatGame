@@ -10,12 +10,13 @@
 script = ExtResource("1_x2at4")
 item_packed_scene = ExtResource("3_skmyj")
 item_name = "BoomerRang Projectile"
-item_description = "BoomerRang "
+component_halfname = "ang"
+item_description = "A boomerrang that constantly spins, throwing off movement."
 item_type = 3
 item_image = ExtResource("2_ggtgu")
+has_stats = true
 randomizable = true
 default_stats = ExtResource("1_ggtgu")
-default_status_effects = ExtResource("2_d8qn1")
-has_stats = true
 has_status_effects = true
+default_status_effects = ExtResource("2_d8qn1")
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"
