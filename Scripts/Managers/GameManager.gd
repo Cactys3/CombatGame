@@ -135,7 +135,7 @@ func setup_deffered(starting_weapon: int):
 	money = starting_money
 	player.player_stats.add_stats(global_stats)
 	get_tree().paused = false
-	ui_man.AIOman.set_character_stats_display(player.player_stats)
+	#ui_man.AIOman.set_character_stats_display(player.player_stats)
 	call_deferred("setup_weapon", starting_weapon)
 ## It's Necessary to deferr this twice as it relies on stuff that is deferred once to happen (i don't know what exactly it relies on)
 func setup_weapon(starting_weapon: int):

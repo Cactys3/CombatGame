@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource("1_yowy2")
-decrease_every_process = false
 dictionary = {
 "bleed": 0.0,
 "burning": 0.0,

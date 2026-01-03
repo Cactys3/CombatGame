@@ -239,8 +239,15 @@ var single_stat_total_list: StatsList
 ## Sets up the statsdisplay for showing all the stats of this stats object
 func setup_substats(new_stats: StatsResource, new_name: String):
 	#print("\n\nadd_stats: " + new_name + "dmg: ")
-	#new_stats.print_stat_tree(StatsResource.RANGE)
+	#new_stats.print_stat_tree(StatsResource.DAMAGE)
+	print("Displaying Stats: " + new_name)
+	print("Underling Stats: ")
+	var s: Array[StatsResource] = []
+	for stat in new_stats.External_GetAllStatsRecursive(s):
+		print("    " + stat.parent_object_name + ": " + str(stat.get_stat(StatsResource.DAMAGE)))
+	return
 	## Setup Based on Parameters
+	print("what")
 	stats = new_stats
 	clear_lists()
 	index = 1
@@ -437,11 +444,11 @@ func get_affecting_names() -> Array[StatsResource]:
 	stats.External_GetAllStatsRecursive(a)
 	return a
 func clear_lists():
-	single_stats.clear()
-	for list in lists:
-		list.free_children()
-		list.queue_free()
-	lists.clear()
+	pass#single_stats.clear()
+	#for list in lists:
+	#	list.free_children()
+	#	list.queue_free()
+	#lists.clear()
 func set_stat_visible(key: String, value: bool) -> void:
 	for list in lists:
 		list.set_stat_visible(key, value)
@@ -451,8 +458,8 @@ func set_stat_visible(key: String, value: bool) -> void:
 ## Handles stuff and then queue_free()
 func delete():
 	## The stats are queue'ed free on queue_free
-	stats = null
-	single_stats.clear()
+	#stats = null
+	#single_stats.clear()
 	lists.clear()
 	queue_free()
 

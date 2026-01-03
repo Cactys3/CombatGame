@@ -104,7 +104,15 @@ func die():
 	dead = true
 	died.emit(global_position, is_clone)
 	queue_free()
-
+## Creates an ItemData.LevelUpgrade for this specific component and returns it once setup
+static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrade]:
+	## Don't set equal to super() as we don't want to include damage
+	var arr: Array[ItemData.LevelUpgrade]
+	arr.append(get_stat_upgrade(StatsResource.VELOCITY, randf_range(2, 3), itemdata.level, get_weighted_rarity(itemdata.level), 0.01, 0.3))
+	arr.append(get_stat_upgrade(StatsResource.COUNT, randf_range(0.1, 0.4), 1, get_weighted_rarity(itemdata.level), 0.01, 0.3))
+	arr.append(get_stat_upgrade(StatsResource.PIERCING, randf_range(0.5, 1), itemdata.level, get_weighted_rarity(itemdata.level), 0.01, 0.3))
+	arr.append(get_stat_upgrade(StatsResource.DURATION, randf_range(2, 5), itemdata.level, get_weighted_rarity(itemdata.level), 0.01, 0.3))
+	return arr
 ## Returns a randomized stat object, using the given itemdata's variables like rarity
 static func randomize_stats(itemdata: ItemData) -> StatsResource:
 	var ret = super(itemdata)

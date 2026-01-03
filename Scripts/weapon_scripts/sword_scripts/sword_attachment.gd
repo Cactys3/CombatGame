@@ -45,7 +45,6 @@ func attack() -> void:
 	await get_tree().create_timer(max_range_timeIndex).timeout #wait until at max reach to fire projectile
 	super()
 
-
 #how should attachment extenders work?
 #Create methods for ProcessCooldown(delta) and Attack() that extenders override.
 #Create generic methods for creating a projectile with the right size/parent so extenders can use that
@@ -66,23 +65,15 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_area_entered(area: Area2D) -> void:
 	_on_body_entered(area)
 
-static func randomize_stats(itemdata: ItemData) -> StatsResource:
-	var ret: StatsResource = StatsResource.new()
-	ret.set_stat_base(StatsResource.DAMAGE, randf_range(-1, 3))
-	ret.set_stat_base(StatsResource.RANGE, randf_range(-1, 3))
-	ret.set_stat_base(StatsResource.SIZE, randf_range(-0.1, 0.1))
-	ret.parent_object_name = "Sword Blade Rolls"
-	return ret
-
-
 ## Creates an ItemData.LevelUpgrade for this specific component and returns it once setup
 static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrade]:
-	var arr: Array[ItemData.LevelUpgrade]
-	var level: float = itemdata.level
-	var level_multiplier: float = (1 + (level / 10))
-	## First Upgrade
-	var u1_rarity: ItemData.item_rarities = get_weighted_rarity(level)
-	var u1: ItemData.LevelUpgrade = ItemData.LevelUpgrade.new()
-	u1.setup(StatsResource.DAMAGE, u1_rarity, false, get_damage_upgrade(level, u1_rarity))
-	arr.append(u1)
+	var arr: Array[ItemData.LevelUpgrade] = super(itemdata)
+	## Add Attackspeed in addition to super()'s Damage
+	#arr.append(get_stat_upgrade(StatsResource.ATTACKSPEED, randf_range(0.2, 2), itemdata.level, get_weighted_rarity(itemdata.level), 0.01, 0))
 	return arr
+## Returns a randomized stat object, using the given itemdata's variables like rarity
+static func randomize_stats(itemdata: ItemData) -> StatsResource:
+	var ret = super(itemdata)
+	#ret.set_stat_base(StatsResource.DAMAGE, randi_range(-1, 3))
+	ret.parent_object_name = "Sword Blade Rolls"
+	return ret

@@ -35,3 +35,6 @@ func _on_button_pressed() -> void:
 
 func _mouse_entered() -> void:
 	hover_method.call(data)
+
+func _on_button_mouse_entered() -> void:
+	hover_method.call(data)

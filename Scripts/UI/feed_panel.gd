@@ -61,7 +61,7 @@ func add_item(new_item: ItemUI):
 	if new_item == item_eating || feed_items.has(new_item) || !new_item.data.has_stats || !new_item.data.is_component():
 		return
 	feed_items.append(new_item)
-	stats.add_single_stats(new_item.data.added_stats)
+	#stats.add_single_stats(new_item.data.added_stats)
 
 func is_correct_type(item: ItemData):
 	return item.item_type == type

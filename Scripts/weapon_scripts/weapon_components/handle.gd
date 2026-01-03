@@ -161,8 +161,14 @@ func IsAimingAtAnyEnemy() -> bool:
 
 func set_stats() -> void:
 	stats.set_changed_method(apply_stats)
-## Returns a randomized stat object, using the given itemdata's variables like rarity
 
+## Creates an ItemData.LevelUpgrade for this specific component and returns it once setup
+static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrade]:
+	var arr: Array[ItemData.LevelUpgrade] = super(itemdata)
+	## 50% chance to be zero range increase
+	arr.append(get_stat_upgrade(StatsResource.RANGE, randf_range(10, 25), itemdata.level, get_weighted_rarity(itemdata.level), 0, 0.5))
+	return arr
+## Returns a randomized stat object, using the given itemdata's variables like rarity
 static func randomize_stats(itemdata: ItemData) -> StatsResource:
 	var ret = super(itemdata)
 	ret.parent_object_name = "Handle Rolls"

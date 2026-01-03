@@ -46,7 +46,7 @@ enum item_rarities {unset, common, rare, epic, legendary, exclusive}
 var status_effects: StatusEffects = null
 var stats: StatsResource = null
 ## Stat object applied to 'Stats' to be passed around between consumed components
-var added_stats: StatsResource = null
+var added_stats: StatsResource = null 
 
 ## Rarity Colors
 const DEFAULT_COLOR: Color = Color.GRAY
@@ -66,14 +66,6 @@ static var count: int = 0
 var ID: int 
 
 signal DataUpdated
-## NOT SETUP - Pass in all values to setup an ItemData like you would in @export inspector
-func initialize(scene: PackedScene, name: String, description: String, type: item_types, color: Color, image: Texture2D, new_randomizable: bool, new_default_stats: StatsResource, new_default_status: StatusEffects, new_rarity_cost_modifier: int, new_rarity: item_rarities, buy_cost: float, sell_cost_modifier: float, new_can_sell: bool, new_can_feed: bool, new_can_buy: bool, new_stackable: bool) -> void:
-	item_type = type
-	item_name = name
-	if new_default_stats:
-		default_stats = new_default_stats
-	if new_default_status:
-		default_status_effects = new_default_status
 ## Returns rarity for the given rarity_types index
 static func get_rarity(i: int) -> String:
 	match(i):
@@ -108,22 +100,28 @@ static func get_type(i: int) -> String:
 	return "even further beyond"
 ## Creates ItemData, called Once
 func setup(should_randomize: bool, starting_rarity: item_rarities):
-	if has_stats:
-		stats = default_stats.duplicate()
-		stats.setup()
-	if has_status_effects:
-		status_effects = default_status_effects.duplicate()
-	if has_rarity:
-		set_rarity(starting_rarity)
-	## TODO: add starting level
-	## Must be done last as randomize uses other variables like rarity
-	if should_randomize && randomizable:
-		randomize_stats()
+	if !is_ready:
+		if has_stats:
+			stats = default_stats.duplicate()
+			stats.setup()
+		if has_status_effects:
+			status_effects = default_status_effects.duplicate()
+		if has_rarity:
+			set_rarity(starting_rarity)
+		## TODO: add starting level
+		## Must be done last as randomize uses other variables like rarity
+		if randomizable:
+			#print("randomizing stats: " + str(stats.get_stat(StatsResource.DAMAGE)))
+			randomize_stats()
+			#print("done randomizing stats: " + str(stats.get_stat(StatsResource.DAMAGE)))
+		else:
+			print("\n\n ELSE, NO RANDOMIZE " + item_name + " \n\n")
+			added_stats = StatsResource.new()
+		count += 1
+		ID = count ## TODO: use this ID to track items? useful for matching itemdata to item/weapon when removing
+		is_ready = true
 	else:
-		added_stats = StatsResource.new()
-	count += 1
-	ID = count ## TODO: use this ID to track items? useful for matching itemdata to item/weapon when removing
-	is_ready = true
+		printerr("Trying to ItemData.setup() on an already setup item: " + item_name + component_halfname + resource_name)
 ## Changes Variable Values based on rarity, assumes all values are default to begin with
 func set_rarity(rarity: item_rarities):
 	item_rarity = rarity
@@ -143,6 +141,9 @@ func set_rarity(rarity: item_rarities):
 	DataUpdated.emit()
 ## Calls randomize_stats on instantiated packed scene
 func randomize_stats():
+	if added_stats != null:
+		print("\n\n TRIED TO RANDOMIZE STATS AGAIN \n\n")
+		return
 	if item:
 		added_stats = item.randomize_stats(self)
 		stats.add_stats(added_stats)
@@ -337,7 +338,6 @@ func is_component() -> bool:
 	return item_type == item_types.handle || item_type == item_types.attachment || item_type == item_types.projectile
 
 ## Stats can go up or down, multiplied by 1.0 to 1.5 based on rarity of rng roll
-
 class LevelUpgrade:
 	## Stat to add to
 	var name: String

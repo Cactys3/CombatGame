@@ -257,6 +257,7 @@ func set_changed_method(method: Callable) -> void:
 	stat_changed_method = method
 ## If valid, Recalculates then adds stats to this stats object
 func add_stats(other: StatsResource) -> void: #adds the other stats to listofaffection
+	#print("adding" + other.parent_object_name)
 	if !initialized:
 		setup()
 	if other == null || other == self || listofaffection.has(other):
@@ -267,6 +268,7 @@ func add_stats(other: StatsResource) -> void: #adds the other stats to listofaff
 	other.listofaffected.append(self)
 ##If valid, Recalculates then removes stats from this stats object
 func remove_stats(other: StatsResource) -> void: #removes the stat from affecting this stat
+	#print("removing" + other.parent_object_name)
 	if !initialized:
 		setup()
 	if other == null || other == self || !listofaffection.has(other):
@@ -401,7 +403,7 @@ func print_stat_tree(key: String):
 		factor_str = "_____"
 	if base_str == "B-0.0":
 		base_str = "_____"
-	#print("\n%-2s %-25s %-5s %s" % [stat_str, parent_str, factor_str, base_str])
+	print("\n%-2s %-25s %-5s %s" % [stat_str, parent_str, factor_str, base_str])
 	for l in list:
 		stat_str = "Stat %d:" % index
 		parent_str = l.parent_object_name
@@ -415,10 +417,10 @@ func print_stat_tree(key: String):
 			base_str = "_____"
 		else:
 			totalb += l.statsbase[key]
-		#print("%-2s %-25s %-5s %s" % [stat_str, parent_str, factor_str, base_str])
-		#print("Stat " + str(index) + ": " + l.parent_object_name + " F-" + str(l.statsfactor[key]) +" B-" + str(l.statsbase[key]))
+		print("%-2s %-25s %-5s %s" % [stat_str, parent_str, factor_str, base_str])
+		print("Stat " + str(index) + ": " + l.parent_object_name + " F-" + str(l.statsfactor[key]) +" B-" + str(l.statsbase[key]))
 		index += 1
-	#print("Total Value Should Be: " + key + " = " + str(totalf) + ", " + str(totalb) + "\n")
+	print("Total Value Should Be: " + key + " = " + str(totalf) + ", " + str(totalb) + "\n")
 ## Returns if the stat is default or changed
 func is_stat_default(stat: String):
 	return get_stat_without_default(stat) == 0

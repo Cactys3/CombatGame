@@ -35,7 +35,7 @@ func set_itemdata(data:ItemData, new_type: types):
 		types.component_level: 
 			LevelUpgrades = data.get_level_upgrades()
 			option_name = "Level Up: " + option_name 
-			description = "Stat Upgrades: "
+			description = ""
 			var total_rarities: float = 0
 			var rarities_count: int = 0
 			for upgrade: ItemData.LevelUpgrade in LevelUpgrades:
@@ -50,7 +50,8 @@ func set_itemdata(data:ItemData, new_type: types):
 				else:
 					start = upgrade.name.capitalize() + ": "
 					stat = round2(data.stats.get_stat_base(upgrade.name)) + " --> " + round2(data.stats.get_stat_base(upgrade.name) + upgrade.value)
-				description += start + colorize(stat, upgrade.rarity) + end + "\n"
+				if upgrade.value != 0:
+					description += start + colorize(stat, upgrade.rarity) + end + "\n"
 			rarity = ItemData.get_rarity(roundi(total_rarities / rarities_count) as ItemData.item_rarities)
 		_:
 			option_name =  "misc: " + option_name

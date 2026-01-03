@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dc0hdlr7wq3lq"]
+[gd_scene load_steps=23 format=3 uid="uid://dc0hdlr7wq3lq"]
 
 [ext_resource type="Script" uid="uid://bb13nkhmcojis" path="res://Scenes/Instances/InstanceRoot.gd" id="1_eeah7"]
 [ext_resource type="PackedScene" uid="uid://dxv17gll2bx2l" path="res://Scenes/Instances/Hell/HellPuddle.tscn" id="2_qrryo"]
@@ -12,7 +12,6 @@
 [ext_resource type="Script" uid="uid://13p8bkyp17w" path="res://Scripts/managers/TestingManager.gd" id="10_cwiy3"]
 [ext_resource type="Script" uid="uid://5tltnj2xg8ps" path="res://Scripts/managers/ShopManager.gd" id="12_e4e03"]
 [ext_resource type="PackedScene" uid="uid://cvrebkaqtisv6" path="res://Scenes/UI/hud.tscn" id="15_6si6h"]
-[ext_resource type="PackedScene" uid="uid://bgt57e0022plx" path="res://Scenes/Misc/xp_blip.tscn" id="17_627tp"]
 [ext_resource type="PackedScene" uid="uid://bcwklkqeim2sq" path="res://Scenes/UI/inventory.tscn" id="17_gf2b2"]
 [ext_resource type="PackedScene" uid="uid://bwuwo8e451bxt" path="res://Scenes/UI/shop_inventory.tscn" id="18_85yrk"]
 [ext_resource type="PackedScene" uid="uid://cwomrgi81thyq" path="res://Scenes/UI/weapon_crafting_inventory.tscn" id="20_41mr8"]
@@ -106,10 +105,6 @@ texture = ExtResource("3_eeah7")
 [node name="EnemyParent" type="Node2D" parent="Window640/Offset"]
 
 [node name="XP Parent" type="Node2D" parent="Window640/Offset" groups=["xp_parent"]]
-
-[node name="xp_blip" parent="Window640/Offset/XP Parent" instance=ExtResource("17_627tp")]
-position = Vector2(8.666641, -4.666667)
-xp_value = 1000.0
 
 [node name="CharacterParent" type="Node2D" parent="Window640/Offset"]
 

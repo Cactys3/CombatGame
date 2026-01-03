@@ -110,9 +110,17 @@ func make_attack() -> Attack:
 func set_stats() -> void:
 	stats.set_changed_method(apply_stats)
 
+
+## Creates an ItemData.LevelUpgrade for this specific component and returns it once setup
+static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrade]:
+	var arr: Array[ItemData.LevelUpgrade] = super(itemdata)
+	## Add Attackspeed in addition to super()'s Damage
+	arr.append(get_stat_upgrade(StatsResource.ATTACKSPEED, randf_range(0.2, 2), itemdata.level, get_weighted_rarity(itemdata.level), 0.01, 0))
+	return arr
 ## Returns a randomized stat object, using the given itemdata's variables like rarity
 static func randomize_stats(itemdata: ItemData) -> StatsResource:
 	var ret = super(itemdata)
+	ret.set_stat_base(StatsResource.ATTACKSPEED, randf_range(-0.2, 0.5))
 	ret.parent_object_name = "Attachment Rolls"
 	return ret
 

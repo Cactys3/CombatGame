@@ -160,7 +160,6 @@ func refresh():
 ## Puts the '=' in the center of the string by padding it with spaces
 func center_equals(text: String) -> String:
 	var parts = text.split("=", false)
-	print(text)
 	var left = ""
 	if parts.size() > 0:
 		left = parts[0]
@@ -171,12 +170,9 @@ func center_equals(text: String) -> String:
 	var left_offset = max_len - left.length()
 	var right_offset = max_len - right.length()
 	if left_offset > 1:
-		print("adding to left: " + str(left_offset))
 		left = " ".repeat(left_offset) + left
 	if right_offset > 1:
-		print("adding to right: " + str(right_offset))
 		right = right + " ".repeat(right_offset)
-	print(left + "=" + right)
 	return left + "=" + right
 func manual_refresh(all_stats: Array[StatsResource]):
 	if all_stats == []:
