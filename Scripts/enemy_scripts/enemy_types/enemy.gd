@@ -79,7 +79,7 @@ func set_stats():
 	curr_lifetime = stats.get_stat_without_default(stats.DURATION) + base_lifetime
 	curr_piercing = stats.get_stat_without_default(stats.PIERCING) + base_piercing
 	curr_damage = stats.get_stat_without_default(stats.DAMAGE) + base_damage
-	curr_health = (stats.get_stat_without_default(stats.HP) + base_health) + (level * 2) ## TODO: level hp calculation?
+	curr_health = (stats.get_stat_without_default(stats.HP) + base_health) * (1 + (level / 2)) ## TODO: level hp calculation? very high scaling of hp
 ##
 func setup():
 	player = get_tree().get_first_node_in_group("player")
