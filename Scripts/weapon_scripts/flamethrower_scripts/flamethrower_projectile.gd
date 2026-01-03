@@ -6,7 +6,7 @@ extends Projectile
 #it doesn't care, will go through them all. (do less dmg per hit though?)
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
-const type = preload("res://Scripts/weapon_scripts/flamethrower_scripts/fire_projectile.gd")
+const type = preload("uid://boxu6s6bh4u6w")
 
 #func get_instance():
 	#var ret: type = preload("res://Scenes/Weapons/flamethrower/fire_projectile.tscn").instantiate()

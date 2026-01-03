@@ -1,7 +1,7 @@
 extends Projectile
 class_name p
 
-const type = preload("res://Scripts/weapon_scripts/pistol_scripts/pistol_bullet.gd")
+const type = preload("uid://boxu6s6bh4u6w")
 
 #func get_instance():
 	#var ret: type = preload("res://Scenes/Weapons/pistol/pistol_bullet.tscn").instantiate()

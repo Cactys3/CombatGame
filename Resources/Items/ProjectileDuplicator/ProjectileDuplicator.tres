@@ -9,4 +9,5 @@ item_name = "Projectile Duplicator"
 item_description = "## Shoots X projectiles every time your weapons fire X times"
 item_type = 5
 has_stats = true
+randomizable = true
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"

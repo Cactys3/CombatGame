@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://dlxqovibkkvb6"]
 
 [ext_resource type="Texture2D" uid="uid://dq1onux8gqfcb" path="res://Art/Weapons/flamethrower/Fire_Flamethrower.png" id="1_r5n6a"]
-[ext_resource type="Script" uid="uid://dpqree6hf5ia2" path="res://Scripts/weapon_scripts/flamethrower_scripts/fire_projectile.gd" id="1_xnutj"]
+[ext_resource type="Script" uid="uid://dpqree6hf5ia2" path="res://Scripts/weapon_scripts/flamethrower_scripts/flamethrower_projectile.gd" id="1_xnutj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q5ymc"]
 atlas = ExtResource("1_r5n6a")

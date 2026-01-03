@@ -6,6 +6,7 @@ var curr_timer: float = 0
 var max_timer: float = 3
 @export var projectile: PackedScene
 
+
 ## Shoots X arrow(s) every X seconds, they do 
 func _ready() -> void:
 	super()

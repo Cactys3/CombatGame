@@ -19,6 +19,7 @@ item_description = "Wand blade that teleports projectiles direction on top of en
 item_type = 2
 item_image = ExtResource("4_3m26c")
 has_stats = true
+randomizable = true
 default_stats = ExtResource("3_fmspq")
 default_status_effects = SubResource("Resource_bchfn")
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"

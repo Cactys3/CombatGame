@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cykl0goweao0i"]
+[gd_scene load_steps=7 format=3 uid="uid://cykl0goweao0i"]
 
 [ext_resource type="Script" uid="uid://cifngod288w00" path="res://Scripts/UI/LevelUpInstance.gd" id="1_fg6de"]
+[ext_resource type="PackedScene" uid="uid://o387qlahldf" path="res://Scenes/UI/StatsDisplay/stats_visual.tscn" id="2_gapvn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fg6de"]
 bg_color = Color(0.27450982, 0.25882354, 0.42352942, 1)
@@ -20,6 +21,14 @@ border_color = Color(0.13333334, 0.1254902, 0.20392157, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_fg6de"]
 font_size = 32
 font_color = Color(0.3882353, 0.60784316, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8l1ei"]
+bg_color = Color(0.27450982, 0.25882354, 0.42352942, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.13333334, 0.1254902, 0.20392157, 1)
 
 [node name="LevelUpUI" type="Control"]
 layout_mode = 3
@@ -84,3 +93,14 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 20
+
+[node name="PanelContainer2" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 265.0
+offset_top = -263.0
+offset_right = 547.0
+offset_bottom = 195.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8l1ei")
+
+[node name="StatsDisplay" parent="PanelContainer2" instance=ExtResource("2_gapvn")]
+layout_mode = 2

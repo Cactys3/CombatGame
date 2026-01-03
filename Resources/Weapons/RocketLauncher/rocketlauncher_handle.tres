@@ -19,6 +19,7 @@ item_description = "Long range gripstock that equips projectiles with unique dup
 item_type = 1
 item_image = ExtResource("4_0m302")
 has_stats = true
+randomizable = true
 default_stats = ExtResource("3_6d2sk")
 default_status_effects = SubResource("Resource_26eyj")
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"

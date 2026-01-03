@@ -19,6 +19,7 @@ item_description = "High stability low fire-rate barrel with high damage."
 item_type = 2
 item_image = ExtResource("4_q2ug7")
 has_stats = true
+randomizable = true
 default_stats = ExtResource("3_dwcx8")
 default_status_effects = SubResource("Resource_h1nvo")
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"

@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=6 format=3 uid="uid://difhyvvjuci4i"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://difhyvvjuci4i"]
 
 [ext_resource type="Resource" uid="uid://7o7md5s0tjub" path="res://Resources/Items/Arrows/ArrowsStats.tres" id="1_thsgb"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_oeh2y"]
 [ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_thsgb"]
 [ext_resource type="PackedScene" uid="uid://bsa22pw7rmqea" path="res://Scenes/Items/Arrows/arrows.tscn" id="3_2fd17"]
+[ext_resource type="Texture2D" uid="uid://lqpckh7fkgjy" path="res://Art/UI/MissingTexture.png" id="3_oeh2y"]
 
 [sub_resource type="Resource" id="Resource_vb0w8"]
 script = ExtResource("2_oeh2y")
@@ -13,10 +14,10 @@ metadata/_custom_type_script = "uid://dhqfnnqd2n054"
 script = ExtResource("2_thsgb")
 item_packed_scene = ExtResource("3_2fd17")
 item_name = "Arrows"
-item_description = "Shoots X arrow(s) every X seconds, they do "
+item_description = "Shoots X arrow(s) every X seconds (based off stats but not implemented)"
 item_type = 5
-default_stats = ExtResource("1_thsgb")
-default_status_effects = SubResource("Resource_vb0w8")
 has_stats = true
+default_stats = ExtResource("1_thsgb")
 has_status_effects = true
+default_status_effects = SubResource("Resource_vb0w8")
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"

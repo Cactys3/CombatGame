@@ -115,3 +115,6 @@ static func randomize_stats(itemdata: ItemData) -> StatsResource:
 	var ret = super(itemdata)
 	ret.parent_object_name = "Attachment Rolls"
 	return ret
+
+func get_stats():
+	return stats

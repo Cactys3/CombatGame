@@ -443,6 +443,16 @@ static func get_default(stat: String) -> float:
 static func get_rand_stat() -> String:
 	return defaultstats.keys()[(randi() % defaultstats.size())]
 	#return defaultstats.key(randi() % defaultstats.size())
+## Round original_stat to have 'digits' digits at max
+static func round_to_digits(original_stat: float, digits: int) -> String:
+	var number: String = str(snapped(original_stat, 0.01))
+	var decimals = digits - number.split(".")[0].length()
+	if decimals > 0:
+		if "." in number:
+			number = number.rstrip("0").rstrip(".")
+	else:
+		number = number.split(".")[0]
+	return number
 ## Untested
 func delete_stats():
 	for stats in listofaffected:

@@ -310,17 +310,27 @@ func setup_generic(new_name: String):
 		box.bg_color = button_color
 		for button in buttons:
 			button.add_theme_stylebox_override("normal", box)
-	#if text_color:
-		#for list in lists:
-			#list.set_text_color(text_color)
+	if text_color:
+		for list in lists:
+			if list.ID == 0 || list.ID == 1:
+				list.set_text_color(text_color)
 	if scroll_stylebox:
 		scroll.get_v_scroll_bar().custom_minimum_size = Vector2(8, 0)
 		scroll.get_v_scroll_bar().add_theme_stylebox_override("scroll", scroll_stylebox)
 	if scroll_grabber_stylebox:
 		scroll.get_v_scroll_bar().add_theme_stylebox_override("grabber", scroll_grabber_stylebox)
+	else:
+		var box = StyleBoxFlat.new()
+		box.bg_color = Color.DEEP_PINK
+		scroll.get_v_scroll_bar().add_theme_stylebox_override("grabber", box)
 	if scroll_grabber_hover_stylebox:
 		scroll.get_v_scroll_bar().add_theme_stylebox_override("grabber_highlight", scroll_grabber_hover_stylebox)
 		scroll.get_v_scroll_bar().add_theme_stylebox_override("grabber_pressed", scroll_grabber_hover_stylebox)
+	else:
+		var box = StyleBoxFlat.new()
+		box.bg_color = Color.HOT_PINK
+		scroll.get_v_scroll_bar().add_theme_stylebox_override("grabber_highlight", box)
+		scroll.get_v_scroll_bar().add_theme_stylebox_override("grabber_pressed", box)
 	if hide_weapon_only:
 		hide_weapons()
 	if hide_player_only:

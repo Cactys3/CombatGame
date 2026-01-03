@@ -2,8 +2,10 @@ extends Control
 
 const LEVEL_UP_ITEM = preload("uid://d3vs4t8t4nfr7")
 @onready var LevelUpParent: VBoxContainer = $PanelContainer/VBoxContainer/LevelUpParent
+@onready var stats_display: StatsDisplay = $PanelContainer2/StatsDisplay
 var choice: LevelUpData
 signal choice_made()
+var showing_stats = null
 
 ## Add new choice option to UI
 func add_choice(data: LevelUpData):
@@ -20,7 +22,7 @@ func add_choice(data: LevelUpData):
 	offset1.custom_minimum_size = Vector2(50, 0)
 	offset2.custom_minimum_size = Vector2(50, 0)
 	
-	new_choice.set_data(data)
+	new_choice.set_data(data, hover_choice)
 	new_choice.connect_signal(make_choice)
 ## Returns chosen LevelUpData
 func get_choice() -> LevelUpData:
@@ -31,6 +33,14 @@ func get_choice() -> LevelUpData:
 func make_choice(data: LevelUpData):
 	choice = data
 	emit_signal("choice_made")
+## If the choice has stats, display those stats (if it's a new item/component)
+func hover_choice(data: LevelUpData):
+	var stats = data.get_stats()
+	if !stats == null:
+		if !showing_stats == null:
+			stats_display.clear_lists()
+		showing_stats = stats
+		stats_display.setup_substats(stats, stats.parent_object_name)
 ## Frees this object
 func free_instance():
 	for connection in choice_made.get_connections():

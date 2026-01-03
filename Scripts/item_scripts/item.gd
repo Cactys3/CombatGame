@@ -49,7 +49,8 @@ func round_ended(round_number: int):
 static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrade]:
 	var arr: Array[ItemData.LevelUpgrade]
 	var u1: ItemData.LevelUpgrade = ItemData.LevelUpgrade.new()
-	u1.setup(StatsResource.DAMAGE, false, randf_range(15, 30))
+	#var damage = randf_range(2, 4)
+	#u1.setup(StatsResource.DAMAGE, "Add " + str(damage) + " Damage!", false, damage)
 	#arr.append(u1)
 	return arr
 
@@ -59,3 +60,6 @@ static func randomize_stats(itemdata: ItemData) -> StatsResource:
 	stats.set_stat_base(StatsResource.DAMAGE, randi_range(0, 10))
 	stats.parent_object_name = "RNGrolls"
 	return stats
+
+func get_stats():
+	return null

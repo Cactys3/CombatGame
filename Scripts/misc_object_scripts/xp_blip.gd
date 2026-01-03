@@ -5,7 +5,7 @@ extends RigidBody2D
 
 var acceleration: float = 1
 var speed: float = 0
-var xp_value: float = 1
+@export var xp_value: float = 1
 var is_collected: bool = false
 var timer = 0
 

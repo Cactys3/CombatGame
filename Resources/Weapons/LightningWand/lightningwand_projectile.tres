@@ -19,6 +19,7 @@ item_description = "Projectile that pulses multiple times, dealing damage and ap
 item_type = 3
 item_image = ExtResource("4_66pxa")
 has_stats = true
+randomizable = true
 default_stats = ExtResource("3_cp00k")
 has_status_effects = true
 default_status_effects = SubResource("Resource_7ed61")

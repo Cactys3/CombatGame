@@ -19,6 +19,7 @@ item_description = "Very fast, long lived bullets with low piercing"
 item_type = 3
 item_image = ExtResource("4_simsl")
 has_stats = true
+randomizable = true
 default_stats = ExtResource("3_6uxhk")
 has_status_effects = true
 default_status_effects = SubResource("Resource_jm6i2")

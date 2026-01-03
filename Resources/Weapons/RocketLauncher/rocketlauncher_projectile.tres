@@ -19,6 +19,7 @@ item_description = "Slow moving low lifetime rocket that explodes into fragments
 item_type = 3
 item_image = ExtResource("4_shtvg")
 has_stats = true
+randomizable = true
 default_stats = ExtResource("3_esm4p")
 has_status_effects = true
 default_status_effects = SubResource("Resource_cpwec")

@@ -103,17 +103,12 @@ func deferred():
 		refresh()
 	else:
 		manual_refresh([])
-	if ID == 1:
+	if ID == 1 || ID == 0:
 		title.clip_text = false
-		title.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		for currlabel in statslabels:
 			statslabels[currlabel].clip_text = false
-			statslabels[currlabel].horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	#if ID == 2:
-		#title.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-		#for currlabel in statslabels:
-			#statslabels[currlabel].clip_text = false
-			#statslabels[currlabel].horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+			statslabels[currlabel].horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	var new_color: Color = Color(clampf(fposmod(1 - (0.1*ID) + randf_range(0, 0.2), 1.0), 0.2, 0.9), clampf(fposmod(1 - (0.1*ID) + randf_range(0, 0.2), 1.0), 0.2, 0.9),clampf(fposmod(1 - (0.1*ID) + randf_range(0, 0.2), 1.0), 0.2, 0.9))
 	modulate = new_color
 func refresh():
@@ -122,7 +117,7 @@ func refresh():
 	
 	var before: String = ""
 	var after: String = ""
-	if ID == 1:
+	if ID == 1 || ID == 0:
 		after = " ="
 	else:
 		if ID == 2:
@@ -141,37 +136,48 @@ func refresh():
 	for stat in statslabels:
 		if !stats.is_stat_default(stat):
 			everything_is_zero = false
-		var number: String = str(snapped(stats.get_stat(stat), 0.01))
-		var decimals = 5 - number.split(".")[0].length()
-		if decimals > 0:
-			if "." in number:
-				number = number.rstrip("0").rstrip(".")
-		else:
-			number = number.split(".")[0]
+		var number: String = str(StatsResource.round_to_digits(stats.get_stat(stat), 5))
 		## Add Self Stat also 
-		if ID == 1:
+		if ID == 1 || ID == 0:
+			## TODO: Calculate total stats for base and factor stats, then display: 'total = total base * total factor% (added)' ex: 'Damage: 75 = 50 + %50 (25)'
 			if !stats.is_stat_default(stat):
 				everything_is_zero = false
-			var self_number: String = str(snapped(stats.statsfactor[stat] * stats.statsbase[stat], 0.01))
-			var self_decimals = 5 - self_number.split(".")[0].length()
-			if self_decimals > 0:
-				if "." in self_number:
-					self_number = self_number.rstrip("0").rstrip(".")
-			else:
-				self_number = self_number.split(".")[0]
+			var self_number: String = str(StatsResource.round_to_digits(stats.statsfactor[stat] * stats.statsbase[stat], 5))
+			
 			if self_number == "0":
-				self_number = ""
+				statslabels[stat].text = center_equals(before + number + after)
 			else:
-				self_number += " +"
-			statslabels[stat].text = before + number + after + self_number
+				self_number = " " + self_number + " +"
+				var text = before + number + after + self_number
+				statslabels[stat].text = center_equals(text)
 		else:
 			statslabels[stat].text = before + number + after
-		
 	
 	if everything_is_zero:
 		pass#visible = false
 	else:
 		visible = true
+## Puts the '=' in the center of the string by padding it with spaces
+func center_equals(text: String) -> String:
+	var parts = text.split("=", false)
+	print(text)
+	var left = ""
+	if parts.size() > 0:
+		left = parts[0]
+	var right = ""
+	if parts.size() > 1:
+		right = parts[1]
+	var max_len = max(left.length(), right.length())
+	var left_offset = max_len - left.length()
+	var right_offset = max_len - right.length()
+	if left_offset > 1:
+		print("adding to left: " + str(left_offset))
+		left = " ".repeat(left_offset) + left
+	if right_offset > 1:
+		print("adding to right: " + str(right_offset))
+		right = right + " ".repeat(right_offset)
+	print(left + "=" + right)
+	return left + "=" + right
 func manual_refresh(all_stats: Array[StatsResource]):
 	if all_stats == []:
 		for stat in statslabels:
@@ -180,7 +186,7 @@ func manual_refresh(all_stats: Array[StatsResource]):
 	
 	var before: String = ""
 	var after: String = ""
-	if ID == 1:
+	if ID == 1 || ID == 0:
 		after = " ="
 	else:
 		if ID == 2:
@@ -194,21 +200,16 @@ func manual_refresh(all_stats: Array[StatsResource]):
 		if title.text.to_lower().contains("attachment"):
 			title.text = "Attachment"
 	## Calculate stat total
-	
 	for stat in statslabels:
 		var total_stat: float = 0
 		for statobject in all_stats:
 			if is_instance_valid(statobject):
 				total_stat += statobject.get_stat(stat)
-		
-		var number: String = str(snapped(total_stat, 0.01))
-		var decimals = 5 - number.split(".")[0].length()
-		if decimals > 0:
-			if "." in number:
-				number = number.rstrip("0").rstrip(".")
-		else:
-			number = number.split(".")[0]
+		var number: String = str(StatsResource.round_to_digits(total_stat, 5))
 		statslabels[stat].text = before + number + after
+func set_text_color(color: Color):
+	for l in statslabels:
+		statslabels[l].add_theme_color_override("font_color", color)
 ## Reorders given label to given position
 func reorder(key: String, new_position: int):
 	move_child(statslabels[key], new_position)

@@ -20,7 +20,7 @@ border_width_bottom = 5
 border_color = Color(0.13333334, 0.1254902, 0.20392157, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_hvjrs"]
-font_color = Color(0.3882353, 0.60784316, 1, 1)
+font_color = Color(0.4627451, 0.25882354, 0.5411765, 1)
 
 [node name="LevelUpItem" type="Panel"]
 custom_minimum_size = Vector2(370, 100)
@@ -98,5 +98,4 @@ bbcode_enabled = true
 fit_content = true
 scroll_active = false
 
-[connection signal="mouse_entered" from="." to="." method="_mouse_entered"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

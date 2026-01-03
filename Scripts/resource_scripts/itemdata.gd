@@ -78,15 +78,15 @@ func initialize(scene: PackedScene, name: String, description: String, type: ite
 static func get_rarity(i: int) -> String:
 	match(i):
 		item_rarities.common:
-			return "common"
+			return "Common"
 		item_rarities.rare:
-			return "rare"
+			return "Rare"
 		item_rarities.epic:
-			return "epic"
+			return "Epic"
 		item_rarities.legendary:
-			return "legendary"
+			return "Legendary"
 		item_rarities.exclusive:
-			return "exclusive"
+			return "Exclusive"
 		item_rarities.unset:
 			return "unset"
 	return "even further beyond"
@@ -123,6 +123,7 @@ func setup(should_randomize: bool, starting_rarity: item_rarities):
 		added_stats = StatsResource.new()
 	count += 1
 	ID = count ## TODO: use this ID to track items? useful for matching itemdata to item/weapon when removing
+	is_ready = true
 ## Changes Variable Values based on rarity, assumes all values are default to begin with
 func set_rarity(rarity: item_rarities):
 	item_rarity = rarity
@@ -317,6 +318,20 @@ func get_cost(sell: bool):
 	if has_rarity: 
 		cost *= rarity_cost_modifier * (item_rarity + 1)
 	return cost
+## Gets/Makes Stats and returns
+func get_stats() -> StatsResource:
+	if is_ready:
+		if has_stats:
+			if made_item:
+				return item.get_stats()
+			else:
+				make_item()
+				return item.get_stats()
+		else:
+			return null
+	else:
+		printerr("For Item:" + item_name +  ", Called 'ItemData.get_stats' before is_ready")
+		return null
 ## Returns if this is component or not
 func is_component() -> bool:
 	return item_type == item_types.handle || item_type == item_types.attachment || item_type == item_types.projectile
@@ -326,11 +341,14 @@ func is_component() -> bool:
 class LevelUpgrade:
 	## Stat to add to
 	var name: String
+	## Rarity of stat added
+	var rarity: ItemData.item_rarities
 	## If false, it's a base stat
 	var factor: bool
 	## Value to add to the stat
 	var value: float
-	func setup(new_name: String, new_factor: bool, new_value: float):
+	func setup(new_name: String, new_rarity: ItemData.item_rarities, new_factor: bool, new_value: float):
 		name = new_name
 		factor = new_factor
 		value = new_value
+		rarity = new_rarity

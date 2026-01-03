@@ -19,6 +19,7 @@ item_description = "Heavy, low damage minigun barrel with ramping attackspeed up
 item_type = 2
 item_image = ExtResource("4_yh3lw")
 has_stats = true
+randomizable = true
 default_stats = ExtResource("3_4werf")
 default_status_effects = SubResource("Resource_vt34j")
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"

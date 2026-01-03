@@ -19,6 +19,7 @@ item_description = "Wand base that comes with insane range but very low attack s
 item_type = 1
 item_image = ExtResource("4_cqxrw")
 has_stats = true
+randomizable = true
 default_stats = ExtResource("3_xqpwc")
 default_status_effects = SubResource("Resource_vai8s")
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"

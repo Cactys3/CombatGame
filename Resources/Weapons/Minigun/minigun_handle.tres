@@ -19,6 +19,7 @@ item_description = "Heavy, slow turning, but high attackspeed minigun base. Over
 item_type = 1
 item_image = ExtResource("4_hq41n")
 has_stats = true
+randomizable = true
 default_stats = ExtResource("3_edl7j")
 default_status_effects = SubResource("Resource_lwqj8")
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"
