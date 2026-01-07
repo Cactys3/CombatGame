@@ -231,12 +231,19 @@ var lists: Array[StatsList]
 	StatsResource.INACCURACY]
 var last_clicked: float = -1
 var is_ready: bool = false
-var timer
+var timer: float = 0
+var refresh_cooldown: float = 1.5
 var index: int = 0
 var single_stats: Array[StatsResource]
 var single_stat_total_list: StatsList
 ## Backup
 ## Sets up the statsdisplay for showing all the stats of this stats object
+func _process(delta: float) -> void:
+	if is_ready && visible:
+		timer += delta
+		if timer > refresh_cooldown:
+			timer = 0
+			refresh()
 func setup_substats(new_stats: StatsResource, new_name: String):
 	## Setup Based on Parameters
 	stats = new_stats
@@ -285,13 +292,6 @@ func add_single_stats(new_stats: StatsResource):
 ## Sets up the statsdisplay for use, is called for both adding single stats and showing all substats of one stat
 func setup_generic(new_name: String):
 	name = new_name
-	if timer:
-		timer.queue_free()
-	timer = Timer.new()
-	add_child(timer)
-	timer.timeout.connect(refresh)
-	timer.wait_time = 3.0
-	timer.start()
 	title.text = new_name
 	## Setup based on @exports
 	if solid_background_panel:

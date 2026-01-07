@@ -18,3 +18,10 @@ func die():
 		anim.play("die")
 		await get_tree().create_timer(3).timeout
 		super()
+
+## Returns a randomized stat object, using the given itemdata's variables like rarity
+static func randomize_stats(itemdata: ItemData) -> StatsResource:
+	var newstats: StatsResource = super(itemdata)
+	## Set to 0
+	set_stat_randomize(newstats, StatsResource.VELOCITY, 0, 0.01, 0)
+	return newstats

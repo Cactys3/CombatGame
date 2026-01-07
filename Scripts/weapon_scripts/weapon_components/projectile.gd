@@ -4,15 +4,11 @@ class_name Projectile
 func get_instance():
 	return data.get_item().duplicate()
 
-## In the future, maybe used to set Projectile specific stats
-@export var stats: StatsResource
 ## Not decided, holds attack, defense, current values
 @export var status: StatusEffects
 
 ## Is this projectile somehow not original/from gun
 var is_clone: bool = false
-
-var data: ItemData = ShopManager.BLANK_ITEMDATA.duplicate()
 var frame: Weapon_Frame
 var damage: float
 var count: float 
@@ -115,7 +111,10 @@ static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrad
 ## Returns a randomized stat object, using the given itemdata's variables like rarity
 static func randomize_stats(itemdata: ItemData) -> StatsResource:
 	var ret = super(itemdata)
-	ret.setup("Projectile Rolls")
+	ret.set_stat_base(StatsResource.VELOCITY, randf_range(-4, 7))
+	ret.set_stat_base(StatsResource.PIERCING, randf_range(-1, 2))
+	ret.set_stat_base(StatsResource.COUNT, randf_range(-0.2, 0.5))
+	ret.set_stat_base(StatsResource.DURATION, randf_range(-1, 3))
 	return ret
 
 func get_stats():

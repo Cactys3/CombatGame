@@ -4,10 +4,6 @@ class_name Handle
 func get_scene() -> PackedScene:
 	return preload("res://Scenes/Weapons/pistol/pistol_handle.tscn")
 
-var data: ItemData = ShopManager.BLANK_ITEMDATA.duplicate()
-
-@export var stats: StatsResource
-
 @export var visual: AnimatedSprite2D
 @export var offset: Vector2
 @export var frame: Weapon_Frame
@@ -166,12 +162,12 @@ func set_stats() -> void:
 static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrade]:
 	var arr: Array[ItemData.LevelUpgrade] = super(itemdata)
 	## 50% chance to be zero range increase
-	arr.append(get_stat_upgrade(StatsResource.RANGE, randf_range(10, 25), itemdata.level, get_weighted_rarity(itemdata.level), 0, 0.5))
+	arr.append(get_stat_upgrade(StatsResource.RANGE, randf_range(10, 25), itemdata.level, get_weighted_rarity(itemdata.level), 0, 0.1))
 	return arr
 ## Returns a randomized stat object, using the given itemdata's variables like rarity
 static func randomize_stats(itemdata: ItemData) -> StatsResource:
 	var ret = super(itemdata)
-	ret.setup("Handle Rolls")
+	set_stat_randomize(ret, StatsResource.RANGE, randf_range(-5, 15), 0.01, 0)
 	return ret
 
 func get_stats():

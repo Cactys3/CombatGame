@@ -88,3 +88,16 @@ func ProcessUnique(_delta: float) -> void:
 		if overheat_level != 0:
 			overheat_visual.play("0")
 		overheat_level = 0
+
+## Creates an ItemData.LevelUpgrade for this specific component and returns it once setup
+static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrade]:
+	var arr: Array[ItemData.LevelUpgrade] = []
+	arr.append(get_stat_upgrade(StatsResource.DAMAGE, randf_range(0.2, 0.8), itemdata.level, get_weighted_rarity(itemdata.level), 0.01, 0))
+	arr.append(get_stat_upgrade(StatsResource.ATTACKSPEED, randf_range(0.6, 1.5), itemdata.level, get_weighted_rarity(itemdata.level), 0.01, 0))
+	return arr
+## Returns a randomized stat object, using the given itemdata's variables like rarity
+static func randomize_stats(itemdata: ItemData) -> StatsResource:
+	var newstats: StatsResource = super(itemdata)
+	set_stat_randomize(newstats, StatsResource.DAMAGE, randf_range(-0.3, 0.6), 0.01, 0)
+	set_stat_randomize(newstats, StatsResource.ATTACKSPEED, randf_range(-0.3, 1.7), 0.01, 0)
+	return newstats

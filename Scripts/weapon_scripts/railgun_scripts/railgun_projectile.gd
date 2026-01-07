@@ -23,7 +23,11 @@ func setdata():
 func process_movement(delta: float) -> void:
 	pass
 
+## Returns a randomized stat object, using the given itemdata's variables like rarity
 static func randomize_stats(itemdata: ItemData) -> StatsResource:
-	var ret = super(itemdata)
-	ret.setup("Railgun Projectile Rolls")
+	var ret: StatsResource = super(itemdata)
+	ret.set_stat_base(StatsResource.VELOCITY, randf_range(0, 0))
+	ret.set_stat_base(StatsResource.PIERCING, randf_range(0, 0))
+	ret.set_stat_base(StatsResource.COUNT, randf_range(0, 0))
+	ret.set_stat_base(StatsResource.DURATION, randf_range(-1, 4))
 	return ret

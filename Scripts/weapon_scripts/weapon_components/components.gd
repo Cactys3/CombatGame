@@ -1,5 +1,9 @@
 extends Area2D
 class_name Components
+@export var stats: StatsResource
+var data: ItemData = ShopManager.BLANK_ITEMDATA.duplicate()
+
+## Functions to Override:
 ## Creates an ItemData.LevelUpgrade for this specific component and returns it once setup
 static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrade]:
 	var arr: Array[ItemData.LevelUpgrade]
@@ -8,9 +12,11 @@ static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrad
 ## Returns a randomized stat object, using the given itemdata's variables like rarity
 static func randomize_stats(itemdata: ItemData) -> StatsResource:
 	var newstats: StatsResource = StatsResource.BLANK_STATS.duplicate()
-	newstats.setup("RNGrolls")
+	newstats.setup(itemdata.item_name + " Rolls")
 	set_stat_randomize(newstats, StatsResource.DAMAGE, randf_range(-0.5, 1.5), 0.01, 0)
 	return newstats
+
+
 ## Returns a random rarity based on weights
 static func get_weighted_rarity(level: float) -> ItemData.item_rarities:
 	## TODO: these weights are fine? they are semi-random
@@ -49,5 +55,21 @@ static func get_stat_upgrade(stat: String, roll: float, level: float, rarity: fl
 ## Applies Stats into everything that uses it, eg: animation speed
 func apply_stats():
 	pass
-func get_stats():
-	return null
+## Returns StatsObject
+func get_stats() -> StatsResource:
+	return stats
+## Returns ItemData
+func get_data() -> ItemData:
+	return data
+
+
+### Creates an ItemData.LevelUpgrade for this specific component and returns it once setup
+#static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrade]:
+	#var arr: Array[ItemData.LevelUpgrade] = super(itemdata)
+	#arr.append(get_stat_upgrade(StatsResource.DURATION, randf_range(1, 1), itemdata.level, get_weighted_rarity(itemdata.level), 0.01, 0))
+	#return arr
+### Returns a randomized stat object, using the given itemdata's variables like rarity
+#static func randomize_stats(itemdata: ItemData) -> StatsResource:
+	#var newstats: StatsResource = super(itemdata)
+	#set_stat_randomize(newstats, StatsResource.DURATION, randf_range(-1, 1), 0.01, 0)
+	#return newstats

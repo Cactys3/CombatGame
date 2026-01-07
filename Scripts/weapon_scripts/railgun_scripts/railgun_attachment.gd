@@ -20,3 +20,10 @@ func attack():
 	await visual.animation_finished
 	super()
 	visual.play("PostAttack")
+
+## Returns a randomized stat object, using the given itemdata's variables like rarity
+static func randomize_stats(itemdata: ItemData) -> StatsResource:
+	var newstats: StatsResource = super(itemdata)
+	set_stat_randomize(newstats, StatsResource.DAMAGE, randf_range(-0.5, 1.7), 0.01, 0)
+	set_stat_randomize(newstats, StatsResource.ATTACKSPEED, randf_range(-0.3, 1.2), 0.01, 0)
+	return newstats

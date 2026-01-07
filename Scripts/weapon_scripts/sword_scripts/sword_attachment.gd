@@ -68,12 +68,13 @@ func _on_area_entered(area: Area2D) -> void:
 ## Creates an ItemData.LevelUpgrade for this specific component and returns it once setup
 static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrade]:
 	var arr: Array[ItemData.LevelUpgrade] = super(itemdata)
-	## Add Attackspeed in addition to super()'s Damage
-	#arr.append(get_stat_upgrade(StatsResource.ATTACKSPEED, randf_range(0.2, 2), itemdata.level, get_weighted_rarity(itemdata.level), 0.01, 0))
+	arr.append(get_stat_upgrade(StatsResource.SIZE, randf_range(-0.1, 0.3), itemdata.level, get_weighted_rarity(itemdata.level), 0, 0.3))
+	arr.append(get_stat_upgrade(StatsResource.RANGE, randf_range(1, 5), itemdata.level, get_weighted_rarity(itemdata.level), 0, 0.4))
 	return arr
 ## Returns a randomized stat object, using the given itemdata's variables like rarity
 static func randomize_stats(itemdata: ItemData) -> StatsResource:
-	var ret = super(itemdata)
-	#ret.set_stat_base(StatsResource.DAMAGE, randi_range(-1, 3))
-	ret.setup("Sword Blade Rolls")
-	return ret
+	var newstats: StatsResource = super(itemdata)
+	set_stat_randomize(newstats, StatsResource.DAMAGE, randf_range(-0.5, 1.5), 0.01, 0)
+	set_stat_randomize(newstats, StatsResource.RANGE, randf_range(-4, 13), 0.01, 0.4)
+	set_stat_randomize(newstats, StatsResource.SIZE, randf_range(-0.2, 0.6), 0.01, 0)
+	return newstats
