@@ -100,28 +100,30 @@ static func get_type(i: int) -> String:
 	return "even further beyond"
 ## Creates ItemData, called Once
 func setup(should_randomize: bool, starting_rarity: item_rarities):
-	if !is_ready:
-		if has_stats:
-			stats = default_stats.duplicate()
-			stats.setup()
-		if has_status_effects:
-			status_effects = default_status_effects.duplicate()
-		if has_rarity:
-			set_rarity(starting_rarity)
-		## TODO: add starting level
-		## Must be done last as randomize uses other variables like rarity
-		if randomizable:
-			#print("randomizing stats: " + str(stats.get_stat(StatsResource.DAMAGE)))
-			randomize_stats()
-			#print("done randomizing stats: " + str(stats.get_stat(StatsResource.DAMAGE)))
-		else:
-			print("\n\n ELSE, NO RANDOMIZE " + item_name + " \n\n")
-			added_stats = StatsResource.new()
-		count += 1
-		ID = count ## TODO: use this ID to track items? useful for matching itemdata to item/weapon when removing
-		is_ready = true
-	else:
+	if is_ready:
 		printerr("Trying to ItemData.setup() on an already setup item: " + item_name + component_halfname + resource_name)
+		#return
+	
+	if has_stats || default_stats:
+		stats = default_stats.duplicate()
+		if stats.parent_object_name == "unset":
+			stats.setup(item_name + "Stats")
+		else:
+			stats.setup(stats.parent_object_name)
+	if has_status_effects:
+		status_effects = default_status_effects.duplicate()
+	if has_rarity:
+		set_rarity(starting_rarity)
+	## TODO: add starting level
+	## Must be done last as randomize uses other variables like rarity
+	if randomizable:
+		randomize_stats()
+	else:
+		added_stats = StatsResource.BLANK_STATS.duplicate()
+		added_stats.setup("added_stats")
+	count += 1
+	ID = count ## TODO: use this ID to track items? useful for matching itemdata to item/weapon when removing
+	is_ready = true
 ## Changes Variable Values based on rarity, assumes all values are default to begin with
 func set_rarity(rarity: item_rarities):
 	item_rarity = rarity
@@ -142,7 +144,7 @@ func set_rarity(rarity: item_rarities):
 ## Calls randomize_stats on instantiated packed scene
 func randomize_stats():
 	if added_stats != null:
-		print("\n\n TRIED TO RANDOMIZE STATS AGAIN \n\n")
+		printerr("\n\n TRIED TO RANDOMIZE STATS AGAIN \n\n")
 		return
 	if item:
 		added_stats = item.randomize_stats(self)
@@ -231,7 +233,8 @@ func make_item():
 func set_components(new_attachment: ItemData, new_handle: ItemData, new_projectile: ItemData):
 	## Setup to be a weapon itemdata
 	has_stats = true
-	default_stats = StatsResource.new()
+	default_stats = StatsResource.BLANK_STATS.duplicate()
+	default_stats.setup("Weapon")
 	item_type = item_types.weapon
 	setup(true, item_rarity)
 	attachment = new_attachment
@@ -243,7 +246,8 @@ func set_components(new_attachment: ItemData, new_handle: ItemData, new_projecti
 func make_frame() -> Weapon_Frame:
 	made_item = true
 	var new_frame: Weapon_Frame = Weapon_Frame.SCENE.instantiate()
-	new_frame.stats = StatsResource.new()
+	new_frame.stats = StatsResource.BLANK_STATS.duplicate()
+	new_frame.stats.setup("Weapon")
 	new_frame.stats.add_stats(GameManager.instance.global_stats)
 	new_frame.add_attachment(attachment.make_item())
 	new_frame.add_handle(handle.make_item())

@@ -21,7 +21,7 @@ func make_weapon() -> void:
 	if handle == null || attachment == null || projectile == null:
 		return
 	## Make weapon and check if can add to equipment
-	var weapon: ItemData = ItemData.new()
+	var weapon: ItemData = ShopManager.BLANK_ITEMDATA.duplicate()
 	weapon.setup(false, ShopManager.random_rarity())
 	weapon.set_components(attachment.data, handle.data, projectile.data)
 	if GameManager.instance.ui_man.equipment.ui_add(ShopManager.make_itemUI(weapon)):

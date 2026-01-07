@@ -1,5 +1,7 @@
 extends Node
 class_name ShopManager
+## Blanks
+const BLANK_ITEMDATA = preload("uid://bex1ymr7nsxnu")
 ## Weapon Components
 const FLAMETHROWER_ATTACHMENT = preload("res://Resources/Weapons/Flamethrower/flamethrower_attachment.tres")
 const FLAMETHROWER_HANDLE = preload("res://Resources/Weapons/Flamethrower/flamethrower_handle.tres")
@@ -175,7 +177,7 @@ static func make_itemUI(item: ItemData) -> ItemUI:
 	return UI
 ## Makes an ItemData for Weapon and adds the Components
 static func setup_weapon(a: ItemData, h: ItemData, proj: ItemData) -> ItemData:
-	var data: ItemData = ItemData.new()#ItemData.item_types.weapon, "weapon", StatsResource.new(), null)
+	var data: ItemData = ShopManager.BLANK_ITEMDATA.duplicate()
 	data.has_rarity = true
 	data.setup(false, random_rarity())
 	a.setup(true, random_rarity())

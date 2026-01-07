@@ -36,14 +36,14 @@ var characters: Array[duple] = [WEBFISHER]
 var maps: Array[duple] = [HELL, TEST]
 var weapons: Array[duple_int] = [PISTOL, SWORD, FLAMETHROWER, RAILGUN, ROCKETLAUNCHER, MINIGUN, PLAYINGCARD, LIGHTNINGWAND]
 
-var global_stats: StatsResource = StatsResource.new()
+var global_stats: StatsResource = StatsResource.BLANK_STATS.duplicate()
 
 var array: Array[Control] = [main, settings, collection, shop, character_selection, map_selection]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	## For testing:
-	global_stats.parent_object_name = "Globals"
+	global_stats.setup("Globals")
 	
 	set_process_input(true)
 	set_process_unhandled_input(true)
@@ -167,6 +167,7 @@ func set_weapon(index: int):
 		text_weapon.text = "Weapon: " + weapons[weapon].key
 func setup_global_stats():
 	global_stats = (load(characters[character].key))
+	global_stats.setup(global_stats.parent_object_name)
 ## Sets only parameter as visible
 func set_visible(nodes: Array[Control]):
 	main.visible = false

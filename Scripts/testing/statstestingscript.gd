@@ -5,9 +5,9 @@ var two: StatsResource
 var three: StatsResource 
 
 func _ready() -> void:
-	one = StatsResource.new()
-	two = StatsResource.new()
-	three = StatsResource.new()
+	one = StatsResource.BLANK_STATS.duplicate()
+	two = StatsResource.BLANK_STATS.duplicate()
+	three = StatsResource.BLANK_STATS.duplicate()
 	one.statsbase["damage"] = 2
 	one.statsfactor["xp"] = 2
 	one.statsbase["hp"] = 2

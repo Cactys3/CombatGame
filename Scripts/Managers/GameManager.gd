@@ -130,12 +130,19 @@ func setup(new_player: Character, starting_weapon: int, new_global_stats: StatsR
 	global_stats = new_global_stats
 
 func setup_deffered(starting_weapon: int):
+	player.player_stats.setup(player.character_name)
+	player.player_stats.set_changed_method(player.stat_changed_method)
+	player.player_stats.add_stats(global_stats)
+	player.initialize_stats()
 	level = 0
 	xp = 0
 	money = starting_money
-	player.player_stats.add_stats(global_stats)
 	get_tree().paused = false
-	#ui_man.AIOman.set_character_stats_display(player.player_stats)
+	var s: Array[StatsResource]
+	player.player_stats.External_GetAllStatsRecursive(s)
+	for stat in player.player_stats.External_GetAllStatsRecursive(s):
+		stat.get_stat(StatsResource.DAMAGE)
+	ui_man.AIOman.set_character_stats_display(player.player_stats)
 	call_deferred("setup_weapon", starting_weapon)
 ## It's Necessary to deferr this twice as it relies on stuff that is deferred once to happen (i don't know what exactly it relies on)
 func setup_weapon(starting_weapon: int):
@@ -143,10 +150,6 @@ func setup_weapon(starting_weapon: int):
 	if !ui_man.equipment.ui_add(ShopManager.make_itemUI(weapon)):
 		add_weapon_to_player(weapon.get_item())
 		ui_man.equipment.backend_add(ShopManager.make_itemUI(weapon))
-		print("fail")
-	else:
-		print("success")
-
 func _ready() -> void:
 	# Ensure only one instance exists
 	if instance != null:
@@ -154,8 +157,19 @@ func _ready() -> void:
 		queue_free() 
 		return
 	instance = self  
-
+var timer: float = 0
 func _process(_delta: float) -> void:
+	timer += _delta
+	if timer > 5:
+		print("\nTimer:")
+		timer = 0
+		print("TotalListOfStats:")
+		for item in player.player_stats.TotalListOfStats:
+			print(item.parent_object_name)
+		print("TotalListOfStats:")
+		for item in player.player_stats.TotalListOfStats:
+			print(item.parent_object_name)
+	
 	if !leveling_up && level_up_queue > 0:
 		create_level_up_instance()
 

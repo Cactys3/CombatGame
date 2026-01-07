@@ -7,5 +7,4 @@ func _ready() -> void:
 		callee = get_parent()
 
 func damage(attack: Attack):
-	print("damage")
 	callee.damage(attack)

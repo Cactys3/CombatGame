@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://bex1ymr7nsxnu"]
+
+[ext_resource type="Texture2D" uid="uid://lqpckh7fkgjy" path="res://Art/UI/MissingTexture.png" id="1_nl50b"]
+[ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_mm6vs"]
+
+[resource]
+script = ExtResource("2_mm6vs")
+item_name = "blank_data"
+metadata/_custom_type_script = "uid://dnj6pao77g7bt"

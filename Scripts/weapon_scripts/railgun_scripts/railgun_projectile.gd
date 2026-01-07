@@ -25,5 +25,5 @@ func process_movement(delta: float) -> void:
 
 static func randomize_stats(itemdata: ItemData) -> StatsResource:
 	var ret = super(itemdata)
-	ret.parent_object_name = "Railgun Projectile Rolls"
+	ret.setup("Railgun Projectile Rolls")
 	return ret

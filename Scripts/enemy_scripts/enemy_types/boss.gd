@@ -39,7 +39,7 @@ func drop_loot():
 		loot_projectile = ShopManager.get_projectile(loot_drop_id_handle)
 	else:
 		loot_projectile = ShopManager.get_projectile(ShopManager.get_random_unlocked_weapon_index())
-	loot_weapon = ItemData.new()#)#ItemData.item_types.weapon, "weapon", StatsResource.new(), null)
+	loot_weapon = ShopManager.BLANK_ITEMDATA.duplicate()
 	loot_weapon.set_components(loot_attachment, loot_handle, loot_projectile)
 	loot.setup(loot_drop_title, loot_handle, loot_attachment, loot_projectile, loot_weapon)
 	loot.visible = false

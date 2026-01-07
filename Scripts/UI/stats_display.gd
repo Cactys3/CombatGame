@@ -238,16 +238,7 @@ var single_stat_total_list: StatsList
 ## Backup
 ## Sets up the statsdisplay for showing all the stats of this stats object
 func setup_substats(new_stats: StatsResource, new_name: String):
-	#print("\n\nadd_stats: " + new_name + "dmg: ")
-	#new_stats.print_stat_tree(StatsResource.DAMAGE)
-	print("Displaying Stats: " + new_name)
-	print("Underling Stats: ")
-	var s: Array[StatsResource] = []
-	for stat in new_stats.External_GetAllStatsRecursive(s):
-		print("    " + stat.parent_object_name + ": " + str(stat.get_stat(StatsResource.DAMAGE)))
-	return
 	## Setup Based on Parameters
-	print("what")
 	stats = new_stats
 	clear_lists()
 	index = 1
@@ -256,18 +247,14 @@ func setup_substats(new_stats: StatsResource, new_name: String):
 	index += 1
 	listparent.add_child(mainlist)
 	lists.append(mainlist)
-	#print("main stats: " + new_stats.parent_object_name + "dmg: " + str(new_stats.get_stat(StatsResource.RANGE)))
 	## Only get stats one layer deep ie: listofaffection instead of recursive get all stats
 	## TODO: if weapon, order it so it goes handle, attachment, projectile, then everything else
 	for stat in new_stats.listofaffection:
-			#if stat != new_stats:
-			#print("stat " + str(index) + ":" + stat.parent_object_name + "dmg: " + str(stat.get_stat(StatsResource.RANGE)))
-			#stat.print_stat_tree(StatsResource.RANGE)
-			var newlist: StatsList = LIST.instantiate()
-			newlist.setup(stat, index)
-			index += 1
-			listparent.add_child(newlist)
-			lists.append(newlist)
+		var newlist: StatsList = LIST.instantiate()
+		newlist.setup(stat, index)
+		index += 1
+		listparent.add_child(newlist)
+		lists.append(newlist)
 	setup_generic(new_name)
 ## Sets up the statsdisplay for adding a bunch of single stats
 func setup_single_stats(new_name: String):
@@ -350,6 +337,18 @@ func setup_generic(new_name: String):
 	is_ready = true
 func refresh():
 	if stats:
+		for stat in stats.listofaffection:
+			var make_new_list: bool = true
+			for list in lists:
+				if list.stats == stat:
+					make_new_list = false
+					break
+			if make_new_list:
+				var newlist: StatsList = LIST.instantiate()
+				newlist.setup(stat, index)
+				index += 1
+				listparent.add_child(newlist)
+				lists.append(newlist)
 		if only_show_changed:
 			hide_defaults()
 		else:
@@ -360,7 +359,6 @@ func refresh():
 						statslabels[element].visible = true
 		for list in lists:
 			list.refresh()
-
 func sort_random():
 	array.shuffle()
 	reset_children()

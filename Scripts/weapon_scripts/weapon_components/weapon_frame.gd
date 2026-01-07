@@ -12,7 +12,7 @@ const SCENE = preload("res://Scenes/Weapons/weapon_frame.tscn")
 
 @onready var manager = get_tree().get_first_node_in_group("weapon_manager")
 
-@export var stats: StatsResource #= StatsResource.new()
+@export var stats: StatsResource
 
 var data: ItemData
 
@@ -149,7 +149,7 @@ func set_variables():
 		attachment.frame = self
 		handle.frame = self
 		name = (handle.name + attachment.name + projectile.name).replace("_attachment", "").replace("_handle", "").replace("_projectile", "")
-		stats.parent_object_name = name
+		stats.setup(name)
 	pass
 ## Do anything that needs to be done to utilize a stat change
 func apply_stats() -> void: 

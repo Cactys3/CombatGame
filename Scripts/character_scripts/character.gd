@@ -1,9 +1,10 @@
 extends CharacterBody2D
 class_name Character
 
+@export var character_name: String = "Character"
 @export var anim: AnimationPlayer
 @export var StartingMoney: int = 5
-@export var player_stats: StatsResource
+@export var player_stats: StatsResource = StatsResource.BLANK_STATS.duplicate()
 
 @export var hp_regen:float = 0
 @export var knockback_modifier:float = 1
@@ -46,12 +47,12 @@ var money_gain: float:
 		return get_stat(StatsResource.MOGUL)
 
 func _ready() -> void:
-	call_deferred("initialize_stats")
+	pass
 func initialize_stats() -> void:
-	player_stats.set_changed_method(stat_changed_method)
-	curr_speed = maxspeed
 	GameManager.instance.hp = maxhealth
 	GameManager.instance.shield = maxshield
+	curr_speed = maxspeed
+	stat_changed_method()
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ability1"):
 		character_ability(1)

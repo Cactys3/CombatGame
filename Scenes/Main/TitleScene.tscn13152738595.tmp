@@ -1,0 +1,476 @@
+[gd_scene load_steps=2 format=3 uid="uid://usy5uswcsdkg"]
+
+[ext_resource type="Script" uid="uid://dlqvwknfyt7ay" path="res://Scripts/managers/TitleManager.gd" id="1_bgkhj"]
+
+[node name="TitleScene" type="Node2D"]
+position = Vector2(1897, 640)
+
+[node name="TitleManager" type="Node" parent="." node_paths=PackedStringArray("main", "settings", "collection", "shop", "page_title", "button_back", "character_selection", "map_selection", "weapon_selection", "text_character", "text_map", "text_weapon")]
+process_mode = 3
+script = ExtResource("1_bgkhj")
+main = NodePath("../Main")
+settings = NodePath("../Settings")
+collection = NodePath("../Collection")
+shop = NodePath("../Shop")
+page_title = NodePath("../Always_Active/Page_Title")
+button_back = NodePath("../Always_Active/Button_Back")
+character_selection = NodePath("../Character_Selection")
+map_selection = NodePath("../Map_Selection")
+weapon_selection = NodePath("../Weapon_Selection")
+text_character = NodePath("../Always_Active/Text_Character")
+text_map = NodePath("../Always_Active/Text_Map")
+text_weapon = NodePath("../Always_Active/Text_Weapon")
+
+[node name="Always_Active" type="Node2D" parent="."]
+
+[node name="Page_Title" type="RichTextLabel" parent="Always_Active"]
+custom_minimum_size = Vector2(1300, 500)
+offset_left = -653.0
+offset_top = -559.0
+offset_right = 647.0
+offset_bottom = -59.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/normal_font_size = 256
+text = "Titlescreen"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="Quickstart" type="Button" parent="Always_Active"]
+custom_minimum_size = Vector2(400, 150)
+offset_left = 1298.0
+offset_top = 1300.0
+offset_right = 1838.0
+offset_bottom = 1450.0
+theme_override_font_sizes/font_size = 128
+text = "Quickstart"
+
+[node name="Button_Back" type="Button" parent="Always_Active"]
+custom_minimum_size = Vector2(400, 150)
+offset_left = 1407.0
+offset_top = -512.0
+offset_right = 1807.0
+offset_bottom = -362.0
+theme_override_font_sizes/font_size = 128
+text = "Back"
+
+[node name="Text_Map" type="RichTextLabel" parent="Always_Active"]
+custom_minimum_size = Vector2(1600, 150)
+offset_left = 300.0
+offset_top = -36.0
+offset_right = 1900.0
+offset_bottom = 114.0
+theme_override_font_sizes/normal_font_size = 128
+text = "map"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 2
+
+[node name="Text_Weapon" type="RichTextLabel" parent="Always_Active"]
+custom_minimum_size = Vector2(1600, 150)
+offset_left = 300.0
+offset_top = -150.0
+offset_right = 1900.0
+theme_override_font_sizes/normal_font_size = 128
+text = "weapon"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 2
+
+[node name="Text_Character" type="RichTextLabel" parent="Always_Active"]
+custom_minimum_size = Vector2(1600, 150)
+offset_left = 300.0
+offset_top = -250.0
+offset_right = 1900.0
+offset_bottom = -100.0
+theme_override_font_sizes/normal_font_size = 128
+text = "character"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 2
+
+[node name="Main" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button_Play" type="Button" parent="Main"]
+custom_minimum_size = Vector2(800, 250)
+layout_mode = 0
+offset_left = -1612.0
+offset_top = -360.0
+offset_right = -812.0
+offset_bottom = -110.0
+theme_override_font_sizes/font_size = 128
+text = "Play"
+
+[node name="Button_Settings" type="Button" parent="Main"]
+custom_minimum_size = Vector2(800, 250)
+layout_mode = 0
+offset_left = -1612.0
+offset_top = -64.0
+offset_right = -812.0
+offset_bottom = 186.0
+theme_override_font_sizes/font_size = 128
+text = "Settings
+"
+
+[node name="Button_Collection" type="Button" parent="Main"]
+custom_minimum_size = Vector2(800, 250)
+layout_mode = 0
+offset_left = -1612.0
+offset_top = 237.0
+offset_right = -812.0
+offset_bottom = 487.0
+theme_override_font_sizes/font_size = 128
+text = "Collection"
+
+[node name="Button_Shop" type="Button" parent="Main"]
+custom_minimum_size = Vector2(800, 250)
+layout_mode = 0
+offset_left = -1612.0
+offset_top = 523.0
+offset_right = -812.0
+offset_bottom = 773.0
+theme_override_font_sizes/font_size = 128
+text = "Shop
+"
+
+[node name="Collection" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 44.0
+offset_top = 70.0
+offset_right = 84.0
+offset_bottom = 110.0
+
+[node name="Settings" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Shop" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Map_Selection" type="Control" parent="."]
+visible = false
+custom_minimum_size = Vector2(1600, 1600)
+layout_mode = 3
+anchors_preset = 0
+offset_left = -1624.0
+offset_top = -241.0
+offset_right = -24.0
+offset_bottom = 1359.0
+
+[node name="Button" type="Button" parent="Map_Selection"]
+custom_minimum_size = Vector2(600, 200)
+layout_mode = 0
+offset_left = 1360.0
+offset_top = 1437.0
+offset_right = 1848.0
+offset_bottom = 1587.0
+theme_override_font_sizes/font_size = 128
+text = "Start Game"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Map_Selection"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="Map_Selection/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 4
+
+[node name="Choose_0" type="Button" parent="Map_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "Hell"
+
+[node name="Choose_1" type="Button" parent="Map_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "Test"
+
+[node name="Choose_2" type="Button" parent="Map_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "N/A"
+
+[node name="Choose_3" type="Button" parent="Map_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "N/A"
+
+[node name="Choose_4" type="Button" parent="Map_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "N/A"
+
+[node name="Choose_5" type="Button" parent="Map_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "N/A"
+
+[node name="Choose_6" type="Button" parent="Map_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "N/A"
+
+[node name="Choose_7" type="Button" parent="Map_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "N/A"
+
+[node name="Character_Selection" type="Control" parent="."]
+visible = false
+custom_minimum_size = Vector2(1600, 1600)
+layout_mode = 3
+anchors_preset = 0
+offset_left = -1630.0
+offset_top = -245.0
+offset_right = -30.0
+offset_bottom = 1355.0
+
+[node name="Button" type="Button" parent="Character_Selection"]
+custom_minimum_size = Vector2(700, 200)
+layout_mode = 0
+offset_left = 1360.0
+offset_top = 1437.0
+offset_right = 1960.0
+offset_bottom = 1637.0
+theme_override_font_sizes/font_size = 128
+text = "Choose Weapon"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Character_Selection"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="Character_Selection/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 4
+
+[node name="Choose_0" type="Button" parent="Character_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "WebFisher
+"
+
+[node name="Choose_1" type="Button" parent="Character_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "N/A"
+
+[node name="Choose_2" type="Button" parent="Character_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "N/A"
+
+[node name="Choose_3" type="Button" parent="Character_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "N/A"
+
+[node name="Choose_4" type="Button" parent="Character_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "N/A"
+
+[node name="Choose_5" type="Button" parent="Character_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "N/A"
+
+[node name="Choose_6" type="Button" parent="Character_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "N/A"
+
+[node name="Choose_7" type="Button" parent="Character_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "N/A"
+
+[node name="Weapon_Selection" type="Control" parent="."]
+visible = false
+custom_minimum_size = Vector2(1600, 1600)
+layout_mode = 3
+anchors_preset = 0
+offset_left = -1630.0
+offset_top = -245.0
+offset_right = -30.0
+offset_bottom = 1355.0
+
+[node name="Button" type="Button" parent="Weapon_Selection"]
+custom_minimum_size = Vector2(800, 200)
+layout_mode = 0
+offset_left = 1360.0
+offset_top = 1433.0
+offset_right = 2160.0
+offset_bottom = 1633.0
+theme_override_font_sizes/font_size = 128
+text = "Choose Map"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Weapon_Selection"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="Weapon_Selection/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 4
+
+[node name="Choose_0" type="Button" parent="Weapon_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "Pistol"
+autowrap_mode = 3
+
+[node name="Choose_1" type="Button" parent="Weapon_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "Sword"
+autowrap_mode = 3
+
+[node name="Choose_2" type="Button" parent="Weapon_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "Flame-thrower"
+autowrap_mode = 3
+
+[node name="Choose_3" type="Button" parent="Weapon_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "Railgun"
+autowrap_mode = 3
+
+[node name="Choose_4" type="Button" parent="Weapon_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "Rocket-launcher"
+autowrap_mode = 3
+
+[node name="Choose_5" type="Button" parent="Weapon_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "Minigun"
+autowrap_mode = 3
+
+[node name="Choose_6" type="Button" parent="Weapon_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "Playing Card"
+autowrap_mode = 3
+
+[node name="Choose_7" type="Button" parent="Weapon_Selection/ScrollContainer/GridContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "Lightning Wand"
+autowrap_mode = 3
+
+[connection signal="pressed" from="Always_Active/Quickstart" to="TitleManager" method="_quickstart"]
+[connection signal="button_down" from="Always_Active/Button_Back" to="TitleManager" method="press_back"]
+[connection signal="button_down" from="Main/Button_Play" to="TitleManager" method="press_play"]
+[connection signal="button_down" from="Main/Button_Settings" to="TitleManager" method="press_settings"]
+[connection signal="button_down" from="Main/Button_Collection" to="TitleManager" method="press_collection"]
+[connection signal="button_down" from="Main/Button_Shop" to="TitleManager" method="press_shop"]
+[connection signal="button_down" from="Map_Selection/Button" to="TitleManager" method="press_start_game"]
+[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_0" to="TitleManager" method="set_map" binds= [0]]
+[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_1" to="TitleManager" method="set_map" binds= [1]]
+[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_2" to="TitleManager" method="set_map" binds= [2]]
+[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_3" to="TitleManager" method="set_map" binds= [3]]
+[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_4" to="TitleManager" method="set_map" binds= [4]]
+[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_5" to="TitleManager" method="set_map" binds= [5]]
+[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_6" to="TitleManager" method="set_map" binds= [6]]
+[connection signal="button_down" from="Map_Selection/ScrollContainer/GridContainer/Choose_7" to="TitleManager" method="set_map" binds= [7]]
+[connection signal="pressed" from="Character_Selection/Button" to="TitleManager" method="press_weapon_select"]
+[connection signal="button_down" from="Character_Selection/ScrollContainer/GridContainer/Choose_0" to="TitleManager" method="set_character" binds= [0]]
+[connection signal="button_down" from="Character_Selection/ScrollContainer/GridContainer/Choose_1" to="TitleManager" method="set_character" binds= [1]]
+[connection signal="button_down" from="Character_Selection/ScrollContainer/GridContainer/Choose_2" to="TitleManager" method="set_character" binds= [2]]
+[connection signal="button_up" from="Character_Selection/ScrollContainer/GridContainer/Choose_3" to="TitleManager" method="set_character" binds= [3]]
+[connection signal="button_down" from="Character_Selection/ScrollContainer/GridContainer/Choose_4" to="TitleManager" method="set_character" binds= [4]]
+[connection signal="button_down" from="Character_Selection/ScrollContainer/GridContainer/Choose_5" to="TitleManager" method="set_character" binds= [5]]
+[connection signal="button_down" from="Character_Selection/ScrollContainer/GridContainer/Choose_6" to="TitleManager" method="set_character" binds= [6]]
+[connection signal="button_down" from="Character_Selection/ScrollContainer/GridContainer/Choose_7" to="TitleManager" method="set_character" binds= [7]]
+[connection signal="pressed" from="Weapon_Selection/Button" to="TitleManager" method="press_map_select"]
+[connection signal="pressed" from="Weapon_Selection/ScrollContainer/GridContainer/Choose_0" to="TitleManager" method="set_weapon" binds= [0]]
+[connection signal="pressed" from="Weapon_Selection/ScrollContainer/GridContainer/Choose_1" to="TitleManager" method="set_weapon" binds= [1]]
+[connection signal="pressed" from="Weapon_Selection/ScrollContainer/GridContainer/Choose_2" to="TitleManager" method="set_weapon" binds= [2]]
+[connection signal="pressed" from="Weapon_Selection/ScrollContainer/GridContainer/Choose_3" to="TitleManager" method="set_weapon" binds= [3]]
+[connection signal="pressed" from="Weapon_Selection/ScrollContainer/GridContainer/Choose_4" to="TitleManager" method="set_weapon" binds= [4]]
+[connection signal="pressed" from="Weapon_Selection/ScrollContainer/GridContainer/Choose_5" to="TitleManager" method="set_weapon" binds= [5]]
+[connection signal="pressed" from="Weapon_Selection/ScrollContainer/GridContainer/Choose_6" to="TitleManager" method="set_weapon" binds= [6]]
+[connection signal="pressed" from="Weapon_Selection/ScrollContainer/GridContainer/Choose_7" to="TitleManager" method="set_weapon" binds= [7]]

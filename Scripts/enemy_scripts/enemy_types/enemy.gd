@@ -2,7 +2,7 @@ extends RigidBody2D
 class_name Enemy
 
 @export_category("Enemy Stats")
-@export var stats: StatsResource# = StatsResource.new()
+@export var stats: StatsResource
 @export var melee_attacks: bool = true
 @export var damage_hitbox: Area2D
 @export var can_be_knockbacked:bool = true
@@ -66,20 +66,21 @@ func _ready() -> void:
 	call_deferred("setup")
 	cooldown_stopwatch = 0 # make it ready to attack on start?
 	add_to_group("enemy")
+	stats.setup(name)
 ## called whever stats change
 func set_stats():
-	curr_regen = base_regen + stats.get_stat_without_default(stats.REGEN)
-	curr_movespeed = stats.get_stat_without_default(stats.MOVESPEED) + base_movespeed
-	curr_knockback_modifier = stats.get_stat_without_default(stats.WEIGHT) + base_knockback_modifier
-	curr_damage_reduction = stats.get_stat_without_default(stats.STANCE) + base_damage_reduction
+	curr_regen = base_regen + stats.get_stat(stats.REGEN)
+	curr_movespeed = stats.get_stat(stats.MOVESPEED) + base_movespeed
+	curr_knockback_modifier = stats.get_stat(stats.WEIGHT) + base_knockback_modifier
+	curr_damage_reduction = stats.get_stat(stats.STANCE) + base_damage_reduction
 	curr_cooldown_max = base_cooldown ##TODO: setup based on stats
-	curr_range = stats.get_stat_without_default(stats.RANGE) + base_range
-	curr_speed = stats.get_stat_without_default(stats.VELOCITY) + base_speed
+	curr_range = stats.get_stat(stats.RANGE) + base_range
+	curr_speed = stats.get_stat(stats.VELOCITY) + base_speed
 	curr_acceleration = base_acceleration
-	curr_lifetime = stats.get_stat_without_default(stats.DURATION) + base_lifetime
-	curr_piercing = stats.get_stat_without_default(stats.PIERCING) + base_piercing
-	curr_damage = stats.get_stat_without_default(stats.DAMAGE) + base_damage
-	curr_health = (stats.get_stat_without_default(stats.HP) + base_health) * (1 + (level / 2)) ## TODO: level hp calculation? very high scaling of hp
+	curr_lifetime = stats.get_stat(stats.DURATION) + base_lifetime
+	curr_piercing = stats.get_stat(stats.PIERCING) + base_piercing
+	curr_damage = stats.get_stat(stats.DAMAGE) + base_damage
+	curr_health = (stats.get_stat(stats.HP) + base_health) * (1 + (level / 2)) ## TODO: level hp calculation? very high scaling of hp
 ##
 func setup():
 	player = get_tree().get_first_node_in_group("player")

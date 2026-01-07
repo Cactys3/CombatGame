@@ -1,5 +1,6 @@
 extends Resource
 class_name StatsResource
+const BLANK_STATS = preload("uid://djwbly6iawrk")
 #mainly player stats:
 const HP = "hp"
 const STANCE = "stance"
@@ -90,7 +91,6 @@ const INACCURACY = "inaccuracy"
 @export var revies_factor: float = 1.0
 @export var thorns_factor: float = 1.0
 @export var inaccuracy_factor: float = 1.0
-## Currently set pretty high as I'm not making individual stats for everything
 static var defaultstats = {
 	HP: 100.0,
 	STANCE: 0.0,
@@ -121,8 +121,8 @@ static var defaultstats = {
 	REVIES: 0.0,
 	THORNS: 0.0
 	}
-@export_group("Dictionaries")
-var statsbase = { #everything must be default at 0 because they are always added in add_stats and should default to adding 0
+## Dictionary tying const stat name to @export variable
+var statsbase = {
 	HP: 0.0,
 	STANCE: 0.0,
 	MOVESPEED: 0.0,
@@ -192,10 +192,14 @@ var TotalListOfStats: Array[StatsResource]
 ## Method that is called when a stat is changed
 var stat_changed_method: Callable
 var initialized: bool = false
-
-func setup() -> void:
+## Called after creating new stats from StatsResource.BLANK_STATS or to set name
+func setup(name: String) -> void:
+	parent_object_name = name
 	initialized = true
-	## Base
+	_rebuild_dicts()
+	Recalculate()
+func _rebuild_dicts() -> void:
+	## Bases
 	statsbase[HP] = hp_base
 	statsbase[STANCE] = stance_base
 	statsbase[MOVESPEED] = movespeed_base
@@ -224,7 +228,7 @@ func setup() -> void:
 	statsbase[DIFFICULTY] = difficulty_base
 	statsbase[REVIES] = revies_base
 	statsbase[THORNS] = thorns_base
-	## Factor
+	## Factors
 	statsfactor[HP] = hp_factor
 	statsfactor[STANCE] = stance_factor
 	statsfactor[MOVESPEED] = movespeed_factor
@@ -256,10 +260,8 @@ func setup() -> void:
 func set_changed_method(method: Callable) -> void:
 	stat_changed_method = method
 ## If valid, Recalculates then adds stats to this stats object
-func add_stats(other: StatsResource) -> void: #adds the other stats to listofaffection
-	#print("adding" + other.parent_object_name)
-	if !initialized:
-		setup()
+func add_stats(other: StatsResource) -> void: 
+	check_setup()
 	if other == null || other == self || listofaffection.has(other):
 		printerr("\nPotential ERROR when trying to add_stats")
 		return
@@ -268,9 +270,7 @@ func add_stats(other: StatsResource) -> void: #adds the other stats to listofaff
 	other.listofaffected.append(self)
 ##If valid, Recalculates then removes stats from this stats object
 func remove_stats(other: StatsResource) -> void: #removes the stat from affecting this stat
-	#print("removing" + other.parent_object_name)
-	if !initialized:
-		setup()
+	check_setup()
 	if other == null || other == self || !listofaffection.has(other):
 		printerr("\nPotential ERROR: other stat is null when trying to remove_stats\n\t (OR doesn't include self in list of affection)\n")
 		return
@@ -279,8 +279,7 @@ func remove_stats(other: StatsResource) -> void: #removes the stat from affectin
 	other.listofaffected.erase(self)
 ## If valid, checks recalculate then returns the total calculated stat
 func get_stat(key: String) -> float:
-	if !initialized:
-		setup()
+	check_setup()
 	if statsbase.has(key) && statsfactor.has(key):
 		Recalculate()
 		var base = 0
@@ -291,25 +290,13 @@ func get_stat(key: String) -> float:
 			else:
 				base += stat.statsbase[key]
 				factor *= stat.statsfactor[key]
-		return (base * factor)# + get_default(key) 
+		return (base * factor)
 	else:
 		push_error("ERROR getting stat: " + key +  " from: " + parent_object_name + ". Base: " + str(statsbase.has(key)) + ", Factor: " + str(statsfactor.has(key)))
 		return -999
-## If valid, checks recalculate then returns the total calculated stat but without default
-func get_stat_without_default(key: String) -> float:
-	if statsbase.has(key):
-		Recalculate()
-		var base = 0
-		var factor = 1
-		for stat in TotalListOfStats:
-			base += stat.statsbase[key]
-			factor *= stat.statsfactor[key]
-		return (base * factor)
-	else:
-		push_error("Potential ERROR getting stat, not found in dictionary")
-		return -999
 ## Gets a list of all stats OBJECTS that are affecting this stats object, not the individual stats
 func GetAllStatsRecursive(list: Array[StatsResource]):
+	check_setup()
 	if !list.has(self):
 		list.append(self)
 		#MustRecalculate = false
@@ -317,6 +304,7 @@ func GetAllStatsRecursive(list: Array[StatsResource]):
 			stat.GetAllStatsRecursive(list)
 ## Gets a list of all stat objects affecting, but doesn't reset MustRecalculate
 func External_GetAllStatsRecursive(list: Array[StatsResource]):
+	check_setup()
 	if !list.has(self):
 		list.append(self)
 		for stat in listofaffection:
@@ -324,11 +312,13 @@ func External_GetAllStatsRecursive(list: Array[StatsResource]):
 	return list
 ## Recursively says every stat object affected should recalculate
 func Recalculate():
+	check_setup()
 	if MustRecalculate || TotalListOfStats == []:
 		TotalListOfStats = []
 		MustRecalculate = false
 		GetAllStatsRecursive(TotalListOfStats)
 func stats_changed():
+	check_setup()
 	if stat_changed_method:
 		stat_changed_method.call()
 	MustRecalculate = true
@@ -340,6 +330,7 @@ func stats_changed():
 			printerr("Potential ERROR: calling stats_changed would have recursively looped as stat is in both listofaffection and listofaffected\nStat: " + parent_object_name + ", other: " + stat.parent_object_name)
 ## returns total stats calculation of base stat
 func get_stat_base(key: String) -> float:
+	check_setup()
 	if statsbase.has(key):
 		Recalculate()
 		var base = 0
@@ -351,6 +342,7 @@ func get_stat_base(key: String) -> float:
 		return -999
 ## returns total stats calculation of factor stat
 func get_stat_factor(key: String) -> float:
+	check_setup()
 	if statsfactor.has(key):
 		Recalculate()
 		var factor = 1
@@ -362,20 +354,87 @@ func get_stat_factor(key: String) -> float:
 		return -999
 ## edits this statsresource only value of base stat (only used when isolated statsresource)
 func set_stat_base(key: String, value: float):
+	check_setup()
 	if statsbase.has(key):
 		statsbase[key] = value
+		set_export_stat(false, key, value)
 		stats_changed()
 	else:
 		print("Tried and Failed to set BaseStat: " + key + " to: " + str(value))
 ## edits this statsresource only value of factor stat (only used when isolated statsresource)
 func set_stat_factor(key: String, value: float):
+	check_setup()
 	if statsfactor.has(key):
 		statsfactor[key] = value
+		set_export_stat(true, key, value)
 		stats_changed()
 	else:
 		print("Tried and Failed to set FactorStat: " + key + " to: " + str(value))
+## Sets the @export variable to the value, not the dictionaries
+func set_export_stat(is_factor: bool, sought_stat: String, new_value: float) -> void:
+	if is_factor:
+		match sought_stat:
+			HP: hp_factor = new_value
+			STANCE: stance_factor = new_value
+			MOVESPEED: movespeed_factor = new_value
+			XP: xp_factor = new_value
+			MOGUL: mogul_factor = new_value
+			LUCK: luck_factor = new_value
+			DAMAGE: damage_factor = new_value
+			RANGE: range_factor = new_value
+			WEIGHT: weight_factor = new_value
+			ATTACKSPEED: attackspeed_factor = new_value
+			VELOCITY: velocity_factor = new_value
+			INACCURACY: inaccuracy_factor = new_value
+			COUNT: count_factor = new_value
+			PIERCING: piercing_factor = new_value
+			DURATION: duration_factor = new_value
+			BUILDUP: buildup_factor = new_value
+			SIZE: size_factor = new_value
+			CRITCHANCE: critchance_factor = new_value
+			CRITDAMAGE: critdamage_factor = new_value
+			GHOSTLY: ghostly_factor = new_value
+			REGEN: regen_factor = new_value
+			MAGNETIZE: magnetize_factor = new_value
+			LIFESTEAL: lifesteal_factor = new_value
+			BONUSVSELITES: bonusvselites_factor = new_value
+			SHIELD: shield_factor = new_value
+			DIFFICULTY: difficulty_factor = new_value
+			REVIES: revies_factor = new_value
+			THORNS: thorns_factor = new_value
+	else:
+		match sought_stat:
+			HP: hp_base = new_value
+			STANCE: stance_base = new_value
+			MOVESPEED: movespeed_base = new_value
+			XP: xp_base = new_value
+			MOGUL: mogul_base = new_value
+			LUCK: luck_base = new_value
+			DAMAGE: damage_base = new_value
+			RANGE: range_base = new_value
+			WEIGHT: weight_base = new_value
+			ATTACKSPEED: attackspeed_base = new_value
+			VELOCITY: velocity_base = new_value
+			INACCURACY: inaccuracy_base = new_value
+			COUNT: count_base = new_value
+			PIERCING: piercing_base = new_value
+			DURATION: duration_base = new_value
+			BUILDUP: buildup_base = new_value
+			SIZE: size_base = new_value
+			CRITCHANCE: critchance_base = new_value
+			CRITDAMAGE: critdamage_base = new_value
+			GHOSTLY: ghostly_base = new_value
+			REGEN: regen_base = new_value
+			MAGNETIZE: magnetize_base = new_value
+			LIFESTEAL: lifesteal_base = new_value
+			BONUSVSELITES: bonusvselites_base = new_value
+			SHIELD: shield_base = new_value
+			DIFFICULTY: difficulty_base = new_value
+			REVIES: revies_base = new_value
+			THORNS: thorns_base = new_value
 ## Prints all the stats from stats factor, then statsbase. Does not calculate stats
 func print_stats() -> void:
+	check_setup()
 	Recalculate()
 	var list: Array[StatsResource]
 	GetAllStatsRecursive(list)
@@ -389,6 +448,7 @@ func print_stats() -> void:
 			print(key + " - " + str(l.statsbase[key]))
 ## Prints stat and all affecting stats for given stat key
 func print_stat_tree(key: String):
+	check_setup()
 	Recalculate()
 	var list: Array[StatsResource]
 	External_GetAllStatsRecursive(list)
@@ -423,9 +483,12 @@ func print_stat_tree(key: String):
 	print("Total Value Should Be: " + key + " = " + str(totalf) + ", " + str(totalb) + "\n")
 ## Returns if the stat is default or changed
 func is_stat_default(stat: String):
-	return get_stat_without_default(stat) == 0
+	check_setup()
+	return get_stat(stat) == 0
 func get_copy(transfer_affect_lists: bool) -> StatsResource: #TODO: update for new stats implementation
-	var temp: StatsResource = StatsResource.new()
+	check_setup()
+	var temp: StatsResource = StatsResource.BLANK_STATS.duplicate()
+	temp.setup(parent_object_name)
 	for key in statsfactor:
 		temp.set_stat_factor(key, get_stat_factor(key))
 	for key in statsbase:
@@ -434,13 +497,6 @@ func get_copy(transfer_affect_lists: bool) -> StatsResource: #TODO: update for n
 		temp.listofaffected = listofaffected.duplicate()
 		temp.listofaffection = listofaffection.duplicate()
 	return temp
-## Returns default stat value when stat is set to 0
-static func get_default(stat: String) -> float:
-	if defaultstats.has(stat):
-		return defaultstats.get(stat)
-	else:
-		push_error("Potential ERROR getting stat, not found in dictionary")
-		return -999
 ## Returns name of random stat
 static func get_rand_stat() -> String:
 	return defaultstats.keys()[(randi() % defaultstats.size())]
@@ -457,7 +513,12 @@ static func round_to_digits(original_stat: float, digits: int) -> String:
 	return number
 ## Untested
 func delete_stats():
+	check_setup()
 	for stats in listofaffected:
 		stats.remove_stats(self)
 	for stats in listofaffection:
 		remove_stats(stats)
+## This check should never return true as that means a method is being touched before the frame after _init() (defer)
+func check_setup():
+	if !initialized:
+		printerr("Trying to use StatsResource BEFORE calling setup, this is before any @export variables are applied - GAME BREAKING")

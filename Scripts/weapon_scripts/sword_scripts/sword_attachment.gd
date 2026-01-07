@@ -75,5 +75,5 @@ static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrad
 static func randomize_stats(itemdata: ItemData) -> StatsResource:
 	var ret = super(itemdata)
 	#ret.set_stat_base(StatsResource.DAMAGE, randi_range(-1, 3))
-	ret.parent_object_name = "Sword Blade Rolls"
+	ret.setup("Sword Blade Rolls")
 	return ret

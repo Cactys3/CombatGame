@@ -4,7 +4,7 @@ class_name Attachment
 func get_scene() -> PackedScene:
 	return preload("res://Scenes/Weapons/pistol/pistol_attachment.tscn")
 
-var data: ItemData = ItemData.new()
+var data: ItemData = ShopManager.BLANK_ITEMDATA.duplicate()
 @export var stats: StatsResource
 
 var bullets: Array[Projectile]
@@ -121,7 +121,7 @@ static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrad
 static func randomize_stats(itemdata: ItemData) -> StatsResource:
 	var ret = super(itemdata)
 	ret.set_stat_base(StatsResource.ATTACKSPEED, randf_range(-0.2, 0.5))
-	ret.parent_object_name = "Attachment Rolls"
+	ret.setup("Attachment Rolls")
 	return ret
 
 func get_stats():
