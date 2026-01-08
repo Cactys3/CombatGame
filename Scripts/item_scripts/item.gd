@@ -2,7 +2,7 @@ extends Node
 class_name Item
 
 var connect_all: bool = false
-var data: ItemData
+var data: ItemData = ShopManager.BLANK_ITEMDATA.duplicate()
 var enabled: bool = false
 var manager: GameManager:
 	get():

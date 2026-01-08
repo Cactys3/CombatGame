@@ -48,7 +48,7 @@ func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
 	setdata()
 
 func set_stats() -> void:
-	stats.set_changed_method(apply_stats)
+	stats.connect_changed_signal(apply_stats)
 
 ## meant to be overriden by extender
 func setdata():

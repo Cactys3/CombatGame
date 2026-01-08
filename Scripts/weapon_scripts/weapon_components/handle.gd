@@ -156,7 +156,7 @@ func IsAimingAtAnyEnemy() -> bool:
 	return false
 
 func set_stats() -> void:
-	stats.set_changed_method(apply_stats)
+	stats.connect_changed_signal(apply_stats)
 
 ## Creates an ItemData.LevelUpgrade for this specific component and returns it once setup
 static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrade]:

@@ -85,7 +85,7 @@ func set_stats():
 func setup():
 	player = get_tree().get_first_node_in_group("player")
 	ImReady = true
-	stats.set_changed_method(set_stats)
+	stats.connect_changed_signal(set_stats)
 ## Calculate HP with given Character Level
 func initialize(new_level: float):
 	level = new_level

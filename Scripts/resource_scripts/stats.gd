@@ -190,7 +190,7 @@ var MustRecalculate: bool = true
 ## list of stats used for stat calculations
 var TotalListOfStats: Array[StatsResource] 
 ## Method that is called when a stat is changed
-var stat_changed_method: Callable
+signal StatsChanged
 var initialized: bool = false
 ## Called after creating new stats from StatsResource.BLANK_STATS or to set name
 func setup(name: String) -> void:
@@ -257,8 +257,8 @@ func _rebuild_dicts() -> void:
 	statsfactor[DIFFICULTY] = difficulty_factor
 	statsfactor[REVIES] = revies_factor
 	statsfactor[THORNS] = thorns_factor
-func set_changed_method(method: Callable) -> void:
-	stat_changed_method = method
+func connect_changed_signal(method: Callable) -> void:
+	StatsChanged.connect(method)
 ## If valid, Recalculates then adds stats to this stats object
 func add_stats(other: StatsResource) -> void: 
 	check_setup()
@@ -319,8 +319,7 @@ func Recalculate():
 		GetAllStatsRecursive(TotalListOfStats)
 func stats_changed():
 	check_setup()
-	if stat_changed_method:
-		stat_changed_method.call()
+	StatsChanged.emit()
 	MustRecalculate = true
 	for stat in listofaffected:
 		if stat != self && !listofaffection.has(stat):

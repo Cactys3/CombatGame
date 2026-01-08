@@ -6,7 +6,7 @@ func get_scene() -> PackedScene:
 
 var bullets: Array[Projectile]
 ## Determines what attackspeed is, attacksperX = 2 means attackspeed is how many attacks every 2 seconds
-const attacksperX: int = 1
+const attacksperX: int = 2
 
 @export var MeleeDamageFactor: float = 1
 
@@ -105,7 +105,7 @@ func make_attack() -> Attack:
 	return new_attack
 
 func set_stats() -> void:
-	stats.set_changed_method(apply_stats)
+	stats.connect_changed_signal(apply_stats)
 
 
 ## Creates an ItemData.LevelUpgrade for this specific component and returns it once setup

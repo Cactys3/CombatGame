@@ -131,7 +131,7 @@ func setup(new_player: Character, starting_weapon: int, new_global_stats: StatsR
 
 func setup_deffered(starting_weapon: int):
 	player.player_stats.setup(player.character_name)
-	player.player_stats.set_changed_method(player.stat_changed_method)
+	player.player_stats.connect_changed_signal(player.stat_changed_method)
 	player.player_stats.add_stats(global_stats)
 	player.initialize_stats()
 	level = 0
