@@ -7,8 +7,6 @@ func get_instance():
 ## Not decided, holds attack, defense, current values
 @export var status: StatusEffects
 
-## Is this projectile somehow not original/from gun
-var is_clone: bool = false
 var frame: Weapon_Frame
 var damage: float
 var count: float 
@@ -22,6 +20,10 @@ var AttackedObjects: Array[Node2D] = []
 var collision_counter: float = 0
 var stopwatch: float = 0.0
 var lifetime = 10
+
+## Is this projectile somehow not original/from gun
+var is_clone: bool = false
+var damage_offset: float = 0.5
 
 var dead: bool = false
 signal died(pos: Vector2, cloned: bool)
@@ -47,6 +49,10 @@ func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
 	weight = (frame_stats.get_stat(frame_stats.WEIGHT))
 	setdata()
 
+func setup_clone(new_damage_offset: float):
+	damage_offset = new_damage_offset
+	is_clone = true
+
 func set_stats() -> void:
 	stats.connect_changed_signal(apply_stats)
 
@@ -69,11 +75,11 @@ func process_movement(delta: float) -> void:
 	position += direction * speed * delta
 
 ## this can be overriden by polymorph (what's it called?) to do unique attacks
-func attack_body(body: Node2D) -> void:
+func attack_body(body: Node2D, clone: bool) -> void:
 	if dead:
 		return
 	if !AttackedObjects.has(body):
-		var new_attack = make_attack()
+		var new_attack = make_attack(clone)
 		body.damage(new_attack)
 		collision_counter += 1
 		AttackedObjects.append(body)
@@ -84,14 +90,18 @@ func _on_body_entered(body: Node2D) -> void:
 	if dead:
 		return
 	if body.has_method("damage"):
-		frame.QueuedAttacks.append(frame.AttackEvent.new(body, self))
+		frame.QueuedAttacks.append(frame.AttackEvent.new(body, self, is_clone))
 
-func make_attack() -> Attack:
+func make_attack(clone: bool) -> Attack:
 	var new_attack: Attack = Attack.new()
+	var attack_damage: float = damage
+	if clone:
+		attack_damage = damage * damage_offset
+		print("is clone so damage is changed: " + str(damage) + " vs " + str(damage) + " * " + str(damage_offset) + " = " + str(attack_damage))
 	if status:
-		new_attack.setup(damage, global_position, buildup, status.AttackValues, self, 0, 0, weight * (damage / 30))
+		new_attack.setup(attack_damage, global_position, buildup, status.AttackValues, self, 0, 0, weight * (attack_damage / 30))
 	else:
-		new_attack.setup(damage, global_position, buildup, null, self, 0, 0, weight * (damage / 30))
+		new_attack.setup(attack_damage, global_position, buildup, null, self, 0, 0, weight * (attack_damage / 30))
 	return new_attack
 
 func die():

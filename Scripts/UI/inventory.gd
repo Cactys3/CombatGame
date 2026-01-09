@@ -7,8 +7,8 @@ const EQUIPMENT: String = "equipment"
 const CRAFTING: String = "crafting"
 @export var default_item_parent: Control
 var items: Array[ItemUI] = []
-@export var description_body: Label
-@export var description_title: Label
+@export var description_body: RichTextLabel
+@export var description_title: RichTextLabel
 @export var description_stats: StatsDisplay
 var showing_item: ItemData = null
 

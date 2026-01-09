@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dbp3re4mbhwma"]
 
 [ext_resource type="Texture2D" uid="uid://p2oiip1fgff0" path="res://Art/Weapons/Gravity/Gravity_Projectile.png" id="1_g2ko3"]
-[ext_resource type="Script" uid="uid://cf4ogkou6cna1" path="res://Scripts/item_scripts/item_projectiles/arrow_projectile.gd" id="1_lju5a"]
+[ext_resource type="Script" uid="uid://cf4ogkou6cna1" path="res://Scripts/basic_projectiles/arrow_projectile.gd" id="1_lju5a"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x5xae"]
 atlas = ExtResource("1_g2ko3")

@@ -1,38 +1,38 @@
-[gd_scene load_steps=14 format=3 uid="uid://bhmg0uejph1w0"]
+[gd_scene load_steps=14 format=3 uid="uid://wgs6w73l5ti2"]
 
-[ext_resource type="Script" uid="uid://cogrpy84nwn5k" path="res://Scripts/weapon_scripts/rocketlauncher_scripts/rocketlauncher_projectile.gd" id="1_6een8"]
-[ext_resource type="Texture2D" uid="uid://d3m5e7rxigb4n" path="res://Art/Weapons/RocketLauncher/Projectile_RocketLauncher.png" id="1_jacgg"]
+[ext_resource type="Script" uid="uid://skgmcvf4g11k" path="res://Scripts/basic_projectiles/rocket_launcher_basic_projectile.gd" id="1_apctr"]
+[ext_resource type="Texture2D" uid="uid://d3m5e7rxigb4n" path="res://Art/Weapons/RocketLauncher/Projectile_RocketLauncher.png" id="2_simnl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6een8"]
-atlas = ExtResource("1_jacgg")
+atlas = ExtResource("2_simnl")
 region = Rect2(64, 0, 64, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l6olc"]
-atlas = ExtResource("1_jacgg")
+atlas = ExtResource("2_simnl")
 region = Rect2(128, 0, 64, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p2hq6"]
-atlas = ExtResource("1_jacgg")
+atlas = ExtResource("2_simnl")
 region = Rect2(192, 0, 64, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_36wl6"]
-atlas = ExtResource("1_jacgg")
+atlas = ExtResource("2_simnl")
 region = Rect2(256, 0, 64, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0nvs7"]
-atlas = ExtResource("1_jacgg")
+atlas = ExtResource("2_simnl")
 region = Rect2(320, 0, 64, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_85ao3"]
-atlas = ExtResource("1_jacgg")
+atlas = ExtResource("2_simnl")
 region = Rect2(384, 0, 64, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ardox"]
-atlas = ExtResource("1_jacgg")
+atlas = ExtResource("2_simnl")
 region = Rect2(448, 0, 64, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_60kxw"]
-atlas = ExtResource("1_jacgg")
+atlas = ExtResource("2_simnl")
 region = Rect2(0, 0, 64, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l6olc"]
@@ -79,10 +79,13 @@ size = Vector2(8, 5)
 radius = 9.5
 height = 28.0
 
-[node name="RocketLauncherProjectile" type="Area2D"]
+[node name="RocketLauncherProjectile" type="Area2D" node_paths=PackedStringArray("anim", "explosion_collide", "normal_collide")]
 collision_layer = 4
 collision_mask = 8
-script = ExtResource("1_6een8")
+script = ExtResource("1_apctr")
+anim = NodePath("AnimatedSprite2D")
+explosion_collide = NodePath("ExplosionCollision")
+normal_collide = NodePath("CollisionShape2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_l6olc")

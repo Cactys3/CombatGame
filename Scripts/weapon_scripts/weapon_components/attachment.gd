@@ -15,6 +15,7 @@ const attacksperX: int = 2
 @export var frame: Weapon_Frame 
 @export var handle: Handle
 @export var projectile: Projectile
+## Offset that additional projectiles are given when firing multiple, should be different for different weapons and also scale with inaccuracy
 @export var MultipleProjectileOffset: float = 2
 @export var MultipleProjectileAngleOffset: float = 2
 #new stuff

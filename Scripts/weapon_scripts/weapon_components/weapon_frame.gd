@@ -23,7 +23,7 @@ func _process(_delta: float) -> void:
 		for event in QueuedAttacks:
 			QueuedAttacks.erase(event)
 			if is_instance_valid(event.attackee) && is_instance_valid(event.attacker):
-				event.attacker.attack_body(event.attackee)
+				event.attacker.attack_body(event.attackee, event.clone)
 
 func get_nearest_enemy() -> Variant:
 	var nearest_enemy = null
@@ -165,6 +165,8 @@ func get_stat(string: String) -> float:#Return stat value given stat const name
 class AttackEvent:
 	var attackee: Node
 	var attacker: Node
-	func _init(new_attackee: Node, new_attacker: Node):
+	var clone: bool
+	func _init(new_attackee: Node, new_attacker: Node, is_clone: bool):
+		clone = is_clone
 		attackee = new_attackee
 		attacker = new_attacker

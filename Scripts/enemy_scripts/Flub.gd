@@ -27,12 +27,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if !ImReady:
 		return
-	
 	if stun_time_left > 0:
 		stun_time_left -= delta
 	elif stunned:
 		stunned = false
-	
 	if cooldown_stopwatch < curr_cooldown_max:
 		cooldown_stopwatch += delta
 		attack_on_cd = true
@@ -41,21 +39,18 @@ func _process(delta: float) -> void:
 		if melee_attacks && attacks_enabled:
 			if damage_hitbox.monitoring == false:
 				damage_hitbox.set_deferred("monitoring", true) #handles the hitbox turning off for a CD after hitting the player
-	
 	if shoots_projectiles:
 		if projectile_cooldown_stopwatch < curr_cooldown_max:
 			projectile_cooldown_stopwatch += delta
-
 		else:
-
 			if is_player_nearby(curr_range):
 				projectile_cooldown_stopwatch = 0
-
 				var proj: EnemyProjectile = projectile.instantiate()
 				GameManager.instance.projectile_parent.add_child(proj)
 				proj.modulate = self.modulate
 				proj.global_position = global_position
-				proj.setup(player, self, homing, curr_speed, curr_acceleration, curr_lifetime, curr_piercing)
+				proj.setup_enemy_projectile(self)
+				proj.setup_projectile(player, global_position - player.global_position, homing, 20, false, curr_piercing, curr_lifetime, curr_damage, curr_speed, 1, 1, scale.length(), curr_acceleration)
 
 func movement_process(_delta: float) ->void:
 	if on_cooldown:

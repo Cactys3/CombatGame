@@ -20,9 +20,9 @@ func _process(delta: float) -> void:
 	super(delta)
 
 ## changed so it does not die after hitting things but does decrease damage
-func attack_body(body: Node2D) -> void:
+func attack_body(body: Node2D, clone: bool) -> void:
 	if !AttackedObjects.has(body):
-		var new_attack = make_attack()
+		var new_attack = make_attack(clone)
 		AttackedObjects.append(body)
 		body.damage(new_attack)
 		collision_counter += 1 #decrease dmg?

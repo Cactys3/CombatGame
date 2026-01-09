@@ -8,3 +8,4 @@ script = ExtResource("1_hn85t")
 parent_object_name = "pistol_handle"
 damage_base = 3.0
 range_base = 80.0
+count_base = 5.0

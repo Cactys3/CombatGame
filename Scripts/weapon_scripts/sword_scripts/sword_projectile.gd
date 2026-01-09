@@ -7,9 +7,9 @@ const type = preload("res://Scripts/weapon_scripts/sword_scripts/sword_projectil
 func _process(delta: float) -> void:
 	super(delta)
 ## this can be overriden by polymorph (what's it called?) to do unique attacks
-func attack_body(body: Node2D) -> void:
+func attack_body(body: Node2D, clone: bool) -> void:
 	if !AttackedObjects.has(body):
-		var new_attack = make_attack()
+		var new_attack = make_attack(clone)
 		body.damage(new_attack)
 		AttackedObjects.append(body)
 

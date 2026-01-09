@@ -7,7 +7,7 @@ extends Projectile
 ## Blow up on impact
 ## Positive Acceleration
 
-var acceleration = 0.5
+var acceleration = 0.3
 
 func _process(delta: float) -> void:
 	super(delta)
@@ -17,9 +17,10 @@ func process_movement(delta: float) -> void:
 	speed += speed * acceleration * delta
 	position += direction * speed * delta 
 ## Remove return on 'dead', make die() on first collision
-func attack_body(body: Node2D) -> void:
+func attack_body(body: Node2D, clone: bool) -> void:
 	if !AttackedObjects.has(body):
-		var new_attack = make_attack()
+		print(clone)
+		var new_attack = make_attack(clone)
 		body.damage(new_attack)
 		collision_counter += 1
 		## Keep AttackedObjects so we don't spam the one guy?
@@ -29,7 +30,7 @@ func attack_body(body: Node2D) -> void:
 ## Remove return on 'dead'
 func _on_body_entered(body: Node2D) -> void:
 	if body.has_method("damage"):
-		frame.QueuedAttacks.append(frame.AttackEvent.new(body, self))
+		frame.QueuedAttacks.append(frame.AttackEvent.new(body, self, is_clone))
 
 ## unique changes
 func die():

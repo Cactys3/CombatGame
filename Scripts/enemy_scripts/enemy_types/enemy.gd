@@ -111,17 +111,15 @@ func _process(delta: float) -> void:
 	if shoots_projectiles:
 		if projectile_cooldown_stopwatch < curr_cooldown_max:
 			projectile_cooldown_stopwatch += delta
-			#print("cd: " + str(projectile_cooldown_stopwatch) + "/" + str(curr_cooldown_max))
 		else:
-			#print("range: "+ str(position.distance_to(player.position)) + "/" + str(curr_range))
 			if is_player_nearby(curr_range):
 				projectile_cooldown_stopwatch = 0
-				#print("shot projectile")
 				var proj: EnemyProjectile = projectile.instantiate()
 				GameManager.instance.projectile_parent.add_child(proj)
 				proj.modulate = self.modulate
 				proj.global_position = global_position
-				proj.setup(player, self, homing, curr_speed, curr_acceleration, curr_lifetime, curr_piercing)
+				proj.setup_enemy_projectile(self)
+				proj.setup_projectile(player, global_position - player.global_position, homing, 20, false, curr_piercing, curr_lifetime, curr_damage, curr_speed, 1, 1, scale.length(), curr_acceleration)
 
 func _physics_process(_delta: float) -> void:
 	if !ImReady:

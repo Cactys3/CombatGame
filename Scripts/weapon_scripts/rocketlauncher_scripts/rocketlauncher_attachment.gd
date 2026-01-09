@@ -26,7 +26,7 @@ func projectile_died(pos: Vector2, is_clone: bool):
 		var angle = Vector2(1, 1).rotated(deg_to_rad((360 / count) * (radial_offset)))
 		var proj = init_projectile(pos + angle, angle)
 		## Clones do reduced damage
-		proj.is_clone = true
+		proj.setup_clone(0.4)
 		proj.damage = proj.damage * CloneDamagePercent
 
 ## Creates an ItemData.LevelUpgrade for this specific component and returns it once setup

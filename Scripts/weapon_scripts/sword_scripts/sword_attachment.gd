@@ -52,14 +52,13 @@ func attack() -> void:
 #extenders have their own hitbox references and do all that themselves
 #extenders have their own animations but have to include handle in these animations? or animations work to change position of weapon_frame?
 
-func attack_body(body: Node) -> void:
+func attack_body(body: Node, clone: bool) -> void:
 	var new_attack = make_attack()
 	body.damage(new_attack)
 
 func _on_body_entered(body: Node2D) -> void:
-	print("enter")
 	if (!attacked_objects.has(body) && body.has_method("damage")): #Hit each enemy only once per melee attack
-		frame.QueuedAttacks.append(frame.AttackEvent.new(body, self)) #TODO: find out if really necessary to queue
+		frame.QueuedAttacks.append(frame.AttackEvent.new(body, self, false)) #TODO: find out if really necessary to queue
 		attacked_objects.append(body)
 
 func _on_area_entered(area: Area2D) -> void:

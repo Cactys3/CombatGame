@@ -16,7 +16,6 @@ static func randomize_stats(itemdata: ItemData) -> StatsResource:
 	set_stat_randomize(newstats, StatsResource.DAMAGE, randf_range(-0.5, 1.5), 0.01, 0)
 	return newstats
 
-
 ## Returns a random rarity based on weights
 static func get_weighted_rarity(level: float) -> ItemData.item_rarities:
 	## TODO: these weights are fine? they are semi-random

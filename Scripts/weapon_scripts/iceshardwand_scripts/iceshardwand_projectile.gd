@@ -25,8 +25,8 @@ func _process(delta: float) -> void:
 	if (stopwatch > lifetime):
 		die()
 
-func attack_body(body: Node2D) -> void:
+func attack_body(body: Node2D, clone: bool) -> void:
 	if !AttackedObjects.has(body):
-		super(body)
+		super(body, clone)
 		if piercing > 0:
 			anim.frame = ceilf((collision_counter / piercing) * anim_length)

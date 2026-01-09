@@ -258,7 +258,7 @@ func make_frame() -> Weapon_Frame:
 		item_name = handle.component_halfname + attachment.component_halfname + projectile.component_halfname
 	else:
 		item_name = handle.item_name + attachment.item_name + projectile.item_name 
-	item_description = attachment.item_name + handle.item_name + projectile.item_name
+	item_description = "[u]" + item_name + "[/u]'s Component Descriptions are: \n" + "[u]Handle:[/u] " + handle.item_description + "\n" + "[u]Attachment: [/u]" + attachment.item_description + "\n" + "[u]Projectile:[/u] " + projectile.item_description
 	attachment_visual = attachment.item_image
 	handle_visual = handle.item_image
 	new_frame.data = self

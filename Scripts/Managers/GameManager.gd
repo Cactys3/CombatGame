@@ -157,19 +157,8 @@ func _ready() -> void:
 		queue_free() 
 		return
 	instance = self  
-var timer: float = 0
+
 func _process(_delta: float) -> void:
-	timer += _delta
-	if timer > 5:
-		print("\nTimer:")
-		timer = 0
-		print("TotalListOfStats:")
-		for item in player.player_stats.TotalListOfStats:
-			print(item.parent_object_name)
-		print("TotalListOfStats:")
-		for item in player.player_stats.TotalListOfStats:
-			print(item.parent_object_name)
-	
 	if !leveling_up && level_up_queue > 0:
 		create_level_up_instance()
 
