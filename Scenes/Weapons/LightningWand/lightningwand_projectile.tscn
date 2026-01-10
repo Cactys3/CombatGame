@@ -3,6 +3,18 @@
 [ext_resource type="Texture2D" uid="uid://k0yemg28hfk4" path="res://Art/Weapons/LightningWand/Projectile_LightningWand.png" id="1_176dt"]
 [ext_resource type="Script" uid="uid://cc46h85v3em2b" path="res://Scripts/weapon_scripts/lightingwand_scripts/lightningwand_projectile.gd" id="1_yathl"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqksy"]
+atlas = ExtResource("1_176dt")
+region = Rect2(176, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mimfc"]
+atlas = ExtResource("1_176dt")
+region = Rect2(192, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nob50"]
+atlas = ExtResource("1_176dt")
+region = Rect2(208, 0, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_yathl"]
 atlas = ExtResource("1_176dt")
 region = Rect2(0, 0, 16, 16)
@@ -47,20 +59,22 @@ region = Rect2(144, 0, 16, 16)
 atlas = ExtResource("1_176dt")
 region = Rect2(160, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wqksy"]
-atlas = ExtResource("1_176dt")
-region = Rect2(176, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mimfc"]
-atlas = ExtResource("1_176dt")
-region = Rect2(192, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nob50"]
-atlas = ExtResource("1_176dt")
-region = Rect2(208, 0, 16, 16)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_rajss"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqksy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mimfc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nob50")
+}],
+"loop": false,
+"name": &"FadeOut",
+"speed": 9.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_yathl")
@@ -96,22 +110,8 @@ animations = [{
 "texture": SubResource("AtlasTexture_cpaxr")
 }],
 "loop": false,
-"name": &"default",
+"name": &"SparkIn",
 "speed": 30.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wqksy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mimfc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nob50")
-}],
-"loop": false,
-"name": &"die",
-"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g5jbl"]
@@ -121,14 +121,17 @@ size = Vector2(15, 16)
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("1_yathl")
+can_spawn_multiple = false
+can_die_from_collision = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_rajss")
-animation = &"die"
-autoplay = "default"
+animation = &"FadeOut"
+autoplay = "SparkIn"
+frame = 2
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -1)
 shape = SubResource("RectangleShape2D_g5jbl")
 
 [connection signal="area_entered" from="." to="." method="_on_body_entered"]

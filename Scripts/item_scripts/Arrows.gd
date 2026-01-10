@@ -21,8 +21,8 @@ func _process(delta: float) -> void:
 
 func set_stats(new_stats: StatsResource):
 	stats = new_stats
-
-func create_projectiles():
+## TODO: rework to use basic_projectile ?
+func create_projectiles(): 
 	var direction_angle: float = randf_range(0, 2 * PI)
 	# Create First Projectile at angle 0, with homing
 	# Randomize Direction Based on inaccuracy
@@ -41,7 +41,6 @@ func create_projectiles():
 		MultipleProjectileOffset *= -1
 		MultipleProjectileAngleOffset *= -1
 		init_projectile(global_position + Vector2(-sin(direction_angle), cos(direction_angle)).normalized() * MultipleProjectileOffset * (proj_offset), Vector2(cos(direction_angle), sin(direction_angle)))
-
 func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectile:
 	if projectile == null:
 		push_error("projectile null in attachment script")

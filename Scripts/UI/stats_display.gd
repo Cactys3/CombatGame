@@ -442,11 +442,11 @@ func get_affecting_names() -> Array[StatsResource]:
 	stats.External_GetAllStatsRecursive(a)
 	return a
 func clear_lists():
-	pass#single_stats.clear()
-	#for list in lists:
-	#	list.free_children()
-	#	list.queue_free()
-	#lists.clear()
+	single_stats.clear()
+	for list in lists:
+		list.free_children()
+		list.queue_free()
+	lists.clear()
 func set_stat_visible(key: String, value: bool) -> void:
 	for list in lists:
 		list.set_stat_visible(key, value)
@@ -456,8 +456,8 @@ func set_stat_visible(key: String, value: bool) -> void:
 ## Handles stuff and then queue_free()
 func delete():
 	## The stats are queue'ed free on queue_free
-	#stats = null
-	#single_stats.clear()
+	clear_lists()
+	single_stats.clear()
 	lists.clear()
 	queue_free()
 

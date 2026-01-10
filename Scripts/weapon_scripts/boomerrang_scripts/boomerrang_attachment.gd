@@ -6,6 +6,11 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	super(delta)
 
+func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectile:
+	var ret: Projectile = super(new_position, new_direction)
+	ret.setup_return_to_sender(frame.player)
+	return ret
+
 ## Creates an ItemData.LevelUpgrade for this specific component and returns it once setup
 static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrade]:
 	var arr: Array[ItemData.LevelUpgrade] = super(itemdata)

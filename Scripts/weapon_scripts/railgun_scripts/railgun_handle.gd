@@ -5,10 +5,8 @@ func get_scene() -> PackedScene:
 
 ##Static Slot and always points in one of the cardinal directions
 
-func _ready() -> void:
-	super()
-
-func _process(delta: float) -> void:
+## Always ready_to_fire
+func ProcessAlwaysAtMouse(delta: float) -> void:
 	super(delta)
 	ready_to_fire = true
 

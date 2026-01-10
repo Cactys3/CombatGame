@@ -22,9 +22,11 @@ animations = [{
 size = Vector2(506, 7)
 
 [node name="railgun_projectile" type="Area2D"]
-collision_layer = 5
+collision_layer = 4
 collision_mask = 8
 script = ExtResource("1_vned4")
+can_spawn_multiple = false
+can_die_from_collision = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_11qdj")

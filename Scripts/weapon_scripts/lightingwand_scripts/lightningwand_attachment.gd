@@ -6,22 +6,14 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	super(delta)
 
-func create_projectiles():
-	#unique mechanic: spawn projectile ontop of enemy
+## Initializes and returns one projectile in the style of this attachment
+func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectile:
+	## Lightingwand change: spawn ontop of enemy 
 	var enemy = frame.get_nearest_enemy()
-	#print(enemy)
-	if enemy != null:
-		var enemypos = enemy.global_position
-		# Create the first bullet by default
-		init_projectile(enemypos, Vector2(cos(frame.rotation), sin(frame.rotation)))
-		# Create any extra bullets using @export values to offset them by angle and position
-		var offset: int = 0
-		for i:int in frame.get_stat(StatsResource.COUNT) - 1:
-			if i % 2 == 0:
-				offset += 1
-			MultipleProjectileOffset *= -1
-			MultipleProjectileAngleOffset *= -1
-			init_projectile(enemypos + Vector2(-sin(frame.rotation), cos(frame.rotation)).normalized() * MultipleProjectileOffset * (offset), Vector2(cos(frame.rotation), sin(frame.rotation)))
+	if enemy:
+		return super(enemy.global_position + Vector2(-sin(frame.rotation), cos(frame.rotation)).normalized(), new_direction)
+	else:
+		return super(new_position, new_direction)
 
 ## Creates an ItemData.LevelUpgrade for this specific component and returns it once setup
 static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrade]:

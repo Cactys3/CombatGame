@@ -43,6 +43,13 @@ func get_enemy_nearby(distance: float) -> Variant:
 			elif global_position.distance_to(enemy.global_position) < global_position.distance_to(nearest_enemy.global_position):
 				nearest_enemy = enemy
 	return nearest_enemy
+## Returns all enemies within distance
+func get_enemies_nearby(distance: float) -> Array[Enemy]:
+	var enemies = []
+	for enemy in get_tree().get_nodes_in_group("enemy"):
+		if global_position.distance_to(enemy.global_position) <= (distance * scale.length()):
+			enemies.append(enemy)
+	return enemies
 
 func change_slot(slot: int, _max: int) -> void:#Called when Weapon is created #TODO: does the weapon only need slot number to start?
 	handle.weapon_slot = slot
