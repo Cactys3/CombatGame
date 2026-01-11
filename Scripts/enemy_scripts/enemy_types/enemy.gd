@@ -63,6 +63,9 @@ var level: float = 2
 ##
 var dead: bool = false
 func _ready() -> void:
+	visible = false
+	await get_tree().create_timer(0.1).timeout
+	visible = true
 	call_deferred("set_stats")
 	call_deferred("setup")
 	cooldown_stopwatch = 0 # make it ready to attack on start?

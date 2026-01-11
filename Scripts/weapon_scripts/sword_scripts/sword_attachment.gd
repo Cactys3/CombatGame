@@ -31,13 +31,13 @@ func attack() -> void:
 	melee_hitbox.disabled = false
 	
 	frame.get_stat(StatsResource.DURATION)
-	speed = 15 / frame.get_stat(StatsResource.VELOCITY) # to determine how fast (15 is default value or w/e)
-	range_offset = abs(base_range - frame.get_stat(StatsResource.RANGE)) # to determine the length
+	speed = frame.get_stat(StatsResource.VELOCITY) * 0.01 # to determine how fast (15 is default value or w/e)
+	range_offset = frame.get_stat(StatsResource.SIZE) * 10 # sword needs to go less range if its bigger to reach the same distance
 	
 	
 	anim.play(ANIMATION_NAME, -1, speed) #TODO: change the second value (speed of animation) based on stats (speed, cooldown, time animation takes normally)
 	
-	anim.get_animation(ANIMATION_NAME).track_set_key_value(0, 1, base_range + range_offset)
+	anim.get_animation(ANIMATION_NAME).track_set_key_value(0, 1, frame.get_stat(StatsResource.RANGE) - range_offset)
 	
 	var animation_duration = anim.get_animation(ANIMATION_NAME).length / speed #TODO: not used
 	var max_range_timeIndex = anim.get_animation(ANIMATION_NAME).track_get_key_time(0, 1)

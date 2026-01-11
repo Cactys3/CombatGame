@@ -87,7 +87,6 @@ func _ready() -> void:
 		queue_free() 
 		return
 	instance = self  
-	print("instance = self")
 ## Sets up the GameInstance by giving parameter values (character should be resource so can change default values?)
 func setup(new_character: Character, new_weapon: int, new_global_stats: StatsResource, run_modifiers) -> void:
 	character_parent.add_child(new_character)
@@ -107,13 +106,9 @@ func connect_signals():
 func setup_events(): 
 	events.append(EventSpawn.new("shop", SHOP, 0.15, -1, 1))
 	events.append(EventSpawn.new("forge", FORGE, 0.20, -1, 1))
-var counter
 func _process(delta: float) -> void:
 	if !instance:
 		instance = self
-	if enemies_alive != counter:
-		print(counter)
-		counter = enemies_alive
 	var pos = character.position #game_man.player.position
 	ui_man.set_fps(Engine.get_frames_per_second())
 	if game_man && game_man.paused == false:

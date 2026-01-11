@@ -34,7 +34,7 @@ func _ready() -> void:
 	spawning_phase = -1
 	map_height = 3 ## this many chunks tall
 	map_width = 3 ## this many chunks wide
-	phases.append(SpawningPhase.new("Easy Start", 50, phase_one)) # wave 1, small guys
+	phases.append(SpawningPhase.new("Easy Start", 40, phase_one)) # wave 1, small guys, allows you to setup
 	phases.append(SpawningPhase.new("Introduce Big Guy", 30, phase_two)) # wave 2, same as 1 + big guys
 	phases.append(SpawningPhase.new("Change it up", 60, phase_three)) # big swap, everything new
 	phases.append(SpawningPhase.new("Swarm!", 25, phase_four)) # gatekeeper of this level, big swarm of enemies
@@ -64,7 +64,7 @@ func generic_phase_setup(phase_num: int):
 func phase_one():
 	#print("PHASE 1 - Easy Start")
 	generic_phase_setup(1)
-	enemies.append(EnemySpawn.new("KLE", KLE, 0.3, 3))
+	enemies.append(EnemySpawn.new("KLE", KLE, 0.2, 3))
 	enemy_events.append(EnemyEventSpawn.new("KLE_CLUSTER", KLE_CLUSTER, 0.1, false, 1))
 func phase_two():
 	#print("PHASE 2 - Introduce Big Guy")
