@@ -23,6 +23,4 @@ func setup_instance(new_instance: GameInstance):
 	instance.xp_parent = xp_parent
 	instance.character_parent = character_parent
 	instance.weapon_parent = weapon_parent
-	instance.spawn_area = spawn_area
-	instance.spawn_deadzone = spawn_deadzone
 	instance.camera = camera

@@ -61,6 +61,7 @@ signal death(position: Vector2)
 ## Player Level at time Enemy was spawned
 var level: float = 2
 ##
+var dead: bool = false
 func _ready() -> void:
 	call_deferred("set_stats")
 	call_deferred("setup")
@@ -91,7 +92,12 @@ func initialize(new_level: float):
 	level = new_level
 
 func _process(delta: float) -> void:
-	if !ImReady:
+	if !ImReady || dead:
+		return
+	
+	if GameInstance.instance && global_position.distance_to(player.global_position) > GameInstance.instance.enemy_max_distance_to_player:
+		GameInstance.instance.remove_enemy(self)
+		dead = true
 		return
 	
 	if stun_time_left > 0:
@@ -138,15 +144,17 @@ func shoot_projectile():
 	pass
 
 func die():
-	death.emit(position)
-	visible = false
-	GameManager.instance.money += money_on_death
-	var new_xp = xp.instantiate()
-	GameManager.instance.xp_parent.add_child(new_xp)
-	new_xp.global_position = global_position
-	new_xp.set_xp(xp_on_death)
-	death_signal()
-	queue_free()
+	if !dead:
+		dead = true
+		death.emit(position)
+		visible = false
+		GameManager.instance.money += money_on_death
+		var new_xp = xp.instantiate()
+		GameManager.instance.xp_parent.add_child(new_xp)
+		new_xp.global_position = global_position
+		new_xp.set_xp(xp_on_death)
+		death_signal()
+		queue_free()
 
 func death_signal():
 	GameManager.instance.EnemyKilled.emit()
