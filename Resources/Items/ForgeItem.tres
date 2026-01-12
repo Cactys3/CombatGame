@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://xn3lii5356op"]
+
+[ext_resource type="Texture2D" uid="uid://wv5ai6loeonk" path="res://Art/Hell/UI/Forge_Anvil_Hell.png" id="1_0qyak"]
+[ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_cme2t"]
+[ext_resource type="PackedScene" uid="uid://su2jr1iavjjj" path="res://Scenes/Items/ForgeItem.tscn" id="2_rs0p5"]
+
+[resource]
+script = ExtResource("2_cme2t")
+item_packed_scene = ExtResource("2_rs0p5")
+item_name = "Forge"
+item_description = "An Item that allows the forging of one completed weapon, choose carefully..."
+item_type = 5
+item_color = Color(0.88709927, 0.6928219, 0.8775484, 1)
+item_image = ExtResource("1_0qyak")
+can_feed = false
+has_rarity = false
+can_sell = false
+can_buy = false
+metadata/_custom_type_script = "uid://dnj6pao77g7bt"

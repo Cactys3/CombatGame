@@ -81,6 +81,29 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_vcplx")
 theme_override_styles/hover = SubResource("StyleBoxFlat_vcplx")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_johy7")
 
+[node name="Cancel" type="Button" parent="PanelContainer/VBoxContainer/Top/Label"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 351.0
+offset_top = 17.0
+offset_right = -56.5
+offset_bottom = -9.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(0.7882353, 0.32156864, 0.10980392, 1)
+theme_override_colors/font_focus_color = Color(0.7882353, 0.32156864, 0.10980392, 1)
+theme_override_colors/font_pressed_color = Color(0.7882353, 0.32156864, 0.10980392, 1)
+theme_override_colors/font_hover_color = Color(0.7882353, 0.32156864, 0.10980392, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.7882353, 0.32156864, 0.10980392, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_johy7")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vcplx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vcplx")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_johy7")
+text = "Cancel"
+
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/Top"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -134,8 +157,6 @@ mouse_filter = 1
 
 [node name="StatsDisplay" parent="PanelContainer/VBoxContainer/Bottom/OffsetBox" instance=ExtResource("2_pli00")]
 layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 1
 button_color = Color(0.5647059, 0, 0, 1)
 button_text_color = Color(0.8745098, 0.44313726, 0.14901961, 1)
 text_color = Color(0.9843137, 0.9490196, 0.21176471, 1)
@@ -158,3 +179,4 @@ offset_bottom = 40.0
 mouse_filter = 1
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Top/Label/Button" to="." method="make_weapon"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Top/Label/Cancel" to="." method="_on_cancel_pressed"]

@@ -26,6 +26,8 @@ func initialize(new_level: float, player_pos: Vector2, new_event: GameInstance.E
 		## Not using offset:
 		var offset = Vector2(cos((i - 1) * angle_step), sin((i - 1) * angle_step)) * num_of_underlings
 		var underling: Node2D = UNDERLING.instantiate()
+		## Since there are so many enemies spawned in the same location, we don't want them dropping items at the normal rate
+		underling.can_drop_stuff = false
 		add_child(underling)
 		underling.global_position = global_position + Vector2(randf_range(-(float(num_of_underlings) / 2 + 6), float(num_of_underlings) / 2 + 6), randf_range(-(float(num_of_underlings) / 2 + 6), float(num_of_underlings) / 2 + 6)) #offset
 		underlings.append(underling)

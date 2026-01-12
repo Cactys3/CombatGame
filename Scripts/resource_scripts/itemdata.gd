@@ -32,6 +32,7 @@ class_name ItemData
 ## Selling value will be buy cost multiplied by this number
 @export var item_sell_cost_modifier: float = 0.8
 ## WeaponFrame Fields (only for weapons)
+var can_dismantle: bool = true
 var attachment: ItemData = null
 var handle: ItemData = null
 var projectile: ItemData = null
@@ -40,6 +41,7 @@ var is_ready: bool = false
 var frame_ready: bool = false
 var attachment_visual: Texture2D = null
 var handle_visual: Texture2D = null
+var projectile_visual: Texture2D = null
 ## Variables
 enum item_types{unset, handle, attachment, projectile, weapon, item, mod}
 enum item_rarities {unset, common, rare, epic, legendary, exclusive}
@@ -57,7 +59,6 @@ const LEGENDARY_COLOR: Color = Color.GOLDENROD
 const EXCLUSIVE_COLOR: Color = Color.ORANGE_RED
 ## Default Texture
 const MISSINGTEXTURE = preload("res://Art/UI/MissingTexture.png")
-
 var item: Node = null
 var level: int = 0
 var made_item: bool = false
@@ -261,6 +262,7 @@ func make_frame() -> Weapon_Frame:
 	item_description = "[u]" + item_name + "[/u]'s Component Descriptions are: \n" + "[u]Handle:[/u] " + handle.item_description + "\n" + "[u]Attachment: [/u]" + attachment.item_description + "\n" + "[u]Projectile:[/u] " + projectile.item_description
 	attachment_visual = attachment.item_image
 	handle_visual = handle.item_image
+	projectile_visual = projectile.item_image
 	new_frame.data = self
 	new_frame.name = item_name
 	item = new_frame

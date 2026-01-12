@@ -5,11 +5,13 @@ var POPUP = preload("uid://brldrnbhcexcm")
 @export var acceleration: float = 1
 @export var speed: float = 0
 @export var anim: AnimatedSprite2D
+@export var auto_collect: bool = false
 var is_collected: bool = false
 var timer = 0
 var is_item: bool = false
 var item: ItemUI
 var dead: bool = false
+## Setup this item_drop as giving an item to player
 func setup_item(new_item: ItemUI):
 	## Play item's image as animation
 	anim.sprite_frames = SpriteFrames.new()
@@ -18,7 +20,13 @@ func setup_item(new_item: ItemUI):
 	anim.play("item")
 	item = new_item
 	is_item = true
+## Setup this item_drop to autocollect instead of waiting for player to be in range
+func setup_autocollect(delay: float):
+	await get_tree().create_timer(delay).timeout
+	is_collected = true
 func _process(delta: float) -> void:
+	if auto_collect:
+		is_collected = true
 	if is_collected:
 		timer += delta
 		acceleration = 50

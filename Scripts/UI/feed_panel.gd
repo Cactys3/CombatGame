@@ -1,5 +1,5 @@
 extends PanelContainer
-
+class_name FeedPanel
 @onready var v_box_container: VBoxContainer = $VBoxContainer
 @onready var title: Label = $VBoxContainer/Title
 @onready var body: Label = $VBoxContainer/Body

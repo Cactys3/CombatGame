@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cu6nvv3r8tgkl"]
+[gd_scene load_steps=24 format=3 uid="uid://cu6nvv3r8tgkl"]
 
 [ext_resource type="Script" uid="uid://cuxh8wu55linp" path="res://Scenes/UI/InventoryAIO.gd" id="1_fk1j6"]
 [ext_resource type="Texture2D" uid="uid://cctoa8i4776qs" path="res://Art/Hell/Enemies/Kle.png" id="1_iac8f"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://o387qlahldf" path="res://Scenes/UI/StatsDisplay/stats_visual.tscn" id="3_8f5sv"]
 [ext_resource type="PackedScene" uid="uid://b4gm4bflpi1is" path="res://Scenes/UI/feed_panel.tscn" id="3_o2jd4"]
 [ext_resource type="Script" uid="uid://bvqeuacomwur3" path="res://Scripts/UI/equipment_inventory.gd" id="4_4in3a"]
+[ext_resource type="PackedScene" uid="uid://d36mcbskqjfw7" path="res://Scenes/UI/dismantle_panel.tscn" id="4_tjp51"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbd61"]
 bg_color = Color(0.13333334, 0.1254902, 0.20392157, 1)
@@ -145,6 +146,9 @@ hide_player_only = true
 [node name="FeedPanel" parent="HBoxContainer/Left" instance=ExtResource("3_o2jd4")]
 layout_mode = 2
 
+[node name="DismantlePanel" parent="HBoxContainer/Left" instance=ExtResource("4_tjp51")]
+layout_mode = 2
+
 [node name="OffsetDown" type="Control" parent="HBoxContainer/Left"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -158,13 +162,14 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_dbd61")
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Inventory" type="Panel" parent="HBoxContainer/Main/Main" node_paths=PackedStringArray("side_panel", "feed_panel", "default_item_parent", "description_body", "description_title", "description_stats")]
+[node name="Inventory" type="Panel" parent="HBoxContainer/Main/Main" node_paths=PackedStringArray("side_panel", "feed_panel", "dismantle_panel", "default_item_parent", "description_body", "description_title", "description_stats")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_iac8f")
 script = ExtResource("1_fk1j6")
 side_panel = NodePath("../../../Left/SidePanel")
 feed_panel = NodePath("../../../Left/FeedPanel")
+dismantle_panel = NodePath("../../../Left/DismantlePanel")
 default_item_parent = NodePath("Left/Scroll/Grid")
 description_body = NodePath("../../../Left/SidePanel/VBoxContainer/Body")
 description_title = NodePath("../../../Left/SidePanel/VBoxContainer/Title")

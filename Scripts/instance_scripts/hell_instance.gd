@@ -23,6 +23,8 @@ const ROCKS = preload("uid://cmcbroiw30fy8")
 const PUDDLE = preload("uid://dxv17gll2bx2l")
 const SPIKES = preload("uid://bj2nfedstjwtm")
 const BALL = preload("uid://dyk1bgwdqiq2d")
+const LOOTCHEST = preload("uid://ceycsndkpdg1t")
+
 
 func _ready() -> void:
 	default_min_enemies = 30
@@ -44,6 +46,9 @@ func _ready() -> void:
 	events.append(EventSpawn.new("Spikes", SPIKES, 0.25, -1, 1))
 	events.append(EventSpawn.new("Puddle", PUDDLE, 0.25, -1, 1))
 	events.append(EventSpawn.new("Ball", BALL, 0.25, -1, 1))
+	events.append(EventSpawn.new("LootChest", LOOTCHEST, 0.1, -1, 1))
+	events.append(EventSpawn.new("Shop", SHOP, 0.15, -1, 1))
+	events.append(EventSpawn.new("Forge", FORGE, 0.20, -1, 1))
 func _process(delta: float) -> void:
 	super(delta)
 ## Overrides

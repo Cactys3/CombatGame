@@ -2,6 +2,7 @@ extends Area2D
 class_name Components
 @export var stats: StatsResource
 var data: ItemData = ShopManager.BLANK_ITEMDATA.duplicate()
+const RIGHTCLICKMENU = preload("uid://cgxs2sfst46t4")
 
 ## Functions to Override:
 ## Creates an ItemData.LevelUpgrade for this specific component and returns it once setup
@@ -53,13 +54,23 @@ static func get_stat_upgrade(stat: String, roll: float, level: float, rarity: fl
 	return upgrade
 ## Applies Stats into everything that uses it, eg: animation speed
 func apply_stats():
-	pass
+	var ret: Control = RIGHTCLICKMENU.instantiate()
+	#ret.setup(self, data.can_feed, data.can_sell, feed_method, sell_method)
+	#item.add_child(ret)
+	#ret.global_position = pos
+	#right_clicking_item = item
+	#right_click_menu = ret
+	return ret
 ## Returns StatsObject
 func get_stats() -> StatsResource:
 	return stats
 ## Returns ItemData
 func get_data() -> ItemData:
 	return data
+## Sets up a RightClickMenu for this component
+func setup_right_click_menu(menu: RightClickMenu):
+	menu.set_bools(data.can_feed, data.can_sell, true, false)
+
 
 
 ### Creates an ItemData.LevelUpgrade for this specific component and returns it once setup

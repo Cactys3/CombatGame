@@ -177,3 +177,8 @@ class AttackEvent:
 		clone = is_clone
 		attackee = new_attackee
 		attacker = new_attacker
+
+
+## Sets up a RightClickMenu for this component
+func setup_right_click_menu(menu: RightClickMenu):
+	menu.set_bools(data.can_feed, data.can_sell, false, data.can_dismantle)

@@ -32,7 +32,11 @@ class_name Enemy
 @export var turns_towards_movement: bool = false
 @export var anim: AnimatedSprite2D 
 const POPUP_TEXT = preload("res://Scenes/UI/popup_text.tscn")
-const xp = preload("res://Scenes/Misc/xp_blip.tscn")
+const XP = preload("res://Scenes/Misc/xp_blip.tscn")
+const ITEM_DROP = preload("uid://d3v2pdpqpmvpe")
+@onready var FORGE_ITEM = load("uid://xn3lii5356op")
+
+
 var player: Character
 var attack_on_cd: bool = true
 var stun_time_left: float = 0
@@ -56,6 +60,7 @@ var max_health: float
 ## Misc:
 var facing_left: bool = true
 var ImReady: bool = false
+var can_drop_stuff: bool = true
 ## Called on death with position of death
 signal death(position: Vector2)
 ## Player Level at time Enemy was spawned
@@ -151,13 +156,40 @@ func die():
 		dead = true
 		death.emit(position)
 		visible = false
+		## Give money
 		GameManager.instance.money += money_on_death
-		var new_xp = xp.instantiate()
+		## Drop XP
+		var new_xp = XP.instantiate()
 		GameManager.instance.xp_parent.add_child(new_xp)
 		new_xp.global_position = global_position
 		new_xp.set_xp(xp_on_death)
+		if can_drop_stuff:
+			## Chance to drop random component
+			if randf() < GameInstance.enemy_chance_to_drop_component:
+				drop_item()
+			elif GameInstance.next_enemy_drops_component:
+				drop_item()
+				GameInstance.next_enemy_drops_component = false
+			## Drop Forge Check
+			if GameInstance.next_enemy_drops_forge:
+				GameInstance.next_enemy_drops_forge = false
+				drop_forge()
+			## Chance to drop random thingy (magnet, fire, 2x money, etc)
+		
 		death_signal()
 		queue_free()
+
+func drop_forge():
+	var drop: ItemDrop = ITEM_DROP.instantiate()
+	drop.setup_item(ShopManager.make_itemUI(FORGE_ITEM.duplicate()))
+	drop.auto_collect = true
+	GameManager.instance.xp_parent.add_child(drop)
+	drop.global_position = global_position
+func drop_item():
+	var drop: ItemDrop = ITEM_DROP.instantiate()
+	drop.setup_item(ShopManager.make_itemUI(ShopManager.get_rand_component()))
+	GameManager.instance.xp_parent.add_child(drop)
+	drop.global_position = global_position
 
 func death_signal():
 	GameManager.instance.EnemyKilled.emit()

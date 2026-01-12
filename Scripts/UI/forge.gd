@@ -8,7 +8,7 @@ class_name Forge
 var handle: ItemUI = null
 var attachment: ItemUI = null
 var projectile: ItemUI = null
-
+signal die
 signal crafted_weapon
 ## Try to 'add' item if dropped onto forge
 func _process(delta: float) -> void:
@@ -29,6 +29,7 @@ func make_weapon() -> void:
 		attachment.inventory.backend_remove(attachment)
 		projectile.inventory.backend_remove(projectile)
 		crafted_weapon.emit()
+		die.emit()
 func clear():
 	if attachment:
 		attachment = null
@@ -79,3 +80,7 @@ func choose_option(data: ItemData):
 func hover_option(data: ItemData):
 	if data && data.has_stats:
 		stats_display.setup_substats(data.stats, data.item_name)
+
+
+func _on_cancel_pressed() -> void:
+	die.emit()

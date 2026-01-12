@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://su2jr1iavjjj"]
+
+[ext_resource type="Script" uid="uid://c4bpslc68bwpp" path="res://Scripts/item_scripts/forge_item.gd" id="1_slrlw"]
+
+[node name="ForgeItem" type="Node"]
+script = ExtResource("1_slrlw")
+metadata/_custom_type_script = "uid://b3q6yxbdwvlme"

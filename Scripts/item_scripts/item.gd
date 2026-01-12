@@ -60,6 +60,9 @@ static func randomize_stats(itemdata: ItemData) -> StatsResource:
 	stats.setup("RNGrolls")
 	stats.set_stat_base(StatsResource.DAMAGE, randi_range(0, 10))
 	return stats
+## Sets up a RightClickMenu for this component
+func setup_right_click_menu(menu: RightClickMenu):
+	menu.set_bools(data.can_feed, data.can_sell, false, false)
 
 func get_stats():
 	return null

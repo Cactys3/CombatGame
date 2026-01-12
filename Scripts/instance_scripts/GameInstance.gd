@@ -32,6 +32,14 @@ var enemy_events: Array[EnemyEventSpawn]
 var bosses: Array[BossSpawn] # stores bosses to spawn
 var phases: Array[SpawningPhase] # stores the phases to spawn enemies in
 var current_phase: SpawningPhase
+## Chances
+static var enemy_chance_to_drop_component: float = 0.01
+static var next_enemy_drops_component: bool = false
+var enemies_since_component: int = 0
+var enemies_per_component: int = 150
+static var next_enemy_drops_forge: bool = true
+var enemies_since_forge: int = 0
+var enemies_per_forge: int = 50
 ## Spawning Stuff
 var win_time: float = 10
 var total_stopwatch: float = 0
@@ -104,8 +112,7 @@ func connect_signals():
 	game_man.BossKilled.connect(boss_killed)
 ## Adds all events for this map to events - Override
 func setup_events(): 
-	events.append(EventSpawn.new("shop", SHOP, 0.15, -1, 1))
-	events.append(EventSpawn.new("forge", FORGE, 0.20, -1, 1))
+	pass
 func _process(delta: float) -> void:
 	if !instance:
 		instance = self
@@ -339,6 +346,12 @@ func enemy_killed():
 	enemies_killed += 1
 	ui_man.set_kills(enemies_killed)
 	#print("Killed: " + str(enemies_killed))
+	if enemies_since_forge >= enemies_per_forge:
+		enemies_since_forge = 0
+		next_enemy_drops_forge = true
+	if enemies_since_component >= enemies_per_component:
+		enemies_since_component = 0
+		next_enemy_drops_component = true
 	if kills_left <= 0:
 		kills_needed = kills_needed * 0.95
 		kills_left = kills_needed

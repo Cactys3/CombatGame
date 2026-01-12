@@ -14,8 +14,8 @@ func connect_signals():
 func _body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		forge = FORGE.instantiate()
-		forge.crafted_weapon.connect(toggle_forge)
-		forge.crafted_weapon.connect(queue_free)
+		forge.die.connect(toggle_forge)
+		forge.die.connect(queue_free)
 		GameManager.instance.ui_man.tab_menu_parent.add_child(forge)
 		forge.position = Vector2(1389.0, 289.0)
 		forge.clear()

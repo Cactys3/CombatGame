@@ -147,6 +147,8 @@ func setup_deffered(starting_weapon: int):
 ## It's Necessary to deferr this twice as it relies on stuff that is deferred once to happen (i don't know what exactly it relies on)
 func setup_weapon(starting_weapon: int):
 	var weapon: ItemData = ShopManager.get_weapon(starting_weapon)
+	## Starting weapon shouldn't give free forge, right?
+	weapon.can_dismantle = false
 	if !ui_man.equipment.ui_add(ShopManager.make_itemUI(weapon)):
 		add_weapon_to_player(weapon.get_item())
 		ui_man.equipment.backend_add(ShopManager.make_itemUI(weapon))
@@ -157,8 +159,13 @@ func _ready() -> void:
 		queue_free() 
 		return
 	instance = self  
-
+var test: bool = false
 func _process(_delta: float) -> void:
+	if !test:
+		test = true
+		var node = load("uid://ceycsndkpdg1t").instantiate()
+		xp_parent.add_child(node)
+		node.position = node.position + Vector2(0, -110)
 	if !leveling_up && level_up_queue > 0:
 		create_level_up_instance()
 
@@ -282,7 +289,8 @@ func remove_stats_item(item: Item, stats: StatsResource):
 func add_xp(added_xp: float):
 	xp += added_xp
 
-
+func has_forge():
+	return true
 func has_item_room():
 	return item_count <= item_limit
 func has_weapon_room():
