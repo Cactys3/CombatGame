@@ -48,39 +48,40 @@ const SCENE = preload("uid://o387qlahldf")
 @export var show_inaccuracy: int = -1
 ## Child Nodes
 @onready var buttons: Array[Button] = [$VBoxContainer/HBoxContainer/Button, $VBoxContainer/HBoxContainer/Button2, $VBoxContainer/HBoxContainer/Button3, $VBoxContainer/HBoxContainer/Button4]
-@onready var title: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/Title
-@onready var scroll: ScrollContainer = $VBoxContainer/HBoxContainer2/ScrollContainer
-@onready var listparent: HBoxContainer = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer
-@onready var labelparent: VBoxContainer = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer
+@onready var labelparent: VBoxContainer = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent
+@onready var scroll: ScrollContainer = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/scroll
+@onready var listparent: HBoxContainer = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/scroll/HBoxContainer2/listparent
 ## Labels
-@onready var damage: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/damage
-@onready var _range: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/range
-@onready var weight: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/weight
-@onready var attackspeed: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/attackspeed
-@onready var velocity: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/velocity
-@onready var count: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/count
-@onready var piercing: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/piercing
-@onready var duration: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/duration
-@onready var buildup: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/buildup
-@onready var _size: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/size
-@onready var hp: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/hp
-@onready var stance: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/stance
-@onready var movespeed: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/movespeed
-@onready var xp: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/xp
-@onready var mogul: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/mogul
-@onready var luck: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/luck
-@onready var critchance: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/critchance
-@onready var critdamage: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/critdamage
-@onready var ghostly: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/ghostly
-@onready var regen: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/regen
-@onready var magnetize: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/magnetize
-@onready var lifesteal: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/lifesteal
-@onready var bonusvselites: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/bonusvselites
-@onready var shield: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/shield
-@onready var difficulty: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/difficulty
-@onready var revies: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/revies
-@onready var thorns: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/thorns
-@onready var inaccuracy: Label = $VBoxContainer/HBoxContainer2/ScrollContainer/HBoxContainer2/HBoxContainer/VBoxContainer/inaccuracy
+@onready var title: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/Title
+@onready var damage: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/damage
+@onready var _range: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/range
+@onready var weight: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/weight
+@onready var attackspeed: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/attackspeed
+@onready var velocity: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/velocity
+@onready var count: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/count
+@onready var piercing: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/piercing
+@onready var duration: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/duration
+@onready var buildup: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/buildup
+@onready var _size: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/size
+@onready var hp: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/hp
+@onready var stance: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/stance
+@onready var movespeed: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/movespeed
+@onready var xp: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/xp
+@onready var mogul: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/mogul
+@onready var luck: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/luck
+@onready var critchance: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/critchance
+@onready var critdamage: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/critdamage
+@onready var ghostly: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/ghostly
+@onready var regen: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/regen
+@onready var magnetize: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/magnetize
+@onready var lifesteal: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/lifesteal
+@onready var bonusvselites: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/bonusvselites
+@onready var shield: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/shield
+@onready var difficulty: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/difficulty
+@onready var revies: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/revies
+@onready var thorns: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/thorns
+@onready var inaccuracy: Label = $VBoxContainer/HBoxContainer2/VerticalScroll/HBoxContainer/labelparent/inaccuracy
+
 @onready var statslabels = {
 	StatsResource.DAMAGE: damage,
 	StatsResource.RANGE: _range,
@@ -485,3 +486,8 @@ func button4():
 	if is_ready:
 		sort_random()
 		last_clicked = 4
+
+
+func _on_mouse_entered() -> void:
+	for list in lists:
+		list.randomize_color()

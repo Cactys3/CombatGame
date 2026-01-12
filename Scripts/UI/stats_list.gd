@@ -109,6 +109,8 @@ func deferred():
 		for currlabel in statslabels:
 			statslabels[currlabel].clip_text = false
 			statslabels[currlabel].horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	randomize_color()
+func randomize_color():
 	var new_color: Color = Color(clampf(fposmod(1 - (0.1*ID) + randf_range(0, 0.2), 1.0), 0.2, 0.9), clampf(fposmod(1 - (0.1*ID) + randf_range(0, 0.2), 1.0), 0.2, 0.9),clampf(fposmod(1 - (0.1*ID) + randf_range(0, 0.2), 1.0), 0.2, 0.9))
 	modulate = new_color
 func refresh():

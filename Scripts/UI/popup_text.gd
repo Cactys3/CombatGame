@@ -37,6 +37,9 @@ func setup(new_text: String, new_fontsize: float, new_position: Vector2, new_lif
 	curr_text = "[shake rate=20.0 level=5 connected=1]" + curr_text + "[/shake]"
 	modulate = Color(randf(), randf(), randf())
 	fontsize = round(new_fontsize / 4) * 4 ## Keep it a multiple of 4
+	if fontsize < 4:
+		fontsize = 16
+	print(fontsize)
 	lifetime = new_lifetime
 	if max_offsets != Vector2.ZERO:
 		var x = randf_range(-max_offsets.x, max_offsets.x)
