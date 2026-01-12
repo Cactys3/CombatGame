@@ -1,6 +1,6 @@
 extends Control
 class_name Forge
-
+@onready var forge_label: Label = $PanelContainer/VBoxContainer/Top/ForgeLabel
 @export var handle_option: Option 
 @export var attachment_option: Option 
 @export var projectile_option: Option 
@@ -8,6 +8,7 @@ class_name Forge
 var handle: ItemUI = null
 var attachment: ItemUI = null
 var projectile: ItemUI = null
+var forge: ItemUI = null
 signal die
 signal crafted_weapon
 ## Try to 'add' item if dropped onto forge
@@ -17,8 +18,11 @@ func _process(delta: float) -> void:
 		call_deferred("add", item)
 ## If successful: Adds weapon to player, adds weapon UI to equipment UI, destroys this weapon crafting menu
 func make_weapon() -> void:
-	print("make weapon: " + str(handle) + str(attachment) + str(projectile))
+	forge = GameManager.instance.get_forge()
 	if handle == null || attachment == null || projectile == null:
+		return
+	if forge == null:
+		forge_label.text = "Lacking\n'Forge'\nItem"
 		return
 	## Make weapon and check if can add to equipment
 	var weapon: ItemData = ShopManager.BLANK_ITEMDATA.duplicate()
@@ -28,6 +32,9 @@ func make_weapon() -> void:
 		handle.inventory.backend_remove(handle)
 		attachment.inventory.backend_remove(attachment)
 		projectile.inventory.backend_remove(projectile)
+		forge.inventory.backend_remove(forge)
+		forge.queue_free()
+		forge = null
 		crafted_weapon.emit()
 		die.emit()
 func clear():
@@ -80,7 +87,6 @@ func choose_option(data: ItemData):
 func hover_option(data: ItemData):
 	if data && data.has_stats:
 		stats_display.setup_substats(data.stats, data.item_name)
-
 
 func _on_cancel_pressed() -> void:
 	die.emit()

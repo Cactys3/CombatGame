@@ -55,7 +55,7 @@ custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 mouse_filter = 1
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/Top"]
+[node name="ForgeLabel" type="Label" parent="PanelContainer/VBoxContainer/Top"]
 layout_mode = 2
 size_flags_vertical = 1
 mouse_filter = 1
@@ -64,7 +64,7 @@ theme_override_font_sizes/font_size = 64
 text = "Forge"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="PanelContainer/VBoxContainer/Top/Label"]
+[node name="Button" type="Button" parent="PanelContainer/VBoxContainer/Top/ForgeLabel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -81,7 +81,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_vcplx")
 theme_override_styles/hover = SubResource("StyleBoxFlat_vcplx")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_johy7")
 
-[node name="Cancel" type="Button" parent="PanelContainer/VBoxContainer/Top/Label"]
+[node name="Cancel" type="Button" parent="PanelContainer/VBoxContainer/Top/ForgeLabel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -178,5 +178,5 @@ offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 1
 
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Top/Label/Button" to="." method="make_weapon"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Top/Label/Cancel" to="." method="_on_cancel_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Top/ForgeLabel/Button" to="." method="make_weapon"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Top/ForgeLabel/Cancel" to="." method="_on_cancel_pressed"]

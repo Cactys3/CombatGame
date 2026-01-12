@@ -66,3 +66,6 @@ func setup_right_click_menu(menu: RightClickMenu):
 
 func get_stats():
 	return null
+
+func is_forge() -> bool:
+	return false

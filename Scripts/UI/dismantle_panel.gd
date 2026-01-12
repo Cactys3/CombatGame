@@ -15,8 +15,8 @@ const FORGE_ITEM = preload("uid://xn3lii5356op")
 var inventory: MainInventory
 var weapon: ItemUI
 func _ready() -> void:
-	confirm_button.pressed.connect(confirm)
 	cancel_button.pressed.connect(cancel)
+	confirm_button.pressed.connect(confirm)
 func setup(inven: MainInventory, weap: ItemUI):
 	weapon = weap
 	body.text = "Are you sure you want to dismantle your " + weapon.data.item_name + "?"
@@ -39,3 +39,6 @@ func reset():
 	handle_texture.texture = null
 	attachment_texture.texture = null
 	projectile_texture.texture = null
+	confirm_button.text = "Confirm Dismantle"
+	if confirm_button.pressed.is_connected(confirm):
+		confirm_button.pressed.disconnect(confirm)

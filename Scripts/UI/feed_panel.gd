@@ -47,11 +47,13 @@ func setup(inven: Inventory, new_item: ItemUI):
 		confirm_handle_button.visible = true
 		confirm_attachment_button.visible = true
 		confirm_projectile_button.visible = true
+		body.text = "Drag in Components to FEED their stats to this weapon! Then choose a component of this weapon to add those stats to! It takes the 'randomly rolled' stats from the Component you drag in and adds it to what you choose from the weapon!"
 	elif new_item.data.is_component():
 		confirm_button.visible = true
 		confirm_handle_button.visible = false
 		confirm_attachment_button.visible = false
 		confirm_projectile_button.visible = false
+		body.text = "Drag in Components to FEED their stats to this Component! It transfers the 'randomly rolled' stats from the Component you drag in!"
 	
 	inventory = inven
 	item_eating = new_item
@@ -61,6 +63,7 @@ func add_item(new_item: ItemUI):
 	if new_item == item_eating || feed_items.has(new_item) || !new_item.data.has_stats || !new_item.data.is_component():
 		return
 	feed_items.append(new_item)
+	body.text += "\nFEEDING: " + new_item.data.item_name 
 	#stats.add_single_stats(new_item.data.added_stats)
 
 func is_correct_type(item: ItemData):

@@ -289,8 +289,11 @@ func remove_stats_item(item: Item, stats: StatsResource):
 func add_xp(added_xp: float):
 	xp += added_xp
 
-func has_forge():
-	return true
+func get_forge() -> ItemUI:
+	for item: ItemUI in ui_man.inventory.items:
+		if item.data.item_type == ItemData.item_types.item && item.data.get_item().is_forge():
+			return item
+	return null
 func has_item_room():
 	return item_count <= item_limit
 func has_weapon_room():

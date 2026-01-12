@@ -60,7 +60,7 @@ func show_dismantle() -> bool:
 	return false
 func show_forge() -> bool:
 	delete_forge()
-	return GameManager.instance.has_forge()
+	return true
 func show_feed() -> bool:
 	if side_panel && feed_panel && dismantle_panel:
 		side_panel.visible = false
