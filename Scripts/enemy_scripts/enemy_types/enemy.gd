@@ -206,9 +206,8 @@ func damage(attack: Attack):
 		apply_knockback(attack.position, attack.knockback)
 		#call_deferred("set_linear_velocity", (global_position - attack.position).normalized() * attack.knockback * curr_knockback_modifier)
 	var dmg_text: PopupText = POPUP_TEXT.instantiate()
-	GameManager.instance.xp_parent.add_child(dmg_text)
 	dmg_text.global_position = Vector2.ZERO
-	dmg_text.setup(str(int(round(attack.damage))), damage_taken + randi_range(-5, 5), global_position, 1.5, Vector2(10, 10))
+	dmg_text.setup(str(int(round(attack.damage))), damage_taken + randi_range(-5, 5), WindowManager.instance.convert_small_position(global_position), 1.5, Vector2(10, 10))
 	
 	if curr_health <= 0:
 		die()

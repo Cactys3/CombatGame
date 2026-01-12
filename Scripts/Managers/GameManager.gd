@@ -279,6 +279,9 @@ func add_stats_item(item: Item, stats: StatsResource):
 func remove_stats_item(item: Item, stats: StatsResource):
 	global_stats.remove_stats(stats)
 	items_affecting_stats.erase(item)
+func add_xp(added_xp: float):
+	xp += added_xp
+
 
 func has_item_room():
 	return item_count <= item_limit

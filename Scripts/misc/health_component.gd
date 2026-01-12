@@ -43,11 +43,10 @@ func damage(attack: Attack):
 	if health <= 0:
 		parent_script.die()
 		var dmg_text: PopupText = POPUP_TEXT.instantiate()
-		dmg_text.setup(str(int(round(attack.damage))), damage_taken, global_position, 1, get_tree().root, Vector2(10, 10))
-		
+		dmg_text.setup(str(int(round(attack.damage))), damage_taken, global_position, 1, Vector2(10, 10))
 	else:
 		var dmg_text: PopupText = POPUP_TEXT.instantiate()
-		dmg_text.setup(str(int(round(attack.damage))), damage_taken, global_position, 1, get_tree().root, Vector2(10, 10))
+		dmg_text.setup(str(int(round(attack.damage))), damage_taken, global_position, 1, Vector2(10, 10))
 	pass
 
 func set_parent_velocity(value:Vector2):

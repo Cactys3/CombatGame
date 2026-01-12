@@ -16,6 +16,7 @@ class_name UIManager
 @export var level_up_parent: Control
 @export var static_ui_parent: Control
 @export var misc_parent: Control
+@export var relative_to_game_parent: Control
 ## Inventories
 @export var AIOman: AIO_Manager
 @export var cheat_inventory: Inventory 

@@ -30,12 +30,14 @@ func _process(delta: float) -> void:
 		done = true
 
 func setup(new_text: String, new_fontsize: float, new_position: Vector2, new_lifetime: float, max_offsets: Vector2):
+	GameManager.instance.ui_man.relative_to_game_parent.add_child(self) 
 	curr_text = new_text 
 	curr_text = "[center]  " + curr_text + "  [/center]"
 	curr_text = "[url=https://neal.fun/]" + curr_text + "[/url]"
 	curr_text = "[shake rate=20.0 level=5 connected=1]" + curr_text + "[/shake]"
 	modulate = Color(randf(), randf(), randf())
-	fontsize = fontsize + (new_fontsize / 3)
+	fontsize = round(new_fontsize / 4) * 4 # fontsize + (new_fontsize / 3) # 
+	print(str(new_fontsize) + " % " + str(4) + " = " + str(fontsize))
 	lifetime = new_lifetime
 	if max_offsets != Vector2.ZERO:
 		var x = randf_range(-max_offsets.x, max_offsets.x)

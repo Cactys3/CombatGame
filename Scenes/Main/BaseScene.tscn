@@ -1,17 +1,18 @@
-[gd_scene load_steps=23 format=3 uid="uid://dc0hdlr7wq3lq"]
+[gd_scene load_steps=26 format=3 uid="uid://dc0hdlr7wq3lq"]
 
 [ext_resource type="Script" uid="uid://bb13nkhmcojis" path="res://Scenes/Instances/InstanceRoot.gd" id="1_eeah7"]
 [ext_resource type="PackedScene" uid="uid://dxv17gll2bx2l" path="res://Scenes/Instances/Hell/HellPuddle.tscn" id="2_qrryo"]
 [ext_resource type="Texture2D" uid="uid://ctekysqm3q8wt" path="res://Art/Weapons/PlayingCard/Projectile_PlayingCard.png" id="3_eeah7"]
 [ext_resource type="PackedScene" uid="uid://cytotq02c1x2a" path="res://Scenes/ProximityInteractables/proximity_shop.tscn" id="3_qq1a1"]
 [ext_resource type="PackedScene" uid="uid://le5tbb8urp88" path="res://Scenes/ProximityInteractables/proximity_forge.tscn" id="3_u5ql4"]
+[ext_resource type="Texture2D" uid="uid://bmca5sekljecn" path="res://Art/Hell/Characters/ShopKeeperHell.png" id="6_627tp"]
 [ext_resource type="PackedScene" uid="uid://cu6nvv3r8tgkl" path="res://Scenes/UI/NewInventory.tscn" id="8_qq1a1"]
 [ext_resource type="Script" uid="uid://q2s0hxfba110" path="res://Scripts/managers/GameManager.gd" id="9_u5ctk"]
-[ext_resource type="PackedScene" uid="uid://o387qlahldf" path="res://Scenes/UI/StatsDisplay/stats_visual.tscn" id="10_6si6h"]
 [ext_resource type="Script" uid="uid://illqvubum1r1" path="res://Scripts/managers/UIManager.gd" id="10_627tp"]
 [ext_resource type="Script" uid="uid://13p8bkyp17w" path="res://Scripts/managers/TestingManager.gd" id="10_cwiy3"]
 [ext_resource type="Script" uid="uid://5tltnj2xg8ps" path="res://Scripts/managers/ShopManager.gd" id="12_e4e03"]
 [ext_resource type="PackedScene" uid="uid://cvrebkaqtisv6" path="res://Scenes/UI/hud.tscn" id="15_6si6h"]
+[ext_resource type="Script" uid="uid://b6808ricdvjjh" path="res://Scripts/UI/relative_to_game.gd" id="17_afe04"]
 [ext_resource type="PackedScene" uid="uid://bcwklkqeim2sq" path="res://Scenes/UI/inventory.tscn" id="17_gf2b2"]
 [ext_resource type="PackedScene" uid="uid://bwuwo8e451bxt" path="res://Scenes/UI/shop_inventory.tscn" id="18_85yrk"]
 [ext_resource type="PackedScene" uid="uid://cwomrgi81thyq" path="res://Scenes/UI/weapon_crafting_inventory.tscn" id="20_41mr8"]
@@ -22,6 +23,21 @@ radius = 652.96
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wafdh"]
 radius = 400.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afe04"]
+atlas = ExtResource("6_627tp")
+region = Rect2(0, 16, 94, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_okq7h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afe04")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="LabelSettings" id="LabelSettings_tpk5p"]
 font_size = 32
@@ -124,6 +140,9 @@ visible = false
 position = Vector2(-0.33337402, -11)
 shape = SubResource("CircleShape2D_wafdh")
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Window640/Offset"]
+sprite_frames = SubResource("SpriteFrames_okq7h")
+
 [node name="Window1920" type="Window" parent="."]
 disable_3d = true
 transparent_bg = true
@@ -165,13 +184,13 @@ xp_parent = NodePath("../../../Window640/Offset/XP Parent")
 enemy_parent = NodePath("../../../Window640/Offset/EnemyParent")
 weapon_parent = NodePath("../../../Window640/Offset/WeaponParent")
 projectile_parent = NodePath("../../../Window640/Offset/ProjectileParent")
-extra_stats_visual = NodePath("../UIManager/MiscParent/StatsDisplay")
+extra_stats_visual = NodePath("")
 
 [node name="ShopManager" type="Node2D" parent="Window1920/Offset" groups=["shopmanager"]]
 position = Vector2(960, 0)
 script = ExtResource("12_e4e03")
 
-[node name="UIManager" type="Control" parent="Window1920/Offset" node_paths=PackedStringArray("money_label", "xp_label", "level_label", "hp_label", "fps_label", "stopwatch_label", "enemies_killed_label", "bosses_killed_label", "you_win", "tab_menu_parent", "esc_menu_parent", "level_up_parent", "static_ui_parent", "misc_parent", "AIOman", "cheat_inventory", "hud")]
+[node name="UIManager" type="Control" parent="Window1920/Offset" node_paths=PackedStringArray("money_label", "xp_label", "level_label", "hp_label", "fps_label", "stopwatch_label", "enemies_killed_label", "bosses_killed_label", "you_win", "tab_menu_parent", "esc_menu_parent", "level_up_parent", "static_ui_parent", "misc_parent", "relative_to_game_parent", "AIOman", "cheat_inventory", "hud")]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -195,6 +214,7 @@ esc_menu_parent = NodePath("EscMenuParent")
 level_up_parent = NodePath("LevelUpParent")
 static_ui_parent = NodePath("StaticHUDparent")
 misc_parent = NodePath("MiscParent")
+relative_to_game_parent = NodePath("RelativeToGameParent")
 AIOman = NodePath("TabMenuParent/AIO")
 cheat_inventory = NodePath("TabMenuParent/Cheat Inventory")
 hud = NodePath("StaticHUDparent/hud")
@@ -223,10 +243,6 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Change Resolution
 Current: "
-
-[node name="StatsDisplay" parent="Window1920/Offset/UIManager/MiscParent" instance=ExtResource("10_6si6h")]
-visible = false
-layout_mode = 0
 
 [node name="TabMenuParent" type="Control" parent="Window1920/Offset/UIManager"]
 visible = false
@@ -476,6 +492,12 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 128
 text = "You Win!"
+
+[node name="RelativeToGameParent" type="Control" parent="Window1920/Offset/UIManager"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("17_afe04")
 
 [node name="LevelUpParent" type="Control" parent="Window1920/Offset/UIManager"]
 visible = false
