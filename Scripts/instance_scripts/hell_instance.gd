@@ -105,4 +105,3 @@ func phase_six():
 	enemies.append(EnemySpawn.new("SCLARNK", SCLARNK, 0.25, 4))
 	## Spawn boss that will end the game once killed
 	spawn_final_boss(SHLARNGUH, random_position(character.position))
-	

@@ -29,13 +29,14 @@ func connect_signals():
 func _body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		shop = SHOP.instantiate()
-		GameManager.instance.ui_man.tab_menu_parent.add_child(shop)
+		GameManager.instance.ui_man.misc_parent.add_child(shop)
 		shop.position = Vector2(1389.0, 289.0)
 		shop.setup(activate_option, max_choices)
 		for choice in choices:
 			shop.add_option(choice)
 		entered = true
 		GameManager.instance.ui_man.pause_proximity(true)
+		GameManager.instance.ui_man.tab_menu_parent.visible = true
 
 func toggle_shop():
 	if entered:

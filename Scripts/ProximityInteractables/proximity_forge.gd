@@ -18,10 +18,11 @@ func _body_entered(body: Node2D) -> void:
 		forge = FORGE.instantiate()
 		forge.die.connect(toggle_forge)
 		forge.die.connect(queue_free)
-		GameManager.instance.ui_man.tab_menu_parent.add_child(forge)
+		GameManager.instance.ui_man.misc_parent.add_child(forge)
 		forge.position = Vector2(1389.0, 289.0)
 		forge.clear()
 		GameManager.instance.ui_man.pause_proximity(true)
+		GameManager.instance.ui_man.tab_menu_parent.visible = true
 		entered = true
 
 func toggle_forge():
