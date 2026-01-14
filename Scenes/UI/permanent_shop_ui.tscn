@@ -1,0 +1,251 @@
+[gd_scene load_steps=11 format=3 uid="uid://chasb2r7dpbfx"]
+
+[ext_resource type="Script" uid="uid://d2xa86eytpuq" path="res://Scripts/UI/permanent_shop_ui.gd" id="1_3m734"]
+[ext_resource type="PackedScene" uid="uid://o387qlahldf" path="res://Scenes/UI/StatsDisplay/stats_visual.tscn" id="2_d53uy"]
+[ext_resource type="Script" uid="uid://dwj80yu0v1qdt" path="res://Scripts/resource_scripts/stats.gd" id="3_lvbej"]
+[ext_resource type="Texture2D" uid="uid://bmca5sekljecn" path="res://Art/Hell/Characters/ShopKeeperHell.png" id="4_6srpw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hs6wh"]
+bg_color = Color(0.8509804, 0.34117648, 0.3882353, 1)
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
+border_color = Color(0.6745098, 0.19607843, 0.19607843, 1)
+
+[sub_resource type="Resource" id="Resource_l5jkk"]
+script = ExtResource("3_lvbej")
+parent_object_name = "StatsDisplay"
+metadata/_custom_type_script = "uid://dwj80yu0v1qdt"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rllpi"]
+bg_color = Color(0.6745098, 0.19607843, 0.19607843, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_hs6wh"]
+font_size = 64
+font_color = Color(0.9843137, 0.9490196, 0.21176471, 1)
+shadow_color = Color(0.8745098, 0.44313726, 0.14901961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3jh66"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.6745098, 0.19607843, 0.19607843, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rllpi"]
+font_size = 32
+
+[node name="PermanentShop" type="Control" node_paths=PackedStringArray("stats_display", "weapon_parent", "item_parent", "component_parent")]
+process_mode = 3
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 874.0
+offset_bottom = 500.0
+script = ExtResource("1_3m734")
+stats_display = NodePath("PanelContainer/VBoxContainer/Top/StatsDisplay")
+weapon_parent = NodePath("PanelContainer/VBoxContainer/Bottom/WeaponOptionParent")
+item_parent = NodePath("PanelContainer/VBoxContainer/Bottom/ItemOptionParent")
+component_parent = NodePath("PanelContainer/VBoxContainer/Bottom/ComponentOptionParent")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hs6wh")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Top" type="Control" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="StatsDisplay" parent="PanelContainer/VBoxContainer/Top" instance=ExtResource("2_d53uy")]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 157.0
+offset_bottom = 229.0
+stats = SubResource("Resource_l5jkk")
+button_color = Color(0.6745098, 0.19607843, 0.19607843, 1)
+button_text_color = Color(0.27058825, 0.15686275, 0.23529412, 1)
+text_color = Color(0.84313726, 0.48235294, 0.7294118, 1)
+only_show_changed = true
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/Top"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -108.0
+offset_top = -64.5
+offset_right = 128.42426
+offset_bottom = 101.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_6srpw")
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/Top"]
+custom_minimum_size = Vector2(110, 50)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -55.0
+offset_top = -15.0
+offset_right = 55.0
+offset_bottom = 25.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rllpi")
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/Top/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -31.0
+offset_right = 48.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Shop"
+label_settings = SubResource("LabelSettings_hs6wh")
+horizontal_alignment = 1
+
+[node name="OtherParent" type="VBoxContainer" parent="PanelContainer/VBoxContainer/Top"]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -130.0
+offset_bottom = 218.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="Rerolls" type="Control" parent="PanelContainer/VBoxContainer/Top/OtherParent"]
+custom_minimum_size = Vector2(100, 70)
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/Top/OtherParent/Rerolls"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_left = 34.0
+offset_top = 4.0
+offset_right = 84.0
+offset_bottom = 54.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_3jh66")
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/Top/OtherParent/Rerolls/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/Top/OtherParent/Rerolls"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 4.0
+offset_right = 128.0
+offset_bottom = 55.0
+text = "3"
+label_settings = SubResource("LabelSettings_rllpi")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Discount" type="Control" parent="PanelContainer/VBoxContainer/Top/OtherParent"]
+custom_minimum_size = Vector2(100, 70)
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/Top/OtherParent/Discount"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_left = 34.0
+offset_top = 4.0
+offset_right = 84.0
+offset_bottom = 54.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_3jh66")
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/Top/OtherParent/Discount/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/Top/OtherParent/Discount"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 4.0
+offset_right = 128.0
+offset_bottom = 55.0
+text = "3"
+label_settings = SubResource("LabelSettings_rllpi")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="More" type="Control" parent="PanelContainer/VBoxContainer/Top/OtherParent"]
+custom_minimum_size = Vector2(100, 70)
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/Top/OtherParent/More"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_left = 34.0
+offset_top = 4.0
+offset_right = 84.0
+offset_bottom = 54.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_3jh66")
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/Top/OtherParent/More/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/Top/OtherParent/More"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 4.0
+offset_right = 128.0
+offset_bottom = 55.0
+text = "3"
+label_settings = SubResource("LabelSettings_rllpi")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Bottom" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="WeaponOptionParent" type="VBoxContainer" parent="PanelContainer/VBoxContainer/Bottom"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="ComponentOptionParent" type="VBoxContainer" parent="PanelContainer/VBoxContainer/Bottom"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="ItemOptionParent" type="VBoxContainer" parent="PanelContainer/VBoxContainer/Bottom"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5

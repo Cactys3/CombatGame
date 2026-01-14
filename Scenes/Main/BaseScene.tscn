@@ -1,10 +1,11 @@
-[gd_scene load_steps=23 format=3 uid="uid://dc0hdlr7wq3lq"]
+[gd_scene load_steps=24 format=3 uid="uid://dc0hdlr7wq3lq"]
 
 [ext_resource type="Script" uid="uid://bb13nkhmcojis" path="res://Scenes/Instances/InstanceRoot.gd" id="1_eeah7"]
 [ext_resource type="PackedScene" uid="uid://dxv17gll2bx2l" path="res://Scenes/Instances/Hell/HellPuddle.tscn" id="2_qrryo"]
 [ext_resource type="Texture2D" uid="uid://ctekysqm3q8wt" path="res://Art/Weapons/PlayingCard/Projectile_PlayingCard.png" id="3_eeah7"]
 [ext_resource type="PackedScene" uid="uid://cytotq02c1x2a" path="res://Scenes/ProximityInteractables/proximity_shop.tscn" id="3_qq1a1"]
 [ext_resource type="PackedScene" uid="uid://le5tbb8urp88" path="res://Scenes/ProximityInteractables/proximity_forge.tscn" id="3_u5ql4"]
+[ext_resource type="PackedScene" uid="uid://lv3mxqogfmmp" path="res://Scenes/ProximityInteractables/proximity_permanent_shop.tscn" id="6_627tp"]
 [ext_resource type="PackedScene" uid="uid://cu6nvv3r8tgkl" path="res://Scenes/UI/NewInventory.tscn" id="8_qq1a1"]
 [ext_resource type="Script" uid="uid://q2s0hxfba110" path="res://Scripts/managers/GameManager.gd" id="9_u5ctk"]
 [ext_resource type="Script" uid="uid://illqvubum1r1" path="res://Scripts/managers/UIManager.gd" id="10_627tp"]
@@ -101,6 +102,9 @@ polygon = PackedVector2Array(20, 20, 0, 15, 0, -15, 20, -20)
 [node name="Sprite2D" type="Sprite2D" parent="Window640/Offset/EventParent/StaticBody2D/CollisionPolygon2D"]
 position = Vector2(10.444397, -2.670288e-05)
 texture = ExtResource("3_eeah7")
+
+[node name="ProximityPermanentShop" parent="Window640/Offset/EventParent" instance=ExtResource("6_627tp")]
+position = Vector2(105.66667, -4.3333335)
 
 [node name="EnemyParent" type="Node2D" parent="Window640/Offset"]
 

@@ -48,13 +48,13 @@ func _process(_delta: float) -> void:
 	var game_man: GameManager = GameManager.instance
 	
 	if Input.is_action_just_pressed("ability1"):
-		for i in 5:
-			GameManager.instance.ui_man.inventory.ui_add(ShopManager.make_itemUI(ShopManager.get_rand_equipment()))
+		pass
 	
 	if Input.is_action_just_pressed("ability2"):
 		pass
 	
-	if Input.is_action_just_pressed("ability3"):
+	if Input.is_action_just_pressed("ability3") && false:
+		
 		game_man.money += 10
 		game_man.ui_man.cheat_inventory.clear()
 		for index in ShopManager.item_list.size():

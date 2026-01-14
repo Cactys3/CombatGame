@@ -11,7 +11,6 @@ var choices: Array[ItemData]
 
 func setup(new_level: int):
 	pass ## TODO: Setup items based on level
-
 func _ready() -> void:
 	call_deferred("connect_signals")
 	for i in 3:
@@ -22,10 +21,8 @@ func _ready() -> void:
 				choices.append(ShopManager.get_attachment(ShopManager.get_random_unlocked_weapon_index()))
 			2:
 				choices.append(ShopManager.get_projectile(ShopManager.get_random_unlocked_weapon_index()))
-
 func connect_signals():
 	GameManager.instance.ui_man.delete_proximity.connect(toggle_shop)
-
 func _body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		shop = SHOP.instantiate()
@@ -37,13 +34,11 @@ func _body_entered(body: Node2D) -> void:
 		entered = true
 		GameManager.instance.ui_man.pause_proximity(true)
 		GameManager.instance.ui_man.tab_menu_parent.visible = true
-
 func toggle_shop():
 	if entered:
 		shop.queue_free()
 		entered = false
 		GameManager.instance.ui_man.pause_proximity(false)
-
 func activate_option(data: ItemData) -> bool:
 	if GameManager.instance.buy_item(data):
 		curr_choices += 1

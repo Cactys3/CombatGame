@@ -76,7 +76,7 @@ func pause_esc() -> bool:
 		elif paused_for_tab:
 			GameManager.instance.emit_signal("toggle_inventory")
 		elif paused_for_proximity:
-			GameManager.instance.emit_signal("toggle_inventory")
+			delete_proximity.emit()
 		else:
 			GameManager.instance.pause(false)
 			paused = paused_for_esc

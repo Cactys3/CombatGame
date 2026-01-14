@@ -44,8 +44,8 @@ func _exited(body: Node2D) -> void:
 	## If player enters proximity
 	if body.is_in_group("player") && entered:
 		entered = false
-		if confirmation:
-			confirmation.queue_free()
+	if confirmation:
+		confirmation.queue_free()
 func _entered(body: Node2D) -> void:
 	## If player enters proximity
 	if body.is_in_group("player") && !entered:

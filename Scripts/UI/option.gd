@@ -19,13 +19,16 @@ class_name Option
 @export var image: TextureRect
 @export var title: Label
 @export var rarity: Label
-@export var body: Label 
+@export var body: RichTextLabel 
 @export var price: Label
 var method: Callable
 var hover_method: Callable
 var data: ItemData
 
 func setup(new_data: ItemData, new_method: Callable, new_hover_method: Callable):
+	body.bbcode_enabled = true
+	body.scroll_active = true
+	body.clip_contents = true
 	data = new_data
 	method = new_method
 	hover_method = new_hover_method
