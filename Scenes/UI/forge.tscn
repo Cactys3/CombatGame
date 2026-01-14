@@ -17,7 +17,7 @@ bg_color = Color(0.8745098, 0.44313726, 0.14901961, 0.3647059)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_johy7"]
 
-[node name="Forge" type="Control" node_paths=PackedStringArray("handle_option", "attachment_option", "projectile_option", "stats_display")]
+[node name="Forge" type="Control" node_paths=PackedStringArray("forge_label", "handle_option", "attachment_option", "projectile_option", "stats_display")]
 texture_filter = 1
 custom_minimum_size = Vector2(500, 500)
 layout_mode = 3
@@ -28,6 +28,7 @@ offset_bottom = -0.120025635
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_w8kvo")
+forge_label = NodePath("PanelContainer/VBoxContainer/Top/ForgeLabel")
 handle_option = NodePath("PanelContainer/VBoxContainer/Bottom/OffsetBox/Items/HandleOption")
 attachment_option = NodePath("PanelContainer/VBoxContainer/Bottom/OffsetBox/Items/AttachmentOption")
 projectile_option = NodePath("PanelContainer/VBoxContainer/Bottom/OffsetBox/Items/ProjectileOption")

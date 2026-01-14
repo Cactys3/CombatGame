@@ -173,7 +173,7 @@ position = Vector2(960, 0)
 script = ExtResource("10_cwiy3")
 EnemyParent = NodePath("../../../Window640/Offset/EnemyParent")
 
-[node name="GameManager" type="Node2D" parent="Window1920/Offset" node_paths=PackedStringArray("ui_man", "shop_man", "xp_parent", "enemy_parent", "weapon_parent", "projectile_parent", "extra_stats_visual") groups=["gamemanager"]]
+[node name="GameManager" type="Node2D" parent="Window1920/Offset" node_paths=PackedStringArray("ui_man", "shop_man", "xp_parent", "enemy_parent", "weapon_parent", "projectile_parent") groups=["gamemanager"]]
 process_mode = 3
 position = Vector2(960, 0)
 scale = Vector2(1, 1.021002)
@@ -184,7 +184,6 @@ xp_parent = NodePath("../../../Window640/Offset/XP Parent")
 enemy_parent = NodePath("../../../Window640/Offset/EnemyParent")
 weapon_parent = NodePath("../../../Window640/Offset/WeaponParent")
 projectile_parent = NodePath("../../../Window640/Offset/ProjectileParent")
-extra_stats_visual = NodePath("")
 
 [node name="ShopManager" type="Node2D" parent="Window1920/Offset" groups=["shopmanager"]]
 position = Vector2(960, 0)

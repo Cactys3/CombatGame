@@ -26,6 +26,7 @@ var TILES: Array = []
 const FORGE = preload("uid://le5tbb8urp88")
 const LOOT_CHEST = preload("uid://cll8qcsho5mrw")
 const SHOP = preload("uid://cytotq02c1x2a")
+const STAT_SCROLL = preload("uid://bqo1xj4v5qth7")
 var events: Array[EventSpawn] # stores event objects of all spawnable events
 var enemies: Array[EnemySpawn] # stores enemies to spawn 
 var enemy_events: Array[EnemyEventSpawn]
@@ -296,6 +297,8 @@ func load_event(scene: PackedScene, chunk: Vector2):
 	var new_max := center + half
 	new_event.position = Vector2(randf_range(new_min.x, new_max.x), randf_range(new_min.y, new_max.y))
 	event_arr.append(new_event)
+	if new_event.has_method("setup"):
+		new_event.setup(level)
 func draw_new_visual():
 	chunk_rect.color = Color(0, 0, 0, 0)
 	chunk_rect = ColorRect.new()

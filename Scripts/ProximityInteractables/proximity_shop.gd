@@ -9,6 +9,9 @@ var max_choices: int = 3
 var curr_choices: int = 0
 var choices: Array[ItemData]
 
+func setup(new_level: int):
+	pass ## TODO: Setup items based on level
+
 func _ready() -> void:
 	call_deferred("connect_signals")
 	for i in 3:

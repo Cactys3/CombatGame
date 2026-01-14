@@ -64,7 +64,7 @@ var hp: float = 0:
 			ui_man.set_hp(str(value), hp / max_hp)
 		else:
 			ui_man.set_hp(str(value), 0)
-var level: float = 0: ## level
+var level: float = 1: ## level
 	set(value): #TODO: maybe send to instancemanager and make game harder by level
 		level = value
 		ui_man.set_level(str(int(value)))
@@ -134,7 +134,7 @@ func setup_deffered(starting_weapon: int):
 	player.player_stats.connect_changed_signal(player.stat_changed_method)
 	player.player_stats.add_stats(global_stats)
 	player.initialize_stats()
-	level = 0
+	level = 1
 	xp = 0
 	money = starting_money
 	get_tree().paused = false

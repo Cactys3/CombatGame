@@ -93,9 +93,11 @@ func pause_proximity(b: bool) -> bool:
 	paused = paused_for_proximity
 	GameManager.instance.pause(paused_for_proximity)
 	if paused_for_proximity:
-		if !tab_menu_parent.visible:
+		misc_parent.visible = true
+		if tab_menu_parent.visible:
 			GameManager.instance.toggle_inventory.emit()
 	else:
+		misc_parent.visible = false
 		delete_proximity.emit()
 		if tab_menu_parent.visible:
 			GameManager.instance.toggle_inventory.emit()

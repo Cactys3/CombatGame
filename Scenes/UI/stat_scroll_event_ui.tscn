@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqxl1c0t7c6ac"]
+
+[ext_resource type="Script" uid="uid://cjm2yg4cq7j06" path="res://Scripts/UI/stat_scroll_event_ui.gd" id="1_70qbo"]
+[ext_resource type="PackedScene" uid="uid://o387qlahldf" path="res://Scenes/UI/StatsDisplay/stats_visual.tscn" id="1_e1ndh"]
+[ext_resource type="Texture2D" uid="uid://du0vojvtkk8ud" path="res://Art/ProximityEvents/StatScroll/StatScroll.png" id="2_70qbo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kd7vd"]
+atlas = ExtResource("2_70qbo")
+region = Rect2(0, 0, 32, 32)
+
+[node name="StatScrollEventUI" type="Control" node_paths=PackedStringArray("label", "accept", "decline", "stats")]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_70qbo")
+label = NodePath("RichTextLabel")
+accept = NodePath("Accept")
+decline = NodePath("Decline")
+stats = NodePath("StatsDisplay")
+
+[node name="StatsDisplay" parent="." instance=ExtResource("1_e1ndh")]
+layout_mode = 0
+offset_right = 330.0
+offset_bottom = 1000.0
+button_color = Color(0.4, 0.22352941, 0.19215687, 1)
+text_color = Color(0.9254902, 0.7490196, 0.48235294, 1)
+only_show_changed = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 334.0
+offset_right = 665.0
+offset_bottom = 1000.0
+size_flags_horizontal = 3
+texture = SubResource("AtlasTexture_kd7vd")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Accept" type="Button" parent="."]
+layout_mode = 0
+offset_left = 400.0
+offset_top = 314.0
+offset_right = 520.0
+offset_bottom = 354.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text = "Accept"
+
+[node name="Decline" type="Button" parent="."]
+layout_mode = 0
+offset_left = 525.0
+offset_top = 314.0
+offset_right = 645.0
+offset_bottom = 354.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text = "Decline"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 411.0
+offset_top = 42.0
+offset_right = 657.0
+offset_bottom = 82.0
+text = "Do you wish to obtain this Stat Scroll?"
+fit_content = true
+scroll_active = false

@@ -11,7 +11,6 @@ func setup_individual(new_direction: Vector2, new_speed: float):
 	GameInstance.instance.enemies_alive += 1
 
 func die():
-	print("kill the mini klee")
 	super()
 
 func movement_process(_delta: float) ->void:

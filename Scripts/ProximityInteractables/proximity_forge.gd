@@ -5,6 +5,8 @@ const FORGE_INVENTORY = preload("uid://cwomrgi81thyq")
 var forge: Forge
 var entered: bool = false
 
+
+
 func _ready() -> void:
 	call_deferred("connect_signals")
 

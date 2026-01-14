@@ -1,6 +1,6 @@
 extends Control
 class_name Forge
-@onready var forge_label: Label = $PanelContainer/VBoxContainer/Top/ForgeLabel
+@export var forge_label: Label
 @export var handle_option: Option 
 @export var attachment_option: Option 
 @export var projectile_option: Option 
