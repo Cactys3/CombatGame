@@ -40,6 +40,9 @@ const GRAVITY_PROJECTILE = preload("uid://0ji1vavkew0v")
 const DAMAGE_BUFF = preload("uid://c0eepouojdno6")
 const ARROWS = preload("uid://difhyvvjuci4i")
 const RANDOM_STAT = preload("uid://r584yr4r6pbe")
+const FORGE = preload("uid://xn3lii5356op")
+
+
 ## Arrays
 const item_list: Array = [
 	DAMAGE_BUFF, 
@@ -92,6 +95,10 @@ const lightningwand_index: int = 7
 const minigun_index: int = 8
 const boomerrang_index: int = 9
 const gravity_index: int = 10
+## Item Indexes
+const damagebuff_index: int = 0
+const arrows_index: int = 1
+const forge_index: int = 2
 ## Returns Random Attachment
 static func get_rand_attachment() -> ItemData:
 	return setup_data(attachment_list.get(get_random_unlocked_weapon_index()).duplicate())
@@ -162,6 +169,9 @@ static func get_item(num: int) -> ItemData:
 		return setup_data(item_list.get(num).duplicate())
 	else:
 		return setup_data(DAMAGE_BUFF.duplicate())
+## returns forge
+static func get_forge() -> ItemData:
+	return setup_data(FORGE.duplicate())
 ## Sets ItemData up to be used
 static func setup_data(item: ItemData) -> ItemData:
 	var data = item.duplicate()

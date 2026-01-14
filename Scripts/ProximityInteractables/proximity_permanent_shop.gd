@@ -32,6 +32,8 @@ func setup():
 	choices.append(ShopManager.get_item(ShopManager.get_random_unlocked_item_index()))
 	choices.append(ShopManager.get_item(ShopManager.get_random_unlocked_item_index()))
 	choices.append(ShopManager.get_item(ShopManager.get_random_unlocked_item_index()))
+	## Forge
+	choices.append(ShopManager.get_forge())
 func _process(delta: float) -> void:
 	if entered && !showing_shop && Input.is_action_just_released("Accept"):
 		create_shop()

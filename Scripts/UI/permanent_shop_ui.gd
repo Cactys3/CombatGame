@@ -4,6 +4,7 @@ const SHOP_OPTION = preload("uid://b7qlnftpauy23")
 @export var weapon_parent: VBoxContainer
 @export var item_parent: VBoxContainer
 @export var component_parent: VBoxContainer
+@export var forge_parent: Control
 var method: Callable
 func setup(new_method: Callable):
 	method = new_method
@@ -15,7 +16,12 @@ func add_option(data: ItemData):
 	elif data.item_type == ItemData.item_types.weapon:
 		weapon_parent.add_child(option)
 	elif data.item_type == ItemData.item_types.item:
-		item_parent.add_child(option)
+		if data.get_item().is_forge():
+			forge_parent.add_child(option)
+			## Make Free
+			data.item_buy_cost = 0
+		else:
+			item_parent.add_child(option)
 	else:
 		printerr("adding wrong thing to permanent shop")
 		return
