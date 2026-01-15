@@ -6,7 +6,9 @@ const LEVEL_UP_ITEM = preload("uid://d3vs4t8t4nfr7")
 var choice: LevelUpData
 signal choice_made()
 var showing_stats = null
-
+var pause: UIManager.PauseItem
+func set_pause(new_pause):
+	pause = new_pause
 ## Add new choice option to UI
 func add_choice(data: LevelUpData):
 	var new_choice = LEVEL_UP_ITEM.instantiate()
@@ -45,4 +47,6 @@ func hover_choice(data: LevelUpData):
 func free_instance():
 	for connection in choice_made.get_connections():
 		disconnect("choice_made", connection)
+	
+	GameInstance.instance.ui_man.unpause(pause)
 	queue_free()

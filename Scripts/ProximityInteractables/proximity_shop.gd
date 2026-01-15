@@ -9,10 +9,11 @@ var max_choices: int = 3
 var curr_choices: int = 0
 var choices: Array[ItemData]
 
+var pause: UIManager.PauseItem = null
+
 func setup(new_level: int):
 	pass ## TODO: Setup items based on level
 func _ready() -> void:
-	call_deferred("connect_signals")
 	for i in 3:
 		match(randi_range(0, 2)):
 			0:
@@ -21,8 +22,6 @@ func _ready() -> void:
 				choices.append(ShopManager.get_attachment(ShopManager.get_random_unlocked_weapon_index()))
 			2:
 				choices.append(ShopManager.get_projectile(ShopManager.get_random_unlocked_weapon_index()))
-func connect_signals():
-	GameManager.instance.ui_man.delete_proximity.connect(toggle_shop)
 func _body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		shop = SHOP.instantiate()
@@ -32,20 +31,20 @@ func _body_entered(body: Node2D) -> void:
 		for choice in choices:
 			shop.add_option(choice)
 		entered = true
-		GameManager.instance.ui_man.pause_proximity(true)
-		GameManager.instance.ui_man.tab_menu_parent.visible = true
+		var ui_man = GameManager.instance.ui_man
+		pause = UIManager.PauseItem.new(toggle_shop, UIManager.PauseItem.PauseTypes.ui, true, true, ui_man.misc_parent)
+		ui_man.pause(pause)
 func toggle_shop():
-	if entered:
+	if shop:
 		shop.queue_free()
-		entered = false
-		GameManager.instance.ui_man.pause_proximity(false)
+	entered = false
 func activate_option(data: ItemData) -> bool:
 	if GameManager.instance.buy_item(data):
 		curr_choices += 1
 		choices.erase(data)
 		GameManager.instance.ui_man.inventory.backend_add(ShopManager.make_itemUI(data))
 		if max_choices <= curr_choices:
-			GameManager.instance.ui_man.pause_proximity(false)
+			GameManager.instance.ui_man.unpause(pause)
 			shop.queue_free()
 			queue_free()
 		return true

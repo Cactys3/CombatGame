@@ -53,7 +53,7 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ability2"):
 		pass
 	
-	if Input.is_action_just_pressed("ability3") && false:
+	if Input.is_action_just_pressed("ability3"):
 		
 		game_man.money += 10
 		game_man.ui_man.cheat_inventory.clear()

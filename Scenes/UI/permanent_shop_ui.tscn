@@ -68,7 +68,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="StatsDisplay" parent="PanelContainer/VBoxContainer/Top" instance=ExtResource("2_d53uy")]
-custom_minimum_size = Vector2(271, 0)
+custom_minimum_size = Vector2(271, 225)
 layout_mode = 1
 offset_right = 271.0
 offset_bottom = 225.0

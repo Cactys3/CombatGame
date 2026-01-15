@@ -19,6 +19,8 @@ var ui: Control
 var confirmation: Control
 var price: float = 1000000000
 
+var pause: UIManager.PauseItem = null
+
 func setup_weapon(new_title: String, a: ItemData, h: ItemData, proj: ItemData, weaponframe: ItemData):
 	attachment = a
 	handle = h
@@ -99,15 +101,21 @@ func activate_weapon():
 	ui.set_images(handle.item_image, attachment.item_image, projectile.item_image, frame.item_image)
 	ui.set_stats(frame.stats)
 	var weapon: ItemUI = ShopManager.make_itemUI(frame)
+	ui.button_pressed.connect(unpause)
 	ui.button_pressed.connect(die)
 	ui.start()
 	## try to move weapon to equipment, backup add it to inventory (equipment full)
 	if !GameManager.instance.move_item(weapon, null, GameManager.instance.ui_man.equipment):
 		GameManager.instance.ui_man.inventory.backend_add(weapon)
-	GameManager.instance.ui_man.pause_misc(true)
+	var ui_man = GameManager.instance.ui_man
+	pause = UIManager.PauseItem.new(die, UIManager.PauseItem.PauseTypes.ui, false, false, ui_man.misc_parent)
+	ui_man.pause(pause)
+
+func unpause():
+	GameManager.instance.ui_man.unpause(pause)
+
 
 func die():
 	ui.queue_free()
 	entered = false
-	GameManager.instance.ui_man.pause_misc(false)
 	queue_free()

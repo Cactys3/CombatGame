@@ -96,10 +96,10 @@ var money: float = 0: ## Current Money Held
 		ui_man.set_money(money)
 ## TODO: Heiarchy of pausable menus that overwrite each other. EX: if esc menu is active, everything else is paused, even if level up screen is happening, it is paused
 var paused: bool = false ## Is Game Instance Paused or Not
-var paused_for_esc: bool = false
-var paused_for_tab: bool = false
-var paused_for_level_up: bool = false
-var paused_for_shop: bool = false
+#var paused_for_esc: bool = false
+#var paused_for_tab: bool = false
+#var paused_for_level_up: bool = false
+#var paused_for_shop: bool = false
 var level_up_queue: int = 0
 var leveling_up: bool = false
 ## Signals
@@ -260,13 +260,15 @@ func create_level_up_instance():
 		level_up_queue += 1
 		return
 	leveling_up = true
-	ui_man.pause_level_up()
+	var level_pause: UIManager.PauseItem = UIManager.PauseItem.new(Callable(), UIManager.PauseItem.PauseTypes.ui, false, false, ui_man.level_up_parent)
+	ui_man.pause(level_pause)
 	## get 3 random things w/ variable references
 	var one = LevelUpData.get_random_level_up_option()
 	var two = LevelUpData.get_random_level_up_option()
 	var three = LevelUpData.get_random_level_up_option()
 	## setup LevelUpInstance with those random things and their details (color, name, etc)
 	var level_instance = LEVEL_UP_UI.instantiate()
+	level_instance.set_pause(level_pause)
 	#level_instance.position = Vector2(0, 0)
 	ui_man.level_up_parent.add_child(level_instance)
 	level_instance.add_choice(one)
@@ -275,7 +277,6 @@ func create_level_up_instance():
 	var choice: LevelUpData = await level_instance.get_choice()
 	choice.carryout_level_up()
 	level_instance.free_instance()
-	ui_man.pause_level_up()
 	level_up_queue -= 1
 	leveling_up = false
 ## Makes Item's Stats affect Global Stats

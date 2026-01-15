@@ -24,14 +24,17 @@ func done():
 		queue_free()
 func stat_scroll_function():
 	var ui: Control = STAT_SCROLL_EVENT_UI.instantiate()
-	GameManager.instance.ui_man.misc_parent.add_child(ui)
-	GameManager.instance.ui_man.pause_proximity(true)
+	var ui_man = GameManager.instance.ui_man
+	ui_man.misc_parent.add_child(ui)
+	var pause: UIManager.PauseItem
+	pause = UIManager.PauseItem.new(Callable(), UIManager.PauseItem.PauseTypes.ui, false, false, ui_man.misc_parent)
+	ui_man.pause(pause)
 	ui.global_position = Vector2(500, 100)
 	ui.setup(stats)
-	print("pause")
 	await ui.decision_made
-	print("unpause")
-	GameManager.instance.ui_man.pause_proximity(false)
+	## TODO: Unpause, can this cause issues? what if something else is higher priority, we would just unpause that instead of the scroll pause..
+	ui_man.unpause(pause)
 	if ui.decision:
-		print("adeed stats")
 		GameManager.instance.global_stats.add_stats(stats)
+func delete_scroll():
+	pass

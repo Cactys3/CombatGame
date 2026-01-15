@@ -5,29 +5,27 @@ const FORGE_INVENTORY = preload("uid://cwomrgi81thyq")
 var forge: Forge
 var entered: bool = false
 
-
-
-func _ready() -> void:
-	call_deferred("connect_signals")
-
-func connect_signals():
-	GameManager.instance.ui_man.delete_proximity.connect(toggle_forge)
+var pause: UIManager.PauseItem
 
 func _body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		forge = FORGE.instantiate()
 		forge.die.connect(toggle_forge)
 		forge.die.connect(queue_free)
+		forge.die.connect(unpause)
 		GameManager.instance.ui_man.misc_parent.add_child(forge)
 		forge.position = Vector2(1389.0, 289.0)
 		forge.clear()
-		GameManager.instance.ui_man.pause_proximity(true)
-		GameManager.instance.ui_man.tab_menu_parent.visible = true
+		var ui_man = GameManager.instance.ui_man
+		pause = UIManager.PauseItem.new(toggle_forge, UIManager.PauseItem.PauseTypes.ui, true, true, ui_man.misc_parent)
+		ui_man.pause(pause)
 		entered = true
 
+func unpause():
+	GameManager.instance.ui_man.unpause(pause)
+
 func toggle_forge():
-	if entered:
+	if forge:
 		forge.clear()
 		forge.queue_free()
-		entered = false
-		GameManager.instance.ui_man.pause_proximity(false)
+	entered = false

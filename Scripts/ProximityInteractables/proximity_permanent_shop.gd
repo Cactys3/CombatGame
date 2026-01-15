@@ -2,10 +2,10 @@ extends Node2D
 const SHOP = preload("uid://chasb2r7dpbfx")
 const POPUP_TEXT = preload("uid://brldrnbhcexcm")
 
+var pause: UIManager.PauseItem
+
 var shop
 var entered: bool = false
-var max_choices: int = 3
-var curr_choices: int = 0
 var choices: Array[ItemData]
 var confirmation: Control
 var showing_shop: bool = false
@@ -54,15 +54,9 @@ func _body_exited(body: Node2D) -> void:
 	if confirmation:
 		confirmation.queue_free()
 func activate_option(data: ItemData) -> bool:
-	print("activate option")
 	if GameManager.instance.buy_item(data):
-		curr_choices += 1
 		choices.erase(data)
 		GameManager.instance.ui_man.inventory.backend_add(ShopManager.make_itemUI(data))
-		if max_choices <= curr_choices:
-			GameManager.instance.ui_man.pause_proximity(false)
-			shop.queue_free()
-			queue_free()
 		return true
 	return false
 func create_shop():
@@ -75,7 +69,8 @@ func create_shop():
 	shop.setup(activate_option)
 	for choice in choices:
 		shop.add_option(choice)
-	GameManager.instance.ui_man.pause_proximity(true)
+	var ui = GameManager.instance.ui_man
+	ui.pause(UIManager.PauseItem.new(delete_shop, UIManager.PauseItem.PauseTypes.ui, true, false, ui.misc_parent))
 func delete_shop():
 	showing_shop = false
 	if shop:

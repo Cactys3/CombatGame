@@ -12,6 +12,8 @@ var setup_done: bool = false
 var ui: Control
 var entered: bool = false
 
+var pause: UIManager.PauseItem = null
+
 func setup(new_title: String, a: ItemData, h: ItemData, proj: ItemData, weaponframe: ItemData):
 	attachment = a
 	handle = h
@@ -26,6 +28,7 @@ func _body_entered(body: Node2D) -> void:
 		## Setup Chest UI
 		ui = LOOT_CHEST_UI.instantiate()
 		ui.button_pressed.connect(toggle_ui)
+		ui.button_pressed.connect(unpause)
 		GameManager.instance.ui_man.misc_parent.add_child(ui)
 		ui.position = Vector2(-800, -400)
 		ui.set_text(title, handle.item_name, attachment.item_name, projectile.item_name)
@@ -36,12 +39,17 @@ func _body_entered(body: Node2D) -> void:
 		## try to move weapon to equipment, backup add it to inventory (equipment full)
 		if !GameManager.instance.move_item(weapon, null, GameManager.instance.ui_man.equipment):
 			GameManager.instance.ui_man.inventory.backend_add(weapon)
-		GameManager.instance.ui_man.pause_misc(true)
+		
+		var ui_man = GameManager.instance.ui_man
+		pause = UIManager.PauseItem.new(toggle_ui, UIManager.PauseItem.PauseTypes.ui, false, false, ui_man.misc_parent)
+		ui_man.pause(pause)
 		entered = true
+
+func unpause():
+	GameManager.instance.ui_man.unpause(pause)
 
 func toggle_ui():
 	if entered:
 		ui.queue_free()
 		entered = false
-		GameManager.instance.ui_man.pause_misc(false)
 		queue_free()
