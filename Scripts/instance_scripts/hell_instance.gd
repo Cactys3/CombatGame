@@ -70,7 +70,7 @@ func generic_phase_setup(phase_num: int):
 func phase_one():
 	#print("PHASE 1 - Easy Start")
 	generic_phase_setup(1)
-	enemies.append(EnemySpawn.new("KLE", KLE, 0.2, 3))
+	enemies.append(EnemySpawn.new("KLE", KLE, 0.2, 6))
 	enemy_events.append(EnemyEventSpawn.new("KLE_CLUSTER", KLE_CLUSTER, 0.1, false, 1))
 func phase_two():
 	#print("PHASE 2 - Introduce Big Guy")

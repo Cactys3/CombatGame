@@ -1,30 +1,23 @@
 extends Area2D
 class_name Weapon_Frame
-
 const SCENE = preload("res://Scenes/Weapons/weapon_frame.tscn")
-
 #weapon_frame fields
 @onready var player: Character = get_tree().get_first_node_in_group("player")
 #components
 @export var handle: Handle = null
 @export var attachment: Attachment = null
 @export var projectile: Projectile
-
 @onready var manager = get_tree().get_first_node_in_group("weapon_manager")
-
 @export var stats: StatsResource
-
 var data: ItemData
-
 var QueuedAttacks: Array[AttackEvent] = [] #TODO: not used, to create attack need to use stats which defeats point of queue
-
 func _process(_delta: float) -> void:
 	if !QueuedAttacks.is_empty():
 		for event in QueuedAttacks:
 			QueuedAttacks.erase(event)
 			if is_instance_valid(event.attackee) && is_instance_valid(event.attacker):
 				event.attacker.attack_body(event.attackee, event.clone)
-
+## Returns nearest enemy or null
 func get_nearest_enemy() -> Variant:
 	var nearest_enemy = null
 	for enemy in get_tree().get_nodes_in_group("enemy"):
@@ -33,7 +26,6 @@ func get_nearest_enemy() -> Variant:
 		elif global_position.distance_to(enemy.global_position) < global_position.distance_to(nearest_enemy.global_position):
 			nearest_enemy = enemy
 	return nearest_enemy
-
 func get_enemy_nearby(distance: float) -> Variant:
 	var nearest_enemy = null
 	for enemy in get_tree().get_nodes_in_group("enemy"):
@@ -50,12 +42,10 @@ func get_enemies_nearby(distance: float) -> Array[Enemy]:
 		if global_position.distance_to(enemy.global_position) <= (distance * scale.length()):
 			enemies.append(enemy)
 	return enemies
-
+## Sets the weapon's slot in reference to all weapons charcater has, used for calculating position
 func change_slot(slot: int, _max: int) -> void:#Called when Weapon is created #TODO: does the weapon only need slot number to start?
 	handle.weapon_slot = slot
 	handle.weapon_count = _max #TODO: Only Static Slot (cardinal direction) weapons should add to this thing
-
-#new methods
 func add_handle(handy: Handle) -> bool:
 	if (handle != null):
 		push_error("Handle was not null when trying to add_handle")
@@ -73,7 +63,6 @@ func add_handle(handy: Handle) -> bool:
 		apply_stats()
 		set_variables()
 		return true
-
 func add_attachment(attachy: Attachment) -> bool:
 	if (attachment != null):
 		push_error("Handle was not null when trying to add_handle")
@@ -91,7 +80,6 @@ func add_attachment(attachy: Attachment) -> bool:
 		apply_stats()
 		set_variables()
 		return true
-
 func add_projectile(projecty: Projectile) -> bool:
 	#print(projecty.name)
 	if (projectile != null):
@@ -103,7 +91,6 @@ func add_projectile(projecty: Projectile) -> bool:
 		apply_stats()
 		set_variables()
 		return true
-
 func remove_attachment() -> Attachment:
 	if (attachment == null):
 		#print("Handle was null when trying to remove_handle")
@@ -120,7 +107,6 @@ func remove_attachment() -> Attachment:
 		var temp:Attachment = attachment
 		attachment = null
 		return temp
-
 func remove_handle() -> Handle:
 	if (handle == null):
 		#print("Handle was null when trying to remove_handle")
@@ -136,7 +122,6 @@ func remove_handle() -> Handle:
 		var temp:Handle = handle
 		handle = null
 		return temp
-
 func remove_projectile() -> Projectile:
 	if (projectile == null):
 		#print("Projectile was null when trying to remove_projectile")
@@ -165,7 +150,6 @@ func apply_stats() -> void:
 		handle.scale = scale
 	if attachment != null:
 		attachment.scale = scale
-
 func get_stat(string: String) -> float:#Return stat value given stat const name
 	return stats.get_stat(string)
 
@@ -177,7 +161,6 @@ class AttackEvent:
 		clone = is_clone
 		attackee = new_attackee
 		attacker = new_attacker
-
 
 ## Sets up a RightClickMenu for this component
 func setup_right_click_menu(menu: RightClickMenu):

@@ -114,7 +114,13 @@ func connect_signals():
 ## Adds all events for this map to events - Override
 func setup_events(): 
 	pass
+var timer: float = 0
 func _process(delta: float) -> void:
+	timer += delta
+	if timer > 1:
+		timer = 0
+		#print("Enemies kiol: " + str(enemies_killed))
+		#print("Enemies Alive: " + str(enemies_alive))
 	if !instance:
 		instance = self
 	var pos = character.position #game_man.player.position
@@ -243,6 +249,7 @@ func despawn_enemies(pos: Vector2, num: int):
 			remove_enemy(enemy)
 ## Removes enemy from game without triggering death things like gain xp/money
 func remove_enemy(enemy: Enemy):
+	print("enemy too far away, -1")
 	enemy.queue_free()
 	enemies_alive -= 1
 	enemies_spawned -= 1

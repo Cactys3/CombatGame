@@ -15,18 +15,21 @@ var range_offset = 10
 var base_range = 30
 var speed: float = 1
 var attacked_objects: Array[Node2D]
-
+var default_melee_damage_offset: float 
 func get_scene() -> PackedScene:
 	return preload("res://Scenes/Weapons/sword/sword_attachment.tscn")
 
 func _ready() -> void:
 	super()
+	default_melee_damage_offset = MeleeDamageFactor
 
 func _process(delta: float) -> void:
 	process_cooldown(delta)
 
 func attack() -> void:
 	attacked_objects = [] #empty attacked_objects list
+	## Have 100% melee damage WHILE thrusting
+	MeleeDamageFactor = 1
 	melee_hitbox.disabled = true #hit things again without having to leave their hitbox
 	melee_hitbox.disabled = false
 	
@@ -44,6 +47,7 @@ func attack() -> void:
 	
 	await get_tree().create_timer(max_range_timeIndex).timeout #wait until at max reach to fire projectile
 	super()
+	MeleeDamageFactor = default_melee_damage_offset
 
 #how should attachment extenders work?
 #Create methods for ProcessCooldown(delta) and Attack() that extenders override.

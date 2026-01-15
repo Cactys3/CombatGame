@@ -37,7 +37,7 @@ func setup(new_text: String, new_fontsize: float, new_position: Vector2, new_lif
 	curr_text = "[shake rate=20.0 level=5 connected=1]" + curr_text + "[/shake]"
 	modulate = Color(randf(), randf(), randf())
 	fontsize = round(new_fontsize / 4) * 4 ## Keep it a multiple of 4
-	if fontsize < 4:
+	if fontsize < 16:
 		fontsize = 16
 	lifetime = new_lifetime
 	if max_offsets != Vector2.ZERO:
@@ -46,6 +46,7 @@ func setup(new_text: String, new_fontsize: float, new_position: Vector2, new_lif
 		new_position +=  Vector2(x, y)
 	add_theme_font_size_override("normal_font_size", fontsize)
 	text = curr_text
+	print(new_text + " Size: " + str(fontsize))
 	alpha = 0.9
 	call_deferred("set", "global_position", new_position - Vector2(get_content_width(), get_content_height()) / 2) #offset so it's centered text (idk why this best solution)
 

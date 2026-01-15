@@ -87,7 +87,7 @@ func ProcessAlwaysAtMouse(delta: float) -> void:
 		else:
 			temp_slot_variable = (weapon_slot + 2) / 2
 	var slot_offset_value = alternating_sign * ((TAU / 30) * ((temp_slot_variable - 1)))
-	frame.global_position = GetOrbitPosition((get_global_mouse_position() - player.global_position).normalized().angle() + slot_offset_value)
+	frame.global_position = GetOrbitPositionAtMouse((get_global_mouse_position() - player.global_position).normalized().angle() + slot_offset_value)
 	#Rotate Towards Object
 	var nearest_enemy: Node2D = frame.get_enemy_nearby(frame.get_stat(stats.RANGE))
 	if nearest_enemy != null:
@@ -129,6 +129,10 @@ func RotateTowardsPosition(new_position: Vector2, _delta: float) -> void:
 ## Calculates the orbit position for a weapon at given target_angle
 func GetOrbitPosition(target_angle: float) -> Vector2:
 	return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * orbit_distance# * (frame.get_stat(StatsResource.SIZE)) #TODO: implement scale better with offset
+func GetOrbitPositionAtMouse(target_angle: float) -> Vector2:
+	if player.global_position.distance_to(get_global_mouse_position()) < orbit_distance:
+		return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * (player.global_position.distance_to(get_global_mouse_position()) - 1)
+	return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * orbit_distance
 ## Returns if weapon is pointing towards the given enemy
 func IsAimingAtEnemy(enemy: Node2D) -> bool:
 	if enemy != null:
@@ -146,7 +150,6 @@ func IsAimingAtAnyEnemy() -> bool:
 	if false: #TODO: setup with raycasts
 		return true
 	return false
-
 ## ItemData methods:
 func set_stats() -> void:
 	stats.connect_changed_signal(apply_stats)
