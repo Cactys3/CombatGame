@@ -46,7 +46,6 @@ func setup(new_text: String, new_fontsize: float, new_position: Vector2, new_lif
 		new_position +=  Vector2(x, y)
 	add_theme_font_size_override("normal_font_size", fontsize)
 	text = curr_text
-	print(new_text + " Size: " + str(fontsize))
 	alpha = 0.9
 	call_deferred("set", "global_position", new_position - Vector2(get_content_width(), get_content_height()) / 2) #offset so it's centered text (idk why this best solution)
 

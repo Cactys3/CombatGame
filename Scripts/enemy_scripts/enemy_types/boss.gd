@@ -20,6 +20,9 @@ func die():
 	unlock_weapon()
 	super()
 
+func death_signal(attack: Attack):
+	GameManager.instance.BossKilled.emit(self, attack)
+
 func drop_loot():
 	#print("SPAWNING CHEST")
 	var loot: Loot = PROXIMITY_LOOT_CHEST.instantiate()
@@ -46,9 +49,6 @@ func drop_loot():
 	GameManager.instance.enemy_parent.add_child(loot)
 	loot.position = position
 	loot.visible = true
-
-func death_signal():
-	GameManager.instance.BossKilled.emit()
 
 func unlock_weapon():
 	if unlocks_weapon_id != -1:

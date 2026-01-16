@@ -48,7 +48,7 @@ func create_projectiles():
 	## Create the first bullet by default
 	## Randomize Direction Based on inaccuracy
 	var inaccuracy: float =  stats.get_stat(StatsResource.INACCURACY) 
-	var direction = Vector2(cos(frame.rotation), sin(frame.rotation)).rotated(deg_to_rad(randf_range(-inaccuracy, inaccuracy)))
+	var direction = get_inaccurate_direction(Vector2(cos(frame.rotation), sin(frame.rotation)), inaccuracy)
 	var proj: Projectile = init_projectile(global_position, direction)
 	## Create any extra bullets using @export values to offset them by angle and position
 	var proj_offset: int = 0
@@ -58,7 +58,13 @@ func create_projectiles():
 				proj_offset += 1
 			MultipleProjectileOffset *= -1
 			MultipleProjectileAngleOffset *= -1
-			init_projectile(global_position + Vector2(-sin(frame.rotation), cos(frame.rotation)).normalized() * MultipleProjectileOffset * (proj_offset), Vector2(cos(frame.rotation), sin(frame.rotation)))
+			## Get Attachment Position (default projectile position)
+			var projectile_position: Vector2 = global_position
+			## Offset it by position + [1 unit to the Left of default position] * [Positive offset to keep it left, negative to make it right] * [magnitude offset]
+			projectile_position += (Vector2(-sin(frame.rotation), cos(frame.rotation)) * MultipleProjectileOffset * proj_offset)
+			## Get Direction offset by inaccuracy
+			var projectile_direction: Vector2 = get_inaccurate_direction(Vector2(cos(frame.rotation), sin(frame.rotation)), inaccuracy)
+			init_projectile(projectile_position, projectile_direction)
 ## Initializes and returns one projectile in the style of this attachment
 func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectile:
 	if projectile == null || !is_instance_valid(projectile):
@@ -84,13 +90,15 @@ func get_cooldown() -> float:
 	return attacksperX / max(0.1, frame.get_stat(StatsResource.ATTACKSPEED)) ## TODO: Stat: Attackspeed 
 ## Send altered values because it's a melee hitbox
 func make_attack() -> Attack:
-	var new_attack: Attack = Attack.new()
 	var knockback: float = frame.stats.get_stat(StatsResource.WEIGHT) * frame.stats.get_stat(StatsResource.DAMAGE) ## TODO: Stat: knockback
-	var damage: float = frame.stats.get_stat(StatsResource.DAMAGE) * MeleeDamageFactor ## TODO: Stat: damage
-	new_attack.setup(damage, frame.player.global_position, frame.stats.get_stat(StatsResource.BUILDUP), StatusEffectDictionary.new(), self, 0, 0, knockback)
+	## MeleeDamageFactor goes inside crit calculation
+	var damage: float = StatsResource.calculate_damage(frame.stats.get_stat(StatsResource.DAMAGE) * MeleeDamageFactor, stats.get_stat(StatsResource.CRITCHANCE), stats.get_stat(StatsResource.CRITDAMAGE)) ## TODO: Stat: damage, critchance, critdamage
+	var new_attack: Attack = Attack.new(damage, frame.player.global_position, frame.stats.get_stat(StatsResource.BUILDUP), StatusEffectDictionary.new(), self, 0, 0, knockback)
 	 #TODO: determine how to calculate knockback
 	return new_attack
 
+func get_inaccurate_direction(direction: Vector2, inaccuracy: float) -> Vector2:
+	return direction.rotated(deg_to_rad(randf_range(-inaccuracy / 3, inaccuracy / 3)))
 ## ItemData methods:
 func set_stats() -> void:
 	stats.connect_changed_signal(apply_stats)

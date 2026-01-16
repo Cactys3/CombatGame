@@ -25,7 +25,7 @@ var knockback: float
 ## Maybe they can just get from game manager?
 #var attacker_stats: StatsResource
 
-func setup(dmg: float, pos: Vector2, buildupStat: float, attacker_status: StatusEffectDictionary, attackerNode: Node2D, stunValue: float, slowValue: float, knockbackValue: float):
+func _init(dmg: float, pos: Vector2, buildupStat: float, attacker_status: StatusEffectDictionary, attackerNode: Node2D, stunValue: float, slowValue: float, knockbackValue: float):
 	damage = dmg
 	position = pos
 	buildup = buildupStat

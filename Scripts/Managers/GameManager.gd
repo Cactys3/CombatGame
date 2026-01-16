@@ -43,6 +43,13 @@ var xp_gained_since_last_level: float = 0
 var xp_modifier_per_level: float = 1.1
 var xp_from_past_levels: float = 0
 var starting_money: float = 15
+var xp_gain_modifier: float:
+	get():
+		print(max(0.1, 1 + (player.xp_gain - 1) / 100))
+		return max(0.1, 1 + (player.xp_gain - 1) / 100)
+var money_gain_modifier: float:
+	get():
+		return max(0.1, 1 + (player.money_gain - 1) / 100)
 
 var max_hp: float:
 	get():
@@ -74,7 +81,7 @@ var xp: float = 0: ## Current (total?) XP Gained
 	set(value):
 		var xp_just_added: float = 0
 		if (value > xp): ## Factor in xp_gain only when adding xp, not subtracting xp
-			xp_just_added = (value - xp) * player.xp_gain
+			xp_just_added = (value - xp) * xp_gain_modifier
 		else:
 			xp_just_added = (value - xp) 
 		xp_gained_since_last_level += (xp_just_added)
@@ -90,23 +97,20 @@ var xp: float = 0: ## Current (total?) XP Gained
 var money: float = 0: ## Current Money Held
 	set(value):
 		if value > money: ## Factor in money_gain when adding money
-			money = money + (value - money) * (player.money_gain + 1)
+			print("new money: " + str((value - money)) + " * " + str(money_gain_modifier))
+			money = money + (value - money) * money_gain_modifier
 		else:
 			money = value
 		ui_man.set_money(money)
-## TODO: Heiarchy of pausable menus that overwrite each other. EX: if esc menu is active, everything else is paused, even if level up screen is happening, it is paused
+
 var paused: bool = false ## Is Game Instance Paused or Not
-#var paused_for_esc: bool = false
-#var paused_for_tab: bool = false
-#var paused_for_level_up: bool = false
-#var paused_for_shop: bool = false
 var level_up_queue: int = 0
 var leveling_up: bool = false
 ## Signals
-# For GameManager Systems
+## For GameManager Systems
 signal pause_game(value: bool)
 signal level_up()
-# For UI Methods
+## For UI Methods
 signal toggle_inventory() #TODO: add bool value to keep track of toggle state?
 signal toggle_esc()
 signal set_xp(value: float)
@@ -114,7 +118,7 @@ signal set_money(value: float)
 signal set_level(value: float)
 signal set_hp(value: float)
 signal add_item_to_player_inventory(item: Item)
-# For Item Mechanics
+## For Item Mechanics
 signal EnemyDamaged(enemy: Enemy, attack: Attack)
 signal EnemyKilled(enemy: Enemy, attack: Attack)
 signal BossKilled(boss: Boss, attack: Attack)
@@ -128,7 +132,8 @@ func setup(new_player: Character, starting_weapon: int, new_global_stats: StatsR
 	connect("level_up", create_level_up_instance)
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	global_stats = new_global_stats
-
+	EnemyKilled.connect(enemy_killed)
+	PlayerDamaged.connect(player_damaged)
 func setup_deffered(starting_weapon: int):
 	player.player_stats.setup(player.character_name)
 	player.player_stats.connect_changed_signal(player.stat_changed_method)
@@ -168,7 +173,6 @@ func _process(_delta: float) -> void:
 		node.position = node.position + Vector2(0, -110)
 	if !leveling_up && level_up_queue > 0:
 		create_level_up_instance()
-
 func pause(value: bool):
 	if paused != value:
 		paused = value
@@ -179,7 +183,6 @@ func pause(value: bool):
 		else:
 			#Engine.time_scale = 0.0
 			get_tree().paused = false
-
 ## Handles Money Part of Selling item (maybe supposed to expand this)
 func sell_item(item: ItemData) -> bool:
 	if (item && item.can_sell):
@@ -289,7 +292,13 @@ func remove_stats_item(item: Item, stats: StatsResource):
 	items_affecting_stats.erase(item)
 func add_xp(added_xp: float):
 	xp += added_xp
-
+## Signal Connections
+func enemy_killed(enemy: Enemy, attack: Attack):
+	if player.lifesteal > 0 && hp < max_hp:
+		hp += player.lifesteal
+func player_damaged(playah: Character, attack: Attack):
+	if attack.attacker != null && player.thorns > 0 && attack.attacker.has_method("damage"):
+		attack.attacker.damage(Attack.new(player.thorns, player.position, 0, null, null, 0, 0, 0))
 func get_forge() -> ItemUI:
 	for item: ItemUI in ui_man.inventory.items:
 		if item.data.item_type == ItemData.item_types.item && item.data.get_item().is_forge():

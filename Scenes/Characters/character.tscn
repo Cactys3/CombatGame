@@ -130,14 +130,16 @@ func _process(delta: float) -> void:
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mknkr"]
-radius = 49.010204
+radius = 30.0
 
-[node name="Character" type="CharacterBody2D" groups=["player"]]
+[node name="Character" type="CharacterBody2D" node_paths=PackedStringArray("pickup_range", "anim") groups=["player"]]
 collision_layer = 2
 collision_mask = 64
 platform_on_leave = 2
 script = ExtResource("1_ieu52")
 character_name = "WebFisherman"
+pickup_range = NodePath("pickup_range/CollisionShape2D")
+anim = NodePath("AnimatedSprite2D")
 player_stats = SubResource("Resource_nv3ih")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("Target")]
@@ -151,11 +153,11 @@ Target = NodePath("..")
 position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_7qr7h")
 
-[node name="XP_range" type="Area2D" parent="." groups=["xp_range"]]
+[node name="pickup_range" type="Area2D" parent="." groups=["xp_range"]]
 collision_layer = 256
 collision_mask = 0
 script = SubResource("GDScript_0dobi")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="XP_range" groups=["xp_range"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pickup_range" groups=["xp_range"]]
 position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_mknkr")

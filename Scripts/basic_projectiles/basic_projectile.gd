@@ -95,14 +95,14 @@ func attack_body(body: Node2D, clone: bool) -> void:
 	body.damage(new_attack)
 
 func make_attack(clone: bool) -> Attack:
-	var new_attack: Attack = Attack.new()
+	var new_attack: Attack
 	var attack_damage: float = damage
 	if clone:
 		attack_damage = damage * clone_offset
 	if status:
-		new_attack.setup(attack_damage, global_position, buildup, status.AttackValues, self, 0, 0, weight * (attack_damage / 30))
+		new_attack = Attack.new(attack_damage, global_position, buildup, status.AttackValues, self, 0, 0, weight * (attack_damage / 30))
 	else:
-		new_attack.setup(attack_damage, global_position, buildup, null, self, 0, 0, weight * (attack_damage / 30))
+		new_attack = Attack.new(attack_damage, global_position, buildup, null, self, 0, 0, weight * (attack_damage / 30))
 	return new_attack
 
 func die():

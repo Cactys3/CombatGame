@@ -13,6 +13,8 @@ func get_instance():
 
 var frame: Weapon_Frame
 var damage: float
+var critchance: float
+var critdamage: float
 var count: float 
 var piercing: float
 var buildup: float
@@ -59,6 +61,8 @@ func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
 	buildup = frame_stats.get_stat(StatsResource.BUILDUP) 
 	weight = (frame_stats.get_stat(StatsResource.WEIGHT))
 	count = frame_stats.get_stat((StatsResource.COUNT))
+	critchance = frame_stats.get_stat(StatsResource.CRITCHANCE)
+	critdamage = frame_stats.get_stat(StatsResource.CRITDAMAGE)
 ## Called if this projectile is a clone
 func setup_clone(new_damage_offset: float):
 	damage_offset = new_damage_offset
@@ -101,15 +105,15 @@ func _on_body_entered(body: Node2D) -> void:
 		frame.QueuedAttacks.append(frame.AttackEvent.new(body, self, is_clone))
 ## Return an attack from this projectile
 func make_attack(clone: bool) -> Attack:
-	var new_attack: Attack = Attack.new()
-	var attack_damage: float = damage
+	var new_attack: Attack
+	var attack_damage: float = StatsResource.calculate_damage(damage, critchance, critdamage)
 	if clone:
 		attack_damage = damage * damage_offset
 		print("is clone so damage is changed: " + str(damage) + " vs " + str(damage) + " * " + str(damage_offset) + " = " + str(attack_damage))
 	if status:
-		new_attack.setup(attack_damage, global_position, buildup, status.AttackValues, self, 0, 0, weight * (attack_damage / 30))
+		new_attack = Attack.new(attack_damage, global_position, buildup, status.AttackValues, self, 0, 0, weight * (attack_damage / 30))
 	else:
-		new_attack.setup(attack_damage, global_position, buildup, null, self, 0, 0, weight * (attack_damage / 30))
+		new_attack = Attack.new(attack_damage, global_position, buildup, null, self, 0, 0, weight * (attack_damage / 30))
 	return new_attack
 ## setup this projectile to queue_free(), then queue_free()
 func die():

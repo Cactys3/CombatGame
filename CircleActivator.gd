@@ -4,7 +4,7 @@ class_name CircleActivator
 @export var anim: AnimatedSprite2D 
 var is_done: bool = false
 var is_playing: bool = false
-var anim_speed: float = 1.5
+var anim_speed: float = 1.9
 func _ready() -> void:
 	anim.modulate = Color.GREEN
 	anim.speed_scale = anim_speed

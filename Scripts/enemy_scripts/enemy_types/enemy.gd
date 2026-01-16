@@ -57,6 +57,8 @@ var curr_lifetime: float
 var curr_piercing: float
 var curr_damage: float
 var max_health: float
+var curr_critchance: float
+var curr_critdamage: float
 ## Misc:
 var facing_left: bool = true
 var ImReady: bool = false
@@ -69,7 +71,7 @@ var level: float = 2
 var dead: bool = false
 func _ready() -> void:
 	visible = false
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.3).timeout
 	visible = true
 	call_deferred("set_stats")
 	call_deferred("setup")
@@ -90,6 +92,8 @@ func set_stats():
 	curr_piercing = stats.get_stat(StatsResource.PIERCING) + base_piercing
 	curr_damage = stats.get_stat(StatsResource.DAMAGE) + base_damage
 	curr_health = (stats.get_stat(StatsResource.HP) + base_health) * (1 + (level / 2)) ## TODO: level hp calculation? very high scaling of hp
+	curr_critchance = stats.get_stat(StatsResource.CRITCHANCE)
+	curr_critdamage = stats.get_stat(StatsResource.CRITDAMAGE)
 ##
 func setup():
 	player = get_tree().get_first_node_in_group("player")
@@ -98,7 +102,6 @@ func setup():
 ## Calculate HP with given Character Level
 func initialize(new_level: float):
 	level = new_level
-
 func _process(delta: float) -> void:
 	if !ImReady || dead:
 		return
@@ -134,33 +137,30 @@ func _process(delta: float) -> void:
 				proj.global_position = global_position
 				proj.setup_enemy_projectile(self)
 				proj.setup_projectile(player, global_position - player.global_position, homing, 20, false, curr_piercing, curr_lifetime, curr_damage, curr_speed, 1, 1, scale.length(), curr_acceleration)
-
 func _physics_process(_delta: float) -> void:
 	if !ImReady:
 		return
 	if !stunned:
 		movement_process(_delta)
-
 ## Overriden by extender for custom enemy movement
 func movement_process(_delta: float) ->void:
 	move_towards(player.global_position, curr_movespeed, _delta)
 ## Overriden by enemies who want different projectile vs melee damage
 func damage_player_projectile(_damage_player: Node2D):
 	damage_player(_damage_player)
-
 func shoot_projectile():
 	pass
-
 func die():
 	if !dead:
+		var game_man: GameManager = GameManager.instance
 		dead = true
 		death.emit(position)
 		visible = false
 		## Give money
-		GameManager.instance.money += money_on_death
+		game_man.money += money_on_death
 		## Drop XP
 		var new_xp = XP.instantiate()
-		GameManager.instance.xp_parent.add_child(new_xp)
+		game_man.xp_parent.add_child(new_xp)
 		new_xp.global_position = global_position
 		new_xp.set_xp(xp_on_death)
 		if can_drop_stuff:
@@ -175,10 +175,7 @@ func die():
 				GameInstance.next_enemy_drops_forge = false
 				drop_forge()
 			## Chance to drop random thingy (magnet, fire, 2x money, etc)
-		
-		death_signal()
 		queue_free()
-
 func drop_forge():
 	var drop: ItemDrop = ITEM_DROP.instantiate()
 	drop.setup_item(ShopManager.make_itemUI(FORGE_ITEM.duplicate()))
@@ -190,25 +187,18 @@ func drop_item():
 	drop.setup_item(ShopManager.make_itemUI(ShopManager.get_rand_component()))
 	GameManager.instance.xp_parent.add_child(drop)
 	drop.global_position = global_position
-
-func death_signal():
-	GameManager.instance.EnemyKilled.emit()
-
 func _on_damage_hitbox_body_entered(body: Node2D) -> void:
 	if body.has_method("damage") && body.is_in_group("player"):
 		damage_player(body)
 		## Handles self knockback on attack player
 		if self_knockback_onhit != 0:
 			apply_knockback(body.global_position, self_knockback_onhit)
-
 func damage_player(_damage_player: Node2D):
 	cooldown_stopwatch = 0;
-	var attack: Attack = Attack.new()
-	attack.setup(curr_damage, global_position, 0, StatusEffectDictionary.new(), self, weapon_stun, 0, weapon_knockback)
+	var attack: Attack = Attack.new(StatsResource.calculate_damage(curr_damage, curr_critchance, curr_critdamage), global_position, 0, StatusEffectDictionary.new(), self, weapon_stun, 0, weapon_knockback)
 	_damage_player.damage(attack) #TODO: put into game manager?
 	if melee_attacks:
 		damage_hitbox.set_deferred("monitoring", false)
-
 func move_towards(new_position: Vector2, movespeed: float, _delta:float):
 	var direction: Vector2 = (new_position - global_position).normalized()
 	linear_velocity = linear_velocity.move_toward(Vector2(direction.x * movespeed, direction.y * movespeed), 9)
@@ -217,15 +207,17 @@ func move_towards(new_position: Vector2, movespeed: float, _delta:float):
 	if anim && turns_towards_movement && facing_left != new_facing_left:
 		facing_left = new_facing_left
 		anim.flip_h = !facing_left
-
 func is_player_nearby(distance: float) -> bool:
 	if global_position.distance_to(player.global_position) <= distance:
 		return true
 	return false
-
 func damage(attack: Attack):
 	var damage_taken = attack.damage - curr_damage_reduction 
+	if StatsResource.calculate_avoid_damage(stats.get_stat(StatsResource.GHOSTLY)):
+		damage_taken = 0
+		print("ENEMY AVOIDED DAMAGE")
 	if damage_taken > 0:
+		GameManager.instance.EnemyDamaged.emit(self, attack)
 		curr_health -= damage_taken
 	if attack.stun > 0 && can_be_stunned:
 			stun_time_left = attack.stun
@@ -242,7 +234,10 @@ func damage(attack: Attack):
 	dmg_text.setup(str(int(round(attack.damage))), damage_taken + randi_range(-5, 5), WindowManager.instance.convert_small_position(global_position), 1.5, Vector2(10, 10))
 	
 	if curr_health <= 0:
+		death_signal(attack)
 		die()
 
+func death_signal(attack: Attack):
+	GameManager.instance.EnemyKilled.emit(self, attack)
 func apply_knockback(attack_pos: Vector2, knockback: float):
 	call_deferred("set_linear_velocity", (global_position - attack_pos).normalized() * knockback * curr_knockback_modifier)

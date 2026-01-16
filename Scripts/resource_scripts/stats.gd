@@ -527,3 +527,20 @@ static func calculate_scale(size: float) -> float:
 ## Calculate Movespeed:
 static func calculate_movespeed(movespeed: float) -> float:
 	return movespeed * 2
+static func calculate_critdamage(critdamage: float) -> float:
+	return critdamage
+static func calculate_critchance(critchance: float) -> float:
+	return critchance
+static func calculate_damage(damage: float, critchance: float, critdamage: float):
+	if (critchance / 100) > randf():
+		return damage * (1 + (critdamage / 100))
+	else:
+		return damage
+static func calculate_avoid_damage(ghostly: float) -> bool:
+	var ScalingConstant: float = 160 ## Half-Saturation: at Ghostly = 160, it will reach half of 160 (chance = 80)
+	if ghostly > 0.0:
+		return ghostly / (1.0 + (ghostly / ScalingConstant)) > randf() * 100.0
+	return false
+	#return min(ghostly, 85) / 100 > randf()
+static func calculate_regen(regen: float) -> float:
+	return regen / 10

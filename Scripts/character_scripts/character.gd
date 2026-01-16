@@ -2,14 +2,17 @@ extends CharacterBody2D
 class_name Character
 
 @export var character_name: String = "Character"
-@export var anim: AnimationPlayer
-@export var StartingMoney: int = 5
+@export var pickup_range: CollisionShape2D
+@export var anim: AnimatedSprite2D
 @export var player_stats: StatsResource = StatsResource.BLANK_STATS.duplicate()
-
-@export var hp_regen:float = 0
 @export var knockback_modifier:float = 1
 @export var can_be_knockbacked:bool = true
 @export var can_be_stunned:bool = true
+## Variables
+var default_pickup_radius: float = 30
+var regen_stopwatch: float = 0
+var time_since_taken_damage: float = 0
+var shield_cooldown: float = 3
 ## States
 var stunning:bool = false
 var stun_time_left: float = 0
@@ -45,7 +48,15 @@ var xp_gain: float:
 var money_gain: float:
 	get():
 		return player_stats.get_stat(StatsResource.MOGUL)
-
+var regen: float:
+	get():
+		return player_stats.get_stat(StatsResource.REGEN)
+var lifesteal: float:
+	get():
+		return player_stats.get_stat(StatsResource.LIFESTEAL)
+var thorns: float:
+	get():
+		return player_stats.get_stat(StatsResource.THORNS)
 func _ready() -> void:
 	pass
 func initialize_stats() -> void:
@@ -60,19 +71,25 @@ func _process(_delta: float) -> void:
 		character_ability(2)
 	if Input.is_action_just_pressed("ability3"):
 		character_ability(3)
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta : float) -> void:
 	if stun_time_left > 0:
-		stun_time_left -= _delta 
+		stun_time_left -= delta
 	else:
 		stunning = false
-	handle_moving(_delta)
+	handle_moving(delta)
 	move_and_slide()
-	handle_regens(_delta)
+	handle_regens(delta)
+	time_since_taken_damage += delta
 func handle_regens(delta) -> void:
-	if GameManager.instance.shield < maxshield:
+	## Regen shield if hasn't taken damage in awhile
+	if time_since_taken_damage >= shield_cooldown && GameManager.instance.shield < maxshield:
 		GameManager.instance.shield += 5 * delta
-	if hp_regen > 0 && GameManager.instance.hp < maxhealth:
-		GameManager.instance.hp += hp_regen * delta
+	## Regen happens once every second
+	regen_stopwatch += delta
+	if regen_stopwatch >= 1:
+		regen_stopwatch = 0
+		if regen > 0 && GameManager.instance.hp < maxhealth:
+			GameManager.instance.hp += StatsResource.calculate_regen(regen)
 func handle_moving(delta) -> void:
 	var moving_state = moving
 	var directionX := Input.get_axis("left", "right")
@@ -98,6 +115,12 @@ func handle_moving(delta) -> void:
 func damage(attack: Attack):
 	## Consider Stance
 	var net_damage = attack.damage - stance
+	if StatsResource.calculate_avoid_damage(player_stats.get_stat(StatsResource.GHOSTLY)):
+		net_damage = 0
+		print("PLAYER AVOIDED DAMAGE")
+	if net_damage > 0:
+		GameManager.instance.PlayerDamaged.emit(self, attack)
+		time_since_taken_damage = 0
 	## Consider Sheild
 	if net_damage > 0 && GameManager.instance.shield > 0:
 		if (GameManager.instance.shield > net_damage):
@@ -117,12 +140,13 @@ func damage(attack: Attack):
 	if can_be_knockbacked && attack.knockback != 0:
 		call_deferred("set", "velocity", (global_position - attack.position).normalized() * attack.knockback * knockback_modifier)
 	if GameManager.instance.hp <= 0:
+		GameManager.instance.PlayerKilled.emit(self, attack)
 		die()
 func die():
 	pass#print("player died: " + str(health))
 func add_frame(new_frame: Weapon_Frame):
 	weapon_list.append(new_frame)
-	var temp_count = weapon_count
+	var temp_count: int = weapon_count
 	match new_frame.handle.AimType:
 		Handle.AimTypes.StaticSlot:
 			static_slot_count += 1
@@ -139,7 +163,7 @@ func add_frame(new_frame: Weapon_Frame):
 		_:
 			weapon_count += 1
 			temp_count = weapon_count
-	var index: float = 0
+	var index: int = 0
 	for weapon in weapon_list:
 		if (weapon.handle.AimType == new_frame.handle.AimType):
 			index += 1
@@ -150,11 +174,10 @@ func add_frame(new_frame: Weapon_Frame):
 		call_deferred("reparent", new_frame)
 	else:
 		call_deferred("add_child", new_frame)
-
 func remove_frame(frame_sought: Weapon_Frame) -> bool:
 	if frame_sought && weapon_list.has(frame_sought):
 		weapon_list.erase(frame_sought)
-		var temp_count = weapon_count
+		var temp_count: int = weapon_count
 		match frame_sought.handle.AimType:
 			Handle.AimTypes.StaticSlot:
 				static_slot_count -= 1
@@ -171,7 +194,7 @@ func remove_frame(frame_sought: Weapon_Frame) -> bool:
 			_:
 				weapon_count -= 1
 				temp_count = weapon_count
-		var index: float = 0
+		var index: int = 0
 		for weapon in weapon_list:
 			if (weapon.handle.AimType == frame_sought.handle.AimType):
 				index += 1
@@ -187,7 +210,8 @@ func get_random_frame() -> Weapon_Frame:
 		return null
 ## func reapplies all affects that stats have based on newly checked values
 func stat_changed_method():
-	# hp, size, xp gain, money gain, etc
+	# hp, size, xp gain, money gain, magentize etc
+	pickup_range.shape.radius = default_pickup_radius + player_stats.get_stat(StatsResource.MAGNETIZE)
 	transform.scaled(Vector2(size, size))
 	GameManager.instance.hp = GameManager.instance.hp ## checks maxhp to setup UI properly
 	GameManager.instance.shield = GameManager.instance.shield ## checks maxshield to setup UI properly

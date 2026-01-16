@@ -351,7 +351,7 @@ func spawn_final_boss(scene: PackedScene, pos: Vector2):
 	boss.death.connect(final_boss_death)
 func final_boss_death(boss_position: Vector2):
 	return_to_main_menu()
-func enemy_killed():
+func enemy_killed(enemy: Enemy, attack: Attack):
 	enemies_alive -= 1
 	enemies_killed += 1
 	ui_man.set_kills(enemies_killed)
@@ -366,7 +366,7 @@ func enemy_killed():
 		kills_needed = kills_needed * 0.95
 		kills_left = kills_needed
 		#spawn_boss(TESTBOSS, random_position(game_man.player.position))
-func boss_killed():
+func boss_killed(enemy: Enemy, attack: Attack):
 	bosses_killed += 1
 	bosses_alive -= 1
 	ui_man.bosses_killed_label.text = str(bosses_killed)

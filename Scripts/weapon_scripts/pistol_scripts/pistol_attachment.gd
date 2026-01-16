@@ -6,7 +6,7 @@ func get_scene() -> PackedScene:
 ## Reload Mechanic: Fires COUNT rounds (in ~1.5 second) before reloading for x / DURATION seconds
 func create_projectiles():
 	var inaccuracy: float =  stats.get_stat(StatsResource.INACCURACY) 
-	var direction = Vector2(cos(frame.rotation), sin(frame.rotation)).rotated(deg_to_rad(randf_range(-inaccuracy, inaccuracy)))
+	var direction = get_inaccurate_direction(Vector2(cos(frame.rotation), sin(frame.rotation)), inaccuracy)
 	var proj: Projectile = init_projectile(global_position, direction)
 	var count: float = frame.get_stat(StatsResource.COUNT)
 	var total_time: float = 1.5
@@ -27,7 +27,13 @@ func create_projectiles():
 		## Projectile Offsets are set to 0 for pistol attachment (in @export)
 		MultipleProjectileOffset *= -1
 		MultipleProjectileAngleOffset *= -1
-		init_projectile(global_position + Vector2(-sin(frame.rotation), cos(frame.rotation)).normalized() * MultipleProjectileOffset * (proj_offset), Vector2(cos(frame.rotation), sin(frame.rotation)))
+		## Get Attachment Position (default projectile position)
+		var projectile_position: Vector2 = global_position
+		## Offset it by position + [1 unit to the Left of default position] * [Positive offset to keep it left, negative to make it right] * [magnitude offset]
+		projectile_position += (Vector2(-sin(frame.rotation), cos(frame.rotation)) * MultipleProjectileOffset * proj_offset)
+		## Get Direction offset by inaccuracy
+		var projectile_direction: Vector2 = get_inaccurate_direction(Vector2(cos(frame.rotation), sin(frame.rotation)), inaccuracy)
+		init_projectile(projectile_position, projectile_direction)
 	stopwatch.queue_free()
 
 static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrade]:

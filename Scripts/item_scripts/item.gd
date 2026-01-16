@@ -19,10 +19,10 @@ func getdata() -> ItemData:
 
 func _connect_signals():
 	if connect_all:
-		manager.enemy_damaged.connect(enemy_damaged)
-		manager.enemy_killed.connect(enemy_killed)
-		manager.player_damaged.connect(player_damaged)
-		manager.player_Killed.connect(player_Killed)
+		manager.EnemyDamaged.connect(enemy_damaged)
+		manager.EnemyKilled.connect(enemy_killed)
+		manager.PlayerDamaged.connect(player_damaged)
+		manager.PlayerKilled.connect(player_Killed)
 		manager.RoundEnded.connect(round_ended)
 
 
