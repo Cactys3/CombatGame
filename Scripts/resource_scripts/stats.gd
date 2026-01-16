@@ -26,7 +26,7 @@ const GHOSTLY = "ghostly"
 const REGEN = "regen"
 const MAGNETIZE = "magentize"
 const LIFESTEAL = "lifesteal"
-const BONUSVSELITES = "bonusvselites"
+#const BONUSVSELITES = "bonusvselites"
 const SHIELD = "shield"
 const DIFFICULTY = "difficulty"
 const REVIES = "revies"
@@ -115,7 +115,7 @@ static var defaultstats = {
 	REGEN: 0.0,
 	MAGNETIZE: 50.0,
 	LIFESTEAL: 0.0,
-	BONUSVSELITES: 0.0,
+	#BONUSVSELITES: 0.0,
 	SHIELD: 0.0,
 	DIFFICULTY: 1.0,
 	REVIES: 0.0,
@@ -146,7 +146,7 @@ var statsbase = {
 	REGEN: 0.0,
 	MAGNETIZE: 0.0,
 	LIFESTEAL: 0.0,
-	BONUSVSELITES: 0.0,
+	#BONUSVSELITES: 0.0,
 	SHIELD: 0.0,
 	DIFFICULTY: 0.0,
 	REVIES: 0.0,
@@ -176,7 +176,7 @@ var statsfactor = {
 	REGEN: 1.0,
 	MAGNETIZE: 1.0,
 	LIFESTEAL: 1.0,
-	BONUSVSELITES: 1.0,
+	#BONUSVSELITES: 1.0,
 	SHIELD: 1.0,
 	DIFFICULTY: 1.0,
 	REVIES: 1.0,
@@ -223,7 +223,7 @@ func _rebuild_dicts() -> void:
 	statsbase[REGEN] = regen_base
 	statsbase[MAGNETIZE] = magnetize_base
 	statsbase[LIFESTEAL] = lifesteal_base
-	statsbase[BONUSVSELITES] = bonusvselites_base
+	#statsbase[BONUSVSELITES] = bonusvselites_base
 	statsbase[SHIELD] = shield_base
 	statsbase[DIFFICULTY] = difficulty_base
 	statsbase[REVIES] = revies_base
@@ -252,7 +252,7 @@ func _rebuild_dicts() -> void:
 	statsfactor[REGEN] = regen_factor
 	statsfactor[MAGNETIZE] = magnetize_factor
 	statsfactor[LIFESTEAL] = lifesteal_factor
-	statsfactor[BONUSVSELITES] = bonusvselites_factor
+	#statsfactor[BONUSVSELITES] = bonusvselites_factor
 	statsfactor[SHIELD] = shield_factor
 	statsfactor[DIFFICULTY] = difficulty_factor
 	statsfactor[REVIES] = revies_factor
@@ -396,7 +396,7 @@ func set_export_stat(is_factor: bool, sought_stat: String, new_value: float) -> 
 			REGEN: regen_factor = new_value
 			MAGNETIZE: magnetize_factor = new_value
 			LIFESTEAL: lifesteal_factor = new_value
-			BONUSVSELITES: bonusvselites_factor = new_value
+			#BONUSVSELITES: bonusvselites_factor = new_value
 			SHIELD: shield_factor = new_value
 			DIFFICULTY: difficulty_factor = new_value
 			REVIES: revies_factor = new_value
@@ -426,7 +426,7 @@ func set_export_stat(is_factor: bool, sought_stat: String, new_value: float) -> 
 			REGEN: regen_base = new_value
 			MAGNETIZE: magnetize_base = new_value
 			LIFESTEAL: lifesteal_base = new_value
-			BONUSVSELITES: bonusvselites_base = new_value
+			#BONUSVSELITES: bonusvselites_base = new_value
 			SHIELD: shield_base = new_value
 			DIFFICULTY: difficulty_base = new_value
 			REVIES: revies_base = new_value
@@ -521,3 +521,9 @@ func delete_stats():
 func check_setup():
 	if !initialized:
 		printerr("Trying to use StatsResource BEFORE calling setup, this is before any @export variables are applied - GAME BREAKING")
+## Calculates and returns Scale for given Size:
+static func calculate_scale(size: float) -> float:
+	return 1 + ((size - 1) / 10)
+## Calculate Movespeed:
+static func calculate_movespeed(movespeed: float) -> float:
+	return movespeed * 2

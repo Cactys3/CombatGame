@@ -204,6 +204,7 @@ cheat_inventory = NodePath("TabMenuParent/Cheat Inventory")
 hud = NodePath("StaticHUDparent/hud")
 
 [node name="TabMenuParent" type="Control" parent="Window1920/Offset/UIManager"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -500,7 +501,6 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="EscMenuParent" type="Control" parent="Window1920/Offset/UIManager"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -518,8 +518,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -300.0
 offset_top = -200.0
-offset_right = 300.0
-offset_bottom = 200.0
+offset_right = 654.0
+offset_bottom = 248.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
@@ -543,6 +543,43 @@ offset_bottom = 320.0
 mouse_filter = 1
 theme_override_font_sizes/font_size = 32
 text = "Return to Main Menu"
+
+[node name="StatsDescriptionParent" type="VBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 534.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/StatsDescriptionParent"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+bbcode_enabled = true
+text = "Damage: "
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/StatsDescriptionParent"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+bbcode_enabled = true
+text = "Damage: "
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/StatsDescriptionParent"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+bbcode_enabled = true
+text = "Damage: "
+fit_content = true
+scroll_active = false
 
 [node name="WindowManager" type="Node" parent="."]
 script = ExtResource("27_fwf5d")

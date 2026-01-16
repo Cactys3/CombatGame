@@ -66,7 +66,7 @@ func ProcessDynamicAtMouse(delta: float) -> void:
 	var slot_offset_value = alternating_sign * ((TAU / 30) * ((temp_slot_variable - 1)))
 	frame.global_position = GetOrbitPosition((get_global_mouse_position() - player.global_position).normalized().angle() + slot_offset_value)
 	#Rotate Towards Object
-	var nearest_enemy: Node2D = frame.get_enemy_nearby(frame.get_stat(stats.RANGE))
+	var nearest_enemy: Node2D = frame.get_enemy_nearby(frame.get_stat(StatsResource.RANGE))
 	if nearest_enemy != null:
 		RotateTowardsPosition(nearest_enemy.global_position, delta)
 		if !ready_to_fire && IsAimingAtEnemy(nearest_enemy):
@@ -89,7 +89,7 @@ func ProcessAlwaysAtMouse(delta: float) -> void:
 	var slot_offset_value = alternating_sign * ((TAU / 30) * ((temp_slot_variable - 1)))
 	frame.global_position = GetOrbitPositionAtMouse((get_global_mouse_position() - player.global_position).normalized().angle() + slot_offset_value)
 	#Rotate Towards Object
-	var nearest_enemy: Node2D = frame.get_enemy_nearby(frame.get_stat(stats.RANGE))
+	var nearest_enemy: Node2D = frame.get_enemy_nearby(frame.get_stat(StatsResource.RANGE))
 	if nearest_enemy != null:
 		if !ready_to_fire && IsAimingAtEnemy(nearest_enemy):
 			ready_to_fire = true
@@ -104,7 +104,7 @@ func ProcessStaticSlot(delta: float) -> void:
 		temp_count = 4
 	frame.global_position = GetOrbitPosition((TAU * (weapon_slot / temp_count)))#weapon_count)))
 	#Rotate Towards Object
-	var nearest_enemy = frame.get_enemy_nearby(frame.get_stat(stats.RANGE))
+	var nearest_enemy = frame.get_enemy_nearby(frame.get_stat(StatsResource.RANGE))
 	if nearest_enemy != null:
 		#Rotate towards Enemy if exists
 		RotateTowardsPosition(nearest_enemy.global_position, delta)
@@ -124,11 +124,13 @@ func ProcessUnique(_delta: float) -> void:
 	pass
 ## rotates this weapon towards the new position, TODO: lerp calculated with weight
 func RotateTowardsPosition(new_position: Vector2, _delta: float) -> void:
-	frame.rotation = lerp_angle(frame.rotation, (new_position - frame.global_position).normalized().angle() , rotation_speed * _delta)
+	var speed = rotation_speed * _delta * (10 / max(frame.stats.get_stat(StatsResource.WEIGHT), 0.1)) ## TODO: Stat: weight
+	var angle = (new_position - frame.global_position).normalized().angle()
+	frame.rotation = lerp_angle(frame.rotation, angle, speed)
  #TODO: try global_position instead of player.global_position for how weapon aiming looks
 ## Calculates the orbit position for a weapon at given target_angle
 func GetOrbitPosition(target_angle: float) -> Vector2:
-	return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * orbit_distance# * (frame.get_stat(StatsResource.SIZE)) #TODO: implement scale better with offset
+	return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * orbit_distance ## TODO: Stat: Size
 func GetOrbitPositionAtMouse(target_angle: float) -> Vector2:
 	if player.global_position.distance_to(get_global_mouse_position()) < orbit_distance:
 		return player.global_position + Vector2(cos(target_angle), sin(target_angle)) * (player.global_position.distance_to(get_global_mouse_position()) - 1)

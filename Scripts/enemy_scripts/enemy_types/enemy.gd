@@ -78,18 +78,18 @@ func _ready() -> void:
 	stats.setup(name)
 ## called whever stats change
 func set_stats():
-	curr_regen = base_regen + stats.get_stat(stats.REGEN)
-	curr_movespeed = stats.get_stat(stats.MOVESPEED) + base_movespeed
-	curr_knockback_modifier = stats.get_stat(stats.WEIGHT) + base_knockback_modifier
-	curr_damage_reduction = stats.get_stat(stats.STANCE) + base_damage_reduction
+	curr_regen = base_regen + stats.get_stat(StatsResource.REGEN)
+	curr_movespeed = StatsResource.calculate_movespeed(stats.get_stat(StatsResource.MOVESPEED)) + base_movespeed
+	curr_knockback_modifier = stats.get_stat(StatsResource.WEIGHT) + base_knockback_modifier
+	curr_damage_reduction = stats.get_stat(StatsResource.STANCE) + base_damage_reduction
 	curr_cooldown_max = base_cooldown ##TODO: setup based on stats
-	curr_range = stats.get_stat(stats.RANGE) + base_range
-	curr_speed = stats.get_stat(stats.VELOCITY) + base_speed
+	curr_range = stats.get_stat(StatsResource.RANGE) + base_range
+	curr_speed = stats.get_stat(StatsResource.VELOCITY) + base_speed
 	curr_acceleration = base_acceleration
-	curr_lifetime = stats.get_stat(stats.DURATION) + base_lifetime
-	curr_piercing = stats.get_stat(stats.PIERCING) + base_piercing
-	curr_damage = stats.get_stat(stats.DAMAGE) + base_damage
-	curr_health = (stats.get_stat(stats.HP) + base_health) * (1 + (level / 2)) ## TODO: level hp calculation? very high scaling of hp
+	curr_lifetime = stats.get_stat(StatsResource.DURATION) + base_lifetime
+	curr_piercing = stats.get_stat(StatsResource.PIERCING) + base_piercing
+	curr_damage = stats.get_stat(StatsResource.DAMAGE) + base_damage
+	curr_health = (stats.get_stat(StatsResource.HP) + base_health) * (1 + (level / 2)) ## TODO: level hp calculation? very high scaling of hp
 ##
 func setup():
 	player = get_tree().get_first_node_in_group("player")

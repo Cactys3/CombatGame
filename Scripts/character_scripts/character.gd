@@ -26,25 +26,25 @@ var curr_speed: float
 ## Stat Variables
 var maxspeed: float:
 	get():
-		return get_stat(StatsResource.MOVESPEED)
+		return StatsResource.calculate_movespeed(player_stats.get_stat(StatsResource.MOVESPEED))
 var maxhealth: float:
 	get():
-		return get_stat(StatsResource.HP) 
+		return player_stats.get_stat(StatsResource.HP) 
 var maxshield: float:
 	get():
-		return get_stat(StatsResource.SHIELD)
+		return player_stats.get_stat(StatsResource.SHIELD)
 var stance: float:
 	get():
-		return get_stat(StatsResource.STANCE)
+		return player_stats.get_stat(StatsResource.STANCE)
 var size: float:
 	get():
-		return get_stat(StatsResource.SIZE)
+		return player_stats.get_stat(StatsResource.SIZE)
 var xp_gain: float:
 	get():
-		return get_stat(StatsResource.XP)
+		return player_stats.get_stat(StatsResource.XP)
 var money_gain: float:
 	get():
-		return get_stat(StatsResource.MOGUL)
+		return player_stats.get_stat(StatsResource.MOGUL)
 
 func _ready() -> void:
 	pass
@@ -180,8 +180,6 @@ func remove_frame(frame_sought: Weapon_Frame) -> bool:
 		player_stats.remove_stats(frame_sought.stats)
 		return true
 	return false
-func get_stat(stat: String) -> float:
-	return player_stats.get_stat(stat)
 func get_random_frame() -> Weapon_Frame:
 	if weapon_list.size() > 0:
 		return weapon_list.get(randi_range(0, weapon_list.size() - 1))

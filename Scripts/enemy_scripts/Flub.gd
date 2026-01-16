@@ -8,7 +8,7 @@ extends Enemy
 @export var dash_range: float:
 	get():
 		if is_instance_valid(stats):
-			return dash_range + stats.get_stat(stats.RANGE)
+			return dash_range + stats.get_stat(StatsResource.RANGE)
 		return dash_range
 var charging: bool = false
 var dashing: bool = false

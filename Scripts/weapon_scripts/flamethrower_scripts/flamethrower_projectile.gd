@@ -26,8 +26,8 @@ func attack_body(body: Node2D, clone: bool) -> void:
 		AttackedObjects.append(body)
 		body.damage(new_attack)
 		collision_counter += 1 #decrease dmg?
-		if stats.get_stat(StatsResource.DAMAGE) > 2:
-			stats.set_stat_base(StatsResource.DAMAGE, stats.get_stat_base(StatsResource.DAMAGE) * 0.8)
+		## Idea: Flame does less damage after passing through each enemy.
+		## Counterpoint: Flame probably already does low dmg
 
 func anim_finished() -> void:
 	die()

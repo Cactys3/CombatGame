@@ -6,7 +6,7 @@ func get_scene() -> PackedScene:
  
 var bullets: Array[Projectile]
 ## Determines what attackspeed is, attacksperX = 2 means attackspeed is how many attacks every 2 seconds
-const attacksperX: int = 2
+const attacksperX: int = 10
 
 @export var MeleeDamageFactor: float = 1
 
@@ -80,11 +80,14 @@ func projectile_died(pos: Vector2, is_clone: bool):
 	pass
 ## Calculate and return cooldown between attacks
 func get_cooldown() -> float:
-	return attacksperX / max(0.0001, frame.get_stat(StatsResource.ATTACKSPEED)) #attackspeed is attacks per second so cd is 1/as
+	## Minimum: atttack 0.1 times per X
+	return attacksperX / max(0.1, frame.get_stat(StatsResource.ATTACKSPEED)) ## TODO: Stat: Attackspeed 
 ## Send altered values because it's a melee hitbox
 func make_attack() -> Attack:
 	var new_attack: Attack = Attack.new()
-	new_attack.setup(frame.stats.get_stat(stats.DAMAGE) * MeleeDamageFactor, frame.player.global_position, frame.stats.get_stat(StatsResource.BUILDUP), StatusEffectDictionary.new(), self, 0, 0, frame.stats.get_stat(StatsResource.WEIGHT) * (frame.stats.get_stat(StatsResource.DAMAGE) / 10))
+	var knockback: float = frame.stats.get_stat(StatsResource.WEIGHT) * frame.stats.get_stat(StatsResource.DAMAGE) ## TODO: Stat: knockback
+	var damage: float = frame.stats.get_stat(StatsResource.DAMAGE) * MeleeDamageFactor ## TODO: Stat: damage
+	new_attack.setup(damage, frame.player.global_position, frame.stats.get_stat(StatsResource.BUILDUP), StatusEffectDictionary.new(), self, 0, 0, knockback)
 	 #TODO: determine how to calculate knockback
 	return new_attack
 

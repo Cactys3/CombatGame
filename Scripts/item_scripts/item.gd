@@ -48,17 +48,10 @@ func round_ended(round_number: int):
 	pass
 static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrade]:
 	var arr: Array[ItemData.LevelUpgrade]
-	var u1: ItemData.LevelUpgrade = ItemData.LevelUpgrade.new()
-	#var damage = randf_range(2, 4)
-	#u1.setup(StatsResource.DAMAGE, "Add " + str(damage) + " Damage!", false, damage)
-	#arr.append(u1)
 	return arr
-
 ## Returns a randomized stat object, using the given itemdata's variables like rarity
 static func randomize_stats(itemdata: ItemData) -> StatsResource:
 	var stats: StatsResource = StatsResource.BLANK_STATS.duplicate()
-	stats.setup("RNGrolls")
-	stats.set_stat_base(StatsResource.DAMAGE, randi_range(0, 10))
 	return stats
 ## Sets up a RightClickMenu for this component
 func setup_right_click_menu(menu: RightClickMenu):

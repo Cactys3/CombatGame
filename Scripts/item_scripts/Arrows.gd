@@ -45,7 +45,7 @@ func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectil
 	if projectile == null:
 		push_error("projectile null in attachment script")
 		return null
-	var new_bullet:Projectile = projectile.instantiate()
+	var new_bullet = projectile.instantiate()
 	new_bullet.visible = false
 	new_bullet.setup_item(stats, new_direction)
 	GameManager.instance.projectile_parent.add_child(new_bullet)

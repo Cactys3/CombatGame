@@ -105,7 +105,7 @@ const SCENE = preload("uid://o387qlahldf")
 	StatsResource.REGEN: regen,
 	StatsResource.MAGNETIZE: magnetize,
 	StatsResource.LIFESTEAL: lifesteal,
-	StatsResource.BONUSVSELITES: bonusvselites,
+#	StatsResource.BONUSVSELITES: bonusvselites,
 	StatsResource.SHIELD: shield,
 	StatsResource.DIFFICULTY: difficulty,
 	StatsResource.REVIES: revies,
@@ -136,7 +136,7 @@ var lists: Array[StatsList]
 	StatsResource.REGEN: show_regen,
 	StatsResource.MAGNETIZE: show_magnetize,
 	StatsResource.LIFESTEAL: show_lifesteal,
-	StatsResource.BONUSVSELITES: show_bonusvselites,
+#	StatsResource.BONUSVSELITES: show_bonusvselites,
 	StatsResource.SHIELD: show_shield,
 	StatsResource.DIFFICULTY: show_difficulty,
 	StatsResource.REVIES: show_revies,
@@ -145,7 +145,7 @@ var lists: Array[StatsList]
 @onready var misc: Array[String] = [
 	StatsResource.SIZE,
 	StatsResource.LUCK,
-	StatsResource.BONUSVSELITES,
+#	StatsResource.BONUSVSELITES,
 	StatsResource.DIFFICULTY]
 @onready var players: Array[String] = [
 	StatsResource.HP,
@@ -196,7 +196,7 @@ var lists: Array[StatsList]
 	StatsResource.GHOSTLY,
 	StatsResource.MAGNETIZE,
 	StatsResource.LIFESTEAL,
-	StatsResource.BONUSVSELITES,
+#	StatsResource.BONUSVSELITES,
 	StatsResource.DIFFICULTY,
 	StatsResource.REVIES,
 	StatsResource.THORNS,
@@ -225,7 +225,7 @@ var lists: Array[StatsList]
 	StatsResource.GHOSTLY,
 	StatsResource.MAGNETIZE,
 	StatsResource.LIFESTEAL,
-	StatsResource.BONUSVSELITES,
+#	StatsResource.BONUSVSELITES,
 	StatsResource.DIFFICULTY,
 	StatsResource.REVIES,
 	StatsResource.THORNS,
@@ -407,7 +407,7 @@ func hide_defaults():
 	set_stat_visible(StatsResource.REGEN, stats.is_stat_default(StatsResource.REGEN))
 	set_stat_visible(StatsResource.MAGNETIZE, stats.is_stat_default(StatsResource.MAGNETIZE))
 	set_stat_visible(StatsResource.LIFESTEAL, stats.is_stat_default(StatsResource.LIFESTEAL))
-	set_stat_visible(StatsResource.BONUSVSELITES, stats.is_stat_default(StatsResource.BONUSVSELITES))
+#	set_stat_visible(StatsResource.BONUSVSELITES, stats.is_stat_default(StatsResource.BONUSVSELITES))
 	set_stat_visible(StatsResource.SHIELD, stats.is_stat_default(StatsResource.SHIELD))
 	set_stat_visible(StatsResource.DIFFICULTY, stats.is_stat_default(StatsResource.DIFFICULTY))
 	set_stat_visible(StatsResource.REVIES, stats.is_stat_default(StatsResource.REVIES))

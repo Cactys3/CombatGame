@@ -10,8 +10,18 @@ func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
 	speed = 0
 	count = 0
 	lifetime = 0.1
-	scale = vectorify(frame_stats.get_stat(StatsResource.SIZE)) + vectorify(frame_stats.get_stat(StatsResource.PIERCING) / 4) + vectorify(frame_stats.get_stat(StatsResource.COUNT) / 4)
-	damage = frame_stats.get_stat(StatsResource.DAMAGE) + (frame_stats.get_stat(StatsResource.PIERCING) / 2) + (frame_stats.get_stat(StatsResource.COUNT) / 2) + (frame_stats.get_stat(StatsResource.VELOCITY) / 20)
+	## TODO: Stat: Size
+	## TODO: Stat: PIERCING
+	## TODO: Stat: COUNT
+	## TODO: Stat: DAMAGE
+	## TODO: Stat: VELOCITY
+	## Add to scale (already setup from super())
+	scale += vectorify(frame_stats.get_stat(StatsResource.PIERCING) / 4)
+	scale += vectorify(frame_stats.get_stat(StatsResource.COUNT) / 4)
+	## Add to damage (already setup from super())
+	damage += (frame_stats.get_stat(StatsResource.PIERCING) / 2)
+	damage += (frame_stats.get_stat(StatsResource.COUNT) / 2)
+	damage += (frame_stats.get_stat(StatsResource.VELOCITY) / 20)
 func vectorify(num: float) -> Vector2:
 	return Vector2(num, num)
 ## Railgun Beam Doesn't Move

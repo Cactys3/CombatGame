@@ -16,6 +16,9 @@ var base_range = 30
 var speed: float = 1
 var attacked_objects: Array[Node2D]
 var default_melee_damage_offset: float 
+
+var time_spent_whilst_attacking: float = 0
+
 func get_scene() -> PackedScene:
 	return preload("res://Scenes/Weapons/sword/sword_attachment.tscn")
 
@@ -25,36 +28,29 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	process_cooldown(delta)
+	time_spent_whilst_attacking += delta
 
 func attack() -> void:
+	time_spent_whilst_attacking = 0
 	attacked_objects = [] #empty attacked_objects list
 	## Have 100% melee damage WHILE thrusting
 	MeleeDamageFactor = 1
-	melee_hitbox.disabled = true #hit things again without having to leave their hitbox
+	## Attack things again without having to leave their hitbox (idk if this really works, idk if collisions methods would be called)
+	melee_hitbox.disabled = true 
 	melee_hitbox.disabled = false
-	
 	frame.get_stat(StatsResource.DURATION)
-	speed = frame.get_stat(StatsResource.VELOCITY) * 0.01 # to determine how fast (15 is default value or w/e)
+	speed = frame.get_stat(StatsResource.VELOCITY) * 0.01 ## TODO: Stat: Velocity # to determine how fast (15 is default value or w/e)
 	range_offset = frame.get_stat(StatsResource.SIZE) * 10 # sword needs to go less range if its bigger to reach the same distance
-	
-	
 	anim.play(ANIMATION_NAME, -1, speed) #TODO: change the second value (speed of animation) based on stats (speed, cooldown, time animation takes normally)
-	
 	anim.get_animation(ANIMATION_NAME).track_set_key_value(0, 1, frame.get_stat(StatsResource.RANGE) - range_offset)
-	
 	var animation_duration = anim.get_animation(ANIMATION_NAME).length / speed #TODO: not used
-	var max_range_timeIndex = anim.get_animation(ANIMATION_NAME).track_get_key_time(0, 1)
-	
+	var max_range_timeIndex = anim.get_animation(ANIMATION_NAME).track_get_key_time(0, 1)	
 	await get_tree().create_timer(max_range_timeIndex).timeout #wait until at max reach to fire projectile
 	super()
+	## Account for time spent doing melee animation, this should count as attackspeed cooldown time
+	cooldown_timer += time_spent_whilst_attacking
+	## Melee damage is reduced whilst not thrusting
 	MeleeDamageFactor = default_melee_damage_offset
-
-#how should attachment extenders work?
-#Create methods for ProcessCooldown(delta) and Attack() that extenders override.
-#Create generic methods for creating a projectile with the right size/parent so extenders can use that
-#extenders should always (with exceptions) call super on read and process 
-#extenders have their own hitbox references and do all that themselves
-#extenders have their own animations but have to include handle in these animations? or animations work to change position of weapon_frame?
 
 func attack_body(body: Node, clone: bool) -> void:
 	var new_attack = make_attack()

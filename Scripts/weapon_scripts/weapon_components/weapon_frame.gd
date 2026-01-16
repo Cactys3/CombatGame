@@ -145,7 +145,8 @@ func set_variables():
 	pass
 ## Do anything that needs to be done to utilize a stat change
 func apply_stats() -> void: 
-	scale = Vector2(get_stat(stats.SIZE), get_stat(stats.SIZE))
+	var size: float = StatsResource.calculate_scale(get_stat(StatsResource.SIZE))
+	scale = Vector2(size, size)
 	if handle != null:
 		handle.scale = scale
 	if attachment != null:

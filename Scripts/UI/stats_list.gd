@@ -54,7 +54,7 @@ class_name StatsList
 	StatsResource.REGEN: regen,
 	StatsResource.MAGNETIZE: magnetize,
 	StatsResource.LIFESTEAL: lifesteal,
-	StatsResource.BONUSVSELITES: bonusvselites,
+	#StatsResource.BONUSVSELITES: bonusvselites,
 	StatsResource.SHIELD: shield,
 	StatsResource.DIFFICULTY: difficulty,
 	StatsResource.REVIES: revies,

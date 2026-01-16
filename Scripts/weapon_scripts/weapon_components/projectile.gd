@@ -25,6 +25,8 @@ var collision_counter: float = 0
 var stopwatch: float = 0.0
 var lifetime = 10
 
+const speed_stat_offset: float = 3
+
 ## Is this projectile somehow not original/from gun
 var is_clone: bool = false
 var damage_offset: float = 0.5
@@ -46,13 +48,14 @@ func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
 	set_stats()
 	setdata()
 	frame_stats = base_gun.stats 
-	var size_value = frame_stats.get_stat(StatsResource.SIZE) 
-	scale = Vector2(size_value, size_value)
+	var size = StatsResource.calculate_scale(frame_stats.get_stat(StatsResource.SIZE))
+	scale = Vector2(size, size)
 	direction = enemy_direction.normalized()
+	## TODO: Stat
 	piercing = frame_stats.get_stat(StatsResource.PIERCING)
 	lifetime = frame_stats.get_stat(StatsResource.DURATION)
 	damage = frame_stats.get_stat(StatsResource.DAMAGE) 
-	speed = (frame_stats.get_stat(StatsResource.VELOCITY)) * 13
+	speed = speed_stat_offset * (frame_stats.get_stat(StatsResource.VELOCITY))
 	buildup = frame_stats.get_stat(StatsResource.BUILDUP) 
 	weight = (frame_stats.get_stat(StatsResource.WEIGHT))
 	count = frame_stats.get_stat((StatsResource.COUNT))

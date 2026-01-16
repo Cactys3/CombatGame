@@ -6,7 +6,7 @@ var homing: bool
 var homing_speed: float
 var is_clone: bool 
 var clone_offset: float = 0.5
-var _size: float
+var size: float
 var damage: float
 var count: float 
 var piercing: float
@@ -64,8 +64,8 @@ func process_movement_homing(delta: float):
 
 ## Setup values generic for all BasicProjectile
 func setup_projectile(new_target: Node2D, enemy_direction:Vector2, is_homing: bool, new_homing_speed: float, new_is_clone: bool, new_piercing: float, new_lifetime: float, new_damage: float, new_velocity: float, new_buildup: float, new_weight: float, new_size: float, new_acceleration: float):
-	_size = new_size
-	self.scale = Vector2(_size, _size) #TODO: size calculation
+	size = new_size
+	self.scale = Vector2(size, size) #TODO: size calculation
 	target = new_target
 	initial_direction = enemy_direction.normalized()
 	direction = enemy_direction.normalized()
