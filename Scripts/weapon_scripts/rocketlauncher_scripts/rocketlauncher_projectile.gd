@@ -49,8 +49,8 @@ func die():
 ## Creates an ItemData.LevelUpgrade for this specific component and returns it once setup
 static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrade]:
 	var arr: Array[ItemData.LevelUpgrade] = []
-	arr.append(get_stat_upgrade(StatsResource.VELOCITY, randf_range(1, 2), itemdata.level, get_weighted_rarity(itemdata.level), 0.01, 0.3))
-	arr.append(get_stat_upgrade(StatsResource.COUNT, randf_range(0.15, 1), 1, get_weighted_rarity(itemdata.level), 0.01, 0.3))
-	arr.append(get_stat_upgrade(StatsResource.PIERCING, randf_range(0.2, 0.6), itemdata.level, get_weighted_rarity(itemdata.level), 0.01, 0.3))
-	arr.append(get_stat_upgrade(StatsResource.DURATION, randf_range(1, 4), itemdata.level, get_weighted_rarity(itemdata.level), 0.01, 0.3))
+	arr.append(get_stat_upgrade(StatsResource.VELOCITY, randf_range(1, 2), itemdata.level, ItemData.get_weighted_rarity(itemdata.level), 0.01, 0.3))
+	arr.append(get_stat_upgrade(StatsResource.COUNT, randf_range(0.15, 1), 1, ItemData.get_weighted_rarity(itemdata.level), 0.01, 0.3))
+	arr.append(get_stat_upgrade(StatsResource.PIERCING, randf_range(0.2, 0.6), itemdata.level, ItemData.get_weighted_rarity(itemdata.level), 0.01, 0.3))
+	arr.append(get_stat_upgrade(StatsResource.DURATION, randf_range(1, 4), itemdata.level, ItemData.get_weighted_rarity(itemdata.level), 0.01, 0.3))
 	return arr

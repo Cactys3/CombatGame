@@ -67,8 +67,8 @@ func _on_area_entered(area: Area2D) -> void:
 ## Creates an ItemData.LevelUpgrade for this specific component and returns it once setup
 static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrade]:
 	var arr: Array[ItemData.LevelUpgrade] = super(itemdata)
-	arr.append(get_stat_upgrade(StatsResource.SIZE, randf_range(-0.1, 0.3), itemdata.level, get_weighted_rarity(itemdata.level), 0, 0.3))
-	arr.append(get_stat_upgrade(StatsResource.RANGE, randf_range(1, 5), itemdata.level, get_weighted_rarity(itemdata.level), 0, 0.4))
+	arr.append(get_stat_upgrade(StatsResource.SIZE, randf_range(-0.1, 0.3), itemdata.level, ItemData.get_weighted_rarity(itemdata.level), 0, 0.3))
+	arr.append(get_stat_upgrade(StatsResource.RANGE, randf_range(1, 5), itemdata.level, ItemData.get_weighted_rarity(itemdata.level), 0, 0.4))
 	return arr
 ## Returns a randomized stat object, using the given itemdata's variables like rarity
 static func randomize_stats(itemdata: ItemData) -> StatsResource:

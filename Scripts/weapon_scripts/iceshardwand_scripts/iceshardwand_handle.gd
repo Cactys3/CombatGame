@@ -20,7 +20,7 @@ static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrad
 	var arr: Array[ItemData.LevelUpgrade] = super(itemdata)
 	for item in arr:
 		if item.name == StatsResource.RANGE:
-			item.value += get_stat_upgrade(StatsResource.RANGE, randf_range(4, 9), itemdata.level, get_weighted_rarity(itemdata.level), 0.01, 0.35).value
+			item.value += get_stat_upgrade(StatsResource.RANGE, randf_range(4, 9), itemdata.level, ItemData.get_weighted_rarity(itemdata.level), 0.01, 0.35).value
 	return arr
 ## Returns a randomized stat object, using the given itemdata's variables like rarity
 static func randomize_stats(itemdata: ItemData) -> StatsResource:

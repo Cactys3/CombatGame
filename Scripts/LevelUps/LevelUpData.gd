@@ -136,14 +136,11 @@ static func get_random_level_up_option() -> LevelUpData:
 	var can_gain_item: bool = GameManager.instance.has_item_room()
 	var can_gain_weapon: bool = GameManager.instance.has_weapon_room()
 	
-	
 	var money: int
 	match(choice):
-		
 		0: ## gain random money
 			money = randi_range(20, 50)
 			levelupdata.set_money(money)
-		
 		1: ## upgrade random component's rarity
 			var comp: ItemData = GameManager.instance.get_random_equipped_comp()
 			if comp != null:
@@ -153,7 +150,6 @@ static func get_random_level_up_option() -> LevelUpData:
 				money = randi_range(20, 50) ## TODO: try again if failed?
 				levelupdata.set_money(money)
 				#print("money as backup due to no equipped weapons")
-		
 		2: ## upgrade random item's rarity
 			if GameManager.instance.get_random_equipped_item() != null:
 				var item: ItemData = GameManager.instance.get_random_equipped_item()
@@ -163,17 +159,14 @@ static func get_random_level_up_option() -> LevelUpData:
 				money = randi_range(20, 50) ## TODO: try again if failed?
 				levelupdata.set_money(money)
 				#print("money as backup due to no equipped items")
-		
 		3: ## get new component
 			var item: ItemData = ShopManager.get_rand_component()
 			levelupdata.set_itemdata(item, LevelUpData.types.new_component)
 			#print("NEW COMPONENT!")
-		
 		4: ## gain random new item
 			var item: ItemData = ShopManager.get_rand_item()
 			levelupdata.set_itemdata(item, LevelUpData.types.new_item)
 			#print("NEW ITEM!")
-		
 		5: ## upgrade random comp level
 			var comp: ItemData = GameManager.instance.get_random_equipped_comp()
 			if comp != null:
@@ -183,7 +176,6 @@ static func get_random_level_up_option() -> LevelUpData:
 				money = randi_range(20, 50) ## TODO: try again if failed?
 				levelupdata.set_money(money)
 				#print("money as backup due to no equipped weapons")
-		
 		_:
 			money = randi_range(20, 50)
 			levelupdata.set_money(money) ## Implement others

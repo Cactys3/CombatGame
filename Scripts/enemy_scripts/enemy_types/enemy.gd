@@ -2,7 +2,8 @@ extends RigidBody2D
 class_name Enemy
 
 @export_category("Enemy Stats")
-@export var stats: StatsResource
+#@export var stats: StatsResource = preload("res://Resources/misc/blank_stats.tres")
+@export var multiply_hp_by_level: bool = false
 @export var melee_attacks: bool = true
 @export var damage_hitbox: Area2D
 @export var can_be_knockbacked:bool = true
@@ -13,6 +14,8 @@ class_name Enemy
 @export var weapon_stun: float = 0
 @export var self_knockback_onhit: float = 200.0
 @export var base_damage: float = 10
+@export var base_critchance: float = 0
+@export var base_critdamage: float = 0
 @export var base_movespeed: float = 30
 @export var base_health: float = 10
 @export var base_regen: float = 0
@@ -35,7 +38,6 @@ const POPUP_TEXT = preload("res://Scenes/UI/popup_text.tscn")
 const XP = preload("res://Scenes/Misc/xp_blip.tscn")
 const ITEM_DROP = preload("uid://d3v2pdpqpmvpe")
 @onready var FORGE_ITEM = load("uid://xn3lii5356op")
-
 
 var player: Character
 var attack_on_cd: bool = true
@@ -66,42 +68,48 @@ var can_drop_stuff: bool = true
 ## Called on death with position of death
 signal death(position: Vector2)
 ## Player Level at time Enemy was spawned
-var level: float = 2
+var level: float 
+var difficulty: float 
 ##
 var dead: bool = false
 func _ready() -> void:
+	flash()
+	call_deferred("set_stats")
+	call_deferred("setup") 
+	add_to_group("enemy")
+	#stats.call_deferred("setup", name)
+func flash():
 	visible = false
 	await get_tree().create_timer(0.3).timeout
 	visible = true
-	call_deferred("set_stats")
-	call_deferred("setup")
-	cooldown_stopwatch = 0 # make it ready to attack on start?
-	add_to_group("enemy")
-	stats.setup(name)
 ## called whever stats change
 func set_stats():
-	curr_regen = base_regen + stats.get_stat(StatsResource.REGEN)
-	curr_movespeed = StatsResource.calculate_movespeed(stats.get_stat(StatsResource.MOVESPEED)) + base_movespeed
-	curr_knockback_modifier = stats.get_stat(StatsResource.WEIGHT) + base_knockback_modifier
-	curr_damage_reduction = stats.get_stat(StatsResource.STANCE) + base_damage_reduction
+	curr_regen = base_regen
+	curr_movespeed = base_movespeed
+	curr_knockback_modifier = base_knockback_modifier
+	curr_damage_reduction = base_damage_reduction
 	curr_cooldown_max = base_cooldown ##TODO: setup based on stats
-	curr_range = stats.get_stat(StatsResource.RANGE) + base_range
-	curr_speed = stats.get_stat(StatsResource.VELOCITY) + base_speed
+	curr_range = base_range
+	curr_speed = base_speed
 	curr_acceleration = base_acceleration
-	curr_lifetime = stats.get_stat(StatsResource.DURATION) + base_lifetime
-	curr_piercing = stats.get_stat(StatsResource.PIERCING) + base_piercing
-	curr_damage = stats.get_stat(StatsResource.DAMAGE) + base_damage
-	curr_health = (stats.get_stat(StatsResource.HP) + base_health) * (1 + (level / 2)) ## TODO: level hp calculation? very high scaling of hp
-	curr_critchance = stats.get_stat(StatsResource.CRITCHANCE)
-	curr_critdamage = stats.get_stat(StatsResource.CRITDAMAGE)
+	curr_lifetime = base_lifetime
+	curr_piercing = base_piercing
+	curr_damage = calculate_enemy_damage(base_damage, level, difficulty)
+	curr_health = calculate_enemy_hp(base_health, level, difficulty, multiply_hp_by_level)
+	curr_critchance = base_critchance
+	curr_critdamage = base_critdamage
 ##
 func setup():
 	player = get_tree().get_first_node_in_group("player")
 	ImReady = true
-	stats.connect_changed_signal(set_stats)
+	#stats.connect_changed_signal(set_stats)
 ## Calculate HP with given Character Level
-func initialize(new_level: float):
+func initialize(new_level: float, new_difficulty: float):
 	level = new_level
+	difficulty = new_difficulty
+	#call_deferred("set_stats")
+	#call_deferred("setup")
+	#add_to_group("enemy")
 func _process(delta: float) -> void:
 	if !ImReady || dead:
 		return
@@ -165,7 +173,7 @@ func die():
 		new_xp.set_xp(xp_on_death)
 		if can_drop_stuff:
 			## Chance to drop random component
-			if randf() < GameInstance.enemy_chance_to_drop_component:
+			if randf() < GameInstance.drop_chance_component:
 				drop_item()
 			elif GameInstance.next_enemy_drops_component:
 				drop_item()
@@ -174,19 +182,23 @@ func die():
 			if GameInstance.next_enemy_drops_forge:
 				GameInstance.next_enemy_drops_forge = false
 				drop_forge()
-			## Chance to drop random thingy (magnet, fire, 2x money, etc)
+			## Chance to drop powerups (magnet, fire, 2x money, etc)
+			if randf() < GameInstance.drop_chance_powerup:
+				drop_powerup()
 		queue_free()
+## Drops a forge (drops when GameInstance says so)
 func drop_forge():
-	var drop: ItemDrop = ITEM_DROP.instantiate()
-	drop.setup_item(ShopManager.make_itemUI(FORGE_ITEM.duplicate()))
-	drop.auto_collect = true
-	GameManager.instance.xp_parent.add_child(drop)
-	drop.global_position = global_position
+	GameInstance.drop_item(GameInstance.FORGE_DROP.duplicate(), global_position)
+## Drops a random component (enemies have a chance)
 func drop_item():
-	var drop: ItemDrop = ITEM_DROP.instantiate()
-	drop.setup_item(ShopManager.make_itemUI(ShopManager.get_rand_component()))
-	GameManager.instance.xp_parent.add_child(drop)
-	drop.global_position = global_position
+	GameInstance.drop_item(ShopManager.get_rand_component(), global_position)
+## Drops a chest (currenlty simple enemies don't have a chance to drop chests)
+func drop_chest():
+	GameInstance.drop_chest("Random Weapon!", -1, -1, -1, global_position)
+## Drops a Powerup
+func drop_powerup():
+	GameInstance.drop_powerup(global_position)
+
 func _on_damage_hitbox_body_entered(body: Node2D) -> void:
 	if body.has_method("damage") && body.is_in_group("player"):
 		damage_player(body)
@@ -213,9 +225,6 @@ func is_player_nearby(distance: float) -> bool:
 	return false
 func damage(attack: Attack):
 	var damage_taken = attack.damage - curr_damage_reduction 
-	if StatsResource.calculate_avoid_damage(stats.get_stat(StatsResource.GHOSTLY)):
-		damage_taken = 0
-		print("ENEMY AVOIDED DAMAGE")
 	if damage_taken > 0:
 		GameManager.instance.EnemyDamaged.emit(self, attack)
 		curr_health -= damage_taken
@@ -241,3 +250,14 @@ func death_signal(attack: Attack):
 	GameManager.instance.EnemyKilled.emit(self, attack)
 func apply_knockback(attack_pos: Vector2, knockback: float):
 	call_deferred("set_linear_velocity", (global_position - attack_pos).normalized() * knockback * curr_knockback_modifier)
+
+static func calculate_enemy_hp(base_hp: float, game_level: float, game_difficulty: float, hp_times_by_level: bool) -> float:
+	var ret: float = base_hp
+	if hp_times_by_level:
+		ret *= game_level
+	ret *= 1 + (game_difficulty / 50)
+	return ret
+static func calculate_enemy_damage(base_dmg: float, game_level: float, game_difficulty: float) -> float:
+	var ret: float = base_dmg
+	ret *= 1 + (game_difficulty / 50)
+	return ret

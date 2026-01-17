@@ -18,7 +18,7 @@ static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrad
 	for item in arr:
 		if item.name == StatsResource.DAMAGE:
 			item.value += 0.6
-	arr.append(get_stat_upgrade(StatsResource.INACCURACY, randf_range(-3, -1), itemdata.level, get_weighted_rarity(itemdata.level), 0, 0.1))
+	arr.append(get_stat_upgrade(StatsResource.INACCURACY, randf_range(-3, -1), itemdata.level, ItemData.get_weighted_rarity(itemdata.level), 0, 0.1))
 	return arr
 ## Returns a randomized stat object, using the given itemdata's variables like rarity
 static func randomize_stats(itemdata: ItemData) -> StatsResource:

@@ -33,19 +33,40 @@ var enemy_events: Array[EnemyEventSpawn]
 var bosses: Array[BossSpawn] # stores bosses to spawn
 var phases: Array[SpawningPhase] # stores the phases to spawn enemies in
 var current_phase: SpawningPhase
-## Chances
-static var enemy_chance_to_drop_component: float = 0.01
+## Drops
+static var FORGE_DROP:
+	get(): ## Doesn't work preloading, idk why
+		return load("uid://xn3lii5356op")
+const ITEM_DROP = preload("uid://d3v2pdpqpmvpe")
+## Powerup Drop
+static var drop_chance_powerup: float = 0.01:
+	get():
+		if GameManager.instance:
+			return calculate_powerup_drop_chance(drop_chance_powerup, GameManager.instance.luck)
+		else:
+			return calculate_powerup_drop_chance(drop_chance_powerup, 0)
+static var next_enemy_drops_powerup: bool = false
+var enemies_since_powerup: int = 0
+var enemies_per_powerup: int = 150
+## Component Drop
+static var drop_chance_component: float = 0.01:
+	get():
+		if GameManager.instance:
+			return calculate_component_drop_chance(drop_chance_component, GameManager.instance.luck)
+		else:
+			return calculate_component_drop_chance(drop_chance_component, 0)
 static var next_enemy_drops_component: bool = false
 var enemies_since_component: int = 0
 var enemies_per_component: int = 150
+## Forge Drop
 static var next_enemy_drops_forge: bool = true
 var enemies_since_forge: int = 0
 var enemies_per_forge: int = 50
 ## Spawning Stuff
 var win_time: float = 10
 var total_stopwatch: float = 0
-var spawning_stopwatch: float = 0
-var spawning_cooldown: float = 1
+var enemy_stopwatch: float = 0
+var enemy_cooldown: float = 1
 var spawning_phase: int = -1
 var event_arr: Array
 var map_height: int = 10 ## this many chunks tall
@@ -130,10 +151,12 @@ func _process(delta: float) -> void:
 		handle_enemy_spawning(delta, pos)
 	handle_spawn_phases()
 	handle_chunks(pos)
-	if enemies_alive > max_enemies:
-		despawn_enemies(game_man.player.global_position, enemies_alive - max_enemies)
-	elif enemies_alive < min_enemies:
-		spawn_backups(game_man.player.global_position, min_enemies - enemies_alive)
+	var calculated_min_enemies = StatsResource.calculate_min_enemies(min_enemies, game_man.difficulty)
+	var calculated_max_enemies = StatsResource.calculate_max_enemies(max_enemies, game_man.difficulty)
+	if enemies_alive > calculated_max_enemies:
+		despawn_enemies(game_man.player.global_position, calculated_max_enemies - max_enemies)
+	elif enemies_alive < calculated_min_enemies:
+		spawn_backups(game_man.player.global_position, calculated_min_enemies - enemies_alive)
 ## Creates MainMenu Scene and removes current Scene
 func return_to_main_menu() -> void:
 	## Tell Player They Won
@@ -217,9 +240,9 @@ func handle_chunks(pos: Vector2):
 			pass#print("already had: SE")
 ## Only spawn enemies / check to spawn bosses every so often
 func handle_enemy_spawning(delta: float, pos: Vector2):
-	spawning_stopwatch += delta
-	if spawning_stopwatch > spawning_cooldown:
-		spawning_stopwatch = 0
+	enemy_stopwatch += delta
+	if enemy_stopwatch > StatsResource.calculate_spawning_cd(enemy_cooldown, game_man.difficulty):
+		enemy_stopwatch = 0
 		spawn_enemies(pos)
 		spawn_bosses(pos)
 		spawn_enemy_events(pos)
@@ -255,7 +278,7 @@ func remove_enemy(enemy: Enemy):
 	enemies_spawned -= 1
 ## Spawns backup enemies until min_enemies is met
 func spawn_backups(pos: Vector2, num: int):
-	print("Not enough enemies, Spawning " + str(num) + "!")
+	print("Not enough enemies, Spawning " + str(num) + "! " + str(StatsResource.calculate_min_enemies(min_enemies, game_man.difficulty)))
 	var counter: int = 0
 	var enemies_added: int = 0
 	var initial_enemies: int = enemies_alive
@@ -317,7 +340,7 @@ func spawn_enemy(scene: PackedScene, pos: Vector2):
 	enemies_alive += 1
 	enemies_spawned += 1
 	var enemy = scene.instantiate()
-	enemy.initialize(level)
+	enemy.initialize(level, game_man.difficulty)
 	enemy.visible = false
 	enemy.global_position = pos
 	game_man.enemy_parent.add_child(enemy)
@@ -381,7 +404,50 @@ static func random_position(player_pos: Vector2) -> Vector2:
 	return pos
 func SpawningButtonPressed(b: bool) -> void:
 	pass
-
+## Spawns an ItemDrop for a random component at location
+static func drop_item(component: ItemData, location: Vector2):
+	var drop: ItemDrop = ITEM_DROP.instantiate()
+	drop.setup_item(ShopManager.make_itemUI(component))
+	GameManager.instance.xp_parent.add_child(drop)
+	drop.global_position = location
+static func drop_chest(drop_title: String, handle_id: int, attachment_id: int, projectile_id: int, location: Vector2):
+	var loot: Loot = LOOT_CHEST.instantiate()
+	var loot_handle: ItemData
+	var loot_attachment: ItemData
+	var loot_projectile: ItemData
+	var loot_weapon: ItemData
+	if handle_id != -1:
+		loot_handle = ShopManager.get_handle(handle_id)
+	else:
+		loot_handle = ShopManager.get_handle(ShopManager.get_random_unlocked_weapon_index())
+	if attachment_id != -1:
+		loot_attachment = ShopManager.get_attachment(attachment_id)
+	else:
+		loot_attachment = ShopManager.get_attachment(ShopManager.get_random_unlocked_weapon_index())
+	if projectile_id != -1:
+		loot_projectile = ShopManager.get_projectile(projectile_id)
+	else:
+		loot_projectile = ShopManager.get_projectile(ShopManager.get_random_unlocked_weapon_index())
+	loot_weapon = ShopManager.BLANK_ITEMDATA.duplicate()
+	loot_weapon.set_components(loot_attachment, loot_handle, loot_projectile)
+	loot.setup(drop_title, loot_handle, loot_attachment, loot_projectile, loot_weapon)
+	loot.visible = false
+	GameManager.instance.enemy_parent.add_child(loot)
+	loot.position = location
+	loot.visible = true
+static func drop_powerup(location: Vector2):
+	pass#var drop: ItemDrop = ITEM_DROP.instantiate() # TODO: make powerups
+	#drop.setup_item(ShopManager.make_itemUI(component))
+	#GameManager.instance.xp_parent.add_child(drop)
+	#drop.global_position = location
+## Calculates chance for enemy to drop a component
+static func calculate_component_drop_chance(drop_chance: float, luck: float) -> float:
+	## 20 luck means 1 percent higher chance
+	return drop_chance + luck / 2000
+## Calculates chance for enemy to drop a powerup
+static func calculate_powerup_drop_chance(drop_chance: float, luck: float) -> float:
+	## 20 luck means 1 percent higher chance
+	return drop_chance + luck / 2000
 ## Overrides
 func add_tiles():
 	pass

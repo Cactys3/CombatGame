@@ -102,6 +102,12 @@ var money: float = 0: ## Current Money Held
 		else:
 			money = value
 		ui_man.set_money(money)
+var difficulty: float:
+	get():
+		return player.player_stats.get_stat(StatsResource.DIFFICULTY)
+var luck: float:
+	get():
+		return player.player_stats.get_stat(StatsResource.LUCK)
 
 var paused: bool = false ## Is Game Instance Paused or Not
 var level_up_queue: int = 0

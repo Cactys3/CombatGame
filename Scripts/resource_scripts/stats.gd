@@ -544,3 +544,20 @@ static func calculate_avoid_damage(ghostly: float) -> bool:
 	#return min(ghostly, 85) / 100 > randf()
 static func calculate_regen(regen: float) -> float:
 	return regen / 10
+static func calculate_spawning_cd(base_cd: float, difficulty: float) -> float:
+	## Can be at minimum half of normal cd
+	return max(base_cd - (difficulty / 100), base_cd / 2)
+static func calculate_max_enemies(base_max: float, difficulty: float) -> float:
+	return base_max + (difficulty / 2)
+static func calculate_min_enemies(base_min: float, difficulty: float) -> float:
+	return base_min + (difficulty / 2)
+static func calculate_uprade_rarity_count(luck: float) -> int:
+	var ret: int = 0
+	## Luck: 50 means 50% chance to upgrade
+	## Luck: 150 means 100% chance to upgrade 1, 50% chance to upgrade twice
+	while(randf() < luck / 100):
+		luck -= 100
+		ret += 1
+	return ret
+static func calculate_stat_upgrade_level_multiplier(level: float) -> float:
+	return (level / 100) + 1

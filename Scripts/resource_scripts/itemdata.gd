@@ -292,9 +292,9 @@ func upgrade_component_level(arr: Array[LevelUpgrade]):
 	## ItemPackedScene is the object, can do ItemPackedScene.instantiate().upgrade_component_level(stats) if it's static'
 	for upgrade in arr:
 		if upgrade.factor:
-			stats.set_stat_factor(upgrade.name, stats.get_stat_factor(upgrade.name) + upgrade.value)
+			added_stats.set_stat_factor(upgrade.name, added_stats.get_stat_factor(upgrade.name) + upgrade.value)
 		else:
-			stats.set_stat_base(upgrade.name, stats.get_stat_base(upgrade.name) + upgrade.value)
+			added_stats.set_stat_base(upgrade.name, added_stats.get_stat_base(upgrade.name) + upgrade.value)
 ##
 func upgrade_component_rarity():
 	match(item_rarity):
@@ -343,6 +343,44 @@ func get_stats() -> StatsResource:
 func is_component() -> bool:
 	return item_type == item_types.handle || item_type == item_types.attachment || item_type == item_types.projectile
 
+const weights = {
+	ItemData.item_rarities.common: 50, ## 51.61%
+	ItemData.item_rarities.rare: 25, ## 25.81%
+	ItemData.item_rarities.epic: 12.5, ## 12.90%
+	ItemData.item_rarities.legendary: 6.25, ## 6.45%
+	ItemData.item_rarities.exclusive: 3.125} ## 3.23%
+ ## Returns a random level up rarity (using item_rarities) based on weights
+static func get_weighted_rarity(item_level: float) -> ItemData.item_rarities:
+	var total_weight: float = 0
+	for weight in weights.value:
+		total_weight += weight
+	var roll: float = randf_range(0, total_weight)
+	var ret: ItemData.item_rarities = ItemData.item_rarities.common
+	var cumulative: float = 0
+	## Calculate Rarity
+	for rarity in weights.keys():
+		cumulative += weights[rarity]
+		if roll < cumulative:
+			ret = rarity
+			break
+	## Chance to increase rarity based on luck
+	if GameManager.instance:
+		ret = min(ret + StatsResource.calculate_uprade_rarity_count(GameManager.instance.luck), ItemData.item_rarities.exclusive)
+	return ret
+## Calculates the multiplier to a stat level up increase based on a given level up rarity
+static func calculate_stat_upgrade_rarity_multiplier(rarity: item_rarities) -> float:
+	match(rarity):
+		item_rarities.common:
+			return 1
+		item_rarities.rare:
+			return 1.125
+		item_rarities.epic:
+			return 1.25
+		item_rarities.legendary:
+			return 1.5
+		item_rarities.exclusive:
+			return 2
+	return 1
 ## Stats can go up or down, multiplied by 1.0 to 1.5 based on rarity of rng roll
 class LevelUpgrade:
 	## Stat to add to

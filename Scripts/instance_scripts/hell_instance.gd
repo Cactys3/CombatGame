@@ -32,7 +32,7 @@ func _ready() -> void:
 	min_enemies = default_min_enemies
 	max_enemies = default_max_enemies
 	win_time = 60*20
-	spawning_cooldown = 1
+	enemy_cooldown = 1
 	spawning_phase = -1
 	map_height = 3 ## this many chunks tall
 	map_width = 3 ## this many chunks wide

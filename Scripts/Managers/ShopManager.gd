@@ -179,6 +179,8 @@ static func setup_data(item: ItemData) -> ItemData:
 	return data
 ## returns a random ItemData rarity
 static func random_rarity() -> int:
+	if GameManager.instance:
+		return min(randi_range(1, ItemData.item_rarities.size() - 1) + StatsResource.calculate_uprade_rarity_count(GameManager.instance.luck), ItemData.item_rarities.size() - 1)
 	return randi_range(1, ItemData.item_rarities.size() - 1)
 ## Makes an ItemUI for a given ItemData
 static func make_itemUI(item: ItemData) -> ItemUI:

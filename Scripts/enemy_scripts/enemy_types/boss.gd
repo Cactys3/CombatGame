@@ -16,39 +16,15 @@ const PROXIMITY_LOOT_CHEST = preload("uid://cll8qcsho5mrw")
 ## handle health bar to see if we want that just for bosses
 
 func die():
-	drop_loot()
+	drop_chest()
 	unlock_weapon()
 	super()
 
 func death_signal(attack: Attack):
 	GameManager.instance.BossKilled.emit(self, attack)
 
-func drop_loot():
-	#print("SPAWNING CHEST")
-	var loot: Loot = PROXIMITY_LOOT_CHEST.instantiate()
-	var loot_handle: ItemData
-	var loot_attachment: ItemData
-	var loot_projectile: ItemData
-	var loot_weapon: ItemData
-	if loot_drop_id_handle != -1:
-		loot_handle = ShopManager.get_handle(loot_drop_id_handle)
-	else:
-		loot_handle = ShopManager.get_handle(ShopManager.get_random_unlocked_weapon_index())
-	if loot_drop_id_attachment != -1:
-		loot_attachment = ShopManager.get_attachment(loot_drop_id_handle)
-	else:
-		loot_attachment = ShopManager.get_attachment(ShopManager.get_random_unlocked_weapon_index())
-	if loot_drop_id_projectile != -1:
-		loot_projectile = ShopManager.get_projectile(loot_drop_id_handle)
-	else:
-		loot_projectile = ShopManager.get_projectile(ShopManager.get_random_unlocked_weapon_index())
-	loot_weapon = ShopManager.BLANK_ITEMDATA.duplicate()
-	loot_weapon.set_components(loot_attachment, loot_handle, loot_projectile)
-	loot.setup(loot_drop_title, loot_handle, loot_attachment, loot_projectile, loot_weapon)
-	loot.visible = false
-	GameManager.instance.enemy_parent.add_child(loot)
-	loot.position = position
-	loot.visible = true
+func drop_chest():
+	GameInstance.drop_chest(loot_drop_title, loot_drop_id_handle, loot_drop_id_attachment, loot_drop_id_projectile, global_position)
 
 func unlock_weapon():
 	if unlocks_weapon_id != -1:
