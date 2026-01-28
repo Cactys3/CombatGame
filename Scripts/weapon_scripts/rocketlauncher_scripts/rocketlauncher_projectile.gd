@@ -19,7 +19,6 @@ func process_movement(delta: float) -> void:
 ## Remove return on 'dead', make die() on first collision
 func attack_body(body: Node2D, clone: bool) -> void:
 	if !AttackedObjects.has(body):
-		print(clone)
 		var new_attack = make_attack(clone)
 		body.damage(new_attack)
 		collision_counter += 1

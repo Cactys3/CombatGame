@@ -12,6 +12,16 @@ var items: Array[ItemUI] = []
 @export var description_stats: StatsDisplay
 var showing_item: ItemData = null
 
+var item_count: int:
+	get():
+		return _get_item_count()
+var weapon_count: int:
+	get():
+		return _get_weapon_count()
+var component_count: int:
+	get():
+		return _get_component_count()
+
 func clear() -> bool:
 	for item in items:
 		item.free_draggable_ui()
@@ -155,3 +165,22 @@ func button3():
 func button4():
 	sort_random()
 	last_clicked = 4
+
+func _get_item_count() -> int:
+	var ret: int = 0
+	for item in items:
+		if item.data.item_type == ItemData.item_types.item:
+			ret += 1
+	return ret
+func _get_weapon_count() -> int:
+	var ret: int = 0
+	for item in items:
+		if item.data.item_type == ItemData.item_types.weapon:
+			ret += 1
+	return ret
+func _get_component_count() -> int:
+	var ret: int = 0
+	for item in items:
+		if item.data.is_component():
+			ret += 1
+	return ret

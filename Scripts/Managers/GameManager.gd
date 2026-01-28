@@ -97,7 +97,7 @@ var xp: float = 0: ## Current (total?) XP Gained
 var money: float = 0: ## Current Money Held
 	set(value):
 		if value > money: ## Factor in money_gain when adding money
-			print("new money: " + str((value - money)) + " * " + str(money_gain_modifier))
+			#print("new money: " + str((value - money)) + " * " + str(money_gain_modifier))
 			money = money + (value - money) * money_gain_modifier
 		else:
 			money = value
@@ -272,9 +272,13 @@ func create_level_up_instance():
 	var level_pause: UIManager.PauseItem = UIManager.PauseItem.new(Callable(), UIManager.PauseItem.PauseTypes.ui, false, false, ui_man.level_up_parent)
 	ui_man.pause(level_pause)
 	## get 3 random things w/ variable references
-	var one = LevelUpData.get_random_level_up_option()
-	var two = LevelUpData.get_random_level_up_option()
-	var three = LevelUpData.get_random_level_up_option()
+	var array: Array[LevelUpData] = []
+	var one = LevelUpData.get_random_level_up_option(array)
+	array.append(one)
+	var two = LevelUpData.get_random_level_up_option(array)
+	array.append(two)
+	var three = LevelUpData.get_random_level_up_option(array)
+	array.append(three)
 	## setup LevelUpInstance with those random things and their details (color, name, etc)
 	var level_instance = LEVEL_UP_UI.instantiate()
 	level_instance.set_pause(level_pause)

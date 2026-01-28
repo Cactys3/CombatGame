@@ -10,7 +10,7 @@ var border_color: Color = Color.WHITE_SMOKE
 var description: String = "Default Description"
 var rarity: String
 var type: types
-enum types{new_component, new_item, component_rarity, component_level, item_rarity, item_level, money, weapon_upgrade, special}
+enum types{new_component, new_item, component_level, item_level, weapon_level, special}
 var itemdata: ItemData 
 var LevelUpgrades: Array[ItemData.LevelUpgrade] 
 ## sets up the data using an ItemData
@@ -24,10 +24,6 @@ func set_itemdata(data:ItemData, new_type: types):
 	itemdata = data
 	type = new_type
 	match(new_type):
-		types.component_rarity:
-			option_name = option_name #  "Rarity Up: " + option_name + "\n" + data.get_rarity_upgrade_text()
-		types.item_rarity:
-			option_name = option_name # "Rarity Up: " + option_name + "\n" + data.get_rarity_upgrade_text()
 		types.new_component:
 			option_name = option_name # "Gain Component: " + option_name
 		types.new_item:
@@ -63,25 +59,10 @@ func set_data(new_name: String, new_image: Texture2D, new_color: Color, new_bord
 	border_color = new_border_color
 	description = new_description
 	type = new_type
-## sets up the data as a money level up option
-func set_money(amount: int):
-	money = amount
-	option_name = "More Money!"
-	image = load("res://Art/Misc/money.png")
-	color = Color.GOLD
-	border_color = Color.GOLDENROD
-	description = "Gain " + str(amount) + " more money!"
-	type = types.money
 ## this level up optin was chosen, carry out the level up, this method is polymorph
 func carryout_level_up():
 	#print("CHOSE CHOICE: " + str(type))
 	match(type):
-		types.money:
-			carryout_money()
-		types.component_rarity:
-			carryout_component_rarity()
-		types.item_rarity:
-			carryout_item_rarity()
 		types.component_level:
 			carryout_component_level()
 		types.item_level:
@@ -90,7 +71,7 @@ func carryout_level_up():
 			carryout_new_component()
 		types.new_item:
 			carryout_new_item()
-		types.weapon_upgrade:
+		types.weapon_level:
 			pass
 		_:
 			carryout_money()
@@ -124,62 +105,100 @@ func get_stats() -> StatsResource:
 	else:
 		return null
 
-static func get_random_level_up_option() -> LevelUpData:
+
+const new_component_weight_base: float = 0.5
+const new_item_weight_base: float = 0.5
+const component_levelup_weight_base: float = 1
+const item_levelup_weight_base: float = 1
+const weapon_levelup_weight_base: float = 0.05
+## The meaty function that decides what the level up option will be 
+static func get_random_level_up_option(other_options: Array[LevelUpData]) -> LevelUpData:
+	var game_man: GameManager = GameManager.instance
+	## Set to base weights
+	var new_component_weight: float = new_component_weight_base
+	var new_item_weight: float = new_item_weight_base
+	var component_levelup_weight: float = component_levelup_weight_base
+	var item_levelup_weight: float = item_levelup_weight_base
+	var weapon_levelup_weight: float = weapon_levelup_weight_base
+	## Get Weight Factors
+	var weapon_capacity_percent: float = float(game_man.weapon_count) / float(game_man.weapon_limit)
+	var component_count: float = game_man.ui_man.inventory.component_count + game_man.ui_man.equipment.component_count
+	var weapon_count: float = game_man.ui_man.inventory.weapon_count + game_man.ui_man.equipment.weapon_count
+	var item_count: float = game_man.ui_man.inventory.item_count + game_man.ui_man.equipment.item_count
+	## Add weight factors
+	## Increase Chance to gain component if own few components
+	new_component_weight = new_component_weight + (7.0 / (component_count + 2.0)) ## count = 1 -> 2.33, count = 5 -> 1
+	new_item_weight = new_item_weight + (5.0 / (new_item_weight + 2.0))
+	component_levelup_weight += game_man.ui_man.equipment.weapon_count
+	item_levelup_weight += item_count / 3
+	## Factor in other options
+	for option in other_options:
+		if option.type == types.new_component:
+			new_component_weight = max(new_component_weight - 2.5, 0.1)
+		if option.type == types.new_item:
+			new_item_weight = max(new_item_weight - 3, 0.1)
+		if option.type == types.component_level:
+			component_levelup_weight = max(component_levelup_weight - 1, 0.1)
+		if option.type == types.item_level:
+			item_levelup_weight = max(item_levelup_weight - 1, 0.1)
+	## Set zero if impossible
+	if game_man.ui_man.equipment.weapon_count == 0:
+		component_levelup_weight = 0
+	if game_man.ui_man.equipment.item_count == 0:
+		item_levelup_weight = 0
+	if !game_man.has_item_room():
+		new_item_weight = 0
+	## Roll and Return
+	var array: Array[float] = [new_component_weight, new_item_weight, component_levelup_weight, item_levelup_weight, weapon_levelup_weight]
+	var total_weight: float = 0
+	for item in array:
+		total_weight += item
+	var roll: float = randf_range(0, total_weight)
+	var running_total: float = 0
+	if false:
+		print("New Comp: " + str(new_component_weight))
+		print("New Item: " + str(new_item_weight))
+		print("Comp Up: " + str(component_levelup_weight))
+		print("Item Up: " + str(item_levelup_weight))
+		print("Weapon Up: " + str(weapon_levelup_weight))
+	running_total += new_component_weight
+	if running_total >= roll:
+		return get_new_component_upgrade()
+	running_total += new_item_weight
+	if running_total >= roll:
+		return get_new_item_upgrade()
+	running_total += component_levelup_weight
+	if running_total >= roll:
+		return get_component_level_upgrade()
+	running_total += item_levelup_weight
+	if running_total >= roll:
+		return get_item_level_upgrade()
+	running_total += weapon_levelup_weight
+	if running_total >= roll:
+		return get_weapon_level_upgrade()
+	return get_new_item_upgrade()
+
+static func get_component_level_upgrade() -> LevelUpData:
 	var levelupdata: LevelUpData = LevelUpData.new()
-	
-	var choice = randi_range(0, 5)
-	## Weighted options
-	# have more options to gain new components/items based on how little of them you have
-	# have more options to upgrade level of comp/item based on how many of them you have to level up
-	# can't present new comp/item if item/comp limit is reached
-	# remove rarity upgrade, remove money
-	var can_gain_item: bool = GameManager.instance.has_item_room()
-	var can_gain_weapon: bool = GameManager.instance.has_weapon_room()
-	
-	var money: int
-	match(choice):
-		0: ## gain random money
-			money = randi_range(20, 50)
-			levelupdata.set_money(money)
-		1: ## upgrade random component's rarity
-			var comp: ItemData = GameManager.instance.get_random_equipped_comp()
-			if comp != null:
-				levelupdata.set_itemdata(comp, types.component_rarity)
-				#print("weapon: " + comp.item_name)
-			else:
-				money = randi_range(20, 50) ## TODO: try again if failed?
-				levelupdata.set_money(money)
-				#print("money as backup due to no equipped weapons")
-		2: ## upgrade random item's rarity
-			if GameManager.instance.get_random_equipped_item() != null:
-				var item: ItemData = GameManager.instance.get_random_equipped_item()
-				levelupdata.set_itemdata(item, types.item_rarity)
-				#print("item: " + item.item_name)
-			else:
-				money = randi_range(20, 50) ## TODO: try again if failed?
-				levelupdata.set_money(money)
-				#print("money as backup due to no equipped items")
-		3: ## get new component
-			var item: ItemData = ShopManager.get_rand_component()
-			levelupdata.set_itemdata(item, LevelUpData.types.new_component)
-			#print("NEW COMPONENT!")
-		4: ## gain random new item
-			var item: ItemData = ShopManager.get_rand_item()
-			levelupdata.set_itemdata(item, LevelUpData.types.new_item)
-			#print("NEW ITEM!")
-		5: ## upgrade random comp level
-			var comp: ItemData = GameManager.instance.get_random_equipped_comp()
-			if comp != null:
-				levelupdata.set_itemdata(comp, types.component_level)
-				#print("weapon: " + comp.item_name)
-			else:
-				money = randi_range(20, 50) ## TODO: try again if failed?
-				levelupdata.set_money(money)
-				#print("money as backup due to no equipped weapons")
-		_:
-			money = randi_range(20, 50)
-			levelupdata.set_money(money) ## Implement others
+	levelupdata.set_itemdata(GameManager.instance.get_random_equipped_comp(), types.component_level)
 	return levelupdata
+static func get_item_level_upgrade() -> LevelUpData:
+	var levelupdata: LevelUpData = LevelUpData.new()
+	levelupdata.set_itemdata(GameManager.instance.get_random_equipped_item(), types.item_level)
+	return levelupdata
+static func get_weapon_level_upgrade() -> LevelUpData:
+	var levelupdata: LevelUpData = LevelUpData.new()
+	levelupdata.set_itemdata(GameManager.instance.get_random_equipped_weapon(), types.weapon_level)
+	return levelupdata
+static func get_new_item_upgrade() -> LevelUpData:
+	var levelupdata: LevelUpData = LevelUpData.new()
+	levelupdata.set_itemdata(ShopManager.get_rand_item(), LevelUpData.types.new_item)
+	return levelupdata
+static func get_new_component_upgrade() -> LevelUpData:
+	var levelupdata: LevelUpData = LevelUpData.new()
+	levelupdata.set_itemdata(ShopManager.get_rand_component(), LevelUpData.types.new_component)
+	return levelupdata
+
 ## Returns RichText colorized based on rarity
 func colorize(text: String, rarity: ItemData.item_rarities) -> String:
 	var textcolor
@@ -224,18 +243,12 @@ func get_type_name(given_type: int) -> String:
 			return "New Component!"
 		types.new_item:
 			return "New Item!"
-		types.component_rarity:
-			return "Rarity Increase!"
 		types.component_level:
 			return "Level Up!"
-		types.item_rarity:
-			return "Rarity Increase!"
 		types.item_level:
 			return "Level Up!"
-		types.money:
-			return "More Money!"
-		types.weapon_upgrade:
-			return "Weapon Upgrade!"
+		types.weapon_level:
+			return "Weapon Level Up!"
 		types.special:
 			return "Special Upgrade!"
 		_:

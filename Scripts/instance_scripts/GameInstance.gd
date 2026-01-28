@@ -273,7 +273,7 @@ func despawn_enemies(pos: Vector2, num: int):
 			remove_enemy(enemy)
 ## Removes enemy from game without triggering death things like gain xp/money
 func remove_enemy(enemy: Enemy):
-	print("enemy too far away, -1")
+	#print("enemy too far away, -1")
 	enemy.queue_free()
 	enemies_alive -= 1
 	enemies_spawned -= 1

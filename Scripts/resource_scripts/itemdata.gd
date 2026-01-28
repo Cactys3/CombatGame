@@ -102,7 +102,6 @@ static func get_type(i: int) -> String:
 ## Creates ItemData, called Once
 var counter: int = 0
 func setup(should_randomize: bool, starting_rarity: item_rarities):
-	print("setup data: " + item_name + " " + str(counter))
 	counter += 1
 	if is_ready:
 		printerr("Trying to ItemData.setup() on an already setup item: " + item_name + component_halfname + resource_name)
@@ -189,7 +188,6 @@ func make_item():
 			var ret: Item = item_packed_scene.instantiate()
 			GameManager.instance.add_child(ret)
 			if has_stats:
-				print("ITEM ITEM: " + str(stats.initialized) + " " + item_name)
 				ret.set_stats(stats) #TODO: Choosing not to duplicate stats here because should be same reference?
 			if has_status_effects:
 				ret.status = status_effects
@@ -356,7 +354,7 @@ const weights = {
  ## Returns a random level up rarity (using item_rarities) based on weights
 static func get_weighted_rarity(item_level: float) -> ItemData.item_rarities:
 	var total_weight: float = 0
-	for weight in weights.value:
+	for weight in weights.values():
 		total_weight += weight
 	var roll: float = randf_range(0, total_weight)
 	var ret: ItemData.item_rarities = ItemData.item_rarities.common

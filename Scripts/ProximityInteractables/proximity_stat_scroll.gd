@@ -6,7 +6,6 @@ var stats: StatsResource = BLANK_STATS
 
 ## Calculate and assign a rarity
 func setup(new_level: int):
-	print("setup: " + str(new_level))
 	stats.setup("Damage+ Scroll")
 	stats.set_stat_base(StatsResource.DAMAGE, new_level)
 	## Make a rarity based on level TODO: stat scroll
