@@ -28,6 +28,7 @@ func add_option(data: ItemData):
 	option.setup(data, method, set_stat)
 func set_stat(data: ItemData):
 	if data.has_stats:
-		var stats = data.stats
+		#var stats = data.stats#
+		var stats = data.get_stats()
 		stats_display.setup_substats(stats, stats.parent_object_name)
 		stats_display.only_show_changed = true

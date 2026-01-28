@@ -4,7 +4,6 @@ extends Item
 
 ## Code: Adds 10% to global stat?
 
-var stats: StatsResource
 
 func _process(delta: float) -> void:
 	super(delta)
@@ -12,9 +11,6 @@ func _process(delta: float) -> void:
 
 func _ready() -> void:
 	super()
-
-func set_stats(new_stats: StatsResource):
-	stats = new_stats
 
 func _connect_signals():
 	super()

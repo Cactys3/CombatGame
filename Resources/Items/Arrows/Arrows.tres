@@ -17,6 +17,7 @@ item_name = "Arrows"
 item_description = "Shoots X arrow(s) every X seconds (based off stats but not implemented)"
 item_type = 5
 has_stats = true
+randomizable = true
 default_stats = ExtResource("1_thsgb")
 has_status_effects = true
 default_status_effects = SubResource("Resource_vb0w8")

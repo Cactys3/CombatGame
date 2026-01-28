@@ -165,10 +165,6 @@ static func get_weapon(num: int) -> ItemData:
 ## 1 = DamageBuff
 static func get_item(num: int) -> ItemData:
 	return setup_data(item_list.get(num).duplicate())
-	if item_list.size() <= num:
-		return setup_data(item_list.get(num).duplicate())
-	else:
-		return setup_data(DAMAGE_BUFF.duplicate())
 ## returns forge
 static func get_forge() -> ItemData:
 	return setup_data(FORGE.duplicate())

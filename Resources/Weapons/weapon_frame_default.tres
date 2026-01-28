@@ -16,8 +16,7 @@ metadata/_custom_type_script = "uid://dhqfnnqd2n054"
 [resource]
 script = ExtResource("2_4p5o0")
 item_color = Color(0.282353, 0.239216, 0.545098, 1)
-default_stats = SubResource("Resource_3e3bs")
-stat_randomizations = null
-default_status_effects = SubResource("Resource_phlqm")
 has_stats = true
+default_stats = SubResource("Resource_3e3bs")
+default_status_effects = SubResource("Resource_phlqm")
 metadata/_custom_type_script = "uid://dnj6pao77g7bt"

@@ -1,7 +1,6 @@
 extends Item
 
 var status: StatusEffects = null
-var stats: StatsResource = null
 var curr_timer: float = 0
 var max_timer: float = 3
 @export var projectile: PackedScene
@@ -18,9 +17,6 @@ func _process(delta: float) -> void:
 		if curr_timer >= max_timer:
 			create_projectiles()
 			curr_timer = 0
-
-func set_stats(new_stats: StatsResource):
-	stats = new_stats
 ## TODO: rework to use basic_projectile ?
 func create_projectiles(): 
 	var direction_angle: float = randf_range(0, 2 * PI)

@@ -197,7 +197,7 @@ func sell_item(item: ItemData) -> bool:
 	return false
 ## Handles Money Part of Buying item (maybe supposed to expand this)
 func buy_item(item: ItemData) -> bool:
-	if (item && (money > item.get_cost(false))):
+	if (item && (money >= item.get_cost(false))):
 		money -= item.get_cost(false)
 		return true
 	return false

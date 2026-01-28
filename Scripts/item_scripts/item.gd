@@ -2,6 +2,7 @@ extends Node
 class_name Item
 
 var connect_all: bool = false
+var stats: StatsResource
 var data: ItemData = ShopManager.BLANK_ITEMDATA.duplicate()
 var enabled: bool = false
 var manager: GameManager:
@@ -52,13 +53,17 @@ static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrad
 ## Returns a randomized stat object, using the given itemdata's variables like rarity
 static func randomize_stats(itemdata: ItemData) -> StatsResource:
 	var stats: StatsResource = StatsResource.BLANK_STATS.duplicate()
+	stats.setup(itemdata.item_name + " Rolls")
 	return stats
 ## Sets up a RightClickMenu for this component
 func setup_right_click_menu(menu: RightClickMenu):
 	menu.set_bools(data.can_feed, data.can_sell, false, false)
 
 func get_stats():
+	if stats:
+		return stats
 	return null
-
+func set_stats(new_stats: StatsResource):
+	stats = new_stats
 func is_forge() -> bool:
 	return false

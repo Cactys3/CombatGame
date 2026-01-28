@@ -100,7 +100,10 @@ static func get_type(i: int) -> String:
 			return "item"
 	return "even further beyond"
 ## Creates ItemData, called Once
+var counter: int = 0
 func setup(should_randomize: bool, starting_rarity: item_rarities):
+	print("setup data: " + item_name + " " + str(counter))
+	counter += 1
 	if is_ready:
 		printerr("Trying to ItemData.setup() on an already setup item: " + item_name + component_halfname + resource_name)
 		#return
@@ -108,7 +111,7 @@ func setup(should_randomize: bool, starting_rarity: item_rarities):
 	if has_stats || default_stats:
 		stats = default_stats.duplicate()
 		if stats.parent_object_name == "unset":
-			stats.setup(item_name + "Stats")
+			stats.setup(item_name + " Stats")
 		else:
 			stats.setup(stats.parent_object_name)
 	if has_status_effects:
@@ -186,6 +189,7 @@ func make_item():
 			var ret: Item = item_packed_scene.instantiate()
 			GameManager.instance.add_child(ret)
 			if has_stats:
+				print("ITEM ITEM: " + str(stats.initialized) + " " + item_name)
 				ret.set_stats(stats) #TODO: Choosing not to duplicate stats here because should be same reference?
 			if has_status_effects:
 				ret.status = status_effects

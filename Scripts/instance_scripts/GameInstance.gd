@@ -262,7 +262,8 @@ func load_chunk(chunk_id: Vector2):
 	new_chunk.visible = true
 ## Despawns the enemy that is farthest from position
 func despawn_enemies(pos: Vector2, num: int):
-	print("Too many enemies, Despawning " + str(num) + "!")
+	if num > 0:
+		print("Too many enemies, Despawning " + str(num) + "!")
 	var enemie: Array = get_tree().get_nodes_in_group("enemy")
 	enemie.sort_custom(func(a, b): return a.global_position.distance_to(pos) > b.global_position.distance_to(pos))
 	for i: int in num:
@@ -278,7 +279,8 @@ func remove_enemy(enemy: Enemy):
 	enemies_spawned -= 1
 ## Spawns backup enemies until min_enemies is met
 func spawn_backups(pos: Vector2, num: int):
-	print("Not enough enemies, Spawning " + str(num) + "! " + str(StatsResource.calculate_min_enemies(min_enemies, game_man.difficulty)))
+	if num > 0:
+		print("Not enough enemies, Spawning " + str(num) + "! " + str(StatsResource.calculate_min_enemies(min_enemies, game_man.difficulty)))
 	var counter: int = 0
 	var enemies_added: int = 0
 	var initial_enemies: int = enemies_alive

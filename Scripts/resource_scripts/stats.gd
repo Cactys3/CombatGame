@@ -193,7 +193,11 @@ var TotalListOfStats: Array[StatsResource]
 signal StatsChanged
 var initialized: bool = false
 ## Called after creating new stats from StatsResource.BLANK_STATS or to set name
+var counter: int = 0
 func setup(name: String) -> void:
+	if counter >= 1:
+		pass ## print("We are setup twice") this happens alot..
+	counter += 1
 	parent_object_name = name
 	initialized = true
 	_rebuild_dicts()

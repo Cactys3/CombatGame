@@ -1,6 +1,5 @@
 extends Item
 
-var stats: StatsResource
 
 func _process(delta: float) -> void:
 	super(delta)
