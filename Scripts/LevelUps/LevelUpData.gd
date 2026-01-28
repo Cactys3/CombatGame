@@ -106,7 +106,7 @@ func get_stats() -> StatsResource:
 		return null
 
 
-const new_component_weight_base: float = 0.5
+const new_component_weight_base: float = 0.1
 const new_item_weight_base: float = 0.5
 const component_levelup_weight_base: float = 1
 const item_levelup_weight_base: float = 1
@@ -127,7 +127,7 @@ static func get_random_level_up_option(other_options: Array[LevelUpData]) -> Lev
 	var item_count: float = game_man.ui_man.inventory.item_count + game_man.ui_man.equipment.item_count
 	## Add weight factors
 	## Increase Chance to gain component if own few components
-	new_component_weight = new_component_weight + (7.0 / (component_count + 2.0)) ## count = 1 -> 2.33, count = 5 -> 1
+	new_component_weight = new_component_weight + (3.0 / (component_count + 2.0)) ## count = 1 -> 2.33, count = 5 -> 1
 	new_item_weight = new_item_weight + (5.0 / (new_item_weight + 2.0))
 	component_levelup_weight += game_man.ui_man.equipment.weapon_count
 	item_levelup_weight += item_count / 3
