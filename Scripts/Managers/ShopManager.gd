@@ -44,6 +44,8 @@ const FORGE = preload("uid://xn3lii5356op")
 
 
 ## Arrays
+static var unlocked_weapon_indicies: Array = [flamethrower_index, pistol_index, railgun_index, sword_index, iceshardwand_index, rocketlauncher_index, playingcard_index, lightningwand_index, minigun_index, boomerrang_index, gravity_index]
+static var unlocked_item_indicies: Array = [damagebuff_index, arrows_index, forge_index]
 const item_list: Array = [
 	DAMAGE_BUFF, 
 	ARROWS]
@@ -127,6 +129,10 @@ static func get_rand_weapon() -> ItemData:
 ## Returns Random Item
 static func get_rand_item() -> ItemData:
 	return setup_data((item_list.get(get_random_unlocked_item_index())).duplicate())
+static func get_rand_item_except(avoided_items: Array[ItemData]) -> ItemData:
+	## TODO:
+	return setup_data((item_list.get(get_random_unlocked_item_index())).duplicate())
+
 ## Returns a random equipment from weapon/handle/attachment/handle/item/etc
 static func get_rand_equipment() -> Object:
 	var equipment
@@ -198,3 +204,7 @@ static func get_random_unlocked_weapon_index() -> int:
 	return randi_range(0, attachment_list.size() - 1) #TODO: Check if attachment is unlocked?
 static func get_random_unlocked_item_index() -> int:
 	return randi_range(0, item_list.size() - 1) #TODO: Check if item is unlocked?
+static func get_all_unlocked_weapon_indices() -> Array[int]:
+	return unlocked_weapon_indicies
+static func get_all_unlocked_item_indices() -> Array[int]:
+	return unlocked_item_indicies

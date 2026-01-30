@@ -142,11 +142,15 @@ static func get_random_level_up_option(other_options: Array[LevelUpData]) -> Lev
 	item_levelup_weight += item_count / 3
 	var component_level_count: int = 0
 	var item_level_count: int = 0
+	var new_item_count: int = 0
+	var new_comp_count: int = 0
 	## Factor in other options
 	for option in other_options:
 		if option.type == types.new_component:
+			new_comp_count += 1
 			new_component_weight = max(new_component_weight - 2.5, 0.1)
 		if option.type == types.new_item:
+			new_item_count += 1
 			new_item_weight = max(new_item_weight - 3.0, 0.1)
 		if option.type == types.component_level:
 			component_level_count += 1
@@ -168,6 +172,10 @@ static func get_random_level_up_option(other_options: Array[LevelUpData]) -> Lev
 	if item_level_count >= 1.0 && item_level_count >= game_man.ui_man.equipment.item_count:
 		## If we already have item level ups equal to the number of item equipped, there are no more item to level up without duplicate options
 		item_levelup_weight = 0
+	if new_comp_count >= 1.0 && new_comp_count >= ShopManager.get_all_unlocked_weapon_indices().size():
+		new_component_weight = 0
+	if new_item_count >= 1.0 && new_item_count >= ShopManager.get_all_unlocked_item_indices().size():
+		new_item_weight = 0
 	## Roll and Return
 	var array: Array[float] = [new_component_weight, new_item_weight, component_levelup_weight, item_levelup_weight, weapon_levelup_weight]
 	var total_weight: float = 0
@@ -183,10 +191,10 @@ static func get_random_level_up_option(other_options: Array[LevelUpData]) -> Lev
 		print("Weapon Up: " + str(weapon_levelup_weight))
 	running_total += new_component_weight
 	if running_total >= roll:
-		return get_new_component_upgrade()
+		return get_new_component_upgrade(other_options)
 	running_total += new_item_weight
 	if running_total >= roll:
-		return get_new_item_upgrade()
+		return get_new_item_upgrade(other_options)
 	running_total += component_levelup_weight
 	if running_total >= roll:
 		return get_component_level_upgrade(other_options)
@@ -196,7 +204,7 @@ static func get_random_level_up_option(other_options: Array[LevelUpData]) -> Lev
 	running_total += weapon_levelup_weight
 	if running_total >= roll:
 		return get_weapon_level_upgrade()
-	return get_new_item_upgrade()
+	return get_new_item_upgrade(other_options)
 
 static func get_component_level_upgrade(other_upgrades: Array[LevelUpData]) -> LevelUpData:
 	var levelupdata: LevelUpData = LevelUpData.new()
@@ -230,18 +238,31 @@ static func get_item_level_upgrade(other_upgrades: Array[LevelUpData]) -> LevelU
 	if item == null:
 		printerr("Called get_item_level_upgrade() whilst had already made upgrade options for all avaliable components")
 		## Fallback to new item upgrade
-		return get_new_item_upgrade()
+		return get_new_item_upgrade(other_upgrades)
 	levelupdata.set_itemdata(item, types.item_level)
 	return levelupdata
 static func get_weapon_level_upgrade() -> LevelUpData:
 	var levelupdata: LevelUpData = LevelUpData.new()
 	levelupdata.set_itemdata(GameManager.instance.get_random_equipped_weapon(), types.weapon_level)
 	return levelupdata
-static func get_new_item_upgrade() -> LevelUpData:
+static func get_new_item_upgrade(other_upgrades: Array[LevelUpData]) -> LevelUpData:
+	var avoided_items: Array[ItemData] = []
+	for upgrade in other_upgrades:
+		if upgrade.type == types.item_level:
+			avoided_items.append(upgrade.itemdata)
 	var levelupdata: LevelUpData = LevelUpData.new()
-	levelupdata.set_itemdata(ShopManager.get_rand_item(), LevelUpData.types.new_item)
+	var item: ItemData 
+	if avoided_items.is_empty():
+		item = ShopManager.get_rand_item()
+	else:
+		item = ShopManager.get_rand_item_except(avoided_items)
+	if item == null:
+		printerr("Called get_item_level_upgrade() whilst had already made upgrade options for all avaliable components")
+		## Fallback to just having duplicate options
+		item = ShopManager.get_rand_item()
+	levelupdata.set_itemdata(item, LevelUpData.types.new_item)
 	return levelupdata
-static func get_new_component_upgrade() -> LevelUpData:
+static func get_new_component_upgrade(other_upgrades: Array[LevelUpData]) -> LevelUpData:
 	var levelupdata: LevelUpData = LevelUpData.new()
 	levelupdata.set_itemdata(ShopManager.get_rand_component(), LevelUpData.types.new_component)
 	return levelupdata
