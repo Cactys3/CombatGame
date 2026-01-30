@@ -42,8 +42,9 @@ var frame_ready: bool = false
 var attachment_visual: Texture2D = null
 var handle_visual: Texture2D = null
 var projectile_visual: Texture2D = null
-## Variables
+## unset, handle, attachment, projectile, weapon, item, mod
 enum item_types{unset, handle, attachment, projectile, weapon, item, mod}
+## unset, common, rare, epic, legendary, exclusive
 enum item_rarities {unset, common, rare, epic, legendary, exclusive}
 var status_effects: StatusEffects = null
 var stats: StatsResource = null
@@ -82,7 +83,7 @@ static func get_rarity(i: int) -> String:
 			return "Exclusive"
 		item_rarities.unset:
 			return "unset"
-	return "even further beyond"
+	return "Rarity: " + str(i)
 ## Returns type for the given item_types index
 static func get_type(i: int) -> String:
 	match(i):
@@ -98,7 +99,7 @@ static func get_type(i: int) -> String:
 			return "weapon"
 		item_types.item:
 			return "item"
-	return "even further beyond"
+	return "Type: " + str(i)
 ## Creates ItemData, called Once
 var counter: int = 0
 func setup(should_randomize: bool, starting_rarity: item_rarities):
@@ -116,7 +117,7 @@ func setup(should_randomize: bool, starting_rarity: item_rarities):
 	if has_status_effects:
 		status_effects = default_status_effects.duplicate()
 	if has_rarity:
-		set_rarity(starting_rarity)
+		set_rarity(item_rarities.common)
 	## TODO: add starting level
 	## Must be done last as randomize uses other variables like rarity
 	if randomizable:
@@ -275,7 +276,6 @@ func make_frame() -> Weapon_Frame:
 ## Calculates new level's upgrades, returns them in an array of LevelUpgrades
 func get_level_upgrades() -> Array:
 	var arr: Array[LevelUpgrade]
-	level += 1
 	if item && item.has_method("get_level_upgrades"):
 		arr = item.get_level_upgrades(self)
 	elif item_packed_scene:
@@ -288,17 +288,33 @@ func get_level_upgrades() -> Array:
 		push_error("No Packed Scene? Trying to get level upgrade of: " + item_name)
 	return arr
 ## The 'Stats' inside the actual component is just a reference to the 'Stats' this ItemData has, so we can just add stats to this and it works.
-func upgrade_component_level(arr: Array[LevelUpgrade]):
+func upgrade_level(arr: Array[LevelUpgrade]):
 	## Get Stats to Upgrade
 	## Upgrade them a percent between a random range
-	## ItemPackedScene is the object, can do ItemPackedScene.instantiate().upgrade_component_level(stats) if it's static'
+	## ItemPackedScene is the object, can do ItemPackedScene.instantiate().upgrade_level(stats) if it's static'
+	level += 1
+	if level <= 2:
+		if item_rarity != item_rarities.common:
+			set_rarity(item_rarities.common)
+	elif level <= 4:
+		if item_rarity != item_rarities.rare:
+			set_rarity(item_rarities.rare)
+	elif level <= 6:
+		if item_rarity != item_rarities.epic:
+			set_rarity(item_rarities.epic)
+	elif level <= 9:
+		if item_rarity != item_rarities.legendary:
+			set_rarity(item_rarities.legendary)
+	else:
+		if item_rarity != item_rarities.exclusive:
+			set_rarity(item_rarities.exclusive)
 	for upgrade in arr:
 		if upgrade.factor:
 			added_stats.set_stat_factor(upgrade.name, added_stats.get_stat_factor(upgrade.name) + upgrade.value)
 		else:
 			added_stats.set_stat_base(upgrade.name, added_stats.get_stat_base(upgrade.name) + upgrade.value)
 ##
-func upgrade_component_rarity():
+func upgrade_rarity():
 	match(item_rarity):
 		item_rarities.unset:
 			pass

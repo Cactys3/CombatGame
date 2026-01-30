@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://d3vs4t8t4nfr7"]
+[gd_scene load_steps=7 format=3 uid="uid://d3vs4t8t4nfr7"]
 
 [ext_resource type="Texture2D" uid="uid://lqpckh7fkgjy" path="res://Art/UI/MissingTexture.png" id="1_10yde"]
 [ext_resource type="Script" uid="uid://c2rw8jgaw83e3" path="res://Scripts/UI/level_up_item.gd" id="1_pu7dp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pu7dp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pu7dp"]
 bg_color = Color(0.23921569, 0.23137255, 0.32156864, 1)
@@ -23,10 +25,11 @@ border_color = Color(0.13333334, 0.1254902, 0.20392157, 1)
 font_color = Color(0.3882353, 0.60784316, 1, 1)
 
 [node name="LevelUpItem" type="Panel"]
+clip_contents = true
 custom_minimum_size = Vector2(370, 100)
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_pu7dp")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_pu7dp")
 script = ExtResource("1_pu7dp")
 
 [node name="Button" type="Button" parent="."]
@@ -41,62 +44,118 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_hvjrs")
 theme_override_styles/hover = SubResource("StyleBoxFlat_hvjrs")
 theme_override_styles/focus = SubResource("StyleBoxFlat_hvjrs")
 
-[node name="Title" type="Label" parent="."]
-layout_mode = 0
-offset_left = 90.0
-offset_top = 7.0
-offset_right = 290.0
-offset_bottom = 20.0
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Offset" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Titles" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Offset" type="Control" parent="VBoxContainer/Titles"]
+custom_minimum_size = Vector2(8, 4)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="RarityOrNew" type="Label" parent="VBoxContainer/Titles"]
+custom_minimum_size = Vector2(0, 13)
+layout_mode = 2
 size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Rarity"
+
+[node name="Offset2" type="Control" parent="VBoxContainer/Titles"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="VBoxContainer/Titles"]
+custom_minimum_size = Vector2(0, 13)
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Title"
 label_settings = SubResource("LabelSettings_hvjrs")
 horizontal_alignment = 1
-autowrap_mode = 3
+autowrap_mode = 2
 clip_text = true
 
-[node name="Image" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 0
-offset_left = 21.0
-offset_top = 30.0
-offset_right = 71.0
-offset_bottom = 80.0
-texture = ExtResource("1_10yde")
+[node name="Offset3" type="Control" parent="VBoxContainer/Titles"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+mouse_filter = 2
 
-[node name="RarityOrNew" type="Label" parent="."]
-layout_mode = 0
-offset_left = 12.0
-offset_top = 7.0
-offset_right = 82.0
-offset_bottom = 20.0
-text = "Rarity"
-
-[node name="Type" type="Label" parent="."]
-layout_mode = 0
-offset_left = 298.0
-offset_top = 7.0
-offset_right = 358.0
-offset_bottom = 20.0
+[node name="Type" type="Label" parent="VBoxContainer/Titles"]
+custom_minimum_size = Vector2(0, 13)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
 text = "Type"
 horizontal_alignment = 2
 
-[node name="Body" type="RichTextLabel" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -293.0
-offset_top = -71.0
-offset_right = -21.0
-offset_bottom = -15.0
-grow_horizontal = 0
-grow_vertical = 0
+[node name="Offset4" type="Control" parent="VBoxContainer/Titles"]
+custom_minimum_size = Vector2(8, 4)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Offset2" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Offset" type="Control" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Image" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("1_10yde")
+stretch_mode = 5
+
+[node name="Offset3" type="Control" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Body" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
 bbcode_enabled = true
-fit_content = true
+text = "bodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybody"
 scroll_active = false
+
+[node name="Offset2" type="Control" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(8, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Offset3" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+mouse_filter = 2
 
 [connection signal="mouse_entered" from="." to="." method="_mouse_entered"]
 [connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]

@@ -38,6 +38,7 @@ func create_projectiles():
 		MultipleProjectileAngleOffset *= -1
 		init_projectile(global_position + Vector2(-sin(direction_angle), cos(direction_angle)).normalized() * MultipleProjectileOffset * (proj_offset), Vector2(cos(direction_angle), sin(direction_angle)))
 func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectile:
+	return
 	if projectile == null:
 		push_error("projectile null in attachment script")
 		return null
@@ -49,3 +50,8 @@ func init_projectile(new_position: Vector2, new_direction: Vector2) -> Projectil
 	new_bullet.rotation = new_direction.normalized().angle()
 	#new_bullet.died.connect(projectile_died)
 	return new_bullet
+
+static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrade]:
+	var arr: Array[ItemData.LevelUpgrade]
+	arr.append(Components.get_stat_upgrade(StatsResource.DAMAGE, randf_range(0.2, 3), itemdata.level, ItemData.get_weighted_rarity(itemdata.level), 0.01, 0))
+	return arr

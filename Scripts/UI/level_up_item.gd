@@ -1,9 +1,10 @@
 extends Panel
-@onready var title: Label = $Title
-@onready var image: TextureRect = $Image
-@onready var rarity: Label = $RarityOrNew
-@onready var type: Label = $Type
-@onready var body: RichTextLabel = $Body
+@onready var image: TextureRect = $VBoxContainer/HBoxContainer/Image
+@onready var rarity: Label = $VBoxContainer/Titles/RarityOrNew
+@onready var title: Label = $VBoxContainer/Titles/Title
+@onready var type: Label = $VBoxContainer/Titles/Type
+@onready var body: RichTextLabel = $VBoxContainer/HBoxContainer/Body
+
 var data: LevelUpData
 var method: Callable
 var hover_method: Callable
@@ -34,7 +35,9 @@ func _on_button_pressed() -> void:
 		method.call(data)
 
 func _mouse_entered() -> void:
-	hover_method.call(data)
+	if hover_method:
+		hover_method.call(data)
 
 func _on_button_mouse_entered() -> void:
-	hover_method.call(data)
+	if hover_method:
+		hover_method.call(data)

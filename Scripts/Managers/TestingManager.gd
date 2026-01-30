@@ -48,7 +48,7 @@ func _process(_delta: float) -> void:
 	var game_man: GameManager = GameManager.instance
 	
 	if Input.is_action_just_pressed("ability1"):
-		pass
+		game_man.create_level_up_instance()
 	
 	if Input.is_action_just_pressed("ability2"):
 		pass

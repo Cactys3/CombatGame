@@ -324,16 +324,40 @@ func get_random_equipped_weapon() -> ItemData:
 func get_random_equipped_comp() -> ItemData:
 	var frame: Weapon_Frame = player.get_random_frame()
 	if frame:
-		match(randf_range(1, 3)):
+		match(randi_range(1, 3)):
 			1: 
 				return frame.attachment.data
 			2:
 				return frame.handle.data
-			_:
+			3:
 				return frame.projectile.data
 	return null
-func get_random_equipped_item():
+func get_random_equipped_item() -> ItemData:
 	if active_items.size() > 0:
-		return active_items.get(randi_range(0, active_items.size() - 1))
+		return active_items.get(randi_range(0, active_items.size() - 1)).data
 	else:
 		return null
+func get_random_equipped_comp_except(avoided_items: Array[ItemData]) -> ItemData:
+	var comps: Array[ItemData] = get_all_equipped_components()
+	## Randomize Order
+	comps.shuffle()
+	for comp in comps:
+		if !avoided_items.has(comp):
+			return comp
+	## Return null if all comps are avoided
+	return null
+func get_random_equipped_item_except(avoided_items: Array[ItemData]) -> ItemData:
+	var items: Array[Item] = active_items.duplicate()
+	items.shuffle()
+	for item in items:
+		if !avoided_items.has(item):
+			return item.data
+	return null
+func get_all_equipped_components() -> Array[ItemData]:
+	var frames: Array[Weapon_Frame] = player.weapon_list
+	var comps: Array[ItemData] = []
+	for frame in frames:
+		comps.append(frame.attachment.data)
+		comps.append(frame.handle.data)
+		comps.append(frame.projectile.data)
+	return comps
