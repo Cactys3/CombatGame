@@ -47,14 +47,17 @@ func _ready() -> void:
 	phases.append(SpawningPhase.new("Clarn is back!", 60, phase_eight)) # 
 	phases.append(SpawningPhase.new("They are so cute!", 60, phase_nine)) # 
 	phases.append(SpawningPhase.new("Boss time.", 60, phase_twenty)) # spawn the final boss
+	## Does Nothing
 	events.append(EventSpawn.new("Rocks", ROCKS, 0.25, -1, 1))
 	events.append(EventSpawn.new("Spikes", SPIKES, 0.25, -1, 1))
 	events.append(EventSpawn.new("Puddle", PUDDLE, 0.25, -1, 1))
 	events.append(EventSpawn.new("Ball", BALL, 0.25, -1, 1))
-	events.append(EventSpawn.new("LootChest", LOOTCHEST, 0.1, -1, 1))
-	events.append(EventSpawn.new("Shop", SHOP, 0.15, -1, 1))
-	events.append(EventSpawn.new("Forge", FORGE, 0.20, -1, 1))
-	events.append(EventSpawn.new("StatScroll", STAT_SCROLL, 1, -1, 1))
+	## Proximity
+	#events.append(EventSpawn.new("Shop", SHOP, 0.15, -1, 1))
+	#events.append(EventSpawn.new("Forge", FORGE, 0.20, -1, 1))
+	## Interactable
+	events.append(EventSpawn.new("LootChest", LOOTCHEST, 0.2, -1, 3))
+	events.append(EventSpawn.new("StatScroll", STAT_SCROLL, 0.1, -1, 1))
 func _process(delta: float) -> void:
 	super(delta)
 ## Overrides
