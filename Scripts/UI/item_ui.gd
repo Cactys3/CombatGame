@@ -79,7 +79,7 @@ func set_item(new_data: ItemData):
 	if !data.is_connected("DataUpdated", reset_item):
 		data.connect("DataUpdated", reset_item)
 	NameLabel.text = data.item_name
-	DescriptionLabel.text = data.item_description
+	DescriptionLabel.text = data.get_item_description()
 	DescriptionPanel.self_modulate = data.item_color
 	IconTexture.texture = data.item_image
 	BackgroundTexture.self_modulate = data.border_color

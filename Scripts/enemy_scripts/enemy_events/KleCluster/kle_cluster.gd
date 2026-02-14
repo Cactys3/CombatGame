@@ -1,6 +1,7 @@
 extends Node2D
 const UNDERLING = preload("uid://cnk048qngcjvd")
 var level: float = -1
+var minute: float = 1
 var underlings: Array = []
 var direction: Vector2 
 var speed: float
@@ -13,10 +14,11 @@ func _ready() -> void:
 	await get_tree().create_timer(0.1).timeout
 	visible = true
 ## Have same method as enemy for setup so this can be interchangable with enemy
-func initialize(new_level: float, player_pos: Vector2, new_event: GameInstance.EnemyEventSpawn):
+func initialize(new_minute: float, new_level: float, player_pos: Vector2, new_event: GameInstance.EnemyEventSpawn):
 	event = new_event
 	name = "Klee_Cluster" + str(randf())
 	level = new_level
+	minute = new_minute
 	var num_of_underlings: int = 5 + roundi(level / 5)
 	direction = ((player_pos - global_position).normalized() + Vector2(randf_range(-0.005, 0.005), randf_range(-0.005, 0.005))).normalized()
 	speed = 90

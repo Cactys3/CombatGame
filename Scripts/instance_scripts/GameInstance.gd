@@ -72,7 +72,7 @@ var event_arr: Array
 var map_height: int = 10 ## this many chunks tall
 var map_width: int = 10 ## this many chunks wide
 const spawn_area_size: float = 650
-const spawn_deadzone_size: float = 400
+const spawn_deadzone_size: float = 425
 ## Enemies
 static var enemies_spawned: int = 0
 static var enemies_killed: int = 0
@@ -138,10 +138,6 @@ func setup_events():
 var timer: float = 0
 func _process(delta: float) -> void:
 	timer += delta
-	if timer > 1:
-		timer = 0
-		#print("Enemies kiol: " + str(enemies_killed))
-		#print("Enemies Alive: " + str(enemies_alive))
 	if !instance:
 		instance = self
 	var pos = character.position #game_man.player.position
@@ -149,15 +145,17 @@ func _process(delta: float) -> void:
 	if game_man && game_man.paused == false:
 		handle_stopwatch(delta)
 		handle_enemy_spawning(delta, pos)
-	handle_spawn_phases()
 	handle_chunks(pos)
-	var calculated_min_enemies = StatsResource.calculate_min_enemies(min_enemies, game_man.difficulty)
-	var calculated_max_enemies = StatsResource.calculate_max_enemies(max_enemies, game_man.difficulty)
-	if enemies_alive > calculated_max_enemies:
-		despawn_enemies(game_man.player.global_position, calculated_max_enemies - max_enemies)
-	elif enemies_alive < calculated_min_enemies:
-		spawn_backups(game_man.player.global_position, calculated_min_enemies - enemies_alive)
-## Creates MainMenu Scene and removes current Scene
+	## Spawn Enemies
+	handle_spawn_phases()
+	if total_stopwatch >= 1:
+		var calculated_min_enemies = StatsResource.calculate_min_enemies(min_enemies, game_man.difficulty)
+		var calculated_max_enemies = StatsResource.calculate_max_enemies(max_enemies, game_man.difficulty)
+		if enemies_alive > calculated_max_enemies:
+			despawn_enemies(game_man.player.global_position, calculated_max_enemies - max_enemies)
+		elif enemies_alive < calculated_min_enemies:
+			spawn_backups(game_man.player.global_position, calculated_min_enemies - enemies_alive)
+	## Creates MainMenu Scene and removes current Scene
 func return_to_main_menu() -> void:
 	## Tell Player They Won
 	ui_man.toggle_you_win(true)
@@ -342,10 +340,10 @@ func spawn_enemy(scene: PackedScene, pos: Vector2):
 	enemies_alive += 1
 	enemies_spawned += 1
 	var enemy = scene.instantiate()
-	enemy.initialize(level, game_man.difficulty)
+	enemy.initialize(total_stopwatch / 60, level, game_man.difficulty)
 	enemy.visible = false
-	enemy.global_position = pos
 	game_man.enemy_parent.add_child(enemy)
+	enemy.global_position = pos
 	enemy.visible = true
 func spawn_boss(scene: PackedScene, pos: Vector2):
 	bosses_alive += 1
@@ -363,7 +361,7 @@ func spawn_enemy_event(scene: PackedScene, pos: Vector2, enemy_event_spawn: Enem
 	event.global_position = pos
 	game_man.enemy_parent.add_child(event)
 	event.visible = true
-	event.initialize(level, game_man.player.global_position, enemy_event_spawn)
+	event.initialize(total_stopwatch, level, game_man.player.global_position, enemy_event_spawn)
 func spawn_final_boss(scene: PackedScene, pos: Vector2):
 	bosses_alive += 1
 	bosses_spawned += 1
@@ -402,7 +400,7 @@ static func random_position(player_pos: Vector2) -> Vector2:
 	var r = sqrt(randf()) * (spawn_area_size - spawn_deadzone_size) + spawn_deadzone_size
 	# Return global position + random offset
 	var angle = Vector2(cos(randf_range(0, TAU)), sin(randf_range(0, TAU))).normalized()
-	var pos = player_pos + angle * r
+	var pos = player_pos + angle * r 
 	return pos
 func SpawningButtonPressed(b: bool) -> void:
 	pass

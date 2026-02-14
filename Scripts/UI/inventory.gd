@@ -83,11 +83,7 @@ func set_description(data: ItemData):
 		description_stats.setup_substats(data.stats, data.item_name)
 		description_stats.visible = true
 	if description_body:
-		description_body.text = data.item_description
-		if data.has_rarity:
-			description_body.text += "\n" + "Rarity: " + ItemData.get_rarity(data.item_rarity)
-		if data.level:
-			description_body.text += "\n" + "Level: " + str(data.level)
+		description_body.text = data.get_item_description()
 		if description_title:
 			description_title.text = data.item_name
 ## Sets description boxes to be default

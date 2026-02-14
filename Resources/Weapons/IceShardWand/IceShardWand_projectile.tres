@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://c0dl8tcaqnjry"]
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://c0dl8tcaqnjry"]
 
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_foq67"]
 [ext_resource type="Resource" uid="uid://4uxm6j7p3j7c" path="res://Resources/Weapons/IceShardWand/stats/IceShardWand_projectile_stats.tres" id="3_d2vgt"]

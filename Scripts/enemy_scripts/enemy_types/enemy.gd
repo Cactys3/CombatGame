@@ -3,7 +3,7 @@ class_name Enemy
 
 @export_category("Enemy Stats")
 #@export var stats: StatsResource = preload("res://Resources/misc/blank_stats.tres")
-@export var multiply_hp_by_level: bool = false
+@export var multiply_hp_by_minute: bool = true
 @export var melee_attacks: bool = true
 @export var damage_hitbox: Area2D
 @export var can_be_knockbacked:bool = true
@@ -16,7 +16,7 @@ class_name Enemy
 @export var base_damage: float = 10
 @export var base_critchance: float = 0
 @export var base_critdamage: float = 0
-@export var base_movespeed: float = 30
+@export var base_movespeed: float = 20
 @export var base_health: float = 10
 @export var base_regen: float = 0
 @export var base_knockback_modifier: float = 1
@@ -68,6 +68,7 @@ var can_drop_stuff: bool = true
 ## Called on death with position of death
 signal death(position: Vector2)
 ## Player Level at time Enemy was spawned
+var minute: float
 var level: float 
 var difficulty: float 
 ##
@@ -95,7 +96,7 @@ func set_stats():
 	curr_lifetime = base_lifetime
 	curr_piercing = base_piercing
 	curr_damage = calculate_enemy_damage(base_damage, level, difficulty)
-	curr_health = calculate_enemy_hp(base_health, level, difficulty, multiply_hp_by_level)
+	curr_health = calculate_enemy_hp(base_health, minute + 1, difficulty, multiply_hp_by_minute)
 	curr_critchance = base_critchance
 	curr_critdamage = base_critdamage
 ##
@@ -104,9 +105,10 @@ func setup():
 	ImReady = true
 	#stats.connect_changed_signal(set_stats)
 ## Calculate HP with given Character Level
-func initialize(new_level: float, new_difficulty: float):
+func initialize(new_minute: float, new_level: float, new_difficulty: float):
 	level = new_level
 	difficulty = new_difficulty
+	minute = new_minute
 	#call_deferred("set_stats")
 	#call_deferred("setup")
 	#add_to_group("enemy")
@@ -251,10 +253,10 @@ func death_signal(attack: Attack):
 func apply_knockback(attack_pos: Vector2, knockback: float):
 	call_deferred("set_linear_velocity", (global_position - attack_pos).normalized() * knockback * curr_knockback_modifier)
 
-static func calculate_enemy_hp(base_hp: float, game_level: float, game_difficulty: float, hp_times_by_level: bool) -> float:
+static func calculate_enemy_hp(base_hp: float, hp_mult: float, game_difficulty: float, multiply_hp: bool) -> float:
 	var ret: float = base_hp
-	if hp_times_by_level:
-		ret *= game_level
+	if multiply_hp:
+		ret *= hp_mult
 	ret *= 1 + (game_difficulty / 50)
 	return ret
 static func calculate_enemy_damage(base_dmg: float, game_level: float, game_difficulty: float) -> float:

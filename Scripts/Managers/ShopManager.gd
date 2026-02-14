@@ -44,12 +44,12 @@ const FORGE = preload("uid://xn3lii5356op")
 
 
 ## Arrays
-static var unlocked_weapon_indicies: Array = [flamethrower_index, pistol_index, railgun_index, sword_index, iceshardwand_index, rocketlauncher_index, playingcard_index, lightningwand_index, minigun_index, boomerrang_index, gravity_index]
-static var unlocked_item_indicies: Array = [damagebuff_index, arrows_index, forge_index]
-const item_list: Array = [
+static var unlocked_weapon_indicies: Array [int] = [flamethrower_index, pistol_index, railgun_index, sword_index, iceshardwand_index, rocketlauncher_index, playingcard_index, lightningwand_index, minigun_index, boomerrang_index, gravity_index]
+static var unlocked_item_indicies: Array [int] = [damagebuff_index, arrows_index, forge_index]
+const item_list: Array [ItemData] = [
 	DAMAGE_BUFF, 
 	ARROWS]
-const attachment_list: Array = [
+const attachment_list: Array [ItemData] = [
 	FLAMETHROWER_ATTACHMENT, 
 	PISTOL_ATTACHMENT, 
 	RAILGUN_ATTACHMENT, 
@@ -61,7 +61,7 @@ const attachment_list: Array = [
 	MINIGUN_ATTACHMENT, 
 	BOOMERRANG_ATTACHMENT, 
 	GRAVITY_ATTACHMENT]
-const handle_list: Array = [
+const handle_list: Array [ItemData] = [
 	FLAMETHROWER_HANDLE, 
 	PISTOL_HANDLE, 
 	RAILGUN_HANDLE, 
@@ -73,7 +73,7 @@ const handle_list: Array = [
 	MINIGUN_HANDLE, 
 	BOOMERRANG_HANDLE, 
 	GRAVITY_HANDLE]
-const projectile_list: Array = [
+const projectile_list: Array [ItemData] = [
 	FLAMETHROWER_PROJECTILE, 
 	PISTOL_PROJECTILE, 
 	RAILGUN_PROJECTILE, 

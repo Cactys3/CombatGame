@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://relyqwetnc4a"]
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://relyqwetnc4a"]
 
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_a6ie4"]
 [ext_resource type="Texture2D" uid="uid://bk662xnwn5kh7" path="res://Art/Weapons/Railgun/Railgun_Handle.png" id="2_q3bsb"]

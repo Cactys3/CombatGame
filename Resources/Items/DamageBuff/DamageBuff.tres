@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://c0eepouojdno6"]
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://c0eepouojdno6"]
 
 [ext_resource type="Resource" uid="uid://b6x7ww5k6lrde" path="res://Resources/Items/DamageBuff/Stats_DamageBuff.tres" id="1_uj5nl"]
 [ext_resource type="Texture2D" uid="uid://vfsxq8j42aj1" path="res://Art/Items/DamageBuff.png" id="2_sgxyt"]

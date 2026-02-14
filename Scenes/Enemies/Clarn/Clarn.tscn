@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://d08kal5b45b0x"]
+
+[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_vcycg"]
+[ext_resource type="Texture2D" uid="uid://d0864mhg2qq64" path="res://Art/Hell/Enemies/Clarn.png" id="2_s6q5l"]
+[ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="3_q5h40"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3tj4"]
+atlas = ExtResource("2_s6q5l")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rt6o7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3tj4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q3ufv"]
+radius = 3.0
+height = 20.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qbs8m"]
+radius = 5.0
+height = 26.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a211a"]
+radius = 6.0
+height = 28.0
+
+[node name="Clarn" type="RigidBody2D" unique_id=1955438532 node_paths=PackedStringArray("damage_hitbox", "anim")]
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_vcycg")
+damage_hitbox = NodePath("Damage_Hitbox")
+turns_towards_movement = true
+anim = NodePath("AnimatedSprite2D")
+metadata/_custom_type_script = "uid://cexfniayiorgs"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=343113301]
+position = Vector2(0, 13)
+sprite_frames = SubResource("SpriteFrames_rt6o7")
+autoplay = "default"
+offset = Vector2(0, -8.385)
+
+[node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=1805235964]
+position = Vector2(0, 6)
+shape = SubResource("CapsuleShape2D_q3ufv")
+
+[node name="Damage_Hitbox" type="Area2D" parent="." unique_id=1646946991]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=2102174166]
+position = Vector2(0, 6)
+shape = SubResource("CapsuleShape2D_qbs8m")
+
+[node name="Health_HitArea" type="Area2D" parent="." unique_id=84524879 node_paths=PackedStringArray("callee")]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("3_q5h40")
+callee = NodePath("..")
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_HitArea" unique_id=122786202]
+position = Vector2(0, 6)
+shape = SubResource("CapsuleShape2D_a211a")

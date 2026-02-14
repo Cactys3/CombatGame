@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://kp03bn0ca6y1"]
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://kp03bn0ca6y1"]
 
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_l0tcx"]
 [ext_resource type="Texture2D" uid="uid://d4ygdpdbotv" path="res://Art/Weapons/flamethrower/Attachment_Flamethrower.png" id="2_l7v5w"]

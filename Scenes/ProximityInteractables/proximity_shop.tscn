@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cytotq02c1x2a"]
+[gd_scene format=3 uid="uid://cytotq02c1x2a"]
 
 [ext_resource type="Script" uid="uid://cbtt00lp3vc8" path="res://Scripts/ProximityInteractables/proximity_shop.gd" id="1_7i237"]
 [ext_resource type="Texture2D" uid="uid://g2c2lxuvoqlp" path="res://Art/placeholder/placeholder_ProximityShop.png" id="1_ksysq"]
@@ -18,21 +18,21 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ksysq"]
-radius = 55.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_7i237"]
+radius = 14.035668
 
-[node name="ProximityShop" type="Node2D"]
+[node name="ProximityShop" type="Node2D" unique_id=1396441014]
 script = ExtResource("1_7i237")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1906098841]
 sprite_frames = SubResource("SpriteFrames_rw0k1")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=1827635506]
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1471246630]
 position = Vector2(0, 6)
-shape = SubResource("CircleShape2D_ksysq")
+shape = SubResource("CircleShape2D_7i237")
 
 [connection signal="body_entered" from="Area2D" to="." method="_body_entered"]

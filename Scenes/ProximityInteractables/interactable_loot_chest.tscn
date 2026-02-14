@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://ceycsndkpdg1t"]
+[gd_scene format=3 uid="uid://ceycsndkpdg1t"]
 
 [ext_resource type="Script" uid="uid://b5nl8vh3wg5fj" path="res://Scripts/ProximityInteractables/interactable_loot_chest.gd" id="1_noqyl"]
 [ext_resource type="Texture2D" uid="uid://di1bp3nijrlbe" path="res://Art/ProximityEvents/Chest/Chest_Idle.png" id="2_u1ar4"]
@@ -159,20 +159,20 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_6l4t5"]
 radius = 45.01111
 
-[node name="InteractableLootChest" type="Node2D"]
+[node name="InteractableLootChest" type="Node2D" unique_id=1161843544]
 script = ExtResource("1_noqyl")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1409316582]
 sprite_frames = SubResource("SpriteFrames_tmx14")
 animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.2660551
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=853441515]
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1057768860]
 position = Vector2(0, 9)
 shape = SubResource("CircleShape2D_6l4t5")
 

@@ -20,7 +20,7 @@ func set_itemdata(data:ItemData, new_type: types):
 	image = data.item_image
 	color = data.item_color
 	border_color = data.border_color
-	description = data.item_description
+	description = data.get_item_description()
 	rarity = ItemData.get_rarity(data.item_rarity)
 	level = data.level
 	itemdata = data

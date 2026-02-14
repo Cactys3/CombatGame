@@ -262,7 +262,7 @@ func make_frame() -> Weapon_Frame:
 		item_name = handle.component_halfname + attachment.component_halfname + projectile.component_halfname
 	else:
 		item_name = handle.item_name + attachment.item_name + projectile.item_name 
-	item_description = "[u]" + item_name + "[/u]'s Component Descriptions are: \n" + "[u]Handle:[/u] " + handle.item_description + "\n" + "[u]Attachment: [/u]" + attachment.item_description + "\n" + "[u]Projectile:[/u] " + projectile.item_description
+	#item_description = "[u]" + item_name + "[/u]'s Component Descriptions are: \n" + "[u]Handle:[/u] " + handle.item_description + "\n" + "[u]Attachment: [/u]" + attachment.item_description + "\n" + "[u]Projectile:[/u] " + projectile.item_description
 	attachment_visual = attachment.item_image
 	handle_visual = handle.item_image
 	projectile_visual = projectile.item_image
@@ -331,6 +331,15 @@ func upgrade_rarity():
 ##
 func get_rarity_upgrade_text() -> String:
 	return get_rarity(item_rarity) + "-->" + get_rarity(item_rarity + 1)
+func get_item_description() -> String:
+	print("getting Item Description " + str(level))
+	if item_type == item_types.weapon:
+		return "[u]" + item_name + "[/u]'s Component Descriptions are: \n" + "[u]Handle:[/u] " + handle.get_item_description() + "\n" + "[u]Attachment: [/u]" + attachment.get_item_description() + "\n" + "[u]Projectile:[/u] " + projectile.get_item_description()
+	var ret: String = item_description
+	ret += "\nLevel: " + str(level)
+	if has_rarity:
+		ret += " (Rarity: " + get_rarity(item_rarity) + ")"
+	return ret
 ## Parameter should be added_stats - Adds this item's added_stats to parameter item's added stats so this object can be consumed
 func transfer_additional_stats(stats_to_transfer_to: StatsResource):
 	if added_stats:

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://btq01ual2w8vn"]
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://btq01ual2w8vn"]
 
 [ext_resource type="Resource" uid="uid://br3kpgfsuteco" path="res://Resources/Weapons/Sword/stats/sword_handle_stats.tres" id="1_eakhu"]
 [ext_resource type="Texture2D" uid="uid://dyn358jlt11hp" path="res://Art/Weapons/Sword/Handle_Sword.png" id="2_eakhu"]

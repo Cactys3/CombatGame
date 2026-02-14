@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dc0hdlr7wq3lq"]
+[gd_scene format=3 uid="uid://dc0hdlr7wq3lq"]
 
 [ext_resource type="Script" uid="uid://bb13nkhmcojis" path="res://Scenes/Instances/InstanceRoot.gd" id="1_eeah7"]
 [ext_resource type="PackedScene" uid="uid://dxv17gll2bx2l" path="res://Scenes/Instances/Hell/HellPuddle.tscn" id="2_qrryo"]
@@ -40,7 +40,7 @@ font_size = 64
 [sub_resource type="LabelSettings" id="LabelSettings_627tp"]
 font_color = Color(0.8089983, 0.8089983, 0.8089982, 1)
 
-[node name="GameInstance" type="Node2D" node_paths=PackedStringArray("camera", "game_man", "ui_man", "background_parent", "event_parent", "enemy_parent", "xp_parent", "character_parent", "weapon_parent", "spawn_area", "spawn_deadzone")]
+[node name="GameInstance" type="Node2D" unique_id=704490697 node_paths=PackedStringArray("camera", "game_man", "ui_man", "background_parent", "event_parent", "enemy_parent", "xp_parent", "character_parent", "weapon_parent", "spawn_area", "spawn_deadzone")]
 process_mode = 3
 script = ExtResource("1_eeah7")
 camera = NodePath("Window640/Offset/CharacterParent/Camera2D")
@@ -55,7 +55,7 @@ weapon_parent = NodePath("Window640/Offset/WeaponParent")
 spawn_area = NodePath("Window640/Offset/SpawnArea")
 spawn_deadzone = NodePath("Window640/Offset/DeadzoneArea")
 
-[node name="Window640" type="Window" parent="."]
+[node name="Window640" type="Window" parent="." unique_id=1195365431]
 auto_translate_mode = 1
 disable_3d = true
 snap_2d_transforms_to_pixel = true
@@ -75,63 +75,63 @@ content_scale_mode = 2
 content_scale_aspect = 1
 content_scale_stretch = 1
 
-[node name="Offset" type="Node2D" parent="Window640"]
+[node name="Offset" type="Node2D" parent="Window640" unique_id=1483796866]
 process_mode = 1
 texture_filter = 1
 position = Vector2(320, 180)
 
-[node name="BackgroundParent" type="Node2D" parent="Window640/Offset"]
+[node name="BackgroundParent" type="Node2D" parent="Window640/Offset" unique_id=519102949]
 
-[node name="EventParent" type="Node2D" parent="Window640/Offset"]
+[node name="EventParent" type="Node2D" parent="Window640/Offset" unique_id=1419209084]
 
-[node name="HellPuddle" parent="Window640/Offset/EventParent" instance=ExtResource("2_qrryo")]
+[node name="HellPuddle" parent="Window640/Offset/EventParent" unique_id=225935508 instance=ExtResource("2_qrryo")]
 position = Vector2(-78.77777, 24)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Window640/Offset/EventParent"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Window640/Offset/EventParent" unique_id=251656736]
 position = Vector2(-81.44444, -23)
 collision_layer = 64
 collision_mask = 2
 
-[node name="ProximityForge" parent="Window640/Offset/EventParent/StaticBody2D" instance=ExtResource("3_u5ql4")]
+[node name="ProximityForge" parent="Window640/Offset/EventParent/StaticBody2D" unique_id=1906497209 instance=ExtResource("3_u5ql4")]
 position = Vector2(4.666677, 1.3333359)
 
-[node name="ProximityShop" parent="Window640/Offset/EventParent/StaticBody2D" instance=ExtResource("3_qq1a1")]
+[node name="ProximityShop" parent="Window640/Offset/EventParent/StaticBody2D" unique_id=1863887412 instance=ExtResource("3_qq1a1")]
 position = Vector2(-57.2222, -85.66667)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Window640/Offset/EventParent/StaticBody2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Window640/Offset/EventParent/StaticBody2D" unique_id=1189905832]
 position = Vector2(-5.333326, 100.333336)
 polygon = PackedVector2Array(20, 20, 0, 15, 0, -15, 20, -20)
 
-[node name="Sprite2D" type="Sprite2D" parent="Window640/Offset/EventParent/StaticBody2D/CollisionPolygon2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Window640/Offset/EventParent/StaticBody2D/CollisionPolygon2D" unique_id=1665734954]
 position = Vector2(10.444397, -2.670288e-05)
 texture = ExtResource("3_eeah7")
 
-[node name="ProximityPermanentShop" parent="Window640/Offset/EventParent" instance=ExtResource("6_627tp")]
+[node name="ProximityPermanentShop" parent="Window640/Offset/EventParent" unique_id=1495076092 instance=ExtResource("6_627tp")]
 position = Vector2(105.66667, -4.3333335)
 
-[node name="EnemyParent" type="Node2D" parent="Window640/Offset"]
+[node name="EnemyParent" type="Node2D" parent="Window640/Offset" unique_id=1792563094]
 
-[node name="XP Parent" type="Node2D" parent="Window640/Offset" groups=["xp_parent"]]
+[node name="XP Parent" type="Node2D" parent="Window640/Offset" unique_id=719851691 groups=["xp_parent"]]
 
-[node name="CharacterParent" type="Node2D" parent="Window640/Offset"]
+[node name="CharacterParent" type="Node2D" parent="Window640/Offset" unique_id=1665705803]
 
-[node name="Camera2D" type="Camera2D" parent="Window640/Offset/CharacterParent"]
+[node name="Camera2D" type="Camera2D" parent="Window640/Offset/CharacterParent" unique_id=682145971]
 
-[node name="WeaponParent" type="Node2D" parent="Window640/Offset"]
+[node name="WeaponParent" type="Node2D" parent="Window640/Offset" unique_id=2000948482]
 
-[node name="ProjectileParent" type="Node2D" parent="Window640/Offset"]
+[node name="ProjectileParent" type="Node2D" parent="Window640/Offset" unique_id=1081666723]
 
-[node name="SpawnArea" type="CollisionShape2D" parent="Window640/Offset"]
+[node name="SpawnArea" type="CollisionShape2D" parent="Window640/Offset" unique_id=1285077429]
 visible = false
 position = Vector2(-10.333374, -5)
 shape = SubResource("CircleShape2D_41mr8")
 
-[node name="DeadzoneArea" type="CollisionShape2D" parent="Window640/Offset"]
+[node name="DeadzoneArea" type="CollisionShape2D" parent="Window640/Offset" unique_id=1385590788]
 visible = false
 position = Vector2(-0.33337402, -11)
 shape = SubResource("CircleShape2D_wafdh")
 
-[node name="Window1920" type="Window" parent="."]
+[node name="Window1920" type="Window" parent="." unique_id=407558267]
 disable_3d = true
 transparent_bg = true
 physics_object_picking = true
@@ -148,7 +148,7 @@ content_scale_size = Vector2i(1920, 1080)
 content_scale_mode = 2
 content_scale_aspect = 1
 
-[node name="Offset" type="Control" parent="Window1920"]
+[node name="Offset" type="Control" parent="Window1920" unique_id=1168849425]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -156,12 +156,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TestingManager" type="Node2D" parent="Window1920/Offset" node_paths=PackedStringArray("EnemyParent") groups=["weapon_manager"]]
+[node name="TestingManager" type="Node2D" parent="Window1920/Offset" unique_id=774115771 node_paths=PackedStringArray("EnemyParent") groups=["weapon_manager"]]
 position = Vector2(960, 0)
 script = ExtResource("10_cwiy3")
 EnemyParent = NodePath("../../../Window640/Offset/EnemyParent")
 
-[node name="GameManager" type="Node2D" parent="Window1920/Offset" node_paths=PackedStringArray("ui_man", "shop_man", "xp_parent", "enemy_parent", "weapon_parent", "projectile_parent") groups=["gamemanager"]]
+[node name="GameManager" type="Node2D" parent="Window1920/Offset" unique_id=2022696012 node_paths=PackedStringArray("ui_man", "shop_man", "xp_parent", "enemy_parent", "weapon_parent", "projectile_parent") groups=["gamemanager"]]
 process_mode = 3
 position = Vector2(960, 0)
 scale = Vector2(1, 1.021002)
@@ -173,11 +173,11 @@ enemy_parent = NodePath("../../../Window640/Offset/EnemyParent")
 weapon_parent = NodePath("../../../Window640/Offset/WeaponParent")
 projectile_parent = NodePath("../../../Window640/Offset/ProjectileParent")
 
-[node name="ShopManager" type="Node2D" parent="Window1920/Offset" groups=["shopmanager"]]
+[node name="ShopManager" type="Node2D" parent="Window1920/Offset" unique_id=1931691200 groups=["shopmanager"]]
 position = Vector2(960, 0)
 script = ExtResource("12_e4e03")
 
-[node name="UIManager" type="Control" parent="Window1920/Offset" node_paths=PackedStringArray("money_label", "xp_label", "level_label", "hp_label", "fps_label", "stopwatch_label", "enemies_killed_label", "bosses_killed_label", "you_win", "tab_menu_parent", "esc_menu_parent", "level_up_parent", "static_ui_parent", "misc_parent", "relative_to_game_parent", "AIOman", "cheat_inventory", "hud")]
+[node name="UIManager" type="Control" parent="Window1920/Offset" unique_id=272186004 node_paths=PackedStringArray("money_label", "xp_label", "level_label", "hp_label", "fps_label", "stopwatch_label", "enemies_killed_label", "bosses_killed_label", "you_win", "tab_menu_parent", "esc_menu_parent", "level_up_parent", "static_ui_parent", "misc_parent", "relative_to_game_parent", "AIOman", "cheat_inventory", "hud")]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -206,7 +206,7 @@ AIOman = NodePath("TabMenuParent/AIO")
 cheat_inventory = NodePath("TabMenuParent/Cheat Inventory")
 hud = NodePath("StaticHUDparent/hud")
 
-[node name="TabMenuParent" type="Control" parent="Window1920/Offset/UIManager"]
+[node name="TabMenuParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=879721707]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -216,7 +216,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Control" type="Control" parent="Window1920/Offset/UIManager/TabMenuParent"]
+[node name="Control" type="Control" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=1941539124]
 anchors_preset = 0
 offset_left = 1389.0
 offset_top = 289.0
@@ -224,7 +224,7 @@ offset_right = 1429.0
 offset_bottom = 329.0
 mouse_filter = 1
 
-[node name="AIO" parent="Window1920/Offset/UIManager/TabMenuParent" instance=ExtResource("8_qq1a1")]
+[node name="AIO" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=952354051 instance=ExtResource("8_qq1a1")]
 layout_mode = 1
 offset_left = -153.0
 offset_top = 47.0
@@ -232,7 +232,7 @@ offset_right = -153.0
 offset_bottom = 47.0
 mouse_filter = 1
 
-[node name="Cheat Inventory" parent="Window1920/Offset/UIManager/TabMenuParent" instance=ExtResource("17_gf2b2")]
+[node name="Cheat Inventory" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=186344923 instance=ExtResource("17_gf2b2")]
 layout_mode = 1
 offset_left = 14.0
 offset_top = 520.0
@@ -241,7 +241,7 @@ offset_bottom = 1148.0
 mouse_filter = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="ShopInventory" parent="Window1920/Offset/UIManager/TabMenuParent" instance=ExtResource("18_85yrk")]
+[node name="ShopInventory" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=1771192255 instance=ExtResource("18_85yrk")]
 layout_mode = 1
 offset_left = -744.0
 offset_top = 517.0
@@ -249,7 +249,7 @@ offset_right = -294.0
 offset_bottom = 1117.0
 mouse_filter = 1
 
-[node name="weapon_crafting_inventory" parent="Window1920/Offset/UIManager/TabMenuParent" instance=ExtResource("20_41mr8")]
+[node name="weapon_crafting_inventory" parent="Window1920/Offset/UIManager/TabMenuParent" unique_id=1959191111 instance=ExtResource("20_41mr8")]
 layout_mode = 1
 offset_left = -287.0
 offset_top = 520.0
@@ -257,7 +257,7 @@ offset_right = 13.0
 offset_bottom = 820.0
 mouse_filter = 1
 
-[node name="MiscParent" type="Control" parent="Window1920/Offset/UIManager"]
+[node name="MiscParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=192321109]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -266,7 +266,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Button" type="Button" parent="Window1920/Offset/UIManager/MiscParent"]
+[node name="Button" type="Button" parent="Window1920/Offset/UIManager/MiscParent" unique_id=462440823]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -283,7 +283,7 @@ mouse_filter = 1
 text = "Change Resolution
 Current: "
 
-[node name="StaticHUDparent" type="Control" parent="Window1920/Offset/UIManager"]
+[node name="StaticHUDparent" type="Control" parent="Window1920/Offset/UIManager" unique_id=1612899046]
 process_mode = 1
 layout_mode = 1
 anchors_preset = 15
@@ -293,12 +293,12 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="hud" parent="Window1920/Offset/UIManager/StaticHUDparent" instance=ExtResource("15_6si6h")]
+[node name="hud" parent="Window1920/Offset/UIManager/StaticHUDparent" unique_id=1849936535 instance=ExtResource("15_6si6h")]
 layout_mode = 1
 offset_right = 0.0
 offset_bottom = 0.0
 
-[node name="SimpleHUD" type="Panel" parent="Window1920/Offset/UIManager/StaticHUDparent"]
+[node name="SimpleHUD" type="Panel" parent="Window1920/Offset/UIManager/StaticHUDparent" unique_id=951058699]
 visible = false
 layout_mode = 1
 anchors_preset = 7
@@ -313,7 +313,7 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="LVL Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD"]
+[node name="LVL Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD" unique_id=868159253]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 0
 offset_left = 23.0
@@ -323,7 +323,7 @@ offset_bottom = 41.0
 text = "Current Level: "
 label_settings = SubResource("LabelSettings_tpk5p")
 
-[node name="LVL" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/LVL Label"]
+[node name="LVL" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/LVL Label" unique_id=1992131021]
 layout_mode = 0
 offset_left = 174.0
 offset_top = 1.0
@@ -332,7 +332,7 @@ offset_bottom = 27.0
 text = "-999"
 label_settings = SubResource("LabelSettings_tpk5p")
 
-[node name="XP Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD"]
+[node name="XP Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD" unique_id=24678582]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 0
 offset_left = 23.0
@@ -342,7 +342,7 @@ offset_bottom = 74.0
 text = "Current XP: "
 label_settings = SubResource("LabelSettings_tpk5p")
 
-[node name="XP" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/XP Label"]
+[node name="XP" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/XP Label" unique_id=816894255]
 layout_mode = 0
 offset_left = 139.0
 offset_top = 1.0
@@ -351,7 +351,7 @@ offset_bottom = 27.0
 text = "-999"
 label_settings = SubResource("LabelSettings_tpk5p")
 
-[node name="HP Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD"]
+[node name="HP Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD" unique_id=1639304141]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 0
 offset_left = 301.0
@@ -361,7 +361,7 @@ offset_bottom = 40.0
 text = "Current Health: "
 label_settings = SubResource("LabelSettings_tpk5p")
 
-[node name="HP" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/HP Label"]
+[node name="HP" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/HP Label" unique_id=865701987]
 layout_mode = 0
 offset_left = 183.0
 offset_top = 1.0
@@ -370,7 +370,7 @@ offset_bottom = 27.0
 text = "-999"
 label_settings = SubResource("LabelSettings_tpk5p")
 
-[node name="Money Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD"]
+[node name="Money Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD" unique_id=2002166462]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 0
 offset_left = 301.0
@@ -380,7 +380,7 @@ offset_bottom = 72.0
 text = "Current Money: "
 label_settings = SubResource("LabelSettings_tpk5p")
 
-[node name="Money" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/Money Label"]
+[node name="Money" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/Money Label" unique_id=503924382]
 layout_mode = 0
 offset_left = 183.0
 offset_top = 1.0
@@ -389,7 +389,7 @@ offset_bottom = 27.0
 text = "-999"
 label_settings = SubResource("LabelSettings_tpk5p")
 
-[node name="BossesKilled Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD"]
+[node name="BossesKilled Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD" unique_id=148747168]
 layout_mode = 0
 offset_left = 600.0
 offset_top = 87.0
@@ -398,7 +398,7 @@ offset_bottom = 113.0
 text = "Bosses Killed: "
 label_settings = SubResource("LabelSettings_41mr8")
 
-[node name="BossesKilled" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/BossesKilled Label"]
+[node name="BossesKilled" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/BossesKilled Label" unique_id=760506504]
 layout_mode = 0
 offset_left = 170.0
 offset_top = 1.0
@@ -406,7 +406,7 @@ offset_right = 210.0
 offset_bottom = 32.0
 label_settings = SubResource("LabelSettings_41mr8")
 
-[node name="EnemiesKilled Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD"]
+[node name="EnemiesKilled Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD" unique_id=1201538646]
 layout_mode = 0
 offset_left = 600.0
 offset_top = 52.0
@@ -415,7 +415,7 @@ offset_bottom = 78.0
 text = "Enemies Killed: "
 label_settings = SubResource("LabelSettings_41mr8")
 
-[node name="EnemiesKilled" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/EnemiesKilled Label"]
+[node name="EnemiesKilled" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/EnemiesKilled Label" unique_id=1584852654]
 layout_mode = 0
 offset_left = 184.0
 offset_top = -5.0
@@ -423,7 +423,7 @@ offset_right = 224.0
 offset_bottom = 26.0
 label_settings = SubResource("LabelSettings_41mr8")
 
-[node name="FPS Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD"]
+[node name="FPS Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD" unique_id=625870787]
 layout_mode = 0
 offset_left = 872.0
 offset_top = 14.0
@@ -432,7 +432,7 @@ offset_bottom = 59.0
 text = "FPS: "
 label_settings = SubResource("LabelSettings_41mr8")
 
-[node name="FPS" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/FPS Label"]
+[node name="FPS" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/FPS Label" unique_id=1911486020]
 layout_mode = 0
 offset_left = 72.0
 offset_top = -6.0
@@ -440,7 +440,7 @@ offset_right = 112.0
 offset_bottom = 39.0
 label_settings = SubResource("LabelSettings_41mr8")
 
-[node name="Time Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD"]
+[node name="Time Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD" unique_id=1960197097]
 layout_mode = 0
 offset_left = 597.0
 offset_top = 16.0
@@ -449,7 +449,7 @@ offset_bottom = 42.0
 text = "Time: "
 label_settings = SubResource("LabelSettings_41mr8")
 
-[node name="Time" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/Time Label"]
+[node name="Time" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/Time Label" unique_id=311262764]
 layout_mode = 0
 offset_left = 65.0
 offset_top = -3.0
@@ -457,7 +457,7 @@ offset_right = 105.0
 offset_bottom = 28.0
 label_settings = SubResource("LabelSettings_41mr8")
 
-[node name="Button" type="Button" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD"]
+[node name="Button" type="Button" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD" unique_id=1554392966]
 layout_mode = 0
 offset_left = 1477.0
 offset_top = 12.0
@@ -469,7 +469,7 @@ toggle_mode = true
 text = "Toggle Spawning"
 icon = SubResource("NoiseTexture2D_41mr8")
 
-[node name="YouWin" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent"]
+[node name="YouWin" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent" unique_id=2077903789]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -486,14 +486,14 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 128
 text = "You Win!"
 
-[node name="RelativeToGameParent" type="Control" parent="Window1920/Offset/UIManager"]
+[node name="RelativeToGameParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=943559020]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 script = ExtResource("17_afe04")
 
-[node name="LevelUpParent" type="Control" parent="Window1920/Offset/UIManager"]
+[node name="LevelUpParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=1878413924]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -503,7 +503,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="EscMenuParent" type="Control" parent="Window1920/Offset/UIManager"]
+[node name="EscMenuParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=1841136718]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -512,7 +512,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Panel" type="Panel" parent="Window1920/Offset/UIManager/EscMenuParent"]
+[node name="Panel" type="Panel" parent="Window1920/Offset/UIManager/EscMenuParent" unique_id=1008737722]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -527,7 +527,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Label" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel"]
+[node name="Label" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel" unique_id=64453370]
 layout_mode = 0
 offset_left = 194.0
 offset_top = 91.0
@@ -536,7 +536,7 @@ offset_bottom = 142.0
 text = "Esc Menu"
 label_settings = SubResource("LabelSettings_gf2b2")
 
-[node name="Button" type="Button" parent="Window1920/Offset/UIManager/EscMenuParent/Panel"]
+[node name="Button" type="Button" parent="Window1920/Offset/UIManager/EscMenuParent/Panel" unique_id=814524657]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 0
 offset_left = 191.0
@@ -547,7 +547,7 @@ mouse_filter = 1
 theme_override_font_sizes/font_size = 32
 text = "Return to Main Menu"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel" unique_id=1409406146]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -559,11 +559,11 @@ offset_top = -528.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="Titles" type="VBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer"]
+[node name="Titles" type="VBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer" unique_id=2101727524]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="damage" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="damage" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=4191402]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -571,7 +571,7 @@ text = "Damage: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="range" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="range" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1014359797]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -579,7 +579,7 @@ text = "Range: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="weight" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="weight" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1153175899]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -587,7 +587,7 @@ text = "Weight"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="attackspeed" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="attackspeed" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1696352433]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -595,7 +595,7 @@ text = "AttackSpeed:"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="velocity" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="velocity" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1139774680]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -603,7 +603,7 @@ text = "Velocity"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="count" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="count" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=60871292]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -611,7 +611,7 @@ text = "Count: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="piercing" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="piercing" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=181615663]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -619,7 +619,7 @@ text = "Piercing:"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="duration" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="duration" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=986440728]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -627,7 +627,7 @@ text = "Duration:"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="buildup" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="buildup" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1311890148]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -635,7 +635,7 @@ text = "Buildup:"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="size" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="size" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=120904125]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -643,7 +643,7 @@ text = "Size: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="hp" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="hp" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=799489891]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -651,7 +651,7 @@ text = "Heath: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="stance" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="stance" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=801741239]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -659,7 +659,7 @@ text = "Stance: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="movespeed" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="movespeed" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1543148502]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -667,7 +667,7 @@ text = "Movespeed:"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="xp" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="xp" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=725134285]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -675,7 +675,7 @@ text = "XpGain:"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="mogul" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="mogul" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1798644884]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -683,7 +683,7 @@ text = "Mogul: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="luck" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="luck" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1359490536]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -691,7 +691,7 @@ text = "Luck: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="critchance" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="critchance" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1747015654]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -699,7 +699,7 @@ text = "CritChance:"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="critdamage" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="critdamage" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=283141519]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -707,7 +707,7 @@ text = "CritDamage:"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="ghostly" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="ghostly" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=2057865896]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -715,7 +715,7 @@ text = "Ghostly: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="regen" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="regen" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1343779306]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -723,7 +723,7 @@ text = "Regen: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="magnetize" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="magnetize" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1627165914]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -731,7 +731,7 @@ text = "Magnetize: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="lifesteal" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="lifesteal" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1707033788]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -739,7 +739,7 @@ text = "Lifesteal: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="bonusvselites" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="bonusvselites" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=662184413]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -747,7 +747,7 @@ text = "EliteDmg:"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="shield" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="shield" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=197822336]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -755,7 +755,7 @@ text = "Shield: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="difficulty" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="difficulty" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1253573754]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -763,7 +763,7 @@ text = "Difficulty:"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="revies" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="revies" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1733852215]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -771,7 +771,7 @@ text = "Revives: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="thorns" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="thorns" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1119071746]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -779,7 +779,7 @@ text = "Thorns:"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="inaccuracy" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles"]
+[node name="inaccuracy" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1346215774]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -787,11 +787,11 @@ text = "Inaccuracy:"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="Descriptions" type="VBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer"]
+[node name="Descriptions" type="VBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer" unique_id=1006046940]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="damage" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="damage" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=632912993]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -799,7 +799,7 @@ text = "The Damage your weapons do! Also affects knockback!"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="range" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="range" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=295734429]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -807,7 +807,7 @@ text = "How far you can attack enemies from! May make your melee weapons have lo
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="weight" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="weight" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=1724119077]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -815,7 +815,7 @@ text = "The combined weight of the item! Affects aiming speed and knockback!"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="attackspeed" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="attackspeed" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=216440537]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -823,7 +823,7 @@ text = "How fast your weapons attack!"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="velocity" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="velocity" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=307596538]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -831,7 +831,7 @@ text = "How fast your projectiles travel!"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="count" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="count" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=1584597483]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -839,7 +839,7 @@ text = "Number of projectiles you fire per attack, unless altered by a weapon me
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="piercing" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="piercing" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=210214557]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -847,7 +847,7 @@ text = "Number of enemies your weapons can hit before expiring!"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="duration" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="duration" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=1907145207]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -855,7 +855,7 @@ text = "The duration your projectiles last, as well as a perfect stat affecting 
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="buildup" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="buildup" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=1576328452]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -863,7 +863,7 @@ text = "The buildup of elemental effects per attack!"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="size" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="size" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=172924146]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -871,7 +871,7 @@ text = "The size of your weapons and attacks!"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="hp" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="hp" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=243717314]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -879,7 +879,7 @@ text = "Amount of damage the player can take before expiring!"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="stance" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="stance" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=1071281154]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -887,7 +887,7 @@ text = "A flat damage reduction applied to most attacks the player receives!"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="movespeed" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="movespeed" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=1127985342]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -895,7 +895,7 @@ text = "How fast the player moves!"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="xp" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="xp" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=245772533]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -903,7 +903,7 @@ text = "The amount of xp the player recieves!"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="mogul" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="mogul" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=359218696]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -911,7 +911,7 @@ text = "The amount of money the player recieves!"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="luck" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="luck" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=704115314]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -919,7 +919,7 @@ text = "A funky stat that affects a lot! Will you get better loot? Will enemies 
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="critchance" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="critchance" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=1341482405]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -927,7 +927,7 @@ text = "The chance you have to crit! "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="critdamage" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="critdamage" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=62763861]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -935,7 +935,7 @@ text = "The damage your crits do!"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="ghostly" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="ghostly" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=1867415372]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -943,7 +943,7 @@ text = "A chance to dodge attacks! Additional spooky affects may exist..."
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="regen" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="regen" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=1887597666]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -951,7 +951,7 @@ text = "Health Regen every 10 seconds!"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="magnetize" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="magnetize" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=672944500]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -959,7 +959,7 @@ text = "The range at which you gather drops like XP and items!"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="lifesteal" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="lifesteal" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=875916831]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -967,7 +967,7 @@ text = "Lifesteal per hit!"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="shield" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="shield" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=1578122516]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -975,7 +975,7 @@ text = "A shield that is attacked before your hp is affected! Requires time to r
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="difficulty" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="difficulty" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=441989633]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -983,7 +983,7 @@ text = "A stat for those seeking more."
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="revies" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="revies" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=1462895701]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -991,7 +991,7 @@ text = "Number of times you can die before losing!"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="thorns" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="thorns" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=1198694336]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -999,7 +999,7 @@ text = "Packback damage to enemies who hit you!"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="inaccuracy" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions"]
+[node name="inaccuracy" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=355909008]
 custom_minimum_size = Vector2(55, 15)
 layout_mode = 2
 size_flags_vertical = 0
@@ -1007,7 +1007,7 @@ text = "The higher it is, the more you will miss!"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel"]
+[node name="Label2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel" unique_id=497168112]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -1017,7 +1017,7 @@ offset_bottom = 13.0
 grow_horizontal = 0
 text = "What the stats do!:"
 
-[node name="WindowManager" type="Node" parent="."]
+[node name="WindowManager" type="Node" parent="." unique_id=642010504]
 script = ExtResource("27_fwf5d")
 
 [connection signal="pressed" from="Window1920/Offset/UIManager/MiscParent/Button" to="WindowManager" method="_on_pressed"]

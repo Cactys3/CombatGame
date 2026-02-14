@@ -33,7 +33,7 @@ func setup(new_data: ItemData, new_method: Callable, new_hover_method: Callable)
 	method = new_method
 	hover_method = new_hover_method
 	set_title(data.item_name)
-	set_body(data.item_description)
+	set_body(data.get_item_description())
 	set_image(data.item_image)
 	set_rarity(ItemData.get_rarity(data.item_rarity))
 	set_price(str(data.get_cost(false)))

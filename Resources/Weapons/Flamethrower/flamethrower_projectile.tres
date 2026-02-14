@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=7 format=3 uid="uid://cfpb6ubhymn15"]
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://cfpb6ubhymn15"]
 
 [ext_resource type="Resource" uid="uid://b86efdis6cvhv" path="res://Resources/Weapons/Flamethrower/stats/flamethrower_projectile_stats.tres" id="1_q8t3e"]
 [ext_resource type="Script" uid="uid://dhqfnnqd2n054" path="res://Scripts/resource_scripts/status_effects.gd" id="2_ncjks"]
