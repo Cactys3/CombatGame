@@ -1,12 +1,12 @@
-[gd_scene load_steps=34 format=3 uid="uid://bjggm4l8hm8ih"]
+[gd_scene format=3 uid="uid://bjggm4l8hm8ih"]
 
-[ext_resource type="Script" uid="uid://bfi32j4s2aid2" path="res://Scripts/UI/LootChestUI.gd" id="1_ilwj1"]
-[ext_resource type="Texture2D" uid="uid://n0k0l26reyna" path="res://Art/UI/ItemBackground.png" id="1_ys4ad"]
-[ext_resource type="Texture2D" uid="uid://lqpckh7fkgjy" path="res://Art/UI/MissingTexture.png" id="2_ilwj1"]
-[ext_resource type="PackedScene" uid="uid://o387qlahldf" path="res://Scenes/UI/StatsDisplay/stats_visual.tscn" id="2_o2j1a"]
-[ext_resource type="Texture2D" uid="uid://di1bp3nijrlbe" path="res://Art/ProximityEvents/Chest/Chest_Idle.png" id="4_2asgr"]
-[ext_resource type="Texture2D" uid="uid://cxmo20ocm404" path="res://Art/ProximityEvents/Chest/Chest_Open.png" id="5_o2j1a"]
-[ext_resource type="Texture2D" uid="uid://b2fjcqsv0707w" path="res://Art/ProximityEvents/Chest/Chest_Opening.png" id="6_qyp0k"]
+[ext_resource type="Script" uid="uid://bfi32j4s2aid2" path="res://Scripts/UI/LootChestUIWeapon.gd" id="1_mmc6l"]
+[ext_resource type="PackedScene" uid="uid://o387qlahldf" path="res://Scenes/UI/StatsDisplay/stats_visual.tscn" id="2_o816x"]
+[ext_resource type="Texture2D" uid="uid://n0k0l26reyna" path="res://Art/UI/ItemBackground.png" id="3_l2j3b"]
+[ext_resource type="Texture2D" uid="uid://lqpckh7fkgjy" path="res://Art/UI/MissingTexture.png" id="4_0ohb5"]
+[ext_resource type="Texture2D" uid="uid://di1bp3nijrlbe" path="res://Art/ProximityEvents/Chest/Chest_Idle.png" id="5_n7h40"]
+[ext_resource type="Texture2D" uid="uid://cxmo20ocm404" path="res://Art/ProximityEvents/Chest/Chest_Open.png" id="6_gxqvd"]
+[ext_resource type="Texture2D" uid="uid://b2fjcqsv0707w" path="res://Art/ProximityEvents/Chest/Chest_Opening.png" id="7_ij4pl"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ilwj1"]
 font_size = 64
@@ -21,87 +21,87 @@ bg_color = Color(0.4627451, 0.25882354, 0.5411765, 1)
 bg_color = Color(0.27450982, 0.25882354, 0.42352942, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gefxl"]
-atlas = ExtResource("4_2asgr")
+atlas = ExtResource("5_n7h40")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_11q3v"]
-atlas = ExtResource("4_2asgr")
+atlas = ExtResource("5_n7h40")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ul2oa"]
-atlas = ExtResource("4_2asgr")
+atlas = ExtResource("5_n7h40")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ia0nt"]
-atlas = ExtResource("4_2asgr")
+atlas = ExtResource("5_n7h40")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3dgfb"]
-atlas = ExtResource("4_2asgr")
+atlas = ExtResource("5_n7h40")
 region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g0q7v"]
-atlas = ExtResource("4_2asgr")
+atlas = ExtResource("5_n7h40")
 region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rnatv"]
-atlas = ExtResource("4_2asgr")
+atlas = ExtResource("5_n7h40")
 region = Rect2(192, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k1ju7"]
-atlas = ExtResource("4_2asgr")
+atlas = ExtResource("5_n7h40")
 region = Rect2(224, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8qhq3"]
-atlas = ExtResource("5_o2j1a")
+atlas = ExtResource("6_gxqvd")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mj753"]
-atlas = ExtResource("5_o2j1a")
+atlas = ExtResource("6_gxqvd")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_608t4"]
-atlas = ExtResource("5_o2j1a")
+atlas = ExtResource("6_gxqvd")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_851lj"]
-atlas = ExtResource("5_o2j1a")
+atlas = ExtResource("6_gxqvd")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0o1x1"]
-atlas = ExtResource("5_o2j1a")
+atlas = ExtResource("6_gxqvd")
 region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_27dop"]
-atlas = ExtResource("5_o2j1a")
+atlas = ExtResource("6_gxqvd")
 region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2asgr"]
-atlas = ExtResource("6_qyp0k")
+atlas = ExtResource("7_ij4pl")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o2j1a"]
-atlas = ExtResource("6_qyp0k")
+atlas = ExtResource("7_ij4pl")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qyp0k"]
-atlas = ExtResource("6_qyp0k")
+atlas = ExtResource("7_ij4pl")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ak1gd"]
-atlas = ExtResource("6_qyp0k")
+atlas = ExtResource("7_ij4pl")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6ssor"]
-atlas = ExtResource("6_qyp0k")
+atlas = ExtResource("7_ij4pl")
 region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6yqqh"]
-atlas = ExtResource("6_qyp0k")
+atlas = ExtResource("7_ij4pl")
 region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xbudq"]
-atlas = ExtResource("6_qyp0k")
+atlas = ExtResource("7_ij4pl")
 region = Rect2(192, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ak1gd"]
@@ -185,7 +185,7 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="LootChestUI" type="Control"]
+[node name="LootChestUI" type="Control" unique_id=311813716]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -198,14 +198,14 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-script = ExtResource("1_ilwj1")
+script = ExtResource("1_mmc6l")
 
-[node name="Control2" type="Control" parent="."]
+[node name="Control2" type="Control" parent="." unique_id=910320289]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Label" type="Label" parent="Control2"]
+[node name="Label" type="Label" parent="Control2" unique_id=1675627605]
 layout_mode = 0
 offset_left = 834.0
 offset_top = 184.0
@@ -214,7 +214,7 @@ offset_bottom = 235.0
 text = "You Got Loot!"
 label_settings = SubResource("LabelSettings_ilwj1")
 
-[node name="Control" type="Control" parent="Control2"]
+[node name="Control" type="Control" parent="Control2" unique_id=694069784]
 layout_mode = 1
 anchors_preset = 0
 offset_left = 895.0
@@ -223,7 +223,7 @@ offset_right = 911.1
 offset_bottom = 305.9
 scale = Vector2(10, 10)
 
-[node name="StatsDisplay" parent="Control2/Control" instance=ExtResource("2_o2j1a")]
+[node name="StatsDisplay" parent="Control2/Control" unique_id=1464429077 instance=ExtResource("2_o816x")]
 texture_filter = 1
 layout_mode = 0
 offset_left = -50.399998
@@ -233,7 +233,7 @@ offset_bottom = 431.7
 scale = Vector2(0.2, 0.2)
 hide_player_only = true
 
-[node name="HandleGoal" type="Control" parent="Control2/Control"]
+[node name="HandleGoal" type="Control" parent="Control2/Control" unique_id=556475384]
 layout_mode = 1
 anchor_left = 0.37888247
 anchor_top = 0.4842766
@@ -247,7 +247,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 metadata/_edit_use_anchors_ = true
 
-[node name="AttachmentGoal" type="Control" parent="Control2/Control"]
+[node name="AttachmentGoal" type="Control" parent="Control2/Control" unique_id=1644690704]
 layout_mode = 1
 anchor_left = 0.37888247
 anchor_top = 0.4842766
@@ -261,7 +261,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 metadata/_edit_use_anchors_ = true
 
-[node name="ProjectileGoal" type="Control" parent="Control2/Control"]
+[node name="ProjectileGoal" type="Control" parent="Control2/Control" unique_id=451104009]
 layout_mode = 1
 anchor_left = 0.37888247
 anchor_top = 0.4842766
@@ -275,18 +275,18 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 metadata/_edit_use_anchors_ = true
 
-[node name="ProjectileParent" type="Sprite2D" parent="Control2/Control"]
+[node name="ProjectileParent" type="Sprite2D" parent="Control2/Control" unique_id=1099175114]
 self_modulate = Color(1, 0.29411766, 0.21960784, 1)
 position = Vector2(8.199997, 8.1)
 scale = Vector2(0.4999999, 0.4999999)
-texture = ExtResource("1_ys4ad")
+texture = ExtResource("3_l2j3b")
 
-[node name="ProjectileImage" type="Sprite2D" parent="Control2/Control/ProjectileParent"]
+[node name="ProjectileImage" type="Sprite2D" parent="Control2/Control/ProjectileParent" unique_id=72957993]
 texture_filter = 1
 scale = Vector2(0.99999994, 0.99999994)
-texture = ExtResource("2_ilwj1")
+texture = ExtResource("4_0ohb5")
 
-[node name="ProjectileLabel" type="Label" parent="Control2/Control/ProjectileParent"]
+[node name="ProjectileLabel" type="Label" parent="Control2/Control/ProjectileParent" unique_id=2028755130]
 custom_minimum_size = Vector2(50, 50)
 offset_left = -13.799995
 offset_top = -14.3
@@ -300,18 +300,18 @@ autowrap_mode = 2
 clip_text = true
 metadata/_edit_use_anchors_ = true
 
-[node name="AttachmentParent" type="Sprite2D" parent="Control2/Control"]
+[node name="AttachmentParent" type="Sprite2D" parent="Control2/Control" unique_id=475370053]
 self_modulate = Color(1, 0.29411766, 0.21960784, 1)
 position = Vector2(8.199997, 8.099997)
 scale = Vector2(0.4999999, 0.4999999)
-texture = ExtResource("1_ys4ad")
+texture = ExtResource("3_l2j3b")
 
-[node name="AttachmentImage" type="Sprite2D" parent="Control2/Control/AttachmentParent"]
+[node name="AttachmentImage" type="Sprite2D" parent="Control2/Control/AttachmentParent" unique_id=853939365]
 texture_filter = 1
 scale = Vector2(0.99999994, 0.99999994)
-texture = ExtResource("2_ilwj1")
+texture = ExtResource("4_0ohb5")
 
-[node name="AttachmentLabel" type="Label" parent="Control2/Control/AttachmentParent"]
+[node name="AttachmentLabel" type="Label" parent="Control2/Control/AttachmentParent" unique_id=218914415]
 custom_minimum_size = Vector2(20, 20)
 offset_left = -14.099998
 offset_top = -14.1
@@ -325,18 +325,18 @@ autowrap_mode = 2
 clip_text = true
 metadata/_edit_use_anchors_ = true
 
-[node name="HandleParent" type="Sprite2D" parent="Control2/Control"]
+[node name="HandleParent" type="Sprite2D" parent="Control2/Control" unique_id=456564332]
 self_modulate = Color(1, 0.29411766, 0.21960784, 1)
 position = Vector2(8.199997, 8.1)
 scale = Vector2(0.4999999, 0.4999999)
-texture = ExtResource("1_ys4ad")
+texture = ExtResource("3_l2j3b")
 
-[node name="HandleImage" type="Sprite2D" parent="Control2/Control/HandleParent"]
+[node name="HandleImage" type="Sprite2D" parent="Control2/Control/HandleParent" unique_id=1779970468]
 texture_filter = 1
 scale = Vector2(0.99999994, 0.99999994)
-texture = ExtResource("2_ilwj1")
+texture = ExtResource("4_0ohb5")
 
-[node name="HandleLabel" type="Label" parent="Control2/Control/HandleParent"]
+[node name="HandleLabel" type="Label" parent="Control2/Control/HandleParent" unique_id=27278169]
 custom_minimum_size = Vector2(50, 50)
 offset_left = -14.1
 offset_top = -13.9000025
@@ -350,18 +350,18 @@ autowrap_mode = 2
 clip_text = true
 metadata/_edit_use_anchors_ = true
 
-[node name="WeaponParent" type="Sprite2D" parent="Control2/Control"]
+[node name="WeaponParent" type="Sprite2D" parent="Control2/Control" unique_id=971547897]
 self_modulate = Color(1, 0.29411766, 0.21960784, 1)
 position = Vector2(8.199997, 8.1)
 scale = Vector2(0.49999997, 0.49999997)
-texture = ExtResource("1_ys4ad")
+texture = ExtResource("3_l2j3b")
 
-[node name="WeaponImage" type="Sprite2D" parent="Control2/Control/WeaponParent"]
+[node name="WeaponImage" type="Sprite2D" parent="Control2/Control/WeaponParent" unique_id=1353786665]
 texture_filter = 1
 scale = Vector2(0.99999994, 0.99999994)
-texture = ExtResource("2_ilwj1")
+texture = ExtResource("4_0ohb5")
 
-[node name="WeaponLabel" type="Label" parent="Control2/Control/WeaponParent"]
+[node name="WeaponLabel" type="Label" parent="Control2/Control/WeaponParent" unique_id=16790235]
 custom_minimum_size = Vector2(50, 50)
 offset_left = -14.1
 offset_top = -13.9000025
@@ -374,7 +374,7 @@ horizontal_alignment = 1
 autowrap_mode = 2
 clip_text = true
 
-[node name="Button" type="Button" parent="Control2"]
+[node name="Button" type="Button" parent="Control2" unique_id=224025585]
 layout_mode = 0
 offset_left = 883.0
 offset_top = 508.0
@@ -389,7 +389,7 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_o2j1a")
 theme_override_styles/focus = SubResource("StyleBoxFlat_o2j1a")
 text = "Accept"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1348153744]
 texture_filter = 1
 position = Vector2(960, 825)
 scale = Vector2(25, 25)

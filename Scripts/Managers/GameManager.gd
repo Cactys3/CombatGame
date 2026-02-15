@@ -257,6 +257,11 @@ func remove_item(item: ItemUI, origin: Inventory) -> bool:
 		origin.backend_remove(item)
 		return true
 	return false
+func buy(price: float) -> bool:
+	if price <= money:
+		money -= price
+		return true
+	return false
 func can_buy(price: float) -> bool:
 	return price <= money
 func can_equip(item: ItemUI) -> bool:

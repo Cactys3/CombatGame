@@ -73,6 +73,8 @@ var map_height: int = 10 ## this many chunks tall
 var map_width: int = 10 ## this many chunks wide
 const spawn_area_size: float = 650
 const spawn_deadzone_size: float = 425
+## Event Tracking
+static var loot_chests_purchased: int = 0
 ## Enemies
 static var enemies_spawned: int = 0
 static var enemies_killed: int = 0
@@ -328,7 +330,9 @@ func load_event(scene: PackedScene, chunk: Vector2):
 	new_event.position = Vector2(randf_range(new_min.x, new_max.x), randf_range(new_min.y, new_max.y))
 	event_arr.append(new_event)
 	if new_event.has_method("setup"):
-		new_event.setup(level)
+		new_event.setup(total_stopwatch, level)
+	else:
+		print("event doesn't have setup " + new_event.name)
 func draw_new_visual():
 	chunk_rect.color = Color(0, 0, 0, 0)
 	chunk_rect = ColorRect.new()

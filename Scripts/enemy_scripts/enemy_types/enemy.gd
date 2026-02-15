@@ -9,7 +9,7 @@ class_name Enemy
 @export var can_be_knockbacked:bool = true
 @export var can_be_stunned:bool = true
 @export var xp_on_death: int = 10
-@export var money_on_death: int = 5
+@export var money_on_death: int = 3
 @export var weapon_knockback: float = 20.0
 @export var weapon_stun: float = 0
 @export var self_knockback_onhit: float = 200.0
@@ -167,7 +167,7 @@ func die():
 		death.emit(position)
 		visible = false
 		## Give money
-		game_man.money += money_on_death
+		game_man.money += money_on_death + level + minute
 		## Drop XP
 		var new_xp = XP.instantiate()
 		game_man.xp_parent.add_child(new_xp)

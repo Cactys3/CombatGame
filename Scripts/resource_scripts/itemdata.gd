@@ -332,9 +332,17 @@ func upgrade_rarity():
 func get_rarity_upgrade_text() -> String:
 	return get_rarity(item_rarity) + "-->" + get_rarity(item_rarity + 1)
 func get_item_description() -> String:
-	print("getting Item Description " + str(level))
 	if item_type == item_types.weapon:
-		return "[u]" + item_name + "[/u]'s Component Descriptions are: \n" + "[u]Handle:[/u] " + handle.get_item_description() + "\n" + "[u]Attachment: [/u]" + attachment.get_item_description() + "\n" + "[u]Projectile:[/u] " + projectile.get_item_description()
+		return "[u]" + item_name + "[/u]'s Component Descriptions are: \n" + "[u]" + handle.item_name + ":[/u] " + handle.get_item_description() + "\n" + "[u]" + attachment.item_name + ":[/u] " + attachment.get_item_description() + "\n" + "[u]" + projectile.item_name + ":[/u] " + projectile.get_item_description()
+	var ret: String = item_description
+	ret += "\nLevel: " + str(level)
+	if has_rarity:
+		ret += " (Rarity: " + get_rarity(item_rarity) + ")"
+	return ret
+## TBH: returns a shorter item description for smaller text boxes
+func get_item_description_short() -> String:
+	if item_type == item_types.weapon:
+		return "[u]" + item_name + "[/u]'s Component are: " + handle.item_name + ", " + attachment.item_name + ", " + projectile.item_name + "."
 	var ret: String = item_description
 	ret += "\nLevel: " + str(level)
 	if has_rarity:

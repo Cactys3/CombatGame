@@ -11,7 +11,7 @@ var choices: Array[ItemData]
 
 var pause: UIManager.PauseItem = null
 
-func setup(new_level: int):
+func setup(new_time: int, new_level: int):
 	pass ## TODO: Setup items based on level
 func _ready() -> void:
 	for i in 3:

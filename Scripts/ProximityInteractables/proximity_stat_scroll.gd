@@ -5,7 +5,7 @@ const STAT_SCROLL_EVENT_UI = preload("uid://bqxl1c0t7c6ac")
 var stats: StatsResource = BLANK_STATS
 
 ## Calculate and assign a rarity
-func setup(new_level: int):
+func setup(new_time: int, new_level: int):
 	stats.setup("Damage+ Scroll")
 	stats.set_stat_base(StatsResource.DAMAGE, new_level)
 	## Make a rarity based on level TODO: stat scroll
