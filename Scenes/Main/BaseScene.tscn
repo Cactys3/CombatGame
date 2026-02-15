@@ -181,7 +181,7 @@ projectile_parent = NodePath("../../../Window640/Offset/ProjectileParent")
 position = Vector2(960, 0)
 script = ExtResource("12_e4e03")
 
-[node name="UIManager" type="Control" parent="Window1920/Offset" unique_id=272186004 node_paths=PackedStringArray("money_label", "xp_label", "level_label", "hp_label", "fps_label", "stopwatch_label", "enemies_killed_label", "bosses_killed_label", "you_win", "tab_menu_parent", "esc_menu_parent", "level_up_parent", "static_ui_parent", "misc_parent", "relative_to_game_parent", "AIOman", "cheat_inventory", "hud")]
+[node name="UIManager" type="Control" parent="Window1920/Offset" unique_id=272186004 node_paths=PackedStringArray("money_label", "xp_label", "level_label", "hp_label", "fps_label", "stopwatch_label", "enemies_killed_label", "bosses_killed_label", "you_win", "tab_menu_parent", "esc_menu_parent", "level_up_parent", "static_ui_parent", "misc_parent", "relative_to_game_parent", "top_level_labels_parent", "AIOman", "cheat_inventory", "hud")]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -191,24 +191,271 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("10_627tp")
-money_label = NodePath("StaticHUDparent/SimpleHUD/Money Label/Money")
-xp_label = NodePath("StaticHUDparent/SimpleHUD/XP Label/XP")
-level_label = NodePath("StaticHUDparent/SimpleHUD/LVL Label/LVL")
-hp_label = NodePath("StaticHUDparent/SimpleHUD/HP Label/HP")
-fps_label = NodePath("StaticHUDparent/SimpleHUD/FPS Label/FPS")
-stopwatch_label = NodePath("StaticHUDparent/SimpleHUD/Time Label/Time")
-enemies_killed_label = NodePath("StaticHUDparent/SimpleHUD/EnemiesKilled Label/EnemiesKilled")
-bosses_killed_label = NodePath("StaticHUDparent/SimpleHUD/BossesKilled Label/BossesKilled")
-you_win = NodePath("StaticHUDparent/YouWin")
+money_label = NodePath("StaticHUDParent/SimpleHUD/Money Label/Money")
+xp_label = NodePath("StaticHUDParent/SimpleHUD/XP Label/XP")
+level_label = NodePath("StaticHUDParent/SimpleHUD/LVL Label/LVL")
+hp_label = NodePath("StaticHUDParent/SimpleHUD/HP Label/HP")
+fps_label = NodePath("StaticHUDParent/SimpleHUD/FPS Label/FPS")
+stopwatch_label = NodePath("StaticHUDParent/SimpleHUD/Time Label/Time")
+enemies_killed_label = NodePath("StaticHUDParent/SimpleHUD/EnemiesKilled Label/EnemiesKilled")
+bosses_killed_label = NodePath("StaticHUDParent/SimpleHUD/BossesKilled Label/BossesKilled")
+you_win = NodePath("StaticHUDParent/YouWin")
 tab_menu_parent = NodePath("TabMenuParent")
 esc_menu_parent = NodePath("EscMenuParent")
 level_up_parent = NodePath("LevelUpParent")
-static_ui_parent = NodePath("StaticHUDparent")
+static_ui_parent = NodePath("StaticHUDParent")
 misc_parent = NodePath("MiscParent")
 relative_to_game_parent = NodePath("RelativeToGameParent")
+top_level_labels_parent = NodePath("TopLevelLabelsParent")
 AIOman = NodePath("TabMenuParent/AIO")
 cheat_inventory = NodePath("TabMenuParent/Cheat Inventory")
-hud = NodePath("StaticHUDparent/hud")
+hud = NodePath("StaticHUDParent/hud")
+
+[node name="RelativeToGameParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=943559020]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("17_afe04")
+
+[node name="MiscParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=192321109]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Button" type="Button" parent="Window1920/Offset/UIManager/MiscParent" unique_id=462440823]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 821.0
+offset_top = -478.0
+offset_right = 931.0
+offset_bottom = -444.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+text = "Change Resolution
+Current: "
+
+[node name="StaticHUDParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=1612899046]
+process_mode = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="hud" parent="Window1920/Offset/UIManager/StaticHUDParent" unique_id=1849936535 instance=ExtResource("15_6si6h")]
+layout_mode = 1
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="SimpleHUD" type="Panel" parent="Window1920/Offset/UIManager/StaticHUDParent" unique_id=951058699]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -945.0
+offset_top = -139.0
+offset_right = 945.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="LVL Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDParent/SimpleHUD" unique_id=868159253]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 0
+offset_left = 23.0
+offset_top = 15.0
+offset_right = 203.0
+offset_bottom = 41.0
+text = "Current Level: "
+label_settings = SubResource("LabelSettings_tpk5p")
+
+[node name="LVL" type="Label" parent="Window1920/Offset/UIManager/StaticHUDParent/SimpleHUD/LVL Label" unique_id=1992131021]
+layout_mode = 0
+offset_left = 174.0
+offset_top = 1.0
+offset_right = 222.0
+offset_bottom = 27.0
+text = "-999"
+label_settings = SubResource("LabelSettings_tpk5p")
+
+[node name="XP Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDParent/SimpleHUD" unique_id=24678582]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 0
+offset_left = 23.0
+offset_top = 48.0
+offset_right = 167.0
+offset_bottom = 74.0
+text = "Current XP: "
+label_settings = SubResource("LabelSettings_tpk5p")
+
+[node name="XP" type="Label" parent="Window1920/Offset/UIManager/StaticHUDParent/SimpleHUD/XP Label" unique_id=816894255]
+layout_mode = 0
+offset_left = 139.0
+offset_top = 1.0
+offset_right = 187.0
+offset_bottom = 27.0
+text = "-999"
+label_settings = SubResource("LabelSettings_tpk5p")
+
+[node name="HP Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDParent/SimpleHUD" unique_id=1639304141]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 0
+offset_left = 301.0
+offset_top = 14.0
+offset_right = 493.0
+offset_bottom = 40.0
+text = "Current Health: "
+label_settings = SubResource("LabelSettings_tpk5p")
+
+[node name="HP" type="Label" parent="Window1920/Offset/UIManager/StaticHUDParent/SimpleHUD/HP Label" unique_id=865701987]
+layout_mode = 0
+offset_left = 183.0
+offset_top = 1.0
+offset_right = 231.0
+offset_bottom = 27.0
+text = "-999"
+label_settings = SubResource("LabelSettings_tpk5p")
+
+[node name="Money Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDParent/SimpleHUD" unique_id=2002166462]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 0
+offset_left = 301.0
+offset_top = 46.0
+offset_right = 481.0
+offset_bottom = 72.0
+text = "Current Money: "
+label_settings = SubResource("LabelSettings_tpk5p")
+
+[node name="Money" type="Label" parent="Window1920/Offset/UIManager/StaticHUDParent/SimpleHUD/Money Label" unique_id=503924382]
+layout_mode = 0
+offset_left = 183.0
+offset_top = 1.0
+offset_right = 231.0
+offset_bottom = 27.0
+text = "-999"
+label_settings = SubResource("LabelSettings_tpk5p")
+
+[node name="BossesKilled Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDParent/SimpleHUD" unique_id=148747168]
+layout_mode = 0
+offset_left = 600.0
+offset_top = 87.0
+offset_right = 792.0
+offset_bottom = 113.0
+text = "Bosses Killed: "
+label_settings = SubResource("LabelSettings_41mr8")
+
+[node name="BossesKilled" type="Label" parent="Window1920/Offset/UIManager/StaticHUDParent/SimpleHUD/BossesKilled Label" unique_id=760506504]
+layout_mode = 0
+offset_left = 170.0
+offset_top = 1.0
+offset_right = 210.0
+offset_bottom = 32.0
+label_settings = SubResource("LabelSettings_41mr8")
+
+[node name="EnemiesKilled Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDParent/SimpleHUD" unique_id=1201538646]
+layout_mode = 0
+offset_left = 600.0
+offset_top = 52.0
+offset_right = 672.0
+offset_bottom = 78.0
+text = "Enemies Killed: "
+label_settings = SubResource("LabelSettings_41mr8")
+
+[node name="EnemiesKilled" type="Label" parent="Window1920/Offset/UIManager/StaticHUDParent/SimpleHUD/EnemiesKilled Label" unique_id=1584852654]
+layout_mode = 0
+offset_left = 184.0
+offset_top = -5.0
+offset_right = 224.0
+offset_bottom = 26.0
+label_settings = SubResource("LabelSettings_41mr8")
+
+[node name="FPS Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDParent/SimpleHUD" unique_id=625870787]
+layout_mode = 0
+offset_left = 872.0
+offset_top = 14.0
+offset_right = 965.0
+offset_bottom = 59.0
+text = "FPS: "
+label_settings = SubResource("LabelSettings_41mr8")
+
+[node name="FPS" type="Label" parent="Window1920/Offset/UIManager/StaticHUDParent/SimpleHUD/FPS Label" unique_id=1911486020]
+layout_mode = 0
+offset_left = 72.0
+offset_top = -6.0
+offset_right = 112.0
+offset_bottom = 39.0
+label_settings = SubResource("LabelSettings_41mr8")
+
+[node name="Time Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDParent/SimpleHUD" unique_id=1960197097]
+layout_mode = 0
+offset_left = 597.0
+offset_top = 16.0
+offset_right = 669.0
+offset_bottom = 42.0
+text = "Time: "
+label_settings = SubResource("LabelSettings_41mr8")
+
+[node name="Time" type="Label" parent="Window1920/Offset/UIManager/StaticHUDParent/SimpleHUD/Time Label" unique_id=311262764]
+layout_mode = 0
+offset_left = 65.0
+offset_top = -3.0
+offset_right = 105.0
+offset_bottom = 28.0
+label_settings = SubResource("LabelSettings_41mr8")
+
+[node name="Button" type="Button" parent="Window1920/Offset/UIManager/StaticHUDParent/SimpleHUD" unique_id=1554392966]
+layout_mode = 0
+offset_left = 1477.0
+offset_top = 12.0
+offset_right = 1874.0
+offset_bottom = 126.0
+mouse_filter = 2
+theme_override_colors/icon_pressed_color = Color(0.08510152, 0.7499544, 0.67877626, 1)
+toggle_mode = true
+text = "Toggle Spawning"
+icon = SubResource("NoiseTexture2D_41mr8")
+
+[node name="YouWin" type="Label" parent="Window1920/Offset/UIManager/StaticHUDParent" unique_id=2077903789]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -121.0
+offset_right = 192.0
+offset_bottom = 121.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 128
+text = "You Win!"
+
+[node name="LevelUpParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=1878413924]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
 
 [node name="TabMenuParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=879721707]
 visible = false
@@ -259,252 +506,6 @@ offset_left = -287.0
 offset_top = 520.0
 offset_right = 13.0
 offset_bottom = 820.0
-mouse_filter = 1
-
-[node name="MiscParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=192321109]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-
-[node name="Button" type="Button" parent="Window1920/Offset/UIManager/MiscParent" unique_id=462440823]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 821.0
-offset_top = -478.0
-offset_right = 931.0
-offset_bottom = -444.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-text = "Change Resolution
-Current: "
-
-[node name="StaticHUDparent" type="Control" parent="Window1920/Offset/UIManager" unique_id=1612899046]
-process_mode = 1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="hud" parent="Window1920/Offset/UIManager/StaticHUDparent" unique_id=1849936535 instance=ExtResource("15_6si6h")]
-layout_mode = 1
-offset_right = 0.0
-offset_bottom = 0.0
-
-[node name="SimpleHUD" type="Panel" parent="Window1920/Offset/UIManager/StaticHUDparent" unique_id=951058699]
-visible = false
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -945.0
-offset_top = -139.0
-offset_right = 945.0
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 2
-
-[node name="LVL Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD" unique_id=868159253]
-custom_minimum_size = Vector2(10, 10)
-layout_mode = 0
-offset_left = 23.0
-offset_top = 15.0
-offset_right = 203.0
-offset_bottom = 41.0
-text = "Current Level: "
-label_settings = SubResource("LabelSettings_tpk5p")
-
-[node name="LVL" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/LVL Label" unique_id=1992131021]
-layout_mode = 0
-offset_left = 174.0
-offset_top = 1.0
-offset_right = 222.0
-offset_bottom = 27.0
-text = "-999"
-label_settings = SubResource("LabelSettings_tpk5p")
-
-[node name="XP Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD" unique_id=24678582]
-custom_minimum_size = Vector2(10, 10)
-layout_mode = 0
-offset_left = 23.0
-offset_top = 48.0
-offset_right = 167.0
-offset_bottom = 74.0
-text = "Current XP: "
-label_settings = SubResource("LabelSettings_tpk5p")
-
-[node name="XP" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/XP Label" unique_id=816894255]
-layout_mode = 0
-offset_left = 139.0
-offset_top = 1.0
-offset_right = 187.0
-offset_bottom = 27.0
-text = "-999"
-label_settings = SubResource("LabelSettings_tpk5p")
-
-[node name="HP Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD" unique_id=1639304141]
-custom_minimum_size = Vector2(10, 10)
-layout_mode = 0
-offset_left = 301.0
-offset_top = 14.0
-offset_right = 493.0
-offset_bottom = 40.0
-text = "Current Health: "
-label_settings = SubResource("LabelSettings_tpk5p")
-
-[node name="HP" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/HP Label" unique_id=865701987]
-layout_mode = 0
-offset_left = 183.0
-offset_top = 1.0
-offset_right = 231.0
-offset_bottom = 27.0
-text = "-999"
-label_settings = SubResource("LabelSettings_tpk5p")
-
-[node name="Money Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD" unique_id=2002166462]
-custom_minimum_size = Vector2(10, 10)
-layout_mode = 0
-offset_left = 301.0
-offset_top = 46.0
-offset_right = 481.0
-offset_bottom = 72.0
-text = "Current Money: "
-label_settings = SubResource("LabelSettings_tpk5p")
-
-[node name="Money" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/Money Label" unique_id=503924382]
-layout_mode = 0
-offset_left = 183.0
-offset_top = 1.0
-offset_right = 231.0
-offset_bottom = 27.0
-text = "-999"
-label_settings = SubResource("LabelSettings_tpk5p")
-
-[node name="BossesKilled Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD" unique_id=148747168]
-layout_mode = 0
-offset_left = 600.0
-offset_top = 87.0
-offset_right = 792.0
-offset_bottom = 113.0
-text = "Bosses Killed: "
-label_settings = SubResource("LabelSettings_41mr8")
-
-[node name="BossesKilled" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/BossesKilled Label" unique_id=760506504]
-layout_mode = 0
-offset_left = 170.0
-offset_top = 1.0
-offset_right = 210.0
-offset_bottom = 32.0
-label_settings = SubResource("LabelSettings_41mr8")
-
-[node name="EnemiesKilled Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD" unique_id=1201538646]
-layout_mode = 0
-offset_left = 600.0
-offset_top = 52.0
-offset_right = 672.0
-offset_bottom = 78.0
-text = "Enemies Killed: "
-label_settings = SubResource("LabelSettings_41mr8")
-
-[node name="EnemiesKilled" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/EnemiesKilled Label" unique_id=1584852654]
-layout_mode = 0
-offset_left = 184.0
-offset_top = -5.0
-offset_right = 224.0
-offset_bottom = 26.0
-label_settings = SubResource("LabelSettings_41mr8")
-
-[node name="FPS Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD" unique_id=625870787]
-layout_mode = 0
-offset_left = 872.0
-offset_top = 14.0
-offset_right = 965.0
-offset_bottom = 59.0
-text = "FPS: "
-label_settings = SubResource("LabelSettings_41mr8")
-
-[node name="FPS" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/FPS Label" unique_id=1911486020]
-layout_mode = 0
-offset_left = 72.0
-offset_top = -6.0
-offset_right = 112.0
-offset_bottom = 39.0
-label_settings = SubResource("LabelSettings_41mr8")
-
-[node name="Time Label" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD" unique_id=1960197097]
-layout_mode = 0
-offset_left = 597.0
-offset_top = 16.0
-offset_right = 669.0
-offset_bottom = 42.0
-text = "Time: "
-label_settings = SubResource("LabelSettings_41mr8")
-
-[node name="Time" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/Time Label" unique_id=311262764]
-layout_mode = 0
-offset_left = 65.0
-offset_top = -3.0
-offset_right = 105.0
-offset_bottom = 28.0
-label_settings = SubResource("LabelSettings_41mr8")
-
-[node name="Button" type="Button" parent="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD" unique_id=1554392966]
-layout_mode = 0
-offset_left = 1477.0
-offset_top = 12.0
-offset_right = 1874.0
-offset_bottom = 126.0
-mouse_filter = 2
-theme_override_colors/icon_pressed_color = Color(0.08510152, 0.7499544, 0.67877626, 1)
-toggle_mode = true
-text = "Toggle Spawning"
-icon = SubResource("NoiseTexture2D_41mr8")
-
-[node name="YouWin" type="Label" parent="Window1920/Offset/UIManager/StaticHUDparent" unique_id=2077903789]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -192.0
-offset_top = -121.0
-offset_right = 192.0
-offset_bottom = 121.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 128
-text = "You Win!"
-
-[node name="RelativeToGameParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=943559020]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-script = ExtResource("17_afe04")
-
-[node name="LevelUpParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=1878413924]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 mouse_filter = 1
 
 [node name="EscMenuParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=1841136718]
@@ -1021,9 +1022,14 @@ offset_bottom = 13.0
 grow_horizontal = 0
 text = "What the stats do!:"
 
+[node name="TopLevelLabelsParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=1386762912]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="WindowManager" type="Node" parent="." unique_id=642010504]
 script = ExtResource("27_fwf5d")
 
 [connection signal="pressed" from="Window1920/Offset/UIManager/MiscParent/Button" to="WindowManager" method="_on_pressed"]
-[connection signal="toggled" from="Window1920/Offset/UIManager/StaticHUDparent/SimpleHUD/Button" to="." method="SpawningButtonPressed"]
+[connection signal="toggled" from="Window1920/Offset/UIManager/StaticHUDParent/SimpleHUD/Button" to="." method="SpawningButtonPressed"]
 [connection signal="button_down" from="Window1920/Offset/UIManager/EscMenuParent/Panel/Button" to="." method="return_to_main_menu"]

@@ -17,6 +17,7 @@ class_name UIManager
 @export var static_ui_parent: Control
 @export var misc_parent: Control
 @export var relative_to_game_parent: Control
+@export var top_level_labels_parent: Control
 ## Inventories
 @export var AIOman: AIO_Manager
 @export var cheat_inventory: Inventory 
@@ -149,7 +150,8 @@ func next_pause_or_unpause():
 			tab_menu_parent.propagate_call("set", ["process_mode", PROCESS_MODE_ALWAYS])
 		if current_pause_item.pause_parent.get_parent() == self:
 			## Maybe this is good, or maybe they should have permanent heiarchy.
-			move_child(current_pause_item.pause_parent, get_child_count())
+			#move_child(current_pause_item.pause_parent, max(0, get_child_count() - 1))
+			pass
 		PauseQueue.erase(priority_item)
 		GameManager.instance.pause(true)
 ## Called to unpause or remove pause_item from PauseQueue

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_opogi"]
 [ext_resource type="Texture2D" uid="uid://n6qph7sxu8ad" path="res://Art/Hell/Enemies/Gurel.png" id="2_25dlw"]
+[ext_resource type="Script" uid="uid://mx46u150t0dj" path="res://Scripts/misc/randomize_default_playbackspeed.gd" id="3_25dlw"]
 [ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="3_hw66a"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e4gje"]
@@ -93,6 +94,7 @@ position = Vector2(0, 13)
 sprite_frames = SubResource("SpriteFrames_d65wa")
 autoplay = "default"
 offset = Vector2(0, -8.385)
+script = ExtResource("3_25dlw")
 
 [node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=1805235964]
 position = Vector2(0, 3)

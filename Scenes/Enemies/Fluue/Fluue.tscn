@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://d1v8l8ulmvpo"]
+[gd_scene format=3 uid="uid://d1v8l8ulmvpo"]
 
 [ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_stydw"]
-[ext_resource type="Resource" uid="uid://q1crbk6syugb" path="res://Scenes/Enemies/Fluue/fluue_stats.tres" id="2_3o72h"]
 [ext_resource type="Texture2D" uid="uid://beyct05pgtpgx" path="res://Art/Hell/Enemies/Fluue.png" id="3_38g22"]
 [ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="4_54okv"]
 
@@ -30,41 +29,40 @@ height = 22.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b6ujt"]
 height = 40.0
 
-[node name="Fluue" type="RigidBody2D" node_paths=PackedStringArray("damage_hitbox", "anim") groups=["enemy"]]
+[node name="Fluue" type="RigidBody2D" unique_id=418390868 node_paths=PackedStringArray("damage_hitbox", "anim") groups=["enemy"]]
 collision_layer = 32
 collision_mask = 32
 mass = 20.0
 gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_stydw")
-stats = ExtResource("2_3o72h")
 damage_hitbox = NodePath("Damage_Hitbox")
 anim = NodePath("AnimatedSprite2D")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1596518810]
 position = Vector2(0, 12)
 sprite_frames = SubResource("SpriteFrames_x6nht")
 offset = Vector2(0, -8.385)
 
-[node name="MinionBlock" type="CollisionShape2D" parent="."]
+[node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=2102485915]
 position = Vector2(0, 3)
 shape = SubResource("CircleShape2D_8ayrs")
 
-[node name="Damage_Hitbox" type="Area2D" parent="."]
+[node name="Damage_Hitbox" type="Area2D" parent="." unique_id=2008728514]
 collision_layer = 16
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=1786556324]
 position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_jc408")
 
-[node name="Health_HitArea" type="Area2D" parent="." node_paths=PackedStringArray("callee")]
+[node name="Health_HitArea" type="Area2D" parent="." unique_id=1775543795 node_paths=PackedStringArray("callee")]
 collision_layer = 8
 collision_mask = 4
 script = ExtResource("4_54okv")
 callee = NodePath("..")
 
-[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_HitArea"]
+[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_HitArea" unique_id=586606380]
 position = Vector2(0, 3)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_b6ujt")

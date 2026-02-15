@@ -222,7 +222,7 @@ func _on_mouse_entered() -> void:
 		label.modulate = modulate
 		label.add_theme_constant_override("outline_size", 10)
 		label.add_theme_color_override("font_outline_color", Color.BLACK)
-		GameManager.instance.ui_man.static_ui_parent.add_child(label)
+		GameManager.instance.ui_man.top_level_labels_parent.add_child(label)
 		label.global_position = get_viewport().get_mouse_position()
 		
 		## TODO: Have OnClick, make a new StatsVisual that shows the stats affectin this StatList but NOT the original StatsVisual
