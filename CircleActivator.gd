@@ -5,11 +5,14 @@ class_name CircleActivator
 var is_done: bool = false
 var is_playing: bool = false
 var anim_speed: float = 1.9
+var at_start: bool = true
 func _ready() -> void:
 	anim.modulate = Color.GREEN
 	anim.speed_scale = anim_speed
 func reverse():
 	anim.speed_scale = -anim.speed_scale
+	if anim.animation_finished.is_connected(done):
+		anim.animation_finished.disconnect(done)
 	if !anim.is_playing():
 		anim.play("loop")
 func entered(node: Node) -> void:

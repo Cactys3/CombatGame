@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cytotq02c1x2a" path="res://Scenes/ProximityInteractables/proximity_shop.tscn" id="3_qq1a1"]
 [ext_resource type="PackedScene" uid="uid://le5tbb8urp88" path="res://Scenes/ProximityInteractables/proximity_forge.tscn" id="3_u5ql4"]
 [ext_resource type="PackedScene" uid="uid://lv3mxqogfmmp" path="res://Scenes/ProximityInteractables/proximity_permanent_shop.tscn" id="6_627tp"]
+[ext_resource type="PackedScene" uid="uid://bqo1xj4v5qth7" path="res://Scenes/ProximityInteractables/StatScroll.tscn" id="7_afe04"]
 [ext_resource type="PackedScene" uid="uid://cu6nvv3r8tgkl" path="res://Scenes/UI/NewInventory.tscn" id="8_qq1a1"]
 [ext_resource type="Script" uid="uid://q2s0hxfba110" path="res://Scripts/managers/GameManager.gd" id="9_u5ctk"]
 [ext_resource type="Script" uid="uid://illqvubum1r1" path="res://Scripts/managers/UIManager.gd" id="10_627tp"]
@@ -85,7 +86,7 @@ position = Vector2(320, 180)
 [node name="EventParent" type="Node2D" parent="Window640/Offset" unique_id=1419209084]
 
 [node name="HellPuddle" parent="Window640/Offset/EventParent" unique_id=225935508 instance=ExtResource("2_qrryo")]
-position = Vector2(-78.77777, 24)
+position = Vector2(-77.666664, 119.333336)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Window640/Offset/EventParent" unique_id=251656736]
 position = Vector2(-81.44444, -23)
@@ -96,7 +97,7 @@ collision_mask = 2
 position = Vector2(4.666677, 1.3333359)
 
 [node name="ProximityShop" parent="Window640/Offset/EventParent/StaticBody2D" unique_id=1863887412 instance=ExtResource("3_qq1a1")]
-position = Vector2(-57.2222, -85.66667)
+position = Vector2(4.1111374, 47)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Window640/Offset/EventParent/StaticBody2D" unique_id=1189905832]
 position = Vector2(-5.333326, 100.333336)
@@ -108,6 +109,9 @@ texture = ExtResource("3_eeah7")
 
 [node name="ProximityPermanentShop" parent="Window640/Offset/EventParent" unique_id=1495076092 instance=ExtResource("6_627tp")]
 position = Vector2(105.66667, -4.3333335)
+
+[node name="StatScroll" parent="Window640/Offset/EventParent" unique_id=977085131 instance=ExtResource("7_afe04")]
+position = Vector2(-77, -89.33333)
 
 [node name="EnemyParent" type="Node2D" parent="Window640/Offset" unique_id=1792563094]
 
