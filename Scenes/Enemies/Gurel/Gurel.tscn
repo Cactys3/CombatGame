@@ -80,11 +80,14 @@ height = 10.0
 radius = 7.0
 height = 14.0
 
-[node name="Gurel" type="RigidBody2D" unique_id=1955438532 node_paths=PackedStringArray("damage_hitbox", "anim")]
+[node name="Gurel" type="RigidBody2D" unique_id=1955438532 node_paths=PackedStringArray("damage_hitbox", "anim") groups=["enemy"]]
+collision_layer = 32
+collision_mask = 32
 gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_opogi")
 damage_hitbox = NodePath("Damage_Hitbox")
+weapon_knockback = 600.0
 turns_towards_movement = true
 anim = NodePath("AnimatedSprite2D")
 metadata/_custom_type_script = "uid://cexfniayiorgs"
@@ -117,3 +120,5 @@ callee = NodePath("..")
 [node name="Health_Hitbox" type="CollisionShape2D" parent="Health_HitArea" unique_id=122786202]
 position = Vector2(1, 3)
 shape = SubResource("CapsuleShape2D_b1l86")
+
+[connection signal="body_entered" from="Damage_Hitbox" to="." method="_on_damage_hitbox_body_entered"]
