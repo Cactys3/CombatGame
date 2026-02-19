@@ -35,7 +35,6 @@ class_name Enemy
 @export_category("Misc")
 @export var turns_towards_movement: bool = false
 @export var anim: AnimatedSprite2D 
-const POPUP_TEXT = preload("res://Scenes/UI/popup_text.tscn")
 const XP = preload("res://Scenes/Misc/xp_blip.tscn")
 const ITEM_DROP = preload("uid://d3v2pdpqpmvpe")
 @onready var FORGE_ITEM = load("uid://xn3lii5356op")
@@ -74,15 +73,16 @@ var level: float
 var difficulty: float 
 ##
 var dead: bool = false
+
+func _init() -> void:
+	visible = false
 func _ready() -> void:
 	flash()
 	call_deferred("set_stats")
 	call_deferred("setup") 
 	add_to_group("enemy")
-	#stats.call_deferred("setup", name)
 func flash():
-	visible = false
-	await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(0.5).timeout
 	visible = true
 ## called whever stats change
 func set_stats():
@@ -241,7 +241,8 @@ func damage(attack: Attack):
 			stunned = true
 		apply_knockback(attack.position, attack.knockback)
 		#call_deferred("set_linear_velocity", (global_position - attack.position).normalized() * attack.knockback * curr_knockback_modifier)
-	var dmg_text: PopupText = POPUP_TEXT.instantiate()
+	## This shit doesn't work for some fucked up reason when it's preloaded
+	var dmg_text: PopupText = load("uid://brldrnbhcexcm").instantiate()
 	dmg_text.global_position = Vector2.ZERO
 	dmg_text.setup(str(int(round(attack.damage))), damage_taken + randi_range(-5, 5), WindowManager.instance.convert_small_position(global_position), 1.5, Vector2(10, 10))
 	

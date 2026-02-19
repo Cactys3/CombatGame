@@ -248,8 +248,7 @@ func handle_enemy_spawning(delta: float, pos: Vector2):
 		spawn_bosses(pos)
 		spawn_enemy_events(pos)
 func load_chunk(chunk_id: Vector2):
-	var new_chunk: Sprite2D = Sprite2D.new()
-	new_chunk.visible = false
+	var new_chunk: Sprite2D = FlashFixSprite.new()
 	# if chunk is without of map bounds
 	if abs(chunk_id.x) > abs(map_width) || abs(chunk_id.y) > abs(map_height):
 		new_chunk.texture = TileBlank
@@ -260,7 +259,6 @@ func load_chunk(chunk_id: Vector2):
 	new_chunk.position = ((chunk_id) * Vector2(640, 360))
 	chunks.append(new_chunk)
 	chunks_dic.get_or_add(chunk_id, new_chunk)
-	new_chunk.visible = true
 ## Despawns the enemy that is farthest from position
 func despawn_enemies(pos: Vector2, num: int):
 	if num > 0:

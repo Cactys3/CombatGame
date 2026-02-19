@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bqo1xj4v5qth7" path="res://Scenes/ProximityInteractables/StatScroll.tscn" id="7_afe04"]
 [ext_resource type="PackedScene" uid="uid://bg44j5ewrjpf2" path="res://Scenes/Instances/Hell/HellTree.tscn" id="8_okq7h"]
 [ext_resource type="PackedScene" uid="uid://cu6nvv3r8tgkl" path="res://Scenes/UI/NewInventory.tscn" id="8_qq1a1"]
+[ext_resource type="PackedScene" uid="uid://bj2nfedstjwtm" path="res://Scenes/Instances/Hell/HellSpikes.tscn" id="9_e6ktq"]
 [ext_resource type="Script" uid="uid://q2s0hxfba110" path="res://Scripts/managers/GameManager.gd" id="9_u5ctk"]
 [ext_resource type="Script" uid="uid://illqvubum1r1" path="res://Scripts/managers/UIManager.gd" id="10_627tp"]
 [ext_resource type="Script" uid="uid://13p8bkyp17w" path="res://Scripts/managers/TestingManager.gd" id="10_cwiy3"]
@@ -117,6 +118,9 @@ position = Vector2(-77, -89.33333)
 
 [node name="HellTree" parent="Window640/Offset/EventParentBackground" unique_id=1047116625 instance=ExtResource("8_okq7h")]
 position = Vector2(22.999985, 114.33332)
+
+[node name="HellSpikes" parent="Window640/Offset/EventParentBackground" unique_id=1741122985 instance=ExtResource("9_e6ktq")]
+position = Vector2(81.66667, 134.33333)
 
 [node name="EnemyParent" type="Node2D" parent="Window640/Offset" unique_id=1792563094]
 

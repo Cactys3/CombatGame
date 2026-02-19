@@ -4,6 +4,15 @@ class_name Components
 var data: ItemData = ShopManager.BLANK_ITEMDATA.duplicate()
 const RIGHTCLICKMENU = preload("uid://cgxs2sfst46t4")
 
+
+func _init() -> void:
+	visible = false
+func _ready() -> void:
+	flash()
+func flash():
+	await get_tree().create_timer(0.05).timeout
+	visible = true
+
 ## Functions to Override:
 ## Creates an ItemData.LevelUpgrade for this specific component and returns it once setup
 static func get_level_upgrades(itemdata: ItemData) -> Array[ItemData.LevelUpgrade]:

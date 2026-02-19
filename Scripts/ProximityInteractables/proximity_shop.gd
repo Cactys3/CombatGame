@@ -1,19 +1,17 @@
 extends Node2D
-
 const SHOP_INVENTORY = preload("uid://bwuwo8e451bxt")
 const SHOP = preload("uid://s8jnff8as08f")
-
 var shop
 var entered: bool = false
 var max_choices: int = 3
 var curr_choices: int = 0
 var choices: Array[ItemData]
-
 var pause: UIManager.PauseItem = null
 
-func setup(new_time: int, new_level: int):
-	pass ## TODO: Setup items based on level
+func _init() -> void:
+	visible = false
 func _ready() -> void:
+	flash()
 	for i in 3:
 		match(randi_range(0, 2)):
 			0:
@@ -22,6 +20,11 @@ func _ready() -> void:
 				choices.append(ShopManager.get_attachment(ShopManager.get_random_unlocked_weapon_index()))
 			2:
 				choices.append(ShopManager.get_projectile(ShopManager.get_random_unlocked_weapon_index()))
+func flash():
+	await get_tree().create_timer(0.05).timeout
+	visible = true
+func setup(new_time: int, new_level: int):
+	pass ## TODO: Setup items based on level
 func _body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		shop = SHOP.instantiate()

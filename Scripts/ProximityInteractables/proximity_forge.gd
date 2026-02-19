@@ -1,12 +1,17 @@
 extends Node2D
-
 const FORGE = preload("uid://bxdeumld7epke")
 const FORGE_INVENTORY = preload("uid://cwomrgi81thyq")
 var forge: Forge
 var entered: bool = false
-
 var pause: UIManager.PauseItem
 
+func _init() -> void:
+	visible = false
+func _ready() -> void:
+	flash()
+func flash():
+	await get_tree().create_timer(0.05).timeout
+	visible = true
 func _body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		forge = FORGE.instantiate()
@@ -20,10 +25,8 @@ func _body_entered(body: Node2D) -> void:
 		pause = UIManager.PauseItem.new(toggle_forge, UIManager.PauseItem.PauseTypes.ui, true, true, ui_man.misc_parent)
 		ui_man.pause(pause)
 		entered = true
-
 func unpause():
 	GameManager.instance.ui_man.unpause(pause)
-
 func toggle_forge():
 	if forge:
 		forge.clear()

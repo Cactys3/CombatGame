@@ -1,17 +1,20 @@
 extends Node2D
 const SHOP = preload("uid://chasb2r7dpbfx")
-const POPUP_TEXT = preload("uid://brldrnbhcexcm")
-
 var pause: UIManager.PauseItem
-
 var shop
 var entered: bool = false
 var choices: Array[ItemData]
 var confirmation: Control
 var showing_shop: bool = false
 
+func _init() -> void:
+	visible = false
 func _ready() -> void:
+	flash()
 	call_deferred("setup")
+func flash():
+	await get_tree().create_timer(0.05).timeout
+	visible = true
 func setup():
 	GameManager.instance.ui_man.delete_proximity.connect(delete_shop)
 	## Make advanced permanent shop weapon choices based on level?

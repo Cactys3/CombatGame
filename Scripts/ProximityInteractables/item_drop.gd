@@ -1,6 +1,5 @@
 extends RigidBody2D
 class_name ItemDrop
-var POPUP = preload("uid://brldrnbhcexcm")
 @onready var player: CharacterBody2D = get_tree().get_first_node_in_group("player")
 @export var acceleration: float = 1
 @export var speed: float = 0
@@ -11,6 +10,11 @@ var timer = 0
 var is_item: bool = false
 var item: ItemUI
 var dead: bool = false
+func _init() -> void:
+	visible = false
+func _ready() -> void:
+	await get_tree().create_timer(0.05).timeout
+	visible = true
 ## Setup this item_drop as giving an item to player
 func setup_item(new_item: ItemUI):
 	## Play item's image as animation
@@ -55,8 +59,8 @@ func touched_player():
 		if !item:
 			printerr("!item!")
 			return
-		## Make Popup
-		var popup: PopupText = POPUP.instantiate()
+		## This shit doesn't work for some fucked up reason when it's preloaded
+		var popup: PopupText = load("uid://brldrnbhcexcm").instantiate()
 		popup.setup("Added " + item.data.item_name + " to inventory!", 16, WindowManager.instance.convert_small_position(global_position + Vector2(0, -100)), 1, Vector2.ZERO)
 		## Add Item
 		GameManager.instance.ui_man.inventory.ui_add(item)

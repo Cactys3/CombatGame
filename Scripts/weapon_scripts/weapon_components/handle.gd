@@ -35,6 +35,7 @@ static var UnqiueAimCount
 var ready_to_fire: bool = false #Tells attach if it can call Attack()
 
 func _ready() -> void:
+	super()
 	set_stats()
 	stats.setup(name)
 	setdata()

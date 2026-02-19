@@ -16,6 +16,7 @@ var done: bool = false
 
 # Overview: given stuff, plays 
 
+
 func _ready() -> void:
 	if lifetime < 1:
 		lifetime += 1
@@ -28,6 +29,10 @@ func _process(delta: float) -> void:
 	if stopwatch > lifetime:
 		anim.play("fade")
 		done = true
+
+func setup_color(new_text: String, new_fontsize: float, new_position: Vector2, new_lifetime: float, max_offsets: Vector2, color: Color):
+	setup(new_text, new_fontsize, new_position, new_lifetime, max_offsets)
+	modulate = color
 
 func setup(new_text: String, new_fontsize: float, new_position: Vector2, new_lifetime: float, max_offsets: Vector2):
 	GameManager.instance.ui_man.relative_to_game_parent.add_child(self) 

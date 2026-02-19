@@ -38,12 +38,7 @@ var sender: Node2D
 
 var dead: bool = false
 signal died(pos: Vector2, cloned: bool)
-## wait 0.2 sec before showing 
-func _ready():
-	## TODO: fix the issue where bullets flash around the screen when created
-	visible = false
-	await get_tree().create_timer(0.01).timeout
-	visible = true
+
 ## Called to setup this projectile, must be called for projectile to work
 func setup(base_gun:Weapon_Frame, enemy_direction:Vector2):
 	frame = base_gun

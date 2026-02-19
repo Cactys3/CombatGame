@@ -1,5 +1,5 @@
 extends Node2D
-const POPUP_TEXT = preload("uid://brldrnbhcexcm")
+
 const LOOTCHESTUI_WEAPON = preload("uid://bjggm4l8hm8ih")
 const LOOTCHESTUI_COMPONENT = preload("uid://yqg5pkef3ywh")
 
@@ -25,6 +25,13 @@ var time: int
 var pause: UIManager.PauseItem = null
 var price_setup: bool = false
 
+func _init() -> void:
+	visible = false
+func _ready() -> void:
+	flash()
+func flash():
+	await get_tree().create_timer(0.1).timeout
+	visible = true
 func setup(new_time: int, new_level: int):
 	item = ShopManager.get_rand_component()
 	level = new_level
@@ -92,7 +99,8 @@ func _process(delta: float) -> void:
 		activate()
 func activate():
 	if !GameManager.instance.buy(price):
-		var popup: PopupText = POPUP_TEXT.instantiate()
+		## This shit doesn't work for some fucked up reason when it's preloaded
+		var popup: PopupText = load("uid://brldrnbhcexcm").instantiate()
 		popup.global_position = Vector2.ZERO
 		popup.setup("TOO POOR FOR MINE CHEST!", 64, WindowManager.instance.convert_small_position(global_position), 1.5, Vector2(100, 100))
 		return

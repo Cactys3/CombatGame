@@ -18,17 +18,38 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_a42u1"]
+radius = 5.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2o65g"]
-size = Vector2(18, 22)
+size = Vector2(20, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kb0rv"]
+radius = 6.0
 
 [node name="HellSpikes" type="StaticBody2D" unique_id=1741122985]
 collision_layer = 64
 collision_mask = 2
 script = ExtResource("1_kb0rv")
+can_damage = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=38430276]
 sprite_frames = SubResource("SpriteFrames_a42u1")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=940297033]
-position = Vector2(-3, -2)
+[node name="CollideBall" type="CollisionShape2D" parent="." unique_id=223466631]
+position = Vector2(-3, 2)
+shape = SubResource("CircleShape2D_a42u1")
+
+[node name="CollideFloor" type="CollisionShape2D" parent="." unique_id=940297033]
+position = Vector2(-3, 8.5)
 shape = SubResource("RectangleShape2D_2o65g")
+
+[node name="DamageArea" type="Area2D" parent="." unique_id=232582627]
+collision_layer = 0
+collision_mask = 2
+
+[node name="Damage" type="CollisionShape2D" parent="DamageArea" unique_id=1009107460]
+position = Vector2(-3, 1)
+shape = SubResource("CircleShape2D_kb0rv")
+
+[connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]

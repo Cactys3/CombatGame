@@ -26,9 +26,12 @@ signal died(pos: Vector2, cloned: bool)
 
 @export var status: StatusEffects
 
+func _init() -> void:
+	visible = false
 func _ready() -> void:
-	## Things flashing around screen??
-	await get_tree().create_timer(0.02).timeout
+	flash()
+func flash():
+	await get_tree().create_timer(0.1).timeout
 	visible = true
 
 func _process(delta: float) -> void:

@@ -1,8 +1,6 @@
 extends Node2D
 class_name Loot
-
 const LOOT_CHEST_UI = preload("uid://bjggm4l8hm8ih")
-
 var title: String
 var handle: ItemData
 var attachment: ItemData
@@ -11,9 +9,15 @@ var frame: ItemData
 var setup_done: bool = false
 var ui: Control
 var entered: bool = false
-
 var pause: UIManager.PauseItem = null
 
+func _init() -> void:
+	visible = false
+func _ready() -> void:
+	flash()
+func flash():
+	await get_tree().create_timer(0.05).timeout
+	visible = true
 func setup(new_title: String, a: ItemData, h: ItemData, proj: ItemData, weaponframe: ItemData):
 	attachment = a
 	handle = h
@@ -21,7 +25,6 @@ func setup(new_title: String, a: ItemData, h: ItemData, proj: ItemData, weaponfr
 	frame = weaponframe
 	setup_done = true
 	title = new_title
-
 func _body_entered(body: Node2D) -> void:
 	## If player enters proximity
 	if body.is_in_group("player"):
@@ -44,10 +47,8 @@ func _body_entered(body: Node2D) -> void:
 		pause = UIManager.PauseItem.new(toggle_ui, UIManager.PauseItem.PauseTypes.ui, false, false, ui_man.misc_parent)
 		ui_man.pause(pause)
 		entered = true
-
 func unpause():
 	GameManager.instance.ui_man.unpause(pause)
-
 func toggle_ui():
 	if entered:
 		ui.queue_free()

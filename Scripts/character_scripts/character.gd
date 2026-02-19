@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Character
 
+const POPUP_TEXT = preload("uid://brldrnbhcexcm")
+
 @export var character_name: String = "Character"
 @export var pickup_range: CollisionShape2D
 @export var anim: AnimatedSprite2D
@@ -57,8 +59,13 @@ var lifesteal: float:
 var thorns: float:
 	get():
 		return player_stats.get_stat(StatsResource.THORNS)
+func _init() -> void:
+	visible = false
 func _ready() -> void:
-	pass
+	flash()
+func flash():
+	await get_tree().create_timer(0.1).timeout
+	visible = true
 func initialize_stats() -> void:
 	GameManager.instance.hp = maxhealth
 	GameManager.instance.shield = maxshield
@@ -142,6 +149,12 @@ func damage(attack: Attack):
 	if GameManager.instance.hp <= 0:
 		GameManager.instance.PlayerKilled.emit(self, attack)
 		die()
+	
+	## This shit doesn't work for some fucked up reason when it's preloaded
+	var dmg_text: PopupText = load("uid://brldrnbhcexcm").instantiate()
+	dmg_text.global_position = Vector2.ZERO
+	dmg_text.setup_color(str(int(round(attack.damage))), net_damage + 36, WindowManager.instance.convert_small_position(global_position), 1.5, Vector2(10, 10), Color.RED)
+	
 func die():
 	pass#print("player died: " + str(health))
 func add_frame(new_frame: Weapon_Frame):

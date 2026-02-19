@@ -21,6 +21,7 @@ const attacksperX: int = 10
 var cooldown_timer: float = 0
 var attacking: bool = false
 func _ready() -> void:
+	super()
 	set_stats()
 	stats.parent_object_name = name
 	cooldown_timer = 0

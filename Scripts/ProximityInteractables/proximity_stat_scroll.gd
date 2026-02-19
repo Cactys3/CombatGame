@@ -5,6 +5,14 @@ const STAT_SCROLL_EVENT_UI = preload("uid://bqxl1c0t7c6ac")
 var stats: StatsResource = BLANK_STATS
 var is_setup: bool = false
 var ui: Control
+
+func _init() -> void:
+	visible = false
+func _ready() -> void:
+	flash()
+func flash():
+	await get_tree().create_timer(0.05).timeout
+	visible = true
 ## Calculate and assign a rarity
 func setup(new_time: int, new_level: int):
 	stats.setup("Damage+ Scroll")
