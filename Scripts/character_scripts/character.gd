@@ -132,11 +132,11 @@ func damage(attack: Attack):
 	## Consider HP
 	if net_damage > 0:
 		GameManager.instance.hp -= net_damage
-	## Consider Stun
+	## Stun currently prevents the player from inputting movements, this means that the currently velocity (including knockback) will apply fully for the duration of the stun
 	if can_be_stunned && attack.stun != 0:
 		stun_time_left += attack.stun
 		stunning = true
-	## Consider Knockback
+	## Knockback is applied fully for 1 frame as the player's own movement code then overwrites it quickly on the following frames.
 	if can_be_knockbacked && attack.knockback != 0:
 		call_deferred("set", "velocity", (global_position - attack.position).normalized() * attack.knockback * knockback_modifier)
 	if GameManager.instance.hp <= 0:

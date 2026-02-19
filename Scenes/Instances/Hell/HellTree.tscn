@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://bg44j5ewrjpf2"]
+
+[ext_resource type="Script" uid="uid://qsl3fexnb70s" path="res://Scripts/misc_object_scripts/NonInteractableEvent.gd" id="1_rfy6h"]
+[ext_resource type="Texture2D" uid="uid://8hxyesphpmwx" path="res://Art/Hell/Events/Tree.png" id="1_vewxg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n08aw"]
+atlas = ExtResource("1_vewxg")
+region = Rect2(320, 0, 80, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tor7a"]
+atlas = ExtResource("1_vewxg")
+region = Rect2(240, 0, 80, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n08aw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n08aw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tor7a")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rfy6h"]
+radius = 3.0
+height = 22.0
+
+[node name="HellTree" type="StaticBody2D" unique_id=1764163064]
+collision_layer = 64
+collision_mask = 2
+script = ExtResource("1_rfy6h")
+
+[node name="Full" type="AnimatedSprite2D" parent="." unique_id=1463335839]
+position = Vector2(0, -2)
+sprite_frames = SubResource("SpriteFrames_n08aw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1454141283]
+position = Vector2(0, 10)
+shape = SubResource("CapsuleShape2D_rfy6h")

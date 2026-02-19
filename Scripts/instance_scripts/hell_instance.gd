@@ -25,6 +25,8 @@ const PUDDLE = preload("uid://dxv17gll2bx2l")
 const SPIKES = preload("uid://bj2nfedstjwtm")
 const BALL = preload("uid://dyk1bgwdqiq2d")
 const LOOTCHEST = preload("uid://ceycsndkpdg1t")
+const TREE = preload("uid://bg44j5ewrjpf2")
+
 
 func _ready() -> void:
 	super()
@@ -52,6 +54,7 @@ func _ready() -> void:
 	events.append(EventSpawn.new("Spikes", SPIKES, 0.25, -1, 1))
 	events.append(EventSpawn.new("Puddle", PUDDLE, 0.25, -1, 1))
 	events.append(EventSpawn.new("Ball", BALL, 0.25, -1, 1))
+	events.append(EventSpawn.new("Tree", TREE, 1, -1, 10))
 	## Proximity
 	#events.append(EventSpawn.new("Shop", SHOP, 0.15, -1, 1))
 	#events.append(EventSpawn.new("Forge", FORGE, 0.20, -1, 1))

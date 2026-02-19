@@ -87,6 +87,7 @@ gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_4l33u")
 damage_hitbox = NodePath("Damage_Hitbox")
+weapon_knockback = 500.0
 turns_towards_movement = true
 anim = NodePath("AnimatedSprite2D")
 metadata/_custom_type_script = "uid://cexfniayiorgs"

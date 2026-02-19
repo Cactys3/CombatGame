@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://bj2nfedstjwtm"]
+[gd_scene format=3 uid="uid://bj2nfedstjwtm"]
 
+[ext_resource type="Script" uid="uid://qsl3fexnb70s" path="res://Scripts/misc_object_scripts/NonInteractableEvent.gd" id="1_kb0rv"]
 [ext_resource type="Texture2D" uid="uid://dbrids0frndoa" path="res://Art/Hell/Events/Spikes.png" id="1_t50jh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kb0rv"]
@@ -20,13 +21,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2o65g"]
 size = Vector2(18, 22)
 
-[node name="HellSpikes" type="StaticBody2D"]
+[node name="HellSpikes" type="StaticBody2D" unique_id=1741122985]
 collision_layer = 64
 collision_mask = 2
+script = ExtResource("1_kb0rv")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=38430276]
 sprite_frames = SubResource("SpriteFrames_a42u1")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=940297033]
 position = Vector2(-3, -2)
 shape = SubResource("RectangleShape2D_2o65g")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dbfx0pgjmmdgy"]
+[gd_scene format=3 uid="uid://dbfx0pgjmmdgy"]
 
 [ext_resource type="Script" uid="uid://d2q8eeh4e5ai8" path="res://Scripts/character_scripts/webfisher.gd" id="1_ieu52"]
 [ext_resource type="Texture2D" uid="uid://dwa5l83b0wca6" path="res://Art/Characters/DefaultCharacter/DefaultCharacter.png" id="2_7qr7h"]
@@ -114,6 +114,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7qr7h"]
+size = Vector2(9, 24)
 
 [sub_resource type="GDScript" id="GDScript_0dobi"]
 script/source = "extends Area2D
@@ -132,7 +133,7 @@ func _process(delta: float) -> void:
 [sub_resource type="CircleShape2D" id="CircleShape2D_mknkr"]
 radius = 30.0
 
-[node name="Character" type="CharacterBody2D" node_paths=PackedStringArray("pickup_range", "anim") groups=["player"]]
+[node name="Character" type="CharacterBody2D" unique_id=1197695872 node_paths=PackedStringArray("pickup_range", "anim") groups=["player"]]
 collision_layer = 2
 collision_mask = 64
 platform_on_leave = 2
@@ -142,22 +143,22 @@ pickup_range = NodePath("pickup_range/CollisionShape2D")
 anim = NodePath("AnimatedSprite2D")
 player_stats = SubResource("Resource_nv3ih")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("Target")]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=564162239 node_paths=PackedStringArray("Target")]
 sprite_frames = SubResource("SpriteFrames_tvp78")
 animation = &"Default"
 autoplay = "Default"
 script = ExtResource("3_owm7s")
 Target = NodePath("..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2066742228]
 position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_7qr7h")
 
-[node name="pickup_range" type="Area2D" parent="." groups=["xp_range"]]
+[node name="pickup_range" type="Area2D" parent="." unique_id=672138494 groups=["xp_range"]]
 collision_layer = 256
 collision_mask = 0
 script = SubResource("GDScript_0dobi")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="pickup_range" groups=["xp_range"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pickup_range" unique_id=559864833 groups=["xp_range"]]
 position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_mknkr")

@@ -12,7 +12,8 @@ var camera: Camera2D
 var game_man: GameManager
 var ui_man: UIManager
 var background_parent: Node2D
-var event_parent: Node2D
+var event_foreground_parent: Node2D
+var event_background_parent: Node2D
 var enemy_parent: Node2D
 var xp_parent: Node2D
 var character_parent: Node2D
@@ -321,7 +322,7 @@ func spawn_bosses(pos: Vector2):
 				spawn_boss(boss.scene, random_position(pos))
 func load_event(scene: PackedScene, chunk: Vector2):
 	var new_event = scene.instantiate()
-	event_parent.add_child(new_event)
+	event_background_parent.add_child(new_event)
 	## Get random point inside the chunk and spawn event
 	var center := Vector2(chunk.x * chunk_x, chunk.y * chunk_y)
 	var half := Vector2(chunk_x, chunk_y) / 2.0

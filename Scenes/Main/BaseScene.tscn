@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://le5tbb8urp88" path="res://Scenes/ProximityInteractables/proximity_forge.tscn" id="3_u5ql4"]
 [ext_resource type="PackedScene" uid="uid://lv3mxqogfmmp" path="res://Scenes/ProximityInteractables/proximity_permanent_shop.tscn" id="6_627tp"]
 [ext_resource type="PackedScene" uid="uid://bqo1xj4v5qth7" path="res://Scenes/ProximityInteractables/StatScroll.tscn" id="7_afe04"]
+[ext_resource type="PackedScene" uid="uid://bg44j5ewrjpf2" path="res://Scenes/Instances/Hell/HellTree.tscn" id="8_okq7h"]
 [ext_resource type="PackedScene" uid="uid://cu6nvv3r8tgkl" path="res://Scenes/UI/NewInventory.tscn" id="8_qq1a1"]
 [ext_resource type="Script" uid="uid://q2s0hxfba110" path="res://Scripts/managers/GameManager.gd" id="9_u5ctk"]
 [ext_resource type="Script" uid="uid://illqvubum1r1" path="res://Scripts/managers/UIManager.gd" id="10_627tp"]
@@ -41,14 +42,15 @@ font_size = 64
 [sub_resource type="LabelSettings" id="LabelSettings_627tp"]
 font_color = Color(0.8089983, 0.8089983, 0.8089982, 1)
 
-[node name="GameInstance" type="Node2D" unique_id=704490697 node_paths=PackedStringArray("camera", "game_man", "ui_man", "background_parent", "event_parent", "enemy_parent", "xp_parent", "character_parent", "weapon_parent", "spawn_area", "spawn_deadzone")]
+[node name="GameInstance" type="Node2D" unique_id=704490697 node_paths=PackedStringArray("camera", "game_man", "ui_man", "background_parent", "event_foreground_parent", "event_background_parent", "enemy_parent", "xp_parent", "character_parent", "weapon_parent", "spawn_area", "spawn_deadzone")]
 process_mode = 3
 script = ExtResource("1_eeah7")
 camera = NodePath("Window640/Offset/CharacterParent/Camera2D")
 game_man = NodePath("Window1920/Offset/GameManager")
 ui_man = NodePath("Window1920/Offset/UIManager")
 background_parent = NodePath("Window640/Offset/BackgroundParent")
-event_parent = NodePath("Window640/Offset/EventParent")
+event_foreground_parent = NodePath("Window640/Offset/EventParentForeground")
+event_background_parent = NodePath("Window640/Offset/EventParentBackground")
 enemy_parent = NodePath("Window640/Offset/EnemyParent")
 xp_parent = NodePath("Window640/Offset/XP Parent")
 character_parent = NodePath("Window640/Offset/CharacterParent")
@@ -83,35 +85,38 @@ position = Vector2(320, 180)
 
 [node name="BackgroundParent" type="Node2D" parent="Window640/Offset" unique_id=519102949]
 
-[node name="EventParent" type="Node2D" parent="Window640/Offset" unique_id=1419209084]
+[node name="EventParentBackground" type="Node2D" parent="Window640/Offset" unique_id=1419209084]
 
-[node name="HellPuddle" parent="Window640/Offset/EventParent" unique_id=225935508 instance=ExtResource("2_qrryo")]
+[node name="HellPuddle" parent="Window640/Offset/EventParentBackground" unique_id=225935508 instance=ExtResource("2_qrryo")]
 position = Vector2(-77.666664, 119.333336)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Window640/Offset/EventParent" unique_id=251656736]
+[node name="StaticBody2D" type="StaticBody2D" parent="Window640/Offset/EventParentBackground" unique_id=251656736]
 position = Vector2(-81.44444, -23)
 collision_layer = 64
 collision_mask = 2
 
-[node name="ProximityForge" parent="Window640/Offset/EventParent/StaticBody2D" unique_id=1906497209 instance=ExtResource("3_u5ql4")]
+[node name="ProximityForge" parent="Window640/Offset/EventParentBackground/StaticBody2D" unique_id=1906497209 instance=ExtResource("3_u5ql4")]
 position = Vector2(4.666677, 1.3333359)
 
-[node name="ProximityShop" parent="Window640/Offset/EventParent/StaticBody2D" unique_id=1863887412 instance=ExtResource("3_qq1a1")]
+[node name="ProximityShop" parent="Window640/Offset/EventParentBackground/StaticBody2D" unique_id=1863887412 instance=ExtResource("3_qq1a1")]
 position = Vector2(4.1111374, 47)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Window640/Offset/EventParent/StaticBody2D" unique_id=1189905832]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Window640/Offset/EventParentBackground/StaticBody2D" unique_id=1189905832]
 position = Vector2(-5.333326, 100.333336)
 polygon = PackedVector2Array(20, 20, 0, 15, 0, -15, 20, -20)
 
-[node name="Sprite2D" type="Sprite2D" parent="Window640/Offset/EventParent/StaticBody2D/CollisionPolygon2D" unique_id=1665734954]
+[node name="Sprite2D" type="Sprite2D" parent="Window640/Offset/EventParentBackground/StaticBody2D/CollisionPolygon2D" unique_id=1665734954]
 position = Vector2(10.444397, -2.670288e-05)
 texture = ExtResource("3_eeah7")
 
-[node name="ProximityPermanentShop" parent="Window640/Offset/EventParent" unique_id=1495076092 instance=ExtResource("6_627tp")]
+[node name="ProximityPermanentShop" parent="Window640/Offset/EventParentBackground" unique_id=1495076092 instance=ExtResource("6_627tp")]
 position = Vector2(105.66667, -4.3333335)
 
-[node name="StatScroll" parent="Window640/Offset/EventParent" unique_id=977085131 instance=ExtResource("7_afe04")]
+[node name="StatScroll" parent="Window640/Offset/EventParentBackground" unique_id=977085131 instance=ExtResource("7_afe04")]
 position = Vector2(-77, -89.33333)
+
+[node name="HellTree" parent="Window640/Offset/EventParentBackground" unique_id=1047116625 instance=ExtResource("8_okq7h")]
+position = Vector2(22.999985, 114.33332)
 
 [node name="EnemyParent" type="Node2D" parent="Window640/Offset" unique_id=1792563094]
 
@@ -122,6 +127,8 @@ position = Vector2(-77, -89.33333)
 [node name="Camera2D" type="Camera2D" parent="Window640/Offset/CharacterParent" unique_id=682145971]
 
 [node name="WeaponParent" type="Node2D" parent="Window640/Offset" unique_id=2000948482]
+
+[node name="EventParentForeground" type="Node2D" parent="Window640/Offset" unique_id=494069381]
 
 [node name="ProjectileParent" type="Node2D" parent="Window640/Offset" unique_id=1081666723]
 
