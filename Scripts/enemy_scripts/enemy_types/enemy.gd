@@ -17,6 +17,7 @@ class_name Enemy
 @export var base_critchance: float = 0
 @export var base_critdamage: float = 0
 @export var base_movespeed: float = 20
+@export var movespeed_modifier: float = 0
 @export var base_health: float = 10
 @export var base_regen: float = 0
 @export var base_knockback_modifier: float = 1
@@ -86,7 +87,7 @@ func flash():
 ## called whever stats change
 func set_stats():
 	curr_regen = base_regen
-	curr_movespeed = base_movespeed
+	curr_movespeed = base_movespeed + movespeed_modifier
 	curr_knockback_modifier = base_knockback_modifier
 	curr_damage_reduction = base_damage_reduction
 	curr_cooldown_max = base_cooldown ##TODO: setup based on stats

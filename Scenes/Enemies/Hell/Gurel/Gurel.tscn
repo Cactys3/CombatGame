@@ -1,40 +1,40 @@
 [gd_scene format=3 uid="uid://d3y8ffd1nwhp4"]
 
-[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_opogi"]
-[ext_resource type="Texture2D" uid="uid://n6qph7sxu8ad" path="res://Art/Hell/Enemies/Gurel.png" id="2_25dlw"]
-[ext_resource type="Script" uid="uid://mx46u150t0dj" path="res://Scripts/misc/randomize_default_playbackspeed.gd" id="3_25dlw"]
-[ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="3_hw66a"]
+[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_4l33u"]
+[ext_resource type="Texture2D" uid="uid://n6qph7sxu8ad" path="res://Art/Hell/Enemies/Gurel.png" id="2_s11oa"]
+[ext_resource type="Script" uid="uid://mx46u150t0dj" path="res://Scripts/misc/randomize_default_playbackspeed.gd" id="3_ii2qs"]
+[ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="4_6fn1x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e4gje"]
-atlas = ExtResource("2_25dlw")
+atlas = ExtResource("2_s11oa")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4f1p0"]
-atlas = ExtResource("2_25dlw")
+atlas = ExtResource("2_s11oa")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hp8nh"]
-atlas = ExtResource("2_25dlw")
+atlas = ExtResource("2_s11oa")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nfuct"]
-atlas = ExtResource("2_25dlw")
+atlas = ExtResource("2_s11oa")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_44i6j"]
-atlas = ExtResource("2_25dlw")
+atlas = ExtResource("2_s11oa")
 region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yx2eu"]
-atlas = ExtResource("2_25dlw")
+atlas = ExtResource("2_s11oa")
 region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fjhqc"]
-atlas = ExtResource("2_25dlw")
+atlas = ExtResource("2_s11oa")
 region = Rect2(192, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r0nyo"]
-atlas = ExtResource("2_25dlw")
+atlas = ExtResource("2_s11oa")
 region = Rect2(224, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_d65wa"]
@@ -85,9 +85,8 @@ collision_layer = 32
 collision_mask = 32
 gravity_scale = 0.0
 lock_rotation = true
-script = ExtResource("1_opogi")
+script = ExtResource("1_4l33u")
 damage_hitbox = NodePath("Damage_Hitbox")
-weapon_knockback = 600.0
 turns_towards_movement = true
 anim = NodePath("AnimatedSprite2D")
 metadata/_custom_type_script = "uid://cexfniayiorgs"
@@ -97,7 +96,7 @@ position = Vector2(0, 13)
 sprite_frames = SubResource("SpriteFrames_d65wa")
 autoplay = "default"
 offset = Vector2(0, -8.385)
-script = ExtResource("3_25dlw")
+script = ExtResource("3_ii2qs")
 
 [node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=1805235964]
 position = Vector2(0, 3)
@@ -114,7 +113,7 @@ shape = SubResource("CapsuleShape2D_vj4u1")
 [node name="Health_HitArea" type="Area2D" parent="." unique_id=84524879 node_paths=PackedStringArray("callee")]
 collision_layer = 8
 collision_mask = 4
-script = ExtResource("3_hw66a")
+script = ExtResource("4_6fn1x")
 callee = NodePath("..")
 
 [node name="Health_Hitbox" type="CollisionShape2D" parent="Health_HitArea" unique_id=122786202]
