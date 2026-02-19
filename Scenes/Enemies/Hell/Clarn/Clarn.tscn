@@ -67,3 +67,5 @@ callee = NodePath("..")
 [node name="Health_Hitbox" type="CollisionShape2D" parent="Health_HitArea" unique_id=122786202]
 position = Vector2(0, 6)
 shape = SubResource("CapsuleShape2D_a211a")
+
+[connection signal="body_entered" from="Damage_Hitbox" to="." method="_on_damage_hitbox_body_entered"]

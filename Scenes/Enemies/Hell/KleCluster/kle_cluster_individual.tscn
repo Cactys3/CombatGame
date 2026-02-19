@@ -1,12 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://i0ead3kcc77p"]
+[gd_scene format=3 uid="uid://cnk048qngcjvd"]
 
-[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_kk8om"]
-[ext_resource type="Texture2D" uid="uid://cctoa8i4776qs" path="res://Art/Hell/Enemies/Kle.png" id="2_je6n7"]
-[ext_resource type="Resource" uid="uid://bu6bbovadmvj7" path="res://Scenes/Enemies/Kle/kle_stats.tres" id="2_tslju"]
-[ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="3_tslju"]
+[ext_resource type="Script" uid="uid://bj4s44lrb3uks" path="res://Scripts/enemy_scripts/enemy_events/KleCluster/kle_cluster_individual.gd" id="1_4kmsd"]
+[ext_resource type="Texture2D" uid="uid://cctoa8i4776qs" path="res://Art/Hell/Enemies/Kle.png" id="1_kvlds"]
+[ext_resource type="Resource" uid="uid://bu6bbovadmvj7" path="res://Scenes/Enemies/Hell/Kle/kle_stats.tres" id="2_1tfw0"]
+[ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="2_4kmsd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a8mx5"]
-atlas = ExtResource("2_je6n7")
+atlas = ExtResource("1_kvlds")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1xcbp"]
@@ -31,17 +31,15 @@ height = 14.0
 radius = 6.0
 height = 18.0
 
-[node name="Kle" type="RigidBody2D" node_paths=PackedStringArray("damage_hitbox", "anim") groups=["enemy"]]
+[node name="Kle" type="RigidBody2D" node_paths=PackedStringArray("damage_hitbox") groups=["enemy"]]
 collision_layer = 32
 collision_mask = 32
-mass = 20.0
+mass = 848.574
 gravity_scale = 0.0
 lock_rotation = true
-script = ExtResource("1_kk8om")
-stats = ExtResource("2_tslju")
+script = ExtResource("1_4kmsd")
+stats = ExtResource("2_1tfw0")
 damage_hitbox = NodePath("Damage_Hitbox")
-turns_towards_movement = true
-anim = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 13)
@@ -63,11 +61,12 @@ shape = SubResource("CapsuleShape2D_jc408")
 [node name="Health_HitArea" type="Area2D" parent="." node_paths=PackedStringArray("callee")]
 collision_layer = 8
 collision_mask = 4
-script = ExtResource("3_tslju")
+script = ExtResource("2_4kmsd")
 callee = NodePath("..")
 
 [node name="Health_Hitbox" type="CollisionShape2D" parent="Health_HitArea"]
 position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_b6ujt")
 
+[connection signal="area_entered" from="Damage_Hitbox" to="." method="_on_damage_hitbox_area_entered"]
 [connection signal="body_entered" from="Damage_Hitbox" to="." method="_on_damage_hitbox_body_entered"]

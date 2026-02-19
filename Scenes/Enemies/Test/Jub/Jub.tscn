@@ -1,8 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://b4ljdiupnggrv"]
+[gd_scene format=3 uid="uid://b4ljdiupnggrv"]
 
 [ext_resource type="Script" uid="uid://rahog36v7b1k" path="res://Scripts/enemy_scripts/Jub.gd" id="1_iixip"]
-[ext_resource type="Resource" uid="uid://bvis647gqlmpl" path="res://Scenes/Enemies/Jub/jub_stats.tres" id="2_si758"]
-[ext_resource type="PackedScene" uid="uid://ci2cd4gwhq203" path="res://Scenes/Enemies/Jub/Jub_Bullet.tscn" id="3_j73id"]
+[ext_resource type="Resource" uid="uid://bvis647gqlmpl" path="res://Scenes/Enemies/Test/Jub/jub_stats.tres" id="2_si758"]
+[ext_resource type="PackedScene" uid="uid://ci2cd4gwhq203" path="res://Scenes/Enemies/Test/Jub/Jub_Bullet.tscn" id="3_j73id"]
 [ext_resource type="Texture2D" uid="uid://dkwo5ym6c4dn1" path="res://Art/Characters/Jub.png" id="4_c0aay"]
 [ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="5_vi2rn"]
 
