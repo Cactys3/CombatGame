@@ -1,21 +1,23 @@
 extends Node
 class_name Save
-## Dictionaries of all save data with default values as values and data names as keys
-const defaults = [TEST_DICT, TEST2_DICT, WEAPON_UNLOCKS_DICT, ITEM_UNLOCKS_DICT, MAP_UNLOCKS_DICT, CHARACTER_UNLOCKS_DICT, SHOP_DICT, ACHIEVEMENTS_DICT]
-const TEST_DICT = {
-	"# Test": "# Test",
+const DICTIONARY_HEADER: String = "#DICT: "
+const VARIABLE_HEADER: String = "\tVAR - "
+const VARIABLE_VALUE_SPLIT: String = ": "
+## Dictionaries of all save data with values as values and data names as keys
+static var TEST_DICT: Dictionary = {
+	DICTIONARY_HEADER + "Test": DICTIONARY_HEADER + "Test",
 	TEST_INT: "12313112",
 	TEST_STRING: "string TGESTmo f-af3さ",
 	TEST_FLOAT: 3.2340,
 	TEST_BOOL: false}
-const TEST2_DICT = {
-	"# Test2": "# Test2",
+static var TEST2_DICT = {
+	DICTIONARY_HEADER + "Test2": DICTIONARY_HEADER + "Test2",
 	"custom test1": "32awef4",
 	"custom test2": "32awef4",
 	"custom test3": "3asd24",
 	"custom test4": "3zxcv24"}
-const WEAPON_UNLOCKS_DICT = {
-	"# Weapon-Unlocks": "# Weapon-Unlocks",
+static var WEAPON_UNLOCKS_DICT = {
+	DICTIONARY_HEADER + "Weapon-Unlocks": DICTIONARY_HEADER + "Weapon-Unlocks",
 	FlameThrower: false,
 	Boomerang: false,
 	Gravity: false,
@@ -27,8 +29,8 @@ const WEAPON_UNLOCKS_DICT = {
 	Railgun: false,
 	RocketLauncher: false,
 	Sword: true}
-const ITEM_UNLOCKS_DICT = {
-	"# Item-Unlocks": "# Item-Unlocks",
+static var ITEM_UNLOCKS_DICT = {
+	DICTIONARY_HEADER + "Item-Unlocks": DICTIONARY_HEADER + "Item-Unlocks",
 	Arrows: false,
 	Bloodlust: false,
 	DamageBuff: false,
@@ -41,18 +43,19 @@ const ITEM_UNLOCKS_DICT = {
 	SorcerersEgo: false,
 	SpontaneousCombustion: false,
 	Turrets: false}
-const MAP_UNLOCKS_DICT = {
-	"# Map-Unlocks": "# Map-Unlocks",
+static var MAP_UNLOCKS_DICT = {
+	DICTIONARY_HEADER + "Map-Unlocks": DICTIONARY_HEADER + "Map-Unlocks",
 	Plains: true}
-const CHARACTER_UNLOCKS_DICT = {
-	"# Character-Unlocks": "# Character-Unlocks",
+static var CHARACTER_UNLOCKS_DICT = {
+	DICTIONARY_HEADER + "Character-Unlocks": DICTIONARY_HEADER + "Character-Unlocks",
 	WebCat: true}
-const SHOP_DICT = {
-	"# Shop": "# Shop",
+static var SHOP_DICT = {
+	DICTIONARY_HEADER + "Shop": DICTIONARY_HEADER + "Shop",
 	Currency: 0}
-const ACHIEVEMENTS_DICT = {
-	"# Achievements" : "# Achievements",
+static var ACHIEVEMENTS_DICT = {
+	DICTIONARY_HEADER + "Achievements" : DICTIONARY_HEADER + "Achievements",
 	Lose: false}
+static var dictionaries = [TEST_DICT, TEST2_DICT, WEAPON_UNLOCKS_DICT, ITEM_UNLOCKS_DICT, MAP_UNLOCKS_DICT, CHARACTER_UNLOCKS_DICT, SHOP_DICT, ACHIEVEMENTS_DICT]
 ## Tests
 const TEST_INT = "TEST_INT"
 const TEST_STRING = "TEST_STRING"
@@ -92,6 +95,7 @@ const Currency = "Currency"
 ## Achievements
 const Lose = "Lose"
 const data: Array[String] = [TEST_INT, TEST_STRING, TEST_FLOAT, TEST_BOOL]
+
 ## Writes the inputted data to save file if valid
 static func save_data(slot: int, data_name: String, data_value):
 	#print("SaveData(" + str(slot) + ", " + data_name + ", " + str(data_value) + ")")
@@ -109,7 +113,7 @@ static func save_data(slot: int, data_name: String, data_value):
 	var found = false
 	for i in range(lines.size()):
 		if lines[i].contains("- " + data_name + ":"):
-			lines[i] = "\t- " + data_name + ": " + str(data_value)
+			lines[i] = "\t- " + data_name + VARIABLE_VALUE_SPLIT + str(data_value)
 			found = true
 			break
 	if !found:
@@ -125,13 +129,13 @@ static func load_data(slot: int, data_name: String) -> Variant:
 	if !data.has(data_name):
 		return null
 	if !FileAccess.file_exists(get_filepath(slot)): ## TODO: make sure it's read/write?
-			create_file(slot)
+		create_file(slot)
 	var file = FileAccess.open(get_filepath(slot), FileAccess.READ)
 	var file_text = file.get_as_text()
 	file.close()
 	for line in file_text.split("\n"):
 		if line.contains("- " + data_name + ":"):
-			var value = line.split(": ", false, 1)[1].strip_edges()
+			var value = line.split(VARIABLE_VALUE_SPLIT, false, 1)[1].strip_edges()
 			if value == "true":
 				return true
 			elif value == "false":
@@ -147,23 +151,55 @@ static func load_data(slot: int, data_name: String) -> Variant:
 static func create_file(slot: int):
 	if FileAccess.file_exists(get_filepath(slot)):
 		push_warning("Overwriting existing file on Slot: " + str(slot)) ## TODO: Popup/Ask Player to Confirm
-	var base_text = generate_default_file(slot)
+	var base_text = generate_save_file(slot)
 	var file = FileAccess.open(get_filepath(slot) , FileAccess.WRITE)
 	file.store_string(base_text)
 	file.close()
-## Creates save file with default values
-static func generate_default_file(slot: int) -> String:
+## Saves the data currently in the Save variables to the specified file. Will overwrite.
+static func save_file(slot: int):
+	if FileAccess.file_exists(get_filepath(slot)):
+		var file = FileAccess.open(get_filepath(slot) , FileAccess.WRITE)
+		file.store_string(generate_save_file(slot))
+		file.close()
+	else:
+		printerr("Trying to save File: " + str(slot) + ", but doesn't exist")
+## Loads the data currently in the specified file to the Save variables.
+static func load_file(slot: int):
+	if FileAccess.file_exists(get_filepath(slot)):
+		var file = FileAccess.open(get_filepath(slot), FileAccess.READ)
+		var file_text = file.get_as_text()
+		file.close()
+		## Split first by dictionaries
+		for dictionary in file_text.split(DICTIONARY_HEADER):
+			## Split inside by lines
+			for line in dictionary.split("\n"):
+				if line.contains("- name of the variable" + ":"):
+					var value = line.split(VARIABLE_VALUE_SPLIT, false, 1)[1].strip_edges()
+					if value == "true":
+						return true
+					elif value == "false":
+						return false
+					elif value.is_valid_int():
+						return int(value)
+					elif value.is_valid_float():
+						return float(value)
+					else:
+						return value
+	else:
+		printerr("Trying to load File: " + str(slot) + ", but doesn't exist")
+## Creates save file with currently variable values
+static func generate_save_file(slot: int) -> String:
 	var output = ""
 	var metadata = {"save_date": Time.get_datetime_string_from_system(), "game_version": 0.0, "save_slot": str(slot), "OS": OS.get_name()}
-	output += "# MetaData" + ":\n"
+	output += DICTIONARY_HEADER + "MetaData" + ":\n"
 	for key in metadata.keys():
-		output += "\t- " + key + ": " + str(metadata[key]) + "\n"
-	for section in defaults:
+		output += VARIABLE_HEADER + key + VARIABLE_VALUE_SPLIT + str(metadata[key]) + "\n"
+	for section in dictionaries:
 		for header in section.keys():
-			if header.begins_with("#"):
+			if header.begins_with(DICTIONARY_HEADER):
 				output += header + ":\n"
 			else:
-				output += "\t- " + header + ": " + str(section[header]) + "\n"
+				output += VARIABLE_HEADER + header + VARIABLE_VALUE_SPLIT + str(section[header]) + "\n"
 		output += "\n"
 	return output
 ## Returns String of filepath for slot num
@@ -173,8 +209,14 @@ static func get_filepath(slot: int) -> String:
 static func add_key(slot: int, key: String, value, lines: Array[String]) -> Array[String]:
 	return lines
 ## Write to file, unlock new weapon
-static func unlock_weapon(index: int):
-	pass
+static func unlock_weapon(weapon_const: String):
+	if WEAPON_UNLOCKS_DICT.has(weapon_const):
+		WEAPON_UNLOCKS_DICT[weapon_const] = true
+	else:
+		printerr("Weapon Unlock Dict doesn't have: " + weapon_const)
 ## Write to file, unlock achievement:
-static func unlock_achievement(index: int):
-	pass
+static func unlock_achievement(achievement_const: String):
+	if ACHIEVEMENTS_DICT.has(achievement_const):
+		ACHIEVEMENTS_DICT[achievement_const] = true
+	else:
+		printerr("Achievements Dict doesn't have: " + achievement_const)

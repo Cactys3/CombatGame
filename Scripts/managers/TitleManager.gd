@@ -64,15 +64,9 @@ func _ready() -> void:
 	#print("Tree paused: ", get_tree().paused)
 
 	## Make sure file is created
+	call_deferred("save")
+func save():
 	Save.create_file(0)
-	
-	#print(Save.load_data(0, Save.TEST_FLOAT))
-	#print(Save.load_data(0, Save.TEST_INT))
-	#print(Save.load_data(0, Save.TEST_STRING))
-	#print(Save.load_data(0, Save.TEST_BOOL))
-	
-	Save.save_data(0, Save.TEST_FLOAT, 123)
-	Save.save_data(0, Save.Arrows, true)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -145,6 +139,7 @@ func setup_instance(base_scene) -> GameInstance:
 	base_scene.add_child(game_instance)
 	base_scene.setup_instance(game_instance)
 	game_instance.setup(chosen_character, chosen_weapon, global_stats, null)
+	## 
 	return game_instance
 ## Returns chosen instance
 func get_instance() -> GameInstance:

@@ -2,7 +2,7 @@ extends Enemy
 class_name Boss
 const PROXIMITY_LOOT_CHEST = preload("uid://cll8qcsho5mrw")
 @export var loot_drop_title: String = "You got a Random Weapon!"
-@export var unlocks_weapon_id: int = -1
+@export var unlocks_weapon_id: String = "fake"
 @export var loot_drop_id_handle: int = -1
 @export var loot_drop_id_attachment: int = -1
 @export var loot_drop_id_projectile: int = -1
@@ -27,5 +27,5 @@ func drop_chest():
 	GameInstance.drop_chest(loot_drop_title, loot_drop_id_handle, loot_drop_id_attachment, loot_drop_id_projectile, global_position)
 
 func unlock_weapon():
-	if unlocks_weapon_id != -1:
+	if unlocks_weapon_id != "fake":
 		Save.unlock_weapon(unlocks_weapon_id)
