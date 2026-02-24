@@ -8,6 +8,7 @@ var curr_size: Vector2
 var player:
 	get():
 		return GameManager.instance.player
+static var session_start_time = null
 static var instance: WindowManager
 ## Game has to start in 4k or sm high resolution or else it doesn't work (can't set to resolutions higher than starting resolution)
 ## Automatically matches Windows' sizes to program's starting screensize. 
@@ -18,6 +19,9 @@ func _ready() -> void:
 	if instance:
 		printerr("ERROR, MULTIPLE WINDOW MANAGERS")
 	instance = self
+	if session_start_time == null:
+		session_start_time = Time.get_datetime_string_from_system()
+	session_start_time
 	## Start Windowed 1080p for Testing
 	set_program_size(Vector2(1920, 1080), false)
 	return ## TODO: above is only for testing
@@ -98,4 +102,5 @@ func convert_large_position(position: Vector2) -> Vector2:
 ## Also handles saving on close game because this node always exists
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		Save.save_data(TitleManager.file_slot, Save.PlayCount, Save.load_data(TitleManager.file_slot, Save.PlayCount) + 1)
 		Save.save_file(TitleManager.file_slot)

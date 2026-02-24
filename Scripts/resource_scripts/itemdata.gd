@@ -107,7 +107,6 @@ func setup(should_randomize: bool, starting_rarity: item_rarities):
 	if is_ready:
 		printerr("Trying to ItemData.setup() on an already setup item: " + item_name + component_halfname + resource_name)
 		#return
-	
 	if has_stats || default_stats:
 		stats = default_stats.duplicate()
 		if stats.parent_object_name == "unset":

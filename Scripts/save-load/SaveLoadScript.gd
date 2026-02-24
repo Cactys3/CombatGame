@@ -4,18 +4,14 @@ const DICTIONARY_HEADER: String = "#DICT: "
 const VARIABLE_HEADER: String = "\tVAR - "
 const VARIABLE_VALUE_SPLIT: String = ": "
 ## Dictionaries of all save data with values as values and data names as keys
-static var TEST_DICT: Dictionary = {
-	DICTIONARY_HEADER + "Test": DICTIONARY_HEADER + "Test",
-	TEST_INT: "12313112",
-	TEST_STRING: "string TGESTmo f-af3さ",
-	TEST_FLOAT: 3.2340,
-	TEST_BOOL: false}
-static var TEST2_DICT = {
-	DICTIONARY_HEADER + "Test2": DICTIONARY_HEADER + "Test2",
-	"custom test1": "32awef4",
-	"custom test2": "32awef4",
-	"custom test3": "3asd24",
-	"custom test4": "3zxcv24"}
+static var save_slot_statistics = {
+	DICTIONARY_HEADER + "Save-Slot-Stats": DICTIONARY_HEADER + "Save-Slot-Stats",
+	Playtime: 0.0,
+	Gametime: 0.0,
+	PlayCount: 0,
+	RunCount: 0,
+	LoseCount: 0,
+	WinCount: 0}
 static var WEAPON_UNLOCKS_DICT = {
 	DICTIONARY_HEADER + "Weapon-Unlocks": DICTIONARY_HEADER + "Weapon-Unlocks",
 	FlameThrower: false,
@@ -57,23 +53,26 @@ static var ACHIEVEMENTS_DICT = {
 	boss: false,
 	lose: false,
 	win: false}
-static var dictionaries = [TEST_DICT, TEST2_DICT, WEAPON_UNLOCKS_DICT, ITEM_UNLOCKS_DICT, MAP_UNLOCKS_DICT, CHARACTER_UNLOCKS_DICT, SHOP_DICT, ACHIEVEMENTS_DICT]
-## Tests
-const TEST_INT = "TEST_INT"
-const TEST_STRING = "TEST_STRING"
-const TEST_FLOAT = "TEST_FLOAT"
-const TEST_BOOL = "TEST_BOOL"
+## Order in 'dictionaries' must be save order they are put into the JSON
+static var dictionaries = [save_slot_statistics, WEAPON_UNLOCKS_DICT, ITEM_UNLOCKS_DICT, MAP_UNLOCKS_DICT, CHARACTER_UNLOCKS_DICT, SHOP_DICT, ACHIEVEMENTS_DICT]
+## Save Slot Statistics
+const Playtime = "Playtime"
+const Gametime = "Gametime"
+const PlayCount = "PlayCount"
+const RunCount = "RunCount"
+const LoseCount = "LoseCount"
+const WinCount = "WinCount"
 ## Weapon Unlocks
 const FlameThrower = "Flamethrower"
 const Boomerang = "Boomerang"
 const Gravity = "Gravity"
 const IceShardWand = "Ice-Shard-Wand"
-const LightningWand = "Lightning Wand"
+const LightningWand = "Lightning-Wand"
 const Minigun = "Minigun"
 const Pistol = "Pistol"
 const PlayingCards = "Playing-Cards"
 const Railgun = "Railgun"
-const RocketLauncher = "RocketLauncher"
+const RocketLauncher = "Rocket-Launcher"
 const Sword = "Sword"
 ## Item Unlocks
 const Arrows = "Arrows"
@@ -98,14 +97,12 @@ const Currency = "Currency"
 const boss = "Boss"
 const lose = "Lose"
 const win = "Win"
-const data: Array[String] = [TEST_INT, TEST_STRING, TEST_FLOAT, TEST_BOOL]
-
 ## Writes the inputted data to save file if valid
 static func save_data(slot: int, data_name: String, data_value):
-	#print("SaveData(" + str(slot) + ", " + data_name + ", " + str(data_value) + ")")
-	if !data.has(data_name):
-		push_warning("Trying to save data that doesn't exist, key: " + data_name + ", value: " + str(data_value) + ", Slot: " + str(slot))
-		return
+	#if !data.has(data_name):
+		#push_warning("Trying to save data that doesn't exist, key: " + data_name + ", value: " + str(data_value) + ", Slot: " + str(slot))
+		#return
+	
 	if !FileAccess.file_exists(get_filepath(slot)): ## TODO: make sure it's read/write?
 		create_file(slot)
 	## Get File Text
@@ -121,17 +118,24 @@ static func save_data(slot: int, data_name: String, data_value):
 			found = true
 			break
 	if !found:
-		push_warning("Data name not found in file: " + data_name)
+		push_error("Data name not found in file: " + data_name)
 		lines = add_key(slot, data_name, data_value, lines)
+	found = false
+	for dict in dictionaries:
+		if dict.has(data_name):
+			dict[data_name] = data_value
+			found = true
+			break
+	if !found:
+		push_error("Data name not found in dictionaries: " + data_name)
 	var updated_text = "\n".join(lines)
 	file = FileAccess.open(get_filepath(slot), FileAccess.WRITE)
 	file.store_string(updated_text)
 	file.close()
-	#print("SaveData() Success: " + str(found) + ", Value: " + str(load_data(slot, data_name)))
 ## Reads the inputted data from the save file if valid, Assumes no duplicates
 static func load_data(slot: int, data_name: String) -> Variant:
-	if !data.has(data_name):
-		return null
+	#if !data.has(data_name):
+		#return null
 	if !FileAccess.file_exists(get_filepath(slot)): ## TODO: make sure it's read/write?
 		create_file(slot)
 	var file = FileAccess.open(get_filepath(slot), FileAccess.READ)
@@ -163,10 +167,11 @@ static func create_file(slot: int):
 static func save_file(slot: int):
 	if FileAccess.file_exists(get_filepath(slot)):
 		var file = FileAccess.open(get_filepath(slot) , FileAccess.WRITE)
+		print(generate_save_file(slot))
 		file.store_string(generate_save_file(slot))
 		file.close()
 	else:
-		printerr("Trying to save File: " + str(slot) + ", but doesn't exist")
+		push_error("Trying to save File: " + str(slot) + ", but doesn't exist")
 ## Loads the data currently in the specified file to the Save variables.
 static func load_file(slot: int):
 	if FileAccess.file_exists(get_filepath(slot)):
@@ -197,14 +202,14 @@ static func load_file(slot: int):
 					elif value.is_valid_float():
 						value = float(value)
 					## Choose Right Dictionary (-1 offset beacuse metadata isn't in dictionaries array)
-					if dictionaries[index - 1].has(key):
+					if dictionaries.size() >= (index) && dictionaries[index - 1].has(key):
 						dictionaries[index - 1][key] = value
 						#print("Set: " + key + " = " + str(value))
 					else:
 						printerr("Didn't find dictionary when setting up Save variables")
 						for dict in dictionaries:
-							if dict[index - 1].has(key):
-								dict[index - 1][key] = value
+							if dict.has(key):
+								dict[key] = value
 								break
 			index += 1
 		file.close()
@@ -217,6 +222,7 @@ static func generate_save_file(slot: int) -> String:
 	output += DICTIONARY_HEADER + "MetaData" + ":\n"
 	for key in metadata.keys():
 		output += VARIABLE_HEADER + key + VARIABLE_VALUE_SPLIT + str(metadata[key]) + "\n"
+	output += "\n"
 	for section in dictionaries:
 		for header in section.keys():
 			if header.begins_with(DICTIONARY_HEADER):
