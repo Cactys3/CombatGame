@@ -1,4 +1,5 @@
 extends Node
+class_name TitleManager
 ## Nodes
 @export var main: Control
 @export var settings: Control 
@@ -12,6 +13,8 @@ extends Node
 @export var text_character: RichTextLabel
 @export var text_map: RichTextLabel
 @export var text_weapon: RichTextLabel
+
+static var file_slot: int = 0
 
 const BaseScene: String = "res://Scenes/Main/BaseScene.tscn"
 ## Instances
@@ -44,6 +47,7 @@ var array: Array[Control] = [main, settings, collection, shop, character_selecti
 func _ready() -> void:
 	## For testing:
 	global_stats.setup("Globals")
+	GameInstance.is_game_over = false
 	
 	set_process_input(true)
 	set_process_unhandled_input(true)
@@ -66,7 +70,9 @@ func _ready() -> void:
 	## Make sure file is created
 	call_deferred("save")
 func save():
-	Save.create_file(0)
+	if !Save.check_save_data(0):
+		Save.create_file(0)
+	Save.load_file(0)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

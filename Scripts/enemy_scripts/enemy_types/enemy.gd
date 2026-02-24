@@ -227,6 +227,8 @@ func is_player_nearby(distance: float) -> bool:
 		return true
 	return false
 func damage(attack: Attack):
+	if GameInstance.is_game_over:
+		return
 	var damage_taken = attack.damage - curr_damage_reduction 
 	if damage_taken > 0:
 		GameManager.instance.EnemyDamaged.emit(self, attack)

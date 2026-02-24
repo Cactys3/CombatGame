@@ -117,7 +117,7 @@ position = Vector2(105.66667, -4.3333335)
 position = Vector2(-77, -89.33333)
 
 [node name="HellTree" parent="Window640/Offset/EventParentBackground" unique_id=1047116625 instance=ExtResource("8_okq7h")]
-position = Vector2(22.999985, 114.33332)
+position = Vector2(20.66665, 2.9999847)
 
 [node name="HellSpikes" parent="Window640/Offset/EventParentBackground" unique_id=1741122985 instance=ExtResource("9_e6ktq")]
 position = Vector2(81.66667, 134.33333)
@@ -192,7 +192,7 @@ projectile_parent = NodePath("../../../Window640/Offset/ProjectileParent")
 position = Vector2(960, 0)
 script = ExtResource("12_e4e03")
 
-[node name="UIManager" type="Control" parent="Window1920/Offset" unique_id=272186004 node_paths=PackedStringArray("money_label", "xp_label", "level_label", "hp_label", "fps_label", "stopwatch_label", "enemies_killed_label", "bosses_killed_label", "you_win", "tab_menu_parent", "esc_menu_parent", "level_up_parent", "static_ui_parent", "misc_parent", "relative_to_game_parent", "top_level_labels_parent", "AIOman", "cheat_inventory", "hud")]
+[node name="UIManager" type="Control" parent="Window1920/Offset" unique_id=272186004 node_paths=PackedStringArray("money_label", "xp_label", "level_label", "hp_label", "fps_label", "stopwatch_label", "enemies_killed_label", "bosses_killed_label", "you_win", "you_lose", "tab_menu_parent", "esc_menu_parent", "level_up_parent", "static_ui_parent", "misc_parent", "relative_to_game_parent", "top_level_labels_parent", "AIOman", "cheat_inventory", "hud")]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -211,6 +211,7 @@ stopwatch_label = NodePath("StaticHUDParent/SimpleHUD/Time Label/Time")
 enemies_killed_label = NodePath("StaticHUDParent/SimpleHUD/EnemiesKilled Label/EnemiesKilled")
 bosses_killed_label = NodePath("StaticHUDParent/SimpleHUD/BossesKilled Label/BossesKilled")
 you_win = NodePath("StaticHUDParent/YouWin")
+you_lose = NodePath("StaticHUDParent/YouLose")
 tab_menu_parent = NodePath("TabMenuParent")
 esc_menu_parent = NodePath("EscMenuParent")
 level_up_parent = NodePath("LevelUpParent")
@@ -441,25 +442,33 @@ toggle_mode = true
 text = "Toggle Spawning"
 icon = SubResource("NoiseTexture2D_41mr8")
 
-[node name="YouWin" type="Label" parent="Window1920/Offset/UIManager/StaticHUDParent" unique_id=2077903789]
+[node name="YouWin" type="RichTextLabel" parent="Window1920/Offset/UIManager/StaticHUDParent" unique_id=1546636758]
 visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -192.0
-offset_top = -121.0
-offset_right = 192.0
-offset_bottom = 121.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 128
-text = "You Win!"
+custom_minimum_size = Vector2(600, 200)
+layout_mode = 0
+offset_left = 530.0
+offset_top = 210.0
+offset_right = 1941.0
+offset_bottom = 410.0
+theme_override_colors/default_color = Color(0.892849, 0.09306643, 1.92523e-07, 1)
+theme_override_font_sizes/normal_font_size = 248
+bbcode_enabled = true
+text = "[shake rate=20.0 level=5 connected=1] You Win! [/shake]"
+
+[node name="YouLose" type="RichTextLabel" parent="Window1920/Offset/UIManager/StaticHUDParent" unique_id=1351870100]
+visible = false
+custom_minimum_size = Vector2(600, 200)
+layout_mode = 0
+offset_left = 531.0
+offset_top = 214.0
+offset_right = 1942.0
+offset_bottom = 414.0
+theme_override_colors/default_color = Color(0.892849, 0.09306643, 1.92523e-07, 1)
+theme_override_font_sizes/normal_font_size = 248
+bbcode_enabled = true
+text = "[shake rate=20.0 level=5 connected=1] You Lose! [/shake]"
 
 [node name="LevelUpParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=1878413924]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

@@ -51,6 +51,7 @@ var money_gain_modifier: float:
 	get():
 		return max(0.1, 1 + (player.money_gain - 1) / 100)
 
+var revives_used: int = 0
 var max_hp: float:
 	get():
 		return player.maxhealth
@@ -129,6 +130,7 @@ signal EnemyDamaged(enemy: Enemy, attack: Attack)
 signal EnemyKilled(enemy: Enemy, attack: Attack)
 signal BossKilled(boss: Boss, attack: Attack)
 signal PlayerDamaged(player: Character, attack: Attack)
+signal PlayerRevived(player: Character)
 signal PlayerKilled(player: Character, attack: Attack)
 signal RoundEnded(round_number: int)
 
@@ -170,13 +172,9 @@ func _ready() -> void:
 		queue_free() 
 		return
 	instance = self  
-var test: bool = false
 func _process(_delta: float) -> void:
-	if !test:
-		test = true
-		var node = load("uid://ceycsndkpdg1t").instantiate()
-		xp_parent.add_child(node)
-		node.position = node.position + Vector2(0, -110)
+	if GameInstance.is_game_over:
+		return
 	if !leveling_up && level_up_queue > 0:
 		create_level_up_instance()
 func pause(value: bool):
@@ -307,6 +305,11 @@ func remove_stats_item(item: Item, stats: StatsResource):
 	items_affecting_stats.erase(item)
 func add_xp(added_xp: float):
 	xp += added_xp
+## Calculates and returns revives left for player
+func can_revive() -> int:
+	return (player.max_revies - revives_used) > 1
+func use_revive():
+	revives_used += 1
 ## Signal Connections
 func enemy_killed(enemy: Enemy, attack: Attack):
 	if player.lifesteal > 0 && hp < max_hp:

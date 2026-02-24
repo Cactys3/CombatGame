@@ -9,7 +9,8 @@ class_name UIManager
 @export var stopwatch_label: Label
 @export var enemies_killed_label: Label
 @export var bosses_killed_label: Label
-@export var you_win: Label
+@export var you_win: RichTextLabel
+@export var you_lose: RichTextLabel
 ## Parents
 @export var tab_menu_parent: Control
 @export var esc_menu_parent: Control
@@ -26,7 +27,6 @@ class_name UIManager
 var inventory: Inventory
 var equipment: EquipmentInventory
 var enabled: bool = true
-
 
 signal delete_proximity
 
@@ -56,7 +56,7 @@ class PauseItem:
 		can_escape = CanEscape
 		show_tab = ShowTab
 		pause_parent = PauseParent
-	enum PauseTypes {gameplay, ui, level, tab, escape}
+	enum PauseTypes {gameplay, ui, level, tab, escape, system}
 	var unpause_method: Callable
 	var type: PauseTypes
 	var can_escape: bool 
@@ -127,6 +127,8 @@ func pause(pause_item: PauseItem):
 			pass ## We already Queued the pause item
 ## Called when wishing to unpause, checks PauseQueue first
 func next_pause_or_unpause():
+	if GameInstance.is_game_over:
+		return
 	if current_pause_item:
 		current_pause_item.pause_parent.visible = false
 		current_pause_item.pause_parent.propagate_call("set", ["process_mode", PROCESS_MODE_DISABLED])
@@ -163,38 +165,30 @@ func unpause(pause_item: PauseItem):
 		next_pause_or_unpause()
 	elif PauseQueue.has(pause_item):
 		PauseQueue.erase(pause_item)
-
 func set_level(value: String) -> void:
 	level_label.text = value
-
 func set_max_hp(percent: float) -> void:
 	hud.set_max_hp(percent)
-
 func set_shield(value: String, percent: float) -> void:
 	hud.set_shield(percent)
-
 func set_hp(value: String, percent: float) -> void:
 	hp_label.text = value
 	hud.set_hp(percent)
-	
 func set_xp(value: String, percent: float) -> void:
 	xp_label.text = value
 	hud.set_xp(percent)
-
 func set_money(value: float) -> void:
 	money_label.text = str(roundi(value))
 	hud.set_money(value)
-
 func set_stopwatch(value: float) -> void:
 	stopwatch_label.text = str(int(value / 60)) + ":" + str(int(fmod(value, 60.0)))
 	hud.set_time(value)
-
 func set_kills(value: float) -> void:
 	hud.set_kills(value)
 	enemies_killed_label.text = str(value)
-
 func set_fps(value: float) -> void:
 	fps_label.text = str(roundi(value))
-
 func toggle_you_win(value: bool) -> void:
 	you_win.visible = value
+func toggle_you_lose(value: bool) -> void:
+	you_lose.visible = value

@@ -2,7 +2,7 @@ extends Node2D
 ## Must be inherited by a Map to function fully
 ## Handles: Losing/Winning Game, Stopwatch, Spawning Enemies, Bosses, Shops, Forges, Events, Map Tiles
 class_name GameInstance
-
+static var is_game_over = false
 static var instance: GameInstance
 var TITLE_SCENE
 ## Nodes
@@ -140,6 +140,12 @@ func setup_events():
 	pass
 var timer: float = 0
 func _process(delta: float) -> void:
+	if is_game_over:
+		## Lowkey still want to spawn these enemies because it's funny
+		check_max_min_enemies()
+		handle_chunks(character.position)
+		return
+	
 	timer += delta
 	if !instance:
 		instance = self
@@ -152,19 +158,18 @@ func _process(delta: float) -> void:
 	## Spawn Enemies
 	handle_spawn_phases()
 	if total_stopwatch >= 1:
-		var calculated_min_enemies = StatsResource.calculate_min_enemies(min_enemies, game_man.difficulty)
-		var calculated_max_enemies = StatsResource.calculate_max_enemies(max_enemies, game_man.difficulty)
-		if enemies_alive > calculated_max_enemies:
-			despawn_enemies(game_man.player.global_position, calculated_max_enemies - max_enemies)
-		elif enemies_alive < calculated_min_enemies:
-			spawn_backups(game_man.player.global_position, calculated_min_enemies - enemies_alive)
+		check_max_min_enemies()
 	## Creates MainMenu Scene and removes current Scene
+func check_max_min_enemies():
+	var calculated_min_enemies = StatsResource.calculate_min_enemies(min_enemies, game_man.difficulty)
+	var calculated_max_enemies = StatsResource.calculate_max_enemies(max_enemies, game_man.difficulty)
+	if enemies_alive > calculated_max_enemies:
+		despawn_enemies(game_man.player.global_position, calculated_max_enemies - max_enemies)
+	elif enemies_alive < calculated_min_enemies:
+		spawn_backups(game_man.player.global_position, calculated_min_enemies - enemies_alive)
 func return_to_main_menu() -> void:
-	## Tell Player They Won
-	ui_man.toggle_you_win(true)
-	get_tree().paused = true
-	await get_tree().create_timer(3.0).timeout
-	get_tree().paused = false
+	## Save
+	Save.save_file(TitleManager.file_slot)
 	## Change Scenes
 	if TITLE_SCENE == null:
 		TITLE_SCENE = load("res://Scenes/Main/TitleScene.tscn")
@@ -176,7 +181,7 @@ func handle_stopwatch(delta: float):
 	total_stopwatch += delta
 	ui_man.set_stopwatch(total_stopwatch)
 	if total_stopwatch >= win_time:
-		return_to_main_menu()
+		win()
 ## Handles spawning new chunks and calculating whats inside them
 func handle_chunks(pos: Vector2):
 	var refresh: bool = true
@@ -376,7 +381,7 @@ func spawn_final_boss(scene: PackedScene, pos: Vector2):
 	
 	boss.death.connect(final_boss_death)
 func final_boss_death(boss_position: Vector2):
-	return_to_main_menu()
+	Save.unlock_achievement(Save.boss) ## TODO: ACHIEVEMENT - BOSS
 func enemy_killed(enemy: Enemy, attack: Attack):
 	enemies_alive -= 1
 	enemies_killed += 1
@@ -398,6 +403,28 @@ func boss_killed(enemy: Enemy, attack: Attack):
 	ui_man.bosses_killed_label.text = str(bosses_killed)
 func enemy_event_killed():
 	enemy_events_alive -= 1
+func win():
+	game_man.ui_man.pause(UIManager.PauseItem.new(Callable(), UIManager.PauseItem.PauseTypes.system, false, false, game_man.ui_man.top_level_labels_parent))
+	is_game_over = true
+	ui_man.toggle_you_win(true)
+	await get_tree().create_timer(5).timeout
+	Save.unlock_achievement(Save.win) ## TODO: ACHIEVEMENT - WIN
+	return_to_main_menu()
+func lose():
+	## Disable stuff for ending text or cutscene or whatever
+	is_game_over = true
+	for item in game_man.active_items:
+		## just disable (keep in inventory so we can do end of game stats summary or smth for equipped items)
+		item.disable()
+	for frame in character.weapon_list:
+		## just disable (keep in inventory so we can do end of game stats summary or smth for equipped items)
+		character.remove_frame(frame)
+	ui_man.toggle_you_lose(true)
+	await get_tree().create_timer(2).timeout
+	ui_man.you_lose.text += ", buddy"
+	await get_tree().create_timer(3).timeout
+	Save.unlock_achievement(Save.lose) ## TODO: ACHIEVEMENT - LOSE
+	return_to_main_menu()
 static func random_position(player_pos: Vector2) -> Vector2:
 	# Random radius between deadzone and circle radius
 	var r = sqrt(randf()) * (spawn_area_size - spawn_deadzone_size) + spawn_deadzone_size

@@ -54,7 +54,9 @@ static var SHOP_DICT = {
 	Currency: 0}
 static var ACHIEVEMENTS_DICT = {
 	DICTIONARY_HEADER + "Achievements" : DICTIONARY_HEADER + "Achievements",
-	Lose: false}
+	boss: false,
+	lose: false,
+	win: false}
 static var dictionaries = [TEST_DICT, TEST2_DICT, WEAPON_UNLOCKS_DICT, ITEM_UNLOCKS_DICT, MAP_UNLOCKS_DICT, CHARACTER_UNLOCKS_DICT, SHOP_DICT, ACHIEVEMENTS_DICT]
 ## Tests
 const TEST_INT = "TEST_INT"
@@ -93,7 +95,9 @@ const WebCat = "Web-Cat"
 ## Meta Progression Shop
 const Currency = "Currency"
 ## Achievements
-const Lose = "Lose"
+const boss = "Boss"
+const lose = "Lose"
+const win = "Win"
 const data: Array[String] = [TEST_INT, TEST_STRING, TEST_FLOAT, TEST_BOOL]
 
 ## Writes the inputted data to save file if valid
@@ -168,23 +172,42 @@ static func load_file(slot: int):
 	if FileAccess.file_exists(get_filepath(slot)):
 		var file = FileAccess.open(get_filepath(slot), FileAccess.READ)
 		var file_text = file.get_as_text()
-		file.close()
+		var index: int = 0
 		## Split first by dictionaries
-		for dictionary in file_text.split(DICTIONARY_HEADER):
+		for dictionary in file_text.split(DICTIONARY_HEADER, false):
+			## Skip MetaData Dictionary
+			if index == 0:
+				index += 1
+				continue
 			## Split inside by lines
 			for line in dictionary.split("\n"):
-				if line.contains("- name of the variable" + ":"):
-					var value = line.split(VARIABLE_VALUE_SPLIT, false, 1)[1].strip_edges()
+				## Is it a variable?
+				if line.contains(VARIABLE_HEADER):
+					## grab the key and value
+					var key_value_pair = line.split(VARIABLE_HEADER, true, 1)[1].strip_edges()
+					var key = key_value_pair.split(VARIABLE_VALUE_SPLIT, false, 1)[0].strip_edges()
+					var value = key_value_pair.split(VARIABLE_VALUE_SPLIT, false, 1)[1].strip_edges()
+					## Set value to type
 					if value == "true":
-						return true
+						value = true
 					elif value == "false":
-						return false
+						value = false
 					elif value.is_valid_int():
-						return int(value)
+						value = int(value)
 					elif value.is_valid_float():
-						return float(value)
+						value = float(value)
+					## Choose Right Dictionary (-1 offset beacuse metadata isn't in dictionaries array)
+					if dictionaries[index - 1].has(key):
+						dictionaries[index - 1][key] = value
+						#print("Set: " + key + " = " + str(value))
 					else:
-						return value
+						printerr("Didn't find dictionary when setting up Save variables")
+						for dict in dictionaries:
+							if dict[index - 1].has(key):
+								dict[index - 1][key] = value
+								break
+			index += 1
+		file.close()
 	else:
 		printerr("Trying to load File: " + str(slot) + ", but doesn't exist")
 ## Creates save file with currently variable values
@@ -220,3 +243,6 @@ static func unlock_achievement(achievement_const: String):
 		ACHIEVEMENTS_DICT[achievement_const] = true
 	else:
 		printerr("Achievements Dict doesn't have: " + achievement_const)
+## Returns if save data exists at that slot number
+static func check_save_data(slot: int) -> bool:
+	return FileAccess.file_exists(get_filepath(slot))

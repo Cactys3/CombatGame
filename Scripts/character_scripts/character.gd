@@ -3,6 +3,10 @@ class_name Character
 
 const POPUP_TEXT = preload("uid://brldrnbhcexcm")
 
+var game_man: GameManager:
+	get():
+		return GameManager.instance
+
 @export var character_name: String = "Character"
 @export var pickup_range: CollisionShape2D
 @export var anim: AnimatedSprite2D
@@ -59,6 +63,9 @@ var lifesteal: float:
 var thorns: float:
 	get():
 		return player_stats.get_stat(StatsResource.THORNS)
+var max_revies: float:
+	get():
+		return player_stats.get_stat(StatsResource.REVIES)
 func _init() -> void:
 	visible = false
 func _ready() -> void:
@@ -67,11 +74,14 @@ func flash():
 	await get_tree().create_timer(0.1).timeout
 	visible = true
 func initialize_stats() -> void:
-	GameManager.instance.hp = maxhealth
-	GameManager.instance.shield = maxshield
+	game_man.revives_used = 0
+	game_man.hp = maxhealth
+	game_man.shield = maxshield
 	curr_speed = maxspeed
 	stat_changed_method()
 func _process(_delta: float) -> void:
+	if GameInstance.is_game_over:
+		return
 	if Input.is_action_just_pressed("ability1"):
 		character_ability(1)
 	if Input.is_action_just_pressed("ability2"):
@@ -79,6 +89,9 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ability3"):
 		character_ability(3)
 func _physics_process(delta : float) -> void:
+	if GameInstance.is_game_over:
+		move_and_slide()
+		return
 	if stun_time_left > 0:
 		stun_time_left -= delta
 	else:
@@ -89,14 +102,14 @@ func _physics_process(delta : float) -> void:
 	time_since_taken_damage += delta
 func handle_regens(delta) -> void:
 	## Regen shield if hasn't taken damage in awhile
-	if time_since_taken_damage >= shield_cooldown && GameManager.instance.shield < maxshield:
-		GameManager.instance.shield += 5 * delta
+	if time_since_taken_damage >= shield_cooldown && game_man.shield < maxshield:
+		game_man.shield += 5 * delta
 	## Regen happens once every second
 	regen_stopwatch += delta
 	if regen_stopwatch >= 1:
 		regen_stopwatch = 0
-		if regen > 0 && GameManager.instance.hp < maxhealth:
-			GameManager.instance.hp += StatsResource.calculate_regen(regen)
+		if regen > 0 && game_man.hp < maxhealth:
+			game_man.hp += StatsResource.calculate_regen(regen)
 func handle_moving(delta) -> void:
 	var moving_state = moving
 	var directionX := Input.get_axis("left", "right")
@@ -120,25 +133,27 @@ func handle_moving(delta) -> void:
 	
 	#print(velocity)
 func damage(attack: Attack):
+	if GameInstance.is_game_over:
+		return
 	## Consider Stance
 	var net_damage = attack.damage - stance
 	if StatsResource.calculate_avoid_damage(player_stats.get_stat(StatsResource.GHOSTLY)):
 		net_damage = 0
 		print("PLAYER AVOIDED DAMAGE")
 	if net_damage > 0:
-		GameManager.instance.PlayerDamaged.emit(self, attack)
+		game_man.PlayerDamaged.emit(self, attack)
 		time_since_taken_damage = 0
 	## Consider Sheild
-	if net_damage > 0 && GameManager.instance.shield > 0:
-		if (GameManager.instance.shield > net_damage):
-			GameManager.instance.shield -= net_damage
+	if net_damage > 0 && game_man.shield > 0:
+		if (game_man.shield > net_damage):
+			game_man.shield -= net_damage
 			net_damage = 0
 		else:
-			net_damage -= GameManager.instance.shield
-			GameManager.instance.shield = 0
+			net_damage -= game_man.shield
+			game_man.shield = 0
 	## Consider HP
 	if net_damage > 0:
-		GameManager.instance.hp -= net_damage
+		game_man.hp -= net_damage
 	## Stun currently prevents the player from inputting movements, this means that the currently velocity (including knockback) will apply fully for the duration of the stun
 	if can_be_stunned && attack.stun != 0:
 		stun_time_left += attack.stun
@@ -146,17 +161,22 @@ func damage(attack: Attack):
 	## Knockback is applied fully for 1 frame as the player's own movement code then overwrites it quickly on the following frames.
 	if can_be_knockbacked && attack.knockback != 0:
 		call_deferred("set", "velocity", (global_position - attack.position).normalized() * attack.knockback * knockback_modifier)
-	if GameManager.instance.hp <= 0:
-		GameManager.instance.PlayerKilled.emit(self, attack)
-		die()
+	if game_man.hp <= 0:
+		die(attack)
 	
 	## This shit doesn't work for some fucked up reason when it's preloaded
 	var dmg_text: PopupText = load("uid://brldrnbhcexcm").instantiate()
 	dmg_text.global_position = Vector2.ZERO
 	dmg_text.setup_color(str(int(round(attack.damage))), net_damage + 36, WindowManager.instance.convert_small_position(global_position), 1.5, Vector2(10, 10), Color.RED)
-	
-func die():
-	pass#print("player died: " + str(health))
+## Handles Revives and Events on player death
+func die(attack: Attack):
+	if !GameInstance.is_game_over:
+		if game_man.can_revive():
+			game_man.use_revive()
+			game_man.PlayerRevived.emit(self)
+		else:
+			game_man.PlayerKilled.emit(self, attack)
+			GameInstance.instance.lose()
 func add_frame(new_frame: Weapon_Frame):
 	weapon_list.append(new_frame)
 	var temp_count: int = weapon_count
@@ -226,8 +246,8 @@ func stat_changed_method():
 	# hp, size, xp gain, money gain, magentize etc
 	pickup_range.shape.radius = default_pickup_radius + player_stats.get_stat(StatsResource.MAGNETIZE)
 	transform.scaled(Vector2(size, size))
-	GameManager.instance.hp = GameManager.instance.hp ## checks maxhp to setup UI properly
-	GameManager.instance.shield = GameManager.instance.shield ## checks maxshield to setup UI properly
+	game_man.hp = game_man.hp ## checks maxhp to setup UI properly
+	game_man.shield = game_man.shield ## checks maxshield to setup UI properly
 func character_ability(number: int) -> void:
 	pass#print("ability " + str(number))
 func on_level_up(new_level: float, old_level: float) -> void:

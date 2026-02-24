@@ -94,3 +94,8 @@ func convert_large_position(position: Vector2) -> Vector2:
 	var pos_in_small = player.global_position + scaled_offset
 	#print("Large->Small: position: " + str(position) + ", player_position: " + str(player.global_position) + ", large_size: " + str(large_size) + ", small_size: " + str(small_size) + ", large_center: " + str(large_center) + ", offset_from_center: " + str(offset_from_center) + ", normalized_offset: " + str(normalized_offset) + ", scaled_offset: " + str(scaled_offset) + ", pos_in_small: " + str(pos_in_small))
 	return pos_in_small
+
+## Also handles saving on close game because this node always exists
+func _notification(what):
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		Save.save_file(TitleManager.file_slot)

@@ -14,6 +14,7 @@ var stopwatch: float
 var lifetime: float
 var done: bool = false
 
+var never_die: bool = false
 # Overview: given stuff, plays 
 
 
@@ -26,14 +27,13 @@ func _process(delta: float) -> void:
 		pass
 	
 	stopwatch += delta
-	if stopwatch > lifetime:
+	if !never_die && stopwatch > lifetime:
 		anim.play("fade")
 		done = true
 
 func setup_color(new_text: String, new_fontsize: float, new_position: Vector2, new_lifetime: float, max_offsets: Vector2, color: Color):
 	setup(new_text, new_fontsize, new_position, new_lifetime, max_offsets)
 	modulate = color
-
 func setup(new_text: String, new_fontsize: float, new_position: Vector2, new_lifetime: float, max_offsets: Vector2):
 	GameManager.instance.ui_man.relative_to_game_parent.add_child(self) 
 	curr_text = new_text 
@@ -44,7 +44,10 @@ func setup(new_text: String, new_fontsize: float, new_position: Vector2, new_lif
 	fontsize = round(new_fontsize / 4) * 4 ## Keep it a multiple of 4
 	if fontsize < 16:
 		fontsize = 16
-	lifetime = new_lifetime
+	if new_lifetime > 0:
+		lifetime = new_lifetime
+	else:
+		never_die = true
 	if max_offsets != Vector2.ZERO:
 		var x = randf_range(-max_offsets.x, max_offsets.x)
 		var y = randf_range(-max_offsets.y, max_offsets.y)
@@ -53,6 +56,10 @@ func setup(new_text: String, new_fontsize: float, new_position: Vector2, new_lif
 	text = curr_text
 	alpha = 0.9
 	call_deferred("set", "global_position", new_position - Vector2(get_content_width(), get_content_height()) / 2) #offset so it's centered text (idk why this best solution)
+
+func center():
+	horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 
 func addtag(new_text: String, tag1: String, tag2: String):
 	new_text = tag1 + new_text + tag2
