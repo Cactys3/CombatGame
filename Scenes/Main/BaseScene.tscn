@@ -10,16 +10,16 @@
 [ext_resource type="PackedScene" uid="uid://bg44j5ewrjpf2" path="res://Scenes/Instances/Hell/HellTree.tscn" id="8_okq7h"]
 [ext_resource type="PackedScene" uid="uid://cu6nvv3r8tgkl" path="res://Scenes/UI/NewInventory.tscn" id="8_qq1a1"]
 [ext_resource type="PackedScene" uid="uid://bj2nfedstjwtm" path="res://Scenes/Instances/Hell/HellSpikes.tscn" id="9_e6ktq"]
-[ext_resource type="Script" uid="uid://q2s0hxfba110" path="res://Scripts/managers/GameManager.gd" id="9_u5ctk"]
-[ext_resource type="Script" uid="uid://illqvubum1r1" path="res://Scripts/managers/UIManager.gd" id="10_627tp"]
-[ext_resource type="Script" uid="uid://13p8bkyp17w" path="res://Scripts/managers/TestingManager.gd" id="10_cwiy3"]
-[ext_resource type="Script" uid="uid://5tltnj2xg8ps" path="res://Scripts/managers/ShopManager.gd" id="12_e4e03"]
+[ext_resource type="Script" uid="uid://q2s0hxfba110" path="res://Scripts/Managers/GameManager.gd" id="9_u5ctk"]
+[ext_resource type="Script" uid="uid://illqvubum1r1" path="res://Scripts/Managers/UIManager.gd" id="10_627tp"]
+[ext_resource type="Script" uid="uid://13p8bkyp17w" path="res://Scripts/Managers/TestingManager.gd" id="10_cwiy3"]
+[ext_resource type="Script" uid="uid://5tltnj2xg8ps" path="res://Scripts/Managers/ShopManager.gd" id="12_e4e03"]
 [ext_resource type="PackedScene" uid="uid://cvrebkaqtisv6" path="res://Scenes/UI/hud.tscn" id="15_6si6h"]
 [ext_resource type="Script" uid="uid://b6808ricdvjjh" path="res://Scripts/UI/relative_to_game.gd" id="17_afe04"]
 [ext_resource type="PackedScene" uid="uid://bcwklkqeim2sq" path="res://Scenes/UI/inventory.tscn" id="17_gf2b2"]
 [ext_resource type="PackedScene" uid="uid://bwuwo8e451bxt" path="res://Scenes/UI/shop_inventory.tscn" id="18_85yrk"]
 [ext_resource type="PackedScene" uid="uid://cwomrgi81thyq" path="res://Scenes/UI/weapon_crafting_inventory.tscn" id="20_41mr8"]
-[ext_resource type="Script" uid="uid://xirmq1j15ex1" path="res://Scripts/managers/WindowManager.gd" id="27_fwf5d"]
+[ext_resource type="Script" uid="uid://xirmq1j15ex1" path="res://Scripts/Managers/WindowManager.gd" id="27_fwf5d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_41mr8"]
 radius = 652.96
@@ -572,6 +572,24 @@ mouse_filter = 1
 theme_override_font_sizes/font_size = 32
 text = "Return to Main Menu"
 
+[node name="SaveButton" type="Button" parent="Window1920/Offset/UIManager/EscMenuParent/Panel" unique_id=1796443065]
+layout_mode = 0
+offset_left = 196.0
+offset_top = 334.0
+offset_right = 422.0
+offset_bottom = 412.0
+theme_override_font_sizes/font_size = 32
+text = "Save"
+
+[node name="QuitButton" type="Button" parent="Window1920/Offset/UIManager/EscMenuParent/Panel" unique_id=1774703588]
+layout_mode = 0
+offset_left = 196.0
+offset_top = 419.0
+offset_right = 422.0
+offset_bottom = 497.0
+theme_override_font_sizes/font_size = 32
+text = "Quit"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel" unique_id=1409406146]
 layout_mode = 1
 anchors_preset = 3
@@ -1053,3 +1071,5 @@ script = ExtResource("27_fwf5d")
 [connection signal="pressed" from="Window1920/Offset/UIManager/MiscParent/Button" to="WindowManager" method="_on_pressed"]
 [connection signal="toggled" from="Window1920/Offset/UIManager/StaticHUDParent/SimpleHUD/Button" to="." method="SpawningButtonPressed"]
 [connection signal="button_down" from="Window1920/Offset/UIManager/EscMenuParent/Panel/Button" to="." method="return_to_main_menu"]
+[connection signal="button_up" from="Window1920/Offset/UIManager/EscMenuParent/Panel/SaveButton" to="." method="save"]
+[connection signal="pressed" from="Window1920/Offset/UIManager/EscMenuParent/Panel/QuitButton" to="." method="quit"]

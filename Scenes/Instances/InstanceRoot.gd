@@ -26,3 +26,11 @@ func setup_instance(new_instance: GameInstance):
 	instance.character_parent = character_parent
 	instance.weapon_parent = weapon_parent
 	instance.camera = camera
+
+
+func return_to_main_menu() -> void:
+	instance.return_to_main_menu()
+func save() -> void:
+	instance.save()
+func quit() -> void:
+	instance.quit()

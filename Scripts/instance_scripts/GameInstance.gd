@@ -630,3 +630,8 @@ class SpawningPhase:
 			completed = true
 			return false
 		return true
+## Saves data to the file
+func save():
+	Save.save_file(TitleManager.file_slot)
+func quit():
+	get_tree().quit()
