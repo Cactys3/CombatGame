@@ -97,12 +97,28 @@ const Currency = "Currency"
 const boss = "Boss"
 const lose = "Lose"
 const win = "Win"
+
+## Updates data in runtime variables, will be saved to file once save function is called
+static func update_runtime_data(slot: int, data_name: String, data_value):
+	var found = false
+	for dict in dictionaries:
+		if dict.has(data_name):
+			dict[data_name] = data_value
+			found = true
+			break
+	if !found:
+		push_error("Data name not found in dictionaries: " + data_name)
+## Retrieves save data from runtime variables
+static func get_runtime_data(slot: int, data_name: String) -> Variant:
+	var found = false
+	for dict in dictionaries:
+		if dict.has(data_name):
+			return dict[data_name]
+	push_error("Data name not found in dictionaries: " + data_name)
+	## Don't Fail Gracefully
+	return null
 ## Writes the inputted data to save file if valid
 static func save_data(slot: int, data_name: String, data_value):
-	#if !data.has(data_name):
-		#push_warning("Trying to save data that doesn't exist, key: " + data_name + ", value: " + str(data_value) + ", Slot: " + str(slot))
-		#return
-	
 	if !FileAccess.file_exists(get_filepath(slot)): ## TODO: make sure it's read/write?
 		create_file(slot)
 	## Get File Text
@@ -120,22 +136,15 @@ static func save_data(slot: int, data_name: String, data_value):
 	if !found:
 		push_error("Data name not found in file: " + data_name)
 		lines = add_key(slot, data_name, data_value, lines)
-	found = false
-	for dict in dictionaries:
-		if dict.has(data_name):
-			dict[data_name] = data_value
-			found = true
-			break
-	if !found:
-		push_error("Data name not found in dictionaries: " + data_name)
+		return
+	## Make sure to update runtime data aswell
+	update_runtime_data(slot, data_name, data_value)
 	var updated_text = "\n".join(lines)
 	file = FileAccess.open(get_filepath(slot), FileAccess.WRITE)
 	file.store_string(updated_text)
 	file.close()
 ## Reads the inputted data from the save file if valid, Assumes no duplicates
 static func load_data(slot: int, data_name: String) -> Variant:
-	#if !data.has(data_name):
-		#return null
 	if !FileAccess.file_exists(get_filepath(slot)): ## TODO: make sure it's read/write?
 		create_file(slot)
 	var file = FileAccess.open(get_filepath(slot), FileAccess.READ)

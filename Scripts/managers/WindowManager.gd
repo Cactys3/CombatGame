@@ -102,5 +102,7 @@ func convert_large_position(position: Vector2) -> Vector2:
 ## Also handles saving on close game because this node always exists
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		Save.save_data(TitleManager.file_slot, Save.PlayCount, Save.load_data(TitleManager.file_slot, Save.PlayCount) + 1)
+		## Add to game's playcount
+		Save.update_runtime_data(TitleManager.file_slot, Save.PlayCount, Save.get_runtime_data(TitleManager.file_slot, Save.PlayCount) + 1)
+		## Save to file on close game
 		Save.save_file(TitleManager.file_slot)

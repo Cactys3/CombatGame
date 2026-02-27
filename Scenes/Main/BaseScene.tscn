@@ -10,16 +10,16 @@
 [ext_resource type="PackedScene" uid="uid://bg44j5ewrjpf2" path="res://Scenes/Instances/Hell/HellTree.tscn" id="8_okq7h"]
 [ext_resource type="PackedScene" uid="uid://cu6nvv3r8tgkl" path="res://Scenes/UI/NewInventory.tscn" id="8_qq1a1"]
 [ext_resource type="PackedScene" uid="uid://bj2nfedstjwtm" path="res://Scenes/Instances/Hell/HellSpikes.tscn" id="9_e6ktq"]
-[ext_resource type="Script" uid="uid://q2s0hxfba110" path="res://Scripts/Managers/GameManager.gd" id="9_u5ctk"]
-[ext_resource type="Script" uid="uid://illqvubum1r1" path="res://Scripts/Managers/UIManager.gd" id="10_627tp"]
-[ext_resource type="Script" uid="uid://13p8bkyp17w" path="res://Scripts/Managers/TestingManager.gd" id="10_cwiy3"]
-[ext_resource type="Script" uid="uid://5tltnj2xg8ps" path="res://Scripts/Managers/ShopManager.gd" id="12_e4e03"]
+[ext_resource type="Script" uid="uid://q2s0hxfba110" path="res://Scripts/managers/GameManager.gd" id="9_u5ctk"]
+[ext_resource type="Script" uid="uid://illqvubum1r1" path="res://Scripts/managers/UIManager.gd" id="10_627tp"]
+[ext_resource type="Script" uid="uid://13p8bkyp17w" path="res://Scripts/managers/TestingManager.gd" id="10_cwiy3"]
+[ext_resource type="Script" uid="uid://5tltnj2xg8ps" path="res://Scripts/managers/ShopManager.gd" id="12_e4e03"]
 [ext_resource type="PackedScene" uid="uid://cvrebkaqtisv6" path="res://Scenes/UI/hud.tscn" id="15_6si6h"]
 [ext_resource type="Script" uid="uid://b6808ricdvjjh" path="res://Scripts/UI/relative_to_game.gd" id="17_afe04"]
 [ext_resource type="PackedScene" uid="uid://bcwklkqeim2sq" path="res://Scenes/UI/inventory.tscn" id="17_gf2b2"]
 [ext_resource type="PackedScene" uid="uid://bwuwo8e451bxt" path="res://Scenes/UI/shop_inventory.tscn" id="18_85yrk"]
 [ext_resource type="PackedScene" uid="uid://cwomrgi81thyq" path="res://Scenes/UI/weapon_crafting_inventory.tscn" id="20_41mr8"]
-[ext_resource type="Script" uid="uid://xirmq1j15ex1" path="res://Scripts/Managers/WindowManager.gd" id="27_fwf5d"]
+[ext_resource type="Script" uid="uid://xirmq1j15ex1" path="res://Scripts/managers/WindowManager.gd" id="27_fwf5d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_41mr8"]
 radius = 652.96
@@ -40,7 +40,11 @@ height = 20
 [sub_resource type="LabelSettings" id="LabelSettings_gf2b2"]
 font_size = 64
 
+[sub_resource type="LabelSettings" id="LabelSettings_e6ktq"]
+font_size = 64
+
 [sub_resource type="LabelSettings" id="LabelSettings_627tp"]
+font_size = 32
 font_color = Color(0.8089983, 0.8089983, 0.8089982, 1)
 
 [node name="GameInstance" type="Node2D" unique_id=704490697 node_paths=PackedStringArray("camera", "game_man", "ui_man", "background_parent", "event_foreground_parent", "event_background_parent", "enemy_parent", "xp_parent", "character_parent", "weapon_parent", "spawn_area", "spawn_deadzone")]
@@ -544,521 +548,715 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -422.0
-offset_top = -200.0
+offset_left = -949.0
+offset_top = -502.0
 offset_right = 946.0
-offset_bottom = 351.0
+offset_bottom = 511.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
 [node name="Label" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel" unique_id=64453370]
 layout_mode = 0
-offset_left = 194.0
-offset_top = 91.0
-offset_right = 386.0
-offset_bottom = 142.0
+offset_left = 357.0
+offset_top = 392.0
+offset_right = 549.0
+offset_bottom = 443.0
 text = "Esc Menu"
 label_settings = SubResource("LabelSettings_gf2b2")
 
 [node name="Button" type="Button" parent="Window1920/Offset/UIManager/EscMenuParent/Panel" unique_id=814524657]
-custom_minimum_size = Vector2(200, 100)
+custom_minimum_size = Vector2(236, 50)
 layout_mode = 0
-offset_left = 191.0
-offset_top = 220.0
-offset_right = 427.0
-offset_bottom = 320.0
+offset_left = 338.0
+offset_top = 465.0
+offset_right = 574.0
+offset_bottom = 515.0
 mouse_filter = 1
 theme_override_font_sizes/font_size = 32
 text = "Return to Main Menu"
 
 [node name="SaveButton" type="Button" parent="Window1920/Offset/UIManager/EscMenuParent/Panel" unique_id=1796443065]
+custom_minimum_size = Vector2(236, 50)
 layout_mode = 0
-offset_left = 196.0
-offset_top = 334.0
-offset_right = 422.0
-offset_bottom = 412.0
+offset_left = 338.0
+offset_top = 518.0
+offset_right = 574.0
+offset_bottom = 568.0
 theme_override_font_sizes/font_size = 32
 text = "Save"
 
 [node name="QuitButton" type="Button" parent="Window1920/Offset/UIManager/EscMenuParent/Panel" unique_id=1774703588]
+custom_minimum_size = Vector2(236, 50)
 layout_mode = 0
-offset_left = 196.0
-offset_top = 419.0
-offset_right = 422.0
-offset_bottom = 497.0
+offset_left = 338.0
+offset_top = 571.0
+offset_right = 574.0
+offset_bottom = 621.0
 theme_override_font_sizes/font_size = 32
 text = "Quit"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel" unique_id=1409406146]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -784.0
-offset_top = -528.0
-grow_horizontal = 0
-grow_vertical = 0
+[node name="Stats" type="VBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel" unique_id=1558558760]
+layout_mode = 0
+offset_left = 734.0
+offset_top = 10.0
+offset_right = 1888.0
+offset_bottom = 987.0
 
-[node name="Titles" type="VBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer" unique_id=2101727524]
+[node name="Label2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=497168112]
 layout_mode = 2
-mouse_filter = 2
+text = "What the stats do!:"
+label_settings = SubResource("LabelSettings_e6ktq")
 
-[node name="damage" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=4191402]
-custom_minimum_size = Vector2(55, 15)
+[node name="Damage" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=1953381351]
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="damage" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Damage" unique_id=4191402]
+custom_minimum_size = Vector2(150, 15)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
 text = "Damage: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="range" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1014359797]
-custom_minimum_size = Vector2(55, 15)
+[node name="damage2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Damage" unique_id=632912993]
+custom_minimum_size = Vector2(1000, 26)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "The Damage your weapons do! Also affects knockback!"
+label_settings = SubResource("LabelSettings_627tp")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Range" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=1146500660]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="range" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Range" unique_id=1014359797]
+custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Range: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="weight" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1153175899]
-custom_minimum_size = Vector2(55, 15)
+[node name="range2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Range" unique_id=295734429]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "How far you can attack enemies from! May make your melee weapons have longer attacks too!"
+label_settings = SubResource("LabelSettings_627tp")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Weight" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=1236884249]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="weight" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Weight" unique_id=1153175899]
+custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Weight"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="attackspeed" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1696352433]
-custom_minimum_size = Vector2(55, 15)
+[node name="weight2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Weight" unique_id=1724119077]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "The combined weight of the item! Affects aiming speed and knockback!"
+label_settings = SubResource("LabelSettings_627tp")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Attackspeed" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=1551190090]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="attackspeed" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Attackspeed" unique_id=1696352433]
+custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
 size_flags_vertical = 0
 text = "AttackSpeed:"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="velocity" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1139774680]
-custom_minimum_size = Vector2(55, 15)
+[node name="attackspeed2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Attackspeed" unique_id=216440537]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "How fast your weapons attack!"
+label_settings = SubResource("LabelSettings_627tp")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Velocity" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=976052949]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="velocity" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Velocity" unique_id=1139774680]
+custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Velocity"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="count" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=60871292]
-custom_minimum_size = Vector2(55, 15)
+[node name="velocity2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Velocity" unique_id=307596538]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "How fast your projectiles travel!"
+label_settings = SubResource("LabelSettings_627tp")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Count" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=2057156933]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="count" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Count" unique_id=60871292]
+custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Count: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="piercing" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=181615663]
-custom_minimum_size = Vector2(55, 15)
+[node name="count2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Count" unique_id=1584597483]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "Number of projectiles you fire per attack, unless altered by a weapon mechanic!"
+label_settings = SubResource("LabelSettings_627tp")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Pierce" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=574137602]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="piercing" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Pierce" unique_id=181615663]
+custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Piercing:"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="duration" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=986440728]
-custom_minimum_size = Vector2(55, 15)
+[node name="piercing2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Pierce" unique_id=210214557]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "Number of enemies your weapons can hit before expiring!"
+label_settings = SubResource("LabelSettings_627tp")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Duration\'" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=1940614581]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="duration" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Duration\'" unique_id=986440728]
+custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Duration:"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="buildup" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1311890148]
-custom_minimum_size = Vector2(55, 15)
+[node name="duration2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Duration\'" unique_id=1907145207]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "The duration your projectiles last, as well as a perfect stat affecting weapon specific mechanics!"
+label_settings = SubResource("LabelSettings_627tp")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Buildup" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=92296691]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="buildup" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Buildup" unique_id=1311890148]
+custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Buildup:"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="size" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=120904125]
-custom_minimum_size = Vector2(55, 15)
+[node name="buildup2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Buildup" unique_id=1576328452]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "The buildup of elemental effects per attack!"
+label_settings = SubResource("LabelSettings_627tp")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Size" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=529242206]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="size" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Size" unique_id=120904125]
+custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Size: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="hp" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=799489891]
-custom_minimum_size = Vector2(55, 15)
+[node name="size2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Size" unique_id=172924146]
+custom_minimum_size = Vector2(1000, 26)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "The size of your weapons and attacks!"
+label_settings = SubResource("LabelSettings_627tp")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Health" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=1129310501]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="hp" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Health" unique_id=799489891]
+custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Heath: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="stance" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=801741239]
-custom_minimum_size = Vector2(55, 15)
+[node name="hp2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Health" unique_id=243717314]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "Amount of damage the player can take before expiring!"
+label_settings = SubResource("LabelSettings_627tp")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Stance" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=879545465]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="stance" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Stance" unique_id=801741239]
+custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Stance: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="movespeed" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1543148502]
-custom_minimum_size = Vector2(55, 15)
+[node name="stance2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Stance" unique_id=1071281154]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "A flat damage reduction applied to most attacks the player receives!"
+label_settings = SubResource("LabelSettings_627tp")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="MS" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=1336595127]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="movespeed" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/MS" unique_id=1543148502]
+custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Movespeed:"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="xp" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=725134285]
-custom_minimum_size = Vector2(55, 15)
+[node name="movespeed2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/MS" unique_id=1127985342]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "How fast the player moves!"
+label_settings = SubResource("LabelSettings_627tp")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Xp" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=1738740097]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="xp" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Xp" unique_id=725134285]
+custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
 size_flags_vertical = 0
 text = "XpGain:"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="mogul" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1798644884]
-custom_minimum_size = Vector2(55, 15)
+[node name="xp2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Xp" unique_id=245772533]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "The amount of xp the player recieves!"
+label_settings = SubResource("LabelSettings_627tp")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Mogukl" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=808960452]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="mogul" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Mogukl" unique_id=1798644884]
+custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Mogul: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="luck" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1359490536]
-custom_minimum_size = Vector2(55, 15)
+[node name="mogul2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Mogukl" unique_id=359218696]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "The amount of money the player recieves!"
+label_settings = SubResource("LabelSettings_627tp")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="luck" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=1124895544]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="luck" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/luck" unique_id=1359490536]
+custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Luck: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="critchance" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1747015654]
-custom_minimum_size = Vector2(55, 15)
+[node name="luck2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/luck" unique_id=704115314]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "A funky stat that affects a lot! Will you get better loot? Will enemies be easier? Will you instantly win? Who knows!!"
+label_settings = SubResource("LabelSettings_627tp")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="critcah" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=2065163415]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="critchance" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/critcah" unique_id=1747015654]
+custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
 size_flags_vertical = 0
 text = "CritChance:"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="critdamage" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=283141519]
-custom_minimum_size = Vector2(55, 15)
+[node name="critchance2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/critcah" unique_id=1341482405]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "The chance you have to crit! "
+label_settings = SubResource("LabelSettings_627tp")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="critdam" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=1887867422]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="critdamage" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/critdam" unique_id=283141519]
+custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
 size_flags_vertical = 0
 text = "CritDamage:"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="ghostly" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=2057865896]
-custom_minimum_size = Vector2(55, 15)
+[node name="critdamage2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/critdam" unique_id=62763861]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "The damage your crits do!"
+label_settings = SubResource("LabelSettings_627tp")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Ghost" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=1711499975]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ghostly" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Ghost" unique_id=2057865896]
+custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Ghostly: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="regen" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1343779306]
-custom_minimum_size = Vector2(55, 15)
+[node name="ghostly2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/Ghost" unique_id=1867415372]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "A chance to dodge attacks! Additional spooky affects may exist..."
+label_settings = SubResource("LabelSettings_627tp")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="regen" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=1073656365]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="regen" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/regen" unique_id=1343779306]
+custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Regen: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="magnetize" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1627165914]
-custom_minimum_size = Vector2(55, 15)
+[node name="regen2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/regen" unique_id=1887597666]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "Health Regen every 10 seconds!"
+label_settings = SubResource("LabelSettings_627tp")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="mag" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=1132042182]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="magnetize" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/mag" unique_id=1627165914]
+custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Magnetize: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="lifesteal" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1707033788]
-custom_minimum_size = Vector2(55, 15)
+[node name="magnetize2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/mag" unique_id=672944500]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "The range at which you gather drops like XP and items!"
+label_settings = SubResource("LabelSettings_627tp")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="lifeste" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=128471377]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="lifesteal" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/lifeste" unique_id=1707033788]
+custom_minimum_size = Vector2(150, 26)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Lifesteal: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="bonusvselites" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=662184413]
-custom_minimum_size = Vector2(55, 15)
+[node name="lifesteal2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/lifeste" unique_id=875916831]
+custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
-size_flags_vertical = 0
-text = "EliteDmg:"
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "Lifesteal per hit!"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+autowrap_mode = 2
 
-[node name="shield" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=197822336]
-custom_minimum_size = Vector2(55, 15)
+[node name="shield" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=349668829]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="shield" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/shield" unique_id=197822336]
+custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Shield: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="difficulty" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1253573754]
-custom_minimum_size = Vector2(55, 15)
+[node name="shield2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/shield" unique_id=1578122516]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "A shield that is attacked before your hp is affected! Requires time to regen before it can absorb more damage!"
+label_settings = SubResource("LabelSettings_627tp")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="diff" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=900566968]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="difficulty" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/diff" unique_id=1253573754]
+custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Difficulty:"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="revies" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1733852215]
-custom_minimum_size = Vector2(55, 15)
+[node name="difficulty2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/diff" unique_id=441989633]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "A stat for those seeking more."
+label_settings = SubResource("LabelSettings_627tp")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="revives" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=209351087]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="revies" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/revives" unique_id=1733852215]
+custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Revives: "
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="thorns" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1119071746]
-custom_minimum_size = Vector2(55, 15)
+[node name="revies2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/revives" unique_id=1462895701]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "Number of times you can die before losing!"
+label_settings = SubResource("LabelSettings_627tp")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="thorns" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=708390676]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="thorns" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/thorns" unique_id=1119071746]
+custom_minimum_size = Vector2(150, 15)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Thorns:"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="inaccuracy" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Titles" unique_id=1346215774]
-custom_minimum_size = Vector2(55, 15)
+[node name="thorns2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/thorns" unique_id=1198694336]
+custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "Packback damage to enemies who hit you!"
+label_settings = SubResource("LabelSettings_627tp")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="inacccuracy" type="HBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats" unique_id=985359653]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="inaccuracy" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/inacccuracy" unique_id=1346215774]
+custom_minimum_size = Vector2(150, 15)
+layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "Inaccuracy:"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
+clip_text = true
 
-[node name="Descriptions" type="VBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer" unique_id=1006046940]
+[node name="inaccuracy2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/Stats/inacccuracy" unique_id=355909008]
+custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
-mouse_filter = 2
-
-[node name="damage" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=632912993]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "The Damage your weapons do! Also affects knockback!"
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="range" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=295734429]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "How far you can attack enemies from! May make your melee weapons have longer attacks too!"
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="weight" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=1724119077]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "The combined weight of the item! Affects aiming speed and knockback!"
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="attackspeed" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=216440537]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "How fast your weapons attack!"
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="velocity" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=307596538]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "How fast your projectiles travel!"
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="count" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=1584597483]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Number of projectiles you fire per attack, unless altered by a weapon mechanic!"
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="piercing" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=210214557]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Number of enemies your weapons can hit before expiring!"
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="duration" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=1907145207]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "The duration your projectiles last, as well as a perfect stat affecting weapon specific mechanics!"
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="buildup" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=1576328452]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "The buildup of elemental effects per attack!"
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="size" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=172924146]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "The size of your weapons and attacks!"
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="hp" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=243717314]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Amount of damage the player can take before expiring!"
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="stance" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=1071281154]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "A flat damage reduction applied to most attacks the player receives!"
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="movespeed" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=1127985342]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "How fast the player moves!"
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="xp" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=245772533]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "The amount of xp the player recieves!"
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="mogul" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=359218696]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "The amount of money the player recieves!"
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="luck" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=704115314]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "A funky stat that affects a lot! Will you get better loot? Will enemies be easier? Will you instantly win? Who knows!!"
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="critchance" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=1341482405]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "The chance you have to crit! "
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="critdamage" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=62763861]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "The damage your crits do!"
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="ghostly" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=1867415372]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "A chance to dodge attacks! Additional spooky affects may exist..."
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="regen" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=1887597666]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Health Regen every 10 seconds!"
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="magnetize" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=672944500]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "The range at which you gather drops like XP and items!"
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="lifesteal" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=875916831]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Lifesteal per hit!"
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="shield" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=1578122516]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "A shield that is attacked before your hp is affected! Requires time to regen before it can absorb more damage!"
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="difficulty" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=441989633]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "A stat for those seeking more."
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="revies" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=1462895701]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Number of times you can die before losing!"
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="thorns" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=1198694336]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Packback damage to enemies who hit you!"
-label_settings = SubResource("LabelSettings_627tp")
-vertical_alignment = 1
-
-[node name="inaccuracy" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel/HBoxContainer/Descriptions" unique_id=355909008]
-custom_minimum_size = Vector2(55, 15)
-layout_mode = 2
-size_flags_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 1
 text = "The higher it is, the more you will miss!"
 label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
-
-[node name="Label2" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel" unique_id=497168112]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -784.0
-offset_bottom = 13.0
-grow_horizontal = 0
-text = "What the stats do!:"
+autowrap_mode = 2
 
 [node name="TopLevelLabelsParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=1386762912]
 anchors_preset = 0
