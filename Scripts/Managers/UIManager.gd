@@ -1,5 +1,10 @@
 extends Control
 class_name UIManager
+## Tutorial Or Stats
+@export var stats: Control
+@export var tutorial: Control
+@export var TutorialOrStatsButton: Button
+var tutorial_or_stats: bool = true
 ## Labels
 @export var money_label: Label
 @export var xp_label: Label
@@ -192,3 +197,15 @@ func toggle_you_win(value: bool) -> void:
 	you_win.visible = value
 func toggle_you_lose(value: bool) -> void:
 	you_lose.visible = value
+
+
+func _on_tutorial_or_stats_pressed() -> void:
+	tutorial_or_stats = !tutorial_or_stats
+	if tutorial_or_stats:
+		TutorialOrStatsButton.text = "Show Stats"
+		tutorial.visible = true
+		stats.visible = false
+	else:
+		TutorialOrStatsButton.text = "Show Tutorial"
+		tutorial.visible = false
+		stats.visible = true

@@ -40,6 +40,9 @@ height = 20
 [sub_resource type="LabelSettings" id="LabelSettings_gf2b2"]
 font_size = 64
 
+[sub_resource type="LabelSettings" id="LabelSettings_3154g"]
+font_size = 32
+
 [sub_resource type="LabelSettings" id="LabelSettings_e6ktq"]
 font_size = 64
 
@@ -196,7 +199,7 @@ projectile_parent = NodePath("../../../Window640/Offset/ProjectileParent")
 position = Vector2(960, 0)
 script = ExtResource("12_e4e03")
 
-[node name="UIManager" type="Control" parent="Window1920/Offset" unique_id=272186004 node_paths=PackedStringArray("money_label", "xp_label", "level_label", "hp_label", "fps_label", "stopwatch_label", "enemies_killed_label", "bosses_killed_label", "you_win", "you_lose", "tab_menu_parent", "esc_menu_parent", "level_up_parent", "static_ui_parent", "misc_parent", "relative_to_game_parent", "top_level_labels_parent", "AIOman", "cheat_inventory", "hud")]
+[node name="UIManager" type="Control" parent="Window1920/Offset" unique_id=272186004 node_paths=PackedStringArray("stats", "tutorial", "TutorialOrStatsButton", "money_label", "xp_label", "level_label", "hp_label", "fps_label", "stopwatch_label", "enemies_killed_label", "bosses_killed_label", "you_win", "you_lose", "tab_menu_parent", "esc_menu_parent", "level_up_parent", "static_ui_parent", "misc_parent", "relative_to_game_parent", "top_level_labels_parent", "AIOman", "cheat_inventory", "hud")]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -206,6 +209,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("10_627tp")
+stats = NodePath("EscMenuParent/Panel/Stats")
+tutorial = NodePath("EscMenuParent/Panel/Tutorial")
+TutorialOrStatsButton = NodePath("EscMenuParent/Panel/TutorialOrStats")
 money_label = NodePath("StaticHUDParent/SimpleHUD/Money Label/Money")
 xp_label = NodePath("StaticHUDParent/SimpleHUD/XP Label/XP")
 level_label = NodePath("StaticHUDParent/SimpleHUD/LVL Label/LVL")
@@ -594,9 +600,38 @@ offset_top = 571.0
 offset_right = 574.0
 offset_bottom = 621.0
 theme_override_font_sizes/font_size = 32
-text = "Quit"
+text = "Save and Quit"
+
+[node name="Tutorial" type="Label" parent="Window1920/Offset/UIManager/EscMenuParent/Panel" unique_id=618771531]
+layout_mode = 0
+offset_left = 801.0
+offset_top = 27.0
+offset_right = 3597.0
+offset_bottom = 614.0
+text = "Tutorial:
+ - Kill enemies for xp, gold, and random drops (that you have to walk near to pickup)!
+ - Spend money on random loot chests around the map to get weapon components!
+ - Level up (after gaining xp) to gain new items or upgrade items/weapon components that 
+      you have equipped, making them stronger!
+ - Beat bosses and survive the clock to win!
+
+Crafting and Handling Weapons!
+ - Gain 'Forge' item pickups at certian times, enemy killcounts, or boss kills!
+ - Right click on 'Forge's in the inventory and choose 'forge' to combine weapon
+	      components you have picked up into new weapons!
+ - Drag equippable items and weapons between equipment inventory and storage
+      inventory to equip or unequip them!
+ - Once you have a weapon you like, right click on that weapon in the storage inventory
+      and select 'feed', then drag in components you don't want to feed their randomly
+      rolled stats (and stats they gain via level ups) to that weapon!
+ - Right click -> 'dissasemble' on weapons to regain a 'Forge' item and the disassembled
+      weapon's components!
+ - Right click on items and weapons to sell them for gold if they rolled bad stats!
+"
+label_settings = SubResource("LabelSettings_3154g")
 
 [node name="Stats" type="VBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel" unique_id=1558558760]
+visible = false
 layout_mode = 0
 offset_left = 734.0
 offset_top = 10.0
@@ -1258,6 +1293,15 @@ label_settings = SubResource("LabelSettings_627tp")
 vertical_alignment = 1
 autowrap_mode = 2
 
+[node name="TutorialOrStats" type="Button" parent="Window1920/Offset/UIManager/EscMenuParent/Panel" unique_id=1278706698]
+layout_mode = 0
+offset_left = 550.0
+offset_top = 24.0
+offset_right = 714.0
+offset_bottom = 90.0
+theme_override_font_sizes/font_size = 32
+text = "Show Stats"
+
 [node name="TopLevelLabelsParent" type="Control" parent="Window1920/Offset/UIManager" unique_id=1386762912]
 anchors_preset = 0
 offset_right = 40.0
@@ -1271,3 +1315,4 @@ script = ExtResource("27_fwf5d")
 [connection signal="button_down" from="Window1920/Offset/UIManager/EscMenuParent/Panel/Button" to="." method="return_to_main_menu"]
 [connection signal="button_up" from="Window1920/Offset/UIManager/EscMenuParent/Panel/SaveButton" to="." method="save"]
 [connection signal="pressed" from="Window1920/Offset/UIManager/EscMenuParent/Panel/QuitButton" to="." method="quit"]
+[connection signal="pressed" from="Window1920/Offset/UIManager/EscMenuParent/Panel/TutorialOrStats" to="Window1920/Offset/UIManager" method="_on_tutorial_or_stats_pressed"]
