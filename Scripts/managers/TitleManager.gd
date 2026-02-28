@@ -13,7 +13,9 @@ class_name TitleManager
 @export var text_character: RichTextLabel
 @export var text_map: RichTextLabel
 @export var text_weapon: RichTextLabel
-
+@export var achievement_parent: Control
+@export var weapon_parent: Control
+@export var item_parent: Control
 static var file_slot: int = 0
 
 const BaseScene: String = "res://Scenes/Main/BaseScene.tscn"
@@ -100,6 +102,7 @@ func press_settings() -> void:
 ## Go to Collection
 func press_collection() -> void:
 	#print("collection")
+	setup_achievements()
 	set_visible([collection])
 	page_title.text = "Collection"
 ## Go to Shop
@@ -185,6 +188,77 @@ func _quickstart():
 	map = 0
 	weapon = 0
 	press_start_game()
+## Setup the achievements visual based on Save Data
+func setup_achievements():
+	for child in achievement_parent.get_children():
+		if child.name.contains("delete_this"):
+			child.queue_free()
+	for child in weapon_parent.get_children():
+		if child.name.contains("delete_this"):
+			child.queue_free()
+	for child in item_parent.get_children():
+		if child.name.contains("delete_this"):
+			child.queue_free()
+	## Setup Achievements
+	var first = true
+	for a in Save.ACHIEVEMENTS_DICT:
+		print("a:" + str(a))
+		if first:
+			first = false
+			continue
+		var new_visual = RichTextLabel.new()
+		achievement_parent.add_child(new_visual)
+		new_visual.text = " " + str(a) + ": "
+		if Save.ACHIEVEMENTS_DICT[a]:
+			new_visual.text += "[color=green]" + str(Save.ACHIEVEMENTS_DICT[a]) + "[/color]"
+			achievement_parent.move_child(new_visual, 1)
+		else:
+			new_visual.text += "[color=red]" + str(Save.ACHIEVEMENTS_DICT[a]) + "[/color]"
+			achievement_parent.move_child(new_visual, achievement_parent.get_child_count())
+		setup_label(new_visual)
+	## Setup Weapon Unlocks
+	first = true
+	for a in Save.WEAPON_UNLOCKS_DICT:
+		print("a:" + str(a))
+		if first:
+			first = false
+			continue
+		var new_visual = RichTextLabel.new()
+		new_visual.text = " Unlocked " + str(a) + ": " 
+		weapon_parent.add_child(new_visual)
+		if Save.WEAPON_UNLOCKS_DICT[a]:
+			new_visual.text += "[color=green]" + str(Save.WEAPON_UNLOCKS_DICT[a]) + "[/color]"
+			weapon_parent.move_child(new_visual, 1)
+		else:
+			new_visual.text += "[color=red]" + str(Save.WEAPON_UNLOCKS_DICT[a]) + "[/color]"
+			weapon_parent.move_child(new_visual, weapon_parent.get_child_count())
+		setup_label(new_visual)
+	## Setup Item Unlocks
+	first = true
+	for a in Save.ITEM_UNLOCKS_DICT:
+		print("a:" + str(a))
+		if first:
+			first = false
+			continue
+		var new_visual = RichTextLabel.new()
+		new_visual.text = " Unlocked " + str(a) + ": "
+		item_parent.add_child(new_visual)
+		if Save.ITEM_UNLOCKS_DICT[a]:
+			new_visual.text += "[color=green]" + str(Save.ITEM_UNLOCKS_DICT[a]) + "[/color]"
+			item_parent.move_child(new_visual, 1)
+		else:
+			new_visual.text += "[color=red]" + str(Save.ITEM_UNLOCKS_DICT[a]) + "[/color]"
+			item_parent.move_child(new_visual, item_parent.get_child_count())
+		setup_label(new_visual)
+
+func setup_label(label: RichTextLabel) -> RichTextLabel:
+		label.bbcode_enabled = true
+		label.fit_content = true
+		label.scroll_active = false
+		label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		label.add_theme_font_size_override("normal_font_size", 64)
+		label.name += "delete_this"
+		return label
 
 class duple:
 	var key: String

@@ -625,9 +625,14 @@ Crafting and Handling Weapons!
       and select 'feed', then drag in components you don't want to feed their randomly
       rolled stats (and stats they gain via level ups) to that weapon!
  - Right click -> 'dissasemble' on weapons to regain a 'Forge' item and the disassembled
-      weapon's components!
+      weapon's components! (can't dismantle starter weapon)
  - Right click on items and weapons to sell them for gold if they rolled bad stats!
-"
+
+Warnings:
+ - Some weapons may start with negative AttackSpeed (they won't attack), 
+      this happens more frequently than intended. They can usually fire after leveling up.
+ - The game isn't balanced
+ - Resolution and window stuff is really hard to make work right"
 label_settings = SubResource("LabelSettings_3154g")
 
 [node name="Stats" type="VBoxContainer" parent="Window1920/Offset/UIManager/EscMenuParent/Panel" unique_id=1558558760]

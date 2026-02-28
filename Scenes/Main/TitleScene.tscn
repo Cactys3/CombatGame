@@ -1,11 +1,14 @@
 [gd_scene format=3 uid="uid://usy5uswcsdkg"]
 
-[ext_resource type="Script" uid="uid://dlqvwknfyt7ay" path="res://Scripts/Managers/TitleManager.gd" id="1_bgkhj"]
+[ext_resource type="Script" uid="uid://dlqvwknfyt7ay" path="res://Scripts/managers/TitleManager.gd" id="1_bgkhj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bgkhj"]
+font_size = 128
 
 [node name="TitleScene" type="Node2D" unique_id=1080031361]
 position = Vector2(1897, 640)
 
-[node name="TitleManager" type="Node" parent="." unique_id=1619080067 node_paths=PackedStringArray("main", "settings", "collection", "shop", "page_title", "button_back", "character_selection", "map_selection", "weapon_selection", "text_character", "text_map", "text_weapon")]
+[node name="TitleManager" type="Node" parent="." unique_id=1619080067 node_paths=PackedStringArray("main", "settings", "collection", "shop", "page_title", "button_back", "character_selection", "map_selection", "weapon_selection", "text_character", "text_map", "text_weapon", "achievement_parent", "weapon_parent", "item_parent")]
 process_mode = 3
 script = ExtResource("1_bgkhj")
 main = NodePath("../Main")
@@ -20,6 +23,9 @@ weapon_selection = NodePath("../Weapon_Selection")
 text_character = NodePath("../Always_Active/Text_Character")
 text_map = NodePath("../Always_Active/Text_Map")
 text_weapon = NodePath("../Always_Active/Text_Weapon")
+achievement_parent = NodePath("../Collection/Achievements")
+weapon_parent = NodePath("../Collection/Weapons")
+item_parent = NodePath("../Collection/Items")
 
 [node name="Always_Active" type="Node2D" parent="." unique_id=1877056058]
 
@@ -146,13 +152,51 @@ offset_top = 70.0
 offset_right = 84.0
 offset_bottom = 110.0
 
+[node name="Achievements" type="VBoxContainer" parent="Collection" unique_id=2064688900]
+layout_mode = 0
+offset_left = -1758.0
+offset_top = -297.0
+offset_right = -855.0
+offset_bottom = 1366.0
+
+[node name="Label" type="Label" parent="Collection/Achievements" unique_id=1952750786]
+layout_mode = 2
+text = "Achievements"
+label_settings = SubResource("LabelSettings_bgkhj")
+
+[node name="Weapons" type="VBoxContainer" parent="Collection" unique_id=935591206]
+layout_mode = 0
+offset_left = -1001.0
+offset_top = -284.0
+offset_right = -10.0
+offset_bottom = 590.0
+
+[node name="Label2" type="Label" parent="Collection/Weapons" unique_id=1677195048]
+layout_mode = 2
+text = "Weapons"
+label_settings = SubResource("LabelSettings_bgkhj")
+
+[node name="Items" type="VBoxContainer" parent="Collection" unique_id=957629386]
+layout_mode = 0
+offset_left = -1013.0
+offset_top = 579.0
+offset_right = -33.0
+offset_bottom = 1437.0
+
+[node name="Label3" type="Label" parent="Collection/Items" unique_id=370384412]
+layout_mode = 2
+text = "Items"
+label_settings = SubResource("LabelSettings_bgkhj")
+
 [node name="Settings" type="Control" parent="." unique_id=993614747]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Shop" type="Control" parent="." unique_id=728834284]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
