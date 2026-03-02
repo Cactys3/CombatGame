@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dcdif2kik652x"]
+
+[ext_resource type="Texture2D" uid="uid://lqpckh7fkgjy" path="res://Art/UI/MissingTexture.png" id="1_a377i"]
+[ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_1l7gp"]
+
+[resource]
+script = ExtResource("2_1l7gp")
+item_name = "Savings Handle"
+component_halfname = "Sa"
+metadata/_custom_type_script = "uid://dnj6pao77g7bt"

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://ccckp8udyogf3"]
+
+[ext_resource type="Texture2D" uid="uid://lqpckh7fkgjy" path="res://Art/UI/MissingTexture.png" id="1_lq0a3"]
+[ext_resource type="Script" uid="uid://dnj6pao77g7bt" path="res://Scripts/resource_scripts/itemdata.gd" id="2_t10fo"]
+
+[resource]
+script = ExtResource("2_t10fo")
+item_name = "Savings Attachment"
+component_halfname = "v"
+metadata/_custom_type_script = "uid://dnj6pao77g7bt"
