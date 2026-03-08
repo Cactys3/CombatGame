@@ -17,6 +17,7 @@ class_name Enemy
 @export var base_critchance: float = 0
 @export var base_critdamage: float = 0
 @export var base_movespeed: float = 20
+## Added directly to movespeed
 @export var movespeed_modifier: float = 0
 @export var base_health: float = 10
 @export var base_regen: float = 0

@@ -10,7 +10,9 @@ const TILE4 = preload("uid://tbrvycdmuhur")
 const TILE5 = preload("uid://bxl3s0tqhk86p")
 const TILE6 = preload("uid://ba73lakqdgl7j")
 ## Enemies
-
+const CARROT = preload("uid://bgiicsfxobeqj")
+const APPLE = preload("uid://cansn5xc0c6qj")
+const PICKLE = preload("uid://dj6t7ygx87y2n")
 ## Enemy Events
 
 ## Bosses
@@ -50,7 +52,9 @@ func _ready() -> void:
 func phase_one():
 	print("PHASE 1 - ")
 	generic_phase_setup(1)
-	#enemies.append(EnemySpawn.new("", , 0.2, 1))
+	enemies.append(EnemySpawn.new("Carrot", CARROT, 0.5, 1))
+	enemies.append(EnemySpawn.new("Apple", APPLE, 0.5, 1))
+	enemies.append(EnemySpawn.new("Pickle", PICKLE, 0.5, 1))
 func phase_two():
 	print("PHASE 2 - ")
 	generic_phase_setup(2)

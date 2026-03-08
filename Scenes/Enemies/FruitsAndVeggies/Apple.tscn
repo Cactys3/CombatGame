@@ -1,0 +1,103 @@
+[gd_scene format=3 uid="uid://cansn5xc0c6qj"]
+
+[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_c88on"]
+[ext_resource type="Texture2D" uid="uid://dnmy38qphynsx" path="res://Art/FruitsAndVeggies/Enemies/Apple.png" id="2_1sk3v"]
+[ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="3_vlpks"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4wk7q"]
+atlas = ExtResource("2_1sk3v")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s50gi"]
+atlas = ExtResource("2_1sk3v")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pkbd4"]
+atlas = ExtResource("2_1sk3v")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5y256"]
+atlas = ExtResource("2_1sk3v")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4l4w"]
+atlas = ExtResource("2_1sk3v")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_61pua"]
+atlas = ExtResource("2_1sk3v")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xbgef"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4wk7q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s50gi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pkbd4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5y256")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p4l4w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_61pua")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8ayrs"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jc408"]
+radius = 15.0
+height = 34.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b6ujt"]
+radius = 16.0
+height = 36.0
+
+[node name="Apple" type="RigidBody2D" unique_id=994641897 node_paths=PackedStringArray("damage_hitbox") groups=["enemy"]]
+collision_layer = 32
+collision_mask = 32
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_c88on")
+damage_hitbox = NodePath("Damage_Hitbox")
+movespeed_modifier = -5.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1808058517]
+position = Vector2(0, 12)
+sprite_frames = SubResource("SpriteFrames_xbgef")
+autoplay = "default"
+offset = Vector2(0, -8.385)
+
+[node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=172860896]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_8ayrs")
+
+[node name="Damage_Hitbox" type="Area2D" parent="." unique_id=1791966663]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=2028827476]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_jc408")
+
+[node name="Health_HitArea" type="Area2D" parent="." unique_id=134069665]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("3_vlpks")
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_HitArea" unique_id=1410550494]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_b6ujt")
+
+[connection signal="body_entered" from="Damage_Hitbox" to="." method="_on_damage_hitbox_body_entered"]

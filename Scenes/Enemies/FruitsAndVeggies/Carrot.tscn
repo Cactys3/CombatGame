@@ -1,0 +1,132 @@
+[gd_scene format=3 uid="uid://bgiicsfxobeqj"]
+
+[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_v3a6d"]
+[ext_resource type="Texture2D" uid="uid://cpj4vg06xmxlv" path="res://Art/FruitsAndVeggies/Enemies/Carrot.png" id="2_eh7af"]
+[ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="3_5fkwj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bp1rp"]
+atlas = ExtResource("2_eh7af")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d418j"]
+atlas = ExtResource("2_eh7af")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u00e5"]
+atlas = ExtResource("2_eh7af")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swgq5"]
+atlas = ExtResource("2_eh7af")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dlia"]
+atlas = ExtResource("2_eh7af")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1yt8"]
+atlas = ExtResource("2_eh7af")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vxf7k"]
+atlas = ExtResource("2_eh7af")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2ycn"]
+atlas = ExtResource("2_eh7af")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_57c2t"]
+atlas = ExtResource("2_eh7af")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2xj2t"]
+atlas = ExtResource("2_eh7af")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a40ck"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bp1rp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d418j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u00e5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_swgq5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1dlia")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l1yt8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vxf7k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2ycn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_57c2t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2xj2t")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8ayrs"]
+radius = 6.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jc408"]
+radius = 7.0
+height = 14.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b6ujt"]
+radius = 9.0
+height = 18.0
+
+[node name="Carrot" type="RigidBody2D" unique_id=2130973193 node_paths=PackedStringArray("damage_hitbox") groups=["enemy"]]
+collision_layer = 32
+collision_mask = 32
+mass = 20.0
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_v3a6d")
+damage_hitbox = NodePath("Damage_Hitbox")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1921768958]
+position = Vector2(0, 11)
+sprite_frames = SubResource("SpriteFrames_a40ck")
+autoplay = "default"
+offset = Vector2(0, -8.385)
+
+[node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=46659940]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_8ayrs")
+
+[node name="Damage_Hitbox" type="Area2D" parent="." unique_id=99570608]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=2132775744]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_jc408")
+
+[node name="Health_HitArea" type="Area2D" parent="." unique_id=880914372]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("3_5fkwj")
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_HitArea" unique_id=761182620]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_b6ujt")
+
+[connection signal="body_entered" from="Damage_Hitbox" to="." method="_on_damage_hitbox_body_entered"]
