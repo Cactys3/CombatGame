@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bj2nfedstjwtm" path="res://Scenes/Instances/Hell/HellSpikes.tscn" id="9_e6ktq"]
 [ext_resource type="Script" uid="uid://q2s0hxfba110" path="res://Scripts/Managers/GameManager.gd" id="9_u5ctk"]
 [ext_resource type="Script" uid="uid://illqvubum1r1" path="res://Scripts/Managers/UIManager.gd" id="10_627tp"]
+[ext_resource type="PackedScene" uid="uid://be77tjldf4rrj" path="res://Scenes/Instances/Fruits_And_Veggies/Flowers_Event.tscn" id="10_3154g"]
 [ext_resource type="Script" uid="uid://13p8bkyp17w" path="res://Scripts/Managers/TestingManager.gd" id="10_cwiy3"]
 [ext_resource type="Script" uid="uid://5tltnj2xg8ps" path="res://Scripts/Managers/ShopManager.gd" id="12_e4e03"]
 [ext_resource type="PackedScene" uid="uid://cvrebkaqtisv6" path="res://Scenes/UI/hud.tscn" id="15_6si6h"]
@@ -128,6 +129,9 @@ position = Vector2(20.66665, 2.9999847)
 
 [node name="HellSpikes" parent="Window640/Offset/EventParentBackground" unique_id=1741122985 instance=ExtResource("9_e6ktq")]
 position = Vector2(81.66667, 134.33333)
+
+[node name="Flowers" parent="Window640/Offset/EventParentBackground" unique_id=1081851184 instance=ExtResource("10_3154g")]
+position = Vector2(21.666668, -19.666668)
 
 [node name="EnemyParent" type="Node2D" parent="Window640/Offset" unique_id=1792563094]
 

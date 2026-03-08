@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bb4jikij5s1go"]
+
+[ext_resource type="Script" uid="uid://wnimmt7k6alq" path="res://Scripts/instance_scripts/fruits_and_veggies_instance.gd" id="1_cqn86"]
+
+[node name="fruits_and_veggies_instance" type="Node2D" unique_id=805050943]
+script = ExtResource("1_cqn86")

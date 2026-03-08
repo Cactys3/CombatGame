@@ -72,14 +72,6 @@ func add_tiles():
 	TILES.append(TILE5) 
 func handle_stopwatch(delta: float):
 	super(delta)
-func generic_phase_setup(phase_num: int):
-	enemies.clear()
-	enemy_events.clear()
-	spawning_phase = phase_num
-	min_enemies = default_min_enemies
-	max_enemies = default_max_enemies
-func generic_phase_setup_dont_clear(phase_num: int):
-	spawning_phase = phase_num
 func phase_one():
 	print("PHASE 1 - Easy Start")
 	generic_phase_setup(1)

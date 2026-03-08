@@ -21,6 +21,7 @@ var weapon_parent: Node2D
 ## Images
 const TileBlank = preload("uid://doyhfeyvrpplf")
 var TILES: Array = []
+var preset_tiles: Dictionary = {}
 ## Enemies
 ## Bosses
 ## Proximity Events
@@ -82,7 +83,9 @@ static var enemies_killed: int = 0
 static var enemies_alive: int = 0
 static var min_enemies: int = 30
 static var max_enemies: int = 90
-static var default_min_enemies: int = 30 ## Fallback values for when max/min_enemies is changed
+## Fallback values for when min_enemies is changed
+static var default_min_enemies: int = 30
+## Fallback values for when max_enemies is changed
 static var default_max_enemies: int = 90
 static var enemy_max_distance_to_player: float = 1000 ## Max distance enemies cane from player before being freed
 ## Enemy Events
@@ -102,7 +105,9 @@ var level: float:
 		return game_man.level
 ## Chunks
 var loaded_chunk_position: Vector2 = Vector2.ZERO
+## Height of each tile/chunk (affects event spawns + art), default = 360
 var chunk_y: float = 360
+## Width of each tile/chunk (affects event spawns + art), default = 640
 var chunk_x: float = 640
 var chunk_grid: Vector2 = Vector2.ZERO
 var chunk_rect: ColorRect
@@ -145,7 +150,6 @@ func _process(delta: float) -> void:
 		check_max_min_enemies()
 		handle_chunks(character.position)
 		return
-	
 	timer += delta
 	if !instance:
 		instance = self
@@ -258,7 +262,7 @@ func load_chunk(chunk_id: Vector2):
 	if abs(chunk_id.x) > abs(map_width) || abs(chunk_id.y) > abs(map_height):
 		new_chunk.texture = TileBlank
 	else:
-		new_chunk.texture = get_rand_tile()
+		new_chunk.texture = get_tile(chunk_id)
 		spawn_events(chunk_id)
 	background_parent.add_child(new_chunk)
 	new_chunk.position = ((chunk_id) * Vector2(640, 360))
@@ -492,14 +496,22 @@ func handle_spawn_phases():
 			current_phase = phase
 			return
 	## Didn't find a phase...?
-## Gets tile from matrix? - Override
-func get_tile(index: int) -> Texture2D:
-	if TILES.size() > index && index > -1:
-		return TILES[index]
-	return TileBlank
+## Gets tile by vector, or gets random - Override
+func get_tile(vector: Vector2) -> Texture2D:
+	if preset_tiles.has(vector):
+		return preset_tiles[vector]
+	return get_rand_tile()
 ## Gets random tile for map - Override
 func get_rand_tile() -> Texture2D:
 	return TILES[randi_range(0, TILES.size() - 1)]
+func generic_phase_setup_dont_clear(phase_num: int):
+	spawning_phase = phase_num
+func generic_phase_setup(phase_num: int):
+	enemies.clear()
+	enemy_events.clear()
+	spawning_phase = phase_num
+	min_enemies = default_min_enemies
+	max_enemies = default_max_enemies
 ## Contains data for the data to consider each time enemies are spawned
 class EnemySpawn: ## TODO: add in functionality to enemy spawn in a line across the screen? just make a scene with that tbh
 	var name: String = "default"

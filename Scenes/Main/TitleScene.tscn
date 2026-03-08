@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://usy5uswcsdkg"]
 
-[ext_resource type="Script" uid="uid://dlqvwknfyt7ay" path="res://Scripts/managers/TitleManager.gd" id="1_bgkhj"]
+[ext_resource type="Script" uid="uid://dlqvwknfyt7ay" path="res://Scripts/Managers/TitleManager.gd" id="1_bgkhj"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_bgkhj"]
 font_size = 128
@@ -203,7 +203,6 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Map_Selection" type="Control" parent="." unique_id=878092781]
-visible = false
 custom_minimum_size = Vector2(1600, 1600)
 layout_mode = 3
 anchors_preset = 0
@@ -257,7 +256,9 @@ clip_contents = true
 custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 theme_override_font_sizes/font_size = 128
-text = "N/A"
+text = "Fruits
+&
+Veggies"
 
 [node name="Choose_3" type="Button" parent="Map_Selection/ScrollContainer/GridContainer" unique_id=706201135]
 clip_contents = true

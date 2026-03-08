@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dufwaxhabk5ua"]
+
+[ext_resource type="Script" uid="uid://6gngj8his2v6" path="res://Scripts/misc_object_scripts/PunkinPatch_Event.gd" id="1_ky6xj"]
+[ext_resource type="Texture2D" uid="uid://c1ttam70tj7l" path="res://Art/FruitsAndVeggies/Art_Events/PunkinPatch1.png" id="2_6sspp"]
+[ext_resource type="Script" uid="uid://bimyoqcb84ohp" path="res://Scripts/misc/FlashFix.gd" id="2_mw6ce"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6sspp"]
+size = Vector2(260, 114)
+
+[node name="PunkinPatch" type="Node2D" unique_id=676178325]
+script = ExtResource("1_ky6xj")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=287930895]
+texture = ExtResource("2_6sspp")
+script = ExtResource("2_mw6ce")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1127669095]
+collision_layer = 64
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=501187383]
+position = Vector2(0, -11)
+shape = SubResource("RectangleShape2D_6sspp")

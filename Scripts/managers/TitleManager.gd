@@ -22,6 +22,7 @@ const BaseScene: String = "res://Scenes/Main/BaseScene.tscn"
 ## Instances
 var HELL: duple = duple.new("HELL", "res://Scenes/Instances/hell_instance.tscn")
 var TEST: duple = duple.new("TEST", "res://Scenes/Instances/test_instance.tscn")
+var FRUITS_AND_VEGGIES: duple = duple.new("FRUITS_AND_VEGGIES", "res://Scenes/Instances/fruits_and_veggies_instance.tscn")
 ## Characters [global_stats][character scene]
 var WEBFISHER: duple = duple.new("res://Resources/Characters/webfisher_global_stats.tres", "res://Scenes/Characters/character.tscn")
 ## Weapons
@@ -38,7 +39,7 @@ var character: int ## Chosen character
 var map: int ## Chosen map
 var weapon: int ## Chosen weapon
 var characters: Array[duple] = [WEBFISHER]
-var maps: Array[duple] = [HELL, TEST]
+var maps: Array[duple] = [HELL, TEST, FRUITS_AND_VEGGIES]
 var weapons: Array[duple_int] = [PISTOL, SWORD, FLAMETHROWER, RAILGUN, ROCKETLAUNCHER, MINIGUN, PLAYINGCARD, LIGHTNINGWAND]
 
 var global_stats: StatsResource = StatsResource.BLANK_STATS.duplicate()
@@ -185,7 +186,7 @@ func set_visible(nodes: Array[Control]):
 		node.visible = true
 func _quickstart():
 	character = 0
-	map = 0
+	map = 2
 	weapon = 0
 	press_start_game()
 ## Setup the achievements visual based on Save Data

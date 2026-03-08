@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://be77tjldf4rrj"]
+
+[ext_resource type="Script" uid="uid://ddxhimsaybis5" path="res://Scripts/misc_object_scripts/Flowers_event.gd" id="1_2y4mn"]
+[ext_resource type="Texture2D" uid="uid://b1gx8lc64rqqe" path="res://Art/FruitsAndVeggies/Art_Events/Flower1.png" id="1_tqurg"]
+[ext_resource type="Script" uid="uid://bimyoqcb84ohp" path="res://Scripts/misc/FlashFix.gd" id="3_k70mu"]
+
+[node name="Flowers" type="Node2D" unique_id=1081851184]
+script = ExtResource("1_2y4mn")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1124007038]
+texture = ExtResource("1_tqurg")
+script = ExtResource("3_k70mu")

@@ -1,7 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dvsk4nbnih2c8"]
+[gd_scene format=3 uid="uid://dvsk4nbnih2c8"]
 
 [ext_resource type="Script" uid="uid://ccrqpkidr127r" path="res://Scripts/instance_scripts/hell_instance.gd" id="1_bfja6"]
 
-[node name="HellInstance" type="Node2D"]
+[node name="HellInstance" type="Node2D" unique_id=397750708]
 script = ExtResource("1_bfja6")
 metadata/_custom_type_script = "uid://cto6lx32e0nty"
