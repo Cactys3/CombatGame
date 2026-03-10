@@ -6,7 +6,7 @@ extends Node2D
 @export var slow: float = 0
 @export var knockback: float = 0
 @export var buildup: float = 0
-@export var status: StatusEffectDictionary = StatusEffectDictionary.new()
+@export var status: StatusEffects = StatusEffects.new()
 @export var foreground: Array[AnimatedSprite2D]
 @export var background: Array[AnimatedSprite2D]
 

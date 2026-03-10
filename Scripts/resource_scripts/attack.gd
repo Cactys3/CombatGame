@@ -7,7 +7,7 @@ var position: Vector2 # Position of Attack
 var buildup: float # Multiply to Status Buildups
 ## armor shred?
 ## Attacker Given Data
-var attacking_status: StatusEffectDictionary # Attacker's Offensive Status Effects
+var attacking_status: StatusEffects # Attacker's Offensive Status Effects
 var attacker: Node2D # Reference to attacker
 
 ## IDK if used Data, This can be hidden stats because attacks should slow or stun enemies to feel 'weighty'
@@ -25,7 +25,7 @@ var knockback: float
 ## Maybe they can just get from game manager?
 #var attacker_stats: StatsResource
 
-func _init(dmg: float, pos: Vector2, buildupStat: float, attacker_status: StatusEffectDictionary, attackerNode: Node2D, stunValue: float, slowValue: float, knockbackValue: float):
+func _init(dmg: float, pos: Vector2, buildupStat: float, attacker_status: StatusEffects, attackerNode: Node2D, stunValue: float, slowValue: float, knockbackValue: float):
 	damage = dmg
 	position = pos
 	buildup = buildupStat

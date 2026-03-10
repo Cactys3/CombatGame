@@ -103,7 +103,7 @@ func make_attack(clone: bool) -> Attack:
 	if clone:
 		attack_damage = damage * clone_offset
 	if status:
-		new_attack = Attack.new(attack_damage, global_position, buildup, status.AttackValues, self, 0, 0, weight * (attack_damage / 30))
+		new_attack = Attack.new(attack_damage, global_position, buildup, status, self, 0, 0, weight * (attack_damage / 30))
 	else:
 		new_attack = Attack.new(attack_damage, global_position, buildup, null, self, 0, 0, weight * (attack_damage / 30))
 	return new_attack

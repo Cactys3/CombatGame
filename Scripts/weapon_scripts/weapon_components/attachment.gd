@@ -94,9 +94,10 @@ func make_attack() -> Attack:
 	var knockback: float = frame.stats.get_stat(StatsResource.WEIGHT) * frame.stats.get_stat(StatsResource.DAMAGE) ## TODO: Stat: knockback
 	## MeleeDamageFactor goes inside crit calculation
 	var damage: float = StatsResource.calculate_damage(frame.stats.get_stat(StatsResource.DAMAGE) * MeleeDamageFactor, stats.get_stat(StatsResource.CRITCHANCE), stats.get_stat(StatsResource.CRITDAMAGE)) ## TODO: Stat: damage, critchance, critdamage
-	var new_attack: Attack = Attack.new(damage, frame.player.global_position, frame.stats.get_stat(StatsResource.BUILDUP), StatusEffectDictionary.new(), self, 0, 0, knockback)
+	var new_attack: Attack = Attack.new(damage, frame.player.global_position, frame.stats.get_stat(StatsResource.BUILDUP), StatusEffects.new(), self, 0, 0, knockback)
 	 #TODO: determine how to calculate knockback
 	return new_attack
+
 
 func get_inaccurate_direction(direction: Vector2, inaccuracy: float) -> Vector2:
 	return direction.rotated(deg_to_rad(randf_range(-inaccuracy / 3, inaccuracy / 3)))
