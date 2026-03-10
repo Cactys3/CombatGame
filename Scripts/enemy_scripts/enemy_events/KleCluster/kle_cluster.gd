@@ -1,5 +1,7 @@
 extends Node2D
 const UNDERLING = preload("uid://cnk048qngcjvd")
+const UNDERLING_ALT = preload("uid://c8xm08ib5fmnr")
+@export var alt: bool = false
 var level: float = -1
 var minute: float = 1
 var underlings: Array = []
@@ -27,7 +29,11 @@ func initialize(new_minute: float, new_level: float, player_pos: Vector2, new_ev
 	for i in num_of_underlings:
 		## Not using offset:
 		var offset = Vector2(cos((i - 1) * angle_step), sin((i - 1) * angle_step)) * num_of_underlings
-		var underling: Node2D = UNDERLING.instantiate()
+		var underling: Node2D
+		if alt:
+			underling = UNDERLING_ALT.instantiate()
+		else:
+			underling = UNDERLING.instantiate()
 		## Since there are so many enemies spawned in the same location, we don't want them dropping items at the normal rate
 		underling.can_drop_stuff = false
 		add_child(underling)

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://3hwogmb2otk"]
+
+[ext_resource type="Script" uid="uid://n61udbwxutbp" path="res://Scripts/enemy_scripts/enemy_events/KleCluster/kle_cluster.gd" id="1_u41t0"]
+
+[node name="KleCluster" type="Node2D" unique_id=1818273777]
+script = ExtResource("1_u41t0")

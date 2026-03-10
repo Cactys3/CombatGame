@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://4edq65ri8mb4"]
+
+[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_itsy3"]
+[ext_resource type="Texture2D" uid="uid://beyct05pgtpgx" path="res://Art/Hell/Enemies/Fluue.png" id="2_5e6cv"]
+[ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="3_tcdfs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_td81u"]
+atlas = ExtResource("2_5e6cv")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fo3o1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_td81u")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8ayrs"]
+radius = 6.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jc408"]
+radius = 5.0
+height = 22.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b6ujt"]
+height = 40.0
+
+[node name="Fluue" type="RigidBody2D" unique_id=418390868 node_paths=PackedStringArray("damage_hitbox", "anim") groups=["enemy"]]
+collision_layer = 32
+collision_mask = 32
+mass = 20.0
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_itsy3")
+damage_hitbox = NodePath("Damage_Hitbox")
+anim = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1596518810]
+position = Vector2(0, 12)
+sprite_frames = SubResource("SpriteFrames_fo3o1")
+autoplay = "default"
+offset = Vector2(0, -8.385)
+
+[node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=2102485915]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_8ayrs")
+
+[node name="Damage_Hitbox" type="Area2D" parent="." unique_id=2008728514]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=1786556324]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_jc408")
+
+[node name="Health_HitArea" type="Area2D" parent="." unique_id=1775543795 node_paths=PackedStringArray("callee")]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("3_tcdfs")
+callee = NodePath("..")
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_HitArea" unique_id=586606380]
+position = Vector2(0, 3)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_b6ujt")
+
+[connection signal="body_entered" from="Damage_Hitbox" to="." method="_on_damage_hitbox_body_entered"]
