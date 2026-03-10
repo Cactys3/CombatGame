@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://b7k332w0ocfux"]
+
+[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_2clvb"]
+[ext_resource type="Texture2D" uid="uid://e0uhl0yxh1wm" path="res://Art/FruitsAndVeggies/Enemies/Cherries.png" id="2_2xy8a"]
+[ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="2_gpryp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5gskn"]
+atlas = ExtResource("2_2xy8a")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nx07x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5gskn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gpryp"]
+radius = 7.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gpryp"]
+radius = 12.0
+height = 36.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2xy8a"]
+radius = 13.0
+height = 38.0
+
+[node name="Cherries" type="RigidBody2D" unique_id=994641897 node_paths=PackedStringArray("damage_hitbox") groups=["enemy"]]
+collision_layer = 32
+collision_mask = 32
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_2clvb")
+damage_hitbox = NodePath("Damage_Hitbox")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1808058517]
+position = Vector2(0, 10)
+sprite_frames = SubResource("SpriteFrames_nx07x")
+autoplay = "default"
+offset = Vector2(0, -8.385)
+
+[node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=172860896]
+position = Vector2(0, 13)
+shape = SubResource("CircleShape2D_gpryp")
+
+[node name="Damage_Hitbox" type="Area2D" parent="." unique_id=1791966663]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=2028827476]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_gpryp")
+
+[node name="Health_HitArea" type="Area2D" parent="." unique_id=134069665]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("2_gpryp")
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_HitArea" unique_id=1410550494]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_2xy8a")
+
+[connection signal="body_entered" from="Damage_Hitbox" to="." method="_on_damage_hitbox_body_entered"]

@@ -10,9 +10,13 @@ const TILE4 = preload("uid://tbrvycdmuhur")
 const TILE5 = preload("uid://bxl3s0tqhk86p")
 const TILE6 = preload("uid://ba73lakqdgl7j")
 ## Enemies
-const CARROT = preload("uid://bgiicsfxobeqj")
 const APPLE = preload("uid://cansn5xc0c6qj")
+const BANANA = preload("uid://45v02ftixxnt")
+const CARROT = preload("uid://bgiicsfxobeqj")
+const CHERRIES = preload("uid://b7k332w0ocfux")
+const ORANGE = preload("uid://co613g54l7vdy")
 const PICKLE = preload("uid://dj6t7ygx87y2n")
+const WATERMELON_SLICE = preload("uid://dtv2c8enh14ll")
 ## Enemy Events
 
 ## Bosses
@@ -42,10 +46,10 @@ func _ready() -> void:
 	map_height = 3 ## this many chunks tall
 	map_width = 3 ## this many chunks wide
 	## Setups Phases
-	phases.append(SpawningPhase.new("Easy Start", 60, phase_one))
+	phases.append(SpawningPhase.new("First Phase", 600, phase_one))
 	## Setup Basic Events
 	events.append(EventSpawn.new("FLOWERS", FLOWERS, 0.5, -1, 20))
-	events.append(EventSpawn.new("PUNKIN_PATCH", PUNKIN_PATCH, 0.25, -1, 1))
+	events.append(EventSpawn.new("PUNKIN_PATCH", PUNKIN_PATCH, 0.15, -1, 1))
 	## Setup Interactable Events
 	#events.append(EventSpawn.new("", , 0.3, -1, 3))
 	## Setup Main Events
@@ -54,6 +58,10 @@ func phase_one():
 	generic_phase_setup(1)
 	enemies.append(EnemySpawn.new("Carrot", CARROT, 0.5, 1))
 	enemies.append(EnemySpawn.new("Apple", APPLE, 0.5, 1))
+	enemies.append(EnemySpawn.new("Banana", BANANA, 0.5, 1))
+	enemies.append(EnemySpawn.new("Cherries", CHERRIES, 0.5, 1))
+	enemies.append(EnemySpawn.new("Watermelon Slice", WATERMELON_SLICE, 0.5, 1))
+	enemies.append(EnemySpawn.new("Orange", ORANGE, 0.5, 1))
 	enemies.append(EnemySpawn.new("Pickle", PICKLE, 0.5, 1))
 func phase_two():
 	print("PHASE 2 - ")

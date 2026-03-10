@@ -79,7 +79,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 15.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8ayrs"]
@@ -106,6 +106,7 @@ damage_hitbox = NodePath("Damage_Hitbox")
 position = Vector2(0, 11)
 sprite_frames = SubResource("SpriteFrames_a40ck")
 autoplay = "default"
+frame_progress = 0.9726164
 offset = Vector2(0, -8.385)
 
 [node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=46659940]

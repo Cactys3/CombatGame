@@ -1,0 +1,118 @@
+[gd_scene format=3 uid="uid://45v02ftixxnt"]
+
+[ext_resource type="Script" uid="uid://cexfniayiorgs" path="res://Scripts/enemy_scripts/enemy_types/enemy.gd" id="1_q1dns"]
+[ext_resource type="Script" uid="uid://dxn6s38pm7u2k" path="res://Scripts/misc/hurtbox.gd" id="2_1msnl"]
+[ext_resource type="Texture2D" uid="uid://ceocvqi5wbrji" path="res://Art/FruitsAndVeggies/Enemies/Banana.png" id="2_ng2co"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e6d86"]
+atlas = ExtResource("2_ng2co")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5jlth"]
+atlas = ExtResource("2_ng2co")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wu31d"]
+atlas = ExtResource("2_ng2co")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhbgh"]
+atlas = ExtResource("2_ng2co")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0bbia"]
+atlas = ExtResource("2_ng2co")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vsemr"]
+atlas = ExtResource("2_ng2co")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_67qsd"]
+atlas = ExtResource("2_ng2co")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w81tt"]
+atlas = ExtResource("2_ng2co")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iwcek"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e6d86")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5jlth")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wu31d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bhbgh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0bbia")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vsemr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_67qsd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w81tt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1msnl"]
+radius = 13.038404
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1msnl"]
+radius = 15.0
+height = 50.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ng2co"]
+radius = 16.0
+height = 52.0
+
+[node name="Banana" type="RigidBody2D" unique_id=994641897 node_paths=PackedStringArray("damage_hitbox") groups=["enemy"]]
+collision_layer = 32
+collision_mask = 32
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_q1dns")
+damage_hitbox = NodePath("Damage_Hitbox")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1808058517]
+position = Vector2(0, 9)
+sprite_frames = SubResource("SpriteFrames_iwcek")
+autoplay = "default"
+frame_progress = 0.25325775
+offset = Vector2(0, -8.385)
+
+[node name="MinionBlock" type="CollisionShape2D" parent="." unique_id=172860896]
+position = Vector2(2, 3)
+shape = SubResource("CircleShape2D_1msnl")
+
+[node name="Damage_Hitbox" type="Area2D" parent="." unique_id=1791966663]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage_Hitbox" unique_id=2028827476]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_1msnl")
+
+[node name="Health_HitArea" type="Area2D" parent="." unique_id=134069665]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("2_1msnl")
+
+[node name="Health_Hitbox" type="CollisionShape2D" parent="Health_HitArea" unique_id=1410550494]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_ng2co")
+
+[connection signal="body_entered" from="Damage_Hitbox" to="." method="_on_damage_hitbox_body_entered"]
