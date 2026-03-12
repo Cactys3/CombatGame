@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://tx6s6utj2cot"]
+
+[ext_resource type="Script" uid="uid://gg3fl42l4ul6" path="res://Scripts/weapon_scripts/weapon_components/handle.gd" id="1_ybv6b"]
+[ext_resource type="Texture2D" uid="uid://by7mpksymowe3" path="res://Art/Weapons/Jimmy/Jimmy.png" id="2_b3jew"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2om0"]
+atlas = ExtResource("2_b3jew")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvwde"]
+atlas = ExtResource("2_b3jew")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ehjut"]
+atlas = ExtResource("2_b3jew")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7bf1a"]
+atlas = ExtResource("2_b3jew")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mul46"]
+atlas = ExtResource("2_b3jew")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pgqos"]
+atlas = ExtResource("2_b3jew")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i37vn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y2om0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvwde")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ehjut")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7bf1a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mul46")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pgqos")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="JimmyHandle" type="Area2D" unique_id=363297196]
+script = ExtResource("1_ybv6b")
+metadata/_custom_type_script = "uid://gg3fl42l4ul6"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=676248500]
+sprite_frames = SubResource("SpriteFrames_i37vn")
+autoplay = "default"
